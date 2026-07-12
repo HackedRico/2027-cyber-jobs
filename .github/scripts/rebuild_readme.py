@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Rebuild the README job tables (and companies.md) from listings.json."""
 
+import html
 import json
 import re
 import sys
@@ -20,8 +21,14 @@ def _company_sort_key(name):
     return name.strip().lower()
 
 
+def escape_cell(text):
+    """Neutralize markdown/HTML in listing fields (community- or scraper-supplied)."""
+    text = text.replace('&', '&amp;').replace('<', '&lt;')
+    return re.sub(r'([|\[\]`])', r'\\\1', text)
+
+
 def format_company(entry):
-    name = entry['company'].strip()
+    name = escape_cell(entry['company'].strip())
     if entry.get('clearance'):
         name += ' 🇺🇸'
     return name
@@ -30,8 +37,8 @@ def format_company(entry):
 def format_location(location):
     location = location.strip()
     if ';' not in location:
-        return location
-    parts = [p.strip() for p in location.split(';') if p.strip()]
+        return escape_cell(location)
+    parts = [escape_cell(p.strip()) for p in location.split(';') if p.strip()]
     if len(parts) <= 1:
         return parts[0] if parts else location
     inner = '</br>'.join(parts)
@@ -47,16 +54,16 @@ def format_date(date_added):
 
 
 def apply_btn(url):
-    if not url:
+    if not url or not re.match(r'^https?://', url):
         return '🔒'
-    return (f'<a href="{url}" target="_blank" rel="noopener noreferrer">'
+    return (f'<a href="{html.escape(url, quote=True)}" target="_blank" rel="noopener noreferrer">'
             f'<img src="{APPLY_BADGE}" alt="Apply"></a>')
 
 
 def format_row(entry, company_col):
-    role = entry['role'].strip()
+    role = escape_cell(entry['role'].strip())
     location = format_location(entry.get('location', ''))
-    category = entry.get('category', 'Security Engineering')
+    category = escape_cell(entry.get('category', 'Security Engineering'))
     btn = apply_btn(entry.get('url', '').strip())
     date = format_date(entry.get('date_added', ''))
     return f'| {company_col} | {role} | {location} | {category} | {btn} | {date} |'
