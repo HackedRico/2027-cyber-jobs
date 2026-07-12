@@ -45,6 +45,7 @@ SENIORITY_REJECT = [
     r'\bmanager\b', r'\bdirector\b', r'\bvp\b', r'\bvice president\b',
     r'\bhead of\b', r'\bchief\b', r'\bdistinguished\b', r'\bfellow\b',
     r'\barchitect\b', r'\bexecutive\b', r'\biii\b', r'\biv\b', r'\bexpert\b',
+    r'\bsme\b', r'\bsubject matter expert\b',
     r'\b3\b', r'\b4\b',
 ]
 
@@ -56,6 +57,7 @@ FUNCTION_REJECT = [
     'security guard', 'physical security', 'loss prevention', 'public safety',
     'executive protection', 'transportation security', 'safety and security',
     'security screener', 'campus safety', 'alarm technician',
+    'nuclear safeguards',  # 'safeguards' alone is an AI-safety signal
     'sales', 'account executive', 'account manager', 'marketing',
     'recruiter', 'recruiting', 'talent acquisition', 'human resources',
     'people technology', 'people operations', 'channel systems',
@@ -65,6 +67,7 @@ FUNCTION_REJECT = [
     'attorney', 'counsel', 'paralegal', 'executive assistant',
     'administrative assistant', 'workplace', 'facilities',
     'copywriter', 'community manager', 'social media',
+    'hackathon', 'general interest', 'talent community', 'talent network',
     # Hardware/manufacturing — "SoC" (system-on-chip) titles are not SOC roles.
     'asic', 'rtl design', 'soc design', 'soc verification', 'soc architect',
     'silicon', 'chip design', 'tapeout', 'manufacturing engineer',
@@ -87,6 +90,13 @@ CYBER_KEYWORDS = [
     'devsecops', 'identity and access', 'zero trust', 'privacy engineer',
     'iam engineer', 'iam analyst', 'cyber risk', 'security risk',
     'technology risk',
+    # AI security & AI safety — model/LLM security, adversarial ML, and
+    # safety/alignment work at AI labs.
+    'ai security', 'ml security', 'llm security', 'model security',
+    'genai security', 'ai safety', 'ai risk', 'ai governance',
+    'responsible ai', 'trustworthy ai', 'ai red team',
+    'adversarial machine learning', 'adversarial ml', 'adversarial robustness',
+    'ai alignment', 'alignment science', 'alignment research', 'safeguards',
 ]
 
 # Short acronyms need word boundaries ('soc' is inside 'associate'), and
@@ -147,6 +157,11 @@ CLEARANCE_SIGNALS = [
 
 # Ordered buckets; first matching regex wins.
 CATEGORY_RULES = [
+    ('AI Security & Safety', r'ai security|ml security|llm security|'
+                             r'model security|genai security|ai safety|'
+                             r'ai risk|ai governance|responsible ai|'
+                             r'trustworthy ai|ai red team|adversarial|'
+                             r'alignment|safeguards'),
     ('Offensive Security', r'penetration|pentest|red team|offensive|exploit|'
                            r'vulnerability research|purple team'),
     ('SOC & Detection', r'\bsoc\b|security operations|detection|blue team|'
@@ -279,6 +294,10 @@ def is_us_location(location):
     if re.fullmatch(r'remote(\s*\(.*\))?|work from home|nationwide', loc.strip()):
         return True
 
+    # "US, Remote", "Remote- US", "US - Austin" — a standalone US token.
+    if re.search(r'\b(us|usa|u\.s\.a?|united states)\b', loc):
+        return True
+
     return any(s in loc for s in US_SUBSTRINGS)
 
 
@@ -382,6 +401,17 @@ def requires_clearance(title, description=''):
     return any(kw in text for kw in CLEARANCE_SIGNALS)
 
 
+YEARS_RE = re.compile(r'\b(\d{1,2})\s*\+?\s*(?:or more\s+)?years?\b')
+
+
+def requires_experience(description):
+    """True if the description asks for 3+ years anywhere."""
+    if not description:
+        return False
+    d = strip_html(description).lower()
+    return any(int(m.group(1)) >= 3 for m in YEARS_RE.finditer(d))
+
+
 def infer_category(title, security_company=False):
     t = title.lower()
     for category, pattern in CATEGORY_RULES:
@@ -392,6 +422,10 @@ def infer_category(title, security_company=False):
     return 'Security Engineering'
 
 
+AI_CATEGORY_RE = CATEGORY_RULES[0][1]
+assert CATEGORY_RULES[0][0] == 'AI Security & Safety'
+
+
 def evaluate_job(title, location, description='', security_company=False):
     """Run the full filter pipeline. Returns (level, category) or None."""
     if not title or is_rejected_title(title):
@@ -400,7 +434,13 @@ def evaluate_job(title, location, description='', security_company=False):
         return None
     level = classify_level(title, description)
     if level is None:
-        return None
+        # AI labs use flat titles ("Software Engineer, AI Safety") with no
+        # level marker. Accept AI security/safety roles unless the posting
+        # asks for 3+ years of experience.
+        if AI_CATEGORY_RE.search(title.lower()) and not requires_experience(description):
+            level = 'earlycareer'
+        else:
+            return None
     if not is_us_location(location):
         return None
     return level, infer_category(title, security_company)

@@ -2,16 +2,18 @@
 
 Employers whose job boards are scraped automatically (see [companies.yml](companies.yml)). 🛡️ marks pure-play security companies, where every engineering role is a security-industry job.
 
-**129 companies tracked.**
+**138 companies tracked.**
 
-## Ashby (21)
+## Ashby (23)
 
 - 1Password 🛡️
 - Chainalysis 🛡️
 - Doppel 🛡️
 - Drata 🛡️
+- Gray Swan AI 🛡️
 - HackerOne 🛡️
 - Illumio 🛡️
+- Lakera 🛡️
 - Material Security 🛡️
 - OpenAI
 - Oso 🛡️
@@ -28,7 +30,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Vanta 🛡️
 - Vercel
 
-## Greenhouse (70)
+## Greenhouse (74)
 
 - Abnormal AI 🛡️
 - Airbnb
@@ -59,9 +61,11 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Figma
 - Fireblocks 🛡️
 - GitLab
+- Google DeepMind
 - GreyNoise 🛡️
 - GuidePoint Security 🛡️
 - Halcyon 🛡️
+- HiddenLayer 🛡️
 - Huntress 🛡️
 - Keeper Security 🛡️
 - KnowBe4 🛡️
@@ -81,6 +85,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Rubrik
 - runZero 🛡️
 - Samsara
+- Scale AI
 - SentinelOne 🛡️
 - Socket 🛡️
 - SpecterOps 🛡️
@@ -98,12 +103,16 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Veracode 🛡️
 - Verkada
 - Wiz 🛡️
+- xAI
 - Yubico 🛡️
 - Zscaler 🛡️
 
-## Lever (5)
+## Lever (8)
 
+- Center for AI Safety 🛡️
 - Coalfire 🛡️
+- METR 🛡️
+- Mistral AI
 - Palantir
 - Push Security 🛡️
 - Sysdig 🛡️

@@ -26,9 +26,9 @@ STRIP_PARAMS = {
 
 CATEGORIES = {
     'Offensive Security', 'SOC & Detection', 'Threat Intelligence',
-    'Forensics & IR', 'AppSec & ProdSec', 'Cloud & Infra Security',
-    'Identity & IAM', 'GRC & Risk', 'Security Engineering',
-    'Engineering @ Security Co',
+    'Forensics & IR', 'AppSec & ProdSec', 'AI Security & Safety',
+    'Cloud & Infra Security', 'Identity & IAM', 'GRC & Risk',
+    'Security Engineering', 'Engineering @ Security Co',
 }
 
 

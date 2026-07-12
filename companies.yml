@@ -72,6 +72,8 @@ greenhouse:
   security_company: true
 - name: GitLab
   slug: gitlab
+- name: Google DeepMind
+  slug: deepmind
 - name: GreyNoise
   slug: greynoiseintelligence
   security_company: true
@@ -80,6 +82,9 @@ greenhouse:
   security_company: true
 - name: Halcyon
   slug: halcyon
+  security_company: true
+- name: HiddenLayer
+  slug: hiddenlayer
   security_company: true
 - name: Huntress
   slug: huntress
@@ -131,6 +136,8 @@ greenhouse:
   security_company: true
 - name: Samsara
   slug: samsara
+- name: Scale AI
+  slug: scaleai
 - name: SentinelOne
   slug: sentinellabs
   security_company: true
@@ -179,6 +186,8 @@ greenhouse:
 - name: Wiz
   slug: wizinc
   security_company: true
+- name: xAI
+  slug: xai
 - name: Yubico
   slug: yubico
   security_company: true
@@ -187,9 +196,17 @@ greenhouse:
   security_company: true
 
 lever:
+- name: Center for AI Safety
+  slug: aisafety
+  security_company: true
 - name: Coalfire
   slug: coalfire
   security_company: true
+- name: METR
+  slug: metr
+  security_company: true
+- name: Mistral AI
+  slug: mistral
 - name: Palantir
   slug: palantir
 - name: Push Security
@@ -215,11 +232,17 @@ ashby:
 - name: Drata
   slug: drata
   security_company: true
+- name: Gray Swan AI
+  slug: Gray Swan AI
+  security_company: true
 - name: HackerOne
   slug: hackerone
   security_company: true
 - name: Illumio
   slug: illumio
+  security_company: true
+- name: Lakera
+  slug: lakera.ai
   security_company: true
 - name: Material Security
   slug: materialsecurity
