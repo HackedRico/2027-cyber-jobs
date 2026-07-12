@@ -185,11 +185,14 @@ def main():
 
     content = replace_table(content, 'newgrad', build_table(newgrad))
     content = replace_table(content, 'earlycareer', build_table(earlycareer))
+    # The markers stay on their own lines: text on the same line as an HTML
+    # comment is a raw-HTML block, so **bold** would not render on GitHub.
     content = re.sub(
         r'(<!-- STATS -->).*?(<!-- /STATS -->)',
-        f'\\g<1>**{len(listings)}** open roles tracked · updated '
-        f'{datetime.now().strftime("%B %-d, %Y")}\\g<2>',
+        f'\\g<1>\n\n**{len(listings)}** open roles tracked · updated '
+        f'{datetime.now().strftime("%B %-d, %Y")}\n\n\\g<2>',
         content,
+        flags=re.DOTALL,
     )
 
     with open(README_FILE, 'w') as f:
