@@ -1,0 +1,111 @@
+#!/usr/bin/env python3
+"""Spot checks for scrape_jobs.py classification logic.
+
+Run from anywhere: python .github/scripts/test_classification.py
+"""
+import sys
+sys.path.insert(0, str(__import__('pathlib').Path(__file__).parent))
+import scrape_jobs as s
+
+CASES = [
+    # (title, location, description, security_company, expected)
+    # -- should be accepted --
+    ('Associate Security Analyst', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('SOC Analyst I', 'San Antonio, TX', '', False, ('earlycareer', 'SOC & Detection')),
+    ('SOC Analyst II', 'Remote (US)', '', False, ('earlycareer', 'SOC & Detection')),
+    ('Cybersecurity Engineer, New Grad', 'New York, NY', '', False, ('newgrad', 'Security Engineering')),
+    ('Security Engineer, University Grad', 'Menlo Park, CA', '', False, ('newgrad', 'Security Engineering')),
+    ('Graduate Cybersecurity Analyst', 'Washington, DC', '', False, ('newgrad', 'Security Engineering')),
+    ('Junior Penetration Tester', 'Arlington, VA', '', False, ('earlycareer', 'Offensive Security')),
+    ('Incident Response Analyst I', 'Chicago, IL', '', False, ('earlycareer', 'SOC & Detection')),
+    ('Associate Consultant, Offensive Security', 'Remote', '', False, ('earlycareer', 'Offensive Security')),
+    ('Entry Level Cyber Threat Intelligence Analyst', 'Reston, VA', '', False, ('earlycareer', 'Threat Intelligence')),
+    ('Software Engineer, New Grad', 'Sunnyvale, CA', '', True, ('newgrad', 'Engineering @ Security Co')),
+    ('Associate Detection Engineer', 'Denver, CO', '', True, ('earlycareer', 'SOC & Detection')),
+    ('Cyber Warfare Developer, Early Career', 'Fort Meade, MD', '', False, ('earlycareer', 'Security Engineering')),
+    ('Information Security Analyst', 'Boston, MA', 'This is an entry level role for recent graduates.', False, ('newgrad', 'Security Engineering')),
+    ('Security Engineer', 'Seattle, WA', 'We are looking for candidates with 0-2 years of experience.', False, ('earlycareer', 'Security Engineering')),
+    ('GRC Analyst I', 'Tampa, FL', '', False, ('earlycareer', 'GRC & Risk')),
+    ('Application Security Engineer I', 'Remote (US)', '', False, ('earlycareer', 'AppSec & ProdSec')),
+    ('Cybersecurity Rotational Program', 'Charlotte, NC', '', False, ('newgrad', 'Security Engineering')),
+    ('IAM Analyst - Early Career', 'Columbus, OH', '', False, ('earlycareer', 'Identity & IAM')),
+    ('Digital Forensics Analyst, Associate', 'Huntsville, AL', '', False, ('earlycareer', 'Forensics & IR')),
+    ('Cybersecurity Analyst Pathways Program', 'Palmdale, CA', '', False, ('newgrad', 'Security Engineering')),
+    ('Cyber Leadership Development Program', 'Fort Worth, TX', '', False, ('newgrad', 'Security Engineering')),
+    ('Junior SRE, Detection Platform', 'Austin, TX', '', True, ('earlycareer', 'SOC & Detection')),
+
+    # -- should be rejected: seniority --
+    ('Senior Security Engineer', 'Austin, TX', '', False, None),
+    ('Staff Security Engineer', 'Austin, TX', '', False, None),
+    ('Principal Cybersecurity Architect', 'Austin, TX', '', False, None),
+    ('Security Engineering Manager', 'Austin, TX', '', False, None),
+    ('SOC Analyst III', 'Austin, TX', '', False, None),
+    ('Lead Incident Responder', 'Austin, TX', '', False, None),
+    ('Sr. Security Analyst', 'Austin, TX', '', False, None),
+    ('Security Analyst, Sr', 'Austin, TX', '', False, None),
+
+    # -- should be rejected: interns --
+    ('Security Engineer Intern', 'Austin, TX', '', False, None),
+    ('Cybersecurity Co-op', 'Austin, TX', '', False, None),
+
+    # -- should be rejected: not cyber --
+    ('Software Engineer, New Grad', 'Austin, TX', '', False, None),
+    ('Junior Financial Analyst', 'New York, NY', '', True, None),
+    ('Sales Development Representative', 'Austin, TX', '', True, None),
+    ('Associate Marketing Manager', 'Austin, TX', '', True, None),
+    ('Junior Recruiter', 'Austin, TX', '', True, None),
+    ('Credit Risk Analyst I', 'New York, NY', '', False, None),
+
+    # -- should be rejected: physical security --
+    ('Security Guard', 'Austin, TX', '', False, None),
+    ('Security Officer - Night Shift', 'Austin, TX', '', False, None),
+    ('Physical Security Specialist', 'Austin, TX', '', False, None),
+    ('Loss Prevention Associate', 'Austin, TX', '', False, None),
+
+    # -- should be rejected: no level signal --
+    ('Security Engineer', 'Austin, TX', '', False, None),
+    ('Threat Hunter', 'Austin, TX', '', False, None),
+
+    # -- should be rejected: not US --
+    ('Junior Security Analyst', 'London, United Kingdom', '', False, None),
+    ('SOC Analyst I', 'Toronto, ON', '', False, None),
+    ('Associate Security Engineer', 'Bangalore, India', '', False, None),
+    ('New Grad Security Engineer', 'Waterloo, ON', '', False, None),
+    ('Graduate Cyber Analyst', 'Sydney, Australia', '', False, None),
+    ('Junior Security Engineer', 'Remote (EMEA)', '', False, None),
+]
+
+failures = 0
+for title, loc, desc, sec_co, expected in CASES:
+    got = s.evaluate_job(title, loc, desc, sec_co)
+    ok = got == expected
+    if not ok:
+        failures += 1
+        print(f'FAIL: {title!r} @ {loc!r} (sec_co={sec_co})')
+        print(f'      expected {expected}, got {got}')
+print(f'\n{len(CASES) - failures}/{len(CASES)} passed')
+
+# Location normalization checks
+NORM = [
+    ('Austin, Texas', 'Austin, TX'),
+    ('Remote', 'Remote (US)'),
+    ('remote - us', 'Remote (US)'),
+    ('Fort Meade, Maryland', 'Fort Meade, MD'),
+    ('New York, NY', 'New York, NY'),
+]
+for raw, want in NORM:
+    got = s.normalize_location(raw)
+    if got != want:
+        failures += 1
+        print(f'FAIL normalize_location({raw!r}) = {got!r}, want {want!r}')
+
+# URL normalization checks
+u1 = s.normalize_url('https://boards.greenhouse.io/acme/jobs/123?gh_src=abc&utm_source=x')
+u2 = s.normalize_url('https://boards.greenhouse.io/acme/jobs/123/')
+assert u1 == u2, f'{u1} != {u2}'
+w1 = s.normalize_url('https://acme.wd5.myworkdayjobs.com/en-US/External/job/Austin-TX/Security-Analyst_R123')
+w2 = s.normalize_url('https://acme.wd5.myworkdayjobs.com/job/Austin-TX/Security-Analyst_R123')
+assert w1 == w2, f'{w1} != {w2}'
+print('URL normalization OK')
+
+sys.exit(1 if failures else 0)
