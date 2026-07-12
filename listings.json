@@ -647,5 +647,181 @@
     "url": "https://www.amazon.jobs/en/jobs/10423975/software-dev-engineer-ii-customer-service-security",
     "source": "Amazon Jobs",
     "date_added": "2026-07-12"
+  },
+  {
+    "company": "Nightwing",
+    "role": "Cyber Network Defense Analyst II",
+    "location": "Sterling, VA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Sterling-VA/Cyber-Network-Defense-Analyst-II_JR100581",
+    "source": "Workday",
+    "date_added": "2026-07-12"
+  },
+  {
+    "company": "Nightwing",
+    "role": "Cyber Network Forensic Analyst II",
+    "location": "Sterling, VA",
+    "type": "earlycareer",
+    "category": "Forensics & IR",
+    "clearance": true,
+    "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Sterling-VA/Cyber-Network-Forensic-Analyst-II_JR101015",
+    "source": "Workday",
+    "date_added": "2026-07-12"
+  },
+  {
+    "company": "Nightwing",
+    "role": "Cyber Network Defense Analyst II",
+    "location": "Arlington, VA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Arlington-VA/Cyber-Network-Defense-Analyst-II_JR101442",
+    "source": "Workday",
+    "date_added": "2026-07-12"
+  },
+  {
+    "company": "Nightwing",
+    "role": "Cyber Host Forensic Analyst II",
+    "location": "Arlington, VA",
+    "type": "earlycareer",
+    "category": "Forensics & IR",
+    "clearance": true,
+    "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Arlington-VA/Cyber-Host-Forensic-Analyst-II_JR101459",
+    "source": "Workday",
+    "date_added": "2026-07-12"
+  },
+  {
+    "company": "Nightwing",
+    "role": "Cyber Network Forensic Analyst II",
+    "location": "Sterling, VA",
+    "type": "earlycareer",
+    "category": "Forensics & IR",
+    "clearance": true,
+    "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Sterling-VA/Cyber-Network-Forensic-Analyst-II_JR101458",
+    "source": "Workday",
+    "date_added": "2026-07-12"
+  },
+  {
+    "company": "Nightwing",
+    "role": "Junior DevOps Engineer",
+    "location": "Annapolis Junction, MD",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": true,
+    "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/Junior-DevOps-Engineer_JR101293",
+    "source": "Workday",
+    "date_added": "2026-07-12"
+  },
+  {
+    "company": "Nightwing",
+    "role": "System Engineer 2",
+    "location": "Annapolis Junction, MD",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": true,
+    "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/System-Engineer-2_01672520",
+    "source": "Workday",
+    "date_added": "2026-07-12"
+  },
+  {
+    "company": "Nightwing",
+    "role": "Software Engineer 2",
+    "location": "Annapolis Junction, MD",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": true,
+    "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/Software-Engineer-2_JR101119",
+    "source": "Workday",
+    "date_added": "2026-07-12"
+  },
+  {
+    "company": "Nightwing",
+    "role": "Software Engineer 2",
+    "location": "Annapolis Junction, MD",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": true,
+    "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/Software-Engineer-2_01695453",
+    "source": "Workday",
+    "date_added": "2026-07-12"
+  },
+  {
+    "company": "Nightwing",
+    "role": "Software Engineer 1",
+    "location": "Annapolis Junction, MD",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": true,
+    "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/Software-Engineer-1_JR100150",
+    "source": "Workday",
+    "date_added": "2026-07-12"
+  },
+  {
+    "company": "Nightwing",
+    "role": "Cloud Software Engineer 2",
+    "location": "Annapolis Junction, MD",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": true,
+    "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/Cloud-Software-Engineer-2_01672571",
+    "source": "Workday",
+    "date_added": "2026-07-12"
+  },
+  {
+    "company": "Nightwing",
+    "role": "Junior Software Engineer  (SWE0)",
+    "location": "Annapolis Junction, MD",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": true,
+    "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/Junior-Software-Engineer_01677525",
+    "source": "Workday",
+    "date_added": "2026-07-12"
+  },
+  {
+    "company": "Nightwing",
+    "role": "Junior Software Developer",
+    "location": "Annapolis Junction, MD",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": true,
+    "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/Junior-Software-Developer_JR101838",
+    "source": "Workday",
+    "date_added": "2026-07-12"
+  },
+  {
+    "company": "Palo Alto Networks",
+    "role": "Associate Systems Engineer",
+    "location": "Office - USA - TX",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://paloaltonetworks.wd5.myworkdayjobs.com/panwexternalcareers/job/Office---USA---TX/Associate-Systems-Engineer_JR-011810",
+    "source": "Workday",
+    "date_added": "2026-07-12"
+  },
+  {
+    "company": "Palo Alto Networks",
+    "role": "Associate Systems Engineer",
+    "location": "Office - USA - TX",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://paloaltonetworks.wd5.myworkdayjobs.com/panwexternalcareers/job/Office---USA---TX/Associate-Systems-Engineer_JR-011817",
+    "source": "Workday",
+    "date_added": "2026-07-12"
+  },
+  {
+    "company": "Palo Alto Networks",
+    "role": "Associate Systems Engineer",
+    "location": "Office - USA - TX",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://paloaltonetworks.wd5.myworkdayjobs.com/panwexternalcareers/job/Office---USA---TX/Associate-Systems-Engineer_JR-011823",
+    "source": "Workday",
+    "date_added": "2026-07-12"
   }
 ]

@@ -58,6 +58,7 @@ FUNCTION_REJECT = [
     'security screener', 'campus safety', 'alarm technician',
     'sales', 'account executive', 'account manager', 'marketing',
     'recruiter', 'recruiting', 'talent acquisition', 'human resources',
+    'people technology', 'people operations', 'channel systems',
     'customer success', 'business development', 'partner manager',
     'payroll', 'accountant', 'accounting', 'finance', 'financial analyst',
     'fp&a', 'revenue', 'billing', 'procurement', 'supply chain',

@@ -2,13 +2,16 @@
 
 Employers whose job boards are scraped automatically (see [companies.yml](companies.yml)). 🛡️ marks pure-play security companies, where every engineering role is a security-industry job.
 
-**112 companies tracked.**
+**129 companies tracked.**
 
-## Ashby (16)
+## Ashby (21)
 
+- 1Password 🛡️
+- Chainalysis 🛡️
 - Doppel 🛡️
 - Drata 🛡️
 - HackerOne 🛡️
+- Illumio 🛡️
 - Material Security 🛡️
 - OpenAI
 - Oso 🛡️
@@ -16,14 +19,16 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Plaid
 - Prophet Security 🛡️
 - Semgrep 🛡️
+- Sift 🛡️
 - Snowflake
 - Snyk 🛡️
+- Socure 🛡️
 - Sublime Security 🛡️
 - TRM Labs 🛡️
 - Vanta 🛡️
 - Vercel
 
-## Greenhouse (68)
+## Greenhouse (70)
 
 - Abnormal AI 🛡️
 - Airbnb
@@ -84,6 +89,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Synack 🛡️
 - Tailscale 🛡️
 - Tanium 🛡️
+- Tenable 🛡️
 - Tines 🛡️
 - Torq 🛡️
 - Twilio
@@ -93,27 +99,40 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Verkada
 - Wiz 🛡️
 - Yubico 🛡️
+- Zscaler 🛡️
 
-## Lever (4)
+## Lever (5)
 
 - Coalfire 🛡️
 - Palantir
+- Push Security 🛡️
 - Sysdig 🛡️
 - Teleport 🛡️
 
-## SmartRecruiters (2)
+## Pinpoint (1)
 
-- Palo Alto Networks 🛡️
+- SANS Institute 🛡️
+
+## SmartRecruiters (1)
+
 - Visa
 
-## Workday (22)
+## Workable (3)
+
+- Galois 🛡️
+- Hack The Box 🛡️
+- Trail of Bits 🛡️
+
+## Workday (28)
 
 - Adobe
+- Arctic Wolf 🛡️
 - Booz Allen Hamilton
 - CACI
 - Capital One
 - Cisco
 - CrowdStrike 🛡️
+- F5
 - GDIT
 - Intel
 - Leidos
@@ -121,9 +140,13 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Mastercard
 - MITRE
 - Motorola Solutions
+- Nightwing 🛡️
 - Northrop Grumman
 - NVIDIA
+- Optiv 🛡️
+- Palo Alto Networks 🛡️
 - PayPal
+- Proofpoint 🛡️
 - Qualcomm
 - Qualys 🛡️
 - SailPoint 🛡️

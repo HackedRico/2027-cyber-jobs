@@ -148,6 +148,10 @@ def main():
             print(f'  Issue #{number}: missing required fields, skipping')
             continue
 
+        if not re.match(r'^https?://', listing['url']):
+            print(f'  Issue #{number}: URL must be http(s), skipping')
+            continue
+
         if normalize_url(listing['url']) in seen_urls:
             print(f'  Issue #{number}: already listed, closing')
             comment_and_close(token, repo, number,
