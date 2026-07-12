@@ -1,0 +1,113 @@
+name: Add Job Listing
+description: Submit a new-grad or early-career cybersecurity role (US) to be added to the list.
+title: "[JOB] <Company> — <Role>"
+labels: ["new listing", "needs review"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for submitting a job listing! Please fill out all required fields as accurately as possible.
+
+        > ⚠️ This repository is **exclusively for full-time new-grad and early-career cybersecurity roles located in the United States** (or Remote-US). Internships, senior roles, and international-only roles will not be added.
+
+  - type: input
+    id: company
+    attributes:
+      label: Company Name
+      description: The official name of the company (plain text — no URL needed here).
+      placeholder: "e.g. CrowdStrike"
+    validations:
+      required: true
+
+  - type: input
+    id: role
+    attributes:
+      label: Role / Job Title
+      description: The exact job title as listed in the posting.
+      placeholder: "e.g. Associate Security Analyst"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: listing_type
+    attributes:
+      label: Listing Type
+      description: Is this an explicit new-grad/university program role, or a general entry-level opening?
+      options:
+        - New Grad / University Program
+        - Early Career / Entry-Level
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: Which security domain fits this role best?
+      options:
+        - Security Engineering
+        - SOC & Detection
+        - Offensive Security
+        - AppSec & ProdSec
+        - Threat Intelligence
+        - Forensics & IR
+        - Cloud & Infra Security
+        - Identity & IAM
+        - GRC & Risk
+        - Engineering @ Security Co
+    validations:
+      required: true
+
+  - type: input
+    id: location
+    attributes:
+      label: Location
+      description: 'City and state, e.g. "Arlington, VA". Separate multiple locations with ";". Use "Remote (US)" if fully remote.'
+      placeholder: "e.g. Arlington, VA; Austin, TX"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: clearance
+    attributes:
+      label: Security Clearance / U.S. Citizenship Required?
+      description: Does the posting require a clearance, clearance eligibility, or U.S. citizenship?
+      options:
+        - "No"
+        - "Yes — clearance or U.S. citizenship required (adds 🇺🇸)"
+        - "Unknown"
+    validations:
+      required: true
+
+  - type: input
+    id: apply_link
+    attributes:
+      label: Direct Application Link
+      description: A direct link to the job application page (not just the careers homepage).
+      placeholder: "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional Notes (Optional)
+      description: Any other relevant details (e.g. specific team, early deadline, rolling basis).
+      placeholder: "e.g. Applications reviewed on a rolling basis. Apply early."
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      description: Please confirm the following before submitting.
+      options:
+        - label: The role is full-time (not an internship/co-op) and targets new grads or early-career candidates (0–2 years).
+          required: true
+        - label: The role is located in the United States or is Remote (US).
+          required: true
+        - label: The application link is publicly accessible (no login required to view the posting).
+          required: true
+        - label: I checked that this listing does not already exist in the repository.
+          required: true

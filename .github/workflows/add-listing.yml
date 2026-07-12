@@ -1,0 +1,43 @@
+name: Add Approved Listings
+
+on:
+  issues:
+    types: [labeled]
+
+concurrency:
+  group: readme-updates
+  cancel-in-progress: false
+
+jobs:
+  add-listing:
+    if: github.event.label.name == 'approved'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+      issues: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install requests pyyaml
+
+      - name: Process all approved issues
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python .github/scripts/process_approved.py
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add listings.json README.md companies.md
+          git diff --staged --quiet || git commit -m "add community-submitted listings"
+          git pull --rebase -X ours && git push

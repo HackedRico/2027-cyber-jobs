@@ -1,0 +1,407 @@
+greenhouse:
+- name: Abnormal AI
+  slug: abnormalsecurity
+  security_company: true
+- name: Airbnb
+  slug: airbnb
+- name: Anduril
+  slug: andurilindustries
+- name: Anthropic
+  slug: anthropic
+- name: Axonius
+  slug: axonius
+  security_company: true
+- name: Beyond Identity
+  slug: beyondidentity
+  security_company: true
+- name: Bishop Fox
+  slug: bishopfox
+  security_company: true
+- name: Bitwarden
+  slug: bitwarden
+  security_company: true
+- name: Block
+  slug: block
+- name: Bugcrowd
+  slug: bugcrowd
+  security_company: true
+- name: Cato Networks
+  slug: catonetworks
+  security_company: true
+- name: Censys
+  slug: censys
+  security_company: true
+- name: Chainguard
+  slug: chainguard
+  security_company: true
+- name: Cloudflare
+  slug: cloudflare
+- name: Coinbase
+  slug: coinbase
+- name: Corelight
+  slug: corelight
+  security_company: true
+- name: Cribl
+  slug: cribl
+- name: Databricks
+  slug: databricks
+- name: Datadog
+  slug: datadog
+- name: Descope
+  slug: descope
+  security_company: true
+- name: Discord
+  slug: discord
+- name: Dragos
+  slug: dragos
+  security_company: true
+- name: Elastic
+  slug: elastic
+- name: Exabeam
+  slug: exabeam
+  security_company: true
+- name: Expel
+  slug: expel
+  security_company: true
+- name: Fastly
+  slug: fastly
+- name: Figma
+  slug: figma
+- name: Fireblocks
+  slug: fireblocks
+  security_company: true
+- name: GitLab
+  slug: gitlab
+- name: GreyNoise
+  slug: greynoiseintelligence
+  security_company: true
+- name: GuidePoint Security
+  slug: guidepointsecurity
+  security_company: true
+- name: Halcyon
+  slug: halcyon
+  security_company: true
+- name: Huntress
+  slug: huntress
+  security_company: true
+- name: Keeper Security
+  slug: keepersecurity
+  security_company: true
+- name: KnowBe4
+  slug: knowbe4
+  security_company: true
+- name: MongoDB
+  slug: mongodb
+- name: Netskope
+  slug: netskope
+  security_company: true
+- name: Okta
+  slug: okta
+  security_company: true
+- name: OneTrust
+  slug: onetrust
+  security_company: true
+- name: Orca Security
+  slug: orcasecurity
+  security_company: true
+- name: Panther Labs
+  slug: pantherlabs
+  security_company: true
+- name: Ping Identity
+  slug: pingidentity
+  security_company: true
+- name: Pinterest
+  slug: pinterest
+- name: Praetorian
+  slug: praetorian
+  security_company: true
+- name: Recorded Future
+  slug: recordedfuture
+  security_company: true
+- name: Reddit
+  slug: reddit
+- name: Robinhood
+  slug: robinhood
+- name: Roblox
+  slug: roblox
+- name: Rubrik
+  slug: rubrik
+- name: runZero
+  slug: runzero
+  security_company: true
+- name: Samsara
+  slug: samsara
+- name: SentinelOne
+  slug: sentinellabs
+  security_company: true
+- name: Socket
+  slug: socket
+  security_company: true
+- name: SpecterOps
+  slug: specterops
+  security_company: true
+- name: STR
+  slug: str
+  security_company: true
+- name: Stripe
+  slug: stripe
+- name: Synack
+  slug: synack
+  security_company: true
+- name: Tailscale
+  slug: tailscale
+  security_company: true
+- name: Tanium
+  slug: tanium
+  security_company: true
+- name: Tenable
+  slug: tenableinc
+  security_company: true
+- name: Tines
+  slug: tines
+  security_company: true
+- name: Torq
+  slug: torq
+  security_company: true
+- name: Twilio
+  slug: twilio
+- name: Two Six Technologies
+  slug: twosixtechnologies
+  security_company: true
+- name: Vectra AI
+  slug: vectranetworks
+  security_company: true
+- name: Veracode
+  slug: veracode
+  security_company: true
+- name: Verkada
+  slug: verkada
+- name: Wiz
+  slug: wizinc
+  security_company: true
+- name: Yubico
+  slug: yubico
+  security_company: true
+- name: Zscaler
+  slug: zscaler
+  security_company: true
+
+lever:
+- name: Coalfire
+  slug: coalfire
+  security_company: true
+- name: Palantir
+  slug: palantir
+- name: Push Security
+  slug: pushsecurity
+  security_company: true
+- name: Sysdig
+  slug: sysdig
+  security_company: true
+- name: Teleport
+  slug: teleport
+  security_company: true
+
+ashby:
+- name: 1Password
+  slug: 1password
+  security_company: true
+- name: Chainalysis
+  slug: chainalysis-careers
+  security_company: true
+- name: Doppel
+  slug: doppel
+  security_company: true
+- name: Drata
+  slug: drata
+  security_company: true
+- name: HackerOne
+  slug: hackerone
+  security_company: true
+- name: Illumio
+  slug: illumio
+  security_company: true
+- name: Material Security
+  slug: materialsecurity
+  security_company: true
+- name: OpenAI
+  slug: openai
+- name: Oso
+  slug: oso
+  security_company: true
+- name: Persona
+  slug: persona
+- name: Plaid
+  slug: plaid
+- name: Prophet Security
+  slug: prophet-security
+  security_company: true
+- name: Semgrep
+  slug: semgrep
+  security_company: true
+- name: Sift
+  slug: sift
+  security_company: true
+- name: Snowflake
+  slug: snowflake
+- name: Snyk
+  slug: snyk
+  security_company: true
+- name: Socure
+  slug: socure
+  security_company: true
+- name: Sublime Security
+  slug: sublime-security
+  security_company: true
+- name: TRM Labs
+  slug: trm-labs
+  security_company: true
+- name: Vanta
+  slug: vanta
+  security_company: true
+- name: Vercel
+  slug: vercel
+
+smartrecruiters:
+- name: Visa
+  slug: Visa
+
+workable:
+- name: Galois
+  slug: galois
+  security_company: true
+- name: Hack The Box
+  slug: hack-the-box-ltd
+  security_company: true
+- name: Trail of Bits
+  slug: trailofbits
+  security_company: true
+
+pinpoint:
+- name: SANS Institute
+  slug: sans
+  security_company: true
+
+workday:
+- name: Adobe
+  tenant: adobe
+  instance: wd5
+  board: external_experienced
+- name: Arctic Wolf
+  tenant: arcticwolf
+  instance: wd1
+  board: External
+  security_company: true
+- name: Booz Allen Hamilton
+  tenant: bah
+  instance: wd1
+  board: BAH_Jobs
+- name: CACI
+  tenant: caci
+  instance: wd1
+  board: External
+- name: Capital One
+  tenant: capitalone
+  instance: wd12
+  board: Capital_One
+- name: Cisco
+  tenant: cisco
+  instance: wd5
+  board: Cisco_Careers
+- name: CrowdStrike
+  tenant: crowdstrike
+  instance: wd5
+  board: crowdstrikecareers
+  security_company: true
+- name: F5
+  tenant: ffive
+  instance: wd5
+  board: f5jobs
+- name: GDIT
+  tenant: gdit
+  instance: wd5
+  board: External_Career_Site
+- name: Intel
+  tenant: intel
+  instance: wd1
+  board: External
+- name: Leidos
+  tenant: leidos
+  instance: wd5
+  board: External
+- name: ManTech
+  tenant: mantech
+  instance: wd1
+  board: External
+- name: Mastercard
+  tenant: mastercard
+  instance: wd1
+  board: CorporateCareers
+- name: MITRE
+  tenant: mitre
+  instance: wd5
+  board: MITRE
+- name: Motorola Solutions
+  tenant: motorolasolutions
+  instance: wd5
+  board: Careers
+- name: Nightwing
+  tenant: nwis
+  instance: wd12
+  board: NW
+  security_company: true
+- name: Northrop Grumman
+  tenant: ngc
+  instance: wd1
+  board: northrop_grumman_external_site
+- name: NVIDIA
+  tenant: nvidia
+  instance: wd5
+  board: NVIDIAExternalCareerSite
+- name: Optiv
+  tenant: optiv
+  instance: wd5
+  board: Optiv_Careers
+  security_company: true
+- name: Palo Alto Networks
+  tenant: paloaltonetworks
+  instance: wd5
+  board: panwexternalcareers
+  security_company: true
+- name: PayPal
+  tenant: paypal
+  instance: wd1
+  board: jobs
+- name: Proofpoint
+  tenant: proofpoint
+  instance: wd5
+  board: proofpointcareers
+  security_company: true
+- name: Qualcomm
+  tenant: qualcomm
+  instance: wd12
+  board: External
+- name: Qualys
+  tenant: qualys
+  instance: wd5
+  board: Careers
+  security_company: true
+- name: SailPoint
+  tenant: sailpoint
+  instance: wd1
+  board: SailPoint
+  security_company: true
+- name: Salesforce
+  tenant: salesforce
+  instance: wd12
+  board: External_Career_Site
+- name: Trend Micro
+  tenant: trendmicro
+  instance: wd3
+  board: External
+  security_company: true
+- name: Zoom
+  tenant: zoom
+  instance: wd5
+  board: zoom
+
