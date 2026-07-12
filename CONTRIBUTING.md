@@ -45,8 +45,9 @@ The filtering logic lives in [`scrape_jobs.py`](.github/scripts/scrape_jobs.py) 
 ## Testing locally
 
 ```bash
-pip install requests pyyaml
-python .github/scripts/scrape_jobs.py     # scrape + update listings.json + README
-python .github/scripts/rebuild_readme.py  # rebuild tables from listings.json only
-python .github/scripts/check_links.py     # mark dead links
+pip install -r requirements.txt
+python .github/scripts/test_classification.py  # classification spot checks — run after keyword changes
+python .github/scripts/scrape_jobs.py          # scrape + update listings.json + README
+python .github/scripts/rebuild_readme.py       # rebuild tables from listings.json only
+python .github/scripts/check_links.py          # mark dead links
 ```

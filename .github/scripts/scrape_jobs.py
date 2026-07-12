@@ -41,7 +41,7 @@ HEADERS = {'User-Agent': 'Mozilla/5.0 (compatible; cyber-jobs-scraper/1.0)'}
 
 # Roles too senior for an early-career board.
 SENIORITY_REJECT = [
-    r'\bsenior\b', r'\bsr\.?\s', r'\bstaff\b', r'\bprincipal\b', r'\blead\b',
+    r'\bsenior\b', r'\bsr\b\.?', r'\bstaff\b', r'\bprincipal\b', r'\blead\b',
     r'\bmanager\b', r'\bdirector\b', r'\bvp\b', r'\bvice president\b',
     r'\bhead of\b', r'\bchief\b', r'\bdistinguished\b', r'\bfellow\b',
     r'\barchitect\b', r'\bexecutive\b', r'\biii\b', r'\biv\b', r'\bexpert\b',
@@ -112,6 +112,10 @@ NEWGRAD_SIGNALS = [
     'recent graduate', 'launch program', 'associate program',
     'class of 2026', 'class of 2027', '2026 grad', '2027 grad',
     'new graduate', 'university hire', 'campus recruit',
+    # Defense contractors run new-grad cohorts as "development programs".
+    'leadership development program', 'graduate development program',
+    'cyber development program', 'early career development',
+    'pathways program',
 ]
 
 EARLYCAREER_SIGNALS = [
@@ -781,33 +785,44 @@ def scrape_usajobs():
         'Authorization-Key': api_key,
     }
     jobs = []
-    params = {
-        'Keyword': 'cybersecurity',
-        'HiringPath': 'graduates',
-        'ResultsPerPage': 250,
-    }
-    try:
-        resp = requests.get('https://data.usajobs.gov/api/search',
-                            params=params, headers=headers, timeout=20)
-        if resp.status_code != 200:
-            print(f'  [USAJOBS] HTTP {resp.status_code}')
-            return []
-        items = resp.json().get('SearchResult', {}).get('SearchResultItems', [])
-        for item in items:
-            d = item.get('MatchedObjectDescriptor', {})
-            job_id = item.get('MatchedObjectId', '')
-            locations = d.get('PositionLocation', [])
-            loc = locations[0].get('LocationName', '') if locations else ''
-            jobs.append({
-                'id': f'usajobs_{job_id}',
-                'company': d.get('OrganizationName', 'US Federal Government'),
-                'title': d.get('PositionTitle', ''),
-                'location': loc,
-                'url': d.get('PositionURI', ''),
-                'board': 'USAJOBS',
-            })
-    except requests.RequestException as e:
-        print(f'  [USAJOBS] Error: {e}')
+    page = 1
+    while True:
+        params = {
+            'Keyword': 'cybersecurity',
+            'HiringPath': 'graduates',
+            'ResultsPerPage': 250,
+            'Page': page,
+        }
+        try:
+            resp = requests.get('https://data.usajobs.gov/api/search',
+                                params=params, headers=headers, timeout=20)
+            if resp.status_code != 200:
+                print(f'  [USAJOBS] HTTP {resp.status_code}')
+                break
+            result = resp.json().get('SearchResult', {})
+            items = result.get('SearchResultItems', [])
+            if not items:
+                break
+            for item in items:
+                d = item.get('MatchedObjectDescriptor', {})
+                job_id = item.get('MatchedObjectId', '')
+                locations = d.get('PositionLocation', [])
+                loc = locations[0].get('LocationName', '') if locations else ''
+                jobs.append({
+                    'id': f'usajobs_{job_id}',
+                    'company': d.get('OrganizationName', 'US Federal Government'),
+                    'title': d.get('PositionTitle', ''),
+                    'location': loc,
+                    'url': d.get('PositionURI', ''),
+                    'board': 'USAJOBS',
+                })
+            if page >= int(result.get('UserArea', {}).get('NumberOfPages', 1)):
+                break
+            page += 1
+            time.sleep(0.5)
+        except requests.RequestException as e:
+            print(f'  [USAJOBS] Error: {e}')
+            break
     return jobs
 
 
