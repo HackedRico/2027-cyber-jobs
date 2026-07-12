@@ -38,6 +38,17 @@ CASES = [
     # A year in the title only means a cohort when it's a hiring-cycle year.
     ('Cybersecurity Analyst II (Windows Server 2022)', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
     ('Junior SRE, Detection Platform', 'Austin, TX', '', True, ('earlycareer', 'SOC & Detection')),
+    ('AI Security Engineer, Early Career', 'San Francisco, CA', '', False, ('earlycareer', 'AI Security & Safety')),
+    ('Junior Adversarial ML Researcher', 'New York, NY', '', False, ('earlycareer', 'AI Security & Safety')),
+    ('Research Engineer, Alignment Science - New Grad', 'San Francisco, CA', '', False, ('newgrad', 'AI Security & Safety')),
+    ('Associate LLM Security Analyst', 'Seattle, WA', '', False, ('earlycareer', 'AI Security & Safety')),
+    ('Analyst I, Safeguards', 'Remote (US)', '', False, ('earlycareer', 'AI Security & Safety')),
+    ('AI Red Team Specialist, Entry Level', 'Washington, DC', '', False, ('earlycareer', 'AI Security & Safety')),
+    # AI-lab flat titles are accepted unless the posting wants 3+ years.
+    ('Software Engineer, AI Safety', 'San Francisco, CA', '', False, ('earlycareer', 'AI Security & Safety')),
+    ('Researcher, Alignment Science', 'San Francisco, CA', 'Strong coding ability required.', False, ('earlycareer', 'AI Security & Safety')),
+    ('AI Red Teamer', 'US, Remote', '', True, ('earlycareer', 'AI Security & Safety')),
+    ('Junior Security Analyst', 'Remote- US', '', False, ('earlycareer', 'Security Engineering')),
 
     # -- should be rejected: seniority --
     ('Senior Security Engineer', 'Austin, TX', '', False, None),
@@ -60,6 +71,8 @@ CASES = [
     ('Associate Marketing Manager', 'Austin, TX', '', True, None),
     ('Junior Recruiter', 'Austin, TX', '', True, None),
     ('Credit Risk Analyst I', 'New York, NY', '', False, None),
+    ('Machine Learning Engineer, New Grad', 'San Francisco, CA', '', False, None),
+    ('Junior Nuclear Safeguards Analyst', 'Richland, WA', '', False, None),
 
     # -- should be rejected: physical security --
     ('Security Guard', 'Austin, TX', '', False, None),
@@ -70,6 +83,9 @@ CASES = [
     # -- should be rejected: no level signal --
     ('Security Engineer', 'Austin, TX', '', False, None),
     ('Threat Hunter', 'Austin, TX', '', False, None),
+    # AI flat-title acceptance does not apply when the posting wants 3+ years
+    ('Researcher, Alignment', 'San Francisco, CA', 'You have 5+ years of research experience.', False, None),
+    ('Software Engineer, AI Safety', 'Seattle, WA', 'Requires 7 years of industry experience.', False, None),
 
     # -- should be rejected: not US --
     ('Junior Security Analyst', 'London, United Kingdom', '', False, None),
