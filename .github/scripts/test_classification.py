@@ -32,6 +32,11 @@ CASES = [
     ('Digital Forensics Analyst, Associate', 'Huntsville, AL', '', False, ('earlycareer', 'Forensics & IR')),
     ('Cybersecurity Analyst Pathways Program', 'Palmdale, CA', '', False, ('newgrad', 'Security Engineering')),
     ('Cyber Leadership Development Program', 'Fort Worth, TX', '', False, ('newgrad', 'Security Engineering')),
+    ('2026 Strategic Security Analyst - Early Career Rotation Program', 'Costa Mesa, CA', '', False, ('newgrad', 'Security Engineering')),
+    ('2026 -  Associate Cyber Software Engineer', 'Annapolis Junction, MD', '', False, ('newgrad', 'Security Engineering')),
+    ('R10206390 22026 Associate Cyber Software Engineer', 'Chantilly, VA', '', False, ('newgrad', 'Security Engineering')),
+    # A year in the title only means a cohort when it's a hiring-cycle year.
+    ('Cybersecurity Analyst II (Windows Server 2022)', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
     ('Junior SRE, Detection Platform', 'Austin, TX', '', True, ('earlycareer', 'SOC & Detection')),
 
     # -- should be rejected: seniority --

@@ -109,7 +109,8 @@ NEWGRAD_SIGNALS = [
     'graduate program', 'grad program', 'graduate engineer',
     'graduate analyst', 'graduate cyber', 'graduate security',
     'early career program', 'emerging talent', 'early talent', 'rotational',
-    'recent graduate', 'launch program', 'associate program',
+    'rotation program', 'recent graduate', 'launch program',
+    'associate program',
     'class of 2026', 'class of 2027', '2026 grad', '2027 grad',
     'new graduate', 'university hire', 'campus recruit',
     # Defense contractors run new-grad cohorts as "development programs".
@@ -117,6 +118,11 @@ NEWGRAD_SIGNALS = [
     'cyber development program', 'early career development',
     'pathways program',
 ]
+
+# Titles carrying a target start year ("2026 Associate Cyber Software
+# Engineer") are campus-cohort reqs. The optional leading digit absorbs
+# Northrop's year typos like "22026".
+COHORT_YEAR_RE = re.compile(r'\b2?20(2[6-8])\b')
 
 EARLYCAREER_SIGNALS = [
     'entry level', 'entry-level', 'early career', 'junior', 'apprentice',
@@ -363,6 +369,8 @@ def classify_level(title, description=''):
     if any(kw in t for kw in NEWGRAD_SIGNALS):
         return 'newgrad'
     if re.search(r'\bgraduate\b', t) and 'graduate degree' not in t:
+        return 'newgrad'
+    if COHORT_YEAR_RE.search(t):
         return 'newgrad'
     if any(kw in t for kw in EARLYCAREER_SIGNALS):
         return 'earlycareer'
@@ -937,6 +945,22 @@ def main():
     print(f'\nScraped {len(raw_jobs)} raw postings; filtering...')
 
     listings = load_listings()
+
+    # Let classifier improvements reach already-scraped listings. Title-only:
+    # descriptions are not stored, so None means "no title signal" and the
+    # stored (possibly description-derived) type is kept. Community rows
+    # reflect a maintainer's judgment — leave them alone.
+    reclassified = 0
+    for entry in listings:
+        if entry.get('source') == 'Community':
+            continue
+        level = classify_level(entry['role'])
+        if level and level != entry.get('type'):
+            print(f'  RECLASSIFY [{entry.get("type")} -> {level}] '
+                  f'{entry["company"]} — {entry["role"]}')
+            entry['type'] = level
+            reclassified += 1
+
     existing_urls = {normalize_url(e.get('url', '')) for e in listings}
     today = datetime.now().strftime('%Y-%m-%d')
     added = 0
@@ -973,9 +997,9 @@ def main():
         added += 1
         print(f'  NEW [{level}] {job["company"]} — {job["title"]} @ {job.get("location", "")}')
 
-    print(f'\nAdded {added} new listing(s)')
+    print(f'\nAdded {added} new listing(s), reclassified {reclassified}')
 
-    if added:
+    if added or reclassified:
         save_listings(listings)
         result = subprocess.run(
             [sys.executable, '.github/scripts/rebuild_readme.py'],
