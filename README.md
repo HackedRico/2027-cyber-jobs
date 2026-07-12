@@ -9,13 +9,11 @@ The latest **new-grad and early-career cybersecurity roles in the United States*
 [![Stars](https://img.shields.io/github/stars/HackedRico/2027-cyber-jobs?style=flat-square&logo=github&color=f9d71c&cacheSeconds=3600)](../../stargazers)
 [![Last Commit](https://img.shields.io/github/last-commit/HackedRico/2027-cyber-jobs?style=flat-square&logo=git&color=orange&cacheSeconds=3600)](../../commits/main)
 
-
 <!-- STATS -->
 
 **100** open roles tracked · updated July 12, 2026
 
 <!-- /STATS -->
-
 
 ---
 
@@ -30,7 +28,7 @@ The latest **new-grad and early-career cybersecurity roles in the United States*
 - 🇺🇸 — The posting mentions a security clearance, U.S. citizenship, or permanent-residency requirement (check the listing for specifics)
 - 🔒 — Application is closed
 
-**Categories:** Security Engineering · SOC & Detection · Offensive Security · AppSec & ProdSec · AI Security & Safety (model/LLM security, adversarial ML, AI safety & alignment) · Threat Intelligence · Forensics & IR · Cloud & Infra Security · Identity & IAM · GRC & Risk · Engineering @ Security Co (an engineering role at a pure-play security company)
+**Categories:** Security Engineering · SOC & Detection · Offensive Security · AppSec & ProdSec · Threat Intelligence · Forensics & IR · Cloud & Infra Security · Identity & IAM · GRC & Risk · Engineering @ Security Co (an engineering role at a pure-play security company)
 
 ---
 
