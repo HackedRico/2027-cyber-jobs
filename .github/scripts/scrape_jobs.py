@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 """
-Scrape ATS job-board APIs for US new-grad and early-career cybersecurity roles.
+Scrape ATS job-board APIs for US new-grad, early-career, and internship
+cybersecurity roles.
 
 Pipeline per job:
-  1. Hard rejects (seniority, interns, non-cyber functions, physical security)
+  1. Hard rejects (seniority, non-cyber functions, physical security)
   2. Cyber relevance (title keywords; generic engineering titles allowed at
      pure-play security companies flagged `security_company: true`)
-  3. Level classification -> newgrad | earlycareer (title first, then strong
-     phrases in the description when the ATS returns one)
+  3. Level classification -> intern | newgrad | earlycareer (title first,
+     then ATS employment-type hints, then strong phrases in the description
+     when the ATS returns one)
   4. US-only location filter
   5. Clearance/citizenship detection -> 🇺🇸 marker
   6. Category inference (SOC, AppSec, Offensive Security, GRC, ...)
@@ -49,8 +51,22 @@ SENIORITY_REJECT = [
     r'\b3\b', r'\b4\b',
 ]
 
-# Full-time board: internships and co-ops live elsewhere.
-INTERN_REJECT = [r'\bintern\b', r'\binternship\b', r'\bco-?op\b', r'\bcoop\b']
+# Internships and co-ops get their own level. Title signals only — job
+# descriptions mention "our internship program" as boilerplate far too often
+# to be trusted. Word boundaries keep 'intern' from matching 'internal'.
+INTERN_TITLE_RES = [re.compile(p) for p in (
+    r'\bintern\b', r'\binternship\b', r'\bco-?op\b',
+    # Bank-style ("Cybersecurity Summer Analyst") and USAJOBS Pathways
+    # ("Student Trainee") internship titles.
+    r'\bsummer analyst\b', r'\bstudent trainee\b',
+)]
+
+# "Security Engineer - Summer 2027" is an internship req even without the
+# word "intern" — but only when paired with a hiring-cycle year (COHORT_YEAR_RE
+# bounds the window, so a stale "Summer 2019" repost is not resurrected), and
+# only after the explicit new-grad signals lose ("New Grad ... Summer 2026
+# Start" is a full-time cohort with a season, not an internship).
+SUMMER_RE = re.compile(r'\bsummer\b')
 
 # Physical security and non-cyber business functions.
 FUNCTION_REJECT = [
@@ -362,8 +378,6 @@ def is_rejected_title(title):
     t = title.lower()
     if any(re.search(p, t) for p in SENIORITY_REJECT):
         return True
-    if any(re.search(p, t) for p in INTERN_REJECT):
-        return True
     if any(kw in t for kw in FUNCTION_REJECT):
         return True
     if SECURITY_OFFICER_RE.search(t) and not any(h in t for h in INFOSEC_OFFICER_HINTS):
@@ -382,13 +396,22 @@ def is_cyber_title(title, security_company=False):
     return False
 
 
-def classify_level(title, description=''):
-    """Return 'newgrad', 'earlycareer', or None."""
+def classify_level(title, description='', intern_hint=False):
+    """Return 'intern', 'newgrad', 'earlycareer', or None."""
     t = title.lower()
+    # Intern wins first: "SOC Intern - Summer 2027" must not fall through to
+    # the cohort-year rule and come out as newgrad. `intern_hint` carries an
+    # ATS employment-type field for postings whose title omits "intern".
+    if intern_hint or any(p.search(t) for p in INTERN_TITLE_RES):
+        return 'intern'
     if any(kw in t for kw in NEWGRAD_SIGNALS):
         return 'newgrad'
     if re.search(r'\bgraduate\b', t) and 'graduate degree' not in t:
         return 'newgrad'
+    # Season + cohort year with no new-grad wording is an internship req;
+    # checked before the bare cohort-year rule, which would claim it.
+    if SUMMER_RE.search(t) and COHORT_YEAR_RE.search(t):
+        return 'intern'
     if COHORT_YEAR_RE.search(t):
         return 'newgrad'
     if any(kw in t for kw in EARLYCAREER_SIGNALS):
@@ -434,13 +457,14 @@ AI_CATEGORY_RE = CATEGORY_RULES[0][1]
 assert CATEGORY_RULES[0][0] == 'AI Security & Safety'
 
 
-def evaluate_job(title, location, description='', security_company=False):
+def evaluate_job(title, location, description='', security_company=False,
+                 intern_hint=False):
     """Run the full filter pipeline. Returns (level, category) or None."""
     if not title or is_rejected_title(title):
         return None
     if not is_cyber_title(title, security_company):
         return None
-    level = classify_level(title, description)
+    level = classify_level(title, description, intern_hint)
     if level is None:
         # AI labs use flat titles ("Software Engineer, AI Safety") with no
         # level marker. Accept AI security/safety roles unless the posting
@@ -511,14 +535,19 @@ def scrape_lever(company, slug):
         country = job.get('country', '')
         if country and country.upper() != 'US':
             continue
+        # Lever's commitment category ("Internship", "Intern") flags intern
+        # reqs whose titles omit the word.
+        cats = job.get('categories') or {}
+        commitment = (cats.get('commitment') or '').lower()
         jobs.append({
             'id': f'lever_{slug}_{job["id"]}',
             'company': company,
             'title': job.get('text', ''),
-            'location': job.get('categories', {}).get('location', ''),
+            'location': cats.get('location', ''),
             'url': job.get('hostedUrl', ''),
             'board': 'Lever',
             'description': job.get('descriptionPlain', ''),
+            'intern_hint': 'intern' in commitment,
         })
     return jobs
 
@@ -532,7 +561,7 @@ def scrape_ashby(company, slug):
     data = resp.json()
     jobs = []
     for job in data.get('jobs') or data.get('jobPostings') or []:
-        if job.get('employmentType', '') == 'Intern' or job.get('isListed') is False:
+        if job.get('isListed') is False:
             continue
         locations = [job.get('location', '') or job.get('locationName', '')]
         locations += [s.get('location', '') for s in job.get('secondaryLocations') or []]
@@ -550,6 +579,7 @@ def scrape_ashby(company, slug):
             'url': apply_url,
             'board': 'Ashby',
             'description': job.get('descriptionPlain', ''),
+            'intern_hint': job.get('employmentType', '') == 'Intern',
         })
     return jobs
 
@@ -717,7 +747,13 @@ def scrape_workday(company, tenant, instance, board, security_company=False):
 
     search_terms = ['cyber', 'security', 'new grad', 'early career']
     if security_company:
-        search_terms += ['graduate', 'associate engineer', 'engineer i']
+        # A bare 'intern' sweep at a general employer pages through hundreds
+        # of non-cyber intern reqs that is_cyber_title rejects anyway (cyber
+        # interns already match 'cyber'/'security'). Only at pure-play
+        # security companies do generic titles like "Software Engineer
+        # Intern" count, so only there is the broad term worth the requests.
+        search_terms += ['graduate', 'associate engineer', 'engineer i',
+                         'intern']
 
     jobs = []
     seen_paths = set()
@@ -822,7 +858,10 @@ def scrape_amazon():
 
 
 def scrape_usajobs():
-    """Federal cyber roles for recent grads. Needs USAJOBS_API_KEY + USAJOBS_EMAIL."""
+    """Federal cyber roles for recent grads and students (Pathways internships).
+
+    Needs USAJOBS_API_KEY + USAJOBS_EMAIL.
+    """
     api_key = os.environ.get('USAJOBS_API_KEY')
     email = os.environ.get('USAJOBS_EMAIL', 'cyber-jobs-scraper@example.com')
     if not api_key:
@@ -833,44 +872,60 @@ def scrape_usajobs():
         'Authorization-Key': api_key,
     }
     jobs = []
-    page = 1
-    while True:
-        params = {
-            'Keyword': 'cybersecurity',
-            'HiringPath': 'graduates',
-            'ResultsPerPage': 250,
-            'Page': page,
-        }
-        try:
-            resp = requests.get('https://data.usajobs.gov/api/search',
-                                params=params, headers=headers, timeout=20)
-            if resp.status_code != 200:
-                print(f'  [USAJOBS] HTTP {resp.status_code}')
+    # A posting can be open to both hiring paths; keep one copy.
+    seen_ids = set()
+    # 'student' is the Pathways internship path (codelist value STUDENT —
+    # singular, unlike GRADUATES); titles usually come back as
+    # "Student Trainee (...)" and classify as intern.
+    for hiring_path in ('graduates', 'student'):
+        page = 1
+        while True:
+            params = {
+                'Keyword': 'cybersecurity',
+                'HiringPath': hiring_path,
+                'ResultsPerPage': 250,
+                'Page': page,
+            }
+            try:
+                resp = requests.get('https://data.usajobs.gov/api/search',
+                                    params=params, headers=headers, timeout=20)
+                if resp.status_code != 200:
+                    print(f'  [USAJOBS] HTTP {resp.status_code}')
+                    break
+                result = resp.json().get('SearchResult', {})
+                items = result.get('SearchResultItems', [])
+                if not items:
+                    break
+                for item in items:
+                    d = item.get('MatchedObjectDescriptor', {})
+                    job_id = item.get('MatchedObjectId', '')
+                    if job_id in seen_ids:
+                        continue
+                    seen_ids.add(job_id)
+                    locations = d.get('PositionLocation', [])
+                    loc = locations[0].get('LocationName', '') if locations else ''
+                    # Student-only postings are Pathways internships even when
+                    # the title omits "Student Trainee"; a posting also open
+                    # to graduates stays title-classified.
+                    paths = [p.lower() for p in
+                             (d.get('UserArea', {}).get('Details', {})
+                              .get('HiringPath') or [])]
+                    jobs.append({
+                        'id': f'usajobs_{job_id}',
+                        'company': d.get('OrganizationName', 'US Federal Government'),
+                        'title': d.get('PositionTitle', ''),
+                        'location': loc,
+                        'url': d.get('PositionURI', ''),
+                        'board': 'USAJOBS',
+                        'intern_hint': 'student' in paths and 'graduates' not in paths,
+                    })
+                if page >= int(result.get('UserArea', {}).get('NumberOfPages', 1)):
+                    break
+                page += 1
+                time.sleep(0.5)
+            except requests.RequestException as e:
+                print(f'  [USAJOBS] Error: {e}')
                 break
-            result = resp.json().get('SearchResult', {})
-            items = result.get('SearchResultItems', [])
-            if not items:
-                break
-            for item in items:
-                d = item.get('MatchedObjectDescriptor', {})
-                job_id = item.get('MatchedObjectId', '')
-                locations = d.get('PositionLocation', [])
-                loc = locations[0].get('LocationName', '') if locations else ''
-                jobs.append({
-                    'id': f'usajobs_{job_id}',
-                    'company': d.get('OrganizationName', 'US Federal Government'),
-                    'title': d.get('PositionTitle', ''),
-                    'location': loc,
-                    'url': d.get('PositionURI', ''),
-                    'board': 'USAJOBS',
-                })
-            if page >= int(result.get('UserArea', {}).get('NumberOfPages', 1)):
-                break
-            page += 1
-            time.sleep(0.5)
-        except requests.RequestException as e:
-            print(f'  [USAJOBS] Error: {e}')
-            break
     return jobs
 
 
@@ -994,6 +1049,10 @@ def main():
     for entry in listings:
         if entry.get('source') == 'Community':
             continue
+        # Intern rows may derive from an ATS employment-type hint the title
+        # can't reproduce; a title-only pass would wrongly demote them.
+        if entry.get('type') == 'intern':
+            continue
         level = classify_level(entry['role'])
         if level and level != entry.get('type'):
             print(f'  RECLASSIFY [{entry.get("type")} -> {level}] '
@@ -1011,6 +1070,7 @@ def main():
         verdict = evaluate_job(
             job.get('title', ''), job.get('location', ''),
             job.get('description', ''), sec_flags.get(job['id'], False),
+            job.get('intern_hint', False),
         )
         if verdict is None:
             continue

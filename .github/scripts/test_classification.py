@@ -50,6 +50,28 @@ CASES = [
     ('AI Red Teamer', 'US, Remote', '', True, ('earlycareer', 'AI Security & Safety')),
     ('Junior Security Analyst', 'Remote- US', '', False, ('earlycareer', 'Security Engineering')),
 
+    # -- should be accepted: internships --
+    ('Security Engineer Intern', 'Austin, TX', '', False, ('intern', 'Security Engineering')),
+    ('Cybersecurity Co-op', 'Boston, MA', '', False, ('intern', 'Security Engineering')),
+    ('SOC Analyst Intern - Summer 2027', 'San Antonio, TX', '', False, ('intern', 'SOC & Detection')),
+    ('Offensive Security Intern', 'Remote (US)', '', False, ('intern', 'Offensive Security')),
+    ('Cybersecurity Summer Analyst', 'New York, NY', '', False, ('intern', 'Security Engineering')),
+    ('Student Trainee (Cybersecurity)', 'Washington, DC', '', False, ('intern', 'Security Engineering')),
+    # A season + cohort year is an internship req even without the word
+    # "intern" — but explicit new-grad wording wins over the season, and a
+    # stale year outside the cohort window is not resurrected as an intern.
+    ('Security Engineer - Summer 2026', 'Seattle, WA', '', False, ('intern', 'Security Engineering')),
+    ('New Grad Security Engineer - Summer 2026 Start', 'Austin, TX', '', False, ('newgrad', 'Security Engineering')),
+    ('Security Engineer - Summer 2019', 'Seattle, WA', '', False, None),
+    ('Software Engineer Intern', 'Austin, TX', '', True, ('intern', 'Engineering @ Security Co')),
+    # "Internal" must not trip the intern regex.
+    ('Internal Tools Security Analyst I', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+
+    # -- should be rejected: intern edge cases --
+    ('Software Engineer Intern', 'Austin, TX', '', False, None),      # not cyber
+    ('Security Engineer Intern', 'Toronto, ON', '', False, None),     # not US
+    ('Marketing Intern', 'Austin, TX', '', True, None),               # non-tech function
+
     # -- should be rejected: seniority --
     ('Senior Security Engineer', 'Austin, TX', '', False, None),
     ('Staff Security Engineer', 'Austin, TX', '', False, None),
@@ -59,10 +81,6 @@ CASES = [
     ('Lead Incident Responder', 'Austin, TX', '', False, None),
     ('Sr. Security Analyst', 'Austin, TX', '', False, None),
     ('Security Analyst, Sr', 'Austin, TX', '', False, None),
-
-    # -- should be rejected: interns --
-    ('Security Engineer Intern', 'Austin, TX', '', False, None),
-    ('Cybersecurity Co-op', 'Austin, TX', '', False, None),
 
     # -- should be rejected: not cyber --
     ('Software Engineer, New Grad', 'Austin, TX', '', False, None),
@@ -119,6 +137,19 @@ for raw, want in NORM:
     if got != want:
         failures += 1
         print(f'FAIL normalize_location({raw!r}) = {got!r}, want {want!r}')
+
+# ATS employment-type hint: intern reqs whose titles omit the word.
+hint_cases = [
+    # (title, intern_hint, expected level)
+    ('Security Engineer, University Program', True, 'intern'),
+    ('Security Engineer, University Program', False, None),
+]
+for title, hint, want_level in hint_cases:
+    got = s.evaluate_job(title, 'Austin, TX', '', False, intern_hint=hint)
+    got_level = got[0] if got else None
+    if got_level != want_level:
+        failures += 1
+        print(f'FAIL intern_hint={hint}: {title!r} -> {got!r}, want level {want_level!r}')
 
 # URL normalization checks
 u1 = s.normalize_url('https://boards.greenhouse.io/acme/jobs/123?gh_src=abc&utm_source=x')
