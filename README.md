@@ -1,6 +1,6 @@
 # 🛡️ 2027 Cyber Jobs — New Grad & Early Career
 
-The latest **new-grad and early-career cybersecurity roles in the United States**, updated automatically twice a day by scraping the public APIs of well-known job boards (Greenhouse, Lever, Ashby, Workday, SmartRecruiters, Workable, Recruitee, Amazon Jobs, USAJOBS).
+The latest **new-grad and early-career cybersecurity roles in the United States**, updated automatically twice a day by scraping the public APIs of well-known job boards.
 
 :warning: This repository is exclusively for **full-time** roles located in the **United States** (or Remote-US). No internships, no senior roles, no international listings.
 
