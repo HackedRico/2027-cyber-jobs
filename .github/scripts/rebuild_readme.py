@@ -13,7 +13,7 @@ README_FILE = Path('README.md')
 COMPANIES_YML = Path('companies.yml')
 COMPANIES_MD = Path('companies.md')
 
-APPLY_BADGE = 'https://img.shields.io/badge/Apply-2ea043?style=flat-square'
+APPLY_BADGE = 'https://img.shields.io/badge/Apply-0969da?style=flat-square'
 
 
 def _company_sort_key(name):
