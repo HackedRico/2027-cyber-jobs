@@ -176,14 +176,17 @@ def main():
         listings = json.load(f)
 
     newgrad = [e for e in listings if e.get('type') == 'newgrad']
+    intern = [e for e in listings if e.get('type') == 'intern']
     earlycareer = [e for e in listings if e.get('type') == 'earlycareer']
     print(f'Loaded {len(listings)} listings: '
-          f'{len(newgrad)} new grad, {len(earlycareer)} early career')
+          f'{len(newgrad)} new grad, {len(intern)} intern, '
+          f'{len(earlycareer)} early career')
 
     with open(README_FILE) as f:
         content = f.read()
 
     content = replace_table(content, 'newgrad', build_table(newgrad))
+    content = replace_table(content, 'intern', build_table(intern))
     content = replace_table(content, 'earlycareer', build_table(earlycareer))
     # The markers stay on their own lines: text on the same line as an HTML
     # comment is a raw-HTML block, so **bold** would not render on GitHub.

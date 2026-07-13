@@ -1,11 +1,10 @@
-# 🛡️ 2027 Cyber Jobs: New Grad & Early Career
+# 🛡️ 2027 Cyber Jobs: New Grad, Internships & Early Career
 
-The latest **new-grad and early-career cybersecurity roles in the United States**, updated automatically twice a day by scraping the public APIs of well-known job boards.
-
+The latest **new-grad, internship, and early-career cybersecurity roles in the United States**, updated automatically twice a day by scraping the public APIs of well-known job boards.
 
 > ⭐ **Please star this repo to get the latest jobs as soon as they land!**
 
-⚠️ **Full-time**, **US-based** (or Remote-US) roles only. No internships, no senior roles, no international listings.
+⚠️ **US-based** (or Remote-US) roles for **students and early-career candidates** only: internships/co-ops, new-grad programs, and entry-level openings (0-2 years). No senior roles, no international listings.
 
 🙏 **Spotted a role we missed? Submit an [issue](../../issues/new/choose) and check out the [contribution guidelines](./CONTRIBUTING.md)!** 🙏
 
@@ -21,6 +20,7 @@ The latest **new-grad and early-career cybersecurity roles in the United States*
 ---
 
 - [🎓 New Grad & University Programs](#-new-grad--university-programs)
+- [🎒 Internships & Co-ops](#-internships--co-ops)
 - [🌱 Early Career & Entry-Level](#-early-career--entry-level)
 - [🏢 Tracked Companies](./companies.md)
 
@@ -47,6 +47,18 @@ The latest **new-grad and early-career cybersecurity roles in the United States*
 | ↳ | 2026 -  Associate Cyber Software Engineer - Annapolis Junction MD | Annapolis Junction, MD | Security Engineering | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Maryland-Annapolis-Junction/XMLNAME-2026----Associate-Cyber-Software-Engineer---Annapolis-Junction-MD_R10238328" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
 | NVIDIA | Research Scientist, Security and Privacy - PhD New College Grad 2026 | <details><summary>**2 locations**</summary>Westford, MA</br>Santa Clara, CA</details> | GRC &amp; Risk | <a href="https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-MA-Westford/Research-Scientist--Security-and-Privacy---PhD-New-College-Grad-2026_JR2008481-1" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
 <!-- TABLE_END newgrad -->
+
+---
+
+## 🎒 Internships & Co-ops
+
+Cybersecurity internships and co-ops for current students, including federal Pathways (Student Trainee) positions.
+
+<!-- TABLE_START intern -->
+
+| Company | Role | Location | Category | Apply | Date Added |
+| ------- | ---- | -------- | -------- | ----- | ---------- |
+<!-- TABLE_END intern -->
 
 ---
 
