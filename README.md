@@ -157,11 +157,11 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 ---
 
-## How it works
+## Disclaimer
 
 1. [`companies.yml`](companies.yml) lists employers with security teams (and pure-play security companies) whose job boards expose public APIs.
 2. [`scrape_jobs.py`](.github/scripts/scrape_jobs.py) runs on a schedule, pulls every posting, and keeps the ones that are (a) cybersecurity roles, (b) new-grad or early-career level, and (c) located in the US.
 3. New matches land in [`listings.json`](listings.json) and the tables above are rebuilt.
 4. A daily [link check](.github/scripts/check_links.py) marks closed applications with 🔒.
 
-Sources we can't scrape (Google, Microsoft, Meta, and other custom career sites) rely on community submissions, so please [contribute](./CONTRIBUTING.md)!
+Sources we can't scrape, rely on community submissions, so please [contribute](./CONTRIBUTING.md)!
