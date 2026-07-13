@@ -13,7 +13,7 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 
 <!-- STATS -->
 
-**128** open roles tracked · updated July 12, 2026
+**129** open roles tracked · updated July 13, 2026
 
 <!-- /STATS -->
 
@@ -95,6 +95,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| Cisco | AI Security Research Engineer II (Full Time) - (United States) | RTP, NC | AI Security &amp; Safety | <a href="https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/RTP-North-Carolina-US/AI-Security-Research-Engineer-II--Full-Time-----United-States-_2018328" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 13 |
 | Abnormal AI | Software Engineer II - Cloud Infrastructure Engineer | Remote (US) | Engineering @ Security Co | <a href="https://abnormal.ai/careers/jobs/7782567003?gh_jid=7782567003" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
 | ↳ | Software Engineer II - Full Stack | Remote (US) | Engineering @ Security Co | <a href="https://abnormal.ai/careers/jobs/7786309003?gh_jid=7786309003" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
 | ↳ | Software Engineer II - Inline Mailflow | Remote (US) | Engineering @ Security Co | <a href="https://abnormal.ai/careers/jobs/7749085003?gh_jid=7749085003" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
