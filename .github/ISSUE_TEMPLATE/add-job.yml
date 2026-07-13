@@ -1,5 +1,5 @@
 name: Add Job Listing
-description: Submit a new-grad or early-career cybersecurity role (US) to be added to the list.
+description: Submit a new-grad, internship, or early-career cybersecurity role (US) to be added to the list.
 title: "[JOB] <Company> — <Role>"
 labels: ["new listing", "needs review"]
 body:
@@ -8,7 +8,7 @@ body:
       value: |
         Thank you for submitting a job listing! Please fill out all required fields as accurately as possible.
 
-        > ⚠️ This repository is **exclusively for full-time new-grad and early-career cybersecurity roles located in the United States** (or Remote-US). Internships, senior roles, and international-only roles will not be added.
+        > ⚠️ This repository is **exclusively for new-grad, internship, and early-career cybersecurity roles located in the United States** (or Remote-US). Senior roles and international-only roles will not be added.
 
   - type: input
     id: company
@@ -32,9 +32,10 @@ body:
     id: listing_type
     attributes:
       label: Listing Type
-      description: Is this an explicit new-grad/university program role, or a general entry-level opening?
+      description: Is this an internship, an explicit new-grad/university program role, or a general entry-level opening?
       options:
         - New Grad / University Program
+        - Internship / Co-op
         - Early Career / Entry-Level
     validations:
       required: true
@@ -104,7 +105,7 @@ body:
       label: Checklist
       description: Please confirm the following before submitting.
       options:
-        - label: The role is full-time (not an internship/co-op) and targets new grads or early-career candidates (0–2 years).
+        - label: The role targets students or early-career candidates — an internship/co-op, a new-grad program, or a full-time role needing 0–2 years.
           required: true
         - label: The role is located in the United States or is Remote (US).
           required: true

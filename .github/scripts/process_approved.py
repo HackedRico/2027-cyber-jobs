@@ -102,7 +102,12 @@ def parse_issue_body(body):
 
 def fields_to_listing(fields):
     listing_type = fields.get('Listing Type', '')
-    level = 'newgrad' if 'New Grad' in listing_type else 'earlycareer'
+    if 'Intern' in listing_type:
+        level = 'intern'
+    elif 'New Grad' in listing_type:
+        level = 'newgrad'
+    else:
+        level = 'earlycareer'
     category = fields.get('Category', '').strip()
     if category not in CATEGORIES:
         category = 'Security Engineering'
