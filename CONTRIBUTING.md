@@ -9,7 +9,7 @@ Open a [new issue](../../issues/new/choose) using the **Add Job Listing** templa
 Ground rules — listings must be:
 
 - **Cybersecurity-related** — security engineering, SOC/detection, offensive security, AppSec, threat intel, DFIR, cloud security, IAM, or GRC. Engineering roles at pure-play security companies also count.
-- **New-grad or early-career** — no prior full-time experience required (0–2 years). No internships or co-ops, no senior/staff/manager roles.
+- **New-grad, internship, or early-career** — internships/co-ops, new-grad programs, or full-time roles requiring no prior full-time experience (0–2 years). No senior/staff/manager roles.
 - **Located in the United States** — or Remote (US). Use `City, ST` format, separate multiple locations with `;`.
 - **Directly linkable** — the application link goes to the posting, not a careers homepage, and is viewable without a login.
 

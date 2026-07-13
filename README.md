@@ -1,11 +1,10 @@
-# 🛡️ 2027 Cyber Jobs: New Grad & Early Career
+# 🛡️ 2027 Cyber Jobs: New Grad, Internships & Early Career
 
-The latest **new-grad and early-career cybersecurity roles in the United States**, updated automatically twice a day by scraping the public APIs of well-known job boards.
-
+The latest **new-grad, internship, and early-career cybersecurity roles in the United States**, updated automatically twice a day by scraping the public APIs of well-known job boards.
 
 > ⭐ **Please star this repo to get the latest jobs as soon as they land!**
 
-⚠️ **Full-time**, **US-based** (or Remote-US) roles only. No internships, no senior roles, no international listings.
+⚠️ **US-based** (or Remote-US) roles for **students and early-career candidates** only: internships/co-ops, new-grad programs, and entry-level openings (0-2 years). No senior roles, no international listings.
 
 🙏 **Spotted a role we missed? Submit an [issue](../../issues/new/choose) and check out the [contribution guidelines](./CONTRIBUTING.md)!** 🙏
 
@@ -14,13 +13,14 @@ The latest **new-grad and early-career cybersecurity roles in the United States*
 
 <!-- STATS -->
 
-**100** open roles tracked · updated July 12, 2026
+**128** open roles tracked · updated July 12, 2026
 
 <!-- /STATS -->
 
 ---
 
 - [🎓 New Grad & University Programs](#-new-grad--university-programs)
+- [🎒 Internships & Co-ops](#-internships--co-ops)
 - [🌱 Early Career & Entry-Level](#-early-career--entry-level)
 - [🏢 Tracked Companies](./companies.md)
 
@@ -47,6 +47,43 @@ The latest **new-grad and early-career cybersecurity roles in the United States*
 | ↳ | 2026 -  Associate Cyber Software Engineer - Annapolis Junction MD | Annapolis Junction, MD | Security Engineering | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Maryland-Annapolis-Junction/XMLNAME-2026----Associate-Cyber-Software-Engineer---Annapolis-Junction-MD_R10238328" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
 | NVIDIA | Research Scientist, Security and Privacy - PhD New College Grad 2026 | <details><summary>**2 locations**</summary>Westford, MA</br>Santa Clara, CA</details> | GRC &amp; Risk | <a href="https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-MA-Westford/Research-Scientist--Security-and-Privacy---PhD-New-College-Grad-2026_JR2008481-1" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
 <!-- TABLE_END newgrad -->
+
+---
+
+## 🎒 Internships & Co-ops
+
+Cybersecurity internships and co-ops for current students, including federal Pathways (Student Trainee) positions.
+
+<!-- TABLE_START intern -->
+
+| Company | Role | Location | Category | Apply | Date Added |
+| ------- | ---- | -------- | -------- | ----- | ---------- |
+| Center for AI Safety | Research Engineer Intern (Fall 2026) | San Francisco, CA | Engineering @ Security Co | <a href="https://jobs.lever.co/aisafety/e011814b-9a80-43d6-bb0c-cc153ea4bec4" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
+| Nightwing 🇺🇸 | Vulnerability Researcher Intern – 2026 | Palm Bay, FL | Offensive Security | <a href="https://nwis.wd12.myworkdayjobs.com/NW/job/Palm-Bay-FL/Vulnerability-Researcher-Intern---2026_JR101100" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
+| ↳ | Vulnerability Researcher Intern – 2026 | Indialantic, FL | Offensive Security | <a href="https://nwis.wd12.myworkdayjobs.com/NW/job/Indialantic-FL/Vulnerability-Researcher-Intern---2026_JR101101" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
+| ↳ | Software / Hardware Engineering - Intern | Annapolis Junction, MD | Engineering @ Security Co | <a href="https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/Software---Hardware-Engineering---Intern_JR101733" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
+| ↳ | RF Engineering Intern - 2026 | Sterling, VA | Engineering @ Security Co | <a href="https://nwis.wd12.myworkdayjobs.com/NW/job/Sterling-VA/RF-Engineering-Intern---2026_JR101095" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
+| NVIDIA | PhD Research Intern, Security and Privacy - Fall 2026 | Santa Clara, CA | GRC &amp; Risk | <a href="https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/PhD-Research-Intern--Security-and-Privacy---Fall-2026_JR2010492-1" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
+| Palo Alto Networks | Intern - Threat Intelligence (NATSEC) | Office - USA - VA - Reston | Threat Intelligence | <a href="https://paloaltonetworks.wd5.myworkdayjobs.com/panwexternalcareers/job/Office---USA---VA---Reston/Intern---Threat-Intelligence--NATSEC-_JR-013988-1" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
+| ↳ | Intern - Software Engineer | Office - USA - CA - Headquarters | Engineering @ Security Co | <a href="https://paloaltonetworks.wd5.myworkdayjobs.com/panwexternalcareers/job/Office---USA---CA---Headquarters/Intern---Software-Engineer_JR-011570" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
+| ↳ | Intern - Software Engineer | Office - USA - CA - Headquarters | Engineering @ Security Co | <a href="https://paloaltonetworks.wd5.myworkdayjobs.com/panwexternalcareers/job/Office---USA---CA---Headquarters/Intern---Software-Engineer_JR-011589" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
+| ↳ | Intern - Software Engineer | Office - USA - CA - Headquarters | Engineering @ Security Co | <a href="https://paloaltonetworks.wd5.myworkdayjobs.com/panwexternalcareers/job/Office---USA---CA---Headquarters/Intern---Software-Engineer_JR-011590" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
+| ↳ | Intern - Software Engineer | Office - USA - CA - Headquarters | Engineering @ Security Co | <a href="https://paloaltonetworks.wd5.myworkdayjobs.com/panwexternalcareers/job/Office---USA---CA---Headquarters/Intern---Software-Engineer_JR-011594" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
+| ↳ | Intern - Software Engineer | Office - USA - CA - Headquarters | Engineering @ Security Co | <a href="https://paloaltonetworks.wd5.myworkdayjobs.com/panwexternalcareers/job/Office---USA---CA---Headquarters/Intern---Software-Engineer_JR-011595" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
+| ↳ | Intern - Software Engineer | Office - USA - CA - Headquarters | Engineering @ Security Co | <a href="https://paloaltonetworks.wd5.myworkdayjobs.com/panwexternalcareers/job/Office---USA---CA---Headquarters/Intern---Software-Engineer_JR-011598" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
+| ↳ | Intern - Software Engineer | Office - USA - CA - Headquarters | Engineering @ Security Co | <a href="https://paloaltonetworks.wd5.myworkdayjobs.com/panwexternalcareers/job/Office---USA---CA---Headquarters/Intern---Software-Engineer_JR-011599" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
+| ↳ | Intern - Software Engineer | Office - USA - CA - Headquarters | Engineering @ Security Co | <a href="https://paloaltonetworks.wd5.myworkdayjobs.com/panwexternalcareers/job/Office---USA---CA---Headquarters/Intern---Software-Engineer_JR-011602" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
+| ↳ | Intern - Software Engineer | Office - USA - CA - Headquarters | Engineering @ Security Co | <a href="https://paloaltonetworks.wd5.myworkdayjobs.com/panwexternalcareers/job/Office---USA---CA---Headquarters/Intern---Software-Engineer_JR-011603" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
+| ↳ | Intern - Software Engineer | Office - USA - CA - Headquarters | Engineering @ Security Co | <a href="https://paloaltonetworks.wd5.myworkdayjobs.com/panwexternalcareers/job/Office---USA---CA---Headquarters/Intern---Software-Engineer_JR-011605" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
+| ↳ | Intern - Security Researcher - PhD Pipline | Office - USA - CA - Headquarters | Security Engineering | <a href="https://paloaltonetworks.wd5.myworkdayjobs.com/panwexternalcareers/job/Office---USA---CA---Headquarters/Intern---Security-Researcher---PhD-Pipline_JR-010192" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
+| ↳ | Intern - GRC Engineer | Office - USA - CA - Headquarters | GRC &amp; Risk | <a href="https://paloaltonetworks.wd5.myworkdayjobs.com/panwexternalcareers/job/Office---USA---CA---Headquarters/Intern---GRC-Engineer_JR-013678" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
+| Zscaler | Detection Engineer- SkillBridge Intern | Remote (US) | SOC &amp; Detection | <a href="https://job-boards.greenhouse.io/zscaler/jobs/5114254007" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
+| ↳ | Federal Security Operations - SkillBridge Intern | Remote (US) | SOC &amp; Detection | <a href="https://job-boards.greenhouse.io/zscaler/jobs/5069684007" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
+| ↳ | Insider Risk Analyst - SkillBridge Intern | Remote (US) | GRC &amp; Risk | <a href="https://job-boards.greenhouse.io/zscaler/jobs/5100618007" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
+| ↳ | Phishing Analyst-SkillBridge Intern | Remote (US) | Engineering @ Security Co | <a href="https://job-boards.greenhouse.io/zscaler/jobs/5065302007" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
+| ↳ | Site Reliability Engineer Federal- SkillBridge Intern | Remote (US) | Engineering @ Security Co | <a href="https://job-boards.greenhouse.io/zscaler/jobs/5046050007" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
+| ↳ | Site Reliability Engineer-SkillBridge Intern | Remote (US) | Engineering @ Security Co | <a href="https://job-boards.greenhouse.io/zscaler/jobs/5045817007" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
+<!-- TABLE_END intern -->
 
 ---
 
@@ -140,6 +177,9 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 | ↳ | Cloud Software Engineer 2 | Annapolis Junction, MD | Engineering @ Security Co | <a href="https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/Cloud-Software-Engineer-2_01672571" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
 | ↳ | Junior Software Engineer  (SWE0) | Annapolis Junction, MD | Engineering @ Security Co | <a href="https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/Junior-Software-Engineer_01677525" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
 | ↳ | Junior Software Developer | Annapolis Junction, MD | Engineering @ Security Co | <a href="https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/Junior-Software-Developer_JR101838" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
+| ↳ | Systems Engineer 1 | Annapolis Junction, MD | Engineering @ Security Co | <a href="https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/Systems-Engineer-1_JR100157" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
+| ↳ | Junior CNO Developer (Onsite) | Annapolis Junction, MD | Engineering @ Security Co | <a href="https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/Junior-CNO-Developer--Onsite-_JR101325" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
+| ↳ | Junior Software Developer | Annapolis Junction, MD | Engineering @ Security Co | <a href="https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/Junior-Software-Developer_JR101126" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
 | Northrop Grumman 🇺🇸 | Cyber Software Engineer - Level 1/2 | Redondo Beach, CA | Security Engineering | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-Redondo-Beach/Cyber-Software-Engineer---Level-1-2_R10238442" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
 | ↳ | Associate Cyber Software Engineer | <details><summary>**5 locations**</summary>Annapolis Junction, MD</br>Aurora, CO</br>CASD14</br>M252 Raleigh - 4110 Wake Forest Rd</br>TXSA08UNK</details> | Security Engineering | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Maryland-Annapolis-Junction/Associate-Cyber-Software-Engineer_R10234416" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
 | ↳ | Associate Industrial Security Analyst | Palmdale, CA | Security Engineering | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-Palmdale/Associate-Industrial-Security-Analyst_R10239317" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
