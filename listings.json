@@ -1472,5 +1472,16 @@
     "url": "https://job-boards.greenhouse.io/anthropic/jobs/5319554008",
     "source": "Greenhouse",
     "date_added": "2026-07-14"
+  },
+  {
+    "company": "Amazon",
+    "role": "Software Development Engineer II, Defensive Security - Security Findings Management",
+    "location": "Austin, TX",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10418994/software-development-engineer-ii-defensive-security-security-findings-management",
+    "source": "Amazon Jobs",
+    "date_added": "2026-07-14"
   }
 ]
