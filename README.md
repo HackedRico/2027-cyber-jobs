@@ -13,7 +13,7 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 
 <!-- STATS -->
 
-**129** open roles tracked · updated July 13, 2026
+**134** open roles tracked · updated July 14, 2026
 
 <!-- /STATS -->
 
@@ -95,6 +95,11 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| Abnormal AI | Machine Learning Engineer II | Remote (US) | Engineering @ Security Co | <a href="https://abnormal.ai/careers/jobs/7612697003?gh_jid=7612697003" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 14 |
+| Anthropic | Safeguards Enforcement Analyst, Access Controls &amp; Identity | <details><summary>**2 locations**</summary>Remote (US)</br>San Francisco, CA \| New York City, NY \| Washington, DC</details> | AI Security &amp; Safety | <a href="https://job-boards.greenhouse.io/anthropic/jobs/5319626008" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 14 |
+| ↳ | Safeguards Enforcement Analyst, Account Takeover &amp; Credential Abuse | <details><summary>**2 locations**</summary>Remote (US)</br>San Francisco, CA \| New York City, NY \| Washington, DC</details> | AI Security &amp; Safety | <a href="https://job-boards.greenhouse.io/anthropic/jobs/5319624008" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 14 |
+| ↳ | Safeguards Enforcement Analyst, Ban Evasion &amp; Recidivism | <details><summary>**2 locations**</summary>Remote (US)</br>San Francisco, CA \| New York City, NY \| Washington, DC</details> | AI Security &amp; Safety | <a href="https://job-boards.greenhouse.io/anthropic/jobs/5319592008" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 14 |
+| ↳ | Safeguards Enforcement Analyst, Fraud &amp; Scams | <details><summary>**2 locations**</summary>Remote (US)</br>San Francisco, CA \| New York City, NY \| Washington, DC</details> | AI Security &amp; Safety | <a href="https://job-boards.greenhouse.io/anthropic/jobs/5319554008" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 14 |
 | Cisco | AI Security Research Engineer II (Full Time) - (United States) | RTP, NC | AI Security &amp; Safety | <a href="https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/RTP-North-Carolina-US/AI-Security-Research-Engineer-II--Full-Time-----United-States-_2018328" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 13 |
 | Abnormal AI | Software Engineer II - Cloud Infrastructure Engineer | Remote (US) | Engineering @ Security Co | <a href="https://abnormal.ai/careers/jobs/7782567003?gh_jid=7782567003" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
 | ↳ | Software Engineer II - Full Stack | Remote (US) | Engineering @ Security Co | <a href="https://abnormal.ai/careers/jobs/7786309003?gh_jid=7786309003" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
