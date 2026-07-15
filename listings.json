@@ -1494,5 +1494,16 @@
     "url": "https://job-boards.greenhouse.io/anthropic/jobs/5343907008",
     "source": "Greenhouse",
     "date_added": "2026-07-15"
+  },
+  {
+    "company": "Amazon",
+    "role": "Security Engineer II, Devices and Services Security",
+    "location": "Sunnyvale, CA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10475581/security-engineer-ii-devices-and-services-security",
+    "source": "Amazon Jobs",
+    "date_added": "2026-07-15"
   }
 ]
