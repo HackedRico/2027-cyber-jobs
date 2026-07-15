@@ -1483,5 +1483,16 @@
     "url": "https://www.amazon.jobs/en/jobs/10418994/software-development-engineer-ii-defensive-security-security-findings-management",
     "source": "Amazon Jobs",
     "date_added": "2026-07-14"
+  },
+  {
+    "company": "Anthropic",
+    "role": "Safeguards Enforcement Analyst, Violence & Extremism",
+    "location": "Remote (US); San Francisco, CA | New York City, NY | Washington, DC",
+    "type": "earlycareer",
+    "category": "AI Security & Safety",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/anthropic/jobs/5343907008",
+    "source": "Greenhouse",
+    "date_added": "2026-07-15"
   }
 ]

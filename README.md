@@ -13,7 +13,7 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 
 <!-- STATS -->
 
-**135** open roles tracked · updated July 14, 2026
+**136** open roles tracked · updated July 15, 2026
 
 <!-- /STATS -->
 
@@ -95,6 +95,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| Anthropic | Safeguards Enforcement Analyst, Violence &amp; Extremism | <details><summary>**2 locations**</summary>Remote (US)</br>San Francisco, CA \| New York City, NY \| Washington, DC</details> | AI Security &amp; Safety | <a href="https://job-boards.greenhouse.io/anthropic/jobs/5343907008" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 15 |
 | Abnormal AI | Machine Learning Engineer II | Remote (US) | Engineering @ Security Co | <a href="https://abnormal.ai/careers/jobs/7612697003?gh_jid=7612697003" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 14 |
 | Amazon | Software Development Engineer II, Defensive Security - Security Findings Management | Austin, TX | Security Engineering | <a href="https://www.amazon.jobs/en/jobs/10418994/software-development-engineer-ii-defensive-security-security-findings-management" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 14 |
 | Anthropic | Safeguards Enforcement Analyst, Access Controls &amp; Identity | <details><summary>**2 locations**</summary>Remote (US)</br>San Francisco, CA \| New York City, NY \| Washington, DC</details> | AI Security &amp; Safety | <a href="https://job-boards.greenhouse.io/anthropic/jobs/5319626008" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 14 |
