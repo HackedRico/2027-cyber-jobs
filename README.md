@@ -13,7 +13,7 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 
 <!-- STATS -->
 
-**137** open roles tracked · updated July 15, 2026
+**138** open roles tracked · updated July 16, 2026
 
 <!-- /STATS -->
 
@@ -58,6 +58,7 @@ Cybersecurity internships and co-ops for current students, including federal Pat
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| Cloudflare | Security Engineer Intern (Fall 2026) | <details><summary>**2 locations**</summary>Austin, TX</br>Austin</details> | Security Engineering | <a href="https://boards.greenhouse.io/cloudflare/jobs/8060959?gh_jid=8060959" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 16 |
 | Center for AI Safety | Research Engineer Intern (Fall 2026) | San Francisco, CA | Engineering @ Security Co | <a href="https://jobs.lever.co/aisafety/e011814b-9a80-43d6-bb0c-cc153ea4bec4" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
 | Nightwing 🇺🇸 | Vulnerability Researcher Intern – 2026 | Palm Bay, FL | Offensive Security | <a href="https://nwis.wd12.myworkdayjobs.com/NW/job/Palm-Bay-FL/Vulnerability-Researcher-Intern---2026_JR101100" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
 | ↳ | Vulnerability Researcher Intern – 2026 | Indialantic, FL | Offensive Security | <a href="https://nwis.wd12.myworkdayjobs.com/NW/job/Indialantic-FL/Vulnerability-Researcher-Intern---2026_JR101101" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
