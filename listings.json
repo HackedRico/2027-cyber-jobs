@@ -1516,5 +1516,49 @@
     "url": "https://boards.greenhouse.io/cloudflare/jobs/8060959?gh_jid=8060959",
     "source": "Greenhouse",
     "date_added": "2026-07-16"
+  },
+  {
+    "company": "CrowdStrike",
+    "role": "Engineer II, Advanced Research (Remote)",
+    "location": "Remote, MN",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": true,
+    "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote-MN/Engineer-II--Advanced-Research--Remote-_R29400",
+    "source": "Workday",
+    "date_added": "2026-07-16"
+  },
+  {
+    "company": "GDIT",
+    "role": "Cybersecurity SOC Analyst Tier I",
+    "location": "Bossier City, LA",
+    "type": "earlycareer",
+    "category": "SOC & Detection",
+    "clearance": true,
+    "url": "https://gdit.wd5.myworkdayjobs.com/External_Career_Site/job/USA-LA-Bossier-City/Cybersecurity-SOC-Analyst-Tier-I_RQ223491-1",
+    "source": "Workday",
+    "date_added": "2026-07-16"
+  },
+  {
+    "company": "Nightwing",
+    "role": "Systems Engineer 2",
+    "location": "Annapolis Junction, MD",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": true,
+    "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/Systems-Engineer-2_JR101496",
+    "source": "Workday",
+    "date_added": "2026-07-16"
+  },
+  {
+    "company": "Northrop Grumman",
+    "role": "Cybersecurity Analyst- Level 1 or 2",
+    "location": "Schriever AFB, CO",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Colorado-Schriever-AFB/Cybersecurity-Analyst--Level-1-or-2_R10239945",
+    "source": "Workday",
+    "date_added": "2026-07-16"
   }
 ]

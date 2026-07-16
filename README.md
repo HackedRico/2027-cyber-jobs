@@ -13,7 +13,7 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 
 <!-- STATS -->
 
-**138** open roles tracked · updated July 16, 2026
+**142** open roles tracked · updated July 16, 2026
 
 <!-- /STATS -->
 
@@ -96,6 +96,10 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| CrowdStrike 🇺🇸 | Engineer II, Advanced Research (Remote) | Remote, MN | Engineering @ Security Co | <a href="https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote-MN/Engineer-II--Advanced-Research--Remote-_R29400" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 16 |
+| GDIT 🇺🇸 | Cybersecurity SOC Analyst Tier I | Bossier City, LA | SOC &amp; Detection | <a href="https://gdit.wd5.myworkdayjobs.com/External_Career_Site/job/USA-LA-Bossier-City/Cybersecurity-SOC-Analyst-Tier-I_RQ223491-1" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 16 |
+| Nightwing 🇺🇸 | Systems Engineer 2 | Annapolis Junction, MD | Engineering @ Security Co | <a href="https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/Systems-Engineer-2_JR101496" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 16 |
+| Northrop Grumman 🇺🇸 | Cybersecurity Analyst- Level 1 or 2 | Schriever AFB, CO | Security Engineering | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Colorado-Schriever-AFB/Cybersecurity-Analyst--Level-1-or-2_R10239945" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 16 |
 | Amazon | Security Engineer II, Devices and Services Security | Sunnyvale, CA | Security Engineering | <a href="https://www.amazon.jobs/en/jobs/10475581/security-engineer-ii-devices-and-services-security" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 15 |
 | Anthropic | Safeguards Enforcement Analyst, Violence &amp; Extremism | <details><summary>**2 locations**</summary>Remote (US)</br>San Francisco, CA \| New York City, NY \| Washington, DC</details> | AI Security &amp; Safety | <a href="https://job-boards.greenhouse.io/anthropic/jobs/5343907008" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 15 |
 | Abnormal AI | Machine Learning Engineer II | Remote (US) | Engineering @ Security Co | <a href="https://abnormal.ai/careers/jobs/7612697003?gh_jid=7612697003" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 14 |
