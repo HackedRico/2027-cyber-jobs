@@ -1560,5 +1560,38 @@
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Colorado-Schriever-AFB/Cybersecurity-Analyst--Level-1-or-2_R10239945",
     "source": "Workday",
     "date_added": "2026-07-16"
+  },
+  {
+    "company": "Cisco",
+    "role": "Workday Security Administrator II (Hybrid)",
+    "location": "RTP, NC",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/RTP-North-Carolina-US/Workday-Security-Administrator-II--Hybrid-_2013528",
+    "source": "Workday",
+    "date_added": "2026-07-17"
+  },
+  {
+    "company": "Leidos",
+    "role": "Cyberspace Operations Planner, Junior",
+    "location": "Odenton, MD",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://leidos.wd5.myworkdayjobs.com/External/job/Odenton-MD/Cyberspace-Operations-Planner--Junior_R-00160633",
+    "source": "Workday",
+    "date_added": "2026-07-17"
+  },
+  {
+    "company": "Amazon",
+    "role": "Security Software Dev Engineer II, AWS Security Corporate Response",
+    "location": "Seattle, WA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10477129/security-software-dev-engineer-ii-aws-security-corporate-response",
+    "source": "Amazon Jobs",
+    "date_added": "2026-07-17"
   }
 ]
