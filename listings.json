@@ -1593,5 +1593,49 @@
     "url": "https://www.amazon.jobs/en/jobs/10477129/security-software-dev-engineer-ii-aws-security-corporate-response",
     "source": "Amazon Jobs",
     "date_added": "2026-07-17"
+  },
+  {
+    "company": "Booz Allen Hamilton",
+    "role": "Cybersecurity Analyst, Junior",
+    "location": "Rome, NY",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Rome-NY/Cybersecurity-Analyst--Junior_R0227512",
+    "source": "Workday",
+    "date_added": "2026-07-17"
+  },
+  {
+    "company": "CrowdStrike",
+    "role": "Full-Stack Engineer II, Automation and Dev (Hybrid)",
+    "location": "Remote, CA; Sunnyvale, CA; Palo Alto, CA; Santa Clara, CA; Redmond, WA",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote-CA/Full-Stack-Engineer-II--Automation-and-Dev--Hybrid-_R29362",
+    "source": "Workday",
+    "date_added": "2026-07-17"
+  },
+  {
+    "company": "Palo Alto Networks",
+    "role": "AIRS Solutions Specialist - AI Security",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "AI Security & Safety",
+    "clearance": false,
+    "url": "https://paloaltonetworks.wd5.myworkdayjobs.com/panwexternalcareers/job/Remote---USA---CA/AIRS-Solutions-Specialist---AI-Security_JR-019757",
+    "source": "Workday",
+    "date_added": "2026-07-17"
+  },
+  {
+    "company": "Amazon",
+    "role": "Data Engineer II, GTPC Tech, Compliance & Assurance, AWS Security",
+    "location": "New York, NY",
+    "type": "earlycareer",
+    "category": "GRC & Risk",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10477449/data-engineer-ii-gtpc-tech-compliance-assurance-aws-security",
+    "source": "Amazon Jobs",
+    "date_added": "2026-07-17"
   }
 ]

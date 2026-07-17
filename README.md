@@ -13,7 +13,7 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 
 <!-- STATS -->
 
-**145** open roles tracked · updated July 17, 2026
+**149** open roles tracked · updated July 17, 2026
 
 <!-- /STATS -->
 
@@ -97,8 +97,12 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
 | Amazon | Security Software Dev Engineer II, AWS Security Corporate Response | Seattle, WA | Security Engineering | <a href="https://www.amazon.jobs/en/jobs/10477129/security-software-dev-engineer-ii-aws-security-corporate-response" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 17 |
+| ↳ | Data Engineer II, GTPC Tech, Compliance &amp; Assurance, AWS Security | New York, NY | GRC &amp; Risk | <a href="https://www.amazon.jobs/en/jobs/10477449/data-engineer-ii-gtpc-tech-compliance-assurance-aws-security" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 17 |
+| Booz Allen Hamilton 🇺🇸 | Cybersecurity Analyst, Junior | Rome, NY | Security Engineering | <a href="https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Rome-NY/Cybersecurity-Analyst--Junior_R0227512" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 17 |
 | Cisco | Workday Security Administrator II (Hybrid) | RTP, NC | Security Engineering | <a href="https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/RTP-North-Carolina-US/Workday-Security-Administrator-II--Hybrid-_2013528" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 17 |
+| CrowdStrike | Full-Stack Engineer II, Automation and Dev (Hybrid) | <details><summary>**5 locations**</summary>Remote, CA</br>Sunnyvale, CA</br>Palo Alto, CA</br>Santa Clara, CA</br>Redmond, WA</details> | Engineering @ Security Co | <a href="https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote-CA/Full-Stack-Engineer-II--Automation-and-Dev--Hybrid-_R29362" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 17 |
 | Leidos 🇺🇸 | Cyberspace Operations Planner, Junior | Odenton, MD | Security Engineering | <a href="https://leidos.wd5.myworkdayjobs.com/External/job/Odenton-MD/Cyberspace-Operations-Planner--Junior_R-00160633" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 17 |
+| Palo Alto Networks | AIRS Solutions Specialist - AI Security | Remote (US) | AI Security &amp; Safety | <a href="https://paloaltonetworks.wd5.myworkdayjobs.com/panwexternalcareers/job/Remote---USA---CA/AIRS-Solutions-Specialist---AI-Security_JR-019757" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 17 |
 | CrowdStrike 🇺🇸 | Engineer II, Advanced Research (Remote) | Remote, MN | Engineering @ Security Co | <a href="https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote-MN/Engineer-II--Advanced-Research--Remote-_R29400" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 16 |
 | GDIT 🇺🇸 | Cybersecurity SOC Analyst Tier I | Bossier City, LA | SOC &amp; Detection | <a href="https://gdit.wd5.myworkdayjobs.com/External_Career_Site/job/USA-LA-Bossier-City/Cybersecurity-SOC-Analyst-Tier-I_RQ223491-1" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 16 |
 | Nightwing 🇺🇸 | Systems Engineer 2 | Annapolis Junction, MD | Engineering @ Security Co | <a href="https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/Systems-Engineer-2_JR101496" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 16 |

@@ -38,6 +38,7 @@
   "amazon_10471420",
   "amazon_10475581",
   "amazon_10477129",
+  "amazon_10477449",
   "ashby_openai_b9dee2a0-9bb3-447e-9bce-2b1bed784e5b",
   "ashby_openai_fec03292-5cbe-4f58-93db-14ce7d7e2827",
   "ashby_socure_dc13ab09-bbe7-4128-8b38-5a83d5ebac6a",
@@ -76,6 +77,7 @@
   "greenhouse_zscaler_5100618007",
   "greenhouse_zscaler_5114254007",
   "lever_aisafety_e011814b-9a80-43d6-bb0c-cc153ea4bec4",
+  "workday_bah_/job/Rome-NY/Cybersecurity-Analyst--Junior_R0227512",
   "workday_caci_/job/Arlington-VA-US/AI-Governance-SME_327208",
   "workday_caci_/job/Camp-Smith-HI-US/Information-Security-Analyst-II_328082",
   "workday_caci_/job/Colorado-Springs-CO-US/Space-Systems-Cyber-Security-Engineer---Junior_327209",
@@ -85,6 +87,7 @@
   "workday_caci_/job/Florham-Park-NJ-US/Junior-Vulnerability-Researcher--Cloud---Containers-_324975",
   "workday_cisco_/job/RTP-North-Carolina-US/AI-Security-Research-Engineer-II--Full-Time-----United-States-_2018328",
   "workday_cisco_/job/RTP-North-Carolina-US/Workday-Security-Administrator-II--Hybrid-_2013528",
+  "workday_crowdstrike_/job/USA---Remote-CA/Full-Stack-Engineer-II--Automation-and-Dev--Hybrid-_R29362",
   "workday_crowdstrike_/job/USA---Remote-MD/Platform-Operations-Associate-Consultant---Weekend-Shift--Remote-_R27449",
   "workday_crowdstrike_/job/USA---Remote-MN/Engineer-II--Advanced-Research--Remote-_R29400",
   "workday_crowdstrike_/job/USA---Remote/Analyst-I--Falcon-Complete--Hybrid--St-Louis-_R28818",
@@ -148,5 +151,6 @@
   "workday_paloaltonetworks_/job/Office---USA---TX/Associate-Systems-Engineer_JR-011810",
   "workday_paloaltonetworks_/job/Office---USA---TX/Associate-Systems-Engineer_JR-011817",
   "workday_paloaltonetworks_/job/Office---USA---TX/Associate-Systems-Engineer_JR-011823",
-  "workday_paloaltonetworks_/job/Office---USA---VA---Reston/Intern---Threat-Intelligence--NATSEC-_JR-013988-1"
+  "workday_paloaltonetworks_/job/Office---USA---VA---Reston/Intern---Threat-Intelligence--NATSEC-_JR-013988-1",
+  "workday_paloaltonetworks_/job/Remote---USA---CA/AIRS-Solutions-Specialist---AI-Security_JR-019757"
 ]
