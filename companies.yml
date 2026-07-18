@@ -2,17 +2,44 @@ greenhouse:
 - name: Abnormal AI
   slug: abnormalsecurity
   security_company: true
+- name: Affirm
+  slug: affirm
 - name: Airbnb
   slug: airbnb
+- name: Airtable
+  slug: airtable
+- name: Alloy
+  slug: alloy
+  security_company: true
 - name: Anduril
   slug: andurilindustries
 - name: Anthropic
   slug: anthropic
+- name: Apiiro
+  slug: apiiro
+  security_company: true
+- name: AppOmni
+  slug: appomni
+  security_company: true
+- name: Arkose Labs
+  slug: arkoselabs
+  security_company: true
+- name: Armis
+  slug: armissecurity
+  security_company: true
+- name: Asana
+  slug: asana
 - name: Axonius
   slug: axonius
   security_company: true
 - name: Beyond Identity
   slug: beyondidentity
+  security_company: true
+- name: BeyondTrust
+  slug: beyondtrust
+  security_company: true
+- name: BigID
+  slug: bigid
   security_company: true
 - name: Bishop Fox
   slug: bishopfox
@@ -22,6 +49,11 @@ greenhouse:
   security_company: true
 - name: Block
   slug: block
+- name: Brex
+  slug: brex
+- name: Britive
+  slug: britive
+  security_company: true
 - name: Bugcrowd
   slug: bugcrowd
   security_company: true
@@ -34,19 +66,34 @@ greenhouse:
 - name: Chainguard
   slug: chainguard
   security_company: true
+- name: Chime
+  slug: chime
 - name: Cloudflare
   slug: cloudflare
+- name: Cobalt
+  slug: cobaltio
+  security_company: true
+- name: Cockroach Labs
+  slug: cockroachlabs
 - name: Coinbase
   slug: coinbase
+- name: ConsenSys
+  slug: consensys
 - name: Corelight
   slug: corelight
   security_company: true
 - name: Cribl
   slug: cribl
+- name: Cybereason
+  slug: cybereason
+  security_company: true
 - name: Databricks
   slug: databricks
 - name: Datadog
   slug: datadog
+- name: Deepwatch
+  slug: deepwatchinc
+  security_company: true
 - name: Descope
   slug: descope
   security_company: true
@@ -55,8 +102,15 @@ greenhouse:
 - name: Dragos
   slug: dragos
   security_company: true
+- name: Dropbox
+  slug: dropbox
 - name: Elastic
   slug: elastic
+- name: Endor Labs
+  slug: endorlabs
+  security_company: true
+- name: Epirus
+  slug: epirus
 - name: Exabeam
   slug: exabeam
   security_company: true
@@ -70,35 +124,66 @@ greenhouse:
 - name: Fireblocks
   slug: fireblocks
   security_company: true
+- name: Fireworks AI
+  slug: fireworksai
+- name: Gemini
+  slug: gemini
 - name: GitLab
   slug: gitlab
+- name: Goodfire
+  slug: goodfire
+  security_company: true
 - name: Google DeepMind
   slug: deepmind
+- name: Govini
+  slug: air
+- name: Grafana Labs
+  slug: grafanalabs
 - name: GreyNoise
   slug: greynoiseintelligence
   security_company: true
 - name: GuidePoint Security
   slug: guidepointsecurity
   security_company: true
+- name: Gusto
+  slug: gusto
 - name: Halcyon
   slug: halcyon
   security_company: true
+- name: HawkEye 360
+  slug: hawkeye360
 - name: HiddenLayer
   slug: hiddenlayer
   security_company: true
 - name: Huntress
   slug: huntress
   security_company: true
+- name: Instacart
+  slug: instacart
 - name: Keeper Security
   slug: keepersecurity
   security_company: true
 - name: KnowBe4
   slug: knowbe4
   security_company: true
+- name: Lyft
+  slug: lyft
+- name: Marqeta
+  slug: marqeta
+- name: Mercury
+  slug: mercury
 - name: MongoDB
   slug: mongodb
 - name: Netskope
   slug: netskope
+  security_company: true
+- name: New Relic
+  slug: newrelic
+- name: Nozomi Networks
+  slug: nozominetworks
+  security_company: true
+- name: Obsidian Security
+  slug: obsidiansecurity
   security_company: true
 - name: Okta
   slug: okta
@@ -106,9 +191,17 @@ greenhouse:
 - name: OneTrust
   slug: onetrust
   security_company: true
+- name: Operant AI
+  slug: operantai
+  security_company: true
 - name: Orca Security
   slug: orcasecurity
   security_company: true
+- name: Osano
+  slug: osano
+  security_company: true
+- name: PagerDuty
+  slug: pagerduty
 - name: Panther Labs
   slug: pantherlabs
   security_company: true
@@ -125,6 +218,8 @@ greenhouse:
   security_company: true
 - name: Reddit
   slug: reddit
+- name: Ripple
+  slug: ripple
 - name: Robinhood
   slug: robinhood
 - name: Roblox
@@ -134,12 +229,18 @@ greenhouse:
 - name: runZero
   slug: runzero
   security_company: true
+- name: Salt Security
+  slug: saltsecurity
+  security_company: true
 - name: Samsara
   slug: samsara
 - name: Scale AI
   slug: scaleai
 - name: SentinelOne
   slug: sentinellabs
+  security_company: true
+- name: Shift5
+  slug: shift5
   security_company: true
 - name: Socket
   slug: socket
@@ -152,6 +253,11 @@ greenhouse:
   security_company: true
 - name: Stripe
   slug: stripe
+- name: Sumo Logic
+  slug: sumologic
+- name: Sweet Security
+  slug: sweetsecurity
+  security_company: true
 - name: Synack
   slug: synack
   security_company: true
@@ -161,20 +267,34 @@ greenhouse:
 - name: Tanium
   slug: tanium
   security_company: true
+- name: Temporal Technologies
+  slug: temporaltechnologies
 - name: Tenable
   slug: tenableinc
   security_company: true
 - name: Tines
   slug: tines
   security_company: true
+- name: Toast
+  slug: toast
+- name: Together AI
+  slug: togetherai
 - name: Torq
   slug: torq
+  security_company: true
+- name: Transcend
+  slug: transcendinc
+  security_company: true
+- name: Transmit Security
+  slug: transmitsecurity
   security_company: true
 - name: Twilio
   slug: twilio
 - name: Two Six Technologies
   slug: twosixtechnologies
   security_company: true
+- name: Vannevar Labs
+  slug: vannevarlabs
 - name: Vectra AI
   slug: vectranetworks
   security_company: true
@@ -183,6 +303,8 @@ greenhouse:
   security_company: true
 - name: Verkada
   slug: verkada
+- name: Webflow
+  slug: webflow
 - name: Wiz
   slug: wizinc
   security_company: true
@@ -196,11 +318,25 @@ greenhouse:
   security_company: true
 
 lever:
+- name: Anchorage Digital
+  slug: anchorage
+- name: Apollo Research
+  slug: apolloresearch
+  security_company: true
 - name: Center for AI Safety
   slug: aisafety
   security_company: true
 - name: Coalfire
   slug: coalfire
+  security_company: true
+- name: Epoch AI
+  slug: epoch-ai
+  security_company: true
+- name: Immuta
+  slug: immuta
+  security_company: true
+- name: Ketch
+  slug: Ketch
   security_company: true
 - name: METR
   slug: metr
@@ -211,6 +347,14 @@ lever:
   slug: palantir
 - name: Push Security
   slug: pushsecurity
+  security_company: true
+- name: Saviynt
+  slug: saviynt
+  security_company: true
+- name: Shield AI
+  slug: shieldai
+- name: StackHawk
+  slug: stackhawk
   security_company: true
 - name: Sysdig
   slug: sysdig
@@ -223,8 +367,32 @@ ashby:
 - name: 1Password
   slug: 1password
   security_company: true
+- name: Airbyte
+  slug: airbyte
+- name: Applied Intuition
+  slug: applied
+- name: Cartesia
+  slug: cartesia
 - name: Chainalysis
   slug: chainalysis-careers
+  security_company: true
+- name: Character AI
+  slug: character
+- name: Cohere
+  slug: cohere
+- name: ConductorOne
+  slug: C1
+  security_company: true
+- name: Confluent
+  slug: confluent
+- name: Credal
+  slug: credal
+  security_company: true
+- name: Cyberhaven
+  slug: cyberhaven
+  security_company: true
+- name: Delinea
+  slug: delinea
   security_company: true
 - name: Doppel
   slug: doppel
@@ -232,20 +400,54 @@ ashby:
 - name: Drata
   slug: drata
   security_company: true
+- name: Escape
+  slug: escape
+  security_company: true
+- name: FAR AI
+  slug: far.ai
+  security_company: true
 - name: Gray Swan AI
   slug: Gray Swan AI
   security_company: true
 - name: HackerOne
   slug: hackerone
   security_company: true
+- name: Horizon3.ai
+  slug: horizon3ai
+  security_company: true
+- name: HUMAN Security
+  slug: human
+  security_company: true
 - name: Illumio
   slug: illumio
+  security_company: true
+- name: Kindo
+  slug: kindo
   security_company: true
 - name: Lakera
   slug: lakera.ai
   security_company: true
 - name: Material Security
   slug: materialsecurity
+  security_company: true
+- name: Menlo Security
+  slug: menlo
+  security_company: true
+- name: Miro
+  slug: miro
+- name: Nightfall AI
+  slug: nightfall-ai
+  security_company: true
+- name: Notion
+  slug: notion
+- name: Nucleus Security
+  slug: nucleus
+  security_company: true
+- name: Nudge Security
+  slug: nudgesecurity
+  security_company: true
+- name: Opal Security
+  slug: opal
   security_company: true
 - name: OpenAI
   slug: openai
@@ -256,14 +458,37 @@ ashby:
   slug: persona
 - name: Plaid
   slug: plaid
+- name: Primer
+  slug: primer
 - name: Prophet Security
   slug: prophet-security
   security_company: true
+- name: Ramp
+  slug: ramp
+- name: Redis
+  slug: redis
+- name: Sardine
+  slug: sardine
+  security_company: true
+- name: Saronic
+  slug: saronic
 - name: Semgrep
   slug: semgrep
   security_company: true
+- name: Semperis
+  slug: semperis
+  security_company: true
+- name: SentiLink
+  slug: sentilink
+  security_company: true
+- name: Sentra
+  slug: sentra
+  security_company: true
 - name: Sift
   slug: sift
+  security_company: true
+- name: Skyflow
+  slug: skyflow
   security_company: true
 - name: Snowflake
   slug: snowflake
@@ -272,6 +497,9 @@ ashby:
   security_company: true
 - name: Socure
   slug: socure
+  security_company: true
+- name: Stytch
+  slug: stytch
   security_company: true
 - name: Sublime Security
   slug: sublime-security
@@ -284,8 +512,19 @@ ashby:
   security_company: true
 - name: Vercel
   slug: vercel
+- name: WorkOS
+  slug: workos
+  security_company: true
+- name: Zapier
+  slug: zapier
 
 smartrecruiters:
+- name: Jscrambler
+  slug: jscrambler
+  security_company: true
+- name: Securiti
+  slug: Securiti
+  security_company: true
 - name: Visa
   slug: Visa
 
@@ -296,8 +535,28 @@ workable:
 - name: Hack The Box
   slug: hack-the-box-ltd
   security_company: true
+- name: Metomic
+  slug: metomic
+  security_company: true
+- name: Mindgard
+  slug: mindgard
+  security_company: true
+- name: Ordr
+  slug: ordr-2
+  security_company: true
+- name: ReversingLabs
+  slug: reversinglabs
+  security_company: true
 - name: Trail of Bits
   slug: trailofbits
+  security_company: true
+
+recruitee:
+- name: Aikido Security
+  slug: aikidosecurity
+  security_company: true
+- name: Wallarm
+  slug: wallarm
   security_company: true
 
 pinpoint:
@@ -336,6 +595,10 @@ workday:
   instance: wd5
   board: crowdstrikecareers
   security_company: true
+- name: Draper
+  tenant: draper
+  instance: wd5
+  board: Draper_Careers
 - name: F5
   tenant: ffive
   instance: wd5
@@ -409,6 +672,11 @@ workday:
   instance: wd5
   board: Careers
   security_company: true
+- name: ReliaQuest
+  tenant: reliaquest
+  instance: wd5
+  board: ReliaQuest_Careers
+  security_company: true
 - name: SailPoint
   tenant: sailpoint
   instance: wd1
@@ -418,6 +686,10 @@ workday:
   tenant: salesforce
   instance: wd12
   board: External_Career_Site
+- name: Sierra Nevada Corporation
+  tenant: snc
+  instance: wd1
+  board: SNC_External_Career_Site
 - name: Trend Micro
   tenant: trendmicro
   instance: wd3
