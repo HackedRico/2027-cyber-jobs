@@ -1637,5 +1637,82 @@
     "url": "https://www.amazon.jobs/en/jobs/10477449/data-engineer-ii-gtpc-tech-compliance-assurance-aws-security",
     "source": "Amazon Jobs",
     "date_added": "2026-07-17"
+  },
+  {
+    "company": "Osano",
+    "role": "Jr IT Analyst (part-time)",
+    "location": "United States",
+    "type": "newgrad",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/osano/jobs/5325999008",
+    "source": "Greenhouse",
+    "date_added": "2026-07-18"
+  },
+  {
+    "company": "Character AI",
+    "role": "Research Engineer, AI Safety & Alignment",
+    "location": "Redwood City, CA",
+    "type": "earlycareer",
+    "category": "AI Security & Safety",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/character/a7ddb640-466f-4a1f-9a94-7465006aad05",
+    "source": "Ashby",
+    "date_added": "2026-07-18"
+  },
+  {
+    "company": "Illumio",
+    "role": "Site Reliability Engineer II",
+    "location": "HQ - Sunnyvale (Office)",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/illumio/c03fae33-a169-429e-81f0-15b9bcc1df56",
+    "source": "Ashby",
+    "date_added": "2026-07-18"
+  },
+  {
+    "company": "SentiLink",
+    "role": "Data Scientist, New Grad",
+    "location": "United States",
+    "type": "newgrad",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/sentilink/3cb2885e-7a58-4a14-94d5-b7b851053408",
+    "source": "Ashby",
+    "date_added": "2026-07-18"
+  },
+  {
+    "company": "ReliaQuest",
+    "role": "Associate Software Engineer",
+    "location": "Tampa, FL",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://reliaquest.wd5.myworkdayjobs.com/ReliaQuest_Careers/job/Tampa-FL/Associate-Software-Engineer_R15047",
+    "source": "Workday",
+    "date_added": "2026-07-18"
+  },
+  {
+    "company": "Sierra Nevada Corporation",
+    "role": "DevSecOps Project Engineer II",
+    "location": "Plano, TX",
+    "type": "earlycareer",
+    "category": "AppSec & ProdSec",
+    "clearance": true,
+    "url": "https://snc.wd1.myworkdayjobs.com/SNC_External_Career_Site/job/Plano-TX/DevSecOps-PE-Engineer-II_R0029728",
+    "source": "Workday",
+    "date_added": "2026-07-18"
+  },
+  {
+    "company": "Sierra Nevada Corporation",
+    "role": "Security Specialist II",
+    "location": "Colorado Springs, CO",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://snc.wd1.myworkdayjobs.com/SNC_External_Career_Site/job/Colorado-Springs-CO/Security-Specialist-II_R0030149-1",
+    "source": "Workday",
+    "date_added": "2026-07-18"
   }
 ]

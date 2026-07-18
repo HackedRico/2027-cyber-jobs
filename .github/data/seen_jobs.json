@@ -39,8 +39,11 @@
   "amazon_10475581",
   "amazon_10477129",
   "amazon_10477449",
+  "ashby_character_a7ddb640-466f-4a1f-9a94-7465006aad05",
+  "ashby_illumio_c03fae33-a169-429e-81f0-15b9bcc1df56",
   "ashby_openai_b9dee2a0-9bb3-447e-9bce-2b1bed784e5b",
   "ashby_openai_fec03292-5cbe-4f58-93db-14ce7d7e2827",
+  "ashby_sentilink_3cb2885e-7a58-4a14-94d5-b7b851053408",
   "ashby_socure_dc13ab09-bbe7-4128-8b38-5a83d5ebac6a",
   "greenhouse_abnormalsecurity_7612697003",
   "greenhouse_abnormalsecurity_7749085003",
@@ -65,6 +68,7 @@
   "greenhouse_cloudflare_8060959",
   "greenhouse_datadog_7982345",
   "greenhouse_dragos_5285559008",
+  "greenhouse_osano_5325999008",
   "greenhouse_pinterest_7732971",
   "greenhouse_pinterest_8015490",
   "greenhouse_praetorian_6324471003",
@@ -152,5 +156,8 @@
   "workday_paloaltonetworks_/job/Office---USA---TX/Associate-Systems-Engineer_JR-011817",
   "workday_paloaltonetworks_/job/Office---USA---TX/Associate-Systems-Engineer_JR-011823",
   "workday_paloaltonetworks_/job/Office---USA---VA---Reston/Intern---Threat-Intelligence--NATSEC-_JR-013988-1",
-  "workday_paloaltonetworks_/job/Remote---USA---CA/AIRS-Solutions-Specialist---AI-Security_JR-019757"
+  "workday_paloaltonetworks_/job/Remote---USA---CA/AIRS-Solutions-Specialist---AI-Security_JR-019757",
+  "workday_reliaquest_/job/Tampa-FL/Associate-Software-Engineer_R15047",
+  "workday_snc_/job/Colorado-Springs-CO/Security-Specialist-II_R0030149-1",
+  "workday_snc_/job/Plano-TX/DevSecOps-PE-Engineer-II_R0029728"
 ]

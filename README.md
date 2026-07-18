@@ -13,7 +13,7 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 
 <!-- STATS -->
 
-**149** open roles tracked · updated July 17, 2026
+**156** open roles tracked · updated July 18, 2026
 
 <!-- /STATS -->
 
@@ -41,6 +41,8 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| Osano | Jr IT Analyst (part-time) | United States | Engineering @ Security Co | <a href="https://job-boards.greenhouse.io/osano/jobs/5325999008" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 18 |
+| SentiLink | Data Scientist, New Grad | United States | Engineering @ Security Co | <a href="https://jobs.ashbyhq.com/sentilink/3cb2885e-7a58-4a14-94d5-b7b851053408" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 18 |
 | Anduril | 2026 Strategic Security Analyst - Early Career Rotation Program | Costa Mesa, CA | Security Engineering | <a href="https://boards.greenhouse.io/andurilindustries/jobs/5159902007?gh_jid=5159902007" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
 | Northrop Grumman 🇺🇸 | 2026 Associate Classified Cybersecurity Analyst Pathways Program - Palmdale CA | Palmdale, CA | Security Engineering | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-Palmdale/XMLNAME-2026-Associate-Classified-Cybersecurity-Analyst-Pathways-Program---Palmdale-CA_R10238558" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
 | ↳ | R10206390 22026 Associate Cyber Software Engineer - Chantilly VA | Chantilly, VA | Security Engineering | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Virginia-Chantilly/R10206390-22026-Associate-Cyber-Software-Engineer---Chantilly-VA_R10236425" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
@@ -96,6 +98,11 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| Character AI | Research Engineer, AI Safety &amp; Alignment | Redwood City, CA | AI Security &amp; Safety | <a href="https://jobs.ashbyhq.com/character/a7ddb640-466f-4a1f-9a94-7465006aad05" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 18 |
+| Illumio | Site Reliability Engineer II | HQ - Sunnyvale (Office) | Engineering @ Security Co | <a href="https://jobs.ashbyhq.com/illumio/c03fae33-a169-429e-81f0-15b9bcc1df56" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 18 |
+| ReliaQuest | Associate Software Engineer | Tampa, FL | Engineering @ Security Co | <a href="https://reliaquest.wd5.myworkdayjobs.com/ReliaQuest_Careers/job/Tampa-FL/Associate-Software-Engineer_R15047" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 18 |
+| Sierra Nevada Corporation 🇺🇸 | DevSecOps Project Engineer II | Plano, TX | AppSec &amp; ProdSec | <a href="https://snc.wd1.myworkdayjobs.com/SNC_External_Career_Site/job/Plano-TX/DevSecOps-PE-Engineer-II_R0029728" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 18 |
+| ↳ | Security Specialist II | Colorado Springs, CO | Security Engineering | <a href="https://snc.wd1.myworkdayjobs.com/SNC_External_Career_Site/job/Colorado-Springs-CO/Security-Specialist-II_R0030149-1" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 18 |
 | Amazon | Security Software Dev Engineer II, AWS Security Corporate Response | Seattle, WA | Security Engineering | <a href="https://www.amazon.jobs/en/jobs/10477129/security-software-dev-engineer-ii-aws-security-corporate-response" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 17 |
 | ↳ | Data Engineer II, GTPC Tech, Compliance &amp; Assurance, AWS Security | New York, NY | GRC &amp; Risk | <a href="https://www.amazon.jobs/en/jobs/10477449/data-engineer-ii-gtpc-tech-compliance-assurance-aws-security" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 17 |
 | Booz Allen Hamilton 🇺🇸 | Cybersecurity Analyst, Junior | Rome, NY | Security Engineering | <a href="https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Rome-NY/Cybersecurity-Analyst--Junior_R0227512" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 17 |
