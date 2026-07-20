@@ -1714,5 +1714,93 @@
     "url": "https://snc.wd1.myworkdayjobs.com/SNC_External_Career_Site/job/Colorado-Springs-CO/Security-Specialist-II_R0030149-1",
     "source": "Workday",
     "date_added": "2026-07-18"
+  },
+  {
+    "company": "Abnormal AI",
+    "role": "Software Engineer II, Message Mailflow",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://abnormal.ai/careers/jobs/7806195003?gh_jid=7806195003",
+    "source": "Greenhouse",
+    "date_added": "2026-07-20"
+  },
+  {
+    "company": "Coalfire",
+    "role": "Associate, Vulnerability Assessment",
+    "location": "United States",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://jobs.lever.co/coalfire/98c59304-10da-4e75-a4c9-e705b53b235f",
+    "source": "Lever",
+    "date_added": "2026-07-20"
+  },
+  {
+    "company": "TRM Labs",
+    "role": "University Grad \u2013 Product Engineer (2026-2027) - Los Angeles Only",
+    "location": "Los Angeles",
+    "type": "newgrad",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/trm-labs/0b8546c0-39ba-44db-aba5-3425bcb2e68d",
+    "source": "Ashby",
+    "date_added": "2026-07-20"
+  },
+  {
+    "company": "CrowdStrike",
+    "role": "Analyst I, Falcon Complete (Remote)",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Analyst-I--Falcon-Complete--Remote-_R29479",
+    "source": "Workday",
+    "date_added": "2026-07-20"
+  },
+  {
+    "company": "CrowdStrike",
+    "role": "Engineer II, Software Assurance, Product Security (Remote)",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "AppSec & ProdSec",
+    "clearance": false,
+    "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Engineer-II--Software-Assurance--Product-Security--Remote-_R29328",
+    "source": "Workday",
+    "date_added": "2026-07-20"
+  },
+  {
+    "company": "CrowdStrike",
+    "role": "Engineer I, Data Scientist - New Grad (Hybrid)",
+    "location": "Sunnyvale, CA",
+    "type": "newgrad",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Sunnyvale-CA/Engineer-I--Data-Scientist---New-Grad--Hybrid-_R29382-1",
+    "source": "Workday",
+    "date_added": "2026-07-20"
+  },
+  {
+    "company": "Sierra Nevada Corporation",
+    "role": "Cybersecurity Compliance Advisory Analyst I",
+    "location": "Sparks, NV; Lone Tree, CO",
+    "type": "earlycareer",
+    "category": "GRC & Risk",
+    "clearance": true,
+    "url": "https://snc.wd1.myworkdayjobs.com/SNC_External_Career_Site/job/Sparks-NV/Cybersecurity-Compliance-Advisory-Analyst-I_R0030093",
+    "source": "Workday",
+    "date_added": "2026-07-20"
+  },
+  {
+    "company": "Amazon",
+    "role": "Software Development Engineer II, Amazon Security Data Engineering",
+    "location": "Herndon, VA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10478499/software-development-engineer-ii-amazon-security-data-engineering",
+    "source": "Amazon Jobs",
+    "date_added": "2026-07-20"
   }
 ]

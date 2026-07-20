@@ -13,7 +13,7 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 
 <!-- STATS -->
 
-**156** open roles tracked · updated July 18, 2026
+**164** open roles tracked · updated July 20, 2026
 
 <!-- /STATS -->
 
@@ -41,6 +41,8 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| CrowdStrike | Engineer I, Data Scientist - New Grad (Hybrid) | Sunnyvale, CA | Engineering @ Security Co | <a href="https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Sunnyvale-CA/Engineer-I--Data-Scientist---New-Grad--Hybrid-_R29382-1" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 20 |
+| TRM Labs | University Grad – Product Engineer (2026-2027) - Los Angeles Only | Los Angeles | Engineering @ Security Co | <a href="https://jobs.ashbyhq.com/trm-labs/0b8546c0-39ba-44db-aba5-3425bcb2e68d" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 20 |
 | Osano | Jr IT Analyst (part-time) | United States | Engineering @ Security Co | <a href="https://job-boards.greenhouse.io/osano/jobs/5325999008" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 18 |
 | SentiLink | Data Scientist, New Grad | United States | Engineering @ Security Co | <a href="https://jobs.ashbyhq.com/sentilink/3cb2885e-7a58-4a14-94d5-b7b851053408" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 18 |
 | Anduril | 2026 Strategic Security Analyst - Early Career Rotation Program | Costa Mesa, CA | Security Engineering | <a href="https://boards.greenhouse.io/andurilindustries/jobs/5159902007?gh_jid=5159902007" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
@@ -98,6 +100,12 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| Abnormal AI | Software Engineer II, Message Mailflow | Remote (US) | Engineering @ Security Co | <a href="https://abnormal.ai/careers/jobs/7806195003?gh_jid=7806195003" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 20 |
+| Amazon | Software Development Engineer II, Amazon Security Data Engineering | Herndon, VA | Security Engineering | <a href="https://www.amazon.jobs/en/jobs/10478499/software-development-engineer-ii-amazon-security-data-engineering" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 20 |
+| Coalfire | Associate, Vulnerability Assessment | United States | Engineering @ Security Co | <a href="https://jobs.lever.co/coalfire/98c59304-10da-4e75-a4c9-e705b53b235f" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 20 |
+| CrowdStrike | Analyst I, Falcon Complete (Remote) | Remote (US) | Engineering @ Security Co | <a href="https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Analyst-I--Falcon-Complete--Remote-_R29479" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 20 |
+| ↳ | Engineer II, Software Assurance, Product Security (Remote) | Remote (US) | AppSec &amp; ProdSec | <a href="https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Engineer-II--Software-Assurance--Product-Security--Remote-_R29328" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 20 |
+| Sierra Nevada Corporation 🇺🇸 | Cybersecurity Compliance Advisory Analyst I | <details><summary>**2 locations**</summary>Sparks, NV</br>Lone Tree, CO</details> | GRC &amp; Risk | <a href="https://snc.wd1.myworkdayjobs.com/SNC_External_Career_Site/job/Sparks-NV/Cybersecurity-Compliance-Advisory-Analyst-I_R0030093" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 20 |
 | Character AI | Research Engineer, AI Safety &amp; Alignment | Redwood City, CA | AI Security &amp; Safety | <a href="https://jobs.ashbyhq.com/character/a7ddb640-466f-4a1f-9a94-7465006aad05" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 18 |
 | Illumio | Site Reliability Engineer II | HQ - Sunnyvale (Office) | Engineering @ Security Co | <a href="https://jobs.ashbyhq.com/illumio/c03fae33-a169-429e-81f0-15b9bcc1df56" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 18 |
 | ReliaQuest | Associate Software Engineer | Tampa, FL | Engineering @ Security Co | <a href="https://reliaquest.wd5.myworkdayjobs.com/ReliaQuest_Careers/job/Tampa-FL/Associate-Software-Engineer_R15047" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 18 |
