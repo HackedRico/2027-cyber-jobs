@@ -1813,5 +1813,49 @@
     "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---St-Louis-MO/Analyst-I--Falcon-Complete--Hybrid--St-Louis-_R29406",
     "source": "Workday",
     "date_added": "2026-07-21"
+  },
+  {
+    "company": "Anthropic",
+    "role": "Machine Learning Infrastructure Engineer, Safeguards Research",
+    "location": "San Francisco, CA | New York City, NY",
+    "type": "earlycareer",
+    "category": "AI Security & Safety",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/anthropic/jobs/5364804008",
+    "source": "Greenhouse",
+    "date_added": "2026-07-21"
+  },
+  {
+    "company": "Cisco",
+    "role": "AI Security Research Engineer",
+    "location": "RTP, NC",
+    "type": "earlycareer",
+    "category": "AI Security & Safety",
+    "clearance": false,
+    "url": "https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/RTP-North-Carolina-US/AI-Security-Research-Engineer_2018329-1",
+    "source": "Workday",
+    "date_added": "2026-07-21"
+  },
+  {
+    "company": "Mastercard",
+    "role": "Security Monitoring and Response Analyst II",
+    "location": "O'Fallon, MO",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://mastercard.wd1.myworkdayjobs.com/CorporateCareers/job/OFallon-Missouri/Security-Monitoring-and-Response-Analyst-II_R-279931",
+    "source": "Workday",
+    "date_added": "2026-07-21"
+  },
+  {
+    "company": "Optiv",
+    "role": "Associate SOC Engineer | Remote, USA",
+    "location": "Leawood, KS; Atlanta, GA; Tampa, FL; Overland Park, KS; Fort Worth, TX; Nashville, TN",
+    "type": "earlycareer",
+    "category": "SOC & Detection",
+    "clearance": false,
+    "url": "https://optiv.wd5.myworkdayjobs.com/Optiv_Careers/job/Leawood-Kansas/Associate-SOC-Engineer---Remote--USA_2026-13891",
+    "source": "Workday",
+    "date_added": "2026-07-21"
   }
 ]
