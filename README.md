@@ -13,7 +13,7 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 
 <!-- STATS -->
 
-**164** open roles tracked · updated July 20, 2026
+**165** open roles tracked · updated July 21, 2026
 
 <!-- /STATS -->
 
@@ -100,6 +100,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| CrowdStrike 🇺🇸 | Analyst I, Falcon Complete (Hybrid, St Louis) | St. Louis, MO | Engineering @ Security Co | <a href="https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---St-Louis-MO/Analyst-I--Falcon-Complete--Hybrid--St-Louis-_R29406" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 21 |
 | Abnormal AI | Software Engineer II, Message Mailflow | Remote (US) | Engineering @ Security Co | <a href="https://abnormal.ai/careers/jobs/7806195003?gh_jid=7806195003" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 20 |
 | Amazon | Software Development Engineer II, Amazon Security Data Engineering | Herndon, VA | Security Engineering | <a href="https://www.amazon.jobs/en/jobs/10478499/software-development-engineer-ii-amazon-security-data-engineering" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 20 |
 | Coalfire | Associate, Vulnerability Assessment | United States | Engineering @ Security Co | <a href="https://jobs.lever.co/coalfire/98c59304-10da-4e75-a4c9-e705b53b235f" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 20 |
