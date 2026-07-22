@@ -61,10 +61,11 @@ def parse_issue_body(body):
 
     First occurrence of each `### Header` wins, so a free-text field appended
     later in the body cannot override a structured value that already passed
-    validation.
+    validation. A missing/null body (GitHub returns body: null for a bodyless
+    issue) yields an empty field set rather than raising.
     """
     fields = {}
-    for section in re.split(r'^### ', body, flags=re.MULTILINE):
+    for section in re.split(r'^### ', body or '', flags=re.MULTILINE):
         if not section.strip():
             continue
         lines = section.strip().split('\n')

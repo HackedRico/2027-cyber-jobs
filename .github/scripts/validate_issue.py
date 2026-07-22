@@ -2,6 +2,7 @@
 """Validate community job-submission issues (US locations only)."""
 
 import os
+import re
 import sys
 from pathlib import Path
 
@@ -49,8 +50,9 @@ def main():
             errors.append(f'- **{field}** is missing or empty')
 
     apply_link = fields.get('Direct Application Link', '').strip()
-    if apply_link and not apply_link.startswith('http'):
-        errors.append('- **Direct Application Link** must be a valid URL starting with `http`')
+    if apply_link and not re.match(r'^https?://\S+$', apply_link):
+        errors.append('- **Direct Application Link** must be a single-line URL '
+                      'starting with `http://` or `https://`')
 
     location = fields.get('Location', '').strip()
     if location:

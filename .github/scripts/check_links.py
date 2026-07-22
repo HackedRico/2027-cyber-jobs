@@ -37,7 +37,11 @@ def should_skip(url):
 def is_link_alive(url):
     try:
         resp = requests.get(url, timeout=12, allow_redirects=True, headers=HEADERS)
-        return resp.status_code < 404
+        code = resp.status_code
+        # Only a real client-side "gone" (4xx) retires a listing. 5xx and 429
+        # are transient (server error / rate limit), so a blip must not close a
+        # good — often maintainer-vetted — posting.
+        return not (404 <= code < 500 and code != 429)
     except requests.RequestException as e:
         print(f'  Request error: {e}')
         return True  # network flake — don't mark closed on ambiguity

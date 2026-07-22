@@ -54,6 +54,20 @@ MAX_PAGES = 60
 SESSION = requests.Session()
 SESSION.headers.update(HEADERS)
 
+# Config values interpolated into a request HOST must not contain characters
+# ('/', '@', '?', '#', ':') that could reparent the host — defense-in-depth on
+# a malicious companies.yml entry.
+_SLUG_RE = re.compile(r'^[A-Za-z0-9_-]+$')
+_HOST_RE = re.compile(r'^[A-Za-z0-9.-]+$')
+
+
+def _valid_slug(value):
+    return bool(value) and bool(_SLUG_RE.fullmatch(value))
+
+
+def _valid_host(value):
+    return bool(value) and bool(_HOST_RE.fullmatch(value)) and not value.startswith('.')
+
 
 def _sleep_backoff(attempt, retry_after=None):
     if retry_after and str(retry_after).strip().isdigit():
@@ -99,6 +113,12 @@ def fetch_json(url, *, method='GET', label='', **kwargs):
                 return None
             _sleep_backoff(attempt)
     return None
+
+
+def _oneline(text):
+    # Collapse newlines so a scraped title can't inject a ::workflow-command::
+    # at the start of a log line that GitHub Actions parses.
+    return ' '.join(str(text).split())
 
 
 def check_container(data, key, label):
@@ -252,11 +272,12 @@ def scrape_smartrecruiters(company, identifier):
                 'url': f'https://jobs.smartrecruiters.com/{identifier}/{job_id}',
                 'board': 'SmartRecruiters',
             })
-        total = data.get('totalFound', 0)
+        total = data.get('totalFound')
         params['offset'] += len(content)
-        # Stop on a short page (end of list) or once we've fetched `total`; a
-        # missing `total` no longer silently truncates to one page.
-        if len(content) < limit or params['offset'] >= total:
+        # Stop on a short page (end of list) or once we've fetched `total`. A
+        # missing `total` is NOT treated as 0, so a full first page keeps
+        # paging instead of silently truncating.
+        if len(content) < limit or (total is not None and params['offset'] >= total):
             break
         time.sleep(0.3)
     return jobs
@@ -295,6 +316,9 @@ def scrape_workable(company, slug):
 
 
 def scrape_recruitee(company, slug):
+    if not _valid_slug(slug):
+        print(f'  [{company}] invalid recruitee slug {slug!r} — skipping')
+        return None
     url = f'https://{slug}.recruitee.com/api/offers/'
     data = fetch_json(url, label=f'{company} Recruitee')
     if data is None:
@@ -328,6 +352,9 @@ def scrape_recruitee(company, slug):
 
 
 def scrape_pinpoint(company, slug):
+    if not _valid_slug(slug):
+        print(f'  [{company}] invalid pinpoint slug {slug!r} — skipping')
+        return None
     url = f'https://{slug}.pinpointhq.com/postings.json'
     data = fetch_json(url, label=f'{company} Pinpoint')
     if data is None:
@@ -370,6 +397,12 @@ def fetch_workday_detail(cxs_root, path, wd_headers, label=''):
 
 def scrape_workday(company, tenant, instance, board, security_company=False,
                    extra_terms=None):
+    if not _valid_slug(tenant) or not _valid_slug(instance):
+        print(f'  [{company}] invalid workday tenant/instance — skipping')
+        return None
+    if board and not _valid_slug(board):
+        print(f'  [{company}] invalid workday board {board!r} — skipping')
+        return None
     if board:
         cxs_root = f'https://{tenant}.{instance}.myworkdayjobs.com/wday/cxs/{tenant}/{board}'
     else:
@@ -397,6 +430,7 @@ def scrape_workday(company, tenant, instance, board, security_company=False,
     limit = 20
     jobs = []
     seen_paths = set()
+    any_ok = False
     for term in search_terms:
         offset = 0
         for _page in range(MAX_PAGES):
@@ -407,6 +441,7 @@ def scrape_workday(company, tenant, instance, board, security_company=False,
                               label=f'{company} Workday "{term}"')
             if data is None:
                 break
+            any_ok = True
             postings = data.get('jobPostings', [])
             if not postings:
                 break
@@ -426,13 +461,17 @@ def scrape_workday(company, tenant, instance, board, security_company=False,
                     'board': 'Workday',
                     '_path': path,
                 })
-            total = data.get('total', 0)
+            total = data.get('total')
             offset += len(postings)
-            # End-of-list, a short page, or the MAX_PAGES backstop all stop the
-            # loop so a bad `total` can't run to the workflow timeout.
-            if offset >= total or len(postings) < limit:
+            # Short page, exhausted `total` (when present), or the MAX_PAGES
+            # backstop stop the loop so a bad `total` can't run to the timeout.
+            if len(postings) < limit or (total is not None and offset >= total):
                 break
             time.sleep(0.3)
+
+    # No page fetched at all -> a real failure, not an empty board.
+    if not any_ok:
+        return None
 
     # The list view gives no description and hides multi-location postings
     # behind "N Locations". Fetch details for the few title-level candidates
@@ -466,6 +505,9 @@ def scrape_oracle(company, host, site):
     is the CE site number (e.g. 'CX_1'). Unlocks large enterprises/banks that
     run cyber-analyst new-grad programs but aren't on the other ATSs.
     """
+    if not _valid_host(host) or not _valid_slug(site):
+        print(f'  [{company}] invalid oracle host/site — skipping')
+        return None
     api = f'https://{host}/hcmRestApi/resources/latest/recruitingCEJobRequisitions'
     limit = 200
     jobs = []
@@ -496,9 +538,9 @@ def scrape_oracle(company, host, site):
                 'url': f'https://{host}/hcmUI/CandidateExperience/en/sites/{site}/job/{job_id}',
                 'board': 'Oracle',
             })
-        total = items[0].get('TotalJobsCount', 0) if items else 0
+        total = items[0].get('TotalJobsCount') if items else None
         offset += len(req_list)
-        if len(req_list) < limit or offset >= total:
+        if len(req_list) < limit or (total is not None and offset >= total):
             break
         time.sleep(0.3)
     return jobs
@@ -534,9 +576,10 @@ def scrape_amazon():
                 'board': 'Amazon Jobs',
                 'description': job.get('description', ''),
             })
-        total = data.get('hits', 0)
+        total = data.get('hits')
         params['offset'] += len(postings)
-        if params['offset'] >= total or len(postings) < params['result_limit']:
+        if (len(postings) < params['result_limit']
+                or (total is not None and params['offset'] >= total)):
             break
         time.sleep(0.5)
     return jobs
@@ -557,6 +600,7 @@ def scrape_usajobs():
         'Authorization-Key': api_key,
     }
     jobs = []
+    any_ok = False
     # A posting can be open to both hiring paths; keep one copy.
     seen_ids = set()
     # 'student' is the Pathways internship path (codelist value STUDENT —
@@ -570,10 +614,14 @@ def scrape_usajobs():
                 'ResultsPerPage': 250,
                 'Page': page,
             }
+            # allow_redirects=False so the api-key header can't be forwarded to
+            # another host on a cross-host redirect.
             data = fetch_json('https://data.usajobs.gov/api/search',
-                              params=params, headers=headers, label='USAJOBS')
+                              params=params, headers=headers, label='USAJOBS',
+                              allow_redirects=False)
             if data is None:
                 break
+            any_ok = True
             result = data.get('SearchResult', {})
             items = result.get('SearchResultItems', [])
             if not items:
@@ -604,6 +652,8 @@ def scrape_usajobs():
             if page >= int(result.get('UserArea', {}).get('NumberOfPages', 1)):
                 break
             time.sleep(0.5)
+    if not any_ok:
+        return None
     return jobs
 
 
@@ -794,7 +844,10 @@ def main():
     if want('usajobs'):
         run_scraper('USAJOBS (data.usajobs.gov)', scrape_usajobs)
 
-    report_board_health(board_stats, persist=not args.dry_run)
+    # Only a full run may roll the baseline — a --board/--limit run holds counts
+    # for a subset and would blind the zero-regression check for the rest.
+    full_run = not args.dry_run and not args.board and not args.limit
+    report_board_health(board_stats, persist=full_run)
     print(f'\nScraped {len(raw_jobs)} raw postings; filtering...')
 
     today = datetime.now().strftime('%Y-%m-%d')
@@ -841,11 +894,13 @@ def main():
         if verdict is None:
             continue
         level, category = verdict
-        seen[jid] = today
 
         url = job.get('url', '')
         if not url:
+            # Don't record a URL-less posting as seen — otherwise it's skipped
+            # forever even after the ATS later populates the URL.
             continue
+        seen[jid] = today
         if key in blanked:
             row = blanked.pop(key)
             row['url'] = url
@@ -853,7 +908,7 @@ def main():
             row.pop('closed_date', None)
             existing_urls.add(normalize_url(url))
             revived += 1
-            print(f'  REVIVED {job["company"]} — {job["title"]}')
+            print(f'  REVIVED {_oneline(job["company"])} — {_oneline(job["title"])}')
             continue
         if normalize_url(url) in existing_urls or key in existing_keys:
             continue
@@ -873,7 +928,8 @@ def main():
             'date_added': today,
         })
         added += 1
-        print(f'  NEW [{level}] {job["company"]} — {job["title"]} @ {job.get("location", "")}')
+        print(f'  NEW [{level}] {_oneline(job["company"])} — {_oneline(job["title"])} '
+              f'@ {_oneline(job.get("location", ""))}')
 
     # Refresh last-seen for every still-live id, then expire the stale ones.
     for job in raw_jobs:

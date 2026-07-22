@@ -8,6 +8,7 @@ import sys
 sys.path.insert(0, str(__import__('pathlib').Path(__file__).parent))
 import classify as s
 import common
+import rebuild_readme as rr
 
 CASES = [
     # (title, location, description, security_company, expected)
@@ -212,6 +213,16 @@ US_LOC = [
     ('Zürich', False),
     ('Bogotá, Colombia', False),
     ('Office - USA - VA - Reston', True),
+    # A US city whose name collides with a foreign one is rescued by ", ST".
+    ('Vienna, VA', True),
+    ('Paris, TX', True),
+    # ...but an 'us' buried in prose or a mid-string state before a country
+    # must NOT leak a foreign role onto this US-only board.
+    ('Bangalore, India (US hours)', False),
+    ('Remote - India (US business hours)', False),
+    ('London, UK - reports to US team', False),
+    ('Chennai, TN, India', False),  # TN=Tamil Nadu collides with Tennessee
+    ('Berlin (must overlap US business hours)', False),
 ]
 for loc, want in US_LOC:
     got = s.is_us_location(loc)
@@ -301,6 +312,29 @@ assert u1 == u2, f'{u1} != {u2}'
 w1 = common.normalize_url('https://acme.wd5.myworkdayjobs.com/en-US/External/job/Austin-TX/Security-Analyst_R123')
 w2 = common.normalize_url('https://acme.wd5.myworkdayjobs.com/job/Austin-TX/Security-Analyst_R123')
 assert w1 == w2, f'{w1} != {w2}'
+# Rendering safety: no field can break out of a README table row or inject a
+# working link. A cell can only ever contain escaped pipes/brackets/backticks.
+RENDER = [
+    ('escape_cell newline collapses', '\n' not in rr.escape_cell('Analyst\n| x | y |')),
+    ('escape_cell escapes bare pipe', rr.escape_cell('a | b') == 'a \\| b'),
+    ('escape_cell escapes backslash before pipe', rr.escape_cell('a\\|b') == 'a\\\\\\|b'),
+    ('escape_cell escapes angle brackets', rr.escape_cell('<b>') == '&lt;b&gt;'),
+    ('apply_btn rejects whitespace in url', rr.apply_btn('https://x/j\n| Fake |') == '🔒'),
+    ('apply_btn rejects javascript:', rr.apply_btn('javascript:alert(1)') == '🔒'),
+    ('apply_btn escapes pipe in url', '|' not in rr.apply_btn('https://x/a|b')),
+    ('apply_btn renders a clean https url', rr.apply_btn('https://x/job').startswith('<a href="https://x/job"')),
+]
+for name, ok in RENDER:
+    if not ok:
+        failures += 1
+        print(f'FAIL render: {name}')
+
+# strip_html caps pathological input so the tag-strip regex stays sub-quadratic.
+_huge = '<' * 300000
+if len(s.strip_html(_huge)) > s.MAX_DESCRIPTION_CHARS + 10:
+    failures += 1
+    print('FAIL strip_html did not cap description length')
+
 # Greenhouse serves the same board under two hosts; they must dedupe.
 g1 = common.normalize_url('https://boards.greenhouse.io/acme/jobs/9')
 g2 = common.normalize_url('https://job-boards.greenhouse.io/acme/jobs/9')

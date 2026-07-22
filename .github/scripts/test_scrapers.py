@@ -157,10 +157,42 @@ def test_fetch_json_gives_up_on_404():
     check('fetch_json 404 -> None', sj.fetch_json('https://api.test/y', label='t'), None)
 
 
+# --- SSRF: config host components must be validated (no network call) ---------
+def test_slug_validation_blocks_host_reparenting():
+    check('recruitee rejects a slug with /', sj.scrape_recruitee('X', 'evil.com/'), None)
+    check('pinpoint rejects a slug with @', sj.scrape_pinpoint('X', 'a@b'), None)
+    check('workday rejects a tenant with /', sj.scrape_workday('X', 'evil.com/', 'wd5', 'B'), None)
+    check('oracle rejects a host with a path', sj.scrape_oracle('X', 'evil.com/x', 'CX_1'), None)
+
+
+# --- a total failure is None (FAILED), not [] (empty board) -------------------
+@responses.activate
+def test_workday_total_failure_returns_none():
+    responses.post('https://t.wd5.myworkdayjobs.com/wday/cxs/t/B/jobs', status=500)
+    check('workday all-fetch-fail -> None', sj.scrape_workday('X', 't', 'wd5', 'B'), None)
+
+
+# --- pagination keeps going when the total field is absent --------------------
+@responses.activate
+def test_smartrecruiters_missing_total_keeps_paging():
+    page1 = {'content': [{'id': str(i), 'name': 'Security Engineer',
+                          'location': {'country': 'us', 'city': 'Austin', 'region': 'TX'}}
+                         for i in range(100)]}  # full page, NO totalFound
+    page2 = {'content': [{'id': 'x', 'name': 'Security Analyst',
+                          'location': {'remote': True}}]}  # short page -> stop
+    responses.get('https://api.smartrecruiters.com/v1/companies/Acme/postings', json=page1)
+    responses.get('https://api.smartrecruiters.com/v1/companies/Acme/postings', json=page2)
+    jobs = sj.scrape_smartrecruiters('Acme', 'Acme')
+    check('smartrecruiters paged past a full first page with no total', len(jobs), 101)
+
+
 for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_ashby, test_ashby_schema_drift_warns,
            test_smartrecruiters_pagination_short_page_stops, test_oracle,
-           test_fetch_json_retries_transient, test_fetch_json_gives_up_on_404):
+           test_fetch_json_retries_transient, test_fetch_json_gives_up_on_404,
+           test_slug_validation_blocks_host_reparenting,
+           test_workday_total_failure_returns_none,
+           test_smartrecruiters_missing_total_keeps_paging):
     fn()
 
 if failures:

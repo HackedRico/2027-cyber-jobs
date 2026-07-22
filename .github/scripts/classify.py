@@ -387,20 +387,28 @@ def _part_is_us(part):
     return any(s in low for s in US_SUBSTRINGS)
 
 
-US_TOKEN_RE = re.compile(r'\b(us|usa|u\.s\.a?|united states)\b')
-US_STATE_SUFFIX_RE = re.compile(r',\s*([A-Za-z]{2})\b')
+# Split on every delimiter that separates co-equal location options so a US
+# token is tested as its own segment, not as an 'us' buried in prose.
+SEGMENT_SPLIT_RE = re.compile(r'[,/;|•\-–]|\bor\b')
+US_COUNTRY_SEGMENTS = {'us', 'usa', 'unitedstates'}
 
 
 def _has_strong_us_token(location):
-    """True if the string names an unambiguous US token (US / a ', ST' state).
+    """True only for an unambiguous, delimited US token.
 
-    Lets a comma-joined multi-country string like "Remote - US, UK" — which the
-    part splitter can't break up — still count as US-eligible.
+    Accepts a comma-joined multi-country string like "Remote - US, UK" (the
+    splitter can't break it up) where "US" is its own segment, and a trailing
+    ", ST" that rescues a US city whose name collides with a foreign one
+    (Vienna VA, Paris TX). Rejects an 'us' embedded in prose ("India (US
+    hours)") and a mid-string state code followed by a country
+    ("Chennai, TN, India").
     """
-    if US_TOKEN_RE.search(location.lower()):
-        return True
-    return any(m.group(1).upper() in US_STATES
-               for m in US_STATE_SUFFIX_RE.finditer(location))
+    for seg in SEGMENT_SPLIT_RE.split(location):
+        if re.sub(r'[^a-z]', '', seg.strip().lower()) in US_COUNTRY_SEGMENTS:
+            return True
+    # End-anchored: the state code must be the trailing token.
+    m = REGION_CODE_RE.search(location)
+    return bool(m and m.group(1).upper() in US_STATES)
 
 
 def is_us_location(location):
@@ -515,11 +523,18 @@ def normalize_location(location):
 # Classification
 # ---------------------------------------------------------------------------
 
+# Descriptions are only skimmed for a few short signals; cap the length so the
+# tag-strip regex can't be driven quadratic by a pathological '<'-heavy body.
+MAX_DESCRIPTION_CHARS = 100_000
+
+
 def strip_html(text):
     if not text:
         return ''
-    text = html.unescape(text)
-    return re.sub(r'<[^>]+>', ' ', text)
+    text = html.unescape(text[:MAX_DESCRIPTION_CHARS])
+    # `[^<>]` excludes '<' too, so an unclosed-tag run of '<' can't be consumed
+    # and re-backtracked — linear on every Python version (no ReDoS).
+    return re.sub(r'<[^<>]*>', ' ', text)
 
 
 def is_rejected_title(title):
@@ -609,21 +624,25 @@ def requires_clearance(title, description=''):
     return any(kw in text for kw in CLEARANCE_SIGNALS)
 
 
-# "3+ years", "5 years of experience", "3 or more years", "3+ yrs".
-YEARS_RE = re.compile(r'\b(\d{1,2})\s*\+?\s*(?:or more\s+)?(?:years?|yrs?)\b')
+# "3+ years", "5 years of experience", "3 or more years", "3+ yrs". Whitespace
+# runs are bounded ({0,3}) so a digit followed by a huge space run can't drive
+# the two adjacent \s* quadratic.
+YEARS_RE = re.compile(r'\b(\d{1,2})\s{0,3}\+?\s{0,3}(?:or more\s{1,3})?(?:years?|yrs?)\b')
 # Spelled-out counts that matter for the low end of "N+ years".
 SPELLED_YEARS = ('three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten')
 SPELLED_YEARS_RE = re.compile(
-    r'\b(?:' + '|'.join(SPELLED_YEARS) + r')\s*\+?\s*(?:or more\s+)?(?:years?|yrs?)\b')
-# Anchor to a requirement context so "the past 3 years of CVEs" is not read as
-# an experience requirement.
-EXPERIENCE_CONTEXT_RE = re.compile(
-    r'\b(minimum|at least|require[sd]?|must have|need|experience)\b', re.IGNORECASE)
+    r'\b(?:' + '|'.join(SPELLED_YEARS) + r')\s{0,3}\+?\s{0,3}(?:or more\s{1,3})?(?:years?|yrs?)\b')
+# A requirement verb close before the count, e.g. "minimum 3 years".
+REQUIREMENT_VERB_RE = re.compile(
+    r'\b(minimum|at least|require[sd]?|must have|need)\b', re.IGNORECASE)
 
 
 def _year_in_requirement_context(low, start, end):
-    window = low[max(0, start - 60):end + 25]
-    return 'experience' in window or bool(EXPERIENCE_CONTEXT_RE.search(window))
+    # "N years of experience" (experience shortly after) or "requires N years"
+    # (a requirement verb shortly before) — but NOT a bare mention like
+    # "analyzed the past 3 years of incidents".
+    return ('experience' in low[end:end + 30]
+            or bool(REQUIREMENT_VERB_RE.search(low[max(0, start - 40):start])))
 
 
 def requires_experience(description):
@@ -698,12 +717,14 @@ def purge_stale_listings(listings, today, max_age_days=60):
 
     Only closed rows are eligible — an old but still-open posting is kept, so
     the board doesn't silently discard a live long-running req. Age is measured
-    from closed_date, falling back to date_added.
+    from closed_date, falling back to date_added. Community rows are exempt:
+    they can't self-heal through the scraper's revival path (they never appear
+    in raw_jobs), so a transient link-check failure must not delete them.
     """
     cutoff = (_parse_date(today) or datetime.now().date()) - timedelta(days=max_age_days)
     kept, removed = [], 0
     for entry in listings:
-        if entry.get('closed'):
+        if entry.get('closed') and entry.get('source') != 'Community':
             stamp = _parse_date(entry.get('closed_date') or entry.get('date_added'))
             if stamp and stamp < cutoff:
                 removed += 1

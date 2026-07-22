@@ -106,15 +106,20 @@ def main():
 
     for issue in issues:
         number = issue.get('number')
-        fields = parse_issue_body(issue.get('body', ''))
-        listing = fields_to_listing(fields)
+        try:
+            fields = parse_issue_body(issue.get('body') or '')
+            listing = fields_to_listing(fields)
+        except Exception as e:
+            # One malformed issue must not abort the whole approved batch.
+            print(f'  Issue #{number}: could not parse ({e}), skipping')
+            continue
 
         if not listing['url'] or not listing['company'] or not listing['role']:
             print(f'  Issue #{number}: missing required fields, skipping')
             continue
 
-        if not re.match(r'^https?://', listing['url']):
-            print(f'  Issue #{number}: URL must be http(s), skipping')
+        if not re.match(r'^https?://', listing['url']) or re.search(r'\s', listing['url']):
+            print(f'  Issue #{number}: URL must be a single-line http(s) link, skipping')
             continue
 
         # Re-validate the location at ingestion — validate_issue.py checks it on
