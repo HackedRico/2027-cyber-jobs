@@ -2,9 +2,9 @@
 
 Employers whose job boards are scraped automatically (see [companies.yml](companies.yml)). 🛡️ marks pure-play security companies, where every engineering role is a security-industry job.
 
-**241 companies tracked.**
+**248 companies tracked.**
 
-## Ashby (57)
+## Ashby (56)
 
 - 1Password 🛡️
 - Airbyte
@@ -22,7 +22,6 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Drata 🛡️
 - Escape 🛡️
 - FAR AI 🛡️
-- Gray Swan AI 🛡️
 - HackerOne 🛡️
 - Horizon3.ai 🛡️
 - HUMAN Security 🛡️
@@ -64,7 +63,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - WorkOS 🛡️
 - Zapier
 
-## Greenhouse (124)
+## Greenhouse (127)
 
 - Abnormal AI 🛡️
 - Affirm
@@ -100,6 +99,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Corelight 🛡️
 - Cribl
 - Cybereason 🛡️
+- Cyware 🛡️
 - Databricks
 - Datadog
 - Deepwatch 🛡️
@@ -160,10 +160,12 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Salt Security 🛡️
 - Samsara
 - Scale AI
+- SecurityScorecard 🛡️
 - SentinelOne 🛡️
 - Shift5 🛡️
 - Socket 🛡️
 - SpecterOps 🛡️
+- SpyCloud 🛡️
 - STR 🛡️
 - Stripe
 - Sumo Logic
@@ -191,7 +193,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Yubico 🛡️
 - Zscaler 🛡️
 
-## Lever (16)
+## Lever (17)
 
 - Anchorage Digital
 - Apollo Research 🛡️
@@ -206,6 +208,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Push Security 🛡️
 - Saviynt 🛡️
 - Shield AI
+- Sonatype 🛡️
 - StackHawk 🛡️
 - Sysdig 🛡️
 - Teleport 🛡️
@@ -219,8 +222,9 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Aikido Security 🛡️
 - Wallarm 🛡️
 
-## SmartRecruiters (3)
+## SmartRecruiters (4)
 
+- Check Point 🛡️
 - Jscrambler 🛡️
 - Securiti 🛡️
 - Visa
@@ -235,7 +239,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - ReversingLabs 🛡️
 - Trail of Bits 🛡️
 
-## Workday (31)
+## Workday (34)
 
 - Adobe
 - Arctic Wolf 🛡️
@@ -248,6 +252,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - F5
 - GDIT
 - Intel
+- KBR
 - Leidos
 - ManTech
 - Mastercard
@@ -258,11 +263,13 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - NVIDIA
 - Optiv 🛡️
 - Palo Alto Networks 🛡️
+- Parsons
 - PayPal
 - Proofpoint 🛡️
 - Qualcomm
 - Qualys 🛡️
 - ReliaQuest 🛡️
+- RTX
 - SailPoint 🛡️
 - Salesforce
 - Sierra Nevada Corporation
