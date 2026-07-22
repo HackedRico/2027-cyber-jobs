@@ -15,7 +15,7 @@ Ground rules — listings must be:
 
 ## 2. Add a company to the scraper
 
-If an employer uses Greenhouse, Lever, Ashby, SmartRecruiters, Workable, Recruitee, Pinpoint, or Workday, add it to [`companies.yml`](companies.yml) in a pull request and the scraper will pick up its roles automatically.
+If an employer uses Greenhouse, Lever, Ashby, SmartRecruiters, Workable, Recruitee, Pinpoint, Workday, or Oracle Recruiting Cloud, add it to [`companies.yml`](companies.yml) in a pull request and the scraper will pick up its roles automatically.
 
 Find the identifier from the company's careers page URL:
 
@@ -29,6 +29,7 @@ Find the identifier from the company's careers page URL:
 | Recruitee | `acme.recruitee.com` | `- name: Acme` / `slug: acme` |
 | Pinpoint | `acme.pinpointhq.com` | `- name: Acme` / `slug: acme` |
 | Workday | `acme.wd5.myworkdayjobs.com/External` | `- name: Acme` / `tenant: acme` / `instance: wd5` / `board: External` |
+| Oracle | `acme.fa.us2.oraclecloud.com/...CandidateExperience/en/sites/CX_1` | `- name: Acme` / `host: acme.fa.us2.oraclecloud.com` / `site: CX_1` |
 
 Set `security_company: true` for pure-play security vendors/consultancies — that allows generic engineering titles (not just titles containing security keywords) to be listed from that company.
 
@@ -40,14 +41,18 @@ curl -s "https://boards-api.greenhouse.io/v1/boards/acme/jobs" | head -c 200
 
 ## 3. Improve the scraper
 
-The filtering logic lives in [`scrape_jobs.py`](.github/scripts/scrape_jobs.py) as keyword lists near the top of the file (cyber keywords, new-grad/early-career signals, seniority rejects, location rules). PRs that tighten precision or add coverage are welcome — please include a few example titles the change affects.
+The filtering logic lives in [`classify.py`](.github/scripts/classify.py) — the keyword taxonomy (cyber keywords, new-grad/early-career signals, seniority rejects) and the US location rules. It is dependency-free and fully covered by `test_classification.py`, so add a case there for any change. The ATS scrapers, persistence, and orchestration live in [`scrape_jobs.py`](.github/scripts/scrape_jobs.py). PRs that tighten precision or add coverage are welcome — please include a few example titles the change affects.
 
 ## Testing locally
 
 ```bash
-pip install -r requirements.txt
-python .github/scripts/test_classification.py  # classification spot checks — run after keyword changes
-python .github/scripts/scrape_jobs.py          # scrape + update listings.json + README
-python .github/scripts/rebuild_readme.py       # rebuild tables from listings.json only
-python .github/scripts/check_links.py          # mark dead links
+pip install -r requirements-dev.txt
+ruff check .github/scripts                            # lint
+python .github/scripts/test_classification.py         # classification spot checks (run after keyword changes)
+python .github/scripts/test_scrapers.py               # offline ATS-parser tests
+python .github/scripts/scrape_jobs.py --dry-run       # full scrape + classify, writes NOTHING
+python .github/scripts/scrape_jobs.py --dry-run --board greenhouse --limit 3  # fast single-board iteration
+python .github/scripts/check_slugs.py                 # find configured slugs that return no jobs
 ```
+
+> ⚠️ `python .github/scripts/scrape_jobs.py` **without** `--dry-run` hits every live API and overwrites `listings.json`, `README.md`, `companies.md`, and `.github/data/`. Use `--dry-run` for local testing.

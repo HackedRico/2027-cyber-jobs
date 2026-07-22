@@ -17,10 +17,10 @@ jobs:
       contents: write
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: '3.12'
 
@@ -37,6 +37,9 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add .github/data/seen_jobs.json listings.json README.md companies.md
+          git add .github/data/seen_jobs.json .github/data/board_baseline.json listings.json README.md companies.md
           git diff --staged --quiet || git commit -m "add auto-discovered listings"
-          git pull --rebase -X ours && git push
+          # -X theirs keeps the bot's freshly-scraped rows (listings.json is the
+          # source of truth) on a rare concurrent-push conflict, rather than
+          # silently dropping them.
+          git pull --rebase -X theirs && git push

@@ -1,0 +1,5 @@
+-r requirements.txt
+
+# Lint + the mock-HTTP library the scraper parser tests run against.
+ruff==0.6.9
+responses==0.25.3
