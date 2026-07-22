@@ -1,486 +1,122 @@
 #!/usr/bin/env python3
-"""
-Scrape ATS job-board APIs for US new-grad, early-career, and internship
+"""Scrape ATS job-board APIs for US new-grad, early-career, and internship
 cybersecurity roles.
 
-Pipeline per job:
-  1. Hard rejects (seniority, non-cyber functions, physical security)
-  2. Cyber relevance (title keywords; generic engineering titles allowed at
-     pure-play security companies flagged `security_company: true`)
-  3. Level classification -> intern | newgrad | earlycareer (title first,
-     then ATS employment-type hints, then strong phrases in the description
-     when the ATS returns one)
-  4. US-only location filter
-  5. Clearance/citizenship detection -> 🇺🇸 marker
-  6. Category inference (SOC, AppSec, Offensive Security, GRC, ...)
-
-Accepted jobs are appended to listings.json (deduped by normalized URL) and
-the README tables are rebuilt once at the end.
+Classification, location filtering, and URL normalization live in the
+dependency-free `classify` and `common` modules so the scraper, the
+community-submission scripts, and the test suite share one source of truth.
+This file owns the ATS scrapers, persistence, and orchestration.
 """
 
-import html
+import argparse
 import json
-import re
 import os
-import subprocess
+import random
+import re
 import sys
 import time
 from datetime import datetime
 from pathlib import Path
-from urllib.parse import urlparse, parse_qs, urlencode, urlunparse
 
+import rebuild_readme
 import requests
 import yaml
+from classify import (
+    AI_CATEGORY_RE,
+    classify_level,
+    evaluate_job,
+    is_cyber_title,
+    is_rejected_title,
+    listing_dedup_key,
+    normalize_location,
+    prune_seen,
+    purge_stale_listings,
+    reclassify_listings,
+    requires_clearance,
+)
+from common import normalize_url
 
 LISTINGS_FILE = Path('listings.json')
 SEEN_JOBS_FILE = Path('.github/data/seen_jobs.json')
+BOARD_BASELINE_FILE = Path('.github/data/board_baseline.json')
 
 HEADERS = {'User-Agent': 'Mozilla/5.0 (compatible; cyber-jobs-scraper/1.0)'}
 
-# ---------------------------------------------------------------------------
-# Title classification keywords
-# ---------------------------------------------------------------------------
+REQUEST_TIMEOUT = 20
+MAX_RETRIES = 3
+BACKOFF_BASE = 1.6
+MAX_BACKOFF = 30
+# Hard caps so a bad `total` or a page that echoes forever can't loop until the
+# workflow's 15-minute timeout.
+MAX_PAGES = 60
 
-# Roles too senior for an early-career board.
-SENIORITY_REJECT = [
-    r'\bsenior\b', r'\bsr\b\.?', r'\bstaff\b', r'\bprincipal\b', r'\blead\b',
-    r'\bmanager\b', r'\bdirector\b', r'\bvp\b', r'\bvice president\b',
-    r'\bhead of\b', r'\bchief\b', r'\bdistinguished\b', r'\bfellow\b',
-    r'\barchitect\b', r'\bexecutive\b', r'\biii\b', r'\biv\b', r'\bexpert\b',
-    r'\bsme\b', r'\bsubject matter expert\b',
-    r'\b3\b', r'\b4\b',
-]
-
-# Internships and co-ops get their own level. Title signals only — job
-# descriptions mention "our internship program" as boilerplate far too often
-# to be trusted. Word boundaries keep 'intern' from matching 'internal'.
-INTERN_TITLE_RES = [re.compile(p) for p in (
-    r'\bintern\b', r'\binternship\b', r'\bco-?op\b',
-    # Bank-style ("Cybersecurity Summer Analyst") and USAJOBS Pathways
-    # ("Student Trainee") internship titles.
-    r'\bsummer analyst\b', r'\bstudent trainee\b',
-)]
-
-# "Security Engineer - Summer 2027" is an internship req even without the
-# word "intern" — but only when paired with a hiring-cycle year (COHORT_YEAR_RE
-# bounds the window, so a stale "Summer 2019" repost is not resurrected), and
-# only after the explicit new-grad signals lose ("New Grad ... Summer 2026
-# Start" is a full-time cohort with a season, not an internship).
-SUMMER_RE = re.compile(r'\bsummer\b')
-
-# Physical security and non-cyber business functions.
-FUNCTION_REJECT = [
-    'security guard', 'physical security', 'loss prevention', 'public safety',
-    'executive protection', 'transportation security', 'safety and security',
-    'security screener', 'campus safety', 'alarm technician',
-    'nuclear safeguards',  # 'safeguards' alone is an AI-safety signal
-    'sales', 'account executive', 'account manager', 'marketing',
-    'recruiter', 'recruiting', 'talent acquisition', 'human resources',
-    'people technology', 'people operations', 'channel systems',
-    'customer success', 'business development', 'partner manager',
-    'payroll', 'accountant', 'accounting', 'finance', 'financial analyst',
-    'fp&a', 'revenue', 'billing', 'procurement', 'supply chain',
-    'attorney', 'counsel', 'paralegal', 'executive assistant',
-    'administrative assistant', 'workplace', 'facilities',
-    'copywriter', 'community manager', 'social media',
-    'hackathon', 'general interest', 'talent community', 'talent network',
-    # Hardware/manufacturing — "SoC" (system-on-chip) titles are not SOC roles.
-    'asic', 'rtl design', 'soc design', 'soc verification', 'soc architect',
-    'silicon', 'chip design', 'tapeout', 'manufacturing engineer',
-    'process engineer', 'mechanical engineer', 'electrical engineer',
-    'chemical engineer', 'industrial engineer', 'civil engineer',
-    'photolithography', 'metrology',
-]
-
-# "Security Officer" is usually a guard; keep it only when clearly infosec.
-SECURITY_OFFICER_RE = re.compile(r'\bsecurity officer\b')
-INFOSEC_OFFICER_HINTS = ['information security', 'cyber', 'ciso', 'iso ']
-
-# A title containing any of these is a cybersecurity role.
-CYBER_KEYWORDS = [
-    'security', 'cyber', 'infosec', 'information assurance',
-    'penetration test', 'pentest', 'red team', 'blue team', 'purple team',
-    'threat', 'incident response', 'forensic', 'malware', 'vulnerability',
-    'appsec', 'exploit', 'reverse engineer', 'cryptograph', 'grc',
-    'siem', 'detection engineer', 'detection and response',
-    'devsecops', 'identity and access', 'zero trust', 'privacy engineer',
-    'iam engineer', 'iam analyst', 'cyber risk', 'security risk',
-    'technology risk',
-    # AI security & AI safety — model/LLM security, adversarial ML, and
-    # safety/alignment work at AI labs.
-    'ai security', 'ml security', 'llm security', 'model security',
-    'genai security', 'ai safety', 'ai risk', 'ai governance',
-    'responsible ai', 'trustworthy ai', 'ai red team',
-    'adversarial machine learning', 'adversarial ml', 'adversarial robustness',
-    'ai alignment', 'alignment science', 'alignment research', 'safeguards',
-]
-
-# Short acronyms need word boundaries ('soc' is inside 'associate'), and
-# 'SoC' must not match system-on-chip hardware titles.
-CYBER_REGEXES = [re.compile(p) for p in
-                 (r'\bsoc\b(?!\s+(asic|design|verification|rtl|silicon|power|hardware))',
-                  r'\bcnd\b', r'\bcno\b', r'\bdfir\b', r'\bir analyst\b')]
-
-# At `security_company: true` employers, any engineering role is a
-# security-industry job even without a cyber keyword in the title.
-TECH_KEYWORDS = [
-    'engineer', 'developer', 'software', 'devops', 'sre', 'researcher',
-    'scientist', 'data analyst', 'solutions engineer', 'support engineer',
-    'infrastructure', 'platform', 'backend', 'frontend', 'full stack',
-    'full-stack', 'machine learning', 'detection', 'analyst',
-]
-
-NEWGRAD_SIGNALS = [
-    'new grad', 'new-grad', 'university grad', 'college grad', 'campus hire',
-    'graduate program', 'grad program', 'graduate engineer',
-    'graduate analyst', 'graduate cyber', 'graduate security',
-    'early career program', 'emerging talent', 'early talent', 'rotational',
-    'rotation program', 'recent graduate', 'launch program',
-    'associate program',
-    'class of 2026', 'class of 2027', '2026 grad', '2027 grad',
-    'new graduate', 'university hire', 'campus recruit',
-    # Defense contractors run new-grad cohorts as "development programs".
-    'leadership development program', 'graduate development program',
-    'cyber development program', 'early career development',
-    'pathways program',
-]
-
-# Titles carrying a target start year ("2026 Associate Cyber Software
-# Engineer") are campus-cohort reqs. The optional leading digit absorbs
-# Northrop's year typos like "22026".
-COHORT_YEAR_RE = re.compile(r'\b2?20(2[6-8])\b')
-
-EARLYCAREER_SIGNALS = [
-    'entry level', 'entry-level', 'early career', 'junior', 'apprentice',
-    'associate', 'tier 1', 'tier i', 'level 1', 'early in career',
-]
-
-# "Analyst I", "Engineer 1", "SOC Analyst II" — I/II count as early career,
-# III+ is rejected by SENIORITY_REJECT above.
-LEVELED_TITLE_RE = re.compile(
-    r'\b(analyst|engineer|consultant|specialist|administrator|technician|'
-    r'developer|tester|responder|investigator)\s+(i|ii|1|2)\b'
-)
-
-# Strong phrases in a job description that mark a role as early career.
-# Deliberately tight — descriptions are noisy (boilerplate like "from early
-# career to executive" would false-positive on looser phrases).
-DESCRIPTION_SIGNALS = [
-    '0-2 years', '0–2 years', '0 to 2 years', 'no prior experience',
-    'entry level role', 'entry-level role', 'entry level position',
-    'entry-level position', 'entry level opportunity',
-]
-
-CLEARANCE_SIGNALS = [
-    'clearance', 'ts/sci', 'top secret', 'polygraph', 'us citizen',
-    'u.s. citizen', 'us citizenship', 'u.s. citizenship', 'public trust',
-    'secret-level',
-]
-
-# Ordered buckets; first matching regex wins.
-CATEGORY_RULES = [
-    ('AI Security & Safety', r'ai security|ml security|llm security|'
-                             r'model security|genai security|ai safety|'
-                             r'ai risk|ai governance|responsible ai|'
-                             r'trustworthy ai|ai red team|adversarial|'
-                             r'alignment|safeguards'),
-    ('Offensive Security', r'penetration|pentest|red team|offensive|exploit|'
-                           r'vulnerability research|purple team'),
-    ('SOC & Detection', r'\bsoc\b|security operations|detection|blue team|'
-                        r'incident response|threat hunt|csirt|siem|'
-                        r'cyber defense|defensive cyber|triage'),
-    ('Threat Intelligence', r'threat intel|\bcti\b|intelligence analyst|'
-                            r'threat research|adversary'),
-    ('Forensics & IR', r'forensic|\bdfir\b|malware analy|reverse engineer'),
-    ('AppSec & ProdSec', r'application security|product security|appsec|'
-                         r'secure code|devsecops|software security'),
-    ('Cloud & Infra Security', r'cloud security|infrastructure security|'
-                               r'network security|platform security|'
-                               r'systems security'),
-    ('Identity & IAM', r'\biam\b|identity|access management|zero trust'),
-    ('GRC & Risk', r'\bgrc\b|governance|risk|compliance|audit|policy|'
-                   r'information assurance|privacy'),
-    ('Security Engineering', r'security|cyber|infosec|cryptograph'),
-]
-CATEGORY_RULES = [(name, re.compile(pattern)) for name, pattern in CATEGORY_RULES]
-
-# ---------------------------------------------------------------------------
-# Location filtering (United States only)
-# ---------------------------------------------------------------------------
-
-US_STATE_ABBRS = {
-    'alabama': 'AL', 'alaska': 'AK', 'arizona': 'AZ', 'arkansas': 'AR',
-    'california': 'CA', 'colorado': 'CO', 'connecticut': 'CT', 'delaware': 'DE',
-    'florida': 'FL', 'georgia': 'GA', 'hawaii': 'HI', 'idaho': 'ID',
-    'illinois': 'IL', 'indiana': 'IN', 'iowa': 'IA', 'kansas': 'KS',
-    'kentucky': 'KY', 'louisiana': 'LA', 'maine': 'ME', 'maryland': 'MD',
-    'massachusetts': 'MA', 'michigan': 'MI', 'minnesota': 'MN',
-    'mississippi': 'MS', 'missouri': 'MO', 'montana': 'MT', 'nebraska': 'NE',
-    'nevada': 'NV', 'new hampshire': 'NH', 'new jersey': 'NJ',
-    'new mexico': 'NM', 'new york': 'NY', 'north carolina': 'NC',
-    'north dakota': 'ND', 'ohio': 'OH', 'oklahoma': 'OK', 'oregon': 'OR',
-    'pennsylvania': 'PA', 'rhode island': 'RI', 'south carolina': 'SC',
-    'south dakota': 'SD', 'tennessee': 'TN', 'texas': 'TX', 'utah': 'UT',
-    'vermont': 'VT', 'virginia': 'VA', 'washington': 'WA',
-    'west virginia': 'WV', 'wisconsin': 'WI', 'wyoming': 'WY',
-    'district of columbia': 'DC',
-}
-US_STATES = set(US_STATE_ABBRS.values())
-CA_PROVINCES = {'AB', 'BC', 'MB', 'NB', 'NL', 'NS', 'NT', 'NU', 'ON', 'PE',
-                'QC', 'SK', 'YT'}
-
-US_SUBSTRINGS = [
-    'united states', 'usa', 'u.s.', 'us only', 'us-remote', 'remote - us',
-    'remote (us', 'remote, us', 'us remote', 'anywhere in the us',
-    'new york', 'san francisco', 'los angeles', 'seattle', 'boston',
-    'chicago', 'austin', 'denver', 'atlanta', 'miami', 'dallas', 'houston',
-    'raleigh', 'washington, d', 'washington d', 'arlington', 'reston',
-    'mclean', 'annapolis', 'fort meade', 'huntsville', 'colorado springs',
-    'san antonio', 'menlo park', 'palo alto', 'mountain view', 'san jose',
-    'sunnyvale', 'redwood city', 'bellevue', 'redmond', 'portland',
-    'salt lake city', 'phoenix', 'philadelphia', 'pittsburgh', 'columbus',
-    'minneapolis', 'nashville', 'charlotte', 'tampa', 'orlando',
-    'baltimore', 'detroit', 'kansas city', 'st. louis', 'san diego',
-    'sacramento', 'boulder', 'santa clara', 'irvine', 'cambridge',
-]
-
-NON_US_SUBSTRINGS = [
-    'canada', 'toronto', 'vancouver', 'montreal', 'ottawa', 'calgary',
-    'waterloo', 'ontario', 'british columbia', 'quebec',
-    'london', 'united kingdom', ' uk', '(uk)', 'u.k.', 'england', 'scotland',
-    'ireland', 'dublin', 'belfast',
-    'germany', 'berlin', 'munich', 'frankfurt',
-    'france', 'paris', 'netherlands', 'amsterdam', 'belgium', 'brussels',
-    'spain', 'madrid', 'barcelona', 'portugal', 'lisbon', 'italy', 'milan',
-    'poland', 'warsaw', 'krakow', 'czech', 'prague', 'romania', 'bucharest',
-    'sweden', 'stockholm', 'norway', 'oslo', 'denmark', 'copenhagen',
-    'finland', 'helsinki', 'switzerland', 'zurich', 'austria', 'vienna',
-    'estonia', 'tallinn', 'hungary', 'budapest', 'greece', 'athens',
-    'israel', 'tel aviv', 'jerusalem',
-    'india', 'bangalore', 'bengaluru', 'hyderabad', 'pune', 'mumbai',
-    'delhi', 'chennai', 'noida', 'gurgaon', 'gurugram',
-    'singapore', 'japan', 'tokyo', 'korea', 'seoul', 'china', 'beijing',
-    'shanghai', 'hong kong', 'taiwan', 'taipei', 'philippines', 'manila',
-    'vietnam', 'malaysia', 'indonesia', 'jakarta', 'thailand', 'bangkok',
-    'australia', 'sydney', 'melbourne', 'brisbane', 'new zealand', 'auckland',
-    'mexico city', ', mexico', 'brazil', 'sao paulo', 'argentina',
-    'buenos aires', 'colombia', 'bogota', 'chile', 'santiago', 'costa rica',
-    'peru', 'uruguay',
-    'dubai', 'uae', 'saudi', 'riyadh', 'qatar', 'egypt', 'cairo',
-    'nigeria', 'lagos', 'south africa', 'kenya', 'nairobi',
-    'emea', 'apac', 'latam',
-]
+# One connection-pooled session for every request.
+SESSION = requests.Session()
+SESSION.headers.update(HEADERS)
 
 
-def _term_regex(term):
-    # Word-bound each term so 'india' doesn't match 'Indianapolis'.
-    pat = re.escape(term)
-    if term[0].isalnum():
-        pat = r'\b' + pat
-    if term[-1].isalnum():
-        pat += r'\b'
-    return pat
+def _sleep_backoff(attempt, retry_after=None):
+    if retry_after and str(retry_after).strip().isdigit():
+        delay = float(retry_after)
+    else:
+        delay = BACKOFF_BASE ** attempt + random.uniform(0, 0.5)
+    time.sleep(min(delay, MAX_BACKOFF))
 
 
-NON_US_RE = re.compile('|'.join(_term_regex(t) for t in NON_US_SUBSTRINGS))
+def fetch_json(url, *, method='GET', label='', **kwargs):
+    """HTTP request returning parsed JSON, or None on unrecoverable failure.
 
-REGION_CODE_RE = re.compile(r',\s*([A-Za-z]{2})\.?\s*$')
-
-
-def is_us_location(location):
-    """True if every part of a (possibly multi-) location string is in the US."""
-    if not location or not location.strip():
-        return False
-    loc = location.lower()
-
-    if NON_US_RE.search(loc):
-        return False
-
-    parts = re.split(r'[;|•]|\bor\b', location)
-    for part in parts:
-        part = part.strip()
-        if not part:
+    Retries transient failures — timeouts, connection resets, 429/503 (honoring
+    Retry-After), and 200s with a non-JSON body — with exponential backoff plus
+    jitter, over one pooled Session. Returning None (not []) lets callers tell a
+    broken fetch apart from a genuinely empty board.
+    """
+    kwargs.setdefault('timeout', REQUEST_TIMEOUT)
+    for attempt in range(MAX_RETRIES):
+        last = attempt + 1 == MAX_RETRIES
+        try:
+            resp = SESSION.request(method, url, **kwargs)
+        except requests.RequestException as e:
+            if last:
+                print(f'  [{label}] request error: {e}')
+                return None
+            _sleep_backoff(attempt)
             continue
-        m = REGION_CODE_RE.search(part)
-        if m:
-            code = m.group(1).upper()
-            if code in US_STATES:
-                return True
-            if code in CA_PROVINCES:
-                return False
-        # "Albuquerque, New Mexico" — full state name after the last comma
-        region = part.rsplit(',', 1)[-1].strip().lower()
-        if region in US_STATE_ABBRS:
-            return True
-
-    if re.fullmatch(r'remote(\s*\(.*\))?|work from home|nationwide', loc.strip()):
-        return True
-
-    # "US, Remote", "Remote- US", "US - Austin" — a standalone US token.
-    if re.search(r'\b(us|usa|u\.s\.a?|united states)\b', loc):
-        return True
-
-    return any(s in loc for s in US_SUBSTRINGS)
-
-
-def _normalize_single_location(location):
-    location = location.strip()
-    # Amazon: "US, MA, Boston" -> "Boston, MA"
-    m = re.fullmatch(r'(?:USA?|United States),\s*([A-Z]{2}),\s*(.+)', location)
-    if m:
-        return f'{m.group(2).strip()}, {m.group(1)}'
-    # Northrop-style Workday: "United States-California-Palmdale"
-    m = re.fullmatch(r'(?:USA?|United States)-([A-Za-z .]+)-(.+)', location)
-    if m:
-        abbr = US_STATE_ABBRS.get(m.group(1).strip().lower())
-        if abbr:
-            return f'{m.group(2).strip()}, {abbr}'
-    # GDIT-style: "USA OH Dayton" -> "Dayton, OH"
-    m = re.fullmatch(r'USA?\s+([A-Z]{2})\s+(.+)', location)
-    if m:
-        return f'{m.group(2).strip()}, {m.group(1)}'
-    location = re.sub(r'^(usa?|united states)\s*[-–:]\s*', '', location,
-                      flags=re.IGNORECASE)
-    loc_l = location.lower()
-    if 'remote' in loc_l and (loc_l == 'remote'
-                              or re.search(r'\busa?\b|\bunited states\b', loc_l)):
-        return 'Remote (US)'
-    parts = [p.strip() for p in location.split(',')]
-    if len(parts) >= 2 and parts[-1].lower() in ('usa', 'us', 'united states'):
-        parts = parts[:-1]  # "Arlington, Virginia, USA" -> "Arlington, Virginia"
-    if len(parts) >= 2:
-        abbr = US_STATE_ABBRS.get(parts[-1].lower())
-        if abbr:
-            return f'{", ".join(parts[:-1])}, {abbr}'
-    return ', '.join(parts)
-
-
-def normalize_location(location):
-    """Convert "USA - Austin, Texas" -> "Austin, TX"; collapse remote variants."""
-    if not location:
-        return location
-    parts = [p.strip() for p in location.split(';') if p.strip()]
-    return '; '.join(dict.fromkeys(_normalize_single_location(p) for p in parts))
-
-
-# ---------------------------------------------------------------------------
-# Classification
-# ---------------------------------------------------------------------------
-
-def strip_html(text):
-    if not text:
-        return ''
-    text = html.unescape(text)
-    return re.sub(r'<[^>]+>', ' ', text)
-
-
-def is_rejected_title(title):
-    t = title.lower()
-    if any(re.search(p, t) for p in SENIORITY_REJECT):
-        return True
-    if any(kw in t for kw in FUNCTION_REJECT):
-        return True
-    if SECURITY_OFFICER_RE.search(t) and not any(h in t for h in INFOSEC_OFFICER_HINTS):
-        return True
-    return False
-
-
-def is_cyber_title(title, security_company=False):
-    t = title.lower()
-    if any(kw in t for kw in CYBER_KEYWORDS):
-        return True
-    if any(p.search(t) for p in CYBER_REGEXES):
-        return True
-    if security_company and any(kw in t for kw in TECH_KEYWORDS):
-        return True
-    return False
-
-
-def classify_level(title, description='', intern_hint=False):
-    """Return 'intern', 'newgrad', 'earlycareer', or None."""
-    t = title.lower()
-    # Intern wins first: "SOC Intern - Summer 2027" must not fall through to
-    # the cohort-year rule and come out as newgrad. `intern_hint` carries an
-    # ATS employment-type field for postings whose title omits "intern".
-    if intern_hint or any(p.search(t) for p in INTERN_TITLE_RES):
-        return 'intern'
-    if any(kw in t for kw in NEWGRAD_SIGNALS):
-        return 'newgrad'
-    if re.search(r'\bgraduate\b', t) and 'graduate degree' not in t:
-        return 'newgrad'
-    # Season + cohort year with no new-grad wording is an internship req;
-    # checked before the bare cohort-year rule, which would claim it.
-    if SUMMER_RE.search(t) and COHORT_YEAR_RE.search(t):
-        return 'intern'
-    if COHORT_YEAR_RE.search(t):
-        return 'newgrad'
-    if any(kw in t for kw in EARLYCAREER_SIGNALS):
-        return 'earlycareer'
-    if LEVELED_TITLE_RE.search(t):
-        return 'earlycareer'
-    if description:
-        d = strip_html(description).lower()
-        if any(kw in d for kw in ('new grad', 'new graduate', 'recent graduate')):
-            return 'newgrad'
-        if any(kw in d for kw in DESCRIPTION_SIGNALS):
-            return 'earlycareer'
+        if resp.status_code in (429, 503):
+            if last:
+                print(f'  [{label}] HTTP {resp.status_code} (rate limited)')
+                return None
+            _sleep_backoff(attempt, resp.headers.get('Retry-After'))
+            continue
+        if resp.status_code != 200:
+            print(f'  [{label}] HTTP {resp.status_code}')
+            return None
+        try:
+            return resp.json()
+        except ValueError:
+            if last:
+                print(f'  [{label}] non-JSON 200 response')
+                return None
+            _sleep_backoff(attempt)
     return None
 
 
-def requires_clearance(title, description=''):
-    text = f'{title} {strip_html(description)}'.lower()
-    return any(kw in text for kw in CLEARANCE_SIGNALS)
+def check_container(data, key, label):
+    """Warn (as a GitHub annotation) when an expected top-level key is missing.
 
-
-YEARS_RE = re.compile(r'\b(\d{1,2})\s*\+?\s*(?:or more\s+)?years?\b')
-
-
-def requires_experience(description):
-    """True if the description asks for 3+ years anywhere."""
-    if not description:
-        return False
-    d = strip_html(description).lower()
-    return any(int(m.group(1)) >= 3 for m in YEARS_RE.finditer(d))
-
-
-def infer_category(title, security_company=False):
-    t = title.lower()
-    for category, pattern in CATEGORY_RULES:
-        if pattern.search(t):
-            return category
-    if security_company:
-        return 'Engineering @ Security Co'
-    return 'Security Engineering'
-
-
-AI_CATEGORY_RE = CATEGORY_RULES[0][1]
-assert CATEGORY_RULES[0][0] == 'AI Security & Safety'
-
-
-def evaluate_job(title, location, description='', security_company=False,
-                 intern_hint=False):
-    """Run the full filter pipeline. Returns (level, category) or None."""
-    if not title or is_rejected_title(title):
-        return None
-    if not is_cyber_title(title, security_company):
-        return None
-    level = classify_level(title, description, intern_hint)
-    if level is None:
-        # AI labs use flat titles ("Software Engineer, AI Safety") with no
-        # level marker. Accept AI security/safety roles unless the posting
-        # asks for 3+ years of experience.
-        if AI_CATEGORY_RE.search(title.lower()) and not requires_experience(description):
-            level = 'earlycareer'
-        else:
-            return None
-    if not is_us_location(location):
-        return None
-    return level, infer_category(title, security_company)
+    A 200 whose container key vanished is schema drift, indistinguishable from
+    an empty board unless surfaced.
+    """
+    if isinstance(data, dict) and key not in data:
+        print(f'::warning::[{label}] response missing expected key {key!r} '
+              f'(schema drift?); got keys {sorted(data)[:8]}')
 
 
 # ---------------------------------------------------------------------------
 # ATS scrapers — each yields dicts with:
 #   id, company, title, location, url, board, description (optional)
+# Scrapers return None on an unrecoverable fetch failure and a (possibly empty)
+# list otherwise, so the run summary can tell breakage from an empty board.
 # ---------------------------------------------------------------------------
 
 # Some boards put the workplace type where the location belongs; the real
@@ -506,12 +142,12 @@ def greenhouse_location(job):
 
 def scrape_greenhouse(company, slug):
     url = f'https://boards-api.greenhouse.io/v1/boards/{slug}/jobs?content=true'
-    resp = requests.get(url, timeout=15, headers=HEADERS)
-    if resp.status_code != 200:
-        print(f'  [{company}] Greenhouse HTTP {resp.status_code}')
-        return []
+    data = fetch_json(url, label=f'{company} Greenhouse')
+    if data is None:
+        return None
+    check_container(data, 'jobs', f'{company} Greenhouse')
     jobs = []
-    for job in resp.json().get('jobs', []):
+    for job in data.get('jobs', []):
         jobs.append({
             'id': f'greenhouse_{slug}_{job["id"]}',
             'company': company,
@@ -526,12 +162,11 @@ def scrape_greenhouse(company, slug):
 
 def scrape_lever(company, slug):
     url = f'https://api.lever.co/v0/postings/{slug}?mode=json'
-    resp = requests.get(url, timeout=15, headers=HEADERS)
-    if resp.status_code != 200:
-        print(f'  [{company}] Lever HTTP {resp.status_code}')
-        return []
+    data = fetch_json(url, label=f'{company} Lever')
+    if data is None:
+        return None
     jobs = []
-    for job in resp.json():
+    for job in data:
         country = job.get('country', '')
         if country and country.upper() != 'US':
             continue
@@ -554,18 +189,18 @@ def scrape_lever(company, slug):
 
 def scrape_ashby(company, slug):
     url = f'https://api.ashbyhq.com/posting-api/job-board/{slug}'
-    resp = requests.get(url, timeout=15, headers=HEADERS)
-    if resp.status_code != 200:
-        print(f'  [{company}] Ashby HTTP {resp.status_code}')
-        return []
-    data = resp.json()
+    data = fetch_json(url, label=f'{company} Ashby')
+    if data is None:
+        return None
+    if isinstance(data, dict) and 'jobs' not in data and 'jobPostings' not in data:
+        check_container(data, 'jobs', f'{company} Ashby')
     jobs = []
     for job in data.get('jobs') or data.get('jobPostings') or []:
         if job.get('isListed') is False:
             continue
         locations = [job.get('location', '') or job.get('locationName', '')]
         locations += [s.get('location', '') for s in job.get('secondaryLocations') or []]
-        location = '; '.join(dict.fromkeys(l for l in locations if l))
+        location = '; '.join(dict.fromkeys(x for x in locations if x))
         apply_url = (
             job.get('jobUrl', '')
             or job.get('applyUrl', '')
@@ -586,14 +221,13 @@ def scrape_ashby(company, slug):
 
 def scrape_smartrecruiters(company, identifier):
     url = f'https://api.smartrecruiters.com/v1/companies/{identifier}/postings'
-    params = {'limit': 100, 'offset': 0}
+    limit = 100
+    params = {'limit': limit, 'offset': 0}
     jobs = []
-    while True:
-        resp = requests.get(url, params=params, headers=HEADERS, timeout=15)
-        if resp.status_code != 200:
-            print(f'  [{company}] SmartRecruiters HTTP {resp.status_code}')
-            break
-        data = resp.json()
+    for _page in range(MAX_PAGES):
+        data = fetch_json(url, params=params, label=f'{company} SmartRecruiters')
+        if data is None:
+            return jobs if jobs else None
         content = data.get('content', [])
         if not content:
             break
@@ -620,7 +254,9 @@ def scrape_smartrecruiters(company, identifier):
             })
         total = data.get('totalFound', 0)
         params['offset'] += len(content)
-        if params['offset'] >= total:
+        # Stop on a short page (end of list) or once we've fetched `total`; a
+        # missing `total` no longer silently truncates to one page.
+        if len(content) < limit or params['offset'] >= total:
             break
         time.sleep(0.3)
     return jobs
@@ -628,12 +264,12 @@ def scrape_smartrecruiters(company, identifier):
 
 def scrape_workable(company, slug):
     url = f'https://apply.workable.com/api/v1/widget/accounts/{slug}'
-    resp = requests.get(url, headers=HEADERS, timeout=15)
-    if resp.status_code != 200:
-        print(f'  [{company}] Workable HTTP {resp.status_code}')
-        return []
+    data = fetch_json(url, label=f'{company} Workable')
+    if data is None:
+        return None
+    check_container(data, 'jobs', f'{company} Workable')
     jobs = []
-    for job in resp.json().get('jobs', []):
+    for job in data.get('jobs', []):
         loc = job.get('location', {})
         country = loc.get('countryCode', '').upper()
         if country and country != 'US' and not loc.get('remote'):
@@ -660,12 +296,12 @@ def scrape_workable(company, slug):
 
 def scrape_recruitee(company, slug):
     url = f'https://{slug}.recruitee.com/api/offers/'
-    resp = requests.get(url, headers=HEADERS, timeout=15)
-    if resp.status_code != 200:
-        print(f'  [{company}] Recruitee HTTP {resp.status_code}')
-        return []
+    data = fetch_json(url, label=f'{company} Recruitee')
+    if data is None:
+        return None
+    check_container(data, 'offers', f'{company} Recruitee')
     jobs = []
-    for job in resp.json().get('offers', []):
+    for job in data.get('offers', []):
         country = (job.get('country') or '').lower()
         remote = job.get('remote', False)
         if country not in ('us', 'united states') and not remote:
@@ -693,12 +329,12 @@ def scrape_recruitee(company, slug):
 
 def scrape_pinpoint(company, slug):
     url = f'https://{slug}.pinpointhq.com/postings.json'
-    resp = requests.get(url, headers=HEADERS, timeout=15)
-    if resp.status_code != 200:
-        print(f'  [{company}] Pinpoint HTTP {resp.status_code}')
-        return []
+    data = fetch_json(url, label=f'{company} Pinpoint')
+    if data is None:
+        return None
+    check_container(data, 'data', f'{company} Pinpoint')
     jobs = []
-    for job in resp.json().get('data', []):
+    for job in data.get('data', []):
         loc = job.get('location') or {}
         if job.get('workplace_type') == 'remote':
             location = 'Remote'
@@ -720,22 +356,20 @@ def scrape_pinpoint(company, slug):
 MULTI_LOCATION_RE = re.compile(r'^\d+ locations$', re.IGNORECASE)
 
 
-def fetch_workday_detail(cxs_root, path, wd_headers):
+def fetch_workday_detail(cxs_root, path, wd_headers, label=''):
     """Fetch a posting's real locations and description (list view hides both)."""
-    try:
-        resp = requests.get(f'{cxs_root}{path}', headers=wd_headers, timeout=15)
-        if resp.status_code != 200:
-            return None, ''
-        info = resp.json().get('jobPostingInfo', {})
-        locations = [info.get('location', '')]
-        locations += info.get('additionalLocations', []) or []
-        location = '; '.join(dict.fromkeys(l for l in locations if l))
-        return location, info.get('jobDescription', '')
-    except requests.RequestException:
+    data = fetch_json(f'{cxs_root}{path}', headers=wd_headers, label=label)
+    if data is None:
         return None, ''
+    info = data.get('jobPostingInfo', {})
+    locations = [info.get('location', '')]
+    locations += info.get('additionalLocations', []) or []
+    location = '; '.join(dict.fromkeys(x for x in locations if x))
+    return location, info.get('jobDescription', '')
 
 
-def scrape_workday(company, tenant, instance, board, security_company=False):
+def scrape_workday(company, tenant, instance, board, security_company=False,
+                   extra_terms=None):
     if board:
         cxs_root = f'https://{tenant}.{instance}.myworkdayjobs.com/wday/cxs/{tenant}/{board}'
     else:
@@ -754,66 +388,119 @@ def scrape_workday(company, tenant, instance, board, security_company=False):
         # Intern" count, so only there is the broad term worth the requests.
         search_terms += ['graduate', 'associate engineer', 'engineer i',
                          'intern']
+    # Opt-in per-company terms (companies.yml `search_terms:`) for cohort-heavy
+    # tenants whose GRC/identity/privacy roles avoid the 'cyber'/'security'
+    # tokens; each term is a full paginated sweep, so only add where it pays.
+    if extra_terms:
+        search_terms += [t for t in extra_terms if t not in search_terms]
 
+    limit = 20
     jobs = []
     seen_paths = set()
     for term in search_terms:
         offset = 0
-        while True:
-            payload = {'appliedFacets': {}, 'limit': 20, 'offset': offset,
+        for _page in range(MAX_PAGES):
+            payload = {'appliedFacets': {}, 'limit': limit, 'offset': offset,
                        'searchText': term}
-            try:
-                resp = requests.post(api_url, json=payload, headers=wd_headers,
-                                     timeout=15)
-                if resp.status_code != 200:
-                    print(f'  [{company}] Workday HTTP {resp.status_code} for "{term}"')
-                    break
-                data = resp.json()
-                postings = data.get('jobPostings', [])
-                if not postings:
-                    break
-                for job in postings:
-                    path = job.get('externalPath', '')
-                    if not path or path in seen_paths:
-                        continue
-                    seen_paths.add(path)
-                    # Job pages 404 without the board segment in the URL.
-                    public_root = f'{base_url}/{board}' if board else base_url
-                    jobs.append({
-                        'id': f'workday_{tenant}_{path}',
-                        'company': company,
-                        'title': job.get('title', ''),
-                        'location': job.get('locationsText', ''),
-                        'url': f'{public_root}{path}',
-                        'board': 'Workday',
-                        '_path': path,
-                    })
-                total = data.get('total', 0)
-                offset += len(postings)
-                if offset >= total:
-                    break
-                time.sleep(0.3)
-            except requests.RequestException as e:
-                print(f'  [{company}] Workday error for "{term}": {e}')
+            data = fetch_json(api_url, method='POST', json=payload,
+                              headers=wd_headers,
+                              label=f'{company} Workday "{term}"')
+            if data is None:
                 break
+            postings = data.get('jobPostings', [])
+            if not postings:
+                break
+            for job in postings:
+                path = job.get('externalPath', '')
+                if not path or path in seen_paths:
+                    continue
+                seen_paths.add(path)
+                # Job pages 404 without the board segment in the URL.
+                public_root = f'{base_url}/{board}' if board else base_url
+                jobs.append({
+                    'id': f'workday_{tenant}_{path}',
+                    'company': company,
+                    'title': job.get('title', ''),
+                    'location': job.get('locationsText', ''),
+                    'url': f'{public_root}{path}',
+                    'board': 'Workday',
+                    '_path': path,
+                })
+            total = data.get('total', 0)
+            offset += len(postings)
+            # End-of-list, a short page, or the MAX_PAGES backstop all stop the
+            # loop so a bad `total` can't run to the workflow timeout.
+            if offset >= total or len(postings) < limit:
+                break
+            time.sleep(0.3)
 
     # The list view gives no description and hides multi-location postings
     # behind "N Locations". Fetch details for the few title-level candidates
     # so the US filter and clearance detection see real data.
     for job in jobs:
         title = job['title']
-        if (is_rejected_title(title) or not is_cyber_title(title, security_company)
-                or classify_level(title) is None):
+        path = job.pop('_path', None)
+        if is_rejected_title(title) or not is_cyber_title(title, security_company):
+            continue
+        # Leveled candidates need location detail; AI flat titles need the
+        # description so the requires_experience gate in evaluate_job can run.
+        if classify_level(title) is None and not AI_CATEGORY_RE.search(title.lower()):
+            continue
+        if not path:
             continue
         needs_locations = MULTI_LOCATION_RE.match(job['location'].strip())
-        location, description = fetch_workday_detail(cxs_root, job.pop('_path'), wd_headers)
+        location, description = fetch_workday_detail(cxs_root, path, wd_headers,
+                                                     label=f'{company} Workday')
         if needs_locations and location:
             job['location'] = location
         if description:
             job['description'] = description
         time.sleep(0.3)
-    for job in jobs:
-        job.pop('_path', None)
+    return jobs
+
+
+def scrape_oracle(company, host, site):
+    """Oracle Recruiting Cloud (Candidate Experience) public JSON API.
+
+    `host` is the tenant host (e.g. 'company.fa.us2.oraclecloud.com'); `site`
+    is the CE site number (e.g. 'CX_1'). Unlocks large enterprises/banks that
+    run cyber-analyst new-grad programs but aren't on the other ATSs.
+    """
+    api = f'https://{host}/hcmRestApi/resources/latest/recruitingCEJobRequisitions'
+    limit = 200
+    jobs = []
+    offset = 0
+    for _page in range(MAX_PAGES):
+        finder = (f'findReqs;siteNumber={site},limit={limit},offset={offset},'
+                  f'sortBy=POSTING_DATES_DESC')
+        params = {'onlyData': 'true',
+                  'expand': 'requisitionList.secondaryLocations',
+                  'finder': finder}
+        data = fetch_json(api, params=params, label=f'{company} Oracle')
+        if data is None:
+            return jobs if jobs else None
+        items = data.get('items') or []
+        req_list = items[0].get('requisitionList', []) if items else []
+        if not req_list:
+            break
+        for job in req_list:
+            job_id = str(job.get('Id', ''))
+            secondary = [s.get('Name', '') for s in job.get('secondaryLocations') or []]
+            locations = [job.get('PrimaryLocation', '')] + secondary
+            location = '; '.join(dict.fromkeys(x for x in locations if x))
+            jobs.append({
+                'id': f'oracle_{site}_{job_id}',
+                'company': company,
+                'title': job.get('Title', ''),
+                'location': location,
+                'url': f'https://{host}/hcmUI/CandidateExperience/en/sites/{site}/job/{job_id}',
+                'board': 'Oracle',
+            })
+        total = items[0].get('TotalJobsCount', 0) if items else 0
+        offset += len(req_list)
+        if len(req_list) < limit or offset >= total:
+            break
+        time.sleep(0.3)
     return jobs
 
 
@@ -826,12 +513,10 @@ def scrape_amazon():
         'offset': 0,
     }
     jobs = []
-    while True:
-        resp = requests.get(base_url, params=params, headers=HEADERS, timeout=20)
-        if resp.status_code != 200:
-            print(f'  [Amazon] HTTP {resp.status_code}')
-            break
-        data = resp.json()
+    for _page in range(MAX_PAGES):
+        data = fetch_json(base_url, params=params, label='Amazon')
+        if data is None:
+            return jobs if jobs else None
         postings = data.get('jobs', [])
         if not postings:
             break
@@ -878,54 +563,47 @@ def scrape_usajobs():
     # singular, unlike GRADUATES); titles usually come back as
     # "Student Trainee (...)" and classify as intern.
     for hiring_path in ('graduates', 'student'):
-        page = 1
-        while True:
+        for page in range(1, MAX_PAGES + 1):
             params = {
                 'Keyword': 'cybersecurity',
                 'HiringPath': hiring_path,
                 'ResultsPerPage': 250,
                 'Page': page,
             }
-            try:
-                resp = requests.get('https://data.usajobs.gov/api/search',
-                                    params=params, headers=headers, timeout=20)
-                if resp.status_code != 200:
-                    print(f'  [USAJOBS] HTTP {resp.status_code}')
-                    break
-                result = resp.json().get('SearchResult', {})
-                items = result.get('SearchResultItems', [])
-                if not items:
-                    break
-                for item in items:
-                    d = item.get('MatchedObjectDescriptor', {})
-                    job_id = item.get('MatchedObjectId', '')
-                    if job_id in seen_ids:
-                        continue
-                    seen_ids.add(job_id)
-                    locations = d.get('PositionLocation', [])
-                    loc = locations[0].get('LocationName', '') if locations else ''
-                    # Student-only postings are Pathways internships even when
-                    # the title omits "Student Trainee"; a posting also open
-                    # to graduates stays title-classified.
-                    paths = [p.lower() for p in
-                             (d.get('UserArea', {}).get('Details', {})
-                              .get('HiringPath') or [])]
-                    jobs.append({
-                        'id': f'usajobs_{job_id}',
-                        'company': d.get('OrganizationName', 'US Federal Government'),
-                        'title': d.get('PositionTitle', ''),
-                        'location': loc,
-                        'url': d.get('PositionURI', ''),
-                        'board': 'USAJOBS',
-                        'intern_hint': 'student' in paths and 'graduates' not in paths,
-                    })
-                if page >= int(result.get('UserArea', {}).get('NumberOfPages', 1)):
-                    break
-                page += 1
-                time.sleep(0.5)
-            except requests.RequestException as e:
-                print(f'  [USAJOBS] Error: {e}')
+            data = fetch_json('https://data.usajobs.gov/api/search',
+                              params=params, headers=headers, label='USAJOBS')
+            if data is None:
                 break
+            result = data.get('SearchResult', {})
+            items = result.get('SearchResultItems', [])
+            if not items:
+                break
+            for item in items:
+                d = item.get('MatchedObjectDescriptor', {})
+                job_id = item.get('MatchedObjectId', '')
+                if job_id in seen_ids:
+                    continue
+                seen_ids.add(job_id)
+                locations = d.get('PositionLocation', [])
+                loc = locations[0].get('LocationName', '') if locations else ''
+                # Student-only postings are Pathways internships even when
+                # the title omits "Student Trainee"; a posting also open
+                # to graduates stays title-classified.
+                paths = [p.lower() for p in
+                         (d.get('UserArea', {}).get('Details', {})
+                          .get('HiringPath') or [])]
+                jobs.append({
+                    'id': f'usajobs_{job_id}',
+                    'company': d.get('OrganizationName', 'US Federal Government'),
+                    'title': d.get('PositionTitle', ''),
+                    'location': loc,
+                    'url': d.get('PositionURI', ''),
+                    'board': 'USAJOBS',
+                    'intern_hint': 'student' in paths and 'graduates' not in paths,
+                })
+            if page >= int(result.get('UserArea', {}).get('NumberOfPages', 1)):
+                break
+            time.sleep(0.5)
     return jobs
 
 
@@ -933,41 +611,72 @@ def scrape_usajobs():
 # Persistence
 # ---------------------------------------------------------------------------
 
-STRIP_PARAMS = {
-    'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term',
-    'utm_id', 'source', 'src', 'ref', 'referer', 'lever-source',
-    'lever-origin', 'gh_src',
-}
-
-
-def normalize_url(url):
-    try:
-        p = urlparse(url.strip())
-        params = {k: v for k, v in parse_qs(p.query, keep_blank_values=True).items()
-                  if k.lower() not in STRIP_PARAMS}
-        u = urlunparse(p._replace(
-            scheme=p.scheme.lower(),
-            netloc=p.netloc.lower(),
-            path=p.path.rstrip('/'),
-            query=urlencode(sorted(params.items()), doseq=True),
-            fragment='',
-        ))
-        return re.sub(r'(myworkdayjobs\.com)/en-[A-Z]{2}/([^/]+/)?job/', r'\1/job/', u)
-    except Exception:
-        return url
-
-
 def load_seen_jobs():
+    """Return {job_id: last_seen_date}. Accepts the legacy list format."""
     if SEEN_JOBS_FILE.exists():
         with open(SEEN_JOBS_FILE) as f:
-            return set(json.load(f))
-    return set()
+            data = json.load(f)
+        if isinstance(data, dict):
+            return data
+        today = datetime.now().strftime('%Y-%m-%d')
+        return {jid: today for jid in data}
+    return {}
 
 
 def save_seen_jobs(seen):
     SEEN_JOBS_FILE.parent.mkdir(parents=True, exist_ok=True)
     with open(SEEN_JOBS_FILE, 'w') as f:
-        json.dump(sorted(seen), f, indent=2)
+        json.dump(dict(sorted(seen.items())), f, indent=2)
+
+
+def report_board_health(board_stats, persist=True):
+    """Print a run summary, emit GitHub annotations for regressions, roll baseline.
+
+    A board that reliably returned postings but now returns none is flagged as a
+    likely broken slug / ATS drift — otherwise breakage is invisible because a
+    dead board looks identical to one with no new cyber jobs.
+    """
+    ok = sum(1 for b in board_stats if b['status'] == 'ok')
+    zero = [b for b in board_stats if b['status'] == 'zero']
+    broken = [b for b in board_stats if b['status'] in ('FAILED', 'CRASHED')]
+    total_raw = sum(b['count'] for b in board_stats)
+
+    baseline = {}
+    if BOARD_BASELINE_FILE.exists():
+        try:
+            baseline = json.loads(BOARD_BASELINE_FILE.read_text())
+        except ValueError:
+            baseline = {}
+    regressed = [b for b in board_stats
+                 if b['count'] == 0 and baseline.get(b['label'], 0) > 0]
+    for b in regressed:
+        print(f'::warning::[{b["label"]}] returned 0 postings but had '
+              f'{baseline[b["label"]]} last run (broken slug or ATS drift?)')
+
+    lines = [
+        '## Scrape run summary',
+        '',
+        f'- Boards queried: **{len(board_stats)}** '
+        f'({ok} ok · {len(zero)} empty · {len(broken)} failed)',
+        f'- Raw postings fetched: **{total_raw}**',
+    ]
+    if broken:
+        lines.append('- ⚠️ Failed/crashed: ' + ', '.join(b['label'] for b in broken))
+    if regressed:
+        lines.append('- ⚠️ Regressed to zero: ' + ', '.join(b['label'] for b in regressed))
+    summary = '\n'.join(lines)
+    print('\n' + summary)
+
+    step_summary = os.environ.get('GITHUB_STEP_SUMMARY')
+    if step_summary:
+        with open(step_summary, 'a') as f:
+            f.write(summary + '\n')
+
+    if persist:
+        BOARD_BASELINE_FILE.parent.mkdir(parents=True, exist_ok=True)
+        BOARD_BASELINE_FILE.write_text(json.dumps(
+            {b['label']: b['count'] for b in board_stats},
+            indent=2, sort_keys=True))
 
 
 def load_listings():
@@ -988,7 +697,25 @@ def save_listings(listings):
 # Main
 # ---------------------------------------------------------------------------
 
+def parse_args(argv=None):
+    parser = argparse.ArgumentParser(
+        description='Scrape ATS boards for early-career US cyber roles.')
+    parser.add_argument('--dry-run', action='store_true',
+                        help='scrape + classify but write no files and skip the '
+                             'README rebuild — safe to run locally')
+    parser.add_argument('--board',
+                        help='only run this ATS (e.g. greenhouse, workday, '
+                             'amazon, usajobs) for fast local iteration')
+    parser.add_argument('--limit', type=int,
+                        help='only scrape the first N configured companies per board')
+    return parser.parse_args(argv)
+
+
 def main():
+    args = parse_args()
+    if args.dry_run:
+        print('DRY RUN — no files will be written\n')
+
     try:
         with open('companies.yml') as f:
             config = yaml.safe_load(f) or {}
@@ -999,16 +726,32 @@ def main():
     seen = load_seen_jobs()
     raw_jobs = []
     sec_flags = {}
+    board_stats = []
+
+    def want(board):
+        return not args.board or args.board == board
+
+    def limited(entries):
+        entries = entries or []
+        return entries[:args.limit] if args.limit else entries
 
     def run_scraper(label, fn, *args, security_company=False):
         print(f'Checking {label}...')
+        status, count = 'ok', 0
         try:
             found = fn(*args)
-            for job in found:
-                sec_flags[job['id']] = security_company
-            raw_jobs.extend(found)
+            if found is None:
+                status = 'FAILED'
+            else:
+                count = len(found)
+                status = 'ok' if count else 'zero'
+                for job in found:
+                    sec_flags[job['id']] = security_company
+                raw_jobs.extend(found)
         except Exception as e:
+            status = 'CRASHED'
             print(f'  [{label}] Scraper crashed: {e}')
+        board_stats.append({'label': label, 'status': status, 'count': count})
         time.sleep(0.4)
 
     simple_boards = {
@@ -1021,71 +764,106 @@ def main():
         'pinpoint': scrape_pinpoint,
     }
     for board, scraper in simple_boards.items():
-        for entry in config.get(board, []) or []:
+        if not want(board):
+            continue
+        for entry in limited(config.get(board)):
             run_scraper(f'{entry["name"]} ({board}/{entry["slug"]})',
                         scraper, entry['name'], entry['slug'],
                         security_company=entry.get('security_company', False))
 
-    for entry in config.get('workday', []) or []:
-        run_scraper(
-            f'{entry["name"]} (workday/{entry["tenant"]})',
-            scrape_workday, entry['name'], entry['tenant'], entry['instance'],
-            entry.get('board', ''), entry.get('security_company', False),
-            security_company=entry.get('security_company', False),
-        )
+    if want('workday'):
+        for entry in limited(config.get('workday')):
+            run_scraper(
+                f'{entry["name"]} (workday/{entry["tenant"]})',
+                scrape_workday, entry['name'], entry['tenant'], entry['instance'],
+                entry.get('board', ''), entry.get('security_company', False),
+                entry.get('search_terms'),
+                security_company=entry.get('security_company', False),
+            )
 
-    run_scraper('Amazon (amazon.jobs)', scrape_amazon)
-    run_scraper('USAJOBS (data.usajobs.gov)', scrape_usajobs)
+    if want('oracle'):
+        for entry in limited(config.get('oracle')):
+            run_scraper(
+                f'{entry["name"]} (oracle/{entry["host"]})',
+                scrape_oracle, entry['name'], entry['host'], entry['site'],
+                security_company=entry.get('security_company', False),
+            )
 
+    if want('amazon'):
+        run_scraper('Amazon (amazon.jobs)', scrape_amazon)
+    if want('usajobs'):
+        run_scraper('USAJOBS (data.usajobs.gov)', scrape_usajobs)
+
+    report_board_health(board_stats, persist=not args.dry_run)
     print(f'\nScraped {len(raw_jobs)} raw postings; filtering...')
 
+    today = datetime.now().strftime('%Y-%m-%d')
     listings = load_listings()
 
-    # Let classifier improvements reach already-scraped listings. Title-only:
-    # descriptions are not stored, so None means "no title signal" and the
-    # stored (possibly description-derived) type is kept. Community rows
-    # reflect a maintainer's judgment — leave them alone.
-    reclassified = 0
-    for entry in listings:
-        if entry.get('source') == 'Community':
-            continue
-        # Intern rows may derive from an ATS employment-type hint the title
-        # can't reproduce; a title-only pass would wrongly demote them.
-        if entry.get('type') == 'intern':
-            continue
-        level = classify_level(entry['role'])
-        if level and level != entry.get('type'):
-            print(f'  RECLASSIFY [{entry.get("type")} -> {level}] '
-                  f'{entry["company"]} — {entry["role"]}')
-            entry['type'] = level
-            reclassified += 1
+    # Drop long-closed rows so the board doesn't accumulate dead postings.
+    listings, purged = purge_stale_listings(listings, today)
+    if purged:
+        print(f'Purged {purged} stale closed listing(s)')
 
-    existing_urls = {normalize_url(e.get('url', '')) for e in listings}
-    today = datetime.now().strftime('%Y-%m-%d')
+    # Let classifier improvements reach already-scraped listings (title-only).
+    listings, reclass_changes = reclassify_listings(listings)
+    for company, role, old, new in reclass_changes:
+        print(f'  RECLASSIFY [{old} -> {new}] {company} — {role}')
+    reclassified = len(reclass_changes)
+
+    existing_urls = {normalize_url(e.get('url', '')) for e in listings if e.get('url')}
+    # Secondary key catches the same role reposted per-location under distinct
+    # req-ID URLs (e.g. one "Intern - Software Engineer" ×10) that URL dedup
+    # can't see. Location stays in the key so genuinely different sites remain
+    # separate rows.
+    existing_keys = {listing_dedup_key(e.get('company', ''), e.get('role', ''),
+                                       e.get('location', '')) for e in listings}
+    # Rows a dead-link sweep blanked; a still-live posting revives them so a
+    # 403/transient false positive self-heals instead of staying 🔒 forever.
+    blanked = {listing_dedup_key(e.get('company', ''), e.get('role', ''),
+                                 e.get('location', '')): e
+               for e in listings if not e.get('url')}
     added = 0
+    revived = 0
 
     for job in raw_jobs:
-        if job['id'] in seen:
+        jid = job['id']
+        location = normalize_location(job.get('location', ''))
+        key = listing_dedup_key(job['company'], job.get('title', ''), location)
+        # Skip already-seen jobs unless they could revive a blanked row.
+        if jid in seen and key not in blanked:
             continue
         verdict = evaluate_job(
             job.get('title', ''), job.get('location', ''),
-            job.get('description', ''), sec_flags.get(job['id'], False),
+            job.get('description', ''), sec_flags.get(jid, False),
             job.get('intern_hint', False),
         )
         if verdict is None:
             continue
         level, category = verdict
-        seen.add(job['id'])
+        seen[jid] = today
 
         url = job.get('url', '')
-        if not url or normalize_url(url) in existing_urls:
+        if not url:
+            continue
+        if key in blanked:
+            row = blanked.pop(key)
+            row['url'] = url
+            row.pop('closed', None)
+            row.pop('closed_date', None)
+            existing_urls.add(normalize_url(url))
+            revived += 1
+            print(f'  REVIVED {job["company"]} — {job["title"]}')
+            continue
+        if normalize_url(url) in existing_urls or key in existing_keys:
             continue
         existing_urls.add(normalize_url(url))
+        existing_keys.add(key)
 
         listings.append({
             'company': job['company'],
             'role': job['title'].strip(),
-            'location': normalize_location(job.get('location', '')),
+            'location': location,
             'type': level,
             'category': category,
             'clearance': requires_clearance(job.get('title', ''),
@@ -1097,18 +875,24 @@ def main():
         added += 1
         print(f'  NEW [{level}] {job["company"]} — {job["title"]} @ {job.get("location", "")}')
 
-    print(f'\nAdded {added} new listing(s), reclassified {reclassified}')
+    # Refresh last-seen for every still-live id, then expire the stale ones.
+    for job in raw_jobs:
+        if job['id'] in seen:
+            seen[job['id']] = today
+    seen = prune_seen(seen, today)
 
-    if added or reclassified:
+    changed = added or reclassified or revived or purged
+    print(f'\nAdded {added} new listing(s), revived {revived}, '
+          f'reclassified {reclassified}, purged {purged}')
+
+    if args.dry_run:
+        print('[dry-run] no files written; skipping README rebuild')
+        print('Done')
+        return
+
+    if changed:
         save_listings(listings)
-        result = subprocess.run(
-            [sys.executable, '.github/scripts/rebuild_readme.py'],
-            capture_output=True, text=True,
-        )
-        if result.returncode != 0:
-            print(f'rebuild_readme.py failed:\n{result.stderr}')
-            sys.exit(1)
-        print(result.stdout.strip())
+        rebuild_readme.main()
 
     save_seen_jobs(seen)
     print('Done')

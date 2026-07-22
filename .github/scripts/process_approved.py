@@ -7,53 +7,24 @@ listings.json, rebuild the README, and close the issues.
 import json
 import os
 import re
-import subprocess
 import sys
 import time
 from datetime import datetime
 from pathlib import Path
-from urllib.parse import urlparse, parse_qs, urlencode, urlunparse
 
 import requests
 
+sys.path.insert(0, str(Path(__file__).parent))
+import rebuild_readme  # noqa: E402
+from classify import CATEGORY_ALLOWLIST  # noqa: E402
+from common import (  # noqa: E402
+    gh_headers,
+    normalize_url,
+    parse_issue_body,
+    validate_location,
+)
+
 LISTINGS_FILE = Path('listings.json')
-
-STRIP_PARAMS = {
-    'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term',
-    'utm_id', 'source', 'src', 'ref', 'referer', 'lever-source',
-    'lever-origin', 'gh_src',
-}
-
-CATEGORIES = {
-    'Offensive Security', 'SOC & Detection', 'Threat Intelligence',
-    'Forensics & IR', 'AppSec & ProdSec', 'AI Security & Safety',
-    'Cloud & Infra Security', 'Identity & IAM', 'GRC & Risk',
-    'Security Engineering', 'Engineering @ Security Co',
-}
-
-
-def normalize_url(url):
-    try:
-        p = urlparse(url.strip())
-        params = {k: v for k, v in parse_qs(p.query, keep_blank_values=True).items()
-                  if k.lower() not in STRIP_PARAMS}
-        u = urlunparse(p._replace(
-            scheme=p.scheme.lower(),
-            netloc=p.netloc.lower(),
-            path=p.path.rstrip('/'),
-            query=urlencode(sorted(params.items()), doseq=True),
-            fragment='',
-        ))
-        return re.sub(r'(myworkdayjobs\.com)/en-[A-Z]{2}/([^/]+/)?job/', r'\1/job/', u)
-    except Exception:
-        return url
-
-
-def gh_headers(token):
-    return {
-        'Authorization': f'token {token}',
-        'Accept': 'application/vnd.github.v3+json',
-    }
 
 
 def get_approved_issues(token, repo):
@@ -89,17 +60,6 @@ def comment_and_close(token, repo, issue_number, body):
     )
 
 
-def parse_issue_body(body):
-    fields = {}
-    for section in re.split(r'^### ', body, flags=re.MULTILINE):
-        if not section.strip():
-            continue
-        lines = section.strip().split('\n')
-        value = '\n'.join(lines[1:]).strip()
-        fields[lines[0].strip()] = '' if value == '_No response_' else value
-    return fields
-
-
 def fields_to_listing(fields):
     listing_type = fields.get('Listing Type', '')
     if 'Intern' in listing_type:
@@ -109,7 +69,7 @@ def fields_to_listing(fields):
     else:
         level = 'earlycareer'
     category = fields.get('Category', '').strip()
-    if category not in CATEGORIES:
+    if category not in CATEGORY_ALLOWLIST:
         category = 'Security Engineering'
     clearance = 'yes' in fields.get('Security Clearance / U.S. Citizenship Required?', '').lower()
     location = '; '.join(
@@ -157,6 +117,14 @@ def main():
             print(f'  Issue #{number}: URL must be http(s), skipping')
             continue
 
+        # Re-validate the location at ingestion — validate_issue.py checks it on
+        # open/edit, but a free-text edit to the issue body after approval could
+        # smuggle a non-US or malformed value past that gate.
+        loc_errors = validate_location(listing['location'])
+        if loc_errors:
+            print(f'  Issue #{number}: invalid location {loc_errors}, skipping')
+            continue
+
         if normalize_url(listing['url']) in seen_urls:
             print(f'  Issue #{number}: already listed, closing')
             comment_and_close(token, repo, number,
@@ -176,14 +144,7 @@ def main():
         tmp = LISTINGS_FILE.with_suffix('.tmp')
         tmp.write_text(json.dumps(listings, indent=2))
         tmp.replace(LISTINGS_FILE)
-        result = subprocess.run(
-            [sys.executable, '.github/scripts/rebuild_readme.py'],
-            capture_output=True, text=True,
-        )
-        if result.returncode != 0:
-            print(f'rebuild_readme.py failed:\n{result.stderr}')
-            sys.exit(1)
-        print(result.stdout.strip())
+        rebuild_readme.main()
         print(f'\nAdded {added} listing(s)')
     else:
         print('\nNo new listings to add')

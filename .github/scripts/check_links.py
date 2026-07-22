@@ -4,6 +4,7 @@
 import json
 import re
 import time
+from datetime import datetime
 from pathlib import Path
 
 import requests
@@ -66,7 +67,7 @@ def main():
         return
 
     dead_urls = {url for url, _ in dead}
-    for url, btn in dead:
+    for _url, btn in dead:
         content = content.replace(btn, '🔒')
     with open('README.md', 'w') as f:
         f.write(content)
@@ -75,9 +76,15 @@ def main():
     if listings_file.exists():
         with open(listings_file) as f:
             listings = json.load(f)
+        today = datetime.now().strftime('%Y-%m-%d')
         for entry in listings:
             if entry.get('url', '') in dead_urls:
+                # Blank the url (renders 🔒) and stamp closure so the scraper's
+                # purge can retire it after a grace period instead of it living
+                # in the board forever.
                 entry['url'] = ''
+                entry['closed'] = True
+                entry.setdefault('closed_date', today)
         tmp = listings_file.with_suffix('.tmp')
         with open(tmp, 'w') as f:
             json.dump(listings, f, indent=2)

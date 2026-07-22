@@ -22,8 +22,14 @@ def _company_sort_key(name):
 
 
 def escape_cell(text):
-    """Neutralize markdown/HTML in listing fields (community- or scraper-supplied)."""
-    text = text.replace('&', '&amp;').replace('<', '&lt;')
+    """Neutralize markdown/HTML in listing fields (community- or scraper-supplied).
+
+    Collapses whitespace first: an embedded newline in a scraped or hand-edited
+    field would otherwise split one table row across physical lines and corrupt
+    the rendered README.
+    """
+    text = re.sub(r'\s+', ' ', text).strip()
+    text = text.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
     return re.sub(r'([|\[\]`])', r'\\\1', text)
 
 

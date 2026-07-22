@@ -4,8 +4,10 @@
 Run from anywhere: python .github/scripts/test_classification.py
 """
 import sys
+
 sys.path.insert(0, str(__import__('pathlib').Path(__file__).parent))
-import scrape_jobs as s
+import classify as s
+import common
 
 CASES = [
     # (title, location, description, security_company, expected)
@@ -112,6 +114,44 @@ CASES = [
     ('New Grad Security Engineer', 'Waterloo, ON', '', False, None),
     ('Graduate Cyber Analyst', 'Sydney, Australia', '', False, None),
     ('Junior Security Engineer', 'Remote (EMEA)', '', False, None),
+
+    # -- bug fix: leveled numerals reject only in role-noun context --
+    # "III/IV/3/4" no longer bare-match version/layer/standard numbers.
+    ('Cybersecurity Analyst I (PCI DSS 4.0)', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Layer 3 Network Security Analyst I', 'Reston, VA', '', False, ('earlycareer', 'Cloud & Infra Security')),
+    ('Cyber IV&V Engineer I', 'Huntsville, AL', '', False, ('earlycareer', 'Security Engineering')),
+    # ...but a real leveled-senior marker is still rejected.
+    ('SOC Analyst III', 'Austin, TX', '', False, None),
+    ('Tier 3 Incident Responder', 'Austin, TX', '', False, None),
+    ('Security Engineer IV', 'Austin, TX', '', False, None),
+
+    # -- bug fix: multi-region remote roles with a US option are accepted --
+    ('Backend Security Engineer I', 'New York, San Francisco, or Remote (US/Canada)', '', False, ('earlycareer', 'Security Engineering')),
+    ('Junior Penetration Tester', 'Remote - US or Canada', '', False, ('earlycareer', 'Offensive Security')),
+    # ...but an all-foreign multi-location is still rejected.
+    ('Security Engineer I', 'Toronto, ON; London, UK', '', False, None),
+    ('Junior Security Analyst', 'Zürich', '', False, None),  # accented foreign city
+
+    # -- bug fix: FUNCTION_REJECT short terms are word-bounded --
+    ('Salesforce Security Engineer, New Grad', 'Austin, TX', '', False, ('newgrad', 'Security Engineering')),
+    # ...but a genuine sales role is still rejected.
+    ('Sales Engineer, Security Products', 'Austin, TX', '', True, None),
+
+    # -- bug fix: a leveled I/II marker beats a bare cohort year --
+    ('Cybersecurity Analyst II (Windows Server 2026)', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+
+    # -- bug fix: bare 'safeguards' with a nuclear context is not AI security --
+    ('Radiological Safeguards Analyst', 'Remote (US)', '', False, None),
+
+    # -- bug fix: requires_experience anchors to a requirement context --
+    # incidental "past 5 years" is not an experience requirement (AI role kept).
+    ('Researcher, Alignment Science', 'San Francisco, CA', 'You will analyze the past 5 years of incidents.', False, ('earlycareer', 'AI Security & Safety')),
+    # spelled-out and abbreviated year requirements still gate the AI path.
+    ('Software Engineer, AI Safety', 'Seattle, WA', 'Requires three years of experience.', False, None),
+    ('Software Engineer, AI Safety', 'Seattle, WA', 'Minimum 4+ yrs of experience required.', False, None),
+
+    # -- recall: flat title at a security company with a low YOE ceiling --
+    ('Security Engineer', 'Austin, TX', 'Ideal for candidates with 0-2 years of experience.', True, ('earlycareer', 'Security Engineering')),
 ]
 
 failures = 0
@@ -131,12 +171,115 @@ NORM = [
     ('remote - us', 'Remote (US)'),
     ('Fort Meade, Maryland', 'Fort Meade, MD'),
     ('New York, NY', 'New York, NY'),
+    # Workday "Office - USA - <ST>[- <site>]" forms.
+    ('Office - USA - VA - Reston', 'Reston, VA'),
+    ('Office - USA - CA - Headquarters', 'CA (US)'),
+    ('Office - USA - TX', 'TX (US)'),
+    ('Virtual Location - Virginia, VA', 'Remote (US)'),
+    # Opaque facility codes are dropped; a real city in the same multi-location
+    # string survives.
+    ('Annapolis Junction, MD; CASD14; TXSA08UNK', 'Annapolis Junction, MD'),
+    # Bare-city duplicate folds into the qualified spelling.
+    ('Austin, TX; Austin', 'Austin, TX'),
+    ('Portland, OR; Portland, ME', 'Portland, OR; Portland, ME'),
 ]
 for raw, want in NORM:
     got = s.normalize_location(raw)
     if got != want:
         failures += 1
         print(f'FAIL normalize_location({raw!r}) = {got!r}, want {want!r}')
+
+# classify_level word-boundary checks: short signals must not match inside
+# longer tokens, and a leveled II beats a cohort year.
+LEVEL = [
+    ('SOC Level 10 Analyst', None),           # 'level 1' not inside 'level 10'
+    ('Associated Bank Security Analyst', None),  # 'associate' not in 'associated'
+    ('Cybersecurity Analyst II (Windows Server 2026)', 'earlycareer'),
+    ('Tier 2 SOC Analyst', 'earlycareer'),    # 'tier 2' survives word-bounding
+]
+for title, want in LEVEL:
+    got = s.classify_level(title)
+    if got != want:
+        failures += 1
+        print(f'FAIL classify_level({title!r}) = {got!r}, want {want!r}')
+
+# is_us_location: multi-region acceptance and accent-aware foreign rejection.
+US_LOC = [
+    ('Remote (US/Canada)', True),
+    ('New York, NY; Toronto, Canada', True),
+    ('Remote - US, UK', True),
+    ('Remote (EMEA)', False),
+    ('Zürich', False),
+    ('Bogotá, Colombia', False),
+    ('Office - USA - VA - Reston', True),
+]
+for loc, want in US_LOC:
+    got = s.is_us_location(loc)
+    if got != want:
+        failures += 1
+        print(f'FAIL is_us_location({loc!r}) = {got!r}, want {want!r}')
+
+# requires_experience: phrasing coverage + no false positive on incidental years.
+EXP = [
+    ('Minimum of 3 years of experience.', True),
+    ('Requires 5+ yrs of experience.', True),
+    ('You need three years of experience.', True),
+    ('We reviewed the past 3 years of CVEs.', False),
+    ('Ideal for candidates with 0-2 years of experience.', False),
+    ('', False),
+]
+for desc, want in EXP:
+    got = s.requires_experience(desc)
+    if got != want:
+        failures += 1
+        print(f'FAIL requires_experience({desc!r}) = {got!r}, want {want!r}')
+
+# reclassify_listings: skip community + intern; flip a stale earlycareer row.
+RECLASS = [
+    {'company': 'A', 'role': 'Cybersecurity Rotational Program',
+     'type': 'earlycareer', 'source': 'Greenhouse'},   # -> newgrad
+    {'company': 'B', 'role': 'Software Engineer Intern',
+     'type': 'intern', 'source': 'Ashby'},              # intern: untouched
+    {'company': 'C', 'role': 'New Grad Security Engineer',
+     'type': 'earlycareer', 'source': 'Community'},     # community: untouched
+    {'company': 'D', 'role': 'SOC Analyst II',
+     'type': 'earlycareer', 'source': 'Lever'},         # already correct
+]
+_, reclass_changes = s.reclassify_listings([dict(r) for r in RECLASS])
+if len(reclass_changes) != 1 or reclass_changes[0][0] != 'A' or reclass_changes[0][3] != 'newgrad':
+    failures += 1
+    print(f'FAIL reclassify_listings changes = {reclass_changes!r}, '
+          f"want one A earlycareer->newgrad")
+
+# purge_stale_listings: drop long-closed rows, keep recent-closed and open ones.
+LIFECYCLE = [
+    {'company': 'A', 'role': 'x', 'closed': True, 'closed_date': '2026-01-01'},  # old -> drop
+    {'company': 'B', 'role': 'y', 'closed': True, 'closed_date': '2026-07-10'},  # recent -> keep
+    {'company': 'C', 'role': 'z', 'date_added': '2026-01-01'},                   # open & old -> keep
+]
+kept, removed = s.purge_stale_listings([dict(r) for r in LIFECYCLE], '2026-07-18', max_age_days=60)
+if removed != 1 or {e['company'] for e in kept} != {'B', 'C'}:
+    failures += 1
+    print(f'FAIL purge_stale_listings: removed={removed}, kept={[e["company"] for e in kept]}')
+
+# prune_seen: expire ids not refreshed within the TTL.
+pruned = s.prune_seen({'a': '2026-07-18', 'b': '2026-01-01'}, '2026-07-18', ttl_days=45)
+if pruned != {'a': '2026-07-18'}:
+    failures += 1
+    print(f'FAIL prune_seen = {pruned!r}, want {{a: 2026-07-18}}')
+
+# requires_clearance drives the 🇺🇸 marker on every listing but had no coverage.
+CLEAR = [
+    ('Cyber Analyst', 'Active TS/SCI clearance required.', True),
+    ('Cyber Analyst', 'Must be a US citizen.', True),
+    ('Cyber Analyst', 'Remote, no clearance needed but a public trust helps.', True),
+    ('Security Engineer', 'No special requirements.', False),
+]
+for title, desc, want in CLEAR:
+    got = s.requires_clearance(title, desc)
+    if got != want:
+        failures += 1
+        print(f'FAIL requires_clearance({title!r}, {desc!r}) = {got!r}, want {want!r}')
 
 # ATS employment-type hint: intern reqs whose titles omit the word.
 hint_cases = [
@@ -152,12 +295,20 @@ for title, hint, want_level in hint_cases:
         print(f'FAIL intern_hint={hint}: {title!r} -> {got!r}, want level {want_level!r}')
 
 # URL normalization checks
-u1 = s.normalize_url('https://boards.greenhouse.io/acme/jobs/123?gh_src=abc&utm_source=x')
-u2 = s.normalize_url('https://boards.greenhouse.io/acme/jobs/123/')
+u1 = common.normalize_url('https://boards.greenhouse.io/acme/jobs/123?gh_src=abc&utm_source=x')
+u2 = common.normalize_url('https://boards.greenhouse.io/acme/jobs/123/')
 assert u1 == u2, f'{u1} != {u2}'
-w1 = s.normalize_url('https://acme.wd5.myworkdayjobs.com/en-US/External/job/Austin-TX/Security-Analyst_R123')
-w2 = s.normalize_url('https://acme.wd5.myworkdayjobs.com/job/Austin-TX/Security-Analyst_R123')
+w1 = common.normalize_url('https://acme.wd5.myworkdayjobs.com/en-US/External/job/Austin-TX/Security-Analyst_R123')
+w2 = common.normalize_url('https://acme.wd5.myworkdayjobs.com/job/Austin-TX/Security-Analyst_R123')
 assert w1 == w2, f'{w1} != {w2}'
+# Greenhouse serves the same board under two hosts; they must dedupe.
+g1 = common.normalize_url('https://boards.greenhouse.io/acme/jobs/9')
+g2 = common.normalize_url('https://job-boards.greenhouse.io/acme/jobs/9')
+assert g1 == g2, f'{g1} != {g2}'
+# Workday locale + multiple pre-/job/ segments collapse to the bare /job/ form.
+m1 = common.normalize_url('https://acme.wd5.myworkdayjobs.com/en-US/CompanyCareers/External/job/Austin/Sec_R1')
+m2 = common.normalize_url('https://acme.wd5.myworkdayjobs.com/job/Austin/Sec_R1')
+assert m1 == m2, f'{m1} != {m2}'
 print('URL normalization OK')
 
 sys.exit(1 if failures else 0)
