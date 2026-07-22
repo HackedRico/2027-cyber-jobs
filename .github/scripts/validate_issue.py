@@ -4,8 +4,12 @@
 import os
 import re
 import sys
+from pathlib import Path
 
 import requests
+
+sys.path.insert(0, str(Path(__file__).parent))
+from common import parse_issue_body, validate_location  # noqa: E402
 
 REQUIRED_FIELDS = [
     'Company Name',
@@ -14,53 +18,6 @@ REQUIRED_FIELDS = [
     'Location',
     'Direct Application Link',
 ]
-
-US_STATES = {
-    'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID',
-    'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS',
-    'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK',
-    'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV',
-    'WI', 'WY', 'DC',
-}
-
-REMOTE_RE = re.compile(r'^remote\s*(\(us\)|\(usa\)|\(united states\))?$', re.IGNORECASE)
-BARE_COUNTRY_RE = re.compile(r'^(us|usa|united states|nationwide)$', re.IGNORECASE)
-CITY_STATE_RE = re.compile(r'^.+,\s*([A-Z]{2})$')
-
-
-def validate_location(location):
-    """Returns list of error strings, empty if valid."""
-    parts = [p.strip() for p in location.split(';') if p.strip()]
-    if not parts:
-        return ['location is empty']
-    errors = []
-    for part in parts:
-        if REMOTE_RE.match(part) or BARE_COUNTRY_RE.match(part):
-            continue
-        m = CITY_STATE_RE.match(part)
-        if not m:
-            errors.append(
-                f'`{part}` — use "City, ST" format (e.g. "Arlington, VA") '
-                f'or "Remote (US)"'
-            )
-            continue
-        if m.group(1) not in US_STATES:
-            errors.append(
-                f'`{part}` — `{m.group(1)}` is not a US state code. '
-                f'This board is US-only.'
-            )
-    return errors
-
-
-def parse_issue_body(body):
-    fields = {}
-    for section in re.split(r'^### ', body, flags=re.MULTILINE):
-        if not section.strip():
-            continue
-        lines = section.strip().split('\n')
-        value = '\n'.join(lines[1:]).strip()
-        fields[lines[0].strip()] = '' if value == '_No response_' else value
-    return fields
 
 
 def post_comment(token, repo, issue_number, body):
@@ -93,8 +50,9 @@ def main():
             errors.append(f'- **{field}** is missing or empty')
 
     apply_link = fields.get('Direct Application Link', '').strip()
-    if apply_link and not apply_link.startswith('http'):
-        errors.append('- **Direct Application Link** must be a valid URL starting with `http`')
+    if apply_link and not re.match(r'^https?://\S+$', apply_link):
+        errors.append('- **Direct Application Link** must be a single-line URL '
+                      'starting with `http://` or `https://`')
 
     location = fields.get('Location', '').strip()
     if location:
@@ -103,7 +61,8 @@ def main():
 
     if errors:
         comment = (
-            'Thanks for the submission! A few things need to be fixed before this can be approved:\n\n'
+            'Thanks for the submission! A few things need to be fixed '
+            'before this can be approved:\n\n'
             + '\n'.join(errors)
             + '\n\nPlease edit the issue to correct these and it will be reviewed.'
         )

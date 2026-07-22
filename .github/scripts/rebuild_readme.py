@@ -22,8 +22,17 @@ def _company_sort_key(name):
 
 
 def escape_cell(text):
-    """Neutralize markdown/HTML in listing fields (community- or scraper-supplied)."""
-    text = text.replace('&', '&amp;').replace('<', '&lt;')
+    """Neutralize markdown/HTML in listing fields (community- or scraper-supplied).
+
+    Collapses whitespace first: an embedded newline in a scraped or hand-edited
+    field would otherwise split one table row across physical lines and corrupt
+    the rendered README.
+    """
+    text = re.sub(r'\s+', ' ', text).strip()
+    text = text.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+    # Escape backslash first so it can't pair with the escapes added next and
+    # render as a literal '\' that leaves the following '|' as a live delimiter.
+    text = text.replace('\\', '\\\\')
     return re.sub(r'([|\[\]`])', r'\\\1', text)
 
 
@@ -40,7 +49,7 @@ def format_location(location):
         return escape_cell(location)
     parts = [escape_cell(p.strip()) for p in location.split(';') if p.strip()]
     if len(parts) <= 1:
-        return parts[0] if parts else location
+        return parts[0] if parts else escape_cell(location)
     inner = '</br>'.join(parts)
     return f'<details><summary>**{len(parts)} locations**</summary>{inner}</details>'
 
@@ -54,9 +63,14 @@ def format_date(date_added):
 
 
 def apply_btn(url):
-    if not url or not re.match(r'^https?://', url):
+    # A real apply URL never contains whitespace/control chars; rejecting them
+    # stops an embedded newline/tab from breaking out of the table cell and
+    # injecting a fake row with a working (phishing) link. '|' is escaped so a
+    # bare pipe can't open a new column either.
+    if not url or not re.match(r'^https?://', url) or re.search(r'\s', url):
         return '🔒'
-    return (f'<a href="{html.escape(url, quote=True)}" target="_blank" rel="noopener noreferrer">'
+    href = html.escape(url, quote=True).replace('|', '&#124;')
+    return (f'<a href="{href}" target="_blank" rel="noopener noreferrer">'
             f'<img src="{APPLY_BADGE}" alt="Apply"></a>')
 
 

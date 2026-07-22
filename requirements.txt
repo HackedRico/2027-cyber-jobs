@@ -1,2 +1,4 @@
-requests>=2.31
-pyyaml>=6.0
+# Pinned for reproducible scheduled runs — a surprise major of requests/pyyaml
+# should not silently break the twice-daily scrape.
+requests==2.32.3
+pyyaml==6.0.2

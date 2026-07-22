@@ -1,0 +1,9 @@
+line-length = 100
+target-version = "py312"
+
+[lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[lint.per-file-ignores]
+# Test files are long data tables; wrapping every case row hurts readability.
+"**/test_*.py" = ["E501"]

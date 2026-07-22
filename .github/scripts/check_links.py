@@ -4,6 +4,7 @@
 import json
 import re
 import time
+from datetime import datetime
 from pathlib import Path
 
 import requests
@@ -36,7 +37,11 @@ def should_skip(url):
 def is_link_alive(url):
     try:
         resp = requests.get(url, timeout=12, allow_redirects=True, headers=HEADERS)
-        return resp.status_code < 404
+        code = resp.status_code
+        # Only a real client-side "gone" (4xx) retires a listing. 5xx and 429
+        # are transient (server error / rate limit), so a blip must not close a
+        # good — often maintainer-vetted — posting.
+        return not (404 <= code < 500 and code != 429)
     except requests.RequestException as e:
         print(f'  Request error: {e}')
         return True  # network flake — don't mark closed on ambiguity
@@ -66,7 +71,7 @@ def main():
         return
 
     dead_urls = {url for url, _ in dead}
-    for url, btn in dead:
+    for _url, btn in dead:
         content = content.replace(btn, '🔒')
     with open('README.md', 'w') as f:
         f.write(content)
@@ -75,9 +80,15 @@ def main():
     if listings_file.exists():
         with open(listings_file) as f:
             listings = json.load(f)
+        today = datetime.now().strftime('%Y-%m-%d')
         for entry in listings:
             if entry.get('url', '') in dead_urls:
+                # Blank the url (renders 🔒) and stamp closure so the scraper's
+                # purge can retire it after a grace period instead of it living
+                # in the board forever.
                 entry['url'] = ''
+                entry['closed'] = True
+                entry.setdefault('closed_date', today)
         tmp = listings_file.with_suffix('.tmp')
         with open(tmp, 'w') as f:
             json.dump(listings, f, indent=2)
