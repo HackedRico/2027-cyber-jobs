@@ -73,6 +73,9 @@ greenhouse:
 - name: Cobalt
   slug: cobaltio
   security_company: true
+- name: Cyware
+  slug: cyware
+  security_company: true
 - name: Cockroach Labs
   slug: cockroachlabs
 - name: Coinbase
@@ -236,6 +239,9 @@ greenhouse:
   slug: samsara
 - name: Scale AI
   slug: scaleai
+- name: SecurityScorecard
+  slug: securityscorecard
+  security_company: true
 - name: SentinelOne
   slug: sentinellabs
   security_company: true
@@ -247,6 +253,9 @@ greenhouse:
   security_company: true
 - name: SpecterOps
   slug: specterops
+  security_company: true
+- name: SpyCloud
+  slug: spycloud
   security_company: true
 - name: STR
   slug: str
@@ -353,6 +362,9 @@ lever:
   security_company: true
 - name: Shield AI
   slug: shieldai
+- name: Sonatype
+  slug: sonatype
+  security_company: true
 - name: StackHawk
   slug: stackhawk
   security_company: true
@@ -405,9 +417,6 @@ ashby:
   security_company: true
 - name: FAR AI
   slug: far.ai
-  security_company: true
-- name: Gray Swan AI
-  slug: Gray Swan AI
   security_company: true
 - name: HackerOne
   slug: hackerone
@@ -519,6 +528,9 @@ ashby:
   slug: zapier
 
 smartrecruiters:
+- name: Check Point
+  slug: CheckPointSoftwareTechnologies
+  security_company: true
 - name: Jscrambler
   slug: jscrambler
   security_company: true
@@ -611,6 +623,10 @@ workday:
   tenant: intel
   instance: wd1
   board: External
+- name: KBR
+  tenant: kbr
+  instance: wd5
+  board: KBR_Careers
 - name: Leidos
   tenant: leidos
   instance: wd5
@@ -654,6 +670,10 @@ workday:
   instance: wd5
   board: panwexternalcareers
   security_company: true
+- name: Parsons
+  tenant: parsons
+  instance: wd5
+  board: Search
 - name: PayPal
   tenant: paypal
   instance: wd1
@@ -677,6 +697,10 @@ workday:
   instance: wd5
   board: ReliaQuest_Careers
   security_company: true
+- name: RTX
+  tenant: globalhr
+  instance: wd5
+  board: REC_RTX_Ext_Gateway
 - name: SailPoint
   tenant: sailpoint
   instance: wd1
