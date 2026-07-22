@@ -2054,5 +2054,71 @@
     "url": "https://www.amazon.jobs/en/jobs/10481118/security-engineer-ii-security-incident-response-team-sirt",
     "source": "Amazon Jobs",
     "date_added": "2026-07-22"
+  },
+  {
+    "company": "Instacart",
+    "role": "Detection Engineer II",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "SOC & Detection",
+    "clearance": false,
+    "url": "https://instacart.careers/job/?gh_jid=8080512",
+    "source": "Greenhouse",
+    "date_added": "2026-07-22"
+  },
+  {
+    "company": "Netskope",
+    "role": "Associate Solutions Engineer",
+    "location": "Saint Louis, MO",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://www.netskope.com/company/careers/open-positions/?gh_jid=8045249",
+    "source": "Greenhouse",
+    "date_added": "2026-07-22"
+  },
+  {
+    "company": "CACI",
+    "role": "Junior Penetration Tester - Cyber Engineer",
+    "location": "Aberdeen Proving Ground, MD",
+    "type": "earlycareer",
+    "category": "Offensive Security",
+    "clearance": true,
+    "url": "https://caci.wd1.myworkdayjobs.com/External/job/Aberdeen-Proving-Ground-MD-US/Junior-Penetration-Tester---Cyber-Engineer_329436",
+    "source": "Workday",
+    "date_added": "2026-07-22"
+  },
+  {
+    "company": "GDIT",
+    "role": "Network/Cyber Security Analyst Associate",
+    "location": "Manassas, VA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://gdit.wd5.myworkdayjobs.com/External_Career_Site/job/USA-VA-Manassas/Network-Cyber-Security-Analyst-Associate_RQ224655-1",
+    "source": "Workday",
+    "date_added": "2026-07-22"
+  },
+  {
+    "company": "Northrop Grumman",
+    "role": "Associate Industrial Security Analyst (19201)",
+    "location": "Roy, UT",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Utah-Roy/Associate-Industrial-Security-Analyst--19201-_R10241145",
+    "source": "Workday",
+    "date_added": "2026-07-22"
+  },
+  {
+    "company": "Amazon",
+    "role": "Security Engineer II, Infrastructure Security Identity",
+    "location": "Minneapolis, MN",
+    "type": "earlycareer",
+    "category": "Cloud & Infra Security",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10481727/security-engineer-ii-infrastructure-security-identity",
+    "source": "Amazon Jobs",
+    "date_added": "2026-07-22"
   }
 ]
