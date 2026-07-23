@@ -13,7 +13,7 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 
 <!-- STATS -->
 
-**192** open roles tracked · updated July 22, 2026
+**196** open roles tracked · updated July 23, 2026
 
 <!-- /STATS -->
 
@@ -92,6 +92,10 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| Amazon | Software Dev Engineer II, Amazon Security | Seattle, WA | Security Engineering | <a href="https://www.amazon.jobs/en/jobs/10476759/software-dev-engineer-ii-amazon-security" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 23 |
+| CACI 🇺🇸 | Junior Reverse Engineer | Aberdeen Proving Ground, MD | Forensics &amp; IR | <a href="https://caci.wd1.myworkdayjobs.com/External/job/Aberdeen-Proving-Ground-MD-US/Junior-Reverse-Engineer_329484" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 23 |
+| Chainalysis 🇺🇸 | Software Engineer II, Gov Systems | Remote (US) | Engineering @ Security Co | <a href="https://jobs.ashbyhq.com/chainalysis-careers/4808108e-6a69-46c4-b9da-930070562608" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 23 |
+| Sierra Nevada Corporation 🇺🇸 | Cybersecurity Analyst I - Artificial Intelligence | <details><summary>**2 locations**</summary>Lone Tree, CO</br>Sparks, NV</details> | Security Engineering | <a href="https://snc.wd1.myworkdayjobs.com/SNC_External_Career_Site/job/Lone-Tree-CO/Cybersecurity-Analyst-I---Artificial-Intelligence_R0030060" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 23 |
 | Amazon | Security Engineer II, Security Incident Response Team (SIRT) | Seattle, WA | SOC &amp; Detection | <a href="https://www.amazon.jobs/en/jobs/10481118/security-engineer-ii-security-incident-response-team-sirt" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 22 |
 | ↳ | Security Engineer II, Infrastructure Security Identity | Minneapolis, MN | Cloud &amp; Infra Security | <a href="https://www.amazon.jobs/en/jobs/10481727/security-engineer-ii-infrastructure-security-identity" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 22 |
 | Anthropic | Anthropic Fellows Program, AI Safety | <details><summary>**4 locations**</summary>London, UK</br>Ontario, CAN</br>Remote (US)</br>San Francisco, CA</details> | AI Security &amp; Safety | <a href="https://job-boards.greenhouse.io/anthropic/jobs/5183044008" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 22 |

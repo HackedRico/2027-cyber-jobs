@@ -2120,5 +2120,49 @@
     "url": "https://www.amazon.jobs/en/jobs/10481727/security-engineer-ii-infrastructure-security-identity",
     "source": "Amazon Jobs",
     "date_added": "2026-07-22"
+  },
+  {
+    "company": "Chainalysis",
+    "role": "Software Engineer II, Gov Systems",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": true,
+    "url": "https://jobs.ashbyhq.com/chainalysis-careers/4808108e-6a69-46c4-b9da-930070562608",
+    "source": "Ashby",
+    "date_added": "2026-07-23"
+  },
+  {
+    "company": "CACI",
+    "role": "Junior Reverse Engineer",
+    "location": "Aberdeen Proving Ground, MD",
+    "type": "earlycareer",
+    "category": "Forensics & IR",
+    "clearance": true,
+    "url": "https://caci.wd1.myworkdayjobs.com/External/job/Aberdeen-Proving-Ground-MD-US/Junior-Reverse-Engineer_329484",
+    "source": "Workday",
+    "date_added": "2026-07-23"
+  },
+  {
+    "company": "Sierra Nevada Corporation",
+    "role": "Cybersecurity Analyst I - Artificial Intelligence",
+    "location": "Lone Tree, CO; Sparks, NV",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://snc.wd1.myworkdayjobs.com/SNC_External_Career_Site/job/Lone-Tree-CO/Cybersecurity-Analyst-I---Artificial-Intelligence_R0030060",
+    "source": "Workday",
+    "date_added": "2026-07-23"
+  },
+  {
+    "company": "Amazon",
+    "role": "Software Dev Engineer II, Amazon Security",
+    "location": "Seattle, WA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10476759/software-dev-engineer-ii-amazon-security",
+    "source": "Amazon Jobs",
+    "date_added": "2026-07-23"
   }
 ]
