@@ -2175,5 +2175,16 @@
     "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Springfield-VA/Multidisciplinary-Engineer-II_JR101616",
     "source": "Workday",
     "date_added": "2026-07-24"
+  },
+  {
+    "company": "Amazon",
+    "role": "Software Dev Engineer II, AWS Security Incident Response",
+    "location": "Seattle, WA",
+    "type": "earlycareer",
+    "category": "SOC & Detection",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10483813/software-dev-engineer-ii-aws-security-incident-response",
+    "source": "Amazon Jobs",
+    "date_added": "2026-07-24"
   }
 ]

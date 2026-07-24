@@ -13,7 +13,7 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 
 <!-- STATS -->
 
-**197** open roles tracked · updated July 24, 2026
+**198** open roles tracked · updated July 24, 2026
 
 <!-- /STATS -->
 
@@ -92,6 +92,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| Amazon | Software Dev Engineer II, AWS Security Incident Response | Seattle, WA | SOC &amp; Detection | <a href="https://www.amazon.jobs/en/jobs/10483813/software-dev-engineer-ii-aws-security-incident-response" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 24 |
 | Nightwing 🇺🇸 | Multidisciplinary Engineer II | Springfield, VA | Engineering @ Security Co | <a href="https://nwis.wd12.myworkdayjobs.com/NW/job/Springfield-VA/Multidisciplinary-Engineer-II_JR101616" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 24 |
 | Amazon | Software Dev Engineer II, Amazon Security | Seattle, WA | Security Engineering | <a href="https://www.amazon.jobs/en/jobs/10476759/software-dev-engineer-ii-amazon-security" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 23 |
 | CACI 🇺🇸 | Junior Reverse Engineer | Aberdeen Proving Ground, MD | Forensics &amp; IR | <a href="https://caci.wd1.myworkdayjobs.com/External/job/Aberdeen-Proving-Ground-MD-US/Junior-Reverse-Engineer_329484" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 23 |
