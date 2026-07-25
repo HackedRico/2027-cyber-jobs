@@ -586,9 +586,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10462648/software-development-engineer-ii-amazon-security-cloud-user-experience",
+    "url": "",
     "source": "Amazon Jobs",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "closed": true,
+    "closed_date": "2026-07-25"
   },
   {
     "company": "Amazon",
