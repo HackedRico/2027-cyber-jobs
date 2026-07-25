@@ -2,7 +2,7 @@
 
 Employers whose job boards are scraped automatically (see [companies.yml](companies.yml)). 🛡️ marks pure-play security companies, where every engineering role is a security-industry job.
 
-**248 companies tracked.**
+**249 companies tracked.**
 
 ## Ashby (56)
 
@@ -63,7 +63,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - WorkOS 🛡️
 - Zapier
 
-## Greenhouse (127)
+## Greenhouse (128)
 
 - Abnormal AI 🛡️
 - Affirm
@@ -73,6 +73,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Anduril
 - Anthropic
 - Apiiro 🛡️
+- Appian
 - AppOmni 🛡️
 - Arkose Labs 🛡️
 - Armis 🛡️

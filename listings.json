@@ -2188,5 +2188,27 @@
     "url": "https://www.amazon.jobs/en/jobs/10483813/software-dev-engineer-ii-aws-security-incident-response",
     "source": "Amazon Jobs",
     "date_added": "2026-07-24"
+  },
+  {
+    "company": "Appian",
+    "role": "Information Security Engineer (2027 Graduate)",
+    "location": "McLean, VA",
+    "type": "newgrad",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/appian/jobs/8035744",
+    "source": "Greenhouse",
+    "date_added": "2026-07-25"
+  },
+  {
+    "company": "NVIDIA",
+    "role": "Security Architect - New College Grad 2026",
+    "location": "Santa Clara, CA",
+    "type": "newgrad",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/Security-Architect---New-College-Grad-2026_JR2021165",
+    "source": "Workday",
+    "date_added": "2026-07-25"
   }
 ]
