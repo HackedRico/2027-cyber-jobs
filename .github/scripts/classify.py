@@ -33,9 +33,15 @@ SENIORITY_REJECT = [
     r'\bsenior\b', r'\bsr\b\.?', r'\bstaff\b', r'\bprincipal\b', r'\blead\b',
     r'\bmanager\b', r'\bdirector\b', r'\bvp\b', r'\bvice president\b',
     r'\bhead of\b', r'\bchief\b', r'\bdistinguished\b', r'\bfellow\b',
-    r'\barchitect\b', r'\bexecutive\b', r'\bexpert\b',
+    r'\bexecutive\b', r'\bexpert\b',
     r'\bsme\b', r'\bsubject matter expert\b',
 ]
+
+# 'Architect' usually marks a senior IC, but named early-career cohorts run
+# "Security Architect - New College Grad 2026" reqs. It rejects only when the
+# title carries no explicit new-grad/intern signal — the other seniority terms
+# above still hard-reject even inside a cohort title.
+ARCHITECT_RE = re.compile(r'\barchitect\b')
 
 # Senior levels are rejected only when III/IV/3/4 qualifies a role/level noun,
 # so "SOC Analyst III" and "Tier 3 Responder" are rejected but "Layer 3 Network
@@ -540,6 +546,8 @@ def strip_html(text):
 def is_rejected_title(title):
     t = title.lower()
     if any(re.search(p, t) for p in SENIORITY_REJECT):
+        return True
+    if ARCHITECT_RE.search(t) and classify_level(title) not in ('newgrad', 'intern'):
         return True
     if LEVELED_SENIOR_RE.search(t):
         return True

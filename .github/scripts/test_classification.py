@@ -52,6 +52,10 @@ CASES = [
     ('Researcher, Alignment Science', 'San Francisco, CA', 'Strong coding ability required.', False, ('earlycareer', 'AI Security & Safety')),
     ('AI Red Teamer', 'US, Remote', '', True, ('earlycareer', 'AI Security & Safety')),
     ('Junior Security Analyst', 'Remote- US', '', False, ('earlycareer', 'Security Engineering')),
+    # 'Architect' is a senior signal, but a named early-career cohort overrides
+    # it (NVIDIA's "Security Architect - New College Grad" is a new-grad req).
+    ('Security Architect - New College Grad 2026', 'Santa Clara, CA', '', False, ('newgrad', 'Security Engineering')),
+    ('Security Architect Intern', 'Austin, TX', '', False, ('intern', 'Security Engineering')),
 
     # -- should be accepted: internships --
     ('Security Engineer Intern', 'Austin, TX', '', False, ('intern', 'Security Engineering')),
@@ -84,6 +88,10 @@ CASES = [
     ('Lead Incident Responder', 'Austin, TX', '', False, None),
     ('Sr. Security Analyst', 'Austin, TX', '', False, None),
     ('Security Analyst, Sr', 'Austin, TX', '', False, None),
+    # 'Architect' with no early-career signal is still a senior IC, and an
+    # explicit senior word wins even inside a cohort title.
+    ('Security Architect', 'Austin, TX', '', False, None),
+    ('Senior Security Architect - New Grad', 'Austin, TX', '', False, None),
 
     # -- should be rejected: not cyber --
     ('Software Engineer, New Grad', 'Austin, TX', '', False, None),
