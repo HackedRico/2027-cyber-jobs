@@ -18,6 +18,8 @@ greenhouse:
 - name: Apiiro
   slug: apiiro
   security_company: true
+- name: Appian
+  slug: appian
 - name: AppOmni
   slug: appomni
   security_company: true
