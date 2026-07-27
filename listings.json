@@ -2212,5 +2212,49 @@
     "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/Security-Architect---New-College-Grad-2026_JR2021165",
     "source": "Workday",
     "date_added": "2026-07-25"
+  },
+  {
+    "company": "Affirm",
+    "role": "Product Security Engineer II",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "AppSec & ProdSec",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/affirm/jobs/7796534003",
+    "source": "Greenhouse",
+    "date_added": "2026-07-27"
+  },
+  {
+    "company": "Appian",
+    "role": "Information Security Engineer Intern",
+    "location": "McLean, VA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/appian/jobs/8088496",
+    "source": "Greenhouse",
+    "date_added": "2026-07-27"
+  },
+  {
+    "company": "Fireblocks",
+    "role": "Technical Support Engineer - West Coast",
+    "location": "United States",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://www.fireblocks.com/careers/4698689006?gh_jid=4698689006",
+    "source": "Greenhouse",
+    "date_added": "2026-07-27"
+  },
+  {
+    "company": "Northrop Grumman",
+    "role": "Exploit Developer/Penetration Tester 2/3",
+    "location": "Unknown City, VA",
+    "type": "earlycareer",
+    "category": "Offensive Security",
+    "clearance": true,
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Virginia-Unknown-City/Exploit-Developer-Penetration-Tester-2-3_R10242492-1",
+    "source": "Workday",
+    "date_added": "2026-07-27"
   }
 ]

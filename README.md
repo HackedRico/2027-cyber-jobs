@@ -13,7 +13,7 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 
 <!-- STATS -->
 
-**200** open roles tracked · updated July 25, 2026
+**204** open roles tracked · updated July 27, 2026
 
 <!-- /STATS -->
 
@@ -64,6 +64,7 @@ Cybersecurity internships and co-ops for current students, including federal Pat
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| Appian | Information Security Engineer Intern | McLean, VA | Security Engineering | <a href="https://job-boards.greenhouse.io/appian/jobs/8088496" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 27 |
 | KBR 🇺🇸 | National Security Solutions (NSS) Semiconductor Research Internship (Fall 2026) | Beavercreek Township, OH | Security Engineering | <a href="https://kbr.wd5.myworkdayjobs.com/KBR_Careers/job/Beavercreek-Township-Ohio/National-Security-Solutions--NSS--Semiconductor-Research-Internship--Fall-2026-_R2126603" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 22 |
 | Cloudflare | Security Engineer Intern (Fall 2026) | Austin, TX | Security Engineering | <a href="https://boards.greenhouse.io/cloudflare/jobs/8060959?gh_jid=8060959" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 16 |
 | Center for AI Safety | Research Engineer Intern (Fall 2026) | San Francisco, CA | Engineering @ Security Co | 🔒 | Jul 12 |
@@ -94,6 +95,9 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| Affirm | Product Security Engineer II | Remote (US) | AppSec &amp; ProdSec | <a href="https://job-boards.greenhouse.io/affirm/jobs/7796534003" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 27 |
+| Fireblocks | Technical Support Engineer - West Coast | United States | Engineering @ Security Co | <a href="https://www.fireblocks.com/careers/4698689006?gh_jid=4698689006" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 27 |
+| Northrop Grumman 🇺🇸 | Exploit Developer/Penetration Tester 2/3 | Unknown City, VA | Offensive Security | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Virginia-Unknown-City/Exploit-Developer-Penetration-Tester-2-3_R10242492-1" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 27 |
 | Amazon | Software Dev Engineer II, AWS Security Incident Response | Seattle, WA | SOC &amp; Detection | <a href="https://www.amazon.jobs/en/jobs/10483813/software-dev-engineer-ii-aws-security-incident-response" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 24 |
 | Nightwing 🇺🇸 | Multidisciplinary Engineer II | Springfield, VA | Engineering @ Security Co | <a href="https://nwis.wd12.myworkdayjobs.com/NW/job/Springfield-VA/Multidisciplinary-Engineer-II_JR101616" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 24 |
 | Amazon | Software Dev Engineer II, Amazon Security | Seattle, WA | Security Engineering | <a href="https://www.amazon.jobs/en/jobs/10476759/software-dev-engineer-ii-amazon-security" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 23 |
