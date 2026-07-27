@@ -380,9 +380,11 @@
     "type": "earlycareer",
     "category": "AppSec & ProdSec",
     "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10425775/security-engineer-ii-storesec-application-security",
+    "url": "",
     "source": "Amazon Jobs",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "closed": true,
+    "closed_date": "2026-07-27"
   },
   {
     "company": "Amazon",
