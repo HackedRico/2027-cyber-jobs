@@ -2242,11 +2242,9 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "",
+    "url": "https://www.fireblocks.com/careers/4698689006?gh_jid=4698689006",
     "source": "Greenhouse",
-    "date_added": "2026-07-27",
-    "closed": true,
-    "closed_date": "2026-07-28"
+    "date_added": "2026-07-27"
   },
   {
     "company": "Northrop Grumman",
@@ -2258,5 +2256,16 @@
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Virginia-Unknown-City/Exploit-Developer-Penetration-Tester-2-3_R10242492-1",
     "source": "Workday",
     "date_added": "2026-07-27"
+  },
+  {
+    "company": "Amazon",
+    "role": "Software Development Engineer II, AWS Security",
+    "location": "Herndon, VA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10485445/software-development-engineer-ii-aws-security",
+    "source": "Amazon Jobs",
+    "date_added": "2026-07-28"
   }
 ]

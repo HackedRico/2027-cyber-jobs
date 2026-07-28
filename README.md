@@ -13,7 +13,7 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 
 <!-- STATS -->
 
-**204** open roles tracked · updated July 27, 2026
+**205** open roles tracked · updated July 28, 2026
 
 <!-- /STATS -->
 
@@ -95,8 +95,9 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| Amazon | Software Development Engineer II, AWS Security | Herndon, VA | Security Engineering | <a href="https://www.amazon.jobs/en/jobs/10485445/software-development-engineer-ii-aws-security" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 28 |
 | Affirm | Product Security Engineer II | Remote (US) | AppSec &amp; ProdSec | <a href="https://job-boards.greenhouse.io/affirm/jobs/7796534003" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 27 |
-| Fireblocks | Technical Support Engineer - West Coast | United States | Engineering @ Security Co | 🔒 | Jul 27 |
+| Fireblocks | Technical Support Engineer - West Coast | United States | Engineering @ Security Co | <a href="https://www.fireblocks.com/careers/4698689006?gh_jid=4698689006" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 27 |
 | Northrop Grumman 🇺🇸 | Exploit Developer/Penetration Tester 2/3 | Unknown City, VA | Offensive Security | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Virginia-Unknown-City/Exploit-Developer-Penetration-Tester-2-3_R10242492-1" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 27 |
 | Amazon | Software Dev Engineer II, AWS Security Incident Response | Seattle, WA | SOC &amp; Detection | <a href="https://www.amazon.jobs/en/jobs/10483813/software-dev-engineer-ii-aws-security-incident-response" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 24 |
 | Nightwing 🇺🇸 | Multidisciplinary Engineer II | Springfield, VA | Engineering @ Security Co | <a href="https://nwis.wd12.myworkdayjobs.com/NW/job/Springfield-VA/Multidisciplinary-Engineer-II_JR101616" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 24 |
