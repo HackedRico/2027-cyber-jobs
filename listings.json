@@ -2242,9 +2242,11 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://www.fireblocks.com/careers/4698689006?gh_jid=4698689006",
+    "url": "",
     "source": "Greenhouse",
-    "date_added": "2026-07-27"
+    "date_added": "2026-07-27",
+    "closed": true,
+    "closed_date": "2026-07-29"
   },
   {
     "company": "Northrop Grumman",
