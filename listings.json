@@ -2311,5 +2311,60 @@
     "url": "https://www.amazon.jobs/en/jobs/10486573/software-development-engineer-ii-amazon-security",
     "source": "Amazon Jobs",
     "date_added": "2026-07-29"
+  },
+  {
+    "company": "CACI",
+    "role": "Cybersecurity Specialist, Junior",
+    "location": "Aberdeen Proving Ground, MD",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://caci.wd1.myworkdayjobs.com/External/job/Aberdeen-Proving-Ground-MD-US/Cybersecurity-Specialist--Junior_329537",
+    "source": "Workday",
+    "date_added": "2026-07-29"
+  },
+  {
+    "company": "CrowdStrike",
+    "role": "CrowdStrike Platform Associate Resident Consultant (Remote)",
+    "location": "Remote, TX; Remote (US)",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote-TX/CrowdStrike-Platform-Associate-Resident-Consultant--Remote-_R29426",
+    "source": "Workday",
+    "date_added": "2026-07-29"
+  },
+  {
+    "company": "Proofpoint",
+    "role": "Associate Triage Analyst",
+    "location": "California; Arizona; Texas; Utah; Nevada; Colorado; Oregon; Illinois",
+    "type": "earlycareer",
+    "category": "SOC & Detection",
+    "clearance": false,
+    "url": "https://proofpoint.wd5.myworkdayjobs.com/proofpointcareers/job/California/Associate-Triage-Analyst_R14534",
+    "source": "Workday",
+    "date_added": "2026-07-29"
+  },
+  {
+    "company": "Sierra Nevada Corporation",
+    "role": "DevSecOps Project Engineer I",
+    "location": "Plano, TX",
+    "type": "earlycareer",
+    "category": "AppSec & ProdSec",
+    "clearance": true,
+    "url": "https://snc.wd1.myworkdayjobs.com/SNC_External_Career_Site/job/Plano-TX/DevSecOps-Project-Engineer-I_R0030409",
+    "source": "Workday",
+    "date_added": "2026-07-29"
+  },
+  {
+    "company": "Amazon",
+    "role": "Security Engineer II, Stores Security Review Operations",
+    "location": "US, Virtual",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10487197/security-engineer-ii-stores-security-review-operations",
+    "source": "Amazon Jobs",
+    "date_added": "2026-07-29"
   }
 ]
