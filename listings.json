@@ -2242,11 +2242,9 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "",
+    "url": "https://www.fireblocks.com/careers/4698689006?gh_jid=4698689006",
     "source": "Greenhouse",
-    "date_added": "2026-07-27",
-    "closed": true,
-    "closed_date": "2026-07-30"
+    "date_added": "2026-07-27"
   },
   {
     "company": "Northrop Grumman",
@@ -2368,5 +2366,16 @@
     "url": "https://www.amazon.jobs/en/jobs/10487197/security-engineer-ii-stores-security-review-operations",
     "source": "Amazon Jobs",
     "date_added": "2026-07-29"
+  },
+  {
+    "company": "KBR",
+    "role": "Junior Reverse Engineer",
+    "location": "Beavercreek, OH",
+    "type": "earlycareer",
+    "category": "Forensics & IR",
+    "clearance": true,
+    "url": "https://kbr.wd5.myworkdayjobs.com/KBR_Careers/job/Beavercreek-Ohio/Junior-Reverse-Engineer_R2127496",
+    "source": "Workday",
+    "date_added": "2026-07-30"
   }
 ]

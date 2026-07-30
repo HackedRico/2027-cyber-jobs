@@ -13,7 +13,7 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 
 <!-- STATS -->
 
-**214** open roles tracked · updated July 29, 2026
+**215** open roles tracked · updated July 30, 2026
 
 <!-- /STATS -->
 
@@ -95,6 +95,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| KBR 🇺🇸 | Junior Reverse Engineer | Beavercreek, OH | Forensics &amp; IR | <a href="https://kbr.wd5.myworkdayjobs.com/KBR_Careers/job/Beavercreek-Ohio/Junior-Reverse-Engineer_R2127496" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 30 |
 | Abnormal AI | Software Engineer I, Data Platform | Remote (US) | Engineering @ Security Co | <a href="https://abnormal.ai/careers/jobs/7814567003?gh_jid=7814567003" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 29 |
 | Amazon | Software Development Engineer II, Amazon Security | Seattle, WA | Security Engineering | <a href="https://www.amazon.jobs/en/jobs/10486573/software-development-engineer-ii-amazon-security" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 29 |
 | ↳ | Security Engineer II, Stores Security Review Operations | US, Virtual | Security Engineering | <a href="https://www.amazon.jobs/en/jobs/10487197/security-engineer-ii-stores-security-review-operations" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 29 |
@@ -106,7 +107,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 | Sierra Nevada Corporation 🇺🇸 | DevSecOps Project Engineer I | Plano, TX | AppSec &amp; ProdSec | <a href="https://snc.wd1.myworkdayjobs.com/SNC_External_Career_Site/job/Plano-TX/DevSecOps-Project-Engineer-I_R0030409" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 29 |
 | Amazon | Software Development Engineer II, AWS Security | Herndon, VA | Security Engineering | <a href="https://www.amazon.jobs/en/jobs/10485445/software-development-engineer-ii-aws-security" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 28 |
 | Affirm | Product Security Engineer II | Remote (US) | AppSec &amp; ProdSec | <a href="https://job-boards.greenhouse.io/affirm/jobs/7796534003" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 27 |
-| Fireblocks | Technical Support Engineer - West Coast | United States | Engineering @ Security Co | 🔒 | Jul 27 |
+| Fireblocks | Technical Support Engineer - West Coast | United States | Engineering @ Security Co | <a href="https://www.fireblocks.com/careers/4698689006?gh_jid=4698689006" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 27 |
 | Northrop Grumman 🇺🇸 | Exploit Developer/Penetration Tester 2/3 | Unknown City, VA | Offensive Security | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Virginia-Unknown-City/Exploit-Developer-Penetration-Tester-2-3_R10242492-1" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 27 |
 | Amazon | Software Dev Engineer II, AWS Security Incident Response | Seattle, WA | SOC &amp; Detection | <a href="https://www.amazon.jobs/en/jobs/10483813/software-dev-engineer-ii-aws-security-incident-response" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 24 |
 | Nightwing 🇺🇸 | Multidisciplinary Engineer II | Springfield, VA | Engineering @ Security Co | <a href="https://nwis.wd12.myworkdayjobs.com/NW/job/Springfield-VA/Multidisciplinary-Engineer-II_JR101616" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 24 |
