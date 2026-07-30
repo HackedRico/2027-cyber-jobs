@@ -13,7 +13,7 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 
 <!-- STATS -->
 
-**215** open roles tracked · updated July 30, 2026
+**217** open roles tracked · updated July 30, 2026
 
 <!-- /STATS -->
 
@@ -95,7 +95,9 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| Intel | AI Security Engineer Contract | <details><summary>**2 locations**</summary>US, Oregon, Hillsboro</br>US, California, Santa Clara</details> | AI Security &amp; Safety | <a href="https://intel.wd1.myworkdayjobs.com/External/job/US-Oregon-Hillsboro/AI-Security-Engineer-Contract_JR0286011" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 30 |
 | KBR 🇺🇸 | Junior Reverse Engineer | Beavercreek, OH | Forensics &amp; IR | <a href="https://kbr.wd5.myworkdayjobs.com/KBR_Careers/job/Beavercreek-Ohio/Junior-Reverse-Engineer_R2127496" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 30 |
+| Proofpoint | Systems Security Engineer I | <details><summary>**7 locations**</summary>Oregon</br>Delaware</br>Connecticut</br>Arizona</br>Nebraska</br>Missouri</br>Michigan</details> | Cloud &amp; Infra Security | <a href="https://proofpoint.wd5.myworkdayjobs.com/proofpointcareers/job/Oregon/Systems-Security-Engineer-I_R14529-1" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 30 |
 | Abnormal AI | Software Engineer I, Data Platform | Remote (US) | Engineering @ Security Co | <a href="https://abnormal.ai/careers/jobs/7814567003?gh_jid=7814567003" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 29 |
 | Amazon | Software Development Engineer II, Amazon Security | Seattle, WA | Security Engineering | <a href="https://www.amazon.jobs/en/jobs/10486573/software-development-engineer-ii-amazon-security" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 29 |
 | ↳ | Security Engineer II, Stores Security Review Operations | US, Virtual | Security Engineering | <a href="https://www.amazon.jobs/en/jobs/10487197/security-engineer-ii-stores-security-review-operations" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 29 |
@@ -218,7 +220,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 | ↳ | Software Dev Engineer II, Enterprise Security Products | Austin, TX | Security Engineering | <a href="https://www.amazon.jobs/en/jobs/10461848/software-dev-engineer-ii-enterprise-security-products" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
 | ↳ | Data Engineer II, Veritas, Security Tools Foundation | Seattle, WA | Security Engineering | <a href="https://www.amazon.jobs/en/jobs/10463971/data-engineer-ii-veritas-security-tools-foundation" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
 | ↳ | Systems Development Engineer I, ADC Security Services (AS2E) | Arlington, VA | Security Engineering | <a href="https://www.amazon.jobs/en/jobs/10440084/systems-development-engineer-i-adc-security-services-as2e" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
-| ↳ | Systems Development Engineer II, ADC Security Services (A2SE) | Denver, CO | Security Engineering | 🔒 | Jul 12 |
+| ↳ | Systems Development Engineer II, ADC Security Services (A2SE) | Denver, CO | Security Engineering | <a href="https://www.amazon.jobs/en/jobs/10488679/systems-development-engineer-ii-adc-security-services-a2se" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
 | ↳ | Software Development Engineer II, Amazon Security, Cloud User Experience | Austin, TX | Security Engineering | 🔒 | Jul 12 |
 | ↳ | Software Dev Engineer II, Customer Service Security | Seattle, WA | Security Engineering | 🔒 | Jul 12 |
 | ↳ | Security Engineer II, Stores Application Security | Remote (US) | AppSec &amp; ProdSec | <a href="https://www.amazon.jobs/en/jobs/10468150/security-engineer-ii-stores-application-security" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |

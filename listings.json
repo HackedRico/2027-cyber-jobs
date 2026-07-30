@@ -575,11 +575,9 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "",
+    "url": "https://www.amazon.jobs/en/jobs/10488679/systems-development-engineer-ii-adc-security-services-a2se",
     "source": "Amazon Jobs",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-07-12"
+    "date_added": "2026-07-12"
   },
   {
     "company": "Amazon",
@@ -2375,6 +2373,28 @@
     "category": "Forensics & IR",
     "clearance": true,
     "url": "https://kbr.wd5.myworkdayjobs.com/KBR_Careers/job/Beavercreek-Ohio/Junior-Reverse-Engineer_R2127496",
+    "source": "Workday",
+    "date_added": "2026-07-30"
+  },
+  {
+    "company": "Intel",
+    "role": "AI Security Engineer Contract",
+    "location": "US, Oregon, Hillsboro; US, California, Santa Clara",
+    "type": "earlycareer",
+    "category": "AI Security & Safety",
+    "clearance": false,
+    "url": "https://intel.wd1.myworkdayjobs.com/External/job/US-Oregon-Hillsboro/AI-Security-Engineer-Contract_JR0286011",
+    "source": "Workday",
+    "date_added": "2026-07-30"
+  },
+  {
+    "company": "Proofpoint",
+    "role": "Systems Security Engineer I",
+    "location": "Oregon; Delaware; Connecticut; Arizona; Nebraska; Missouri; Michigan",
+    "type": "earlycareer",
+    "category": "Cloud & Infra Security",
+    "clearance": false,
+    "url": "https://proofpoint.wd5.myworkdayjobs.com/proofpointcareers/job/Oregon/Systems-Security-Engineer-I_R14529-1",
     "source": "Workday",
     "date_added": "2026-07-30"
   }
