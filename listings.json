@@ -325,9 +325,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10426788/security-engineer-ii-amz27256-1",
+    "url": "",
     "source": "Amazon Jobs",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "closed": true,
+    "closed_date": "2026-07-31"
   },
   {
     "company": "Amazon",
@@ -2240,9 +2242,11 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://www.fireblocks.com/careers/4698689006?gh_jid=4698689006",
+    "url": "",
     "source": "Greenhouse",
-    "date_added": "2026-07-27"
+    "date_added": "2026-07-27",
+    "closed": true,
+    "closed_date": "2026-07-31"
   },
   {
     "company": "Northrop Grumman",
