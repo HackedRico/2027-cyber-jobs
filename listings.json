@@ -2399,5 +2399,60 @@
     "url": "https://proofpoint.wd5.myworkdayjobs.com/proofpointcareers/job/Oregon/Systems-Security-Engineer-I_R14529-1",
     "source": "Workday",
     "date_added": "2026-07-30"
+  },
+  {
+    "company": "Cisco",
+    "role": "Security Engineer I (Full-Time) - United States",
+    "location": "Chicago, IL; Austin, TX; Remote (US); RTP, NC; Atlanta, GA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/Chicago-Illinois-US/Security-Engineer-I--Full-Time----United-States_2016255",
+    "source": "Workday",
+    "date_added": "2026-07-31"
+  },
+  {
+    "company": "RTX",
+    "role": "Network/Security Analyst II (Onsite)",
+    "location": "MT-GREAT FALLS-6932-CUST ~ 6932 Goddard Dr ~ GODDARD (External Site)",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MT-GREAT-FALLS-6932-CUST--6932-Goddard-Dr--GODDARD-External-Site/Network-Security-Analyst--Onsite-_01855540",
+    "source": "Workday",
+    "date_added": "2026-07-31"
+  },
+  {
+    "company": "Amazon",
+    "role": "AI Security Engineer, AWS Security, AWS Security - AISec",
+    "location": "Austin, TX",
+    "type": "earlycareer",
+    "category": "AI Security & Safety",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10489738/ai-security-engineer-aws-security-aws-security-aisec",
+    "source": "Amazon Jobs",
+    "date_added": "2026-07-31"
+  },
+  {
+    "company": "Amazon",
+    "role": "Security & Compliance Engineer I, AWS Security Assurance Services, LLC",
+    "location": "Austin, TX",
+    "type": "earlycareer",
+    "category": "GRC & Risk",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10449507/security-compliance-engineer-i-aws-security-assurance-services-llc",
+    "source": "Amazon Jobs",
+    "date_added": "2026-07-31"
+  },
+  {
+    "company": "Amazon",
+    "role": "Systems Development Engineer II, ADC Security Services (A2SE)",
+    "location": "Arlington, VA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://www.amazon.jobs/en/jobs/10489636/systems-development-engineer-ii-adc-security-services-a2se",
+    "source": "Amazon Jobs",
+    "date_added": "2026-07-31"
   }
 ]

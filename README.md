@@ -13,7 +13,7 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 
 <!-- STATS -->
 
-**217** open roles tracked · updated July 31, 2026
+**222** open roles tracked · updated July 31, 2026
 
 <!-- /STATS -->
 
@@ -95,6 +95,11 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| Amazon | AI Security Engineer, AWS Security, AWS Security - AISec | Austin, TX | AI Security &amp; Safety | <a href="https://www.amazon.jobs/en/jobs/10489738/ai-security-engineer-aws-security-aws-security-aisec" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 31 |
+| ↳ | Security &amp; Compliance Engineer I, AWS Security Assurance Services, LLC | Austin, TX | GRC &amp; Risk | <a href="https://www.amazon.jobs/en/jobs/10449507/security-compliance-engineer-i-aws-security-assurance-services-llc" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 31 |
+| ↳ | Systems Development Engineer II, ADC Security Services (A2SE) | Arlington, VA | Security Engineering | <a href="https://www.amazon.jobs/en/jobs/10489636/systems-development-engineer-ii-adc-security-services-a2se" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 31 |
+| Cisco 🇺🇸 | Security Engineer I (Full-Time) - United States | <details><summary>**5 locations**</summary>Chicago, IL</br>Austin, TX</br>Remote (US)</br>RTP, NC</br>Atlanta, GA</details> | Security Engineering | <a href="https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/Chicago-Illinois-US/Security-Engineer-I--Full-Time----United-States_2016255" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 31 |
+| RTX 🇺🇸 | Network/Security Analyst II (Onsite) | MT-GREAT FALLS-6932-CUST ~ 6932 Goddard Dr ~ GODDARD (External Site) | Security Engineering | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MT-GREAT-FALLS-6932-CUST--6932-Goddard-Dr--GODDARD-External-Site/Network-Security-Analyst--Onsite-_01855540" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 31 |
 | Intel | AI Security Engineer Contract | <details><summary>**2 locations**</summary>US, Oregon, Hillsboro</br>US, California, Santa Clara</details> | AI Security &amp; Safety | <a href="https://intel.wd1.myworkdayjobs.com/External/job/US-Oregon-Hillsboro/AI-Security-Engineer-Contract_JR0286011" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 30 |
 | KBR 🇺🇸 | Junior Reverse Engineer | Beavercreek, OH | Forensics &amp; IR | <a href="https://kbr.wd5.myworkdayjobs.com/KBR_Careers/job/Beavercreek-Ohio/Junior-Reverse-Engineer_R2127496" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 30 |
 | Proofpoint | Systems Security Engineer I | <details><summary>**7 locations**</summary>Oregon</br>Delaware</br>Connecticut</br>Arizona</br>Nebraska</br>Missouri</br>Michigan</details> | Cloud &amp; Infra Security | <a href="https://proofpoint.wd5.myworkdayjobs.com/proofpointcareers/job/Oregon/Systems-Security-Engineer-I_R14529-1" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 30 |
