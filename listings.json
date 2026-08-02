@@ -28,9 +28,11 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://abnormal.ai/careers/jobs/7749085003?gh_jid=7749085003",
+    "url": "",
     "source": "Greenhouse",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "closed": true,
+    "closed_date": "2026-08-02"
   },
   {
     "company": "Anduril",
@@ -2242,9 +2244,11 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://www.fireblocks.com/careers/4698689006?gh_jid=4698689006",
+    "url": "",
     "source": "Greenhouse",
-    "date_added": "2026-07-27"
+    "date_added": "2026-07-27",
+    "closed": true,
+    "closed_date": "2026-08-02"
   },
   {
     "company": "Northrop Grumman",
@@ -2440,9 +2444,11 @@
     "type": "earlycareer",
     "category": "GRC & Risk",
     "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10449507/security-compliance-engineer-i-aws-security-assurance-services-llc",
+    "url": "",
     "source": "Amazon Jobs",
-    "date_added": "2026-07-31"
+    "date_added": "2026-07-31",
+    "closed": true,
+    "closed_date": "2026-08-02"
   },
   {
     "company": "Amazon",
