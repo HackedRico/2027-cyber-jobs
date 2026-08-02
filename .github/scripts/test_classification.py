@@ -253,6 +253,117 @@ for desc, want in EXP:
         failures += 1
         print(f'FAIL requires_experience({desc!r}) = {got!r}, want {want!r}')
 
+# required_years: the experience floor, read off real postings that were on the
+# board with 3-6 yoe (issue #11). Each case is trimmed from the live req.
+FLOOR = [
+    # Amazon splits quals into BASIC/PREFERRED. Every basic bullet binds, so
+    # the floor is the largest of them — not the smallest, and not the
+    # preferred one, which is what let this req on the board as "earlycareer".
+    ('BASIC QUALIFICATIONS\n'
+     '- 3+ years of scripting, programming, and security code review in a '
+     'common programming language\n'
+     '- 2+ years of IT Security experience\n'
+     '- 4+ years of experience in information security, security operations, '
+     'or security engineering\n'
+     'PREFERRED QUALIFICATIONS\n'
+     '- 2+ years of working with Data & AI related technologies', 4),
+    # A preferred count below the basic one must not pull the floor down.
+    ('BASIC QUALIFICATIONS\n- 3+ years of programming in Python, Ruby, Go, '
+     'Java, .Net, C++ or similar object oriented language experience\n'
+     'PREFERRED QUALIFICATIONS\n- 2+ years of any combination of the '
+     'following: threat modeling experience, secure coding', 3),
+    # "N+ years in <field>" never says "experience" — the old ±30-char window
+    # missed it entirely.
+    ('Core requirements\n- 3+ years in security engineering as a builder, '
+     'with clear ownership of shipped work.\nNice-to-have\n- Deep knowledge '
+     'of AI and SaaS security domains', 3),
+    # "experience" sits ~60 chars past the count here; the old window stopped
+    # at 30 and read this 5-year sales req as unstated.
+    ('The role requires 5+ years of enterprise technology or cybersecurity '
+     'sales experience, including experience selling into enterprise '
+     'organizations.', 5),
+    # A degree substitution ("HS Diploma & 5 years") is an alternative route,
+    # not a second floor stacked on the 2-year bar.
+    ('Required Qualifications\n- 2+ years of direct relevant experience in '
+     'cyber defense analysis\nEducation: BS Computer Science, Cyber Security, '
+     'or related degree; or HS Diploma & 5 years of network/host '
+     'investigations experience.', 2),
+    # Degree-paired bands are alternatives, so a dual Level 2/3 req floors at
+    # the cheapest route (Master's + 0 years), not at the Level 3 band.
+    ("Basic Qualifications Level 2: Bachelor's degree with 2 years of "
+     "relevant experience; Master's degree with 0 years of relevant "
+     "experience. An additional 4 years of relevant experience may be "
+     "considered in lieu of a degree. Basic Qualifications Level 3: "
+     "Bachelor's degree with 5 years of relevant experience; Master's degree "
+     "with 3 years of relevant experience; PhD with 0 years of relevant "
+     "experience.", 0),
+    ('Qualifications You Must Have\nTypically requires a degree in Science, '
+     'Technology, Engineering or Mathematics (STEM) and minimum 2 years of '
+     'prior relevant experience or an Advanced Degree in a related field', 2),
+    # An explicit band is read at its low end: 2-4 years is open to a 2-year
+    # candidate, and an en-dash range must parse like a hyphen one.
+    ("What You'll Bring\n- 1–2 years of experience in Threat Intelligence, "
+     'Cybersecurity, or a related discipline', 1),
+    ('We are looking for 2-4 years of experience.', 2),
+    ('This role needs 5 to 7 years of experience.', 5),
+    # Incidental counts are still not requirements.
+    ('Our team triaged 6 years of legacy findings.', 0),
+    ('Ideal for candidates with 0-2 years of experience.', 0),
+    ('', 0),
+    # Boilerplate that pairs a requirement verb with a count that is not work
+    # experience. Cleared-defense reqs are a large share of this board, so
+    # reading any of these as a floor would quietly delete good listings.
+    ('Must have held a clearance within the last 5 years.', 0),
+    ('Applicants must have held a TS/SCI within the past 6 years.', 0),
+    ('Requires 5 years of continuous US residency for the clearance.', 0),
+    ('Requires 3 years of relevant coursework in computer science.', 0),
+    ('Must graduate within 3 years of the start date.', 0),
+    ('Employees vest after 3 years of service.', 0),
+    ('Salary range: $120,000 - $140,000. Entry-level cyber analyst role.', 0),
+    # ...but a real bar in the same posting as clearance boilerplate still counts,
+    # and the exclusions must not swallow legitimate "N years of <field>" bars.
+    ('Must have held a clearance within the last 5 years and 6+ years '
+     'of SOC experience.', 6),
+    ('Requires 6+ years of customer service experience.', 6),
+    ('Requires 6+ years of data engineering experience.', 6),
+]
+for desc, want in FLOOR:
+    got = s.required_years(desc)
+    if got != want:
+        failures += 1
+        print(f'FAIL required_years({desc[:60]!r}...) = {got!r}, want {want!r}')
+
+# evaluate_job: the gate has to fire on title-derived levels too, which is the
+# actual regression — every one of these titles classifies as earlycareer.
+GATED = [
+    ('Security Engineer II', 'Seattle, WA',
+     'BASIC QUALIFICATIONS\n- 6+ years of experience in security engineering',
+     None),
+    ('Cyber Network Defense Analyst II', 'Sterling, VA',
+     'Requires a minimum of 6 years of relevant experience.', None),
+    ('Associate Security Analyst', 'Austin, TX',
+     'You must have at least 8 years of experience.', None),
+    ('Cybersecurity Analyst, Junior', 'Remote (US)',
+     'Requires 6+ years of experience in cyber defense.', None),
+    # Same titles, honest early-career descriptions -> still accepted.
+    ('Security Engineer II', 'Seattle, WA',
+     'BASIC QUALIFICATIONS\n- 2+ years of security experience', 'earlycareer'),
+    ('Cyber Network Defense Analyst II', 'Sterling, VA',
+     'Education: BS in Cyber Security; or HS Diploma & 5 years of '
+     'investigations experience.', 'earlycareer'),
+    ('Cybersecurity Analyst, Junior', 'Remote (US)', '', 'earlycareer'),
+    # Interns are exempt: research-internship reqs cite years of study in ways
+    # the floor parser would misread.
+    ('Security Engineering Intern', 'Seattle, WA',
+     'Open to PhD students with 6+ years of research experience.', 'intern'),
+]
+for title, loc, desc, want in GATED:
+    verdict = s.evaluate_job(title, loc, desc)
+    got = verdict[0] if verdict else None
+    if got != want:
+        failures += 1
+        print(f'FAIL evaluate_job({title!r}, ...) level = {got!r}, want {want!r}')
+
 # reclassify_listings: skip community + intern; flip a stale earlycareer row.
 RECLASS = [
     {'company': 'A', 'role': 'Cybersecurity Rotational Program',

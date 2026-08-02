@@ -186,13 +186,91 @@ def test_smartrecruiters_missing_total_keeps_paging():
     check('smartrecruiters paged past a full first page with no total', len(jobs), 101)
 
 
+# --- amazon splits its experience bars out of `description` -------------------
+def test_amazon_description_includes_qualifications():
+    """amazon.jobs keeps the years bars in basic/preferred_qualifications.
+
+    Reading only `description` made every Amazon req look like it stated no
+    floor, so "Security Engineer II @ 4+ years" landed on the board as
+    earlycareer (issue #11).
+    """
+    job = {
+        'description': 'The AppSec Security Engineer evaluates service design.',
+        'basic_qualifications': '4+ years of experience in information security',
+        'preferred_qualifications': '2+ years of AWS experience',
+    }
+    body = sj._amazon_description(job)
+    check('amazon description keeps the posting body',
+          'AppSec Security Engineer' in body, True)
+    check('amazon description carries the basic bar',
+          '4+ years of experience in information security' in body, True)
+    check('amazon description labels the sections so the gate can tell them apart',
+          body.index('BASIC QUALIFICATIONS') < body.index('PREFERRED QUALIFICATIONS'),
+          True)
+    check('amazon over-experienced req is now rejected',
+          sj.evaluate_job('Security Engineer II', 'Seattle, WA', body), None)
+    # A posting with only the two optional fields empty must still round-trip.
+    check('amazon description with no qualification fields',
+          sj._amazon_description({'description': 'Body only.'}), 'Body only.')
+
+
+# --- stored rows self-heal when the live posting is over the cap --------------
+def test_drop_over_experienced():
+    listings = [
+        {'company': 'Acme', 'role': 'Security Engineer II', 'location': 'Austin, TX',
+         'type': 'earlycareer', 'source': 'Greenhouse', 'url': 'https://a.co/1'},
+        {'company': 'Acme', 'role': 'SOC Analyst I', 'location': 'Austin, TX',
+         'type': 'earlycareer', 'source': 'Greenhouse', 'url': 'https://a.co/2'},
+        {'company': 'Acme', 'role': 'Security Intern', 'location': 'Austin, TX',
+         'type': 'intern', 'source': 'Greenhouse', 'url': 'https://a.co/3'},
+        {'company': 'Acme', 'role': 'Cyber Analyst', 'location': 'Austin, TX',
+         'type': 'earlycareer', 'source': 'Community', 'url': 'https://a.co/4'},
+        {'company': 'Acme', 'role': 'Threat Analyst II', 'location': 'Austin, TX',
+         'type': 'earlycareer', 'source': 'Greenhouse', 'url': 'https://a.co/5'},
+        {'company': 'Ghost', 'role': 'Security Engineer II', 'location': 'Austin, TX',
+         'type': 'earlycareer', 'source': 'Greenhouse', 'url': 'https://g.co/9'},
+    ]
+    raw = [
+        # over the cap -> drop
+        {'company': 'Acme', 'title': 'Security Engineer II', 'location': 'Austin, TX',
+         'url': 'https://a.co/1', 'description': 'Requires 6+ years of experience.'},
+        # under the cap -> keep
+        {'company': 'Acme', 'title': 'SOC Analyst I', 'location': 'Austin, TX',
+         'url': 'https://a.co/2', 'description': 'Requires 1+ year of experience.'},
+        # intern + community are exempt even though both descriptions are over
+        {'company': 'Acme', 'title': 'Security Intern', 'location': 'Austin, TX',
+         'url': 'https://a.co/3', 'description': 'Requires 6+ years of experience.'},
+        {'company': 'Acme', 'title': 'Cyber Analyst', 'location': 'Austin, TX',
+         'url': 'https://a.co/4', 'description': 'Requires 6+ years of experience.'},
+        # empty description must never delete a row
+        {'company': 'Acme', 'title': 'Threat Analyst II', 'location': 'Austin, TX',
+         'url': 'https://a.co/5', 'description': '   '},
+    ]
+    kept, dropped = sj.drop_over_experienced(listings, raw)
+    check('over-experienced row dropped', [e['role'] for e in dropped],
+          ['Security Engineer II'])
+    check('under-cap, intern, community, blank-description and unscraped rows kept',
+          [e['company'] + '/' + e['role'] for e in kept],
+          ['Acme/SOC Analyst I', 'Acme/Security Intern', 'Acme/Cyber Analyst',
+           'Acme/Threat Analyst II', 'Ghost/Security Engineer II'])
+    # A req that moved to a new URL still matches on (company, role, location).
+    moved = [{'company': 'Acme', 'title': 'Security Engineer II',
+              'location': 'Austin, TX', 'url': 'https://a.co/1-v2',
+              'description': 'Requires 6+ years of experience.'}]
+    _, dropped_moved = sj.drop_over_experienced(listings[:1], moved)
+    check('row matched by dedup key when the req URL changed',
+          len(dropped_moved), 1)
+
+
 for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_ashby, test_ashby_schema_drift_warns,
            test_smartrecruiters_pagination_short_page_stops, test_oracle,
            test_fetch_json_retries_transient, test_fetch_json_gives_up_on_404,
            test_slug_validation_blocks_host_reparenting,
            test_workday_total_failure_returns_none,
-           test_smartrecruiters_missing_total_keeps_paging):
+           test_smartrecruiters_missing_total_keeps_paging,
+           test_amazon_description_includes_qualifications,
+           test_drop_over_experienced):
     fn()
 
 if failures:
