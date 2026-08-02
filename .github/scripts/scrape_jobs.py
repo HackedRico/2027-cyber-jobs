@@ -25,6 +25,7 @@ from classify import (
     AI_CATEGORY_RE,
     classify_level,
     evaluate_job,
+    exceeds_experience_cap,
     is_cyber_title,
     is_rejected_title,
     listing_dedup_key,
@@ -481,8 +482,9 @@ def scrape_workday(company, tenant, instance, board, security_company=False,
         path = job.pop('_path', None)
         if is_rejected_title(title) or not is_cyber_title(title, security_company):
             continue
-        # Leveled candidates need location detail; AI flat titles need the
-        # description so the requires_experience gate in evaluate_job can run.
+        # Leveled candidates need location detail AND the description, since
+        # the experience gate in evaluate_job now runs on every level; AI flat
+        # titles need the description for the same reason.
         if classify_level(title) is None and not AI_CATEGORY_RE.search(title.lower()):
             continue
         if not path:
@@ -546,6 +548,69 @@ def scrape_oracle(company, host, site):
     return jobs
 
 
+def drop_over_experienced(listings, raw_jobs):
+    """Retire stored rows whose live posting states too high an experience bar.
+
+    Returns (kept, dropped). Each run re-scrapes every live posting, so a
+    stored row can be re-judged against this run's description even though it
+    was added before the gate existed. Matching is by normalized URL first,
+    then by the (company, role, location) dedup key for boards that reshuffle
+    req URLs.
+
+    Guardrails, all in the keep direction: a row is only dropped when the
+    matching posting actually carried a description, so a board that returns an
+    empty body (or a company that isn't in this run's `--board` subset) can't
+    silently erase listings. Community rows reflect a maintainer's judgment and
+    interns are exempt from the gate, so both are left alone.
+    """
+    by_url, by_key = {}, {}
+    for job in raw_jobs:
+        description = job.get('description', '') or ''
+        if not description.strip():
+            continue
+        if job.get('url'):
+            by_url[normalize_url(job['url'])] = description
+        key = listing_dedup_key(job.get('company', ''), job.get('title', ''),
+                                normalize_location(job.get('location', '')))
+        by_key.setdefault(key, description)
+
+    kept, dropped = [], []
+    for entry in listings:
+        if entry.get('source') == 'Community' or entry.get('type') == 'intern':
+            kept.append(entry)
+            continue
+        description = None
+        if entry.get('url'):
+            description = by_url.get(normalize_url(entry['url']))
+        if description is None:
+            description = by_key.get(listing_dedup_key(
+                entry.get('company', ''), entry.get('role', ''),
+                entry.get('location', '')))
+        if description and exceeds_experience_cap(description):
+            dropped.append(entry)
+            continue
+        kept.append(entry)
+    return kept, dropped
+
+
+def _amazon_description(job):
+    """Join Amazon's split description fields into one gate-readable body.
+
+    amazon.jobs keeps the years-of-experience bars in `basic_qualifications`
+    and `preferred_qualifications`, NOT in `description` — so reading only
+    `description` made every Amazon req look like it stated no experience
+    floor at all (issue #11). The headings are emitted verbatim because the
+    classifier keys off them to tell required bars from preferred ones.
+    """
+    parts = [job.get('description', '') or '']
+    for field, heading in (('basic_qualifications', 'BASIC QUALIFICATIONS'),
+                           ('preferred_qualifications', 'PREFERRED QUALIFICATIONS')):
+        text = job.get(field) or ''
+        if text.strip():
+            parts.append(f'{heading}\n{text}')
+    return '\n\n'.join(p for p in parts if p.strip())
+
+
 def scrape_amazon():
     base_url = 'https://www.amazon.jobs/en/search.json'
     params = {
@@ -574,7 +639,7 @@ def scrape_amazon():
                 'location': job.get('location', ''),
                 'url': url,
                 'board': 'Amazon Jobs',
-                'description': job.get('description', ''),
+                'description': _amazon_description(job),
             })
         total = data.get('hits')
         params['offset'] += len(postings)
@@ -864,6 +929,15 @@ def main():
         print(f'  RECLASSIFY [{old} -> {new}] {company} — {role}')
     reclassified = len(reclass_changes)
 
+    # Retire rows whose live posting turns out to demand more experience than
+    # the board's charter allows. reclassify_listings only re-runs title logic,
+    # so without this a pre-gate "Engineer II @ 6 yrs" row would sit here
+    # forever (issue #11).
+    listings, over_exp = drop_over_experienced(listings, raw_jobs)
+    for entry in over_exp:
+        print(f'  DROP [over-experienced] {_oneline(entry.get("company", ""))} — '
+              f'{_oneline(entry.get("role", ""))}')
+
     existing_urls = {normalize_url(e.get('url', '')) for e in listings if e.get('url')}
     # Secondary key catches the same role reposted per-location under distinct
     # req-ID URLs (e.g. one "Intern - Software Engineer" ×10) that URL dedup
@@ -937,9 +1011,10 @@ def main():
             seen[job['id']] = today
     seen = prune_seen(seen, today)
 
-    changed = added or reclassified or revived or purged
+    changed = added or reclassified or revived or purged or over_exp
     print(f'\nAdded {added} new listing(s), revived {revived}, '
-          f'reclassified {reclassified}, purged {purged}')
+          f'reclassified {reclassified}, purged {purged}, '
+          f'dropped {len(over_exp)} over-experienced')
 
     if args.dry_run:
         print('[dry-run] no files written; skipping README rebuild')

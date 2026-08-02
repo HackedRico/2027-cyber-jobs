@@ -632,39 +632,235 @@ def requires_clearance(title, description=''):
     return any(kw in text for kw in CLEARANCE_SIGNALS)
 
 
+# ---------------------------------------------------------------------------
+# Years-of-experience floor
+# ---------------------------------------------------------------------------
+#
+# The board's charter is 0-2 years. A posting whose *required* experience floor
+# is above that ceiling does not belong here regardless of how junior its title
+# reads — "Security Engineer II" and "Analyst II" reqs routinely ask for 4-8
+# years. Reading the floor correctly means three things the old any-match-over-3
+# scan got wrong:
+#
+#   1. Preferred/nice-to-have counts are not a floor. Amazon's "3+ years"
+#      basic qual and "2+ years" preferred qual are not interchangeable.
+#   2. Conjunctive bullets each bind, so the floor is the LARGEST of them
+#      ("3+ years of scripting" AND "4+ years of infosec" -> 4).
+#   3. Degree-paired bands are alternatives, so the floor is the SMALLEST of
+#      them ("BS with 5 years; MS with 3 years; PhD with 0 years" -> 0, and
+#      "HS Diploma & 5 years" in place of a BS does not raise the floor).
+
+# The board accepts up to this many years of required experience.
+MAX_ALLOWED_YEARS = 2
+
 # "3+ years", "5 years of experience", "3 or more years", "3+ yrs". Whitespace
 # runs are bounded ({0,3}) so a digit followed by a huge space run can't drive
 # the two adjacent \s* quadratic.
-YEARS_RE = re.compile(r'\b(\d{1,2})\s{0,3}\+?\s{0,3}(?:or more\s{1,3})?(?:years?|yrs?)\b')
+YEARS_RE = re.compile(
+    r'\b(\d{1,2})\s{0,3}(\+)?\s{0,3}(or more\s{1,3})?(?:years?|yrs?)\b')
+# An explicit band, "0-2 years" / "5 to 7 years". The low end is the real bar:
+# a posting open to 2-4 years is open to a 2-year candidate. Matched (and
+# consumed) before the single-count scan so "2-4 years" doesn't read as 4.
+YEARS_RANGE_RE = re.compile(
+    r'\b(\d{1,2})\s{0,3}(?:[-–—]|to)\s{0,3}(\d{1,2})\s{0,3}(?:years?|yrs?)\b')
 # Spelled-out counts that matter for the low end of "N+ years".
 SPELLED_YEARS = ('three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten')
+SPELLED_VALUES = {word: n for n, word in enumerate(SPELLED_YEARS, start=3)}
 SPELLED_YEARS_RE = re.compile(
-    r'\b(?:' + '|'.join(SPELLED_YEARS) + r')\s{0,3}\+?\s{0,3}(?:or more\s{1,3})?(?:years?|yrs?)\b')
+    r'\b(' + '|'.join(SPELLED_YEARS) + r')\s{0,3}(\+)?\s{0,3}(or more\s{1,3})?(?:years?|yrs?)\b')
 # A requirement verb close before the count, e.g. "minimum 3 years".
 REQUIREMENT_VERB_RE = re.compile(
     r'\b(minimum|at least|require[sd]?|must have|need)\b', re.IGNORECASE)
 
+# A backward-looking window, never a floor: "held a clearance within the last 5
+# years", "the past 3 years of CVEs". Anchored to the text immediately before
+# the count so it only fires on the phrase that owns it.
+RECENCY_RE = re.compile(
+    r'\b(?:within|in|over|during|for|across)\s+the\s+'
+    r'(?:last|past|previous|prior)\s*$')
+# Things a candidate can be asked for "N years of" that are not work
+# experience. Cleared-defense reqs — a large share of this board — pair a
+# requirement verb with clearance recency, residency, and coursework counts,
+# and reading those as an experience floor would quietly delete good listings.
+# Deliberately short and unambiguous: 'service' and 'data' are omitted because
+# "customer service experience" and "data engineering experience" are real
+# experience bars.
+NON_EXPERIENCE_OBJECT_RE = re.compile(
+    r'\s*(?:of|in)\s+(?:[a-z.&/-]+\s+){0,3}?'
+    r'(?:coursework|education|schooling|studies|residency|residence|'
+    r'citizenship|clearances?|tenure|age)\b')
+
+# Markers that open text describing counts the candidate does NOT have to meet.
+# Every section noun is plural-tolerant — "Preferred Qualifications" is the
+# single most common heading in the corpus and `qualification\b` misses it.
+PREFERRED_MARKER_RE = re.compile(
+    r'\b(?:preferred|desired|optional|additional|bonus)\b[^.\n]{0,25}?'
+    r'\b(?:qualifications?|requirements?|skills?|experiences?)\b'
+    r'|\bpreferred\s*:'
+    r'|\bnice[- ]to[- ]haves?\b|\bbonus points\b|\beven better\b'
+    r'|\b(?:is|are|would be)\s+a\s+(?:big\s+)?plus\b|\bit\'?s a plus\b')
+# Markers that hand control back to must-have territory, so a posting that
+# lists preferred quals before required ones is still read correctly.
+REQUIRED_MARKER_RE = re.compile(
+    r'\b(?:basic|minimum|required|must[- ]have|essential|mandatory)\b[^.\n]{0,25}?'
+    r'\b(?:qualifications?|requirements?|skills?|experiences?)\b'
+    r'|\bqualifications you must have\b|\bwhat you\'?ll need\b'
+    r'|\bwhat we\'?re looking for\b|\bwhat you\'?ll bring\b|\bwho you are\b'
+    r'|\brequirements\s*:')
+
+# An education alternative near the count: "Bachelor's with 2 years",
+# "Master's with 3 years". Counts in this shape are alternative routes into the
+# same job, so they bound the floor together rather than each on their own.
+DEGREE_ALT_RE = re.compile(
+    r"\b(bachelor|master|phd|ph\.d|doctorate|associate'?s degree|"
+    r"hs diploma|high school|ged|undergraduate|graduate degree|"
+    r"advanced degree|in lieu of|in place of|equivalent|additional)\b")
+
+# Years offered *instead of* a degree: "an additional 4 years ... in lieu of a
+# degree", "BS in CS; or HS Diploma & 5 years". A candidate who has the degree
+# owes none of those years, so this route implies a 0-year floor — but only
+# when a degreed route is actually on offer beside it, so a lone "HS Diploma
+# and 8 years" still reads as 8.
+DEGREE_SUB_BEFORE_RE = re.compile(
+    r'\bin lieu of\b|\bin place of\b|\bhs diploma\b|\bhigh school\b|\bged\b'
+    r'|\badditional\b|\bwithout a\b')
+DEGREE_SUB_AFTER_RE = re.compile(
+    r'\bin lieu of\b|\bin place of\b|\bwithout a (?:degree|bachelor)\b')
+DEGREE_NOUN_RE = re.compile(
+    r"\b(bachelor'?s?|master'?s?|phd|ph\.d|doctorate|degree|b\.?s\.?|m\.?s\.?)\b")
+
+
+# Bullet/heading decoration that can sit between the start of a line and a
+# heading word without making the marker mid-sentence.
+_BULLET_CHARS = ' \t*-–—•·#>|>'
+
+
+def _preferred_spans(low):
+    """Character ranges of `low` that describe preferred, not required, quals.
+
+    A marker that opens its own line ("Preferred Qualifications:") is a section
+    heading and shadows everything up to the next must-have heading. A marker
+    buried mid-line ("5+ years of Go is a plus") shadows only that line — its
+    own whole line, since the qualifier usually trails the count it softens —
+    so one inline "a plus" can't hide every requirement below it and hand the
+    posting a 0-year floor.
+    """
+    required_starts = [m.start() for m in REQUIRED_MARKER_RE.finditer(low)]
+    spans = []
+    for m in PREFERRED_MARKER_RE.finditer(low):
+        start = m.start()
+        line_start = low.rfind('\n', 0, start) + 1
+        if low[line_start:start].strip(_BULLET_CHARS):
+            line_end = low.find('\n', m.end())
+            spans.append((line_start, len(low) if line_end == -1 else line_end))
+        else:
+            spans.append((start, next((r for r in required_starts if r > start),
+                                      len(low))))
+    return spans
+
+
+def _in_spans(spans, pos):
+    return any(start <= pos < end for start, end in spans)
+
+
+def _is_requirement(low, start, end, emphatic):
+    """True if a year count states a requirement rather than trivia.
+
+    "N+ years"/"N or more years" is emphatic enough on its own — nobody writes
+    "we shipped 3+ years of releases". Otherwise the count needs 'experience'
+    nearby (the window is wide because the noun phrase in between can run long:
+    "5 years of enterprise technology or cybersecurity sales experience") or a
+    requirement verb shortly before it. A bare "the past 3 years of incidents"
+    matches none of these.
+    """
+    before = low[max(0, start - 60):start]
+    # Disqualifiers first, so neither the emphatic form nor a requirement verb
+    # can promote a clearance-recency or coursework count into a floor.
+    if RECENCY_RE.search(before) or NON_EXPERIENCE_OBJECT_RE.match(low, end):
+        return False
+    if emphatic:
+        return True
+    if 'experience' in low[end:end + 80] or 'experience' in before:
+        return True
+    return bool(REQUIREMENT_VERB_RE.search(before))
+
 
 def _year_in_requirement_context(low, start, end):
-    # "N years of experience" (experience shortly after) or "requires N years"
-    # (a requirement verb shortly before) — but NOT a bare mention like
-    # "analyzed the past 3 years of incidents".
-    return ('experience' in low[end:end + 30]
-            or bool(REQUIREMENT_VERB_RE.search(low[max(0, start - 40):start])))
+    # Retained for callers that only need the yes/no context test.
+    return _is_requirement(low, start, end, emphatic=False)
+
+
+def _experience_counts(description):
+    """Collect required year counts as (conjunctive, alternative) lists."""
+    conjunctive, alternative = [], []
+    if not description:
+        return conjunctive, alternative
+    low = strip_html(description).lower()
+    preferred = _preferred_spans(low)
+    consumed = []
+
+    def record(value, start, end, emphatic=False):
+        if _in_spans(preferred, start) or not _is_requirement(low, start, end, emphatic):
+            return
+        before = low[max(0, start - 60):start]
+        after = low[end:end + 60]
+        if ((DEGREE_SUB_BEFORE_RE.search(before) or DEGREE_SUB_AFTER_RE.search(after))
+                and DEGREE_NOUN_RE.search(low[max(0, start - 110):end + 60])):
+            alternative.append(0)   # the degreed route needs no years
+        elif DEGREE_ALT_RE.search(low[max(0, start - 70):start]):
+            alternative.append(value)
+        else:
+            conjunctive.append(value)
+
+    for m in YEARS_RANGE_RE.finditer(low):
+        consumed.append((m.start(), m.end()))
+        record(int(m.group(1)), m.start(), m.end())
+    for m in YEARS_RE.finditer(low):
+        if _in_spans(consumed, m.start()):
+            continue
+        record(int(m.group(1)), m.start(), m.end(),
+               emphatic=bool(m.group(2) or m.group(3)))
+    for m in SPELLED_YEARS_RE.finditer(low):
+        record(SPELLED_VALUES[m.group(1)], m.start(), m.end(),
+               emphatic=bool(m.group(2) or m.group(3)))
+    return conjunctive, alternative
+
+
+def required_years(description):
+    """Lowest number of years a candidate must actually have, or 0 if unstated.
+
+    Every conjunctive bullet binds at once, so they set the floor together via
+    max(). Degree-paired bands are alternative routes, so they only set the
+    floor when nothing conjunctive does, and then via min().
+    """
+    conjunctive, alternative = _experience_counts(description)
+    if conjunctive:
+        return max(conjunctive)
+    if alternative:
+        return min(alternative)
+    return 0
+
+
+def exceeds_experience_cap(description, cap=MAX_ALLOWED_YEARS):
+    """True if the posting's required experience floor is above the board's cap.
+
+    An explicit early-career ceiling ("0-2 years", "no prior experience
+    required") names the target audience outright, so it outranks a floor
+    inferred from individual bullets — a req that invites 0-2 candidates stays
+    on the board even if some other bullet asks for more.
+    """
+    if permits_early_experience(description):
+        return False
+    return required_years(description) > cap
 
 
 def requires_experience(description):
-    """True if the description asks for 3+ years of experience anywhere."""
-    if not description:
-        return False
-    low = strip_html(description).lower()
-    for m in YEARS_RE.finditer(low):
-        if int(m.group(1)) >= 3 and _year_in_requirement_context(low, m.start(), m.end()):
-            return True
-    for m in SPELLED_YEARS_RE.finditer(low):
-        if _year_in_requirement_context(low, m.start(), m.end()):
-            return True
-    return False
+    """True if the description asks for more than an early-career amount.
+
+    Kept as the historical name/threshold (3+ years) used elsewhere; the floor
+    parser above is what decides.
+    """
+    return exceeds_experience_cap(description)
 
 
 def infer_category(title, security_company=False):
@@ -691,12 +887,21 @@ def evaluate_job(title, location, description='', security_company=False,
         if security_company and permits_early_experience(description):
             level = 'earlycareer'
         # AI labs use flat titles ("Software Engineer, AI Safety") with no
-        # level marker. Accept AI security/safety roles unless the posting asks
-        # for 3+ years of experience.
-        elif AI_CATEGORY_RE.search(title.lower()) and not requires_experience(description):
+        # level marker, so accept AI security/safety roles here and let the
+        # experience gate below decide.
+        elif AI_CATEGORY_RE.search(title.lower()):
             level = 'earlycareer'
         else:
             return None
+    # A junior-sounding title is not proof of a junior role: "Security Engineer
+    # II" and "Cyber Analyst II" reqs regularly ask for 4-8 years. Gate every
+    # full-time level on the stated experience floor, not just the flat-title
+    # fallback that used to be the only caller of this check (issue #11).
+    # Internships are exempt: their level comes from an unambiguous title or
+    # ATS signal, and research-internship reqs cite years of study in ways this
+    # parser would misread as a floor.
+    if level != 'intern' and exceeds_experience_cap(description):
+        return None
     if not is_us_location(location):
         return None
     return level, infer_category(title, security_company)
