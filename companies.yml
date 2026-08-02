@@ -327,7 +327,83 @@ greenhouse:
 - name: Zscaler
   slug: zscaler
   security_company: true
-
+- name: ThreatLocker
+  slug: threatlocker
+  security_company: true
+- name: DigiCert
+  slug: digicert
+  security_company: true
+- name: OPSWAT
+  slug: opswat
+  security_company: true
+- name: Automox
+  slug: automox
+  security_company: true
+- name: Veriff
+  slug: veriff
+  security_company: true
+- name: Jumio
+  slug: jumio
+  security_company: true
+- name: ID.me
+  slug: idme
+  security_company: true
+- name: HYPR
+  slug: hypr
+  security_company: true
+- name: Prove
+  slug: prove
+  security_company: true
+- name: Incode
+  slug: incode
+  security_company: true
+- name: Relyance AI
+  slug: relyance
+  security_company: true
+- name: DataGrail
+  slug: datagrail
+  security_company: true
+- name: Opaque Systems
+  slug: opaquesystems
+  security_company: true
+- name: ExtraHop
+  slug: extrahopnetworks
+  security_company: true
+- name: Ivanti
+  slug: a3c41b8b71eff8c4
+  security_company: true
+- name: Dashlane
+  slug: dashlane
+  security_company: true
+- name: Keyfactor
+  slug: keyfactorinc
+  security_company: true
+- name: Blumira
+  slug: blumira
+  security_company: true
+- name: Brinqa
+  slug: brinqa
+  security_company: true
+- name: Netcraft
+  slug: netcraft
+  security_company: true
+- name: SafeBreach
+  slug: safebreach
+  security_company: true
+- name: Fortra
+  slug: fortra
+  security_company: true
+- name: Red Canary
+  slug: zscalerredcanary
+  security_company: true
+- name: Finite State
+  slug: finitestate
+  security_company: true
+- name: SonicWall
+  slug: sonicwall
+  security_company: true
+- name: JFrog
+  slug: jfrog
 lever:
 - name: Anchorage Digital
   slug: anchorage
@@ -376,7 +452,35 @@ lever:
 - name: Teleport
   slug: teleport
   security_company: true
-
+- name: Symmetry Systems
+  slug: SymmetrySystems
+  security_company: true
+- name: Very Good Security
+  slug: verygoodsecurity
+  security_company: true
+- name: Sophos
+  slug: sophos
+  security_company: true
+- name: Secureframe
+  slug: secureframe
+  security_company: true
+- name: Anomali
+  slug: anomali
+  security_company: true
+- name: Graylog
+  slug: graylog
+  security_company: true
+- name: Twingate
+  slug: twingate
+  security_company: true
+- name: Xage Security
+  slug: xage-security
+  security_company: true
+- name: WatchGuard
+  slug: watchguard
+  security_company: true
+- name: BlueCat
+  slug: bluecatnetworks
 ashby:
 - name: 1Password
   slug: 1password
@@ -528,7 +632,54 @@ ashby:
   security_company: true
 - name: Zapier
   slug: zapier
-
+- name: Flashpoint
+  slug: flashpoint.io
+  security_company: true
+- name: Blackpoint Cyber
+  slug: 'Blackpoint Cyber'
+  security_company: true
+- name: Todyl
+  slug: Todyl
+  security_company: true
+- name: Contrast Security
+  slug: contrast-security
+  security_company: true
+- name: UpGuard
+  slug: upguard
+  security_company: true
+- name: StrongDM
+  slug: strongdm
+  security_company: true
+- name: Ethyca
+  slug: ethyca
+  security_company: true
+- name: Evervault
+  slug: evervault
+  security_company: true
+- name: WitnessAI
+  slug: witnessai
+  security_company: true
+- name: Hoxhunt
+  slug: hoxhunt
+  security_company: true
+- name: Immersive Labs
+  slug: immersivelabs
+  security_company: true
+- name: Infisical
+  slug: infisical
+  security_company: true
+- name: Doppler
+  slug: doppler
+  security_company: true
+- name: Safety CLI
+  slug: safety
+  security_company: true
+- name: Middesk
+  slug: middesk
+- name: Footprint
+  slug: footprint
+- name: Optro
+  slug: optro
 smartrecruiters:
 - name: Check Point
   slug: CheckPointSoftwareTechnologies
@@ -541,7 +692,18 @@ smartrecruiters:
   security_company: true
 - name: Visa
   slug: Visa
-
+- name: Sectigo
+  slug: Sectigo
+  security_company: true
+- name: Tufin
+  slug: tufin
+  security_company: true
+- name: Kudelski Security
+  slug: KudelskiSecurityInc
+  security_company: true
+- name: Nuspire
+  slug: NuspireNetworks
+  security_company: true
 workable:
 - name: Galois
   slug: galois
@@ -564,7 +726,48 @@ workable:
 - name: Trail of Bits
   slug: trailofbits
   security_company: true
-
+- name: Invicti
+  slug: invicti-security
+  security_company: true
+- name: Anvilogic
+  slug: anvilogic-inc
+  security_company: true
+- name: Stellar Cyber
+  slug: stellar-cyber
+  security_company: true
+- name: ThreatConnect
+  slug: threatconnect
+  security_company: true
+- name: JupiterOne
+  slug: jupiterone
+  security_company: true
+- name: Fortanix
+  slug: fortanix
+  security_company: true
+- name: TrustedSec
+  slug: trustedsec
+  security_company: true
+- name: Proficio
+  slug: proficio-inc
+  security_company: true
+- name: ZeroFox
+  slug: zerofox
+  security_company: true
+- name: DomainTools
+  slug: domain-tools
+  security_company: true
+- name: Malwarebytes
+  slug: malwarebytes
+  security_company: true
+- name: GlobalSign
+  slug: globalsign
+  security_company: true
+- name: Dispel
+  slug: dispel
+  security_company: true
+- name: Action1
+  slug: action1
+  security_company: true
 recruitee:
 - name: Aikido Security
   slug: aikidosecurity
@@ -572,7 +775,8 @@ recruitee:
 - name: Wallarm
   slug: wallarm
   security_company: true
-
+- name: Lansweeper
+  slug: lansweeper
 pinpoint:
 - name: SANS Institute
   slug: sans
@@ -725,4 +929,153 @@ workday:
   tenant: zoom
   instance: wd5
   board: zoom
-
+- name: Rapid7
+  tenant: mymoose
+  instance: wd1
+  board: careers
+  security_company: true
+- name: Forcepoint
+  tenant: forcepoint
+  instance: wd1
+  board: external-careers
+  security_company: true
+- name: Trellix
+  tenant: trellix
+  instance: wd1
+  board: EnterpriseCareers
+  security_company: true
+- name: Bitsight
+  tenant: bitsight
+  instance: wd1
+  board: Bitsight
+  security_company: true
+- name: Entrust
+  tenant: entrust
+  instance: wd1
+  board: EntrustCareers
+  security_company: true
+- name: Everfox
+  tenant: evergreenix
+  instance: wd1
+  board: external-careers2
+  security_company: true
+- name: NCC Group
+  tenant: nccgroup
+  instance: wd3
+  board: NCC_Group
+  security_company: true
+- name: ESET
+  tenant: eset
+  instance: wd3
+  board: ESET_External
+  security_company: true
+- name: Jamf
+  tenant: jamfsoftware
+  instance: wd1
+  board: Jamf
+- name: Flexera
+  tenant: flexerasoftware
+  instance: wd1
+  board: FlexeraSoftware
+- name: Boeing
+  tenant: boeing
+  instance: wd1
+  board: EXTERNAL_CAREERS
+- name: Amentum
+  tenant: pae
+  instance: wd1
+  board: Amentum_Careers
+- name: ICF
+  tenant: icf
+  instance: wd5
+  board: ICFExternal_Career_Site
+- name: Guidehouse
+  tenant: guidehouse
+  instance: wd1
+  board: External
+- name: Aerospace Corporation
+  tenant: aero
+  instance: wd5
+  board: External
+- name: AeroVironment
+  tenant: avav
+  instance: wd1
+  board: AVAV
+- name: Morgan Stanley
+  tenant: ms
+  instance: wd5
+  board: External
+- name: Wells Fargo
+  tenant: wf
+  instance: wd1
+  board: WellsFargoJobs
+- name: Fidelity Investments
+  tenant: fmr
+  instance: wd1
+  board: FidelityCareers
+- name: Vanguard
+  tenant: vanguard
+  instance: wd5
+  board: vanguard_external
+- name: BlackRock
+  tenant: blackrock
+  instance: wd1
+  board: BlackRock_Professional
+- name: State Street
+  tenant: statestreet
+  instance: wd1
+  board: Global
+- name: Northern Trust
+  tenant: ntrs
+  instance: wd1
+  board: northerntrust
+- name: CVS Health
+  tenant: cvshealth
+  instance: wd1
+  board: CVS_Health_Careers
+- name: The Cigna Group
+  tenant: cigna
+  instance: wd5
+  board: cignacareers
+- name: Walmart
+  tenant: walmart
+  instance: wd5
+  board: WalmartExternal
+- name: Target
+  tenant: target
+  instance: wd5
+  board: targetcareers
+- name: The Home Depot
+  tenant: homedepot
+  instance: wd5
+  board: CareerDepot
+- name: Nike
+  tenant: nike
+  instance: wd1
+  board: nke
+- name: AT&T
+  tenant: att
+  instance: wd1
+  board: ATTGeneral
+- name: T-Mobile
+  tenant: tmobile
+  instance: wd1
+  board: External
+- name: Comcast
+  tenant: comcast
+  instance: wd5
+  board: Comcast_Careers
+- name: Duke Energy
+  tenant: dukeenergy
+  instance: wd1
+  board: Search
+oracle:
+- name: SAIC
+  host: eihu.fa.us8.oraclecloud.com
+  site: CX
+- name: JPMorgan Chase
+  host: jpmc.fa.oraclecloud.com
+  site: CX_1001
+- name: Southern Company
+  host: emje.fa.us6.oraclecloud.com
+  site: SouthernCompanyJobs

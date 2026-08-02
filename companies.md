@@ -2,34 +2,45 @@
 
 Employers whose job boards are scraped automatically (see [companies.yml](companies.yml)). 🛡️ marks pure-play security companies, where every engineering role is a security-industry job.
 
-**249 companies tracked.**
+**357 companies tracked.**
 
-## Ashby (56)
+## Ashby (73)
 
 - 1Password 🛡️
 - Airbyte
 - Applied Intuition
+- Blackpoint Cyber 🛡️
 - Cartesia
 - Chainalysis 🛡️
 - Character AI
 - Cohere
 - ConductorOne 🛡️
 - Confluent
+- Contrast Security 🛡️
 - Credal 🛡️
 - Cyberhaven 🛡️
 - Delinea 🛡️
 - Doppel 🛡️
+- Doppler 🛡️
 - Drata 🛡️
 - Escape 🛡️
+- Ethyca 🛡️
+- Evervault 🛡️
 - FAR AI 🛡️
+- Flashpoint 🛡️
+- Footprint
 - HackerOne 🛡️
 - Horizon3.ai 🛡️
+- Hoxhunt 🛡️
 - HUMAN Security 🛡️
 - Illumio 🛡️
+- Immersive Labs 🛡️
+- Infisical 🛡️
 - Kindo 🛡️
 - Lakera 🛡️
 - Material Security 🛡️
 - Menlo Security 🛡️
+- Middesk
 - Miro
 - Nightfall AI 🛡️
 - Notion
@@ -37,6 +48,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Nudge Security 🛡️
 - Opal Security 🛡️
 - OpenAI
+- Optro
 - Oso 🛡️
 - Persona
 - Plaid
@@ -44,6 +56,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Prophet Security 🛡️
 - Ramp
 - Redis
+- Safety CLI 🛡️
 - Sardine 🛡️
 - Saronic
 - Semgrep 🛡️
@@ -55,15 +68,19 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Snowflake
 - Snyk 🛡️
 - Socure 🛡️
+- StrongDM 🛡️
 - Stytch 🛡️
 - Sublime Security 🛡️
+- Todyl 🛡️
 - TRM Labs 🛡️
+- UpGuard 🛡️
 - Vanta 🛡️
 - Vercel
+- WitnessAI 🛡️
 - WorkOS 🛡️
 - Zapier
 
-## Greenhouse (128)
+## Greenhouse (154)
 
 - Abnormal AI 🛡️
 - Affirm
@@ -78,6 +95,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Arkose Labs 🛡️
 - Armis 🛡️
 - Asana
+- Automox 🛡️
 - Axonius 🛡️
 - Beyond Identity 🛡️
 - BeyondTrust 🛡️
@@ -85,7 +103,9 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Bishop Fox 🛡️
 - Bitwarden 🛡️
 - Block
+- Blumira 🛡️
 - Brex
+- Brinqa 🛡️
 - Britive 🛡️
 - Bugcrowd 🛡️
 - Cato Networks 🛡️
@@ -101,10 +121,13 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Cribl
 - Cybereason 🛡️
 - Cyware 🛡️
+- Dashlane 🛡️
 - Databricks
 - Datadog
+- DataGrail 🛡️
 - Deepwatch 🛡️
 - Descope 🛡️
+- DigiCert 🛡️
 - Discord
 - Dragos 🛡️
 - Dropbox
@@ -113,10 +136,13 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Epirus
 - Exabeam 🛡️
 - Expel 🛡️
+- ExtraHop 🛡️
 - Fastly
 - Figma
+- Finite State 🛡️
 - Fireblocks 🛡️
 - Fireworks AI
+- Fortra 🛡️
 - Gemini
 - GitLab
 - Goodfire 🛡️
@@ -130,20 +156,30 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - HawkEye 360
 - HiddenLayer 🛡️
 - Huntress 🛡️
+- HYPR 🛡️
+- ID.me 🛡️
+- Incode 🛡️
 - Instacart
+- Ivanti 🛡️
+- JFrog
+- Jumio 🛡️
 - Keeper Security 🛡️
+- Keyfactor 🛡️
 - KnowBe4 🛡️
 - Lyft
 - Marqeta
 - Mercury
 - MongoDB
+- Netcraft 🛡️
 - Netskope 🛡️
 - New Relic
 - Nozomi Networks 🛡️
 - Obsidian Security 🛡️
 - Okta 🛡️
 - OneTrust 🛡️
+- Opaque Systems 🛡️
 - Operant AI 🛡️
+- OPSWAT 🛡️
 - Orca Security 🛡️
 - Osano 🛡️
 - PagerDuty
@@ -151,13 +187,17 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Ping Identity 🛡️
 - Pinterest
 - Praetorian 🛡️
+- Prove 🛡️
 - Recorded Future 🛡️
+- Red Canary 🛡️
 - Reddit
+- Relyance AI 🛡️
 - Ripple
 - Robinhood
 - Roblox
 - Rubrik
 - runZero 🛡️
+- SafeBreach 🛡️
 - Salt Security 🛡️
 - Samsara
 - Scale AI
@@ -165,6 +205,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - SentinelOne 🛡️
 - Shift5 🛡️
 - Socket 🛡️
+- SonicWall 🛡️
 - SpecterOps 🛡️
 - SpyCloud 🛡️
 - STR 🛡️
@@ -176,6 +217,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Tanium 🛡️
 - Temporal Technologies
 - Tenable 🛡️
+- ThreatLocker 🛡️
 - Tines 🛡️
 - Toast
 - Together AI
@@ -187,6 +229,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Vannevar Labs
 - Vectra AI 🛡️
 - Veracode 🛡️
+- Veriff 🛡️
 - Verkada
 - Webflow
 - Wiz 🛡️
@@ -194,13 +237,16 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Yubico 🛡️
 - Zscaler 🛡️
 
-## Lever (17)
+## Lever (27)
 
 - Anchorage Digital
+- Anomali 🛡️
 - Apollo Research 🛡️
+- BlueCat
 - Center for AI Safety 🛡️
 - Coalfire 🛡️
 - Epoch AI 🛡️
+- Graylog 🛡️
 - Immuta 🛡️
 - Ketch 🛡️
 - METR 🛡️
@@ -208,58 +254,113 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Palantir
 - Push Security 🛡️
 - Saviynt 🛡️
+- Secureframe 🛡️
 - Shield AI
 - Sonatype 🛡️
+- Sophos 🛡️
 - StackHawk 🛡️
+- Symmetry Systems 🛡️
 - Sysdig 🛡️
 - Teleport 🛡️
+- Twingate 🛡️
+- Very Good Security 🛡️
+- WatchGuard 🛡️
+- Xage Security 🛡️
+
+## Oracle (3)
+
+- JPMorgan Chase
+- SAIC
+- Southern Company
 
 ## Pinpoint (1)
 
 - SANS Institute 🛡️
 
-## Recruitee (2)
+## Recruitee (3)
 
 - Aikido Security 🛡️
+- Lansweeper
 - Wallarm 🛡️
 
-## SmartRecruiters (4)
+## SmartRecruiters (8)
 
 - Check Point 🛡️
 - Jscrambler 🛡️
+- Kudelski Security 🛡️
+- Nuspire 🛡️
+- Sectigo 🛡️
 - Securiti 🛡️
+- Tufin 🛡️
 - Visa
 
-## Workable (7)
+## Workable (21)
 
+- Action1 🛡️
+- Anvilogic 🛡️
+- Dispel 🛡️
+- DomainTools 🛡️
+- Fortanix 🛡️
 - Galois 🛡️
+- GlobalSign 🛡️
 - Hack The Box 🛡️
+- Invicti 🛡️
+- JupiterOne 🛡️
+- Malwarebytes 🛡️
 - Metomic 🛡️
 - Mindgard 🛡️
 - Ordr 🛡️
+- Proficio 🛡️
 - ReversingLabs 🛡️
+- Stellar Cyber 🛡️
+- ThreatConnect 🛡️
 - Trail of Bits 🛡️
+- TrustedSec 🛡️
+- ZeroFox 🛡️
 
-## Workday (34)
+## Workday (67)
 
 - Adobe
+- Aerospace Corporation
+- AeroVironment
+- Amentum
 - Arctic Wolf 🛡️
+- AT&T
+- Bitsight 🛡️
+- BlackRock
+- Boeing
 - Booz Allen Hamilton
 - CACI
 - Capital One
 - Cisco
+- Comcast
 - CrowdStrike 🛡️
+- CVS Health
 - Draper
+- Duke Energy
+- Entrust 🛡️
+- ESET 🛡️
+- Everfox 🛡️
 - F5
+- Fidelity Investments
+- Flexera
+- Forcepoint 🛡️
 - GDIT
+- Guidehouse
+- ICF
 - Intel
+- Jamf
 - KBR
 - Leidos
 - ManTech
 - Mastercard
 - MITRE
+- Morgan Stanley
 - Motorola Solutions
+- NCC Group 🛡️
 - Nightwing 🛡️
+- Nike
+- Northern Trust
 - Northrop Grumman
 - NVIDIA
 - Optiv 🛡️
@@ -269,10 +370,20 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Proofpoint 🛡️
 - Qualcomm
 - Qualys 🛡️
+- Rapid7 🛡️
 - ReliaQuest 🛡️
 - RTX
 - SailPoint 🛡️
 - Salesforce
 - Sierra Nevada Corporation
+- State Street
+- T-Mobile
+- Target
+- The Cigna Group
+- The Home Depot
+- Trellix 🛡️
 - Trend Micro 🛡️
+- Vanguard
+- Walmart
+- Wells Fargo
 - Zoom
