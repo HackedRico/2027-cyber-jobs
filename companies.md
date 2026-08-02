@@ -2,7 +2,7 @@
 
 Employers whose job boards are scraped automatically (see [companies.yml](companies.yml)). 🛡️ marks pure-play security companies, where every engineering role is a security-industry job.
 
-**317 companies tracked.**
+**357 companies tracked.**
 
 ## Ashby (73)
 
@@ -267,6 +267,12 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - WatchGuard 🛡️
 - Xage Security 🛡️
 
+## Oracle (3)
+
+- JPMorgan Chase
+- SAIC
+- Southern Company
+
 ## Pinpoint (1)
 
 - SANS Institute 🛡️
@@ -277,11 +283,15 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Lansweeper
 - Wallarm 🛡️
 
-## SmartRecruiters (4)
+## SmartRecruiters (8)
 
 - Check Point 🛡️
 - Jscrambler 🛡️
+- Kudelski Security 🛡️
+- Nuspire 🛡️
+- Sectigo 🛡️
 - Securiti 🛡️
+- Tufin 🛡️
 - Visa
 
 ## Workable (21)
@@ -308,26 +318,49 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - TrustedSec 🛡️
 - ZeroFox 🛡️
 
-## Workday (34)
+## Workday (67)
 
 - Adobe
+- Aerospace Corporation
+- AeroVironment
+- Amentum
 - Arctic Wolf 🛡️
+- AT&T
+- Bitsight 🛡️
+- BlackRock
+- Boeing
 - Booz Allen Hamilton
 - CACI
 - Capital One
 - Cisco
+- Comcast
 - CrowdStrike 🛡️
+- CVS Health
 - Draper
+- Duke Energy
+- Entrust 🛡️
+- ESET 🛡️
+- Everfox 🛡️
 - F5
+- Fidelity Investments
+- Flexera
+- Forcepoint 🛡️
 - GDIT
+- Guidehouse
+- ICF
 - Intel
+- Jamf
 - KBR
 - Leidos
 - ManTech
 - Mastercard
 - MITRE
+- Morgan Stanley
 - Motorola Solutions
+- NCC Group 🛡️
 - Nightwing 🛡️
+- Nike
+- Northern Trust
 - Northrop Grumman
 - NVIDIA
 - Optiv 🛡️
@@ -337,10 +370,20 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Proofpoint 🛡️
 - Qualcomm
 - Qualys 🛡️
+- Rapid7 🛡️
 - ReliaQuest 🛡️
 - RTX
 - SailPoint 🛡️
 - Salesforce
 - Sierra Nevada Corporation
+- State Street
+- T-Mobile
+- Target
+- The Cigna Group
+- The Home Depot
+- Trellix 🛡️
 - Trend Micro 🛡️
+- Vanguard
+- Walmart
+- Wells Fargo
 - Zoom
