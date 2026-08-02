@@ -327,7 +327,83 @@ greenhouse:
 - name: Zscaler
   slug: zscaler
   security_company: true
-
+- name: ThreatLocker
+  slug: threatlocker
+  security_company: true
+- name: DigiCert
+  slug: digicert
+  security_company: true
+- name: OPSWAT
+  slug: opswat
+  security_company: true
+- name: Automox
+  slug: automox
+  security_company: true
+- name: Veriff
+  slug: veriff
+  security_company: true
+- name: Jumio
+  slug: jumio
+  security_company: true
+- name: ID.me
+  slug: idme
+  security_company: true
+- name: HYPR
+  slug: hypr
+  security_company: true
+- name: Prove
+  slug: prove
+  security_company: true
+- name: Incode
+  slug: incode
+  security_company: true
+- name: Relyance AI
+  slug: relyance
+  security_company: true
+- name: DataGrail
+  slug: datagrail
+  security_company: true
+- name: Opaque Systems
+  slug: opaquesystems
+  security_company: true
+- name: ExtraHop
+  slug: extrahopnetworks
+  security_company: true
+- name: Ivanti
+  slug: a3c41b8b71eff8c4
+  security_company: true
+- name: Dashlane
+  slug: dashlane
+  security_company: true
+- name: Keyfactor
+  slug: keyfactorinc
+  security_company: true
+- name: Blumira
+  slug: blumira
+  security_company: true
+- name: Brinqa
+  slug: brinqa
+  security_company: true
+- name: Netcraft
+  slug: netcraft
+  security_company: true
+- name: SafeBreach
+  slug: safebreach
+  security_company: true
+- name: Fortra
+  slug: fortra
+  security_company: true
+- name: Red Canary
+  slug: zscalerredcanary
+  security_company: true
+- name: Finite State
+  slug: finitestate
+  security_company: true
+- name: SonicWall
+  slug: sonicwall
+  security_company: true
+- name: JFrog
+  slug: jfrog
 lever:
 - name: Anchorage Digital
   slug: anchorage
@@ -376,7 +452,35 @@ lever:
 - name: Teleport
   slug: teleport
   security_company: true
-
+- name: Symmetry Systems
+  slug: SymmetrySystems
+  security_company: true
+- name: Very Good Security
+  slug: verygoodsecurity
+  security_company: true
+- name: Sophos
+  slug: sophos
+  security_company: true
+- name: Secureframe
+  slug: secureframe
+  security_company: true
+- name: Anomali
+  slug: anomali
+  security_company: true
+- name: Graylog
+  slug: graylog
+  security_company: true
+- name: Twingate
+  slug: twingate
+  security_company: true
+- name: Xage Security
+  slug: xage-security
+  security_company: true
+- name: WatchGuard
+  slug: watchguard
+  security_company: true
+- name: BlueCat
+  slug: bluecatnetworks
 ashby:
 - name: 1Password
   slug: 1password
@@ -528,7 +632,54 @@ ashby:
   security_company: true
 - name: Zapier
   slug: zapier
-
+- name: Flashpoint
+  slug: flashpoint.io
+  security_company: true
+- name: Blackpoint Cyber
+  slug: 'Blackpoint Cyber'
+  security_company: true
+- name: Todyl
+  slug: Todyl
+  security_company: true
+- name: Contrast Security
+  slug: contrast-security
+  security_company: true
+- name: UpGuard
+  slug: upguard
+  security_company: true
+- name: StrongDM
+  slug: strongdm
+  security_company: true
+- name: Ethyca
+  slug: ethyca
+  security_company: true
+- name: Evervault
+  slug: evervault
+  security_company: true
+- name: WitnessAI
+  slug: witnessai
+  security_company: true
+- name: Hoxhunt
+  slug: hoxhunt
+  security_company: true
+- name: Immersive Labs
+  slug: immersivelabs
+  security_company: true
+- name: Infisical
+  slug: infisical
+  security_company: true
+- name: Doppler
+  slug: doppler
+  security_company: true
+- name: Safety CLI
+  slug: safety
+  security_company: true
+- name: Middesk
+  slug: middesk
+- name: Footprint
+  slug: footprint
+- name: Optro
+  slug: optro
 smartrecruiters:
 - name: Check Point
   slug: CheckPointSoftwareTechnologies
@@ -564,7 +715,48 @@ workable:
 - name: Trail of Bits
   slug: trailofbits
   security_company: true
-
+- name: Invicti
+  slug: invicti-security
+  security_company: true
+- name: Anvilogic
+  slug: anvilogic-inc
+  security_company: true
+- name: Stellar Cyber
+  slug: stellar-cyber
+  security_company: true
+- name: ThreatConnect
+  slug: threatconnect
+  security_company: true
+- name: JupiterOne
+  slug: jupiterone
+  security_company: true
+- name: Fortanix
+  slug: fortanix
+  security_company: true
+- name: TrustedSec
+  slug: trustedsec
+  security_company: true
+- name: Proficio
+  slug: proficio-inc
+  security_company: true
+- name: ZeroFox
+  slug: zerofox
+  security_company: true
+- name: DomainTools
+  slug: domain-tools
+  security_company: true
+- name: Malwarebytes
+  slug: malwarebytes
+  security_company: true
+- name: GlobalSign
+  slug: globalsign
+  security_company: true
+- name: Dispel
+  slug: dispel
+  security_company: true
+- name: Action1
+  slug: action1
+  security_company: true
 recruitee:
 - name: Aikido Security
   slug: aikidosecurity
@@ -572,7 +764,8 @@ recruitee:
 - name: Wallarm
   slug: wallarm
   security_company: true
-
+- name: Lansweeper
+  slug: lansweeper
 pinpoint:
 - name: SANS Institute
   slug: sans

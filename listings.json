@@ -2458,5 +2458,49 @@
     "url": "https://www.amazon.jobs/en/jobs/10489636/systems-development-engineer-ii-adc-security-services-a2se",
     "source": "Amazon Jobs",
     "date_added": "2026-07-31"
+  },
+  {
+    "company": "Bank of America",
+    "role": "Global Technology Summer Analyst 2027 - Cybersecurity Analyst",
+    "location": "Charlotte, NC; Dallas, TX; Denver, CO; Washington, DC",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://careers.bankofamerica.com/en-us/students/job-detail/14391/global-technology-summer-analyst-2027-cybersecurity-analyst-multiple-locations",
+    "source": "Community",
+    "date_added": "2026-08-02"
+  },
+  {
+    "company": "Deloitte",
+    "role": "Consultative Offerings - Analyst - Cyber",
+    "location": "Austin, TX; Boston, MA; Chicago, IL; Dallas, TX; Detroit, MI; Houston, TX; Los Angeles, CA; McLean, VA; Miami, FL; Minneapolis, MN; Nashville, TN; New York, NY; San Francisco, CA; Seattle, WA",
+    "type": "newgrad",
+    "category": "GRC & Risk",
+    "clearance": false,
+    "url": "https://apply.deloitte.com/en_US/careers/JobDetail/Consultative-Offerings-Analyst-Cyber/350255",
+    "source": "Community",
+    "date_added": "2026-08-02"
+  },
+  {
+    "company": "HII",
+    "role": "Cyberspace Operations Analyst 1",
+    "location": "Fort Meade, MD",
+    "type": "earlycareer",
+    "category": "SOC & Detection",
+    "clearance": true,
+    "url": "https://jobs.hii-tsd.com/job/Fort-Meade%2C-MD-Cyberspace-Operations-Analyst-1-Mary/1391937800/",
+    "source": "Community",
+    "date_added": "2026-08-02"
+  },
+  {
+    "company": "MIT Lincoln Laboratory",
+    "role": "Cyber Resilience and Operations Assistant Researcher",
+    "location": "Lexington, MA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://careers.ll.mit.edu/job/Lexington-Cyber-Resilience-and-Operations-Assistant-Researcher-MA-02420/1380589700/",
+    "source": "Community",
+    "date_added": "2026-08-02"
   }
 ]

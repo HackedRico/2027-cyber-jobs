@@ -13,7 +13,7 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 
 <!-- STATS -->
 
-**222** open roles tracked · updated August 2, 2026
+**226** open roles tracked · updated August 2, 2026
 
 <!-- /STATS -->
 
@@ -41,6 +41,7 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| Deloitte | Consultative Offerings - Analyst - Cyber | <details><summary>**14 locations**</summary>Austin, TX</br>Boston, MA</br>Chicago, IL</br>Dallas, TX</br>Detroit, MI</br>Houston, TX</br>Los Angeles, CA</br>McLean, VA</br>Miami, FL</br>Minneapolis, MN</br>Nashville, TN</br>New York, NY</br>San Francisco, CA</br>Seattle, WA</details> | GRC &amp; Risk | <a href="https://apply.deloitte.com/en_US/careers/JobDetail/Consultative-Offerings-Analyst-Cyber/350255" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Aug 2 |
 | Appian | Information Security Engineer (2027 Graduate) | McLean, VA | Security Engineering | <a href="https://job-boards.greenhouse.io/appian/jobs/8035744" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 25 |
 | NVIDIA | Security Architect - New College Grad 2026 | Santa Clara, CA | Security Engineering | <a href="https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/Security-Architect---New-College-Grad-2026_JR2021165" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 25 |
 | CrowdStrike | Engineer I, Data Scientist - New Grad (Hybrid) | Sunnyvale, CA | Engineering @ Security Co | <a href="https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Sunnyvale-CA/Engineer-I--Data-Scientist---New-Grad--Hybrid-_R29382-1" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 20 |
@@ -64,6 +65,7 @@ Cybersecurity internships and co-ops for current students, including federal Pat
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| Bank of America | Global Technology Summer Analyst 2027 - Cybersecurity Analyst | <details><summary>**4 locations**</summary>Charlotte, NC</br>Dallas, TX</br>Denver, CO</br>Washington, DC</details> | Security Engineering | <a href="https://careers.bankofamerica.com/en-us/students/job-detail/14391/global-technology-summer-analyst-2027-cybersecurity-analyst-multiple-locations" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Aug 2 |
 | Appian | Information Security Engineer Intern | McLean, VA | Security Engineering | <a href="https://job-boards.greenhouse.io/appian/jobs/8088496" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 27 |
 | KBR 🇺🇸 | National Security Solutions (NSS) Semiconductor Research Internship (Fall 2026) | Beavercreek Township, OH | Security Engineering | <a href="https://kbr.wd5.myworkdayjobs.com/KBR_Careers/job/Beavercreek-Township-Ohio/National-Security-Solutions--NSS--Semiconductor-Research-Internship--Fall-2026-_R2126603" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 22 |
 | Cloudflare | Security Engineer Intern (Fall 2026) | Austin, TX | Security Engineering | <a href="https://boards.greenhouse.io/cloudflare/jobs/8060959?gh_jid=8060959" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 16 |
@@ -95,6 +97,8 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| HII 🇺🇸 | Cyberspace Operations Analyst 1 | Fort Meade, MD | SOC &amp; Detection | <a href="https://jobs.hii-tsd.com/job/Fort-Meade%2C-MD-Cyberspace-Operations-Analyst-1-Mary/1391937800/" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Aug 2 |
+| MIT Lincoln Laboratory 🇺🇸 | Cyber Resilience and Operations Assistant Researcher | Lexington, MA | Security Engineering | <a href="https://careers.ll.mit.edu/job/Lexington-Cyber-Resilience-and-Operations-Assistant-Researcher-MA-02420/1380589700/" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Aug 2 |
 | Amazon | AI Security Engineer, AWS Security, AWS Security - AISec | Austin, TX | AI Security &amp; Safety | <a href="https://www.amazon.jobs/en/jobs/10489738/ai-security-engineer-aws-security-aws-security-aisec" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 31 |
 | ↳ | Security &amp; Compliance Engineer I, AWS Security Assurance Services, LLC | Austin, TX | GRC &amp; Risk | 🔒 | Jul 31 |
 | ↳ | Systems Development Engineer II, ADC Security Services (A2SE) | Arlington, VA | Security Engineering | <a href="https://www.amazon.jobs/en/jobs/10489636/systems-development-engineer-ii-adc-security-services-a2se" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 31 |
