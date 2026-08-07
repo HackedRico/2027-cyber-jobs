@@ -2281,9 +2281,11 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://abnormal.ai/careers/jobs/7814567003?gh_jid=7814567003",
+    "url": "",
     "source": "Greenhouse",
-    "date_added": "2026-07-29"
+    "date_added": "2026-07-29",
+    "closed": true,
+    "closed_date": "2026-08-07"
   },
   {
     "company": "Cisco",
