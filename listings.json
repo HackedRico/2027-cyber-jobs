@@ -1530,9 +1530,11 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://abnormal.ai/careers/jobs/7806195003?gh_jid=7806195003",
+    "url": "",
     "source": "Greenhouse",
-    "date_added": "2026-07-20"
+    "date_added": "2026-07-20",
+    "closed": true,
+    "closed_date": "2026-08-15"
   },
   {
     "company": "Coalfire",
