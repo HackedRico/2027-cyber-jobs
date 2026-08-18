@@ -976,9 +976,11 @@
     "type": "earlycareer",
     "category": "AI Security & Safety",
     "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10440600/software-engineer-ai-security",
+    "url": "",
     "source": "Amazon Jobs",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "closed": true,
+    "closed_date": "2026-08-18"
   },
   {
     "company": "Amazon",
