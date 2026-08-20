@@ -1235,9 +1235,11 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://abnormal.ai/careers/jobs/7612697003?gh_jid=7612697003",
+    "url": "",
     "source": "Greenhouse",
-    "date_added": "2026-07-14"
+    "date_added": "2026-07-14",
+    "closed": true,
+    "closed_date": "2026-08-20"
   },
   {
     "company": "Anthropic",
