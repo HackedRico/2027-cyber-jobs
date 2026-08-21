@@ -1547,9 +1547,11 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://jobs.lever.co/coalfire/98c59304-10da-4e75-a4c9-e705b53b235f",
+    "url": "",
     "source": "Lever",
-    "date_added": "2026-07-20"
+    "date_added": "2026-07-20",
+    "closed": true,
+    "closed_date": "2026-08-21"
   },
   {
     "company": "TRM Labs",
