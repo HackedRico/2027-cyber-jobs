@@ -364,9 +364,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10423980/security-engineer-ii-differentiated-security-team-dst",
+    "url": "",
     "source": "Amazon Jobs",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "closed": true,
+    "closed_date": "2026-08-22"
   },
   {
     "company": "Amazon",
@@ -1446,9 +1448,11 @@
     "type": "earlycareer",
     "category": "GRC & Risk",
     "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10477449/data-engineer-ii-gtpc-tech-compliance-assurance-aws-security",
+    "url": "",
     "source": "Amazon Jobs",
-    "date_added": "2026-07-17"
+    "date_added": "2026-07-17",
+    "closed": true,
+    "closed_date": "2026-08-22"
   },
   {
     "company": "Osano",
