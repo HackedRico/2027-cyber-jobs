@@ -480,9 +480,11 @@
     "type": "earlycareer",
     "category": "GRC & Risk",
     "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10449506/security-compliance-engineer-ii-aws-security-assurance-services-llc",
+    "url": "",
     "source": "Amazon Jobs",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "closed": true,
+    "closed_date": "2026-08-23"
   },
   {
     "company": "Amazon",
