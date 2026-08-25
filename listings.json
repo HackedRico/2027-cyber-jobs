@@ -54,9 +54,11 @@
     "type": "earlycareer",
     "category": "Threat Intelligence",
     "clearance": false,
-    "url": "https://careers.datadoghq.com/detail/7982345/?gh_jid=7982345",
+    "url": "",
     "source": "Greenhouse",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "closed": true,
+    "closed_date": "2026-08-25"
   },
   {
     "company": "Dragos",
@@ -2149,9 +2151,11 @@
     "type": "earlycareer",
     "category": "Cloud & Infra Security",
     "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10481727/security-engineer-ii-infrastructure-security-identity",
+    "url": "",
     "source": "Amazon Jobs",
-    "date_added": "2026-07-22"
+    "date_added": "2026-07-22",
+    "closed": true,
+    "closed_date": "2026-08-25"
   },
   {
     "company": "Chainalysis",
@@ -2395,9 +2399,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10487197/security-engineer-ii-stores-security-review-operations",
+    "url": "",
     "source": "Amazon Jobs",
-    "date_added": "2026-07-29"
+    "date_added": "2026-07-29",
+    "closed": true,
+    "closed_date": "2026-08-25"
   },
   {
     "company": "KBR",
