@@ -584,9 +584,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://www.amazon.jobs/en/jobs/10440084/systems-development-engineer-i-adc-security-services-as2e",
+    "url": "",
     "source": "Amazon Jobs",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "closed": true,
+    "closed_date": "2026-08-27"
   },
   {
     "company": "Amazon",

@@ -228,7 +228,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 | ↳ | Software Engineer 2, Leo Security | Redmond, WA | Security Engineering | 🔒 | Jul 12 |
 | ↳ | Software Dev Engineer II, Enterprise Security Products | Austin, TX | Security Engineering | 🔒 | Jul 12 |
 | ↳ | Data Engineer II, Veritas, Security Tools Foundation | Seattle, WA | Security Engineering | 🔒 | Jul 12 |
-| ↳ | Systems Development Engineer I, ADC Security Services (AS2E) | Arlington, VA | Security Engineering | <a href="https://www.amazon.jobs/en/jobs/10440084/systems-development-engineer-i-adc-security-services-as2e" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
+| ↳ | Systems Development Engineer I, ADC Security Services (AS2E) | Arlington, VA | Security Engineering | 🔒 | Jul 12 |
 | ↳ | Systems Development Engineer II, ADC Security Services (A2SE) | Denver, CO | Security Engineering | <a href="https://www.amazon.jobs/en/jobs/10488679/systems-development-engineer-ii-adc-security-services-a2se" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
 | ↳ | Software Development Engineer II, Amazon Security, Cloud User Experience | Austin, TX | Security Engineering | 🔒 | Jul 12 |
 | ↳ | Software Dev Engineer II, Customer Service Security | Seattle, WA | Security Engineering | 🔒 | Jul 12 |
