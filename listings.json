@@ -1010,9 +1010,11 @@
     "type": "earlycareer",
     "category": "Cloud & Infra Security",
     "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10469431/software-development-engineer-ii-infrastructure-security-hls",
+    "url": "",
     "source": "Amazon Jobs",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "closed": true,
+    "closed_date": "2026-08-28"
   },
   {
     "company": "Amazon",
