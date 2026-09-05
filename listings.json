@@ -105,17 +105,6 @@
     "date_added": "2026-07-12"
   },
   {
-    "company": "Vectra AI",
-    "role": "Software Engineer II",
-    "location": "Austin, TX",
-    "type": "earlycareer",
-    "category": "Engineering @ Security Co",
-    "clearance": false,
-    "url": "https://www.vectra.ai/about/jobs?gh_jid=8003612",
-    "source": "Greenhouse",
-    "date_added": "2026-07-12"
-  },
-  {
     "company": "CACI",
     "role": "Space Systems Cyber Security Engineer - Junior",
     "location": "Colorado Springs, CO",
@@ -350,17 +339,6 @@
   },
   {
     "company": "Amazon",
-    "role": "Security Engineer II, Stores Security - HealthCare",
-    "location": "Seattle, WA",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10464856/security-engineer-ii-stores-security-healthcare",
-    "source": "Amazon Jobs",
-    "date_added": "2026-07-12"
-  },
-  {
-    "company": "Amazon",
     "role": "Security Engineer II, Differentiated Security Team (DST)",
     "location": "Austin, TX",
     "type": "earlycareer",
@@ -398,17 +376,6 @@
   },
   {
     "company": "Amazon",
-    "role": "Security Engineer II, AWS Cloud Security Response",
-    "location": "Seattle, WA",
-    "type": "earlycareer",
-    "category": "Cloud & Infra Security",
-    "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10430725/security-engineer-ii-aws-cloud-security-response",
-    "source": "Amazon Jobs",
-    "date_added": "2026-07-12"
-  },
-  {
-    "company": "Amazon",
     "role": "Security Engineer II, Amazon Stores Security Healthcare",
     "location": "Austin, TX",
     "type": "earlycareer",
@@ -420,45 +387,12 @@
   },
   {
     "company": "Amazon",
-    "role": "Security Engineer II, LOAF - Lifecycle of A Finding",
-    "location": "Austin, TX",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10471420/security-engineer-ii-loaf-lifecycle-of-a-finding",
-    "source": "Amazon Jobs",
-    "date_added": "2026-07-12"
-  },
-  {
-    "company": "Amazon",
     "role": "Security Engineer I, Threat Hunting, Security Incident Response Team (SIRT)",
     "location": "Arlington, VA",
     "type": "earlycareer",
     "category": "SOC & Detection",
     "clearance": false,
     "url": "https://www.amazon.jobs/en/jobs/10428283/security-engineer-i-threat-hunting-security-incident-response-team-sirt",
-    "source": "Amazon Jobs",
-    "date_added": "2026-07-12"
-  },
-  {
-    "company": "Amazon",
-    "role": "Security Engineer II, Vulnerability Management and Remediation Operations",
-    "location": "Seattle, WA",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "https://www.amazon.jobs/en/jobs/10440603/security-engineer-ii-vulnerability-management-and-remediation-operations",
-    "source": "Amazon Jobs",
-    "date_added": "2026-07-12"
-  },
-  {
-    "company": "Amazon",
-    "role": "Security Engineer II, Vulnerability Management and Remediation, Campaign Management",
-    "location": "Austin, TX",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10394783/security-engineer-ii-vulnerability-management-and-remediation-campaign-management",
     "source": "Amazon Jobs",
     "date_added": "2026-07-12"
   },
@@ -503,17 +437,6 @@
   },
   {
     "company": "Amazon",
-    "role": "Security & Compliance Engineer II, AWS Security Assurance Services, LLC",
-    "location": "Austin, TX",
-    "type": "earlycareer",
-    "category": "GRC & Risk",
-    "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10443647/security-compliance-engineer-ii-aws-security-assurance-services-llc",
-    "source": "Amazon Jobs",
-    "date_added": "2026-07-12"
-  },
-  {
-    "company": "Amazon",
     "role": "Security & Compliance Engineer I, AWS Security Assurance Services, LLC",
     "location": "Seattle, WA",
     "type": "earlycareer",
@@ -532,19 +455,6 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "",
-    "source": "Amazon Jobs",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-07-12"
-  },
-  {
-    "company": "Amazon",
-    "role": "Software Engineer 2, Leo Security",
-    "location": "Redmond, WA",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
     "url": "",
     "source": "Amazon Jobs",
     "date_added": "2026-07-12",
@@ -589,17 +499,6 @@
     "date_added": "2026-07-12",
     "closed": true,
     "closed_date": "2026-08-27"
-  },
-  {
-    "company": "Amazon",
-    "role": "Systems Development Engineer II, ADC Security Services (A2SE)",
-    "location": "Denver, CO",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "https://www.amazon.jobs/en/jobs/10488679/systems-development-engineer-ii-adc-security-services-a2se",
-    "source": "Amazon Jobs",
-    "date_added": "2026-07-12"
   },
   {
     "company": "Amazon",
@@ -677,17 +576,6 @@
     "category": "Engineering @ Security Co",
     "clearance": true,
     "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/Junior-DevOps-Engineer_JR101293",
-    "source": "Workday",
-    "date_added": "2026-07-12"
-  },
-  {
-    "company": "Nightwing",
-    "role": "System Engineer 2",
-    "location": "Annapolis Junction, MD",
-    "type": "earlycareer",
-    "category": "Engineering @ Security Co",
-    "clearance": true,
-    "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/System-Engineer-2_01672520",
     "source": "Workday",
     "date_added": "2026-07-12"
   },
@@ -902,28 +790,6 @@
   },
   {
     "company": "CACI",
-    "role": "Junior Vulnerability Researcher (5G & Protocol Security)",
-    "location": "Florham Park, NJ",
-    "type": "earlycareer",
-    "category": "Offensive Security",
-    "clearance": true,
-    "url": "https://caci.wd1.myworkdayjobs.com/External/job/Florham-Park-NJ-US/Job-Posting-Title-Junior-Vulnerability-Researcher--5G---Protocol-Security-_324976",
-    "source": "Workday",
-    "date_added": "2026-07-12"
-  },
-  {
-    "company": "CACI",
-    "role": "Junior Vulnerability Researcher (Cloud & Containers)",
-    "location": "Florham Park, NJ",
-    "type": "earlycareer",
-    "category": "Offensive Security",
-    "clearance": true,
-    "url": "https://caci.wd1.myworkdayjobs.com/External/job/Florham-Park-NJ-US/Junior-Vulnerability-Researcher--Cloud---Containers-_324975",
-    "source": "Workday",
-    "date_added": "2026-07-12"
-  },
-  {
-    "company": "CACI",
     "role": "Information Security Analyst II",
     "location": "Camp Smith, HI",
     "type": "earlycareer",
@@ -953,28 +819,6 @@
     "clearance": false,
     "url": "https://leidos.wd5.myworkdayjobs.com/External/job/Ashburn-VA/AI-Security-Specialist_R-00187101",
     "source": "Workday",
-    "date_added": "2026-07-12"
-  },
-  {
-    "company": "Amazon",
-    "role": "Security Engineer II, Stores Application Security",
-    "location": "Remote (US)",
-    "type": "earlycareer",
-    "category": "AppSec & ProdSec",
-    "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10468150/security-engineer-ii-stores-application-security",
-    "source": "Amazon Jobs",
-    "date_added": "2026-07-12"
-  },
-  {
-    "company": "Amazon",
-    "role": "Security & Compliance Engineer II, AWS Security Assurance Services, LLC",
-    "location": "Herndon, VA",
-    "type": "earlycareer",
-    "category": "GRC & Risk",
-    "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10450158/security-compliance-engineer-ii-aws-security-assurance-services-llc",
-    "source": "Amazon Jobs",
     "date_added": "2026-07-12"
   },
   {
@@ -1015,17 +859,6 @@
     "date_added": "2026-07-12",
     "closed": true,
     "closed_date": "2026-08-28"
-  },
-  {
-    "company": "Amazon",
-    "role": "Software Development Engineer II, Amazon Security Data Engineering",
-    "location": "Herndon, VA",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10446828/software-development-engineer-ii-amazon-security-data-engineering",
-    "source": "Amazon Jobs",
-    "date_added": "2026-07-12"
   },
   {
     "company": "Zscaler",
@@ -1296,17 +1129,6 @@
     "date_added": "2026-07-14"
   },
   {
-    "company": "Amazon",
-    "role": "Software Development Engineer II, Defensive Security - Security Findings Management",
-    "location": "Austin, TX",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10418994/software-development-engineer-ii-defensive-security-security-findings-management",
-    "source": "Amazon Jobs",
-    "date_added": "2026-07-14"
-  },
-  {
     "company": "Anthropic",
     "role": "Safeguards Enforcement Analyst, Violence & Extremism",
     "location": "Remote (US); San Francisco, CA | New York City, NY | Washington, DC",
@@ -1315,17 +1137,6 @@
     "clearance": false,
     "url": "https://job-boards.greenhouse.io/anthropic/jobs/5343907008",
     "source": "Greenhouse",
-    "date_added": "2026-07-15"
-  },
-  {
-    "company": "Amazon",
-    "role": "Security Engineer II, Devices and Services Security",
-    "location": "Sunnyvale, CA",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10475581/security-engineer-ii-devices-and-services-security",
-    "source": "Amazon Jobs",
     "date_added": "2026-07-15"
   },
   {
@@ -1403,17 +1214,6 @@
     "clearance": true,
     "url": "https://leidos.wd5.myworkdayjobs.com/External/job/Odenton-MD/Cyberspace-Operations-Planner--Junior_R-00160633",
     "source": "Workday",
-    "date_added": "2026-07-17"
-  },
-  {
-    "company": "Amazon",
-    "role": "Security Software Dev Engineer II, AWS Security Corporate Response",
-    "location": "Seattle, WA",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10477129/security-software-dev-engineer-ii-aws-security-corporate-response",
-    "source": "Amazon Jobs",
     "date_added": "2026-07-17"
   },
   {
@@ -1618,17 +1418,6 @@
     "clearance": true,
     "url": "https://snc.wd1.myworkdayjobs.com/SNC_External_Career_Site/job/Sparks-NV/Cybersecurity-Compliance-Advisory-Analyst-I_R0030093",
     "source": "Workday",
-    "date_added": "2026-07-20"
-  },
-  {
-    "company": "Amazon",
-    "role": "Software Development Engineer II, Amazon Security Data Engineering",
-    "location": "Herndon, VA",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10478499/software-development-engineer-ii-amazon-security-data-engineering",
-    "source": "Amazon Jobs",
     "date_added": "2026-07-20"
   },
   {
@@ -2195,17 +1984,6 @@
     "date_added": "2026-07-23"
   },
   {
-    "company": "Amazon",
-    "role": "Software Dev Engineer II, Amazon Security",
-    "location": "Seattle, WA",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10476759/software-dev-engineer-ii-amazon-security",
-    "source": "Amazon Jobs",
-    "date_added": "2026-07-23"
-  },
-  {
     "company": "Nightwing",
     "role": "Multidisciplinary Engineer II",
     "location": "Springfield, VA",
@@ -2214,17 +1992,6 @@
     "clearance": true,
     "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Springfield-VA/Multidisciplinary-Engineer-II_JR101616",
     "source": "Workday",
-    "date_added": "2026-07-24"
-  },
-  {
-    "company": "Amazon",
-    "role": "Software Dev Engineer II, AWS Security Incident Response",
-    "location": "Seattle, WA",
-    "type": "earlycareer",
-    "category": "SOC & Detection",
-    "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10483813/software-dev-engineer-ii-aws-security-incident-response",
-    "source": "Amazon Jobs",
     "date_added": "2026-07-24"
   },
   {
@@ -2278,11 +2045,9 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "",
+    "url": "https://www.fireblocks.com/careers/position?gh_jid=4698689006",
     "source": "Greenhouse",
-    "date_added": "2026-07-27",
-    "closed": true,
-    "closed_date": "2026-08-03"
+    "date_added": "2026-07-27"
   },
   {
     "company": "Northrop Grumman",
@@ -2294,17 +2059,6 @@
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Virginia-Unknown-City/Exploit-Developer-Penetration-Tester-2-3_R10242492-1",
     "source": "Workday",
     "date_added": "2026-07-27"
-  },
-  {
-    "company": "Amazon",
-    "role": "Software Development Engineer II, AWS Security",
-    "location": "Herndon, VA",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10485445/software-development-engineer-ii-aws-security",
-    "source": "Amazon Jobs",
-    "date_added": "2026-07-28"
   },
   {
     "company": "Abnormal AI",
@@ -2342,17 +2096,6 @@
     "date_added": "2026-07-29"
   },
   {
-    "company": "Amazon",
-    "role": "Software Development Engineer II, Amazon Security",
-    "location": "Seattle, WA",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10486573/software-development-engineer-ii-amazon-security",
-    "source": "Amazon Jobs",
-    "date_added": "2026-07-29"
-  },
-  {
     "company": "CACI",
     "role": "Cybersecurity Specialist, Junior",
     "location": "Aberdeen Proving Ground, MD",
@@ -2382,17 +2125,6 @@
     "category": "SOC & Detection",
     "clearance": false,
     "url": "https://proofpoint.wd5.myworkdayjobs.com/proofpointcareers/job/California/Associate-Triage-Analyst_R14534",
-    "source": "Workday",
-    "date_added": "2026-07-29"
-  },
-  {
-    "company": "Sierra Nevada Corporation",
-    "role": "DevSecOps Project Engineer I",
-    "location": "Plano, TX",
-    "type": "earlycareer",
-    "category": "AppSec & ProdSec",
-    "clearance": true,
-    "url": "https://snc.wd1.myworkdayjobs.com/SNC_External_Career_Site/job/Plano-TX/DevSecOps-Project-Engineer-I_R0030409",
     "source": "Workday",
     "date_added": "2026-07-29"
   },
@@ -2489,17 +2221,6 @@
     "closed_date": "2026-08-02"
   },
   {
-    "company": "Amazon",
-    "role": "Systems Development Engineer II, ADC Security Services (A2SE)",
-    "location": "Arlington, VA",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "https://www.amazon.jobs/en/jobs/10489636/systems-development-engineer-ii-adc-security-services-a2se",
-    "source": "Amazon Jobs",
-    "date_added": "2026-07-31"
-  },
-  {
     "company": "Bank of America",
     "role": "Global Technology Summer Analyst 2027 - Cybersecurity Analyst",
     "location": "Charlotte, NC; Dallas, TX; Denver, CO; Washington, DC",
@@ -2542,5 +2263,1039 @@
     "url": "https://careers.ll.mit.edu/job/Lexington-Cyber-Resilience-and-Operations-Assistant-Researcher-MA-02420/1380589700/",
     "source": "Community",
     "date_added": "2026-08-02"
+  },
+  {
+    "company": "Abnormal AI",
+    "role": "Software Engineer II - Data Security",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://abnormal.ai/careers/jobs/7981482003?gh_jid=7981482003",
+    "source": "Greenhouse",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Anthropic",
+    "role": "Data Engineer, Safeguards",
+    "location": "San Francisco, CA | New York City, NY",
+    "type": "earlycareer",
+    "category": "AI Security & Safety",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/anthropic/jobs/5240422008",
+    "source": "Greenhouse",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Anthropic",
+    "role": "Data Scientist, Safeguards",
+    "location": "New York City, NY; San Francisco, CA; Seattle, WA",
+    "type": "earlycareer",
+    "category": "AI Security & Safety",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/anthropic/jobs/5209196008",
+    "source": "Greenhouse",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Anthropic",
+    "role": "Safeguards Enforcement Analyst, Conventional Weapons",
+    "location": "New York City, NY; Remote-Friendly (Travel-Required) | San Francisco, CA | Washington, DC",
+    "type": "earlycareer",
+    "category": "AI Security & Safety",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/anthropic/jobs/5410006008",
+    "source": "Greenhouse",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Anthropic",
+    "role": "Safeguards Enforcement Analyst, User Well-being",
+    "location": "Remote (US); San Francisco, CA | New York City, NY | Washington, DC",
+    "type": "earlycareer",
+    "category": "AI Security & Safety",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/anthropic/jobs/5374778008",
+    "source": "Greenhouse",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Anthropic",
+    "role": "Safeguards Policy Analyst, Cyber Harms",
+    "location": "San Francisco, CA | Washington, DC",
+    "type": "earlycareer",
+    "category": "AI Security & Safety",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/anthropic/jobs/5397711008",
+    "source": "Greenhouse",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Dragos",
+    "role": "Junior OT/ICS Lab Engineer",
+    "location": "Hanover, MD",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/dragos/jobs/5367349008",
+    "source": "Greenhouse",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Fireblocks",
+    "role": "Front Line Support Engineer - East Coast",
+    "location": "United States",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://www.fireblocks.com/careers/position?gh_jid=4704413006",
+    "source": "Greenhouse",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Pinterest",
+    "role": "Machine Learning Engineer II, Responsible AI",
+    "location": "San Francisco, CA; Remote (US)",
+    "type": "earlycareer",
+    "category": "AI Security & Safety",
+    "clearance": false,
+    "url": "https://www.pinterestcareers.com/jobs/?gh_jid=8162046",
+    "source": "Greenhouse",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Tailscale",
+    "role": "Customer Support Engineer (Tier 1)",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/tailscale/jobs/4724309005",
+    "source": "Greenhouse",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Tanium",
+    "role": "Treasury Operations Analyst",
+    "location": "Emeryville, CA (Hybrid)",
+    "type": "newgrad",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/tanium/jobs/8113448",
+    "source": "Greenhouse",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Two Six Technologies",
+    "role": "Junior Software Developer",
+    "location": "Aurora, CO; Herndon, VA",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": true,
+    "url": "https://job-boards.greenhouse.io/twosixtechnologies/jobs/5838068004",
+    "source": "Greenhouse",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Verkada",
+    "role": "Security Software Engineering Intern 2027",
+    "location": "San Mateo, CA United States",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/verkada/jobs/5213881007",
+    "source": "Greenhouse",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "DigiCert",
+    "role": "Associate Authentication Analyst",
+    "location": "Lehi, UT",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://www.digicert.com/careers/?gh_jid=8752868002",
+    "source": "Greenhouse",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Jumio",
+    "role": "Research Engineer \u2013 Machine Learning & Robotics",
+    "location": "Lenexa, KS",
+    "type": "newgrad",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/jumio/jobs/4709633005",
+    "source": "Greenhouse",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "ID.me",
+    "role": "SOC Analyst",
+    "location": "McLean, VA",
+    "type": "earlycareer",
+    "category": "SOC & Detection",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/idme/jobs/7808011003",
+    "source": "Greenhouse",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "ExtraHop",
+    "role": "Support Engineer I - Dallas, TX",
+    "location": "Remote | Dallas, TX",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/extrahopnetworks/jobs/6130325004",
+    "source": "Greenhouse",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "ExtraHop",
+    "role": "Support Engineer I - Raleigh, NC",
+    "location": "Raleigh, NC",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/extrahopnetworks/jobs/6130318004",
+    "source": "Greenhouse",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Coalfire",
+    "role": "Associate, Compliance Security Penetration Tester",
+    "location": "United States",
+    "type": "earlycareer",
+    "category": "Offensive Security",
+    "clearance": false,
+    "url": "https://jobs.lever.co/coalfire/59991dcb-2ca8-46d4-9b89-0d1b00e3e5eb",
+    "source": "Lever",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Immuta",
+    "role": "Software Engineer II (Marketplace)",
+    "location": "College Park, MD | Columbus, OH | Boston, MA",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://jobs.lever.co/immuta/1399decf-a744-433d-b1e5-4db6fdbd3c02",
+    "source": "Lever",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Palantir",
+    "role": "Information Security Engineer, Internship",
+    "location": "New York, NY",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://jobs.lever.co/palantir/ef725594-42dd-4f0d-ba8e-df8179dbc6cb",
+    "source": "Lever",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Applied Intuition",
+    "role": "Cybersecurity Software Engineer - New Grad (December 2027)",
+    "location": "Sunnyvale",
+    "type": "newgrad",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/applied/a561fff8-aa38-4a5d-8b29-66c191f7328e",
+    "source": "Ashby",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Chainalysis",
+    "role": "Security Analyst II, Trust",
+    "location": "New York; Maryland; Massachusetts; Virginia; Connecticut; Pennsylvania",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/chainalysis-careers/da0b9540-9071-4c80-a1ee-a76d46d19c98",
+    "source": "Ashby",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Prophet Security",
+    "role": "Software Engineer, Backend Intern",
+    "location": "Palo Alto (Hybrid)",
+    "type": "intern",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/prophet-security/6319cd03-3d5f-47b9-815b-0f8b0d184612",
+    "source": "Ashby",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "SentiLink",
+    "role": "Quantitative Scientist, PhD New Grad",
+    "location": "United States",
+    "type": "newgrad",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/sentilink/a4a5f890-4ecd-4e76-86db-e7b3e18eb6b2",
+    "source": "Ashby",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "SentiLink",
+    "role": "Quantitative Researcher, PhD New Grad",
+    "location": "United States",
+    "type": "newgrad",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/sentilink/4e28d1a3-75a8-4031-85eb-82b7847d365a",
+    "source": "Ashby",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "SentiLink",
+    "role": "Research Scientist, PhD New Grad",
+    "location": "United States",
+    "type": "newgrad",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/sentilink/f9a47314-c48a-4053-a113-6974b211559f",
+    "source": "Ashby",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "SentiLink",
+    "role": "Applied Scientist, PhD New Grad",
+    "location": "United States",
+    "type": "newgrad",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/sentilink/cbe2397c-5e7a-4649-a8c0-07e5d1204e82",
+    "source": "Ashby",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Blackpoint Cyber",
+    "role": "MDR Analyst Skillbridge Intern (Active Duty Military only)",
+    "location": "Remote (US)",
+    "type": "intern",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/Blackpoint%20Cyber/ee2e9f90-31b1-464a-aed5-3d2878b310ed",
+    "source": "Ashby",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Blackpoint Cyber",
+    "role": "Cyber Threat Intelligence Analyst SkillBridge Internship (Active Duty Military Only)",
+    "location": "Remote (US)",
+    "type": "intern",
+    "category": "Threat Intelligence",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/Blackpoint%20Cyber/08f63552-4bdf-4c30-8c02-7c01b960d4e6",
+    "source": "Ashby",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Todyl",
+    "role": "Site Reliability Engineer II",
+    "location": "Denver CO; Atlanta GA",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/Todyl/7ebf4aa1-b1eb-451d-a81e-c1f49336a8a3",
+    "source": "Ashby",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Kudelski Security",
+    "role": "Network Support Engineer I/II",
+    "location": "Atlanta, GA",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://jobs.smartrecruiters.com/KudelskiSecurityInc/114671999",
+    "source": "SmartRecruiters",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "CACI",
+    "role": "Cyber Security Operations Specialist I - Tier 1",
+    "location": "St. Louis, MO",
+    "type": "earlycareer",
+    "category": "SOC & Detection",
+    "clearance": true,
+    "url": "https://caci.wd1.myworkdayjobs.com/External/job/St-Louis-MO-US/Cyber-Security-Operations-Specialist-I---Tier-1_330972",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Cisco",
+    "role": "Security Consulting Engineer I (Intern) - United States",
+    "location": "RTP, NC",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/RTP-North-Carolina-US/Security-Consulting-Engineer-I--Intern----United-States_2024817",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "CrowdStrike",
+    "role": "Associate Security Engineer (Remote)",
+    "location": "Remote, TX",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote-TX/Security-Engineer--Remote-_R26320",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Leidos",
+    "role": "Tier 2 Cyber Incident Response Analyst",
+    "location": "Ashburn, VA",
+    "type": "earlycareer",
+    "category": "SOC & Detection",
+    "clearance": true,
+    "url": "https://leidos.wd5.myworkdayjobs.com/External/job/Ashburn-VA/Tier-2-Cyber-Incident-Response-Analyst_R-00190879",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Motorola Solutions",
+    "role": "SOC Analyst I (Night Shift)",
+    "location": "Schaumburg, IL",
+    "type": "earlycareer",
+    "category": "SOC & Detection",
+    "clearance": true,
+    "url": "https://motorolasolutions.wd5.myworkdayjobs.com/Careers/job/Schaumburg-IL/SOC-Analyst-I--Night-Shift-_R66933",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Nightwing",
+    "role": "Vulnerability Researcher/ CNO Developer II (Onsite)",
+    "location": "San Antonio, TX",
+    "type": "earlycareer",
+    "category": "Offensive Security",
+    "clearance": true,
+    "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/San-Antonio-TX/Vulnerability-Researcher-II_JR100412",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Nightwing",
+    "role": "Software Engineer I",
+    "location": "Sterling, VA",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Sterling-VA/Software-Engineer-I_JR101958",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Nightwing",
+    "role": "Cloud Infrastructure Systems Engineer I",
+    "location": "Sterling, VA",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": true,
+    "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Sterling-VA/Cloud-Infrastructure-Systems-Engineer-I_JR101957",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Northrop Grumman",
+    "role": "Cyber Systems Engineer - Level 2 or 3 (AHT)",
+    "location": "Aurora, CO",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Colorado-Aurora/Cyber-Systems-Engineer---Level-2-or-3--AHT-_R10249390",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Northrop Grumman",
+    "role": "2026 Associate Classified Cybersecurity Analyst - Pathways Program - El Segundo CA",
+    "location": "El Segundo, CA",
+    "type": "newgrad",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-El-Segundo/XMLNAME-2026-Associate-Classified-Cybersecurity-Analyst---Pathways-Program---El-Segundo-CA_R10249292",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Northrop Grumman",
+    "role": "2026 Part-Time Cyber Security Engineering Intern - Aurora CO",
+    "location": "Aurora, CO",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Colorado-Aurora/XMLNAME-2026-Part-Time-Cyber-Security-Engineering-Intern---Aurora-CO_R10248520",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Northrop Grumman",
+    "role": "Cybersecurity Analyst   (Level 2 or 3) TS SCI CI Poly",
+    "location": "Schriever AFB, CO",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Colorado-Schriever-AFB/Cybersecurity-Analyst----Level-2-or-3--TS-SCI-CI-Poly_R10248488",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Northrop Grumman",
+    "role": "2026 Associate Cyber Systems Engineer - Chantilly VA",
+    "location": "Chantilly, VA",
+    "type": "newgrad",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Virginia-Chantilly/XMLNAME-2026-Associate-Cyber-Systems-Engineer---Chantilly-VA_R10246293-1",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Northrop Grumman",
+    "role": "Cyber Software Test Engineer - Level 2 (26-381)",
+    "location": "Colorado Springs, CO",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Colorado-Colorado-Springs/Cyber-Software-Test-Engineer---UI-Automated-Test-Engr--26-381-_R10247191",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Northrop Grumman",
+    "role": "Sentinel - Associate / Systems Engineer - STPA - SEC - Systems Security",
+    "location": "Roy, UT",
+    "type": "earlycareer",
+    "category": "Cloud & Infra Security",
+    "clearance": true,
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Utah-Roy/Sentinel---Associate---Systems-Engineer---Mission-Defense-Team---7452-2_R10245360",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Northrop Grumman",
+    "role": "Associate Industrial Security Analyst",
+    "location": "El Segundo, CA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-El-Segundo/Associate-Industrial-Security-Analyst_R10246471",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Northrop Grumman",
+    "role": "Associate Industrial Security Analyst - 19764",
+    "location": "Roy, UT",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Utah-Roy/Associate-Industrial-Security-Analyst---19764_R10246645",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Palo Alto Networks",
+    "role": "Professional Services Consultant, AI Security",
+    "location": "Seattle, United States of America; OK (US); TX (US); CA (US); VA (US); FL (US)",
+    "type": "earlycareer",
+    "category": "AI Security & Safety",
+    "clearance": false,
+    "url": "https://paloaltonetworks.wd5.myworkdayjobs.com/panwexternalcareers/job/Seattle-United-States-of-America/Professional-Service-Staff-Consultant_JR-016827",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "PayPal",
+    "role": "Cybersecurity Engineer - Recent Graduate",
+    "location": "San Jose, California, United States of America; Austin, Texas, United States of America",
+    "type": "newgrad",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://paypal.wd1.myworkdayjobs.com/jobs/job/San-Jose-California-United-States-of-America/Cybersecurity-Engineer---Recent-Graduate_R0137283",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "RTX",
+    "role": "Systems Security Engineer II (P2) (Onsite)",
+    "location": "MA-TEWKSBURY-TB1 ~ 50 Apple Hill Dr ~ ASSABET BLDG; RI-PORTSMOUTH-PS1 ~ 1847 W Main Rd ~ NIMITZ BLDG",
+    "type": "earlycareer",
+    "category": "Cloud & Infra Security",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MA-TEWKSBURY-TB1--50-Apple-Hill-Dr--ASSABET-BLDG/Systems-Security-Engineer-II--P2---Onsite-_01871309",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "RTX",
+    "role": "Embedded Systems Security Engineer II (Onsite - Marlborough, MA) Secret cleararance required",
+    "location": "MA-MARLBOROUGH-MA1 ~ 1001 Boston Post Rd ~ BLDG 1",
+    "type": "earlycareer",
+    "category": "Cloud & Infra Security",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MA-MARLBOROUGH-MA1--1001-Boston-Post-Rd--BLDG-1/Embedded-Systems-Security-Engineer-II--Onsite---Marlborough--MA--Secret-cleararance-required_01868048",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "RTX",
+    "role": "Software Engineer I, RCU (Onsite - Security Clearance)",
+    "location": "PR-AGUADILLA-110 ~ Rd 110 N Km 28.8 ~ RD110",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-PR-AGUADILLA-110--Rd-110-N-Km-288--RD110/Software-Engineer-I--RCU--Onsite---Security-Clearance-_01870743",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "RTX",
+    "role": "Software Engineer II, RCU (Onsite - Security Clearance)",
+    "location": "PR-AGUADILLA-110 ~ Rd 110 N Km 28.8 ~ RD110",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-PR-AGUADILLA-110--Rd-110-N-Km-288--RD110/Software-Engineer-II--RCU--Onsite---Security-Clearance-_01870740",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Sierra Nevada Corporation",
+    "role": "Systems Security Engineering Intern (Summer 2027)",
+    "location": "Hagerstown, MD",
+    "type": "intern",
+    "category": "Cloud & Infra Security",
+    "clearance": true,
+    "url": "https://snc.wd1.myworkdayjobs.com/SNC_External_Career_Site/job/Hagerstown-MD/Systems-Security-Engineering-Intern--Summer-2027-_R0030783",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Entrust",
+    "role": "Software Engineer II \u2013 C/Java & HSM Firmware",
+    "location": "Shakopee, MN (GHQ)",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://entrust.wd1.myworkdayjobs.com/EntrustCareers/job/United-States---Shakopee-MN-GHQ/Software-Engineer-II_R004195",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Entrust",
+    "role": "Software Developer II \u2013 Java | Instant ID as a Service & Secura",
+    "location": "Shakopee, MN (GHQ)",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://entrust.wd1.myworkdayjobs.com/EntrustCareers/job/United-States---Shakopee-MN-GHQ/Software-Developer-II---Java---Instant-ID-as-a-Service---Secura_R004285",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Entrust",
+    "role": "Software Engineer II \u2013 Full Stack (Java & React)",
+    "location": "Shakopee, MN (GHQ)",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://entrust.wd1.myworkdayjobs.com/EntrustCareers/job/United-States---Shakopee-MN-GHQ/Software-Engineer-II---Java--Spring-Boot---React_R004300-1",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Everfox",
+    "role": "Cyber Engineer II",
+    "location": "USA_VA_Herndon",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://evergreenix.wd1.myworkdayjobs.com/external-careers2/job/USA_VA_Herndon/Cyber-Engineer_JR500716",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Boeing",
+    "role": "Boeing Summer 2027 Internship Program (Paid) \u2013 Information Digital Technology & Security (IDT&S)",
+    "location": "Everett, WA; Saint Charles, MO; Mukilteo, WA; Berkeley, MO; Hazelwood, MO; El Segundo, CA; Renton, WA; Seattle, WA; Auburn, WA; Bellevue, WA; Kent, WA; Plano, TX; Arlington, VA; Ridley Park, PA; Tukwila, WA; Mesa, AZ; North Charleston, SC",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://boeing.wd1.myworkdayjobs.com/EXTERNAL_CAREERS/job/USA---Everett-WA/Boeing-Summer-2027-Internship-Program--Paid----Information-Digital-Technology---Security--IDT-S-_JR2026520791-1",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Boeing",
+    "role": "Boeing Summer 2027 Internship Program (Paid) \u2013 Security & Fire Operation (S&FO)",
+    "location": "Everett, WA; Saint Charles, MO; Huntsville, AL; Charleston, SC; Oklahoma City, OK; Berkeley, MO; Huntington Beach, CA; Hazelwood, MO; El Segundo, CA; Herndon, VA; Plano, TX; Arlington, VA; Ridley Park, PA; Tukwila, WA; North Charleston, SC; Fairfax, VA; Colorado Springs, CO; Chicago, IL; Seal Beach, CA; Mukilteo, WA; Long Beach, CA; Atlanta, GA; Renton, WA; Dallas, TX; Seattle, WA; Auburn, WA; Bellevue, WA; San Antonio, TX; Kent, WA; Mesa, AZ",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://boeing.wd1.myworkdayjobs.com/EXTERNAL_CAREERS/job/USA---Everett-WA/Boeing-Summer-2027-Internship-Program--Paid----Security---Fire-Operation--S-FO-_JR2026521717-1",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Amentum",
+    "role": "Cyber Security Analyst 2",
+    "location": "HI-Waimea",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://pae.wd1.myworkdayjobs.com/Amentum_Careers/job/US-HI-Waimea/Cyber-Security-Analyst-2_R0168711",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Amentum",
+    "role": "Cyber Ops Analyst II",
+    "location": "HI-Pearl Harbor",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://pae.wd1.myworkdayjobs.com/Amentum_Careers/job/US-HI-Pearl-Harbor/Cyber-Ops-Analyst-II_R0167472-1",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Amentum",
+    "role": "Cyber Security Analyst 1",
+    "location": "HI-Waimea",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://pae.wd1.myworkdayjobs.com/Amentum_Careers/job/US-HI-Waimea/Cyber-Security-Analyst-1_R0167372",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Amentum",
+    "role": "Cyber Intelligence Analyst \u2013 Junior",
+    "location": "DC-Washington",
+    "type": "earlycareer",
+    "category": "Threat Intelligence",
+    "clearance": true,
+    "url": "https://pae.wd1.myworkdayjobs.com/Amentum_Careers/job/US-DC-Washington/Cyber-Intelligence-Analyst---Junior_R0165208",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Amentum",
+    "role": "Personnel Security Specialist I Adjudicator",
+    "location": "VA-Springfield",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://pae.wd1.myworkdayjobs.com/Amentum_Careers/job/US-VA-Springfield/Personnel-Security-Specialist-I-Adjudicator_R0170008",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Amentum",
+    "role": "Junior Naval Systems Security Analyst",
+    "location": "VA-Dahlgren",
+    "type": "earlycareer",
+    "category": "Cloud & Infra Security",
+    "clearance": true,
+    "url": "https://pae.wd1.myworkdayjobs.com/Amentum_Careers/job/US-VA-Dahlgren/Junior-Naval-Systems-Security-Analyst_R0169689-1",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Amentum",
+    "role": "Junior Naval Systems Security Engineer",
+    "location": "VA-Dahlgren",
+    "type": "earlycareer",
+    "category": "Cloud & Infra Security",
+    "clearance": true,
+    "url": "https://pae.wd1.myworkdayjobs.com/Amentum_Careers/job/US-VA-Dahlgren/Junior-Naval-Systems-Security-Engineer_R0169686",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "ICF",
+    "role": "Computer Scientist / Software Developer, Junior - Security Clearance Required",
+    "location": "Adelphi, MD",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://icf.wd5.myworkdayjobs.com/ICFExternal_Career_Site/job/Adelphi-MD/Computer-Scientist---Software-Developer--Junior---Security-Clearance-Required_R2600165",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Morgan Stanley",
+    "role": "Cyber Exercise Planner Associate",
+    "location": "Baltimore, Maryland, United States of America",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://ms.wd5.myworkdayjobs.com/External/job/Baltimore-Maryland-United-States-of-America/Cyber-Exercise-Planner-Associate_PT-JR041930",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Vanguard",
+    "role": "College to Corporate IT Internship - Risk & Security - Engineer",
+    "location": "Dallas/Ft. Worth, TX",
+    "type": "intern",
+    "category": "GRC & Risk",
+    "clearance": false,
+    "url": "https://vanguard.wd5.myworkdayjobs.com/vanguard_external/job/DallasFt-Worth-TX/College-to-Corporate-IT-Internship---Risk---Security---Engineer_181851",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Vanguard",
+    "role": "College to Corporate IT Internship - Risk & Security - Analyst  (PA)",
+    "location": "Malvern, PA",
+    "type": "intern",
+    "category": "GRC & Risk",
+    "clearance": false,
+    "url": "https://vanguard.wd5.myworkdayjobs.com/vanguard_external/job/Malvern-PA/College-to-Corporate-IT-Internship---Risk---Security---Analyst---PA-_181762",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Vanguard",
+    "role": "College to Corporate IT Internship - Risk & Security - Analyst  (NC)",
+    "location": "Charlotte, NC",
+    "type": "intern",
+    "category": "GRC & Risk",
+    "clearance": false,
+    "url": "https://vanguard.wd5.myworkdayjobs.com/vanguard_external/job/Charlotte-NC/College-to-Corporate-IT-Internship---Risk---Security---Analyst---NC-_181764",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Vanguard",
+    "role": "College to Corporate IT Internship - Risk & Security - Engineer  (NC)",
+    "location": "Charlotte, NC",
+    "type": "intern",
+    "category": "GRC & Risk",
+    "clearance": false,
+    "url": "https://vanguard.wd5.myworkdayjobs.com/vanguard_external/job/Charlotte-NC/College-to-Corporate-IT-Internship---Risk---Security---Engineer---NC-_177688-1",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "State Street",
+    "role": "Data & AI Governance Leader, MD",
+    "location": "Boston, MA; Princeton, NJ; Clifton, NJ; Quincy, MA",
+    "type": "earlycareer",
+    "category": "AI Security & Safety",
+    "clearance": false,
+    "url": "https://statestreet.wd1.myworkdayjobs.com/Global/job/Boston-Massachusetts/Data-and-AI-Chief-Operating-Officer--MD_R-795578",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Northern Trust",
+    "role": "Technology Intern \u2013 Information Security",
+    "location": "Chicago, IL",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://ntrs.wd1.myworkdayjobs.com/northerntrust/job/Chicago-IL/Technology-Intern---Information-Security_R160869-1",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "The Cigna Group",
+    "role": "Internal Audit (SOX/SOC) Intern",
+    "location": "Franklin, TN",
+    "type": "intern",
+    "category": "SOC & Detection",
+    "clearance": false,
+    "url": "https://cigna.wd5.myworkdayjobs.com/cignacareers/job/Franklin-TN/Internal-Audit--SOX-SOC--Intern_26010366",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Walmart",
+    "role": "2026 Intern Conversion: 2027 FT Penetration Testing Engineer II",
+    "location": "(USA) ISD Office - DGTC AR BENTONVILLE Home Office",
+    "type": "intern",
+    "category": "Offensive Security",
+    "clearance": false,
+    "url": "https://walmart.wd504.myworkdayjobs.com/WalmartExternal/job/USA-ISD-Office---DGTC-AR-BENTONVILLE-Home-Office/XMLNAME-2026-Intern-Conversion--2027-FT-Penetration-Testing-Engineer-II_R-2630116",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Walmart",
+    "role": "2026 Intern Conversion: 2027 FT Systems and Infrastructure Engineer II, Information Security",
+    "location": "(USA) ISD Office - DGTC AR BENTONVILLE Home Office",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://walmart.wd504.myworkdayjobs.com/WalmartExternal/job/USA-ISD-Office---DGTC-AR-BENTONVILLE-Home-Office/XMLNAME-2026-Intern-Conversion--2027-FT-Systems-and-Infrastructure-Engineer-II--Information-Security_R-2630114",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "The Home Depot",
+    "role": "2027 Summer Internship - Cybersecurity",
+    "location": "STORE SUPPORT CENTER, ATLANTA - 9090",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://homedepot.wd5.myworkdayjobs.com/CareerDepot/job/STORE-SUPPORT-CENTER-ATLANTA---9090/XMLNAME-2027-Summer-Internship---Cybersecurity_Req191938",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Comcast",
+    "role": "Investigator 2, Security",
+    "location": "MD - Baltimore, 8031 Corporate Dr; MD - Waldorf, 336 Post Office Rd; DC - Washington, 900 Michigan Ave NE; VA - Woodbridge, 4391 Dale Blvd; MD - Rockville, 20 West Gude Dr; VA - Arlington, 2501 S Shirlington Rd; MD - Silver Spring, 11800 Tech Rd",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://comcast.wd115.myworkdayjobs.com/Comcast_Careers/job/MD---Baltimore-8031-Corporate-Dr/Investigator-2--Security_R443301",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Duke Energy",
+    "role": "Digital Forensics Summer Intern - 2027",
+    "location": "Charlotte, NC",
+    "type": "intern",
+    "category": "Forensics & IR",
+    "clearance": false,
+    "url": "https://dukeenergy.wd1.myworkdayjobs.com/Search/job/Charlotte-NC/Digital-Forensics-Summer-Intern---2027_R41195",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Duke Energy",
+    "role": "Enterprise Protective Services, Corporate Security Intern - Summer 2027",
+    "location": "Charlotte, NC",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://dukeenergy.wd1.myworkdayjobs.com/Search/job/Charlotte-NC/Enterprise-Protective-Services--Corporate-Security-Intern---Summer-2027_R41381",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Duke Energy",
+    "role": "Enterprise Protective Services, Threat Intelligence Intern - Summer 2027",
+    "location": "Charlotte, NC",
+    "type": "intern",
+    "category": "Threat Intelligence",
+    "clearance": false,
+    "url": "https://dukeenergy.wd1.myworkdayjobs.com/Search/job/Charlotte-NC/Enterprise-Protective-Services--Threat-Intelligence-Intern---Summer-2027_R41379",
+    "source": "Workday",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "SAIC",
+    "role": "Tier II SOC Supervisor",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "SOC & Detection",
+    "clearance": false,
+    "url": "https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2615114",
+    "source": "Oracle",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "JPMorgan Chase",
+    "role": "Red Team Assoc Security Engineer II",
+    "location": "Plano, TX",
+    "type": "earlycareer",
+    "category": "Offensive Security",
+    "clearance": false,
+    "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210758538",
+    "source": "Oracle",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "JPMorgan Chase",
+    "role": "Hiring Event - Security Architecture & Engineering - Sep 24-25th 2026",
+    "location": "McLean, VA; Jersey City, NJ",
+    "type": "newgrad",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210780967",
+    "source": "Oracle",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "JPMorgan Chase",
+    "role": "Hiring Event - Security Architecture & Engineering - Sep 24-25th 2026",
+    "location": "Jersey City, NJ; Mc Lean, VA",
+    "type": "newgrad",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210778894",
+    "source": "Oracle",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Amazon",
+    "role": "Security Engineer II - AMZ9802161",
+    "location": "Austin, TX",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10487669/security-engineer-ii-amz9802161",
+    "source": "Amazon Jobs",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Amazon",
+    "role": "Security Engineer II, US Amazon Dedicated Cloud Security",
+    "location": "Jessup, MD",
+    "type": "earlycareer",
+    "category": "Cloud & Infra Security",
+    "clearance": true,
+    "url": "https://www.amazon.jobs/en/jobs/10498424/security-engineer-ii-us-amazon-dedicated-cloud-security",
+    "source": "Amazon Jobs",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Amazon",
+    "role": "Security Engineer II, Stores Application Security",
+    "location": "US, Virtual",
+    "type": "earlycareer",
+    "category": "AppSec & ProdSec",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10512781/security-engineer-ii-stores-application-security",
+    "source": "Amazon Jobs",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Amazon",
+    "role": "Security Engineer II, Enterprise Protection Program",
+    "location": "Herndon, VA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10505020/security-engineer-ii-enterprise-protection-program",
+    "source": "Amazon Jobs",
+    "date_added": "2026-09-05"
+  },
+  {
+    "company": "Amazon",
+    "role": "Systems Development Engineer II, Amazon Security",
+    "location": "Herndon, VA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10529496/systems-development-engineer-ii-amazon-security",
+    "source": "Amazon Jobs",
+    "date_added": "2026-09-05"
   }
 ]
