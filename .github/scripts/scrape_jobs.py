@@ -14,9 +14,13 @@ import os
 import random
 import re
 import sys
+import threading
 import time
+from collections.abc import Callable
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 from pathlib import Path
+from typing import NamedTuple
 
 import rebuild_readme
 import requests
@@ -48,12 +52,28 @@ MAX_RETRIES = 3
 BACKOFF_BASE = 1.6
 MAX_BACKOFF = 30
 # Hard caps so a bad `total` or a page that echoes forever can't loop until the
-# workflow's 15-minute timeout.
+# workflow timeout.
 MAX_PAGES = 60
 
-# One connection-pooled session for every request.
-SESSION = requests.Session()
-SESSION.headers.update(HEADERS)
+# Boards scrape on a small thread pool (see `scrape_boards`). Each board is its
+# own host or one of a handful of shared ATS API hosts, so this many in flight
+# keeps the run minutes long as companies.yml grows without leaning on any one
+# ATS; the sequential sweep outgrew the workflow timeout at ~350 boards.
+SCRAPE_WORKERS = 6
+
+# requests.Session is not guaranteed thread-safe, so each worker thread gets
+# its own connection-pooled session.
+_thread_local = threading.local()
+
+
+def _session():
+    session = getattr(_thread_local, 'session', None)
+    if session is None:
+        session = requests.Session()
+        session.headers.update(HEADERS)
+        _thread_local.session = session
+    return session
+
 
 # Config values interpolated into a request HOST must not contain characters
 # ('/', '@', '?', '#', ':') that could reparent the host — defense-in-depth on
@@ -83,14 +103,14 @@ def fetch_json(url, *, method='GET', label='', **kwargs):
 
     Retries transient failures — timeouts, connection resets, 429/503 (honoring
     Retry-After), and 200s with a non-JSON body — with exponential backoff plus
-    jitter, over one pooled Session. Returning None (not []) lets callers tell a
-    broken fetch apart from a genuinely empty board.
+    jitter, over the calling thread's pooled Session. Returning None (not [])
+    lets callers tell a broken fetch apart from a genuinely empty board.
     """
     kwargs.setdefault('timeout', REQUEST_TIMEOUT)
     for attempt in range(MAX_RETRIES):
         last = attempt + 1 == MAX_RETRIES
         try:
-            resp = SESSION.request(method, url, **kwargs)
+            resp = _session().request(method, url, **kwargs)
         except requests.RequestException as e:
             if last:
                 print(f'  [{label}] request error: {e}')
@@ -809,6 +829,106 @@ def save_listings(listings):
 
 
 # ---------------------------------------------------------------------------
+# Orchestration
+# ---------------------------------------------------------------------------
+
+SIMPLE_BOARDS = {
+    'greenhouse': scrape_greenhouse,
+    'lever': scrape_lever,
+    'ashby': scrape_ashby,
+    'smartrecruiters': scrape_smartrecruiters,
+    'workable': scrape_workable,
+    'recruitee': scrape_recruitee,
+    'pinpoint': scrape_pinpoint,
+}
+
+
+class BoardTask(NamedTuple):
+    """One configured board: a scraper plus the positional args it takes."""
+    label: str
+    scraper: Callable[..., list[dict] | None]
+    args: tuple
+    security_company: bool = False
+
+
+def build_tasks(config, board=None, limit=None):
+    """Turn companies.yml into `BoardTask`s in config order, honoring `--board`/`--limit`."""
+    def want(name):
+        return not board or board == name
+
+    def limited(entries):
+        entries = entries or []
+        return entries[:limit] if limit else entries
+
+    tasks = []
+    for name, scraper in SIMPLE_BOARDS.items():
+        if not want(name):
+            continue
+        for entry in limited(config.get(name)):
+            tasks.append(BoardTask(
+                f'{entry["name"]} ({name}/{entry["slug"]})', scraper,
+                (entry['name'], entry['slug']), entry.get('security_company', False)))
+    if want('workday'):
+        for entry in limited(config.get('workday')):
+            tasks.append(BoardTask(
+                f'{entry["name"]} (workday/{entry["tenant"]})', scrape_workday,
+                (entry['name'], entry['tenant'], entry['instance'], entry.get('board', ''),
+                 entry.get('security_company', False), entry.get('search_terms')),
+                entry.get('security_company', False)))
+    if want('oracle'):
+        for entry in limited(config.get('oracle')):
+            tasks.append(BoardTask(
+                f'{entry["name"]} (oracle/{entry["host"]})', scrape_oracle,
+                (entry['name'], entry['host'], entry['site']),
+                entry.get('security_company', False)))
+    if want('amazon'):
+        tasks.append(BoardTask('Amazon (amazon.jobs)', scrape_amazon, ()))
+    if want('usajobs'):
+        tasks.append(BoardTask('USAJOBS (data.usajobs.gov)', scrape_usajobs, ()))
+    return tasks
+
+
+def run_board(task):
+    """Scrape one board and report its status, count, and postings; never raises."""
+    started = time.monotonic()
+    status, jobs = 'ok', []
+    try:
+        found = task.scraper(*task.args)
+    except Exception as e:
+        # One misbehaving board must not take the rest of the run down with it;
+        # the summary reports it as CRASHED and the baseline check flags a
+        # board that stays broken.
+        print(f'  [{task.label}] Scraper crashed: {_oneline(e)}')
+        status = 'CRASHED'
+    else:
+        if found is None:
+            status = 'FAILED'
+        else:
+            jobs = found
+            status = 'ok' if jobs else 'zero'
+    return {
+        'label': task.label,
+        'status': status,
+        'count': len(jobs),
+        'jobs': jobs,
+        'security_company': task.security_company,
+        'seconds': time.monotonic() - started,
+    }
+
+
+def scrape_boards(tasks, workers=SCRAPE_WORKERS):
+    """Run every board on a thread pool, yielding results in `tasks` order.
+
+    Config order (not completion order) keeps `raw_jobs` and the dedup passes
+    downstream on the same sequence a sequential sweep produced, and keeps the
+    log readable run to run. Results stream as boards finish, so a stalled run
+    still shows how far it got.
+    """
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        yield from pool.map(run_board, tasks)
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
@@ -843,71 +963,16 @@ def main():
     sec_flags = {}
     board_stats = []
 
-    def want(board):
-        return not args.board or args.board == board
-
-    def limited(entries):
-        entries = entries or []
-        return entries[:args.limit] if args.limit else entries
-
-    def run_scraper(label, fn, *args, security_company=False):
-        print(f'Checking {label}...')
-        status, count = 'ok', 0
-        try:
-            found = fn(*args)
-            if found is None:
-                status = 'FAILED'
-            else:
-                count = len(found)
-                status = 'ok' if count else 'zero'
-                for job in found:
-                    sec_flags[job['id']] = security_company
-                raw_jobs.extend(found)
-        except Exception as e:
-            status = 'CRASHED'
-            print(f'  [{label}] Scraper crashed: {e}')
-        board_stats.append({'label': label, 'status': status, 'count': count})
-        time.sleep(0.4)
-
-    simple_boards = {
-        'greenhouse': scrape_greenhouse,
-        'lever': scrape_lever,
-        'ashby': scrape_ashby,
-        'smartrecruiters': scrape_smartrecruiters,
-        'workable': scrape_workable,
-        'recruitee': scrape_recruitee,
-        'pinpoint': scrape_pinpoint,
-    }
-    for board, scraper in simple_boards.items():
-        if not want(board):
-            continue
-        for entry in limited(config.get(board)):
-            run_scraper(f'{entry["name"]} ({board}/{entry["slug"]})',
-                        scraper, entry['name'], entry['slug'],
-                        security_company=entry.get('security_company', False))
-
-    if want('workday'):
-        for entry in limited(config.get('workday')):
-            run_scraper(
-                f'{entry["name"]} (workday/{entry["tenant"]})',
-                scrape_workday, entry['name'], entry['tenant'], entry['instance'],
-                entry.get('board', ''), entry.get('security_company', False),
-                entry.get('search_terms'),
-                security_company=entry.get('security_company', False),
-            )
-
-    if want('oracle'):
-        for entry in limited(config.get('oracle')):
-            run_scraper(
-                f'{entry["name"]} (oracle/{entry["host"]})',
-                scrape_oracle, entry['name'], entry['host'], entry['site'],
-                security_company=entry.get('security_company', False),
-            )
-
-    if want('amazon'):
-        run_scraper('Amazon (amazon.jobs)', scrape_amazon)
-    if want('usajobs'):
-        run_scraper('USAJOBS (data.usajobs.gov)', scrape_usajobs)
+    tasks = build_tasks(config, board=args.board, limit=args.limit)
+    started = time.monotonic()
+    for result in scrape_boards(tasks):
+        print(f'Checking {result["label"]}... {result["status"]} '
+              f'({result["count"]} postings, {result["seconds"]:.1f}s)')
+        for job in result['jobs']:
+            sec_flags[job['id']] = result['security_company']
+        raw_jobs.extend(result['jobs'])
+        board_stats.append({key: result[key] for key in ('label', 'status', 'count')})
+    print(f'\nScraped {len(tasks)} board(s) in {time.monotonic() - started:.0f}s')
 
     # Only a full run may roll the baseline — a --board/--limit run holds counts
     # for a subset and would blind the zero-regression check for the rest.

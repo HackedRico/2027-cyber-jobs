@@ -12,7 +12,10 @@ concurrency:
 jobs:
   scrape:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    # The pooled scrape finishes in a few minutes; the margin covers a bad day
+    # of slow hosts. Runs that hit this show as "cancelled", not "failed", so
+    # keep it generous rather than silently losing a whole scrape.
+    timeout-minutes: 30
     permissions:
       contents: write
 
@@ -31,6 +34,9 @@ jobs:
         env:
           USAJOBS_API_KEY: ${{ secrets.USAJOBS_API_KEY }}
           USAJOBS_EMAIL: ${{ secrets.USAJOBS_EMAIL }}
+          # Flush each line as it prints so a timed-out run's log shows where
+          # it stalled instead of one burst of buffered output at the end.
+          PYTHONUNBUFFERED: '1'
         run: python .github/scripts/scrape_jobs.py
 
       - name: Commit changes

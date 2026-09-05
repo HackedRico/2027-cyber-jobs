@@ -262,6 +262,62 @@ def test_drop_over_experienced():
           len(dropped_moved), 1)
 
 
+# --- board orchestration: pooled scraping keeps config order -------------------
+def test_scrape_boards_preserves_config_order():
+    import threading
+    release = threading.Event()
+
+    def slow():
+        release.wait(5)  # finishes after `fast`; map() must still yield it first
+        return [{'id': 'slow_1'}]
+
+    def fast():
+        release.set()
+        return [{'id': 'fast_1'}, {'id': 'fast_2'}]
+
+    def crashes():
+        raise RuntimeError('boom')
+
+    tasks = [
+        sj.BoardTask('Slow', slow, (), True),
+        sj.BoardTask('Fast', fast, ()),
+        sj.BoardTask('Broken', lambda: None, ()),
+        sj.BoardTask('Crash', crashes, ()),
+        sj.BoardTask('Empty', lambda: [], ()),
+    ]
+    results = list(sj.scrape_boards(tasks, workers=2))
+    check('scrape_boards yields in config order, not completion order',
+          [r['label'] for r in results], ['Slow', 'Fast', 'Broken', 'Crash', 'Empty'])
+    check('scrape_boards statuses: None -> FAILED, raise -> CRASHED, [] -> zero',
+          [r['status'] for r in results], ['ok', 'ok', 'FAILED', 'CRASHED', 'zero'])
+    check('scrape_boards counts', [r['count'] for r in results], [1, 2, 0, 0, 0])
+    check('scrape_boards carries the security_company flag',
+          [r['security_company'] for r in results], [True, False, False, False, False])
+    check('a crashed board contributes no postings', results[3]['jobs'], [])
+
+
+def test_build_tasks_honors_board_and_limit():
+    config = {
+        'greenhouse': [{'name': 'A', 'slug': 'a', 'security_company': True},
+                       {'name': 'B', 'slug': 'b'}, {'name': 'C', 'slug': 'c'}],
+        'workday': [{'name': 'W', 'tenant': 'w', 'instance': 'wd5', 'board': 'Ext',
+                     'search_terms': ['grc']}],
+        'oracle': [{'name': 'O', 'host': 'o.fa.us2.oraclecloud.com', 'site': 'CX_1'}],
+    }
+    check('build_tasks walks boards in config order and ends with the fixed sources',
+          [t.label for t in sj.build_tasks(config)],
+          ['A (greenhouse/a)', 'B (greenhouse/b)', 'C (greenhouse/c)', 'W (workday/w)',
+           'O (oracle/o.fa.us2.oraclecloud.com)', 'Amazon (amazon.jobs)',
+           'USAJOBS (data.usajobs.gov)'])
+    subset = sj.build_tasks(config, board='greenhouse', limit=2)
+    check('--board/--limit narrow the task list',
+          [(t.label, t.args, t.security_company) for t in subset],
+          [('A (greenhouse/a)', ('A', 'a'), True), ('B (greenhouse/b)', ('B', 'b'), False)])
+    workday = sj.build_tasks(config, board='workday')[0]
+    check('workday task passes board and per-company search terms through',
+          workday.args, ('W', 'w', 'wd5', 'Ext', False, ['grc']))
+
+
 for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_ashby, test_ashby_schema_drift_warns,
            test_smartrecruiters_pagination_short_page_stops, test_oracle,
@@ -270,7 +326,8 @@ for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_workday_total_failure_returns_none,
            test_smartrecruiters_missing_total_keeps_paging,
            test_amazon_description_includes_qualifications,
-           test_drop_over_experienced):
+           test_drop_over_experienced, test_scrape_boards_preserves_config_order,
+           test_build_tasks_honors_board_and_limit):
     fn()
 
 if failures:
