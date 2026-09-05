@@ -2,9 +2,9 @@
 
 Employers whose job boards are scraped automatically (see [companies.yml](companies.yml)). 🛡️ marks pure-play security companies, where every engineering role is a security-industry job.
 
-**357 companies tracked.**
+**354 companies tracked.**
 
-## Ashby (73)
+## Ashby (76)
 
 - 1Password 🛡️
 - Airbyte
@@ -27,6 +27,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Ethyca 🛡️
 - Evervault 🛡️
 - FAR AI 🛡️
+- Fireworks AI
 - Flashpoint 🛡️
 - Footprint
 - HackerOne 🛡️
@@ -38,6 +39,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Infisical 🛡️
 - Kindo 🛡️
 - Lakera 🛡️
+- Marqeta
 - Material Security 🛡️
 - Menlo Security 🛡️
 - Middesk
@@ -71,6 +73,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - StrongDM 🛡️
 - Stytch 🛡️
 - Sublime Security 🛡️
+- Temporal Technologies
 - Todyl 🛡️
 - TRM Labs 🛡️
 - UpGuard 🛡️
@@ -80,7 +83,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - WorkOS 🛡️
 - Zapier
 
-## Greenhouse (154)
+## Greenhouse (147)
 
 - Abnormal AI 🛡️
 - Affirm
@@ -141,8 +144,6 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Figma
 - Finite State 🛡️
 - Fireblocks 🛡️
-- Fireworks AI
-- Fortra 🛡️
 - Gemini
 - GitLab
 - Goodfire 🛡️
@@ -167,7 +168,6 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Keyfactor 🛡️
 - KnowBe4 🛡️
 - Lyft
-- Marqeta
 - Mercury
 - MongoDB
 - Netcraft 🛡️
@@ -178,7 +178,6 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Okta 🛡️
 - OneTrust 🛡️
 - Opaque Systems 🛡️
-- Operant AI 🛡️
 - OPSWAT 🛡️
 - Orca Security 🛡️
 - Osano 🛡️
@@ -189,9 +188,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Praetorian 🛡️
 - Prove 🛡️
 - Recorded Future 🛡️
-- Red Canary 🛡️
 - Reddit
-- Relyance AI 🛡️
 - Ripple
 - Robinhood
 - Roblox
@@ -215,7 +212,6 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Synack 🛡️
 - Tailscale 🛡️
 - Tanium 🛡️
-- Temporal Technologies
 - Tenable 🛡️
 - ThreatLocker 🛡️
 - Tines 🛡️
@@ -318,7 +314,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - TrustedSec 🛡️
 - ZeroFox 🛡️
 
-## Workday (67)
+## Workday (68)
 
 - Adobe
 - Aerospace Corporation
@@ -345,6 +341,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Fidelity Investments
 - Flexera
 - Forcepoint 🛡️
+- Fortra 🛡️
 - GDIT
 - Guidehouse
 - ICF

@@ -129,8 +129,6 @@ greenhouse:
 - name: Fireblocks
   slug: fireblocks
   security_company: true
-- name: Fireworks AI
-  slug: fireworksai
 - name: Gemini
   slug: gemini
 - name: GitLab
@@ -173,8 +171,6 @@ greenhouse:
   security_company: true
 - name: Lyft
   slug: lyft
-- name: Marqeta
-  slug: marqeta
 - name: Mercury
   slug: mercury
 - name: MongoDB
@@ -195,9 +191,6 @@ greenhouse:
   security_company: true
 - name: OneTrust
   slug: onetrust
-  security_company: true
-- name: Operant AI
-  slug: operantai
   security_company: true
 - name: Orca Security
   slug: orcasecurity
@@ -278,8 +271,6 @@ greenhouse:
 - name: Tanium
   slug: tanium
   security_company: true
-- name: Temporal Technologies
-  slug: temporaltechnologies
 - name: Tenable
   slug: tenableinc
   security_company: true
@@ -357,9 +348,6 @@ greenhouse:
 - name: Incode
   slug: incode
   security_company: true
-- name: Relyance AI
-  slug: relyance
-  security_company: true
 - name: DataGrail
   slug: datagrail
   security_company: true
@@ -389,12 +377,6 @@ greenhouse:
   security_company: true
 - name: SafeBreach
   slug: safebreach
-  security_company: true
-- name: Fortra
-  slug: fortra
-  security_company: true
-- name: Red Canary
-  slug: zscalerredcanary
   security_company: true
 - name: Finite State
   slug: finitestate
@@ -680,6 +662,12 @@ ashby:
   slug: footprint
 - name: Optro
   slug: optro
+- name: Fireworks AI
+  slug: fireworks
+- name: Marqeta
+  slug: marqeta-inc
+- name: Temporal Technologies
+  slug: temporal
 smartrecruiters:
 - name: Check Point
   slug: CheckPointSoftwareTechnologies
@@ -1039,7 +1027,7 @@ workday:
   board: cignacareers
 - name: Walmart
   tenant: walmart
-  instance: wd5
+  instance: wd504
   board: WalmartExternal
 - name: Target
   tenant: target
@@ -1063,12 +1051,17 @@ workday:
   board: External
 - name: Comcast
   tenant: comcast
-  instance: wd5
+  instance: wd115
   board: Comcast_Careers
 - name: Duke Energy
   tenant: dukeenergy
   instance: wd1
   board: Search
+- name: Fortra
+  tenant: fortra
+  instance: wd12
+  board: FortraCareers
+  security_company: true
 oracle:
 - name: SAIC
   host: eihu.fa.us8.oraclecloud.com
