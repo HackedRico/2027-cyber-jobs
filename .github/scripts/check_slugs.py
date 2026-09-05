@@ -16,16 +16,6 @@ import yaml
 sys.path.insert(0, str(Path(__file__).parent))
 import scrape_jobs as sj  # noqa: E402
 
-SIMPLE = {
-    'greenhouse': sj.scrape_greenhouse,
-    'lever': sj.scrape_lever,
-    'ashby': sj.scrape_ashby,
-    'smartrecruiters': sj.scrape_smartrecruiters,
-    'workable': sj.scrape_workable,
-    'recruitee': sj.scrape_recruitee,
-    'pinpoint': sj.scrape_pinpoint,
-}
-
 
 def main():
     config = yaml.safe_load(Path('companies.yml').read_text()) or {}
@@ -37,7 +27,7 @@ def main():
         elif len(jobs) == 0:
             problems.append(f'{board}/{name} ({ident}): 0 postings')
 
-    for board, fn in SIMPLE.items():
+    for board, fn in sj.SIMPLE_BOARDS.items():
         for e in config.get(board) or []:
             record(board, e['name'], e['slug'], fn(e['name'], e['slug']))
 
