@@ -13,7 +13,7 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 
 <!-- STATS -->
 
-**296** open roles tracked · updated September 5, 2026
+**297** open roles tracked · updated September 6, 2026
 
 <!-- /STATS -->
 
@@ -131,6 +131,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| Nightwing 🇺🇸 | Multidisciplinary Engineer I | Springfield, VA | Engineering @ Security Co | <a href="https://nwis.wd12.myworkdayjobs.com/NW/job/Springfield-VA/Multidisciplinary-Engineer-I_JR102051" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 6 |
 | Abnormal AI | Software Engineer II - Data Security | Remote (US) | Security Engineering | <a href="https://abnormal.ai/careers/jobs/7981482003?gh_jid=7981482003" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 5 |
 | Amazon | Security Engineer II - AMZ9802161 | Austin, TX | Security Engineering | <a href="https://www.amazon.jobs/en/jobs/10487669/security-engineer-ii-amz9802161" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 5 |
 | ↳ | Security Engineer II, US Amazon Dedicated Cloud Security | Jessup, MD | Cloud &amp; Infra Security | <a href="https://www.amazon.jobs/en/jobs/10498424/security-engineer-ii-us-amazon-dedicated-cloud-security" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 5 |
