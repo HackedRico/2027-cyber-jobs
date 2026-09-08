@@ -13,7 +13,7 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 
 <!-- STATS -->
 
-**297** open roles tracked · updated September 6, 2026
+**303** open roles tracked · updated September 8, 2026
 
 <!-- /STATS -->
 
@@ -77,6 +77,8 @@ Cybersecurity internships and co-ops for current students, including federal Pat
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| Northrop Grumman 🇺🇸 | 2027 Systems Security Engineering Intern - Roy UT | Roy, UT | Cloud &amp; Infra Security | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Utah-Roy/XMLNAME-2027-Systems-Security-Engineering-Intern---Roy-UT_R10249815" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 8 |
+| Semgrep | Software Engineer Intern, Cloud Platform | San Francisco Office | Engineering @ Security Co | <a href="https://jobs.ashbyhq.com/semgrep/8e64dc7f-e925-4361-86d5-b01ee518c987" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 8 |
 | Blackpoint Cyber | MDR Analyst Skillbridge Intern (Active Duty Military only) | Remote (US) | Engineering @ Security Co | <a href="https://jobs.ashbyhq.com/Blackpoint%20Cyber/ee2e9f90-31b1-464a-aed5-3d2878b310ed" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 5 |
 | ↳ | Cyber Threat Intelligence Analyst SkillBridge Internship (Active Duty Military Only) | Remote (US) | Threat Intelligence | <a href="https://jobs.ashbyhq.com/Blackpoint%20Cyber/08f63552-4bdf-4c30-8c02-7c01b960d4e6" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 5 |
 | Boeing 🇺🇸 | Boeing Summer 2027 Internship Program (Paid) – Information Digital Technology &amp; Security (IDT&amp;S) | <details><summary>**17 locations**</summary>Everett, WA</br>Saint Charles, MO</br>Mukilteo, WA</br>Berkeley, MO</br>Hazelwood, MO</br>El Segundo, CA</br>Renton, WA</br>Seattle, WA</br>Auburn, WA</br>Bellevue, WA</br>Kent, WA</br>Plano, TX</br>Arlington, VA</br>Ridley Park, PA</br>Tukwila, WA</br>Mesa, AZ</br>North Charleston, SC</details> | Security Engineering | <a href="https://boeing.wd1.myworkdayjobs.com/EXTERNAL_CAREERS/job/USA---Everett-WA/Boeing-Summer-2027-Internship-Program--Paid----Information-Digital-Technology---Security--IDT-S-_JR2026520791-1" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 5 |
@@ -131,6 +133,10 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| F5 🇺🇸 | Security Engineer II | Reston | Security Engineering | <a href="https://ffive.wd5.myworkdayjobs.com/f5jobs/job/Reston/Security-Engineer-II_RP1038649" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 8 |
+| Northrop Grumman 🇺🇸 | Classified Cybersecurity Analyst 2/3 - Secret | Melbourne, FL | Security Engineering | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Florida-Melbourne/Classified-Cybersecurity-Analyst-2-3---Secret_R10248979" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 8 |
+| Rapid7 | Security Operations Analyst II | Remote (US) | SOC &amp; Detection | <a href="https://mymoose.wd1.myworkdayjobs.com/careers/job/US---Remote/Security-Operations-Analyst-II_R12304" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 8 |
+| RTX 🇺🇸 | Systems Security Engineer I – Anti-Tamper / Program Protection (Onsite-Tucson, AZ) – P1 | AZ-TUCSON-801 ~ 1151 E Hermans Rd ~ BLDG 801 (External Site) | Cloud &amp; Infra Security | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Systems-Security-Engineer-I---Anti-Tamper---Program-Protection--Onsite-Tucson--AZ----P1_01873154" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 8 |
 | Nightwing 🇺🇸 | Multidisciplinary Engineer I | Springfield, VA | Engineering @ Security Co | <a href="https://nwis.wd12.myworkdayjobs.com/NW/job/Springfield-VA/Multidisciplinary-Engineer-I_JR102051" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 6 |
 | Abnormal AI | Software Engineer II - Data Security | Remote (US) | Security Engineering | <a href="https://abnormal.ai/careers/jobs/7981482003?gh_jid=7981482003" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 5 |
 | Amazon | Security Engineer II - AMZ9802161 | Austin, TX | Security Engineering | <a href="https://www.amazon.jobs/en/jobs/10487669/security-engineer-ii-amz9802161" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 5 |

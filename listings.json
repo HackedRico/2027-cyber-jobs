@@ -3319,5 +3319,71 @@
     "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Springfield-VA/Multidisciplinary-Engineer-I_JR102051",
     "source": "Workday",
     "date_added": "2026-09-06"
+  },
+  {
+    "company": "Semgrep",
+    "role": "Software Engineer Intern, Cloud Platform",
+    "location": "San Francisco Office",
+    "type": "intern",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/semgrep/8e64dc7f-e925-4361-86d5-b01ee518c987",
+    "source": "Ashby",
+    "date_added": "2026-09-08"
+  },
+  {
+    "company": "F5",
+    "role": "Security Engineer II",
+    "location": "Reston",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://ffive.wd5.myworkdayjobs.com/f5jobs/job/Reston/Security-Engineer-II_RP1038649",
+    "source": "Workday",
+    "date_added": "2026-09-08"
+  },
+  {
+    "company": "Northrop Grumman",
+    "role": "Classified Cybersecurity Analyst 2/3 - Secret",
+    "location": "Melbourne, FL",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Florida-Melbourne/Classified-Cybersecurity-Analyst-2-3---Secret_R10248979",
+    "source": "Workday",
+    "date_added": "2026-09-08"
+  },
+  {
+    "company": "Northrop Grumman",
+    "role": "2027 Systems Security Engineering Intern - Roy UT",
+    "location": "Roy, UT",
+    "type": "intern",
+    "category": "Cloud & Infra Security",
+    "clearance": true,
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Utah-Roy/XMLNAME-2027-Systems-Security-Engineering-Intern---Roy-UT_R10249815",
+    "source": "Workday",
+    "date_added": "2026-09-08"
+  },
+  {
+    "company": "RTX",
+    "role": "Systems Security Engineer I \u2013 Anti-Tamper / Program Protection (Onsite-Tucson, AZ) \u2013 P1",
+    "location": "AZ-TUCSON-801 ~ 1151 E Hermans Rd ~ BLDG 801 (External Site)",
+    "type": "earlycareer",
+    "category": "Cloud & Infra Security",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Systems-Security-Engineer-I---Anti-Tamper---Program-Protection--Onsite-Tucson--AZ----P1_01873154",
+    "source": "Workday",
+    "date_added": "2026-09-08"
+  },
+  {
+    "company": "Rapid7",
+    "role": "Security Operations Analyst II",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "SOC & Detection",
+    "clearance": false,
+    "url": "https://mymoose.wd1.myworkdayjobs.com/careers/job/US---Remote/Security-Operations-Analyst-II_R12304",
+    "source": "Workday",
+    "date_added": "2026-09-08"
   }
 ]
