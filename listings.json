@@ -3396,5 +3396,137 @@
     "url": "https://boards.greenhouse.io/andurilindustries/jobs/5233074007?gh_jid=5233074007",
     "source": "Greenhouse",
     "date_added": "2026-09-09"
+  },
+  {
+    "company": "Tanium",
+    "role": "Technical Support Engineer (TSE) Intern",
+    "location": "Addison, TX (Hybrid)",
+    "type": "intern",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/tanium/jobs/8176322",
+    "source": "Greenhouse",
+    "date_added": "2026-09-09"
+  },
+  {
+    "company": "Tanium",
+    "role": "Technical Support Engineer (TSE) Intern",
+    "location": "Bellevue, WA (Hybrid); Emeryville, CA (Hybrid)",
+    "type": "intern",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/tanium/jobs/8189328",
+    "source": "Greenhouse",
+    "date_added": "2026-09-09"
+  },
+  {
+    "company": "Immuta",
+    "role": "Full-Stack Engineering Internship - Summer 2027",
+    "location": "Columbus, OH",
+    "type": "intern",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://jobs.lever.co/immuta/b9b21075-74a4-4b64-8f1b-f0be1fb0b24d",
+    "source": "Lever",
+    "date_added": "2026-09-09"
+  },
+  {
+    "company": "Immuta",
+    "role": "Platform & Site Reliability Engineering Internship - Summer 2027",
+    "location": "Columbus, OH",
+    "type": "intern",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://jobs.lever.co/immuta/3c4cb235-6138-4a50-add2-666a5216427e",
+    "source": "Lever",
+    "date_added": "2026-09-09"
+  },
+  {
+    "company": "Immuta",
+    "role": "Product Engineering Intern - Summer 2027",
+    "location": "College Park, MD",
+    "type": "intern",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://jobs.lever.co/immuta/bf3c9d23-8da9-4a11-adf6-ecb7bce82ad4",
+    "source": "Lever",
+    "date_added": "2026-09-09"
+  },
+  {
+    "company": "CACI",
+    "role": "Junior Vulnerability Researcher (Cloud & Containers)",
+    "location": "Florham Park, NJ",
+    "type": "earlycareer",
+    "category": "Offensive Security",
+    "clearance": true,
+    "url": "https://caci.wd1.myworkdayjobs.com/External/job/Florham-Park-NJ-US/Junior-Vulnerability-Researcher--Cloud---Containers-_331857-1",
+    "source": "Workday",
+    "date_added": "2026-09-09"
+  },
+  {
+    "company": "Northrop Grumman",
+    "role": "2027 Associate Cyber Systems Engineer/Cyber Systems Engineer - CA",
+    "location": "San Diego, CA; Palmdale, CA; El Segundo, CA; Redondo Beach, CA",
+    "type": "newgrad",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-San-Diego/XMLNAME-2027-Associate-Cyber-Systems-Engineer-Cyber-Systems-Engineer---CA_R10250113",
+    "source": "Workday",
+    "date_added": "2026-09-09"
+  },
+  {
+    "company": "Northrop Grumman",
+    "role": "Systems Security Engineer (Level 2 or 3) (Oklahoma City OK)",
+    "location": "Oklahoma City, OK",
+    "type": "earlycareer",
+    "category": "Cloud & Infra Security",
+    "clearance": true,
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Oklahoma-Oklahoma-City/Systems-Security-Engineer--Level-2-or-3---Oklahoma-City-OK-_R10247550",
+    "source": "Workday",
+    "date_added": "2026-09-09"
+  },
+  {
+    "company": "SailPoint",
+    "role": "Associate Security Software Engineer",
+    "location": "Remote (US); United States",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://sailpoint.wd1.myworkdayjobs.com/SailPoint/job/Remote-Texas-USA/Associate-Security-Software-Engineer_R013786",
+    "source": "Workday",
+    "date_added": "2026-09-09"
+  },
+  {
+    "company": "Entrust",
+    "role": "Firmware Engineer II",
+    "location": "Shakopee, MN (GHQ)",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://entrust.wd1.myworkdayjobs.com/EntrustCareers/job/United-States---Shakopee-MN-GHQ/Firmware-Engineer-II_R004366",
+    "source": "Workday",
+    "date_added": "2026-09-09"
+  },
+  {
+    "company": "The Cigna Group",
+    "role": "The Cigna Group's Technology Development Program - Cybersecurity Track Summer Internship",
+    "location": "CT, Bloomfield, 900 Cottage Grove Rd Wilde Bldg; St. Louis, MO",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://cigna.wd5.myworkdayjobs.com/cignacareers/job/CT-Bloomfield-900-Cottage-Grove-Rd-Wilde-Bldg/The-Cigna-Group-s-Technology-Development-Program---Cybersecurity-Track-Summer-Internship_26009531",
+    "source": "Workday",
+    "date_added": "2026-09-09"
+  },
+  {
+    "company": "The Cigna Group",
+    "role": "Technology Development Program (TECDP) - Cyber Security Track - Start Date: July 12, 2027",
+    "location": "Bloomfield, CT; St. Louis, MO",
+    "type": "newgrad",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://cigna.wd5.myworkdayjobs.com/cignacareers/job/Bloomfield-CT/Technology-Development-Program--TECDP----Cyber-Security-Track---Start-Date--July-12--2027_26010468",
+    "source": "Workday",
+    "date_added": "2026-09-09"
   }
 ]
