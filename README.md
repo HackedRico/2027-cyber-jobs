@@ -13,7 +13,7 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 
 <!-- STATS -->
 
-**303** open roles tracked · updated September 8, 2026
+**304** open roles tracked · updated September 9, 2026
 
 <!-- /STATS -->
 
@@ -41,6 +41,7 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| Anduril 🇺🇸 | 2026 Junior Analyst, Threat Intelligence | Costa Mesa, CA | Threat Intelligence | <a href="https://boards.greenhouse.io/andurilindustries/jobs/5233074007?gh_jid=5233074007" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 9 |
 | Applied Intuition | Cybersecurity Software Engineer - New Grad (December 2027) | Sunnyvale | Security Engineering | <a href="https://jobs.ashbyhq.com/applied/a561fff8-aa38-4a5d-8b29-66c191f7328e" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 5 |
 | JPMorgan Chase | Hiring Event - Security Architecture &amp; Engineering - Sep 24-25th 2026 | <details><summary>**2 locations**</summary>McLean, VA</br>Jersey City, NJ</details> | Security Engineering | <a href="https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210780967" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 5 |
 | ↳ | Hiring Event - Security Architecture &amp; Engineering - Sep 24-25th 2026 | <details><summary>**2 locations**</summary>Jersey City, NJ</br>Mc Lean, VA</details> | Security Engineering | <a href="https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210778894" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 5 |
