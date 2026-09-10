@@ -13,7 +13,7 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 
 <!-- STATS -->
 
-**316** open roles tracked · updated September 9, 2026
+**316** open roles tracked · updated September 10, 2026
 
 <!-- /STATS -->
 
@@ -142,7 +142,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
-| CACI 🇺🇸 | Junior Vulnerability Researcher (Cloud &amp; Containers) | Florham Park, NJ | Offensive Security | <a href="https://caci.wd1.myworkdayjobs.com/External/job/Florham-Park-NJ-US/Junior-Vulnerability-Researcher--Cloud---Containers-_331857-1" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 9 |
+| Northrop Grumman 🇺🇸 | Level 2/3 Cyber Systems Engineer - AISR&amp;T Contingent | San Diego, CA | Security Engineering | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-San-Diego/Level-2-3-Cyber-Systems-Engineer---AISR-T-Contingent_R10249593" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 10 |
 | Entrust | Firmware Engineer II | Shakopee, MN (GHQ) | Engineering @ Security Co | <a href="https://entrust.wd1.myworkdayjobs.com/EntrustCareers/job/United-States---Shakopee-MN-GHQ/Firmware-Engineer-II_R004366" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 9 |
 | Northrop Grumman 🇺🇸 | Systems Security Engineer (Level 2 or 3) (Oklahoma City OK) | Oklahoma City, OK | Cloud &amp; Infra Security | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Oklahoma-Oklahoma-City/Systems-Security-Engineer--Level-2-or-3---Oklahoma-City-OK-_R10247550" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 9 |
 | SailPoint | Associate Security Software Engineer | <details><summary>**2 locations**</summary>Remote (US)</br>United States</details> | Security Engineering | <a href="https://sailpoint.wd1.myworkdayjobs.com/SailPoint/job/Remote-Texas-USA/Associate-Security-Software-Engineer_R013786" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 9 |
