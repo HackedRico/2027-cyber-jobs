@@ -2271,9 +2271,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://abnormal.ai/careers/jobs/7981482003?gh_jid=7981482003",
+    "url": "",
     "source": "Greenhouse",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "closed": true,
+    "closed_date": "2026-09-10"
   },
   {
     "company": "Anthropic",
