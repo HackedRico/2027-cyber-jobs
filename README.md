@@ -13,7 +13,7 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 
 <!-- STATS -->
 
-**321** open roles tracked · updated September 11, 2026
+**328** open roles tracked · updated September 11, 2026
 
 <!-- /STATS -->
 
@@ -80,6 +80,7 @@ Cybersecurity internships and co-ops for current students, including federal Pat
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| Vanguard | College to Corporate IT Internship - Risk &amp; Security - Engineer (PA) | Malvern, PA | GRC &amp; Risk | <a href="https://vanguard.wd5.myworkdayjobs.com/vanguard_external/job/Malvern-PA/College-to-Corporate-IT-Internship---Risk---Security---Engineer---PA-_177687-1" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 11 |
 | Northrop Grumman 🇺🇸 | 2027 Spring Co-op Cyber Software Engineer Intern - Cincinnati OH | Cincinnati, OH | Security Engineering | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Ohio-Cincinnati/XMLNAME-2027-Spring-Co-op-Cyber-Software-Engineer-Intern---Cincinnati-OH_R10250275-1" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 10 |
 | Tanium | Software Engineering Intern – Summer 2027 | <details><summary>**2 locations**</summary>Durham, NC (Hybrid)</br>Emeryville, CA (Hybrid)</details> | Engineering @ Security Co | <a href="https://job-boards.greenhouse.io/tanium/jobs/8181017" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 10 |
 | Immuta | Full-Stack Engineering Internship - Summer 2027 | Columbus, OH | Engineering @ Security Co | <a href="https://jobs.lever.co/immuta/b9b21075-74a4-4b64-8f1b-f0be1fb0b24d" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 9 |
@@ -144,6 +145,12 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| Abnormal AI | Software Engineer II - Insider Risk | Hybrid - San Francisco, CA | GRC &amp; Risk | <a href="https://abnormal.ai/careers/jobs/7992780003?gh_jid=7992780003" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 11 |
+| Amazon | Security Engineer II, Amazon GuardDuty | Seattle, WA | Security Engineering | <a href="https://www.amazon.jobs/en/jobs/10537429/security-engineer-ii-amazon-guardduty" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 11 |
+| ↳ | Security Engineer I, AWS Security Incident Response | Seattle, WA | SOC &amp; Detection | <a href="https://www.amazon.jobs/en/jobs/10537510/security-engineer-i-aws-security-incident-response" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 11 |
+| Everfox 🇺🇸 | Software Engineer I | USA_TX_Richardson | Engineering @ Security Co | <a href="https://evergreenix.wd1.myworkdayjobs.com/external-careers2/job/USA_TX_Richardson/Software-Engineer-I_JR500748-1" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 11 |
+| JPMorgan Chase | Security Engineer II | <details><summary>**2 locations**</summary>Plano, TX</br>Columbus, OH</details> | Security Engineering | <a href="https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210764907" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 11 |
+| Morgan Stanley | Associate - AI Governance &amp; Reporting - Model Risk | New York, New York, United States of America | AI Security &amp; Safety | <a href="https://ms.wd5.myworkdayjobs.com/External/job/New-York-New-York-United-States-of-America/Associate---AI-Governance---Reporting---Model-Risk_PT-JR043622" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 11 |
 | SAIC | Security Associate | Fairmont, WV | Security Engineering | <a href="https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2616725" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 11 |
 | Booz Allen Hamilton 🇺🇸 | Cyber Analyst, Junior | Washington, DC | Security Engineering | <a href="https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Washington-DC/Cyber-Analyst--Junior_R0249110" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 10 |
 | KBR 🇺🇸 | Associate Security Specialist | Chantilly, VA | Security Engineering | <a href="https://kbr.wd5.myworkdayjobs.com/KBR_Careers/job/Chantilly-Virginia/Associate-Security-Specialist_R2129699" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 10 |

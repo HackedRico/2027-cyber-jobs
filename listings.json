@@ -3579,5 +3579,82 @@
     "url": "https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2616725",
     "source": "Oracle",
     "date_added": "2026-09-11"
+  },
+  {
+    "company": "Abnormal AI",
+    "role": "Software Engineer II - Insider Risk",
+    "location": "Hybrid - San Francisco, CA",
+    "type": "earlycareer",
+    "category": "GRC & Risk",
+    "clearance": false,
+    "url": "https://abnormal.ai/careers/jobs/7992780003?gh_jid=7992780003",
+    "source": "Greenhouse",
+    "date_added": "2026-09-11"
+  },
+  {
+    "company": "Everfox",
+    "role": "Software Engineer I",
+    "location": "USA_TX_Richardson",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": true,
+    "url": "https://evergreenix.wd1.myworkdayjobs.com/external-careers2/job/USA_TX_Richardson/Software-Engineer-I_JR500748-1",
+    "source": "Workday",
+    "date_added": "2026-09-11"
+  },
+  {
+    "company": "Morgan Stanley",
+    "role": "Associate - AI Governance & Reporting - Model Risk",
+    "location": "New York, New York, United States of America",
+    "type": "earlycareer",
+    "category": "AI Security & Safety",
+    "clearance": false,
+    "url": "https://ms.wd5.myworkdayjobs.com/External/job/New-York-New-York-United-States-of-America/Associate---AI-Governance---Reporting---Model-Risk_PT-JR043622",
+    "source": "Workday",
+    "date_added": "2026-09-11"
+  },
+  {
+    "company": "Vanguard",
+    "role": "College to Corporate IT Internship - Risk & Security - Engineer  (PA)",
+    "location": "Malvern, PA",
+    "type": "intern",
+    "category": "GRC & Risk",
+    "clearance": false,
+    "url": "https://vanguard.wd5.myworkdayjobs.com/vanguard_external/job/Malvern-PA/College-to-Corporate-IT-Internship---Risk---Security---Engineer---PA-_177687-1",
+    "source": "Workday",
+    "date_added": "2026-09-11"
+  },
+  {
+    "company": "JPMorgan Chase",
+    "role": "Security Engineer II",
+    "location": "Plano, TX; Columbus, OH",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210764907",
+    "source": "Oracle",
+    "date_added": "2026-09-11"
+  },
+  {
+    "company": "Amazon",
+    "role": "Security Engineer II, Amazon GuardDuty",
+    "location": "Seattle, WA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10537429/security-engineer-ii-amazon-guardduty",
+    "source": "Amazon Jobs",
+    "date_added": "2026-09-11"
+  },
+  {
+    "company": "Amazon",
+    "role": "Security Engineer I, AWS Security Incident Response",
+    "location": "Seattle, WA",
+    "type": "earlycareer",
+    "category": "SOC & Detection",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10537510/security-engineer-i-aws-security-incident-response",
+    "source": "Amazon Jobs",
+    "date_added": "2026-09-11"
   }
 ]
