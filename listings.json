@@ -435,32 +435,6 @@
   },
   {
     "company": "Amazon",
-    "role": "Security & Compliance Engineer I, AWS Security Assurance Services, LLC",
-    "location": "Seattle, WA",
-    "type": "earlycareer",
-    "category": "GRC & Risk",
-    "clearance": false,
-    "url": "",
-    "source": "Amazon Jobs",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-07-12"
-  },
-  {
-    "company": "Amazon",
-    "role": "Software Development Engineer II, Security Products",
-    "location": "Austin, TX",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "",
-    "source": "Amazon Jobs",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-07-12"
-  },
-  {
-    "company": "Amazon",
     "role": "Software Dev Engineer II, Enterprise Security Products",
     "location": "Austin, TX",
     "type": "earlycareer",
@@ -3594,5 +3568,16 @@
     "url": "https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2616686",
     "source": "Oracle",
     "date_added": "2026-09-10"
+  },
+  {
+    "company": "SAIC",
+    "role": "Security Associate",
+    "location": "Fairmont, WV",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2616725",
+    "source": "Oracle",
+    "date_added": "2026-09-11"
   }
 ]

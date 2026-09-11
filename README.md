@@ -13,7 +13,7 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 
 <!-- STATS -->
 
-**322** open roles tracked · updated September 10, 2026
+**321** open roles tracked · updated September 11, 2026
 
 <!-- /STATS -->
 
@@ -144,6 +144,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| SAIC | Security Associate | Fairmont, WV | Security Engineering | <a href="https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2616725" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 11 |
 | Booz Allen Hamilton 🇺🇸 | Cyber Analyst, Junior | Washington, DC | Security Engineering | <a href="https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Washington-DC/Cyber-Analyst--Junior_R0249110" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 10 |
 | KBR 🇺🇸 | Associate Security Specialist | Chantilly, VA | Security Engineering | <a href="https://kbr.wd5.myworkdayjobs.com/KBR_Careers/job/Chantilly-Virginia/Associate-Security-Specialist_R2129699" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 10 |
 | Northrop Grumman 🇺🇸 | Level 2/3 Cyber Systems Engineer - AISR&amp;T Contingent | San Diego, CA | Security Engineering | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-San-Diego/Level-2-3-Cyber-Systems-Engineer---AISR-T-Contingent_R10249593" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 10 |
@@ -328,8 +329,6 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 | ↳ | Security Engineer II, Vulnerability Management and Response - Strategic Enablement | Austin, TX | Security Engineering | 🔒 | Jul 12 |
 | ↳ | Security &amp; Compliance Engineer II, AWS Security Assurance Services, LLC | Seattle, WA | GRC &amp; Risk | 🔒 | Jul 12 |
 | ↳ | Security &amp; Compliance Engineer II, AWS Security Assurance Services, LLC | Arlington, VA | GRC &amp; Risk | 🔒 | Jul 12 |
-| ↳ | Security &amp; Compliance Engineer I, AWS Security Assurance Services, LLC | Seattle, WA | GRC &amp; Risk | 🔒 | Jul 12 |
-| ↳ | Software Development Engineer II, Security Products | Austin, TX | Security Engineering | 🔒 | Jul 12 |
 | ↳ | Software Dev Engineer II, Enterprise Security Products | Austin, TX | Security Engineering | 🔒 | Jul 12 |
 | ↳ | Data Engineer II, Veritas, Security Tools Foundation | Seattle, WA | Security Engineering | 🔒 | Jul 12 |
 | ↳ | Systems Development Engineer I, ADC Security Services (AS2E) | Arlington, VA | Security Engineering | 🔒 | Jul 12 |
