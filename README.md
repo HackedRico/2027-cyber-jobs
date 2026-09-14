@@ -13,7 +13,7 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 
 <!-- STATS -->
 
-**328** open roles tracked · updated September 11, 2026
+**330** open roles tracked · updated September 14, 2026
 
 <!-- /STATS -->
 
@@ -145,6 +145,8 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| GDIT 🇺🇸 | Cybersecurity Exercise Planner (Junior) | Arlington, VA | Security Engineering | <a href="https://gdit.wd5.myworkdayjobs.com/External_Career_Site/job/USA-VA-Arlington/Cybersecurity-Exercise-Planner--Junior-_RQ227038-1" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 14 |
+| RTX 🇺🇸 | Systems Engineer I, V&amp;V Testing (Onsite - Security Clearance) | PR-AGUADILLA-110 ~ Rd 110 N Km 28.8 ~ RD110 | Security Engineering | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-PR-AGUADILLA-110--Rd-110-N-Km-288--RD110/Systems-Engineer-I--V-V-Testing--Onsite---Security-Clearance-_01870858" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 14 |
 | Abnormal AI | Software Engineer II - Insider Risk | Hybrid - San Francisco, CA | GRC &amp; Risk | <a href="https://abnormal.ai/careers/jobs/7992780003?gh_jid=7992780003" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 11 |
 | Amazon | Security Engineer II, Amazon GuardDuty | Seattle, WA | Security Engineering | <a href="https://www.amazon.jobs/en/jobs/10537429/security-engineer-ii-amazon-guardduty" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 11 |
 | ↳ | Security Engineer I, AWS Security Incident Response | Seattle, WA | SOC &amp; Detection | <a href="https://www.amazon.jobs/en/jobs/10537510/security-engineer-i-aws-security-incident-response" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 11 |

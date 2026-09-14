@@ -3656,5 +3656,27 @@
     "url": "https://www.amazon.jobs/en/jobs/10537510/security-engineer-i-aws-security-incident-response",
     "source": "Amazon Jobs",
     "date_added": "2026-09-11"
+  },
+  {
+    "company": "GDIT",
+    "role": "Cybersecurity Exercise Planner (Junior)",
+    "location": "Arlington, VA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://gdit.wd5.myworkdayjobs.com/External_Career_Site/job/USA-VA-Arlington/Cybersecurity-Exercise-Planner--Junior-_RQ227038-1",
+    "source": "Workday",
+    "date_added": "2026-09-14"
+  },
+  {
+    "company": "RTX",
+    "role": "Systems Engineer I, V&V Testing (Onsite - Security Clearance)",
+    "location": "PR-AGUADILLA-110 ~ Rd 110 N Km 28.8 ~ RD110",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-PR-AGUADILLA-110--Rd-110-N-Km-288--RD110/Systems-Engineer-I--V-V-Testing--Onsite---Security-Clearance-_01870858",
+    "source": "Workday",
+    "date_added": "2026-09-14"
   }
 ]
