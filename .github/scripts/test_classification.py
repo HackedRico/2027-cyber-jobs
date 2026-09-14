@@ -92,6 +92,9 @@ CASES = [
     # explicit senior word wins even inside a cohort title.
     ('Security Architect', 'Austin, TX', '', False, None),
     ('Senior Security Architect - New Grad', 'Austin, TX', '', False, None),
+    # Management titles that carry no 'lead'/'manager' token.
+    ('Tier II SOC Supervisor', 'Austin, TX', '', False, None),
+    ('Data & AI Governance Leader, MD', 'Boston, MA', '', False, None),
 
     # -- should be rejected: not cyber --
     ('Software Engineer, New Grad', 'Austin, TX', '', False, None),
@@ -102,12 +105,22 @@ CASES = [
     ('Credit Risk Analyst I', 'New York, NY', '', False, None),
     ('Machine Learning Engineer, New Grad', 'San Francisco, CA', '', False, None),
     ('Junior Nuclear Safeguards Analyst', 'Richland, WA', '', False, None),
+    # Finance and support functions at a security company are still not cyber.
+    ('Treasury Operations Analyst', 'Emeryville, CA', '', True, None),
+    ('Customer Support Engineer (Tier 1)', 'Remote (US)', '', True, None),
+    ('Internal Audit (SOX/SOC) Intern', 'Bloomfield, CT', '', False, None),
+    # ...but a technical support engineer at a security company still counts.
+    ('Support Engineer I', 'Dallas, TX', '', True, ('earlycareer', 'Engineering @ Security Co')),
 
     # -- should be rejected: physical security --
     ('Security Guard', 'Austin, TX', '', False, None),
     ('Security Officer - Night Shift', 'Austin, TX', '', False, None),
     ('Physical Security Specialist', 'Austin, TX', '', False, None),
     ('Loss Prevention Associate', 'Austin, TX', '', False, None),
+    # Cleared-facility security (FSO/adjudication/guard force) is not cyber.
+    ('Associate Industrial Security Analyst', 'Falls Church, VA', '', False, None),
+    ('Personnel Security Specialist I Adjudicator', 'Chantilly, VA', '', False, None),
+    ('Enterprise Protective Services, Corporate Security Intern - Summer 2027', 'Charlotte, NC', '', False, None),
 
     # -- should be rejected: no level signal --
     ('Security Engineer', 'Austin, TX', '', False, None),
@@ -191,6 +204,47 @@ NORM = [
     # Bare-city duplicate folds into the qualified spelling.
     ('Austin, TX; Austin', 'Austin, TX'),
     ('Portland, OR; Portland, ME', 'Portland, OR; Portland, ME'),
+    # Workplace tags and office affixes are stripped.
+    ('Emeryville, CA (Hybrid)', 'Emeryville, CA'),
+    ('Shakopee, MN (GHQ)', 'Shakopee, MN'),
+    ('HQ - Sunnyvale (Office)', 'Sunnyvale, CA'),
+    ('San Francisco Office', 'San Francisco, CA'),
+    # Remote spellings without a US token still mean US remote; a region does not.
+    ('Remote-Friendly (Travel-Required)', 'Remote (US)'),
+    ('Remote (Any State)', 'Remote (US)'),
+    ('Remote - U.S.', 'Remote (US)'),
+    ('US, Virtual', 'Remote (US)'),
+    ('Remote (EMEA)', 'Remote (EMEA)'),
+    # Workday site strings with street addresses and site codes.
+    ('MA-TEWKSBURY-TB1 ~ 50 Apple Hill Dr ~ ASSABET BLDG', 'Tewksbury, MA'),
+    ('TX-MCKINNEY-513WC ~ 2501 W University Dr ~ WING C BLDG', 'McKinney, TX'),
+    ('MT-GREAT FALLS-6932-CUST ~ 6932 Goddard Dr ~ GODDARD (External Site)', 'Great Falls, MT'),
+    ('MD - Baltimore, 8031 Corporate Dr', 'Baltimore, MD'),
+    ('CT, Bloomfield, 900 Cottage Grove Rd Wilde Bldg', 'Bloomfield, CT'),
+    ('M252 Raleigh - 4110 Wake Forest Rd', 'Raleigh, NC'),
+    ('VA-Dahlgren', 'Dahlgren, VA'),
+    ('HI-Pearl Harbor', 'Pearl Harbor, HI'),
+    ('USA_TX_Richardson', 'Richardson, TX'),
+    ('(USA) ISD Office - DGTC AR BENTONVILLE Home Office', 'Bentonville, AR'),
+    ('US, California, Santa Clara', 'Santa Clara, CA'),
+    # Country suffixes, bare states, and unambiguous bare cities.
+    ('Austin, Texas, United States of America', 'Austin, TX'),
+    ('Seattle, United States of America', 'Seattle, WA'),
+    ('San Mateo, CA United States', 'San Mateo, CA'),
+    ('Arizona', 'AZ (US)'),
+    ('New York', 'NY (US)'),  # a state name wins over the city reading
+    ('New York City', 'New York City, NY'),
+    ('Atlanta GA', 'Atlanta, GA'),
+    ('Los Angeles', 'Los Angeles, CA'),
+    ('Portland', 'Portland'),  # ambiguous bare city is left alone
+    # "|" separates options too, and foreign options drop beside a US one.
+    ('Remote-Friendly (Travel-Required) | San Francisco, CA | Washington, DC',
+     'Remote (US); San Francisco, CA; Washington, DC'),
+    ('College Park, MD | Columbus, OH', 'College Park, MD; Columbus, OH'),
+    ('London, UK; Ontario, CAN; Remote (US); San Francisco, CA', 'Remote (US); San Francisco, CA'),
+    ('High Point, NC; International - Germany', 'High Point, NC'),
+    ('Paris, TX; London, UK', 'Paris, TX'),
+    ('London, UK', 'London, UK'),  # nothing US to keep, so nothing is dropped
 ]
 for raw, want in NORM:
     got = s.normalize_location(raw)
@@ -200,6 +254,21 @@ for raw, want in NORM:
 
 # classify_level word-boundary checks: short signals must not match inside
 # longer tokens, and a leveled II beats a cohort year.
+# renormalize_locations: stored rows pick up new rules; community and
+# would-be-blank rows are untouched.
+RENORM = [
+    {'company': 'A', 'role': 'x', 'location': 'MD - Baltimore, 8031 Corporate Dr', 'source': 'Workday'},
+    {'company': 'B', 'role': 'y', 'location': 'Austin, TX', 'source': 'Greenhouse'},
+    {'company': 'C', 'role': 'z', 'location': 'HQ - Sunnyvale (Office)', 'source': 'Community'},
+    {'company': 'D', 'role': 'w', 'location': 'CASD14', 'source': 'Workday'},
+]
+renorm_rows = [dict(r) for r in RENORM]
+renorm_n = s.renormalize_locations(renorm_rows)
+renorm_locs = [r['location'] for r in renorm_rows]
+if renorm_n != 1 or renorm_locs != ['Baltimore, MD', 'Austin, TX', 'HQ - Sunnyvale (Office)', 'CASD14']:
+    failures += 1
+    print(f'FAIL renormalize_locations: changed={renorm_n}, locations={renorm_locs}')
+
 LEVEL = [
     ('SOC Level 10 Analyst', None),           # 'level 1' not inside 'level 10'
     ('Associated Bank Security Analyst', None),  # 'associate' not in 'associated'
@@ -374,12 +443,23 @@ RECLASS = [
      'type': 'earlycareer', 'source': 'Community'},     # community: untouched
     {'company': 'D', 'role': 'SOC Analyst II',
      'type': 'earlycareer', 'source': 'Lever'},         # already correct
+    {'company': 'E', 'role': 'Tier II SOC Supervisor',
+     'type': 'earlycareer', 'source': 'Workday'},       # title now rejected -> dropped
+    {'company': 'F', 'role': 'Protective Services Intern',
+     'type': 'intern', 'source': 'Workday'},            # reject gate applies to interns too
+    {'company': 'G', 'role': 'Senior Security Engineer',
+     'type': 'earlycareer', 'source': 'Community'},     # community: never dropped
 ]
-_, reclass_changes = s.reclassify_listings([dict(r) for r in RECLASS])
+kept, reclass_changes, rejected = s.reclassify_listings([dict(r) for r in RECLASS])
 if len(reclass_changes) != 1 or reclass_changes[0][0] != 'A' or reclass_changes[0][3] != 'newgrad':
     failures += 1
     print(f'FAIL reclassify_listings changes = {reclass_changes!r}, '
           f"want one A earlycareer->newgrad")
+if ({e['company'] for e in rejected} != {'E', 'F'}
+        or [e['company'] for e in kept] != ['A', 'B', 'C', 'D', 'G']):
+    failures += 1
+    print(f'FAIL reclassify_listings rejected={[e["company"] for e in rejected]}, '
+          f'kept={[e["company"] for e in kept]}')
 
 # purge_stale_listings: drop long-closed rows, keep recent-closed and open ones.
 LIFECYCLE = [

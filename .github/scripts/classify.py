@@ -35,6 +35,10 @@ SENIORITY_REJECT = [
     r'\bhead of\b', r'\bchief\b', r'\bdistinguished\b', r'\bfellow\b',
     r'\bexecutive\b', r'\bexpert\b',
     r'\bsme\b', r'\bsubject matter expert\b',
+    # Management titles the bare 'lead'/'manager' terms miss: "Tier II SOC
+    # Supervisor", "Data & AI Governance Leader, MD". 'leader' is word-bounded
+    # so "Cyber Leadership Development Program" (a new-grad cohort) survives.
+    r'\bsupervisor\b', r'\bleader\b',
 ]
 
 # 'Architect' usually marks a senior IC, but named early-career cohorts run
@@ -76,13 +80,20 @@ FUNCTION_REJECT = [
     'security guard', 'physical security', 'loss prevention', 'public safety',
     'executive protection', 'transportation security', 'safety and security',
     'security screener', 'campus safety', 'alarm technician',
+    # Cleared-facility security functions (FSO/NISPOM work, clearance
+    # adjudication, guard forces) carry the word "security" but are not cyber.
+    'industrial security', 'personnel security', 'protective services',
+    'fire operation',
     'nuclear safeguards',  # 'safeguards' alone is an AI-safety signal
     'sales', 'account executive', 'account manager', 'marketing',
     'recruiter', 'recruiting', 'talent acquisition', 'human resources',
     'people technology', 'people operations', 'channel systems',
-    'customer success', 'business development', 'partner manager',
-    'payroll', 'accountant', 'accounting', 'finance', 'financial analyst',
+    'customer success', 'customer support', 'business development', 'partner manager',
+    'payroll', 'accountant', 'accounting', 'finance', 'financial analyst', 'treasury',
     'fp&a', 'revenue', 'billing', 'procurement', 'supply chain',
+    # Finance-audit work; "SOX/SOC" in an audit title is SOC 1/2 reporting, not
+    # a security operations center.
+    'internal audit', 'sox',
     'attorney', 'counsel', 'paralegal', 'executive assistant',
     'administrative assistant', 'workplace', 'facilities',
     'copywriter', 'community manager', 'social media',
@@ -449,13 +460,82 @@ def is_us_location(location):
 # Opaque Workday facility codes ("CASD14", "TXSA08UNK").
 FACILITY_CODE_RE = re.compile(r'^[A-Z]{2,}\d[A-Z0-9]*$')
 
+# Workplace-type tags an ATS appends to a real location: "Emeryville, CA
+# (Hybrid)", "Shakopee, MN (GHQ)", "San Francisco Office", "HQ - Sunnyvale".
+WORKPLACE_TAG_RE = re.compile(
+    r'\s*\((?:hybrid|remote|on-?site|in-?office|office|hq|ghq|external site)\)\s*$',
+    re.IGNORECASE)
+OFFICE_AFFIX_RE = re.compile(r'^hq\s*-\s*|\s+office$', re.IGNORECASE)
+
+# Remote spellings that carry no US token: "Remote-Friendly (Travel-Required)",
+# "Remote (Any State)". A parenthetical naming a region ("Remote (EMEA)") is
+# left alone so a foreign remote option is never relabeled as US.
+REMOTE_VARIANT_RE = re.compile(
+    r'^remote(?:-friendly)?(?:\s*\((?:any state|travel[ -]?required|u\.?s\.?a?\.?|'
+    r'united states|us only)\))?$', re.IGNORECASE)
+
+# Site strings that lead with a state code and end in a street address:
+# "MD - Baltimore, 8031 Corporate Dr", "CT, Bloomfield, 900 Cottage Grove Rd".
+STATE_CITY_ADDRESS_RE = re.compile(r'^([A-Z]{2})\s*[-,]\s*([A-Za-z .\']+?),?\s+\d.*$')
+# RTX/Collins Workday sites: "MA-TEWKSBURY-TB1 ~ 50 Apple Hill Dr ~ ASSABET BLDG".
+RTX_SITE_RE = re.compile(r'^([A-Z]{2})-([A-Z .\']+?)-[A-Z0-9-]+\s*(?:\(.*\))?\s*~')
+# Northrop site code + address: "M252 Raleigh - 4110 Wake Forest Rd".
+SITE_CODE_CITY_ADDRESS_RE = re.compile(r'^(?:[A-Z]\d+\s+)?([A-Za-z .\']+?)\s*-\s*\d+\s+.*$')
+# "VA-Dahlgren", "HI-Pearl Harbor", "USA_TX_Richardson", "Atlanta GA".
+STATE_DASH_CITY_RE = re.compile(r'^([A-Z]{2})-([A-Za-z .\']+)$')
+USA_UNDERSCORE_RE = re.compile(r'^USA?_([A-Z]{2})_(.+)$')
+# Walmart Workday: "(USA) ISD Office - DGTC AR BENTONVILLE Home Office".
+HOME_OFFICE_RE = re.compile(r'\b([A-Z]{2})\s+([A-Z][A-Z ]+?)\s+Home Office$')
+CITY_SPACE_STATE_RE = re.compile(r'^([A-Za-z .\']+)\s+([A-Z]{2})$')
+
+# Bare cities that need no state to be unambiguous on a US board. Names that
+# exist in several states (Portland, Columbia, Arlington, Cambridge) are
+# deliberately absent, as are "New York" and "Washington": a state name wins
+# there, since bare "New York" shows up in Workday state lists.
+BARE_CITY_STATE = {
+    'san francisco': 'CA', 'los angeles': 'CA', 'san jose': 'CA', 'san diego': 'CA',
+    'sunnyvale': 'CA', 'palo alto': 'CA', 'mountain view': 'CA', 'menlo park': 'CA',
+    'santa clara': 'CA', 'redwood city': 'CA', 'irvine': 'CA', 'sacramento': 'CA',
+    'seattle': 'WA', 'redmond': 'WA', 'bellevue': 'WA',
+    'new york city': 'NY', 'nyc': 'NY',
+    'boston': 'MA', 'chicago': 'IL', 'austin': 'TX', 'dallas': 'TX', 'houston': 'TX',
+    'san antonio': 'TX', 'denver': 'CO', 'boulder': 'CO', 'colorado springs': 'CO',
+    'atlanta': 'GA', 'reston': 'VA', 'mclean': 'VA', 'herndon': 'VA', 'chantilly': 'VA',
+    'fort meade': 'MD', 'annapolis junction': 'MD', 'baltimore': 'MD',
+    'philadelphia': 'PA', 'pittsburgh': 'PA', 'miami': 'FL', 'tampa': 'FL',
+    'orlando': 'FL', 'phoenix': 'AZ', 'salt lake city': 'UT', 'minneapolis': 'MN',
+    'detroit': 'MI', 'raleigh': 'NC', 'durham': 'NC', 'charlotte': 'NC',
+    'nashville': 'TN', 'las vegas': 'NV', 'huntsville': 'AL', 'st. louis': 'MO',
+}
+
+
+def _title_city(name):
+    """Title-case an ALL-CAPS site city ("CEDAR RAPIDS", "MCKINNEY") only."""
+    name = name.strip()
+    if not name.isupper():
+        return name
+    name = name.title()
+    return re.sub(r'\bMc([a-z])', lambda m: 'Mc' + m.group(1).upper(), name)
+
+
+def _is_foreign_part(part):
+    # A trailing US state code rescues a US city that shares a foreign name
+    # ("Paris, TX", "Vienna, VA").
+    m = REGION_CODE_RE.search(part)
+    if m and m.group(1).upper() in US_STATES:
+        return False
+    return bool(NON_US_RE.search(_strip_accents(part.lower())))
+
 
 def _normalize_single_location(location):
     location = location.strip()
-    # Amazon: "US, MA, Boston" -> "Boston, MA"
-    m = re.fullmatch(r'(?:USA?|United States),\s*([A-Z]{2}),\s*(.+)', location)
+    # Amazon: "US, MA, Boston" -> "Boston, MA"; Intel: "US, Oregon, Hillsboro"
+    m = re.fullmatch(r'(?:USA?|United States),\s*([A-Za-z .]+),\s*(.+)', location)
     if m:
-        return f'{m.group(2).strip()}, {m.group(1)}'
+        region = m.group(1).strip()
+        abbr = region if region in US_STATES else US_STATE_ABBRS.get(region.lower())
+        if abbr:
+            return f'{m.group(2).strip()}, {abbr}'
     # Northrop-style Workday: "United States-California-Palmdale"
     m = re.fullmatch(r'(?:USA?|United States)-([A-Za-z .]+)-(.+)', location)
     if m:
@@ -478,22 +558,63 @@ def _normalize_single_location(location):
     m = re.fullmatch(r'USA?\s+([A-Z]{2})\s+(.+)', location)
     if m:
         return f'{m.group(2).strip()}, {m.group(1)}'
+    m = RTX_SITE_RE.match(location)
+    if m:
+        return f'{_title_city(m.group(2))}, {m.group(1)}'
+    m = USA_UNDERSCORE_RE.fullmatch(location)
+    if m:
+        return f'{m.group(2).strip()}, {m.group(1)}'
+    m = HOME_OFFICE_RE.search(location)
+    if m and m.group(1) in US_STATES:
+        return f'{_title_city(m.group(2))}, {m.group(1)}'
+    m = STATE_CITY_ADDRESS_RE.fullmatch(location)
+    if m and m.group(1) in US_STATES:
+        return f'{_title_city(m.group(2))}, {m.group(1)}'
+    m = STATE_DASH_CITY_RE.fullmatch(location)
+    if m and m.group(1) in US_STATES:
+        return f'{m.group(2).strip()}, {m.group(1)}'
     location = re.sub(r'^(usa?|united states)\s*[-–:]\s*', '', location,
                       flags=re.IGNORECASE)
     loc_l = location.lower()
     if 'remote' in loc_l and (loc_l == 'remote'
-                              or re.search(r'\busa?\b|\bunited states\b', loc_l)):
+                              or re.search(r'\busa?\b|\bu\.s\.a?\.?|\bunited states\b',
+                                           loc_l)):
+        return 'Remote (US)'
+    if REMOTE_VARIANT_RE.fullmatch(location):
+        return 'Remote (US)'
+    # Amazon: "US, Virtual"
+    if re.fullmatch(r'(?:usa?|united states),\s*virtual', loc_l):
         return 'Remote (US)'
     # Opaque facility code with no human-readable city — drop it.
     if FACILITY_CODE_RE.match(location.strip()):
         return ''
+    m = SITE_CODE_CITY_ADDRESS_RE.fullmatch(location)
+    if m:
+        location = m.group(1)
+    location = OFFICE_AFFIX_RE.sub('', WORKPLACE_TAG_RE.sub('', location)).strip()
     parts = [p.strip() for p in location.split(',')]
-    if len(parts) >= 2 and parts[-1].lower() in ('usa', 'us', 'united states'):
+    if len(parts) >= 2 and parts[-1].lower() in (
+            'usa', 'us', 'united states', 'united states of america'):
         parts = parts[:-1]  # "Arlington, Virginia, USA" -> "Arlington, Virginia"
     if len(parts) >= 2:
         abbr = US_STATE_ABBRS.get(parts[-1].lower())
         if abbr:
             return f'{", ".join(parts[:-1])}, {abbr}'
+        # "San Mateo, CA United States": country glued onto the state code.
+        m = re.fullmatch(r'([A-Z]{2})\s+(?:USA?|United States)', parts[-1])
+        if m and m.group(1) in US_STATES:
+            return f'{", ".join(parts[:-1])}, {m.group(1)}'
+    if len(parts) == 1:
+        single = parts[0]
+        abbr = US_STATE_ABBRS.get(single.lower())
+        if abbr:
+            return f'{abbr} (US)'  # bare state name: "Arizona"
+        state = BARE_CITY_STATE.get(single.lower())
+        if state:
+            return f'{single}, {state}'
+        m = CITY_SPACE_STATE_RE.fullmatch(single)
+        if m and m.group(2) in US_STATES:
+            return f'{m.group(1).strip()}, {m.group(2)}'
     return ', '.join(parts)
 
 
@@ -506,23 +627,48 @@ def _location_city_key(loc):
 def normalize_location(location):
     """Convert "USA - Austin, Texas" -> "Austin, TX"; collapse remote variants.
 
-    Multi-location strings drop a bare-city part ("Austin") when the same city
-    also appears qualified ("Austin, TX"); genuinely distinct qualified parts
-    ("Portland, OR; Portland, ME") are kept.
+    Multi-location strings (";" or "|" separated) drop a bare-city part
+    ("Austin") when the same city also appears qualified ("Austin, TX");
+    genuinely distinct qualified parts ("Portland, OR; Portland, ME") are
+    kept. Foreign options are dropped once any US part remains, since the
+    board is US-only and "London, UK" beside "Remote (US)" is noise.
     """
     if not location:
         return location
     seen = []
-    for raw in location.split(';'):
+    for raw in re.split(r'[;|]', location):
         if not raw.strip():
             continue
         norm = _normalize_single_location(raw)
         if norm and norm not in seen:
             seen.append(norm)
+    domestic = [s for s in seen if not _is_foreign_part(s)]
+    if domestic:
+        seen = domestic
     qualified_cities = {_location_city_key(s) for s in seen if ',' in s}
     result = [s for s in seen
               if ',' in s or _location_city_key(s) not in qualified_cities]
     return '; '.join(result)
+
+
+def renormalize_locations(listings):
+    """Re-run `normalize_location` over stored rows; return how many changed.
+
+    A row keeps the string the normalizer produced when it landed, so a rule
+    added later never reaches the board without this pass. Community rows stay
+    as the maintainer wrote them, and a result that would blank the location
+    (an opaque facility code alone) keeps the old value.
+    """
+    changed = 0
+    for entry in listings:
+        if entry.get('source') == 'Community':
+            continue
+        before = entry.get('location', '')
+        after = normalize_location(before)
+        if after and after != before:
+            entry['location'] = after
+            changed += 1
+    return changed
 
 
 # ---------------------------------------------------------------------------
@@ -960,22 +1106,35 @@ def prune_seen(seen, today, ttl_days=45):
 
 
 def reclassify_listings(listings):
-    """Re-run title-only classification over stored rows, mutating in place.
+    """Re-run title-only classification over stored rows.
 
-    Returns (listings, changes) where changes is a list of
-    (company, role, old_type, new_type). Community rows reflect a maintainer's
-    judgment and are left alone; intern rows may derive from an ATS
-    employment-type hint a title can't reproduce, so a title-only pass would
-    wrongly demote them. A title that yields no signal (None) keeps the stored,
-    possibly description-derived, type.
+    Returns (kept, changes, rejected). `changes` lists
+    (company, role, old_type, new_type) re-levelings; `rejected` holds rows
+    whose title now fails `is_rejected_title`, so a seniority or function term
+    added after a row landed retires it instead of leaving it on the board
+    until its link dies. The same title gate runs at ingestion, so this never
+    drops a row the scraper would accept today.
+
+    Community rows reflect a maintainer's judgment and are left alone entirely.
+    Intern rows may derive from an ATS employment-type hint a title can't
+    reproduce, so they are exempt from re-leveling (not from the reject gate).
+    A title that yields no signal (None) keeps the stored, possibly
+    description-derived, type.
     """
-    changes = []
+    kept, changes, rejected = [], [], []
     for entry in listings:
-        if entry.get('source') == 'Community' or entry.get('type') == 'intern':
+        if entry.get('source') == 'Community':
+            kept.append(entry)
+            continue
+        if is_rejected_title(entry.get('role', '')):
+            rejected.append(entry)
+            continue
+        kept.append(entry)
+        if entry.get('type') == 'intern':
             continue
         level = classify_level(entry.get('role', ''))
         if level and level != entry.get('type'):
             changes.append((entry.get('company', ''), entry.get('role', ''),
                             entry.get('type'), level))
             entry['type'] = level
-    return listings, changes
+    return kept, changes, rejected
