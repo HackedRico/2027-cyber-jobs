@@ -92,6 +92,9 @@ CASES = [
     # explicit senior word wins even inside a cohort title.
     ('Security Architect', 'Austin, TX', '', False, None),
     ('Senior Security Architect - New Grad', 'Austin, TX', '', False, None),
+    # Management titles that carry no 'lead'/'manager' token.
+    ('Tier II SOC Supervisor', 'Austin, TX', '', False, None),
+    ('Data & AI Governance Leader, MD', 'Boston, MA', '', False, None),
 
     # -- should be rejected: not cyber --
     ('Software Engineer, New Grad', 'Austin, TX', '', False, None),
@@ -102,12 +105,22 @@ CASES = [
     ('Credit Risk Analyst I', 'New York, NY', '', False, None),
     ('Machine Learning Engineer, New Grad', 'San Francisco, CA', '', False, None),
     ('Junior Nuclear Safeguards Analyst', 'Richland, WA', '', False, None),
+    # Finance and support functions at a security company are still not cyber.
+    ('Treasury Operations Analyst', 'Emeryville, CA', '', True, None),
+    ('Customer Support Engineer (Tier 1)', 'Remote (US)', '', True, None),
+    ('Internal Audit (SOX/SOC) Intern', 'Bloomfield, CT', '', False, None),
+    # ...but a technical support engineer at a security company still counts.
+    ('Support Engineer I', 'Dallas, TX', '', True, ('earlycareer', 'Engineering @ Security Co')),
 
     # -- should be rejected: physical security --
     ('Security Guard', 'Austin, TX', '', False, None),
     ('Security Officer - Night Shift', 'Austin, TX', '', False, None),
     ('Physical Security Specialist', 'Austin, TX', '', False, None),
     ('Loss Prevention Associate', 'Austin, TX', '', False, None),
+    # Cleared-facility security (FSO/adjudication/guard force) is not cyber.
+    ('Associate Industrial Security Analyst', 'Falls Church, VA', '', False, None),
+    ('Personnel Security Specialist I Adjudicator', 'Chantilly, VA', '', False, None),
+    ('Enterprise Protective Services, Corporate Security Intern - Summer 2027', 'Charlotte, NC', '', False, None),
 
     # -- should be rejected: no level signal --
     ('Security Engineer', 'Austin, TX', '', False, None),
@@ -374,12 +387,23 @@ RECLASS = [
      'type': 'earlycareer', 'source': 'Community'},     # community: untouched
     {'company': 'D', 'role': 'SOC Analyst II',
      'type': 'earlycareer', 'source': 'Lever'},         # already correct
+    {'company': 'E', 'role': 'Tier II SOC Supervisor',
+     'type': 'earlycareer', 'source': 'Workday'},       # title now rejected -> dropped
+    {'company': 'F', 'role': 'Protective Services Intern',
+     'type': 'intern', 'source': 'Workday'},            # reject gate applies to interns too
+    {'company': 'G', 'role': 'Senior Security Engineer',
+     'type': 'earlycareer', 'source': 'Community'},     # community: never dropped
 ]
-_, reclass_changes = s.reclassify_listings([dict(r) for r in RECLASS])
+kept, reclass_changes, rejected = s.reclassify_listings([dict(r) for r in RECLASS])
 if len(reclass_changes) != 1 or reclass_changes[0][0] != 'A' or reclass_changes[0][3] != 'newgrad':
     failures += 1
     print(f'FAIL reclassify_listings changes = {reclass_changes!r}, '
           f"want one A earlycareer->newgrad")
+if ({e['company'] for e in rejected} != {'E', 'F'}
+        or [e['company'] for e in kept] != ['A', 'B', 'C', 'D', 'G']):
+    failures += 1
+    print(f'FAIL reclassify_listings rejected={[e["company"] for e in rejected]}, '
+          f'kept={[e["company"] for e in kept]}')
 
 # purge_stale_listings: drop long-closed rows, keep recent-closed and open ones.
 LIFECYCLE = [

@@ -35,6 +35,10 @@ SENIORITY_REJECT = [
     r'\bhead of\b', r'\bchief\b', r'\bdistinguished\b', r'\bfellow\b',
     r'\bexecutive\b', r'\bexpert\b',
     r'\bsme\b', r'\bsubject matter expert\b',
+    # Management titles the bare 'lead'/'manager' terms miss: "Tier II SOC
+    # Supervisor", "Data & AI Governance Leader, MD". 'leader' is word-bounded
+    # so "Cyber Leadership Development Program" (a new-grad cohort) survives.
+    r'\bsupervisor\b', r'\bleader\b',
 ]
 
 # 'Architect' usually marks a senior IC, but named early-career cohorts run
@@ -76,13 +80,20 @@ FUNCTION_REJECT = [
     'security guard', 'physical security', 'loss prevention', 'public safety',
     'executive protection', 'transportation security', 'safety and security',
     'security screener', 'campus safety', 'alarm technician',
+    # Cleared-facility security functions (FSO/NISPOM work, clearance
+    # adjudication, guard forces) carry the word "security" but are not cyber.
+    'industrial security', 'personnel security', 'protective services',
+    'fire operation',
     'nuclear safeguards',  # 'safeguards' alone is an AI-safety signal
     'sales', 'account executive', 'account manager', 'marketing',
     'recruiter', 'recruiting', 'talent acquisition', 'human resources',
     'people technology', 'people operations', 'channel systems',
-    'customer success', 'business development', 'partner manager',
-    'payroll', 'accountant', 'accounting', 'finance', 'financial analyst',
+    'customer success', 'customer support', 'business development', 'partner manager',
+    'payroll', 'accountant', 'accounting', 'finance', 'financial analyst', 'treasury',
     'fp&a', 'revenue', 'billing', 'procurement', 'supply chain',
+    # Finance-audit work; "SOX/SOC" in an audit title is SOC 1/2 reporting, not
+    # a security operations center.
+    'internal audit', 'sox',
     'attorney', 'counsel', 'paralegal', 'executive assistant',
     'administrative assistant', 'workplace', 'facilities',
     'copywriter', 'community manager', 'social media',
@@ -960,22 +971,35 @@ def prune_seen(seen, today, ttl_days=45):
 
 
 def reclassify_listings(listings):
-    """Re-run title-only classification over stored rows, mutating in place.
+    """Re-run title-only classification over stored rows.
 
-    Returns (listings, changes) where changes is a list of
-    (company, role, old_type, new_type). Community rows reflect a maintainer's
-    judgment and are left alone; intern rows may derive from an ATS
-    employment-type hint a title can't reproduce, so a title-only pass would
-    wrongly demote them. A title that yields no signal (None) keeps the stored,
-    possibly description-derived, type.
+    Returns (kept, changes, rejected). `changes` lists
+    (company, role, old_type, new_type) re-levelings; `rejected` holds rows
+    whose title now fails `is_rejected_title`, so a seniority or function term
+    added after a row landed retires it instead of leaving it on the board
+    until its link dies. The same title gate runs at ingestion, so this never
+    drops a row the scraper would accept today.
+
+    Community rows reflect a maintainer's judgment and are left alone entirely.
+    Intern rows may derive from an ATS employment-type hint a title can't
+    reproduce, so they are exempt from re-leveling (not from the reject gate).
+    A title that yields no signal (None) keeps the stored, possibly
+    description-derived, type.
     """
-    changes = []
+    kept, changes, rejected = [], [], []
     for entry in listings:
-        if entry.get('source') == 'Community' or entry.get('type') == 'intern':
+        if entry.get('source') == 'Community':
+            kept.append(entry)
+            continue
+        if is_rejected_title(entry.get('role', '')):
+            rejected.append(entry)
+            continue
+        kept.append(entry)
+        if entry.get('type') == 'intern':
             continue
         level = classify_level(entry.get('role', ''))
         if level and level != entry.get('type'):
             changes.append((entry.get('company', ''), entry.get('role', ''),
                             entry.get('type'), level))
             entry['type'] = level
-    return listings, changes
+    return kept, changes, rejected
