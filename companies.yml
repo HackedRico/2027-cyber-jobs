@@ -136,8 +136,6 @@ greenhouse:
 - name: Goodfire
   slug: goodfire
   security_company: true
-- name: Google DeepMind
-  slug: deepmind
 - name: Govini
   slug: air
 - name: Grafana Labs
