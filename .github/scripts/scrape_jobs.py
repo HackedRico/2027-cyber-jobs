@@ -37,6 +37,7 @@ from classify import (
     prune_seen,
     purge_stale_listings,
     reclassify_listings,
+    renormalize_locations,
     requires_clearance,
 )
 from common import normalize_url
@@ -988,6 +989,12 @@ def main():
     if purged:
         print(f'Purged {purged} stale closed listing(s)')
 
+    # Let normalizer improvements reach already-scraped rows; a location is
+    # otherwise only normalized once, when the row lands.
+    renormalized = renormalize_locations(listings)
+    if renormalized:
+        print(f'Renormalized {renormalized} location(s)')
+
     # Let classifier improvements reach already-scraped listings (title-only).
     listings, reclass_changes, rejected = reclassify_listings(listings)
     for company, role, old, new in reclass_changes:
@@ -1079,7 +1086,8 @@ def main():
             seen[job['id']] = today
     seen = prune_seen(seen, today)
 
-    changed = added or reclassified or revived or purged or over_exp or rejected
+    changed = (added or reclassified or revived or purged or over_exp or rejected
+               or renormalized)
     print(f'\nAdded {added} new listing(s), revived {revived}, '
           f'reclassified {reclassified}, purged {purged}, '
           f'dropped {len(over_exp)} over-experienced + {len(rejected)} rejected-title')
