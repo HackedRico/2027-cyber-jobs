@@ -224,17 +224,6 @@
     "date_added": "2026-07-12"
   },
   {
-    "company": "Leidos",
-    "role": "Associate Industrial Security Coordinator",
-    "location": "Centennial, CO",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "https://leidos.wd5.myworkdayjobs.com/External/job/Centennial-CO/Associate-Industrial-Security-Coordinator_R-00185043-1",
-    "source": "Workday",
-    "date_added": "2026-07-12"
-  },
-  {
     "company": "Northrop Grumman",
     "role": "2026 Associate Classified Cybersecurity Analyst Pathways Program - Palmdale CA",
     "location": "Palmdale, CA",
@@ -281,22 +270,11 @@
   {
     "company": "Northrop Grumman",
     "role": "Associate Cyber Software Engineer",
-    "location": "Annapolis Junction, MD; Aurora, CO; M252 Raleigh - 4110 Wake Forest Rd",
+    "location": "Annapolis Junction, MD; Aurora, CO; Raleigh, NC",
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Maryland-Annapolis-Junction/Associate-Cyber-Software-Engineer_R10234416",
-    "source": "Workday",
-    "date_added": "2026-07-12"
-  },
-  {
-    "company": "Northrop Grumman",
-    "role": "Associate Industrial Security Analyst",
-    "location": "Palmdale, CA",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-Palmdale/Associate-Industrial-Security-Analyst_R10239317",
     "source": "Workday",
     "date_added": "2026-07-12"
   },
@@ -620,7 +598,7 @@
   {
     "company": "Anthropic",
     "role": "Red Team Engineer, Safeguards",
-    "location": "Remote-Friendly (Travel Required) | San Francisco, CA",
+    "location": "Remote (US); San Francisco, CA",
     "type": "earlycareer",
     "category": "AI Security & Safety",
     "clearance": false,
@@ -631,7 +609,7 @@
   {
     "company": "Anthropic",
     "role": "Safeguards Enforcement Analyst, Age-Appropriate Design",
-    "location": "Remote (US); San Francisco, CA | New York City, NY | Washington, DC",
+    "location": "Remote (US); San Francisco, CA; New York City, NY; Washington, DC",
     "type": "earlycareer",
     "category": "AI Security & Safety",
     "clearance": false,
@@ -642,7 +620,7 @@
   {
     "company": "Anthropic",
     "role": "Safeguards Enforcement Analyst, Bio Harms",
-    "location": "Remote (US); San Francisco, CA | New York City, NY | Washington, DC",
+    "location": "Remote (US); San Francisco, CA; New York City, NY; Washington, DC",
     "type": "earlycareer",
     "category": "AI Security & Safety",
     "clearance": false,
@@ -653,7 +631,7 @@
   {
     "company": "Anthropic",
     "role": "Safeguards Enforcement Analyst, Chem & Explosives Harms",
-    "location": "Remote (US); San Francisco, CA | New York City, NY | Washington, DC",
+    "location": "Remote (US); San Francisco, CA; New York City, NY; Washington, DC",
     "type": "earlycareer",
     "category": "AI Security & Safety",
     "clearance": false,
@@ -664,7 +642,7 @@
   {
     "company": "Anthropic",
     "role": "Safeguards Enforcement Analyst, Child Safety",
-    "location": "Remote (US); San Francisco, CA | New York City, NY | Washington, DC",
+    "location": "Remote (US); San Francisco, CA; New York City, NY; Washington, DC",
     "type": "earlycareer",
     "category": "AI Security & Safety",
     "clearance": false,
@@ -675,7 +653,7 @@
   {
     "company": "Anthropic",
     "role": "Safeguards Enforcement Analyst, Cyber Harm",
-    "location": "Remote (US); San Francisco, CA | New York City, NY | Washington, DC",
+    "location": "Remote (US); San Francisco, CA; New York City, NY; Washington, DC",
     "type": "earlycareer",
     "category": "AI Security & Safety",
     "clearance": false,
@@ -686,7 +664,7 @@
   {
     "company": "Anthropic",
     "role": "Safeguards Enforcement Analyst, Integrity & Authenticity",
-    "location": "Remote (US); San Francisco, CA | New York City, NY | Washington, DC",
+    "location": "Remote (US); San Francisco, CA; New York City, NY; Washington, DC",
     "type": "earlycareer",
     "category": "AI Security & Safety",
     "clearance": false,
@@ -697,7 +675,7 @@
   {
     "company": "Anthropic",
     "role": "Safeguards Enforcement Analyst, Radiological & Nuclear Harms",
-    "location": "Remote (US); San Francisco, CA | New York City, NY | Washington, DC",
+    "location": "Remote (US); San Francisco, CA; New York City, NY; Washington, DC",
     "type": "earlycareer",
     "category": "AI Security & Safety",
     "clearance": false,
@@ -708,7 +686,7 @@
   {
     "company": "Anthropic",
     "role": "Safeguards Enforcement Analyst, Safety Evaluations",
-    "location": "Remote-Friendly (Travel-Required) | San Francisco, CA | Washington, DC; San Francisco, CA | New York City, NY",
+    "location": "Remote (US); San Francisco, CA; Washington, DC; New York City, NY",
     "type": "earlycareer",
     "category": "AI Security & Safety",
     "clearance": false,
@@ -719,7 +697,7 @@
   {
     "company": "Anthropic",
     "role": "Safeguards Policy Analyst, Fraud & Scams",
-    "location": "Remote-Friendly (Travel-Required) | San Francisco, CA | New York City, NY",
+    "location": "Remote (US); San Francisco, CA; New York City, NY",
     "type": "earlycareer",
     "category": "AI Security & Safety",
     "clearance": false,
@@ -730,7 +708,7 @@
   {
     "company": "OpenAI",
     "role": "Software Engineer, AI Safety",
-    "location": "San Francisco",
+    "location": "San Francisco, CA",
     "type": "earlycareer",
     "category": "AI Security & Safety",
     "clearance": false,
@@ -741,7 +719,7 @@
   {
     "company": "OpenAI",
     "role": "Researcher, Alignment Science",
-    "location": "San Francisco",
+    "location": "San Francisco, CA",
     "type": "earlycareer",
     "category": "AI Security & Safety",
     "clearance": false,
@@ -1059,7 +1037,7 @@
   {
     "company": "Anthropic",
     "role": "Safeguards Enforcement Analyst, Access Controls & Identity",
-    "location": "Remote (US); San Francisco, CA | New York City, NY | Washington, DC",
+    "location": "Remote (US); San Francisco, CA; New York City, NY; Washington, DC",
     "type": "earlycareer",
     "category": "AI Security & Safety",
     "clearance": false,
@@ -1070,7 +1048,7 @@
   {
     "company": "Anthropic",
     "role": "Safeguards Enforcement Analyst, Account Takeover & Credential Abuse",
-    "location": "Remote (US); San Francisco, CA | New York City, NY | Washington, DC",
+    "location": "Remote (US); San Francisco, CA; New York City, NY; Washington, DC",
     "type": "earlycareer",
     "category": "AI Security & Safety",
     "clearance": false,
@@ -1081,7 +1059,7 @@
   {
     "company": "Anthropic",
     "role": "Safeguards Enforcement Analyst, Ban Evasion & Recidivism",
-    "location": "Remote (US); San Francisco, CA | New York City, NY | Washington, DC",
+    "location": "Remote (US); San Francisco, CA; New York City, NY; Washington, DC",
     "type": "earlycareer",
     "category": "AI Security & Safety",
     "clearance": false,
@@ -1092,7 +1070,7 @@
   {
     "company": "Anthropic",
     "role": "Safeguards Enforcement Analyst, Fraud & Scams",
-    "location": "Remote (US); San Francisco, CA | New York City, NY | Washington, DC",
+    "location": "Remote (US); San Francisco, CA; New York City, NY; Washington, DC",
     "type": "earlycareer",
     "category": "AI Security & Safety",
     "clearance": false,
@@ -1103,7 +1081,7 @@
   {
     "company": "Anthropic",
     "role": "Safeguards Enforcement Analyst, Violence & Extremism",
-    "location": "Remote (US); San Francisco, CA | New York City, NY | Washington, DC",
+    "location": "Remote (US); San Francisco, CA; New York City, NY; Washington, DC",
     "type": "earlycareer",
     "category": "AI Security & Safety",
     "clearance": false,
@@ -1259,7 +1237,7 @@
   {
     "company": "Illumio",
     "role": "Site Reliability Engineer II",
-    "location": "HQ - Sunnyvale (Office)",
+    "location": "Sunnyvale, CA",
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
@@ -1340,7 +1318,7 @@
   {
     "company": "TRM Labs",
     "role": "University Grad \u2013 Product Engineer (2026-2027) - Los Angeles Only",
-    "location": "Los Angeles",
+    "location": "Los Angeles, CA",
     "type": "newgrad",
     "category": "Engineering @ Security Co",
     "clearance": false,
@@ -1406,7 +1384,7 @@
   {
     "company": "Anthropic",
     "role": "Machine Learning Infrastructure Engineer, Safeguards Research",
-    "location": "San Francisco, CA | New York City, NY",
+    "location": "San Francisco, CA; New York City, NY",
     "type": "earlycareer",
     "category": "AI Security & Safety",
     "clearance": false,
@@ -1450,7 +1428,7 @@
   {
     "company": "Anthropic",
     "role": "Anthropic Fellows Program, AI Safety",
-    "location": "London, UK; Ontario, CAN; Remote (US); San Francisco, CA",
+    "location": "Remote (US); San Francisco, CA",
     "type": "earlycareer",
     "category": "AI Security & Safety",
     "clearance": false,
@@ -1461,7 +1439,7 @@
   {
     "company": "Anthropic",
     "role": "Anthropic Fellows Program, AI Security",
-    "location": "London, UK; Ontario, CAN; Remote (US); San Francisco, CA",
+    "location": "Remote (US); San Francisco, CA",
     "type": "earlycareer",
     "category": "AI Security & Safety",
     "clearance": false,
@@ -1472,7 +1450,7 @@
   {
     "company": "Netskope",
     "role": "Solutions Engineer - SDWAN",
-    "location": "Missouri",
+    "location": "MO (US)",
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
@@ -1483,7 +1461,7 @@
   {
     "company": "Netskope",
     "role": "Solutions Engineer - SDWAN",
-    "location": "Illinois",
+    "location": "IL (US)",
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
@@ -1494,7 +1472,7 @@
   {
     "company": "Netskope",
     "role": "Solutions Engineer - SDWAN",
-    "location": "Texas",
+    "location": "TX (US)",
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
@@ -1560,7 +1538,7 @@
   {
     "company": "Lakera",
     "role": "Enterprise Account Exeuctive, AI Security (San Francisco)",
-    "location": "San Francisco",
+    "location": "San Francisco, CA",
     "type": "earlycareer",
     "category": "AI Security & Safety",
     "clearance": false,
@@ -1571,7 +1549,7 @@
   {
     "company": "CACI",
     "role": "Cybersecurity Engineer- Junior level",
-    "location": "Remote (Any State); Fort Bragg, NC; Fort Huachuca, AZ; International - Germany",
+    "location": "Remote (US); Fort Bragg, NC; Fort Huachuca, AZ",
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
@@ -1582,7 +1560,7 @@
   {
     "company": "CACI",
     "role": "Cybersecurity Engineer- Entry Level",
-    "location": "High Point, NC; Fort Bragg, NC; Fort Huachuca, AZ; International - Germany",
+    "location": "High Point, NC; Fort Bragg, NC; Fort Huachuca, AZ",
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
@@ -1615,7 +1593,7 @@
   {
     "company": "KBR",
     "role": "Associate Security Engineer, Identity Security",
-    "location": "Houston, TX; Remote - U.S.",
+    "location": "Houston, TX; Remote (US)",
     "type": "earlycareer",
     "category": "Identity & IAM",
     "clearance": true,
@@ -1702,61 +1680,6 @@
   },
   {
     "company": "Northrop Grumman",
-    "role": "Industrial Security Analyst - Level 1/2",
-    "location": "Melbourne, FL",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Florida-Melbourne/Industrial-Security-Analyst---Level-1-2_R10241103",
-    "source": "Workday",
-    "date_added": "2026-07-22"
-  },
-  {
-    "company": "Northrop Grumman",
-    "role": "Industrial Security Analyst - Level 2/3",
-    "location": "Clearfield, UT",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Utah-Clearfield/Industrial-Security-Analyst---Level-2-3_R10239356",
-    "source": "Workday",
-    "date_added": "2026-07-22"
-  },
-  {
-    "company": "Northrop Grumman",
-    "role": "Industrial Security Analyst - Level 2/3",
-    "location": "El Segundo, CA; Redondo Beach, CA",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-El-Segundo/Industrial-Security-Analyst---Level-2-3_R10240272",
-    "source": "Workday",
-    "date_added": "2026-07-22"
-  },
-  {
-    "company": "Northrop Grumman",
-    "role": "Industrial Security Analyst - Level 2 or 3",
-    "location": "Gilbert, AZ",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Arizona-Gilbert/Industrial-Security-Analyst---Level-2-or-3_R10238682",
-    "source": "Workday",
-    "date_added": "2026-07-22"
-  },
-  {
-    "company": "Northrop Grumman",
-    "role": "Industrial Security Analyst - Level 2",
-    "location": "Redondo Beach, CA",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-Redondo-Beach/Industrial-Security-Analyst---Level-2_R10238625-1",
-    "source": "Workday",
-    "date_added": "2026-07-22"
-  },
-  {
-    "company": "Northrop Grumman",
     "role": "Mod Sim System Engineer (Mission Support Threat Engineer - Level 2 or 3)",
     "location": "Schriever AFB, CO",
     "type": "earlycareer",
@@ -1769,7 +1692,7 @@
   {
     "company": "RTX",
     "role": "Cyber Engineer II (Onsite - Cedar Rapids, IA) Secret Clearance Required",
-    "location": "IA-CEDAR RAPIDS-137 ~ 855 35Th St NE ~ BLDG 137",
+    "location": "Cedar Rapids, IA",
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
@@ -1780,7 +1703,7 @@
   {
     "company": "RTX",
     "role": "Systems Security Engineer II \u2013 P2 (Onsite-TX)",
-    "location": "TX-MCKINNEY-513WC ~ 2501 W University Dr ~ WING C BLDG",
+    "location": "McKinney, TX",
     "type": "earlycareer",
     "category": "Cloud & Infra Security",
     "clearance": true,
@@ -1791,7 +1714,7 @@
   {
     "company": "RTX",
     "role": "Embedded Product System Security Engineer II (Onsite - Cedar Rapids, IA)",
-    "location": "IA-CEDAR RAPIDS-107 ~ 400 Collins Rd NE ~ BLDG 107",
+    "location": "Cedar Rapids, IA",
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
@@ -1802,7 +1725,7 @@
   {
     "company": "RTX",
     "role": "Systems Security Engineer II (Anti-Tamper/Program Protection) (Onsite) - P2",
-    "location": "MA-TEWKSBURY-TB1 ~ 50 Apple Hill Dr ~ ASSABET BLDG; MA-MARLBOROUGH-MA2 ~ 1001 Boston Post Rd ~ BLDG 2; MA-WOBURN-WB2 ~ 225 Presidential Way ~ GODDARD BLDG",
+    "location": "Tewksbury, MA; Marlborough, MA; Woburn, MA",
     "type": "earlycareer",
     "category": "Cloud & Infra Security",
     "clearance": true,
@@ -1813,7 +1736,7 @@
   {
     "company": "RTX",
     "role": "Cyber Infrastructure Engineer II (Onsite)",
-    "location": "FL-LARGO-382SS ~ 7887 Bryan Dairy Rd. ~ BLDG 100",
+    "location": "Largo, FL",
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
@@ -1824,7 +1747,7 @@
   {
     "company": "RTX",
     "role": "Cybersecurity Engineer II",
-    "location": "MA-TEWKSBURY-TB3 ~ 50 Apple Hill Dr ~ CONCORD BLDG, Tewksbury Tb3 300 Concord",
+    "location": "Tewksbury, MA",
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
@@ -1835,7 +1758,7 @@
   {
     "company": "RTX",
     "role": "Cyber Research Software Engineer II",
-    "location": "MA-CAMBRIDGE-BBN05 ~ 10 & 50 Moulton St ~ MOULTON B5",
+    "location": "Cambridge, MA",
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
@@ -1895,17 +1818,6 @@
     "category": "Security Engineering",
     "clearance": true,
     "url": "https://gdit.wd5.myworkdayjobs.com/External_Career_Site/job/USA-VA-Manassas/Network-Cyber-Security-Analyst-Associate_RQ224655-1",
-    "source": "Workday",
-    "date_added": "2026-07-22"
-  },
-  {
-    "company": "Northrop Grumman",
-    "role": "Associate Industrial Security Analyst (19201)",
-    "location": "Roy, UT",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Utah-Roy/Associate-Industrial-Security-Analyst--19201-_R10241145",
     "source": "Workday",
     "date_added": "2026-07-22"
   },
@@ -2092,7 +2004,7 @@
   {
     "company": "Proofpoint",
     "role": "Associate Triage Analyst",
-    "location": "California; Arizona; Texas; Utah; Nevada; Colorado; Oregon; Illinois",
+    "location": "CA (US); AZ (US); TX (US); UT (US); NV (US); CO (US); OR (US); IL (US)",
     "type": "earlycareer",
     "category": "SOC & Detection",
     "clearance": false,
@@ -2103,7 +2015,7 @@
   {
     "company": "Amazon",
     "role": "Security Engineer II, Stores Security Review Operations",
-    "location": "US, Virtual",
+    "location": "Remote (US)",
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
@@ -2127,7 +2039,7 @@
   {
     "company": "Intel",
     "role": "AI Security Engineer Contract",
-    "location": "US, Oregon, Hillsboro; US, California, Santa Clara",
+    "location": "Hillsboro, OR; Santa Clara, CA",
     "type": "earlycareer",
     "category": "AI Security & Safety",
     "clearance": false,
@@ -2138,7 +2050,7 @@
   {
     "company": "Proofpoint",
     "role": "Systems Security Engineer I",
-    "location": "Oregon; Delaware; Connecticut; Arizona; Nebraska; Missouri; Michigan",
+    "location": "OR (US); DE (US); CT (US); AZ (US); NE (US); MO (US); MI (US)",
     "type": "earlycareer",
     "category": "Cloud & Infra Security",
     "clearance": false,
@@ -2160,7 +2072,7 @@
   {
     "company": "RTX",
     "role": "Network/Security Analyst II (Onsite)",
-    "location": "MT-GREAT FALLS-6932-CUST ~ 6932 Goddard Dr ~ GODDARD (External Site)",
+    "location": "Great Falls, MT",
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
@@ -2252,7 +2164,7 @@
   {
     "company": "Anthropic",
     "role": "Data Engineer, Safeguards",
-    "location": "San Francisco, CA | New York City, NY",
+    "location": "San Francisco, CA; New York City, NY",
     "type": "earlycareer",
     "category": "AI Security & Safety",
     "clearance": false,
@@ -2274,7 +2186,7 @@
   {
     "company": "Anthropic",
     "role": "Safeguards Enforcement Analyst, Conventional Weapons",
-    "location": "New York City, NY; Remote-Friendly (Travel-Required) | San Francisco, CA | Washington, DC",
+    "location": "New York City, NY; Remote (US); San Francisco, CA; Washington, DC",
     "type": "earlycareer",
     "category": "AI Security & Safety",
     "clearance": false,
@@ -2285,7 +2197,7 @@
   {
     "company": "Anthropic",
     "role": "Safeguards Enforcement Analyst, User Well-being",
-    "location": "Remote (US); San Francisco, CA | New York City, NY | Washington, DC",
+    "location": "Remote (US); San Francisco, CA; New York City, NY; Washington, DC",
     "type": "earlycareer",
     "category": "AI Security & Safety",
     "clearance": false,
@@ -2296,7 +2208,7 @@
   {
     "company": "Anthropic",
     "role": "Safeguards Policy Analyst, Cyber Harms",
-    "location": "San Francisco, CA | Washington, DC",
+    "location": "San Francisco, CA; Washington, DC",
     "type": "earlycareer",
     "category": "AI Security & Safety",
     "clearance": false,
@@ -2338,28 +2250,6 @@
     "date_added": "2026-09-05"
   },
   {
-    "company": "Tailscale",
-    "role": "Customer Support Engineer (Tier 1)",
-    "location": "Remote (US)",
-    "type": "earlycareer",
-    "category": "Engineering @ Security Co",
-    "clearance": false,
-    "url": "https://job-boards.greenhouse.io/tailscale/jobs/4724309005",
-    "source": "Greenhouse",
-    "date_added": "2026-09-05"
-  },
-  {
-    "company": "Tanium",
-    "role": "Treasury Operations Analyst",
-    "location": "Emeryville, CA (Hybrid)",
-    "type": "newgrad",
-    "category": "Engineering @ Security Co",
-    "clearance": false,
-    "url": "https://job-boards.greenhouse.io/tanium/jobs/8113448",
-    "source": "Greenhouse",
-    "date_added": "2026-09-05"
-  },
-  {
     "company": "Two Six Technologies",
     "role": "Junior Software Developer",
     "location": "Aurora, CO; Herndon, VA",
@@ -2373,7 +2263,7 @@
   {
     "company": "Verkada",
     "role": "Security Software Engineering Intern 2027",
-    "location": "San Mateo, CA United States",
+    "location": "San Mateo, CA",
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
@@ -2417,7 +2307,7 @@
   {
     "company": "ExtraHop",
     "role": "Support Engineer I - Dallas, TX",
-    "location": "Remote | Dallas, TX",
+    "location": "Remote (US); Dallas, TX",
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
@@ -2450,7 +2340,7 @@
   {
     "company": "Immuta",
     "role": "Software Engineer II (Marketplace)",
-    "location": "College Park, MD | Columbus, OH | Boston, MA",
+    "location": "College Park, MD; Columbus, OH; Boston, MA",
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
@@ -2472,7 +2362,7 @@
   {
     "company": "Applied Intuition",
     "role": "Cybersecurity Software Engineer - New Grad (December 2027)",
-    "location": "Sunnyvale",
+    "location": "Sunnyvale, CA",
     "type": "newgrad",
     "category": "Security Engineering",
     "clearance": false,
@@ -2483,7 +2373,7 @@
   {
     "company": "Chainalysis",
     "role": "Security Analyst II, Trust",
-    "location": "New York; Maryland; Massachusetts; Virginia; Connecticut; Pennsylvania",
+    "location": "NY (US); MD (US); MA (US); VA (US); CT (US); PA (US)",
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
@@ -2494,7 +2384,7 @@
   {
     "company": "Prophet Security",
     "role": "Software Engineer, Backend Intern",
-    "location": "Palo Alto (Hybrid)",
+    "location": "Palo Alto, CA",
     "type": "intern",
     "category": "Engineering @ Security Co",
     "clearance": false,
@@ -2571,7 +2461,7 @@
   {
     "company": "Todyl",
     "role": "Site Reliability Engineer II",
-    "location": "Denver CO; Atlanta GA",
+    "location": "Denver, CO; Atlanta, GA",
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
@@ -2756,31 +2646,9 @@
     "date_added": "2026-09-05"
   },
   {
-    "company": "Northrop Grumman",
-    "role": "Associate Industrial Security Analyst",
-    "location": "El Segundo, CA",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-El-Segundo/Associate-Industrial-Security-Analyst_R10246471",
-    "source": "Workday",
-    "date_added": "2026-09-05"
-  },
-  {
-    "company": "Northrop Grumman",
-    "role": "Associate Industrial Security Analyst - 19764",
-    "location": "Roy, UT",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Utah-Roy/Associate-Industrial-Security-Analyst---19764_R10246645",
-    "source": "Workday",
-    "date_added": "2026-09-05"
-  },
-  {
     "company": "Palo Alto Networks",
     "role": "Professional Services Consultant, AI Security",
-    "location": "Seattle, United States of America; OK (US); TX (US); CA (US); VA (US); FL (US)",
+    "location": "Seattle, WA; OK (US); TX (US); CA (US); VA (US); FL (US)",
     "type": "earlycareer",
     "category": "AI Security & Safety",
     "clearance": false,
@@ -2791,7 +2659,7 @@
   {
     "company": "PayPal",
     "role": "Cybersecurity Engineer - Recent Graduate",
-    "location": "San Jose, California, United States of America; Austin, Texas, United States of America",
+    "location": "San Jose, CA; Austin, TX",
     "type": "newgrad",
     "category": "Security Engineering",
     "clearance": false,
@@ -2802,7 +2670,7 @@
   {
     "company": "RTX",
     "role": "Systems Security Engineer II (P2) (Onsite)",
-    "location": "MA-TEWKSBURY-TB1 ~ 50 Apple Hill Dr ~ ASSABET BLDG; RI-PORTSMOUTH-PS1 ~ 1847 W Main Rd ~ NIMITZ BLDG",
+    "location": "Tewksbury, MA; Portsmouth, RI",
     "type": "earlycareer",
     "category": "Cloud & Infra Security",
     "clearance": true,
@@ -2813,7 +2681,7 @@
   {
     "company": "RTX",
     "role": "Embedded Systems Security Engineer II (Onsite - Marlborough, MA) Secret cleararance required",
-    "location": "MA-MARLBOROUGH-MA1 ~ 1001 Boston Post Rd ~ BLDG 1",
+    "location": "Marlborough, MA",
     "type": "earlycareer",
     "category": "Cloud & Infra Security",
     "clearance": true,
@@ -2824,7 +2692,7 @@
   {
     "company": "RTX",
     "role": "Software Engineer I, RCU (Onsite - Security Clearance)",
-    "location": "PR-AGUADILLA-110 ~ Rd 110 N Km 28.8 ~ RD110",
+    "location": "Aguadilla, PR",
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
@@ -2835,7 +2703,7 @@
   {
     "company": "RTX",
     "role": "Software Engineer II, RCU (Onsite - Security Clearance)",
-    "location": "PR-AGUADILLA-110 ~ Rd 110 N Km 28.8 ~ RD110",
+    "location": "Aguadilla, PR",
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
@@ -2857,7 +2725,7 @@
   {
     "company": "Entrust",
     "role": "Software Engineer II \u2013 C/Java & HSM Firmware",
-    "location": "Shakopee, MN (GHQ)",
+    "location": "Shakopee, MN",
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
@@ -2868,7 +2736,7 @@
   {
     "company": "Entrust",
     "role": "Software Developer II \u2013 Java | Instant ID as a Service & Secura",
-    "location": "Shakopee, MN (GHQ)",
+    "location": "Shakopee, MN",
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
@@ -2879,7 +2747,7 @@
   {
     "company": "Entrust",
     "role": "Software Engineer II \u2013 Full Stack (Java & React)",
-    "location": "Shakopee, MN (GHQ)",
+    "location": "Shakopee, MN",
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
@@ -2890,7 +2758,7 @@
   {
     "company": "Everfox",
     "role": "Cyber Engineer II",
-    "location": "USA_VA_Herndon",
+    "location": "Herndon, VA",
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
@@ -2910,20 +2778,9 @@
     "date_added": "2026-09-05"
   },
   {
-    "company": "Boeing",
-    "role": "Boeing Summer 2027 Internship Program (Paid) \u2013 Security & Fire Operation (S&FO)",
-    "location": "Everett, WA; Saint Charles, MO; Huntsville, AL; Charleston, SC; Oklahoma City, OK; Berkeley, MO; Huntington Beach, CA; Hazelwood, MO; El Segundo, CA; Herndon, VA; Plano, TX; Arlington, VA; Ridley Park, PA; Tukwila, WA; North Charleston, SC; Fairfax, VA; Colorado Springs, CO; Chicago, IL; Seal Beach, CA; Mukilteo, WA; Long Beach, CA; Atlanta, GA; Renton, WA; Dallas, TX; Seattle, WA; Auburn, WA; Bellevue, WA; San Antonio, TX; Kent, WA; Mesa, AZ",
-    "type": "intern",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "https://boeing.wd1.myworkdayjobs.com/EXTERNAL_CAREERS/job/USA---Everett-WA/Boeing-Summer-2027-Internship-Program--Paid----Security---Fire-Operation--S-FO-_JR2026521717-1",
-    "source": "Workday",
-    "date_added": "2026-09-05"
-  },
-  {
     "company": "Amentum",
     "role": "Cyber Security Analyst 2",
-    "location": "HI-Waimea",
+    "location": "Waimea, HI",
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
@@ -2934,7 +2791,7 @@
   {
     "company": "Amentum",
     "role": "Cyber Ops Analyst II",
-    "location": "HI-Pearl Harbor",
+    "location": "Pearl Harbor, HI",
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
@@ -2945,7 +2802,7 @@
   {
     "company": "Amentum",
     "role": "Cyber Security Analyst 1",
-    "location": "HI-Waimea",
+    "location": "Waimea, HI",
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
@@ -2956,7 +2813,7 @@
   {
     "company": "Amentum",
     "role": "Cyber Intelligence Analyst \u2013 Junior",
-    "location": "DC-Washington",
+    "location": "Washington, DC",
     "type": "earlycareer",
     "category": "Threat Intelligence",
     "clearance": true,
@@ -2966,19 +2823,8 @@
   },
   {
     "company": "Amentum",
-    "role": "Personnel Security Specialist I Adjudicator",
-    "location": "VA-Springfield",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "https://pae.wd1.myworkdayjobs.com/Amentum_Careers/job/US-VA-Springfield/Personnel-Security-Specialist-I-Adjudicator_R0170008",
-    "source": "Workday",
-    "date_added": "2026-09-05"
-  },
-  {
-    "company": "Amentum",
     "role": "Junior Naval Systems Security Analyst",
-    "location": "VA-Dahlgren",
+    "location": "Dahlgren, VA",
     "type": "earlycareer",
     "category": "Cloud & Infra Security",
     "clearance": true,
@@ -2989,7 +2835,7 @@
   {
     "company": "Amentum",
     "role": "Junior Naval Systems Security Engineer",
-    "location": "VA-Dahlgren",
+    "location": "Dahlgren, VA",
     "type": "earlycareer",
     "category": "Cloud & Infra Security",
     "clearance": true,
@@ -3011,7 +2857,7 @@
   {
     "company": "Morgan Stanley",
     "role": "Cyber Exercise Planner Associate",
-    "location": "Baltimore, Maryland, United States of America",
+    "location": "Baltimore, MD",
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
@@ -3064,17 +2910,6 @@
     "date_added": "2026-09-05"
   },
   {
-    "company": "State Street",
-    "role": "Data & AI Governance Leader, MD",
-    "location": "Boston, MA; Princeton, NJ; Clifton, NJ; Quincy, MA",
-    "type": "earlycareer",
-    "category": "AI Security & Safety",
-    "clearance": false,
-    "url": "https://statestreet.wd1.myworkdayjobs.com/Global/job/Boston-Massachusetts/Data-and-AI-Chief-Operating-Officer--MD_R-795578",
-    "source": "Workday",
-    "date_added": "2026-09-05"
-  },
-  {
     "company": "Northern Trust",
     "role": "Technology Intern \u2013 Information Security",
     "location": "Chicago, IL",
@@ -3086,20 +2921,9 @@
     "date_added": "2026-09-05"
   },
   {
-    "company": "The Cigna Group",
-    "role": "Internal Audit (SOX/SOC) Intern",
-    "location": "Franklin, TN",
-    "type": "intern",
-    "category": "SOC & Detection",
-    "clearance": false,
-    "url": "https://cigna.wd5.myworkdayjobs.com/cignacareers/job/Franklin-TN/Internal-Audit--SOX-SOC--Intern_26010366",
-    "source": "Workday",
-    "date_added": "2026-09-05"
-  },
-  {
     "company": "Walmart",
     "role": "2026 Intern Conversion: 2027 FT Penetration Testing Engineer II",
-    "location": "(USA) ISD Office - DGTC AR BENTONVILLE Home Office",
+    "location": "Bentonville, AR",
     "type": "intern",
     "category": "Offensive Security",
     "clearance": false,
@@ -3110,7 +2934,7 @@
   {
     "company": "Walmart",
     "role": "2026 Intern Conversion: 2027 FT Systems and Infrastructure Engineer II, Information Security",
-    "location": "(USA) ISD Office - DGTC AR BENTONVILLE Home Office",
+    "location": "Bentonville, AR",
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
@@ -3132,7 +2956,7 @@
   {
     "company": "Comcast",
     "role": "Investigator 2, Security",
-    "location": "MD - Baltimore, 8031 Corporate Dr; MD - Waldorf, 336 Post Office Rd; DC - Washington, 900 Michigan Ave NE; VA - Woodbridge, 4391 Dale Blvd; MD - Rockville, 20 West Gude Dr; VA - Arlington, 2501 S Shirlington Rd; MD - Silver Spring, 11800 Tech Rd",
+    "location": "Baltimore, MD; Waldorf, MD; Washington, DC; Woodbridge, VA; Rockville, MD; Arlington, VA; Silver Spring, MD",
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
@@ -3149,39 +2973,6 @@
     "clearance": false,
     "url": "https://dukeenergy.wd1.myworkdayjobs.com/Search/job/Charlotte-NC/Digital-Forensics-Summer-Intern---2027_R41195",
     "source": "Workday",
-    "date_added": "2026-09-05"
-  },
-  {
-    "company": "Duke Energy",
-    "role": "Enterprise Protective Services, Corporate Security Intern - Summer 2027",
-    "location": "Charlotte, NC",
-    "type": "intern",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "https://dukeenergy.wd1.myworkdayjobs.com/Search/job/Charlotte-NC/Enterprise-Protective-Services--Corporate-Security-Intern---Summer-2027_R41381",
-    "source": "Workday",
-    "date_added": "2026-09-05"
-  },
-  {
-    "company": "Duke Energy",
-    "role": "Enterprise Protective Services, Threat Intelligence Intern - Summer 2027",
-    "location": "Charlotte, NC",
-    "type": "intern",
-    "category": "Threat Intelligence",
-    "clearance": false,
-    "url": "https://dukeenergy.wd1.myworkdayjobs.com/Search/job/Charlotte-NC/Enterprise-Protective-Services--Threat-Intelligence-Intern---Summer-2027_R41379",
-    "source": "Workday",
-    "date_added": "2026-09-05"
-  },
-  {
-    "company": "SAIC",
-    "role": "Tier II SOC Supervisor",
-    "location": "Remote (US)",
-    "type": "earlycareer",
-    "category": "SOC & Detection",
-    "clearance": false,
-    "url": "https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2615114",
-    "source": "Oracle",
     "date_added": "2026-09-05"
   },
   {
@@ -3242,7 +3033,7 @@
   {
     "company": "Amazon",
     "role": "Security Engineer II, Stores Application Security",
-    "location": "US, Virtual",
+    "location": "Remote (US)",
     "type": "earlycareer",
     "category": "AppSec & ProdSec",
     "clearance": false,
@@ -3273,17 +3064,6 @@
     "date_added": "2026-09-05"
   },
   {
-    "company": "Northrop Grumman",
-    "role": "Industrial Security Analyst / CSSO - Level 2 or 3",
-    "location": "Hollywood, MD",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Maryland-Hollywood/Industrial-Security-Analyst---CSSO---Level-2-or-3_R10242992",
-    "source": "Workday",
-    "date_added": "2026-09-05"
-  },
-  {
     "company": "Nightwing",
     "role": "Multidisciplinary Engineer I",
     "location": "Springfield, VA",
@@ -3297,7 +3077,7 @@
   {
     "company": "Semgrep",
     "role": "Software Engineer Intern, Cloud Platform",
-    "location": "San Francisco Office",
+    "location": "San Francisco, CA",
     "type": "intern",
     "category": "Engineering @ Security Co",
     "clearance": false,
@@ -3308,7 +3088,7 @@
   {
     "company": "F5",
     "role": "Security Engineer II",
-    "location": "Reston",
+    "location": "Reston, VA",
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
@@ -3341,7 +3121,7 @@
   {
     "company": "RTX",
     "role": "Systems Security Engineer I \u2013 Anti-Tamper / Program Protection (Onsite-Tucson, AZ) \u2013 P1",
-    "location": "AZ-TUCSON-801 ~ 1151 E Hermans Rd ~ BLDG 801 (External Site)",
+    "location": "Tucson, AZ",
     "type": "earlycareer",
     "category": "Cloud & Infra Security",
     "clearance": true,
@@ -3374,7 +3154,7 @@
   {
     "company": "Tanium",
     "role": "Technical Support Engineer (TSE) Intern",
-    "location": "Addison, TX (Hybrid)",
+    "location": "Addison, TX",
     "type": "intern",
     "category": "Engineering @ Security Co",
     "clearance": false,
@@ -3385,7 +3165,7 @@
   {
     "company": "Tanium",
     "role": "Technical Support Engineer (TSE) Intern",
-    "location": "Bellevue, WA (Hybrid); Emeryville, CA (Hybrid)",
+    "location": "Bellevue, WA; Emeryville, CA",
     "type": "intern",
     "category": "Engineering @ Security Co",
     "clearance": false,
@@ -3462,7 +3242,7 @@
   {
     "company": "Entrust",
     "role": "Firmware Engineer II",
-    "location": "Shakopee, MN (GHQ)",
+    "location": "Shakopee, MN",
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
@@ -3473,7 +3253,7 @@
   {
     "company": "The Cigna Group",
     "role": "The Cigna Group's Technology Development Program - Cybersecurity Track Summer Internship",
-    "location": "CT, Bloomfield, 900 Cottage Grove Rd Wilde Bldg; St. Louis, MO",
+    "location": "Bloomfield, CT; St. Louis, MO",
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
@@ -3506,7 +3286,7 @@
   {
     "company": "Okta",
     "role": "Solutions Engineering Associate, Okta",
-    "location": "Boston, MA; New York, NY; Pennsylvania",
+    "location": "Boston, MA; New York, NY; PA (US)",
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
@@ -3517,7 +3297,7 @@
   {
     "company": "Tanium",
     "role": "Software Engineering Intern \u2013\u00a0Summer 2027",
-    "location": "Durham, NC (Hybrid); Emeryville, CA (Hybrid)",
+    "location": "Durham, NC; Emeryville, CA",
     "type": "intern",
     "category": "Engineering @ Security Co",
     "clearance": false,
@@ -3594,7 +3374,7 @@
   {
     "company": "Everfox",
     "role": "Software Engineer I",
-    "location": "USA_TX_Richardson",
+    "location": "Richardson, TX",
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": true,
@@ -3605,7 +3385,7 @@
   {
     "company": "Morgan Stanley",
     "role": "Associate - AI Governance & Reporting - Model Risk",
-    "location": "New York, New York, United States of America",
+    "location": "New York, NY",
     "type": "earlycareer",
     "category": "AI Security & Safety",
     "clearance": false,
@@ -3671,11 +3451,77 @@
   {
     "company": "RTX",
     "role": "Systems Engineer I, V&V Testing (Onsite - Security Clearance)",
-    "location": "PR-AGUADILLA-110 ~ Rd 110 N Km 28.8 ~ RD110",
+    "location": "Aguadilla, PR",
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-PR-AGUADILLA-110--Rd-110-N-Km-288--RD110/Systems-Engineer-I--V-V-Testing--Onsite---Security-Clearance-_01870858",
+    "source": "Workday",
+    "date_added": "2026-09-14"
+  },
+  {
+    "company": "Okta",
+    "role": "Developer Support Associate (New Grad)",
+    "location": "Chicago, IL",
+    "type": "newgrad",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://www.okta.com/company/careers/opportunity/8191506?gh_jid=8191506",
+    "source": "Greenhouse",
+    "date_added": "2026-09-14"
+  },
+  {
+    "company": "Leidos",
+    "role": "Junior Security Engineer",
+    "location": "Bethesda, MD",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://leidos.wd5.myworkdayjobs.com/External/job/Bethesda-MD/Junior-Security-Engineer_R-00192204",
+    "source": "Workday",
+    "date_added": "2026-09-14"
+  },
+  {
+    "company": "Northrop Grumman",
+    "role": "Cyber Software Engineer - Level 1/2 AHT",
+    "location": "Redondo Beach, CA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-Redondo-Beach/Cyber-Software-Engineer---Level-1-2-AHT_R10250763",
+    "source": "Workday",
+    "date_added": "2026-09-14"
+  },
+  {
+    "company": "RTX",
+    "role": "Systems Security Engineering Intern (Summer 2027)",
+    "location": "Az, US",
+    "type": "intern",
+    "category": "Cloud & Infra Security",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Systems-Security-Engineering-Intern--Summer-2027-_01874755",
+    "source": "Workday",
+    "date_added": "2026-09-14"
+  },
+  {
+    "company": "RTX",
+    "role": "Systems Security Engineer II \u2013 Anti-Tamper / Program Protection (On-site)",
+    "location": "Az, US",
+    "type": "earlycareer",
+    "category": "Cloud & Infra Security",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Systems-Security-Engineer-II---Anti-Tamper---Program-Protection--On-site-_01874758",
+    "source": "Workday",
+    "date_added": "2026-09-14"
+  },
+  {
+    "company": "RTX",
+    "role": "Systems Security Engineer I \u2013 Anti-Tamper / Program Protection (On-site)",
+    "location": "Az, US",
+    "type": "earlycareer",
+    "category": "Cloud & Infra Security",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Systems-Security-Engineer-I---Anti-Tamper---Program-Protection--On-site-_01874756",
     "source": "Workday",
     "date_added": "2026-09-14"
   }
