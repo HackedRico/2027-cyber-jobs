@@ -3590,5 +3590,115 @@
     "url": "https://walmart.wd504.myworkdayjobs.com/WalmartExternal/job/USA-ISD-Office---DGTC-AR-BENTONVILLE-Home-Office/Summer-2027-Intern--Cybersecurity-Masters_R-2630026",
     "source": "Workday",
     "date_added": "2026-09-15"
+  },
+  {
+    "company": "CrowdStrike",
+    "role": "Analyst I, Falcon Complete (Remote, PST/MST)",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Analyst-I--Falcon-Complete--Remote--PST-MST-_R30081",
+    "source": "Workday",
+    "date_added": "2026-09-15"
+  },
+  {
+    "company": "CrowdStrike",
+    "role": "Associate Analyst, Falcon Complete",
+    "location": "Remote (US); St. Louis, MO",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Associate-Analyst--Falcon-Complete_R30082",
+    "source": "Workday",
+    "date_added": "2026-09-15"
+  },
+  {
+    "company": "CrowdStrike",
+    "role": "Automation Engineer II, Falcon Complete (Remote)",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Automation-Engineer-II--Falcon-Complete--Remote-_R29988",
+    "source": "Workday",
+    "date_added": "2026-09-15"
+  },
+  {
+    "company": "CrowdStrike",
+    "role": "Analyst I, Falcon Complete GovCloud (Hybrid, St Louis)",
+    "location": "Remote (US); St. Louis, MO",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": true,
+    "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Analyst-I--Falcon-Complete-GovCloud--Hybrid--St-Louis-_R29933-1",
+    "source": "Workday",
+    "date_added": "2026-09-15"
+  },
+  {
+    "company": "Northrop Grumman",
+    "role": "2027 Cyber Software Engineer\u00a0Intern - Cincinnati OH",
+    "location": "Cincinnati, OH",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Ohio-Cincinnati/XMLNAME-2027-Cyber-Software-Engineer-Intern---Cincinnati-OH_R10249186",
+    "source": "Workday",
+    "date_added": "2026-09-15"
+  },
+  {
+    "company": "RTX",
+    "role": "Internship \u2013 Raytheon Systems Security Engineer -Onsite",
+    "location": "Ma, US",
+    "type": "intern",
+    "category": "Cloud & Infra Security",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MA-TEWKSBURY-TB1--50-Apple-Hill-Dr--ASSABET-BLDG/Internship---Raytheon-Systems-Security-Engineer--Onsite_01874702",
+    "source": "Workday",
+    "date_added": "2026-09-15"
+  },
+  {
+    "company": "RTX",
+    "role": "Internship \u2013 Raytheon Systems Security Engineer-Onsite",
+    "location": "Ri, US",
+    "type": "intern",
+    "category": "Cloud & Infra Security",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-RI-PORTSMOUTH-PS1--1847-W-Main-Rd--NIMITZ-BLDG/Internship---Raytheon-Systems-Security-Engineer-Onsite_01874705",
+    "source": "Workday",
+    "date_added": "2026-09-15"
+  },
+  {
+    "company": "RTX",
+    "role": "Internship \u2013 Raytheon Systems Security Engineer- Onsite",
+    "location": "Ma, US",
+    "type": "intern",
+    "category": "Cloud & Infra Security",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MA-WOBURN-WB2--225-Presidential-Way--GODDARD-BLDG/Internship---Raytheon-Systems-Security-Engineer--Onsite_01874703",
+    "source": "Workday",
+    "date_added": "2026-09-15"
+  },
+  {
+    "company": "RTX",
+    "role": "Systems Engineer I, V&V Testing (Onsite - Security Clearance)",
+    "location": "Pr, US",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-PR-AGUADILLA-110--Rd-110-N-Km-288--RD110/Systems-Engineer-I--V-V-Testing--Onsite---Security-Clearance-_01875336",
+    "source": "Workday",
+    "date_added": "2026-09-15"
+  },
+  {
+    "company": "SAIC",
+    "role": "Tier II or III Microsoft Azure Identity and Access Management (IAM) Administrator",
+    "location": "Washington, DC",
+    "type": "earlycareer",
+    "category": "Identity & IAM",
+    "clearance": false,
+    "url": "https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2616831",
+    "source": "Oracle",
+    "date_added": "2026-09-15"
   }
 ]
