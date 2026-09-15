@@ -3495,7 +3495,7 @@
   {
     "company": "RTX",
     "role": "Systems Security Engineering Intern (Summer 2027)",
-    "location": "Az, US",
+    "location": "Az",
     "type": "intern",
     "category": "Cloud & Infra Security",
     "clearance": true,
@@ -3506,7 +3506,7 @@
   {
     "company": "RTX",
     "role": "Systems Security Engineer II \u2013 Anti-Tamper / Program Protection (On-site)",
-    "location": "Az, US",
+    "location": "Az",
     "type": "earlycareer",
     "category": "Cloud & Infra Security",
     "clearance": true,
@@ -3517,12 +3517,78 @@
   {
     "company": "RTX",
     "role": "Systems Security Engineer I \u2013 Anti-Tamper / Program Protection (On-site)",
-    "location": "Az, US",
+    "location": "Az",
     "type": "earlycareer",
     "category": "Cloud & Infra Security",
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Systems-Security-Engineer-I---Anti-Tamper---Program-Protection--On-site-_01874756",
     "source": "Workday",
     "date_added": "2026-09-14"
+  },
+  {
+    "company": "Northrop Grumman",
+    "role": "2027 Cyber Systems Engineer Intern - Roy UT",
+    "location": "Roy, UT",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Utah-Roy/XMLNAME-2027-Cyber-Systems-Engineer-Intern---Roy-UT_R10249471",
+    "source": "Workday",
+    "date_added": "2026-09-15"
+  },
+  {
+    "company": "Northrop Grumman",
+    "role": "Cybersecurity Systems Engineer (Level 1/2)",
+    "location": "San Diego, CA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-San-Diego/Cybersecurity-Systems-Engineer--Level-1-2-_R10248284",
+    "source": "Workday",
+    "date_added": "2026-09-15"
+  },
+  {
+    "company": "Northrop Grumman",
+    "role": "Associate Cybersecurity Analyst - Secret - San Diego CA",
+    "location": "San Diego, CA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-San-Diego/Associate-Cybersecurity-Analyst---Secret---San-Diego-CA_R10244550",
+    "source": "Workday",
+    "date_added": "2026-09-15"
+  },
+  {
+    "company": "Northrop Grumman",
+    "role": "2027 Associate Classified Cybersecurity Analyst - Pathways Program - Huntsville AL",
+    "location": "Huntsville, AL",
+    "type": "newgrad",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Alabama-Huntsville/XMLNAME-2027-Associate-Classified-Cybersecurity-Analyst---Pathways-Program---Huntsville-AL_R10250629-1",
+    "source": "Workday",
+    "date_added": "2026-09-15"
+  },
+  {
+    "company": "Walmart",
+    "role": "Summer 2027 Intern: Cybersecurity Undergrad",
+    "location": "Bentonville, AR",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://walmart.wd504.myworkdayjobs.com/WalmartExternal/job/USA-ISD-Office---DGTC-AR-BENTONVILLE-Home-Office/Summer-2027-Intern--Cybersecurity-Undergrad_R-2630025",
+    "source": "Workday",
+    "date_added": "2026-09-15"
+  },
+  {
+    "company": "Walmart",
+    "role": "Summer 2027 Intern: Cybersecurity Masters",
+    "location": "Bentonville, AR",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://walmart.wd504.myworkdayjobs.com/WalmartExternal/job/USA-ISD-Office---DGTC-AR-BENTONVILLE-Home-Office/Summer-2027-Intern--Cybersecurity-Masters_R-2630026",
+    "source": "Workday",
+    "date_added": "2026-09-15"
   }
 ]
