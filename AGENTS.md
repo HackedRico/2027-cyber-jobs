@@ -32,8 +32,9 @@ behind `main`. Rebase before opening a PR, and take `main` for any conflict in a
   only works when the scraper and the submission flow normalise identically.
 - `scrape_jobs.py` owns one `scrape_<ats>` function per platform, persistence
   (`seen_jobs.json` is per-posting last-seen, `board_baseline.json` is per-board counts for the
-  silent-board alarm), and `main()`, which runs purge, renormalise, reclassify and the
-  over-experience drop over existing rows before dedup and insert of new ones.
+  silent-board alarm), and `main()`, which runs purge, renormalise, reclassify, the
+  over-experience drop, the location repair and the vanished-req retire over existing rows
+  before dedup and insert of new ones.
 - `rebuild_readme.py` regenerates the tables between the `TABLE_START <type>` markers.
 - `validate_issue.py` and `process_approved.py` are the community path: issue form, validation
   comment, `approved` label, row added, issue closed.
