@@ -264,6 +264,123 @@ def test_drop_over_experienced():
           len(dropped_moved), 1)
 
 
+# --- a req that leaves its board's feed is retired ----------------------------
+def test_job_fingerprint_reads_every_ats_url_shape():
+    cases = [
+        # Greenhouse's own host, and a company-hosted board where the path
+        # carries no req id at all and only gh_jid identifies the posting.
+        ('Acme', 'Greenhouse', 'https://boards.greenhouse.io/acme/jobs/4242', '4242'),
+        ('Acme', 'Greenhouse', 'https://acme.com/careers/jobs/99?gh_jid=4242', '4242'),
+        ('Acme', 'Lever',
+         'https://jobs.lever.co/acme/59991dcb-2ca8-46d4-9b89-0d1b00e3e5eb',
+         '59991dcb-2ca8-46d4-9b89-0d1b00e3e5eb'),
+        ('Acme', 'Ashby',
+         'https://jobs.ashbyhq.com/acme/b9dee2a0-9bb3-447e-9bce-2b1bed784e5b',
+         'b9dee2a0-9bb3-447e-9bce-2b1bed784e5b'),
+        ('Acme', 'Workday',
+         'https://acme.wd1.myworkdayjobs.com/External/job/Austin-TX/Cyber-Eng_R123',
+         '/job/Austin-TX/Cyber-Eng_R123'),
+        ('Acme', 'Oracle',
+         'https://x.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2615114',
+         '2615114'),
+        ('Amazon', 'Amazon Jobs',
+         'https://www.amazon.jobs/en/jobs/10464931/security-engineer-ii', '10464931'),
+        ('Acme', 'SmartRecruiters',
+         'https://jobs.smartrecruiters.com/Acme/114671999', '114671999'),
+    ]
+    for company, source, url, want in cases:
+        check(f'fingerprint {source}', sj.job_fingerprint(company, source, url),
+              (company, source, want))
+    # Anything unrecognized yields None, which exempts the row from retirement
+    # rather than guessing an id and deleting the wrong listing.
+    check('unknown URL shape has no fingerprint',
+          sj.job_fingerprint('Acme', 'Greenhouse', 'https://acme.com/careers'), None)
+    check('blank url has no fingerprint', sj.job_fingerprint('Acme', 'Lever', ''), None)
+    # Two boards may both number a req 4242; the company keeps them apart.
+    check('fingerprints are company-scoped',
+          sj.job_fingerprint('Other', 'Greenhouse',
+                             'https://boards.greenhouse.io/other/jobs/4242')
+          != sj.job_fingerprint('Acme', 'Greenhouse',
+                                'https://boards.greenhouse.io/acme/jobs/4242'), True)
+
+
+def _listing(company, role, url, source='Greenhouse', **extra):
+    row = {'company': company, 'role': role, 'location': 'Austin, TX',
+           'type': 'earlycareer', 'source': source, 'url': url}
+    row.update(extra)
+    return row
+
+
+def test_retire_vanished_listings():
+    listings = [
+        _listing('Acme', 'Still Open', 'https://boards.greenhouse.io/acme/jobs/1'),
+        _listing('Acme', 'Just Vanished', 'https://boards.greenhouse.io/acme/jobs/2'),
+        _listing('Acme', 'Long Gone', 'https://boards.greenhouse.io/acme/jobs/3',
+                 missing_since='2026-09-01'),
+        _listing('Acme', 'Briefly Missing', 'https://boards.greenhouse.io/acme/jobs/4',
+                 missing_since='2026-09-09'),
+        _listing('Acme', 'Back Again', 'https://boards.greenhouse.io/acme/jobs/5',
+                 missing_since='2026-09-01'),
+        _listing('Acme', 'Maintainer Pick', 'https://boards.greenhouse.io/acme/jobs/6',
+                 source='Community'),
+        _listing('Acme', 'Already Closed', '', closed=True),
+        _listing('Acme', 'No Req Id', 'https://acme.com/careers'),
+        # Ghost's board returned nothing this run — a broken slug must not
+        # retire everything behind it.
+        _listing('Ghost', 'Unverifiable', 'https://boards.greenhouse.io/ghost/jobs/9',
+                 missing_since='2026-09-01'),
+    ]
+    raw = [
+        {'company': 'Acme', 'board': 'Greenhouse',
+         'url': 'https://boards.greenhouse.io/acme/jobs/1'},
+        {'company': 'Acme', 'board': 'Greenhouse',
+         'url': 'https://boards.greenhouse.io/acme/jobs/5'},
+    ]
+    retired = sj.retire_vanished_listings(listings, raw, '2026-09-10')
+    check('only the long-missing row retires', [e['role'] for e in retired],
+          ['Long Gone'])
+
+    by_role = {e['role']: e for e in listings}
+    check('retired row is blanked and closed',
+          (by_role['Long Gone']['url'], by_role['Long Gone']['closed'],
+           by_role['Long Gone']['closed_date'], 'missing_since' in by_role['Long Gone']),
+          ('', True, '2026-09-10', False))
+    check('a row still in the feed carries no streak',
+          by_role['Still Open'].get('missing_since'), None)
+    check('a newly missing row only starts its streak',
+          (by_role['Just Vanished'].get('missing_since'),
+           by_role['Just Vanished'].get('closed')),
+          ('2026-09-10', None))
+    check('a row missing for under VANISHED_DAYS keeps its original stamp',
+          (by_role['Briefly Missing']['missing_since'],
+           by_role['Briefly Missing'].get('closed')),
+          ('2026-09-09', None))
+    check('a reappearing row has its streak cleared',
+          by_role['Back Again'].get('missing_since'), None)
+    check('community, already-closed, unfingerprintable and unhealthy-board rows '
+          'are untouched',
+          [(e['role'], e.get('missing_since'), e.get('closed')) for e in listings
+           if e['role'] in ('Maintainer Pick', 'Already Closed', 'No Req Id',
+                            'Unverifiable')],
+          [('Maintainer Pick', None, None), ('Already Closed', None, True),
+           ('No Req Id', None, None), ('Unverifiable', '2026-09-01', None)])
+
+
+def test_retire_vanished_needs_the_whole_board_not_one_posting():
+    """A board that returns SOME postings still retires only what it did not return."""
+    listings = [
+        _listing('Acme', 'Gone', 'https://boards.greenhouse.io/acme/jobs/1',
+                 missing_since='2026-09-01'),
+        _listing('Acme', 'Present', 'https://boards.greenhouse.io/acme/jobs/2',
+                 missing_since='2026-09-01'),
+    ]
+    raw = [{'company': 'Acme', 'board': 'Greenhouse',
+            'url': 'https://boards.greenhouse.io/acme/jobs/2'}]
+    retired = sj.retire_vanished_listings(listings, raw, '2026-09-10')
+    check('partial board retires only the absent req',
+          [e['role'] for e in retired], ['Gone'])
+
+
 # --- board orchestration: pooled scraping keeps config order -------------------
 def test_scrape_boards_preserves_config_order():
     import threading
@@ -384,7 +501,10 @@ for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_workday_total_failure_returns_none,
            test_smartrecruiters_missing_total_keeps_paging,
            test_amazon_description_includes_qualifications,
-           test_drop_over_experienced, test_scrape_boards_preserves_config_order,
+           test_drop_over_experienced, test_job_fingerprint_reads_every_ats_url_shape,
+           test_retire_vanished_listings,
+           test_retire_vanished_needs_the_whole_board_not_one_posting,
+           test_scrape_boards_preserves_config_order,
            test_build_tasks_honors_board_and_limit, test_board_health_streaks,
            test_board_health_migrates_and_survives_a_corrupt_baseline):
     fn()
