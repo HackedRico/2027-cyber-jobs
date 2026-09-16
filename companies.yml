@@ -1060,6 +1060,26 @@ workday:
   instance: wd12
   board: FortraCareers
   security_company: true
+- name: Accenture
+  tenant: accenture
+  instance: wd103
+  board: accenturecareers
+- name: Allstate
+  tenant: allstate
+  instance: wd5
+  board: allstate_careers
+- name: PNC
+  tenant: pnc
+  instance: wd5
+  board: External
+- name: Truist
+  tenant: truist
+  instance: wd1
+  board: Careers
+- name: Travelers
+  tenant: travelers
+  instance: wd5
+  board: External
 oracle:
 - name: SAIC
   host: eihu.fa.us8.oraclecloud.com

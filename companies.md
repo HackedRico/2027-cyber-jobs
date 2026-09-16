@@ -2,7 +2,7 @@
 
 Employers whose job boards are scraped automatically (see [companies.yml](companies.yml)). 🛡️ marks pure-play security companies, where every engineering role is a security-industry job.
 
-**353 companies tracked.**
+**358 companies tracked.**
 
 ## Ashby (76)
 
@@ -313,11 +313,13 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - TrustedSec 🛡️
 - ZeroFox 🛡️
 
-## Workday (68)
+## Workday (73)
 
+- Accenture
 - Adobe
 - Aerospace Corporation
 - AeroVironment
+- Allstate
 - Amentum
 - Arctic Wolf 🛡️
 - AT&T
@@ -363,6 +365,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Palo Alto Networks 🛡️
 - Parsons
 - PayPal
+- PNC
 - Proofpoint 🛡️
 - Qualcomm
 - Qualys 🛡️
@@ -377,8 +380,10 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Target
 - The Cigna Group
 - The Home Depot
+- Travelers
 - Trellix 🛡️
 - Trend Micro 🛡️
+- Truist
 - Vanguard
 - Walmart
 - Wells Fargo
