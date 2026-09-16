@@ -70,7 +70,26 @@ message. Two skills under `.claude/skills/` hold the procedures, and each ends o
 - [triage-board](.claude/skills/triage-board/SKILL.md) takes a failed, regressed or silent
   board to a repaired or dropped entry. It holds what each ATS status code means.
 
+## Code and test style
+
+Everything under `.github/scripts/` is plain Python 3.12 checked by the `ruff.toml` at the
+root. Beyond what the linter enforces:
+
+- A comment says why, never what. Most comments in this repo cite the title or board that
+  broke and the issue number; match that.
+- Public functions carry a short docstring; private helpers do not.
+- `classify.py` and `common.py` import from the standard library only. New third-party
+  dependencies belong in `scrape_jobs.py` and get pinned in `requirements.txt`.
+- Tests are plain scripts run with `python <file>`, no pytest. `test_classification.py` is
+  data tables of `(input, expected)` rows looped through `check`; `test_scrapers.py` is
+  `test_*` functions over mocked HTTP, each registered in the tuple at the bottom of the
+  file. Add a row or a function in the same shape.
+- A scraper function returns `None` for a broken fetch and `[]` for an empty board. The
+  health check relies on the difference.
+
 ## Commits
 
-Conventional Commits with scope `classify`, `scraper`, `companies`, `readme` or `ci`. The bot
-commit subjects are fixed strings the workflows own.
+Conventional Commits, lowercase, present tense, no trailing period, with scope `classify`,
+`scraper`, `companies`, `skills`, `readme` or `ci`, as in `fix(classify): reject non-cyber
+titles`. Every scraper or classifier PR states the example titles it flips. The bot commit
+subjects are fixed strings the workflows own.
