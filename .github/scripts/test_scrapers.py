@@ -13,6 +13,7 @@ import tempfile
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
+import compare_runs  # noqa: E402
 import responses  # noqa: E402
 import scrape_jobs as sj  # noqa: E402
 
@@ -376,6 +377,38 @@ def test_board_health_migrates_and_survives_a_corrupt_baseline():
         sj.BOARD_BASELINE_FILE = original
 
 
+def test_compare_runs_reports_flips_only():
+    before = compare_runs.parse_log(
+        'Checking Acme (greenhouse/acme)... ok (12 postings, 1.0s)\n'
+        'Checking Beta (lever/beta)... ok (3 postings, 0.4s)\n'
+        '  RECLASSIFY [earlycareer -> newgrad] Acme — Analyst\n'
+        '  NEW [newgrad] Acme — Security Analyst - New Grad @ Austin, TX\n'
+        '  NEW [earlycareer] Acme — Security Engineer II @ Remote (US)\n'
+        '  NEW [intern] Beta — SOC Intern @ Boston, MA\n')
+    after = compare_runs.parse_log(
+        'Checking Acme (greenhouse/acme)... ok (12 postings, 1.0s)\n'
+        'Checking Beta (lever/beta)... FAILED (0 postings, 0.4s)\n'
+        '  RECLASSIFY [earlycareer -> newgrad] Acme — Analyst\n'
+        '  DROP [rejected-title] Acme — Physical Security Guard\n'
+        '  NEW [newgrad] Acme — Security Analyst - New Grad @ Austin, TX\n'
+        '  NEW [intern] Acme — Security Engineer II @ Remote (US)\n')
+    check('compare_runs parses board status and count',
+          before.boards['Beta (lever/beta)'], ('ok', 3))
+    report = compare_runs.diff(before, after)
+    check('compare_runs lists the row only the first run accepted',
+          '  - [intern] Beta — SOC Intern @ Boston, MA' in report, True)
+    check('compare_runs lists a level change',
+          '  - Acme — Security Engineer II @ Remote (US): earlycareer -> intern' in report, True)
+    check('compare_runs lists a new drop of an existing row',
+          '  - Acme — Physical Security Guard [rejected-title]' in report, True)
+    check('compare_runs ignores a reclassify present in both runs',
+          any('Analyst:' in line for line in report), False)
+    check('compare_runs lists a board status change',
+          '  - Beta (lever/beta): ok (3) -> FAILED (0)' in report, True)
+    check('compare_runs reports identical runs as equivalent',
+          compare_runs.diff(before, before), [])
+
+
 for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_ashby, test_ashby_schema_drift_warns,
            test_smartrecruiters_pagination_short_page_stops, test_oracle,
@@ -386,7 +419,8 @@ for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_amazon_description_includes_qualifications,
            test_drop_over_experienced, test_scrape_boards_preserves_config_order,
            test_build_tasks_honors_board_and_limit, test_board_health_streaks,
-           test_board_health_migrates_and_survives_a_corrupt_baseline):
+           test_board_health_migrates_and_survives_a_corrupt_baseline,
+           test_compare_runs_reports_flips_only):
     fn()
 
 if failures:
