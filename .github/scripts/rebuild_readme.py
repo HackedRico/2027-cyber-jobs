@@ -74,6 +74,16 @@ def apply_btn(url):
             f'<img src="{APPLY_BADGE}" alt="Apply"></a>')
 
 
+def count_open(listings):
+    """Rows still accepting applications.
+
+    Closed rows keep their place in the tables (marked 🔒) until the scraper
+    purges them, so len(listings) overstates the headline by every dead posting
+    still inside its grace period.
+    """
+    return sum(1 for e in listings if not e.get('closed'))
+
+
 def format_row(entry, company_col):
     role = escape_cell(entry['role'].strip())
     location = format_location(entry.get('location', ''))
@@ -202,11 +212,12 @@ def main():
     content = replace_table(content, 'newgrad', build_table(newgrad))
     content = replace_table(content, 'intern', build_table(intern))
     content = replace_table(content, 'earlycareer', build_table(earlycareer))
+    open_roles = count_open(listings)
     # The markers stay on their own lines: text on the same line as an HTML
     # comment is a raw-HTML block, so **bold** would not render on GitHub.
     content = re.sub(
         r'(<!-- STATS -->).*?(<!-- /STATS -->)',
-        f'\\g<1>\n\n**{len(listings)}** open roles tracked · updated '
+        f'\\g<1>\n\n**{open_roles}** open roles tracked · updated '
         f'{datetime.now().strftime("%B %-d, %Y")}\n\n\\g<2>',
         content,
         flags=re.DOTALL,

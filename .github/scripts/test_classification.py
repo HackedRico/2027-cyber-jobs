@@ -174,6 +174,21 @@ CASES = [
 
     # -- recall: flat title at a security company with a low YOE ceiling --
     ('Security Engineer', 'Austin, TX', 'Ideal for candidates with 0-2 years of experience.', True, ('earlycareer', 'Security Engineering')),
+
+    # -- bug fix: guarded function rejects keep genuine cyber roles --
+    ('Data Loss Prevention (DLP) Analyst I', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Software Supply Chain Security Engineer I', 'Seattle, WA', '', False, ('earlycareer', 'Security Engineering')),
+    ('Security Research Engineer I, AI Safety and Security Engineering', 'San Francisco, CA', '', False, ('earlycareer', 'AI Security & Safety')),
+    # ...while the non-cyber functions they guard are still rejected.
+    ('Loss Prevention Associate', 'Austin, TX', '', False, None),
+    ('Supply Chain Analyst I', 'Austin, TX', '', True, None),
+    ('Safety and Security Officer', 'Austin, TX', '', False, None),
+
+    # -- bug fix: US territories are US locations, not foreign --
+    ('Cyber Software Engineer I', 'Aguadilla, PR', '', False, ('earlycareer', 'Security Engineering')),
+    ('Student Trainee (Cybersecurity)', 'Hagatna, GU', '', False, ('intern', 'Security Engineering')),
+    # ...but a foreign territory that merely shares a name is still rejected.
+    ('Junior Security Analyst', 'Tortola, British Virgin Islands', '', False, None),
 ]
 
 failures = 0
@@ -245,12 +260,51 @@ NORM = [
     ('High Point, NC; International - Germany', 'High Point, NC'),
     ('Paris, TX; London, UK', 'Paris, TX'),
     ('London, UK', 'London, UK'),  # nothing US to keep, so nothing is dropped
+    # US territories resolve to their postal code like any state.
+    ('San Juan, Puerto Rico', 'San Juan, PR'),
+    ('Barrigada, Guam', 'Barrigada, GU'),
+    ('Pago Pago, American Samoa', 'Pago Pago, AS'),
+    ('PR-AGUADILLA-110 ~ Rd 110 N Km 28.8 ~ RD110', 'Aguadilla, PR'),
+    ('Aguadilla, PR; Tortola, British Virgin Islands', 'Aguadilla, PR'),
+    # A remote role scoped to one spelled-out state, in the shapes ATSs emit.
+    ('Remote - California', 'Remote, CA'),
+    ('California - Remote', 'Remote, CA'),
+    ('GEORGIA - VIRTUAL - GA01', 'Remote, GA'),
+    ('Work At Home-Texas', 'Remote, TX'),
+    ('Home Office - Northern California', 'Remote, CA'),
+    ('Illinois Remote Work, More...', 'Remote, IL'),
+    ('Puerto Rico Remote Work', 'Remote, PR'),
+    ('Remote - Georgia; Remote - Texas', 'Remote, GA; Remote, TX'),
+    # The capital is not Washington state, in any of its spellings.
+    ('Remote - Washington, D.C.', 'Remote, DC'),
+    ('Washington D.C. - Remote', 'Remote, DC'),
+    ('Remote - Washington', 'Remote, WA'),
+    # ...and a city named alongside the state keeps its detail.
+    ('Remote - Miami, Florida', 'Remote - Miami, FL'),
+    ('San Francisco, California (remote)', 'San Francisco, CA'),
+    ('Virginia - Herndon', 'Herndon, VA'),
+    # A country prefix in front of the state code must not be read as the
+    # state: "US-AZ-TUCSON-805 ~ ..." used to collapse to "Az".
+    ('US-AZ-TUCSON-805 ~ 1151 E Hermans Rd ~ BLDG 805', 'Tucson, AZ'),
+    ('US-CT-EAST HARTFORD-ETC ~ 400 Main St ~ BLDG ETC', 'East Hartford, CT'),
+    ('US-CA-Menlo Park', 'Menlo Park, CA'),
+    ('US-DC-Washington', 'Washington, DC'),
+    # ...while the spelled-out country/state form still resolves.
+    ('United States-California-Palmdale', 'Palmdale, CA'),
 ]
 for raw, want in NORM:
     got = s.normalize_location(raw)
     if got != want:
         failures += 1
         print(f'FAIL normalize_location({raw!r}) = {got!r}, want {want!r}')
+    # Normalizing an already-normalized value must be a no-op: every scrape
+    # re-runs renormalize_locations over stored rows, so a rule that keeps
+    # rewriting its own output degrades the board a little on every run. That
+    # is how "US-AZ-TUCSON-805 ~ ..." became "Az, US" and then "Az".
+    again = s.normalize_location(got)
+    if again != got:
+        failures += 1
+        print(f'FAIL normalize_location is not idempotent: {raw!r} -> {got!r} -> {again!r}')
 
 # classify_level word-boundary checks: short signals must not match inside
 # longer tokens, and a leveled II beats a cohort year.
@@ -300,6 +354,30 @@ US_LOC = [
     ('London, UK - reports to US team', False),
     ('Chennai, TN, India', False),  # TN=Tamil Nadu collides with Tennessee
     ('Berlin (must overlap US business hours)', False),
+    # US territories and commonwealths are domestic.
+    ('Aguadilla, PR', True),
+    ('San Juan, Puerto Rico', True),
+    ('Hagatna, GU', True),
+    ('Saipan, MP', True),
+    ('Charlotte Amalie, U.S. Virgin Islands', True),
+    ('Pago Pago, AS', True),
+    # ...but 'AS' only counts as a delimited region code, never as the English
+    # word inside an all-caps site string, and BVI is not a US territory.
+    ('WORK REMOTE AS NEEDED', False),
+    ('Tortola, British Virgin Islands', False),
+    # A spelled-out state anywhere in the string, not only as the trailing
+    # comma segment, is a US signal.
+    ('Remote - California', True),
+    ('GEORGIA - VIRTUAL - GA01', True),
+    ('Northern Virginia', True),
+    ('Field-Virginia', True),
+    ('West Virginia Client Office (WV88)', True),
+    ('US Remote (New England)', True),   # 'england' must not match 'New England'
+    ('Remote - SF Bay Area', True),
+    # ...but a foreign city keeps its veto, including the country Georgia.
+    ('Tbilisi, Georgia', False),
+    ('London, England', False),
+    ('Remote - United Kingdom', False),
 ]
 for loc, want in US_LOC:
     got = s.is_us_location(loc)
@@ -527,6 +605,14 @@ for name, ok in RENDER:
     if not ok:
         failures += 1
         print(f'FAIL render: {name}')
+
+# The headline stat counts open roles; closed rows stay in the tables (🔒)
+# until the purge, so they must not inflate it.
+STAT_ROWS = [{'company': 'A'}, {'company': 'B', 'closed': True},
+             {'company': 'C', 'closed': False}]
+if rr.count_open(STAT_ROWS) != 2:
+    failures += 1
+    print(f'FAIL count_open = {rr.count_open(STAT_ROWS)}, want 2')
 
 # strip_html caps pathological input so the tag-strip regex stays sub-quadratic.
 _huge = '<' * 300000
