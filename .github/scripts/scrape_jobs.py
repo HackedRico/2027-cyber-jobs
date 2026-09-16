@@ -21,6 +21,7 @@ from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 from pathlib import Path
 from typing import NamedTuple
+from urllib.parse import parse_qs, urlparse
 
 import rebuild_readme
 import requests
@@ -614,6 +615,136 @@ def drop_over_experienced(listings, raw_jobs):
     return kept, dropped
 
 
+# A row is retired once its requisition has been missing from a healthy board
+# for this many days. The scrape runs twice daily, so this is ~6 consecutive
+# misses: long enough to ride out one partial fetch of a paginated board, short
+# enough that a student is not sent to a req that closed last week.
+VANISHED_DAYS = 3
+
+# Per source, the part of an apply URL that identifies the requisition. Both a
+# stored row and a freshly scraped posting are reduced through these, so the
+# vanished check compares like with like without parsing the scraper's internal
+# id format — which a stored row cannot rebuild anyway, since a company-hosted
+# Greenhouse board keeps the board token out of the URL entirely.
+_REQ_PATTERNS = {
+    'Greenhouse': (r'/jobs/(\d+)',),
+    'Lever': (r'/([0-9a-fA-F-]{36})',),
+    'Ashby': (r'/([0-9a-fA-F-]{36})',),
+    'Workday': (r'(/job/.+)$',),
+    'Oracle': (r'/job/(\d+)',),
+    'Amazon Jobs': (r'/jobs/(\d+)',),
+    'SmartRecruiters': (r'/(\d+)/?$',),
+    'Workable': (r'/j/([0-9A-F]{8,})',),
+    'Recruitee': (r'/o/([\w-]+)$',),
+    'Pinpoint': (r'/postings/([0-9a-fA-F-]{36})',),
+}
+
+
+def job_fingerprint(company, source, url):
+    """Identify one requisition by the stable id inside its apply URL.
+
+    Returns a (company, source, id) tuple, or None when the URL carries nothing
+    recognizable. None is the safe answer: an unfingerprintable row is never
+    judged by `retire_vanished_listings`, so an unfamiliar URL shape keeps a row
+    rather than dropping it.
+
+    Scoped by company because req ids are only unique within a board — two
+    Greenhouse tenants can both number a posting 12345.
+    """
+    if not url or not source:
+        return None
+    try:
+        parts = urlparse(url)
+    except ValueError:
+        return None
+    # Greenhouse's company-hosted boards put the req id in gh_jid and leave the
+    # path pointing at a generic careers page, so the query string wins there.
+    if source == 'Greenhouse':
+        jid = (parse_qs(parts.query).get('gh_jid') or [''])[0].strip()
+        if jid:
+            return (company, source, jid)
+    for pattern in _REQ_PATTERNS.get(source, ()):
+        match = re.search(pattern, parts.path)
+        if match:
+            return (company, source, match.group(1))
+    return None
+
+
+def retire_vanished_listings(listings, raw_jobs, today):
+    """Close rows whose requisition has left its own board's feed.
+
+    Mutates and returns the rows it retired. Every run fetches each board in
+    full, so a posting that stops appearing among its company's results is a
+    closed req. This is the only path that can retire a Workday, Ashby, Oracle
+    or Greenhouse row: those hosts all answer 200 for a job that no longer
+    exists, so the dead-link sweep never marks one closed and such a row would
+    otherwise sit on the board forever.
+
+    Guardrails, all in the keep direction:
+      * only companies that returned at least one posting this run are judged,
+        so a broken slug, a failed fetch, or a `--board`/`--limit` subset can
+        never retire anything it did not actually look at;
+      * a row must be missing for VANISHED_DAYS before it goes, so one partial
+        fetch of a paginated board costs a re-check rather than the listings;
+      * Community rows carry a maintainer's judgment and never appear in
+        `raw_jobs`, so they are exempt, as are rows with no fingerprint.
+
+    Retirement writes exactly what a dead link writes — blank url plus
+    `closed` — so the existing revive path self-heals a false positive and
+    `purge_stale_listings` does the eventual removal.
+    """
+    live, healthy = set(), set()
+    for job in raw_jobs:
+        company = job.get('company', '')
+        healthy.add(company)
+        fingerprint = job_fingerprint(company, job.get('board', ''), job.get('url', ''))
+        if fingerprint:
+            live.add(fingerprint)
+
+    retired = []
+    for entry in listings:
+        if (entry.get('source') == 'Community' or entry.get('closed')
+                or not entry.get('url')):
+            continue
+        if entry.get('company', '') not in healthy:
+            continue
+        fingerprint = job_fingerprint(entry.get('company', ''), entry.get('source', ''),
+                                      entry.get('url', ''))
+        if fingerprint is None:
+            continue
+        if fingerprint in live:
+            # Seen again: drop any half-finished streak so a req that flickers
+            # out of one page never accumulates its way to retirement.
+            entry.pop('missing_since', None)
+            continue
+        first_missed = entry.get('missing_since')
+        if not first_missed:
+            entry['missing_since'] = today
+            continue
+        if _days_since(first_missed, today) < VANISHED_DAYS:
+            continue
+        entry['url'] = ''
+        entry['closed'] = True
+        entry.setdefault('closed_date', today)
+        entry.pop('missing_since', None)
+        retired.append(entry)
+    return retired
+
+
+def _days_since(stamp, today):
+    """Whole days from `stamp` to `today`, or 0 if either date is unreadable.
+
+    0 keeps an unparseable stamp below every threshold, so bad data delays a
+    retirement instead of forcing one.
+    """
+    try:
+        start = datetime.strptime(stamp, '%Y-%m-%d').date()
+        end = datetime.strptime(today, '%Y-%m-%d').date()
+    except (TypeError, ValueError):
+        return 0
+    return (end - start).days
+
+
 def _amazon_description(job):
     """Join Amazon's split description fields into one gate-readable body.
 
@@ -1094,6 +1225,14 @@ def main():
         print(f'  DROP [over-experienced] {_oneline(entry.get("company", ""))} — '
               f'{_oneline(entry.get("role", ""))}')
 
+    # Retire rows whose req has left its board's feed. Nothing else can retire a
+    # Workday/Ashby/Oracle/Greenhouse row: those hosts answer 200 for a job that
+    # no longer exists, so check_links.py never sees one die.
+    vanished = retire_vanished_listings(listings, raw_jobs, today)
+    for entry in vanished:
+        print(f'  RETIRED [vanished] {_oneline(entry.get("company", ""))} — '
+              f'{_oneline(entry.get("role", ""))}')
+
     existing_urls = {normalize_url(e.get('url', '')) for e in listings if e.get('url')}
     # Secondary key catches the same role reposted per-location under distinct
     # req-ID URLs (e.g. one "Intern - Software Engineer" ×10) that URL dedup
@@ -1136,6 +1275,10 @@ def main():
             row['url'] = url
             row.pop('closed', None)
             row.pop('closed_date', None)
+            # Clear the absence streak too: a revived row that later vanishes
+            # again must earn a fresh VANISHED_DAYS grace period, not inherit a
+            # months-old stamp and retire on the next run.
+            row.pop('missing_since', None)
             existing_urls.add(normalize_url(url))
             revived += 1
             print(f'  REVIVED {_oneline(job["company"])} — {_oneline(job["title"])}')
@@ -1167,10 +1310,14 @@ def main():
             seen[job['id']] = today
     seen = prune_seen(seen, today)
 
+    # `missing_since` stamps land on rows that stay, so a run that only starts a
+    # streak still has to save listings.json or the streak resets every run.
+    pending = sum(1 for e in listings if e.get('missing_since'))
     changed = (added or reclassified or revived or purged or over_exp or rejected
-               or renormalized)
+               or renormalized or vanished or pending)
     print(f'\nAdded {added} new listing(s), revived {revived}, '
           f'reclassified {reclassified}, purged {purged}, '
+          f'retired {len(vanished)} vanished ({pending} more missing), '
           f'dropped {len(over_exp)} over-experienced + {len(rejected)} rejected-title')
 
     if args.dry_run:
