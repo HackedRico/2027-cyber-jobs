@@ -33,6 +33,7 @@ from classify import (
     exceeds_experience_cap,
     is_cyber_title,
     is_rejected_title,
+    is_us_location,
     listing_dedup_key,
     normalize_location,
     prune_seen,
@@ -731,6 +732,92 @@ def retire_vanished_listings(listings, raw_jobs, today):
     return retired
 
 
+def _location_is_broken(location):
+    # Judged per part: is_us_location accepts "Az; Remote (US)" on the strength
+    # of its second part, which would leave the wrecked first part on the board.
+    # A part the normalizer would decay to something non-US ("Ma, US" -> "Ma")
+    # is broken too, so this does not depend on renormalize_locations having
+    # run first.
+    parts = [p for p in re.split(r'[;|]', location or '') if p.strip()]
+    return not parts or any(
+        not is_us_location(p) or not is_us_location(normalize_location(p)) for p in parts)
+
+
+def repair_broken_locations(listings, raw_jobs):
+    """Re-derive a stored location that no longer reads as a US one.
+
+    Returns (kept, repaired, folded). `repaired` rows carry their new location
+    and come back as (entry, before, after). `folded` rows were removed from
+    `kept`: the repair would have given them the (company, role, location) key
+    another live row already holds, the duplicate the insert path's dedup
+    exists to refuse (RTX posted "Systems Engineer I, V&V Testing" twice at
+    Aguadilla, one copy wrecked to "Pr").
+
+    `renormalize_locations` re-runs the normalizer over the string a row already
+    holds, which cannot help a row the normalizer itself destroyed:
+    "US-AZ-TUCSON-805 ~ 1151 E Hermans Rd" collapsed to "Az" before #18 repaired
+    the country-prefix bug, and no later pass recovers Tucson from two letters.
+    Such a row also fails the US-only filter, so no other pass can reach it.
+    Every run already fetches the live posting, so take the location from there.
+
+    Guardrails follow `retire_vanished_listings`: Community rows carry a
+    maintainer's judgment, and a row is matched to its requisition by
+    fingerprint so an unfamiliar URL shape is left alone. A live location is
+    accepted only when its RAW string passes `is_us_location`, the gate
+    ingestion applies; the normalizer is not a gate on its own, since it turns
+    "Remote - India (US business hours)" into "Remote (US)", and a req that
+    moved abroad must not be rewritten onto a US-only board. Rows whose every
+    stored part still reads as US are never touched, so a board that reorders a
+    multi-location req cannot churn the file run after run.
+    """
+    candidates = []
+    for entry in listings:
+        if entry.get('source') == 'Community':
+            continue
+        if not _location_is_broken(entry.get('location', '')):
+            continue
+        fingerprint = job_fingerprint(entry.get('company', ''), entry.get('source', ''),
+                                      entry.get('url', ''))
+        if fingerprint:
+            candidates.append((entry, fingerprint))
+    if not candidates:
+        return listings, [], []
+
+    # Index only the companies that have a candidate: raw_jobs holds ~45k
+    # postings and almost every run has nothing to repair.
+    wanted = {entry.get('company', '') for entry, _ in candidates}
+    live = {}
+    for job in raw_jobs:
+        if job.get('company', '') not in wanted:
+            continue
+        fingerprint = job_fingerprint(job.get('company', ''), job.get('board', ''),
+                                      job.get('url', ''))
+        if fingerprint:
+            live.setdefault(fingerprint, job.get('location', '') or '')
+
+    held = {listing_dedup_key(e.get('company', ''), e.get('role', ''), e.get('location', ''))
+            for e in listings}
+    repaired, folded = [], []
+    for entry, fingerprint in candidates:
+        raw = live.get(fingerprint, '')
+        after = normalize_location(raw)
+        if not is_us_location(raw) or not is_us_location(after):
+            continue
+        before = entry.get('location', '')
+        if after == before:
+            continue
+        key = listing_dedup_key(entry.get('company', ''), entry.get('role', ''), after)
+        if key in held:
+            folded.append(entry)
+            continue
+        held.add(key)
+        entry['location'] = after
+        repaired.append((entry, before, after))
+    gone = {id(e) for e in folded}
+    kept = [e for e in listings if id(e) not in gone]
+    return kept, repaired, folded
+
+
 def _days_since(stamp, today):
     """Whole days from `stamp` to `today`, or 0 if either date is unreadable.
 
@@ -1225,6 +1312,17 @@ def main():
         print(f'  DROP [over-experienced] {_oneline(entry.get("company", ""))} — '
               f'{_oneline(entry.get("role", ""))}')
 
+    # A location the normalizer destroyed cannot be recovered by normalizing it
+    # again, so re-read it off the live posting. Runs after the drop passes so a
+    # row leaving the board this run is not logged as repaired first.
+    listings, repaired, folded = repair_broken_locations(listings, raw_jobs)
+    for entry, before, after in repaired:
+        print(f'  REPAIRED [location] {_oneline(entry.get("company", ""))} — '
+              f'{_oneline(entry.get("role", ""))}: {before!r} -> {after!r}')
+    for entry in folded:
+        print(f'  DROP [duplicate-after-repair] {_oneline(entry.get("company", ""))} — '
+              f'{_oneline(entry.get("role", ""))}')
+
     # Retire rows whose req has left its board's feed. Nothing else can retire a
     # Workday/Ashby/Oracle/Greenhouse row: those hosts answer 200 for a job that
     # no longer exists, so check_links.py never sees one die.
@@ -1314,9 +1412,10 @@ def main():
     # streak still has to save listings.json or the streak resets every run.
     pending = sum(1 for e in listings if e.get('missing_since'))
     changed = (added or reclassified or revived or purged or over_exp or rejected
-               or renormalized or vanished or pending)
+               or renormalized or repaired or folded or vanished or pending)
     print(f'\nAdded {added} new listing(s), revived {revived}, '
           f'reclassified {reclassified}, purged {purged}, '
+          f'repaired {len(repaired)} location(s) + folded {len(folded)} duplicate(s), '
           f'retired {len(vanished)} vanished ({pending} more missing), '
           f'dropped {len(over_exp)} over-experienced + {len(rejected)} rejected-title')
 

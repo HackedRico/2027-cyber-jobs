@@ -382,6 +382,76 @@ def test_retire_vanished_needs_the_whole_board_not_one_posting():
           [e['role'] for e in retired], ['Gone'])
 
 
+def test_repair_broken_locations():
+    """A location the normalizer destroyed is re-read off the live posting."""
+    wd = ('https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/'
+          'US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/'
+          'Systems-Security-Engineer-I_01874755')
+    gh = 'https://boards.greenhouse.io/acme/jobs/'
+    listings = [
+        # The real regression: "US-AZ-TUCSON-801 ~ ..." became "Az" (#18) and
+        # no amount of re-normalizing two letters brings Tucson back.
+        _listing('RTX', 'Systems Security Engineer I', wd, source='Workday', location='Az'),
+        # Already fine, and the live posting disagrees: must not be rewritten,
+        # or a board that reorders a multi-location req churns the file forever.
+        _listing('Acme', 'Healthy', gh + '1', location='Austin, TX'),
+        # Broken, but a maintainer wrote it.
+        _listing('Acme', 'Maintainer Pick', gh + '2', source='Community', location='Zz'),
+        # Broken, but this run never saw the req / the live location is blank.
+        _listing('Acme', 'Unseen', gh + '3', location='Zz'),
+        _listing('Acme', 'No Live Location', gh + '4', location='Zz'),
+        # Broken, but the URL carries no req id to match on.
+        _listing('Acme', 'No Req Id', 'https://acme.com/careers', location='Zz'),
+        # Broken, and the req has moved abroad: a US-only board must not gain a
+        # London row because a repair pass rewrote it.
+        _listing('Acme', 'Moved Abroad', gh + '5', location='Zz'),
+        # Broken, and the live string only looks US once normalized. Ingestion
+        # judges the raw string, so the repair must too.
+        _listing('Acme', 'Offshore Remote', gh + '6', location='Zz'),
+        # One wrecked part beside a healthy one is still a candidate.
+        _listing('Acme', 'Half Wrecked', gh + '7', location='Az; Remote (US)'),
+        # Repairing this row would give it the key 'Healthy' already holds, so it
+        # is folded away instead of becoming a duplicate row on the board.
+        _listing('Acme', 'Healthy', gh + '8', location='Tx'),
+        # Mid-decay: still reads as US today, but the normalizer turns it into
+        # "Ma" next run, so it is repaired now rather than after that happens.
+        _listing('Acme', 'Decaying', gh + '9', location='Ma, US'),
+    ]
+    raw = [
+        {'company': 'RTX', 'board': 'Workday', 'url': wd,
+         'location': 'US-AZ-TUCSON-801 ~ 1151 E Hermans Rd ~ BLDG 801'},
+        {'company': 'Acme', 'board': 'Greenhouse', 'url': gh + '1', 'location': 'Remote (US)'},
+        {'company': 'Acme', 'board': 'Greenhouse', 'url': gh + '2', 'location': 'Austin, TX'},
+        {'company': 'Acme', 'board': 'Greenhouse', 'url': gh + '4', 'location': '   '},
+        {'company': 'Acme', 'board': 'Greenhouse', 'url': gh + '5', 'location': 'London, UK'},
+        {'company': 'Acme', 'board': 'Greenhouse', 'url': gh + '6',
+         'location': 'Remote - India (US business hours)'},
+        {'company': 'Acme', 'board': 'Greenhouse', 'url': gh + '7',
+         'location': 'US-AZ-TUCSON-801 ~ 1151 E Hermans Rd; Remote (US)'},
+        {'company': 'Acme', 'board': 'Greenhouse', 'url': gh + '8', 'location': 'Austin, TX'},
+        {'company': 'Acme', 'board': 'Greenhouse', 'url': gh + '9',
+         'location': 'US-MA-TEWKSBURY-TB1 ~ 50 Apple Hill Dr ~ ASSABET BLDG'},
+    ]
+    kept, repaired, folded = sj.repair_broken_locations(listings, raw)
+    check('only destroyed locations with a US live posting are repaired',
+          [(e['role'], before, after) for e, before, after in repaired],
+          [('Systems Security Engineer I', 'Az', 'Tucson, AZ'),
+           ('Half Wrecked', 'Az; Remote (US)', 'Tucson, AZ; Remote (US)'),
+           ('Decaying', 'Ma, US', 'Tewksbury, MA')])
+    check('a repair that would duplicate another row folds the row away',
+          [(e['role'], e['location']) for e in folded], [('Healthy', 'Tx')])
+    check('every other row keeps its stored location',
+          {e['role']: e['location'] for e in kept},
+          {'Systems Security Engineer I': 'Tucson, AZ', 'Healthy': 'Austin, TX',
+           'Maintainer Pick': 'Zz', 'Unseen': 'Zz', 'No Live Location': 'Zz',
+           'No Req Id': 'Zz', 'Moved Abroad': 'Zz', 'Offshore Remote': 'Zz',
+           'Half Wrecked': 'Tucson, AZ; Remote (US)', 'Decaying': 'Tewksbury, MA'})
+    check('the folded duplicate is gone from the kept rows', len(kept), len(listings) - 1)
+    # Idempotent: a repaired row now reads as US, so a second pass skips it.
+    check('a repaired row is not repaired again',
+          sj.repair_broken_locations(kept, raw)[1:], ([], []))
+
+
 # --- board orchestration: pooled scraping keeps config order -------------------
 def test_scrape_boards_preserves_config_order():
     import threading
@@ -499,6 +569,8 @@ def test_compare_runs_reports_flips_only():
         'Checking Acme (greenhouse/acme)... ok (12 postings, 1.0s)\n'
         'Checking Beta (lever/beta)... ok (3 postings, 0.4s)\n'
         '  RECLASSIFY [earlycareer -> newgrad] Acme — Analyst\n'
+        "  REPAIRED [location] Acme — Systems Engineer I: 'Az' -> 'Tucson, AZ'\n"
+        "  REPAIRED [location] Acme — Lost Repair: 'Ma' -> 'Woburn, MA'\n"
         '  NEW [newgrad] Acme — Security Analyst - New Grad @ Austin, TX\n'
         '  NEW [earlycareer] Acme — Security Engineer II @ Remote (US)\n'
         '  NEW [intern] Beta — SOC Intern @ Boston, MA\n')
@@ -508,7 +580,11 @@ def test_compare_runs_reports_flips_only():
         '  RECLASSIFY [earlycareer -> newgrad] Acme — Analyst\n'
         '  DROP [rejected-title] Acme — Physical Security Guard\n'
         '  NEW [newgrad] Acme — Security Analyst - New Grad @ Austin, TX\n'
-        '  NEW [intern] Acme — Security Engineer II @ Remote (US)\n')
+        '  NEW [intern] Acme — Security Engineer II @ Remote (US)\n'
+        "  REPAIRED [location] Acme — Systems Engineer I: 'Az' -> 'Tucson, AZ'\n"
+        "  REPAIRED [location] Acme — Intern: Cybersecurity Undergrad: 'Ar' -> 'Bentonville, AR'\n"
+        "  REPAIRED [location] Acme — Site Intern: 'Ri' -> 'Portsmouth, RI'\n"
+        "  REPAIRED [location] Acme — Site Intern: 'Ma' -> 'Tewksbury, MA'\n")
     check('compare_runs parses board status and count',
           before.boards['Beta (lever/beta)'], ('ok', 3))
     report = compare_runs.diff(before, after)
@@ -520,6 +596,16 @@ def test_compare_runs_reports_flips_only():
           '  - Acme — Physical Security Guard [rejected-title]' in report, True)
     check('compare_runs ignores a reclassify present in both runs',
           any('Analyst:' in line for line in report), False)
+    check('compare_runs ignores a repair present in both runs',
+          any('Systems Engineer I' in line for line in report), False)
+    check('compare_runs keeps a title containing ": " whole in a repair line',
+          "  - Acme — Intern: Cybersecurity Undergrad: 'Ar' -> 'Bentonville, AR'" in report, True)
+    check('compare_runs lists same-title repairs at different sites separately',
+          [line for line in report if 'Site Intern' in line],
+          ["  - Acme — Site Intern: 'Ma' -> 'Tewksbury, MA'",
+           "  - Acme — Site Intern: 'Ri' -> 'Portsmouth, RI'"])
+    check('compare_runs lists a repair only the first run made',
+          "  - Acme — Lost Repair: 'Ma' -> 'Woburn, MA'" in report, True)
     check('compare_runs lists a board status change',
           '  - Beta (lever/beta): ok (3) -> FAILED (0)' in report, True)
     check('compare_runs reports identical runs as equivalent',
@@ -537,6 +623,7 @@ for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_drop_over_experienced, test_job_fingerprint_reads_every_ats_url_shape,
            test_retire_vanished_listings,
            test_retire_vanished_needs_the_whole_board_not_one_posting,
+           test_repair_broken_locations,
            test_scrape_boards_preserves_config_order,
            test_build_tasks_honors_board_and_limit, test_board_health_streaks,
            test_board_health_migrates_and_survives_a_corrupt_baseline,
