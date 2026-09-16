@@ -52,7 +52,7 @@ python .github/scripts/test_classification.py         # classification spot chec
 python .github/scripts/test_scrapers.py               # offline ATS-parser tests
 python .github/scripts/scrape_jobs.py --dry-run       # full scrape + classify, writes NOTHING
 python .github/scripts/scrape_jobs.py --dry-run --board greenhouse --limit 3  # fast single-board iteration
-python .github/scripts/check_slugs.py                 # find configured slugs that return no jobs
+python .github/scripts/check_slugs.py                 # find configured slugs that return no jobs (exits 1 if any)
 ```
 
 > ⚠️ `python .github/scripts/scrape_jobs.py` **without** `--dry-run` hits every live API and overwrites `listings.json`, `README.md`, `companies.md`, and `.github/data/`. Use `--dry-run` for local testing.

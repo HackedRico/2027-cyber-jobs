@@ -47,7 +47,11 @@ def main():
         print(f'\n{len(problems)} slug(s) to review')
     else:
         print('All configured slugs returned postings.')
+    # Exit non-zero so the sweep can gate a workflow or a pre-merge check on a
+    # companies.yml change, instead of a clean-looking green log that nobody
+    # reads to the bottom.
+    return 1 if problems else 0
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())

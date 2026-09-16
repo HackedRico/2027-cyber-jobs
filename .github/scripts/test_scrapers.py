@@ -7,7 +7,9 @@ Exercises the response-shape handling that only broke in production before —
 location extraction, pagination stops, intern hints, schema drift, and the
 retry/backoff fetch layer — without touching the network.
 """
+import json
 import sys
+import tempfile
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
@@ -318,6 +320,62 @@ def test_build_tasks_honors_board_and_limit():
           workday.args, ('W', 'w', 'wd5', 'Ext', False, ['grc']))
 
 
+def test_board_health_streaks():
+    """A dead board has to keep warning, not warn once and go quiet."""
+    zero = [{'label': 'Acme', 'status': 'zero', 'count': 0}]
+    # Regression: postings last run, none now.
+    history, regressed, dead = sj.board_health(
+        zero, {'Acme': {'count': 12, 'zero_runs': 0, 'last_nonzero': '2026-09-13'}},
+        '2026-09-14')
+    check('board_health reports a fresh regression', regressed, [('Acme', 12)])
+    check('a one-run outage is not yet called dead', dead, [])
+    check('the streak starts at one', history['Acme']['zero_runs'], 1)
+    check('the last healthy date is carried forward',
+          history['Acme']['last_nonzero'], '2026-09-13')
+
+    # Keep it silent: the streak grows and the alert eventually fires, and
+    # keeps firing — the old count-only baseline reported nothing from here on.
+    for run in range(2, sj.ZERO_RUN_ALERT + 2):
+        history, regressed, dead = sj.board_health(zero, history, '2026-09-14')
+        check(f'run {run}: no repeat regression once the count is already 0',
+              regressed, [])
+        check(f'run {run}: streak', history['Acme']['zero_runs'], run)
+        want = [('Acme', run, '2026-09-13')] if run >= sj.ZERO_RUN_ALERT else []
+        check(f'run {run}: dead list', dead, want)
+
+    # Recovery resets everything.
+    history, regressed, dead = sj.board_health(
+        [{'label': 'Acme', 'status': 'ok', 'count': 7}], history, '2026-09-20')
+    check('a recovered board clears its streak', history['Acme'],
+          {'count': 7, 'zero_runs': 0, 'last_nonzero': '2026-09-20'})
+    check('a recovered board is not reported dead', dead, [])
+
+
+def test_board_health_migrates_and_survives_a_corrupt_baseline():
+    original = sj.BOARD_BASELINE_FILE
+    try:
+        sj.BOARD_BASELINE_FILE = Path(tempfile.mkdtemp()) / 'baseline.json'
+        check('a missing baseline reads as empty', sj.load_board_baseline(), {})
+        sj.BOARD_BASELINE_FILE.write_text('{not json')
+        check('a corrupt baseline reads as empty', sj.load_board_baseline(), {})
+        # The legacy {label: count} shape has no history to inherit.
+        sj.BOARD_BASELINE_FILE.write_text(json.dumps({'Old': 3, 'Dead': 0}))
+        check('legacy int entries migrate', sj.load_board_baseline(),
+              {'Old': {'count': 3, 'zero_runs': 0, 'last_nonzero': None},
+               'Dead': {'count': 0, 'zero_runs': 0, 'last_nonzero': None}})
+        # A board configured with a bad slug from day one has no prior count, so
+        # it never regressed and the old baseline could never flag it.
+        stats = [{'label': 'Dead', 'status': 'zero', 'count': 0}]
+        history = sj.load_board_baseline()
+        for _run in range(1, sj.ZERO_RUN_ALERT + 1):
+            history, regressed, dead = sj.board_health(stats, history, '2026-09-14')
+        check('a never-healthy board is eventually reported dead',
+              dead, [('Dead', sj.ZERO_RUN_ALERT, None)])
+        check('...with no phantom regression', regressed, [])
+    finally:
+        sj.BOARD_BASELINE_FILE = original
+
+
 for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_ashby, test_ashby_schema_drift_warns,
            test_smartrecruiters_pagination_short_page_stops, test_oracle,
@@ -327,7 +385,8 @@ for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_smartrecruiters_missing_total_keeps_paging,
            test_amazon_description_includes_qualifications,
            test_drop_over_experienced, test_scrape_boards_preserves_config_order,
-           test_build_tasks_honors_board_and_limit):
+           test_build_tasks_honors_board_and_limit, test_board_health_streaks,
+           test_board_health_migrates_and_survives_a_corrupt_baseline):
     fn()
 
 if failures:

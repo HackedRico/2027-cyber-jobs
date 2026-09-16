@@ -679,6 +679,10 @@ def scrape_usajobs():
     api_key = os.environ.get('USAJOBS_API_KEY')
     email = os.environ.get('USAJOBS_EMAIL', 'cyber-jobs-scraper@example.com')
     if not api_key:
+        # Say so explicitly: an unset secret otherwise looks exactly like a
+        # board with no cyber openings, and the zero-run tracker would file it
+        # under dead slugs.
+        print('  [USAJOBS] USAJOBS_API_KEY not set — skipping federal postings')
         return []
     headers = {
         'Host': 'data.usajobs.gov',
@@ -765,29 +769,99 @@ def save_seen_jobs(seen):
         json.dump(dict(sorted(seen.items())), f, indent=2)
 
 
-def report_board_health(board_stats, persist=True):
-    """Print a run summary, emit GitHub annotations for regressions, roll baseline.
+# A board that yields nothing for this many consecutive runs is reported as
+# likely dead. The scrape runs twice a day, so this is ~3 days of silence:
+# long enough to ride out a genuine hiring pause at a small vendor, short
+# enough that a typo'd slug surfaces the week it lands.
+ZERO_RUN_ALERT = 6
 
-    A board that reliably returned postings but now returns none is flagged as a
-    likely broken slug / ATS drift — otherwise breakage is invisible because a
-    dead board looks identical to one with no new cyber jobs.
+
+def load_board_baseline():
+    """Return {label: {count, zero_runs, last_nonzero}}, migrating the old shape.
+
+    The file used to hold a bare {label: count}. Those entries carry no history,
+    so a board already sitting at zero starts its streak from this run rather
+    than pretending to know how long it has been silent.
     """
+    if not BOARD_BASELINE_FILE.exists():
+        return {}
+    try:
+        data = json.loads(BOARD_BASELINE_FILE.read_text())
+    except ValueError:
+        return {}
+    if not isinstance(data, dict):
+        return {}
+    history = {}
+    for label, value in data.items():
+        if isinstance(value, dict):
+            history[label] = {
+                'count': value.get('count') or 0,
+                'zero_runs': value.get('zero_runs') or 0,
+                'last_nonzero': value.get('last_nonzero'),
+            }
+        elif isinstance(value, int):
+            history[label] = {'count': value, 'zero_runs': 0, 'last_nonzero': None}
+    return history
+
+
+def board_health(board_stats, baseline, today):
+    """Fold this run's counts into the stored per-board history.
+
+    Returns (history, regressed, dead): `regressed` boards produced postings
+    last run and none this one; `dead` boards have been silent for
+    ZERO_RUN_ALERT consecutive runs.
+
+    The count-only baseline could report the first case but never the second.
+    It overwrote the previous count with 0, so a board that broke warned on
+    exactly one run and then compared 0 > 0 forever after — and a board that
+    was mis-configured from the day it was added never warned at all. Both
+    shapes of breakage are invisible until someone diffs the baseline by hand,
+    which is how nine boards stayed broken long enough to need repairing in
+    bulk (#14). Keeping the streak makes the warning stick until it is fixed.
+    """
+    history, regressed, dead = {}, [], []
+    for b in board_stats:
+        label = b['label']
+        prev = baseline.get(label) or {}
+        if b['count'] > 0:
+            history[label] = {'count': b['count'], 'zero_runs': 0,
+                              'last_nonzero': today}
+            continue
+        streak = prev.get('zero_runs', 0) + 1
+        history[label] = {'count': 0, 'zero_runs': streak,
+                          'last_nonzero': prev.get('last_nonzero')}
+        if prev.get('count', 0) > 0:
+            regressed.append((label, prev['count']))
+        if streak >= ZERO_RUN_ALERT:
+            dead.append((label, streak, prev.get('last_nonzero')))
+    dead.sort(key=lambda d: (-d[1], d[0]))
+    return history, regressed, dead
+
+
+def report_board_health(board_stats, today=None, persist=True):
+    """Print a run summary, emit GitHub annotations, roll the board history.
+
+    Breakage is otherwise invisible: a dead board looks identical to one with
+    no new cyber jobs. Two annotations cover it — a board that returned
+    postings last run and none this one (a fresh broken slug / ATS drift), and
+    a board that has been silent for ZERO_RUN_ALERT runs, which keeps being
+    reported until someone fixes or drops it.
+    """
+    today = today or datetime.now().strftime('%Y-%m-%d')
     ok = sum(1 for b in board_stats if b['status'] == 'ok')
     zero = [b for b in board_stats if b['status'] == 'zero']
     broken = [b for b in board_stats if b['status'] in ('FAILED', 'CRASHED')]
     total_raw = sum(b['count'] for b in board_stats)
 
-    baseline = {}
-    if BOARD_BASELINE_FILE.exists():
-        try:
-            baseline = json.loads(BOARD_BASELINE_FILE.read_text())
-        except ValueError:
-            baseline = {}
-    regressed = [b for b in board_stats
-                 if b['count'] == 0 and baseline.get(b['label'], 0) > 0]
-    for b in regressed:
-        print(f'::warning::[{b["label"]}] returned 0 postings but had '
-              f'{baseline[b["label"]]} last run (broken slug or ATS drift?)')
+    history, regressed, dead = board_health(board_stats, load_board_baseline(), today)
+    for label, was in regressed:
+        print(f'::warning::[{label}] returned 0 postings but had {was} last run '
+              f'(broken slug or ATS drift?)')
+    if dead:
+        # One aggregated annotation, not one per board: a long-neglected config
+        # can hold dozens, and 40 warnings bury the regression above them.
+        print(f'::warning::{len(dead)} board(s) have returned 0 postings for '
+              f'{ZERO_RUN_ALERT}+ consecutive runs — see the run summary')
 
     lines = [
         '## Scrape run summary',
@@ -799,7 +873,15 @@ def report_board_health(board_stats, persist=True):
     if broken:
         lines.append('- ⚠️ Failed/crashed: ' + ', '.join(b['label'] for b in broken))
     if regressed:
-        lines.append('- ⚠️ Regressed to zero: ' + ', '.join(b['label'] for b in regressed))
+        lines.append('- ⚠️ Regressed to zero: '
+                     + ', '.join(label for label, _ in regressed))
+    if dead:
+        lines += ['', f'<details><summary>💀 Silent for {ZERO_RUN_ALERT}+ runs '
+                      f'({len(dead)})</summary>', '']
+        lines += [f'- `{label}` — {runs} runs, '
+                  + (f'last postings {last}' if last else 'no postings on record')
+                  for label, runs, last in dead]
+        lines += ['', '</details>']
     summary = '\n'.join(lines)
     print('\n' + summary)
 
@@ -810,9 +892,8 @@ def report_board_health(board_stats, persist=True):
 
     if persist:
         BOARD_BASELINE_FILE.parent.mkdir(parents=True, exist_ok=True)
-        BOARD_BASELINE_FILE.write_text(json.dumps(
-            {b['label']: b['count'] for b in board_stats},
-            indent=2, sort_keys=True))
+        BOARD_BASELINE_FILE.write_text(
+            json.dumps(history, indent=2, sort_keys=True))
 
 
 def load_listings():
@@ -978,10 +1059,10 @@ def main():
     # Only a full run may roll the baseline — a --board/--limit run holds counts
     # for a subset and would blind the zero-regression check for the rest.
     full_run = not args.dry_run and not args.board and not args.limit
-    report_board_health(board_stats, persist=full_run)
+    today = datetime.now().strftime('%Y-%m-%d')
+    report_board_health(board_stats, today, persist=full_run)
     print(f'\nScraped {len(raw_jobs)} raw postings; filtering...')
 
-    today = datetime.now().strftime('%Y-%m-%d')
     listings = load_listings()
 
     # Drop long-closed rows so the board doesn't accumulate dead postings.
