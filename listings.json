@@ -45,7 +45,8 @@
     "clearance": false,
     "url": "https://boards.greenhouse.io/andurilindustries/jobs/5159902007?gh_jid=5159902007",
     "source": "Greenhouse",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Datadog",
@@ -67,7 +68,8 @@
     "clearance": false,
     "url": "https://job-boards.greenhouse.io/dragos/jobs/5285559008",
     "source": "Greenhouse",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Pinterest",
@@ -78,7 +80,8 @@
     "clearance": false,
     "url": "https://www.pinterestcareers.com/jobs/?gh_jid=7732971",
     "source": "Greenhouse",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Pinterest",
@@ -111,7 +114,8 @@
     "clearance": true,
     "url": "https://caci.wd1.myworkdayjobs.com/External/job/Colorado-Springs-CO-US/Space-Systems-Cyber-Security-Engineer---Junior_327209",
     "source": "Workday",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "CrowdStrike",
@@ -122,7 +126,8 @@
     "clearance": true,
     "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Sunnyvale-CA/Engineer-II--Threat-Detection---Windows--Hybrid-_R29387",
     "source": "Workday",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "CrowdStrike",
@@ -133,7 +138,8 @@
     "clearance": true,
     "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Analyst-I--Falcon-Complete--Remote-_R29191",
     "source": "Workday",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "CrowdStrike",
@@ -144,7 +150,8 @@
     "clearance": true,
     "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Analyst-I--Falcon-Complete--Hybrid--St-Louis-_R28818",
     "source": "Workday",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "CrowdStrike",
@@ -155,7 +162,8 @@
     "clearance": true,
     "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Associate-Analyst--Falcon-Complete--Hybrid-_R28817",
     "source": "Workday",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "CrowdStrike",
@@ -166,7 +174,8 @@
     "clearance": false,
     "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote-MD/Platform-Operations-Associate-Consultant---Weekend-Shift--Remote-_R27449",
     "source": "Workday",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "CrowdStrike",
@@ -177,7 +186,8 @@
     "clearance": false,
     "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Platform-Operations-Associate-Consultant---Weekend-Shift--Remote--CAN-_R27847",
     "source": "Workday",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "GDIT",
@@ -188,7 +198,8 @@
     "clearance": true,
     "url": "https://gdit.wd5.myworkdayjobs.com/External_Career_Site/job/USA-OH-Dayton/Security-Specialist---Administrative--Junior-_RQ223181-1",
     "source": "Workday",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Leidos",
@@ -210,7 +221,8 @@
     "clearance": false,
     "url": "https://leidos.wd5.myworkdayjobs.com/External/job/Huntsville-AL/IT-Security-Engineer-II_R-00183908-1",
     "source": "Workday",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Leidos",
@@ -221,7 +233,8 @@
     "clearance": true,
     "url": "https://leidos.wd5.myworkdayjobs.com/External/job/Huntsville-AL/IT-Security-Engineer-2_R-00184476",
     "source": "Workday",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Northrop Grumman",
@@ -232,7 +245,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-Palmdale/XMLNAME-2026-Associate-Classified-Cybersecurity-Analyst-Pathways-Program---Palmdale-CA_R10238558",
     "source": "Workday",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Northrop Grumman",
@@ -243,7 +257,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-Redondo-Beach/Cyber-Software-Engineer---Level-1-2_R10238442",
     "source": "Workday",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Northrop Grumman",
@@ -254,7 +269,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Virginia-Chantilly/R10206390-22026-Associate-Cyber-Software-Engineer---Chantilly-VA_R10236425",
     "source": "Workday",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Northrop Grumman",
@@ -265,7 +281,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Maryland-Annapolis-Junction/XMLNAME-2026----Associate-Cyber-Software-Engineer---Annapolis-Junction-MD_R10238328",
     "source": "Workday",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Northrop Grumman",
@@ -276,7 +293,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Maryland-Annapolis-Junction/Associate-Cyber-Software-Engineer_R10234416",
     "source": "Workday",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "NVIDIA",
@@ -287,7 +305,8 @@
     "clearance": false,
     "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-MA-Westford/Research-Scientist--Security-and-Privacy---PhD-New-College-Grad-2026_JR2008481-1",
     "source": "Workday",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Amazon",
@@ -527,7 +546,8 @@
     "clearance": true,
     "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/Junior-DevOps-Engineer_JR101293",
     "source": "Workday",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Nightwing",
@@ -560,7 +580,8 @@
     "clearance": true,
     "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/Cloud-Software-Engineer-2_01672571",
     "source": "Workday",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Nightwing",
@@ -582,7 +603,8 @@
     "clearance": true,
     "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/Junior-Software-Developer_JR101838",
     "source": "Workday",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Palo Alto Networks",
@@ -681,7 +703,8 @@
     "clearance": false,
     "url": "https://job-boards.greenhouse.io/anthropic/jobs/5319702008",
     "source": "Greenhouse",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Anthropic",
@@ -703,7 +726,8 @@
     "clearance": false,
     "url": "https://job-boards.greenhouse.io/anthropic/jobs/5174857008",
     "source": "Greenhouse",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "OpenAI",
@@ -725,7 +749,8 @@
     "clearance": false,
     "url": "https://jobs.ashbyhq.com/openai/fec03292-5cbe-4f58-93db-14ce7d7e2827",
     "source": "Ashby",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "CACI",
@@ -736,7 +761,8 @@
     "clearance": true,
     "url": "https://caci.wd1.myworkdayjobs.com/External/job/Florham-Park-NJ-US/Cyber-Software-Engineer--Junior_328835",
     "source": "Workday",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "CACI",
@@ -747,7 +773,8 @@
     "clearance": true,
     "url": "https://caci.wd1.myworkdayjobs.com/External/job/Camp-Smith-HI-US/Information-Security-Analyst-II_328082",
     "source": "Workday",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "CACI",
@@ -898,7 +925,8 @@
     "clearance": true,
     "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Palm-Bay-FL/Vulnerability-Researcher-Intern---2026_JR101100",
     "source": "Workday",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Nightwing",
@@ -920,7 +948,8 @@
     "clearance": true,
     "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/Software---Hardware-Engineering---Intern_JR101733",
     "source": "Workday",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Nightwing",
@@ -964,7 +993,8 @@
     "clearance": false,
     "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/PhD-Research-Intern--Security-and-Privacy---Fall-2026_JR2010492-1",
     "source": "Workday",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Palo Alto Networks",
@@ -1019,7 +1049,8 @@
     "clearance": false,
     "url": "https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/RTP-North-Carolina-US/AI-Security-Research-Engineer-II--Full-Time-----United-States-_2018328",
     "source": "Workday",
-    "date_added": "2026-07-13"
+    "date_added": "2026-07-13",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Abnormal AI",
@@ -1065,7 +1096,8 @@
     "clearance": false,
     "url": "https://job-boards.greenhouse.io/anthropic/jobs/5319592008",
     "source": "Greenhouse",
-    "date_added": "2026-07-14"
+    "date_added": "2026-07-14",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Anthropic",
@@ -1076,7 +1108,8 @@
     "clearance": false,
     "url": "https://job-boards.greenhouse.io/anthropic/jobs/5319554008",
     "source": "Greenhouse",
-    "date_added": "2026-07-14"
+    "date_added": "2026-07-14",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Anthropic",
@@ -1098,7 +1131,8 @@
     "clearance": false,
     "url": "https://boards.greenhouse.io/cloudflare/jobs/8060959?gh_jid=8060959",
     "source": "Greenhouse",
-    "date_added": "2026-07-16"
+    "date_added": "2026-07-16",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "CrowdStrike",
@@ -1109,7 +1143,8 @@
     "clearance": true,
     "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote-MN/Engineer-II--Advanced-Research--Remote-_R29400",
     "source": "Workday",
-    "date_added": "2026-07-16"
+    "date_added": "2026-07-16",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "GDIT",
@@ -1120,7 +1155,8 @@
     "clearance": true,
     "url": "https://gdit.wd5.myworkdayjobs.com/External_Career_Site/job/USA-LA-Bossier-City/Cybersecurity-SOC-Analyst-Tier-I_RQ223491-1",
     "source": "Workday",
-    "date_added": "2026-07-16"
+    "date_added": "2026-07-16",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Nightwing",
@@ -1142,7 +1178,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Colorado-Schriever-AFB/Cybersecurity-Analyst--Level-1-or-2_R10239945",
     "source": "Workday",
-    "date_added": "2026-07-16"
+    "date_added": "2026-07-16",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Cisco",
@@ -1153,7 +1190,8 @@
     "clearance": false,
     "url": "https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/RTP-North-Carolina-US/Workday-Security-Administrator-II--Hybrid-_2013528",
     "source": "Workday",
-    "date_added": "2026-07-17"
+    "date_added": "2026-07-17",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Leidos",
@@ -1164,7 +1202,8 @@
     "clearance": true,
     "url": "https://leidos.wd5.myworkdayjobs.com/External/job/Odenton-MD/Cyberspace-Operations-Planner--Junior_R-00160633",
     "source": "Workday",
-    "date_added": "2026-07-17"
+    "date_added": "2026-07-17",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Booz Allen Hamilton",
@@ -1175,7 +1214,8 @@
     "clearance": true,
     "url": "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Rome-NY/Cybersecurity-Analyst--Junior_R0227512",
     "source": "Workday",
-    "date_added": "2026-07-17"
+    "date_added": "2026-07-17",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "CrowdStrike",
@@ -1186,7 +1226,8 @@
     "clearance": false,
     "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote-CA/Full-Stack-Engineer-II--Automation-and-Dev--Hybrid-_R29362",
     "source": "Workday",
-    "date_added": "2026-07-17"
+    "date_added": "2026-07-17",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Palo Alto Networks",
@@ -1197,7 +1238,8 @@
     "clearance": false,
     "url": "https://paloaltonetworks.wd5.myworkdayjobs.com/panwexternalcareers/job/Remote---USA---CA/AIRS-Solutions-Specialist---AI-Security_JR-019757",
     "source": "Workday",
-    "date_added": "2026-07-17"
+    "date_added": "2026-07-17",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Amazon",
@@ -1221,7 +1263,8 @@
     "clearance": false,
     "url": "https://job-boards.greenhouse.io/osano/jobs/5325999008",
     "source": "Greenhouse",
-    "date_added": "2026-07-18"
+    "date_added": "2026-07-18",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Character AI",
@@ -1254,7 +1297,8 @@
     "clearance": false,
     "url": "https://jobs.ashbyhq.com/sentilink/3cb2885e-7a58-4a14-94d5-b7b851053408",
     "source": "Ashby",
-    "date_added": "2026-07-18"
+    "date_added": "2026-07-18",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "ReliaQuest",
@@ -1276,7 +1320,8 @@
     "clearance": true,
     "url": "https://snc.wd1.myworkdayjobs.com/SNC_External_Career_Site/job/Plano-TX/DevSecOps-PE-Engineer-II_R0029728",
     "source": "Workday",
-    "date_added": "2026-07-18"
+    "date_added": "2026-07-18",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Sierra Nevada Corporation",
@@ -1287,7 +1332,8 @@
     "clearance": true,
     "url": "https://snc.wd1.myworkdayjobs.com/SNC_External_Career_Site/job/Colorado-Springs-CO/Security-Specialist-II_R0030149-1",
     "source": "Workday",
-    "date_added": "2026-07-18"
+    "date_added": "2026-07-18",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Abnormal AI",
@@ -1335,7 +1381,8 @@
     "clearance": false,
     "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Analyst-I--Falcon-Complete--Remote-_R29479",
     "source": "Workday",
-    "date_added": "2026-07-20"
+    "date_added": "2026-07-20",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "CrowdStrike",
@@ -1357,7 +1404,8 @@
     "clearance": false,
     "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Sunnyvale-CA/Engineer-I--Data-Scientist---New-Grad--Hybrid-_R29382-1",
     "source": "Workday",
-    "date_added": "2026-07-20"
+    "date_added": "2026-07-20",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Sierra Nevada Corporation",
@@ -1368,7 +1416,8 @@
     "clearance": true,
     "url": "https://snc.wd1.myworkdayjobs.com/SNC_External_Career_Site/job/Sparks-NV/Cybersecurity-Compliance-Advisory-Analyst-I_R0030093",
     "source": "Workday",
-    "date_added": "2026-07-20"
+    "date_added": "2026-07-20",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "CrowdStrike",
@@ -1379,7 +1428,8 @@
     "clearance": true,
     "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---St-Louis-MO/Analyst-I--Falcon-Complete--Hybrid--St-Louis-_R29406",
     "source": "Workday",
-    "date_added": "2026-07-21"
+    "date_added": "2026-07-21",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Anthropic",
@@ -1401,7 +1451,8 @@
     "clearance": false,
     "url": "https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/RTP-North-Carolina-US/AI-Security-Research-Engineer_2018329-1",
     "source": "Workday",
-    "date_added": "2026-07-21"
+    "date_added": "2026-07-21",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Mastercard",
@@ -1412,7 +1463,8 @@
     "clearance": false,
     "url": "https://mastercard.wd1.myworkdayjobs.com/CorporateCareers/job/OFallon-Missouri/Security-Monitoring-and-Response-Analyst-II_R-279931",
     "source": "Workday",
-    "date_added": "2026-07-21"
+    "date_added": "2026-07-21",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Optiv",
@@ -1423,7 +1475,8 @@
     "clearance": false,
     "url": "https://optiv.wd5.myworkdayjobs.com/Optiv_Careers/job/Leawood-Kansas/Associate-SOC-Engineer---Remote--USA_2026-13891",
     "source": "Workday",
-    "date_added": "2026-07-21"
+    "date_added": "2026-07-21",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Anthropic",
@@ -1445,7 +1498,8 @@
     "clearance": false,
     "url": "https://job-boards.greenhouse.io/anthropic/jobs/5030244008",
     "source": "Greenhouse",
-    "date_added": "2026-07-22"
+    "date_added": "2026-07-22",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Netskope",
@@ -1456,7 +1510,8 @@
     "clearance": false,
     "url": "https://www.netskope.com/company/careers/open-positions/?gh_jid=7821943",
     "source": "Greenhouse",
-    "date_added": "2026-07-22"
+    "date_added": "2026-07-22",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Netskope",
@@ -1467,7 +1522,8 @@
     "clearance": false,
     "url": "https://www.netskope.com/company/careers/open-positions/?gh_jid=7821946",
     "source": "Greenhouse",
-    "date_added": "2026-07-22"
+    "date_added": "2026-07-22",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Netskope",
@@ -1478,7 +1534,8 @@
     "clearance": false,
     "url": "https://www.netskope.com/company/careers/open-positions/?gh_jid=7786997",
     "source": "Greenhouse",
-    "date_added": "2026-07-22"
+    "date_added": "2026-07-22",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Obsidian Security",
@@ -1533,7 +1590,8 @@
     "clearance": true,
     "url": "https://job-boards.greenhouse.io/twosixtechnologies/jobs/6008610004",
     "source": "Greenhouse",
-    "date_added": "2026-07-22"
+    "date_added": "2026-07-22",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Lakera",
@@ -1555,7 +1613,8 @@
     "clearance": true,
     "url": "https://caci.wd1.myworkdayjobs.com/External/job/Remote-Any-State/Cybersecurity-Engineer_328452",
     "source": "Workday",
-    "date_added": "2026-07-22"
+    "date_added": "2026-07-22",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "CACI",
@@ -1566,7 +1625,8 @@
     "clearance": true,
     "url": "https://caci.wd1.myworkdayjobs.com/External/job/High-Point-NC-US/Cybersecurity-Engineer_328450",
     "source": "Workday",
-    "date_added": "2026-07-22"
+    "date_added": "2026-07-22",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "CrowdStrike",
@@ -1577,7 +1637,8 @@
     "clearance": true,
     "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Engineer-II---Data-Analytics--Hybrid-_R28231",
     "source": "Workday",
-    "date_added": "2026-07-22"
+    "date_added": "2026-07-22",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "KBR",
@@ -1610,7 +1671,8 @@
     "clearance": true,
     "url": "https://kbr.wd5.myworkdayjobs.com/KBR_Careers/job/Beavercreek-Township-Ohio/National-Security-Solutions--NSS--Semiconductor-Research-Internship--Fall-2026-_R2126603",
     "source": "Workday",
-    "date_added": "2026-07-22"
+    "date_added": "2026-07-22",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Nightwing",
@@ -1621,7 +1683,8 @@
     "clearance": false,
     "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Falls-Church-VA/CSOC-Threat-Management-Specialist--Tier-2-_JR100856",
     "source": "Workday",
-    "date_added": "2026-07-22"
+    "date_added": "2026-07-22",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Northrop Grumman",
@@ -1632,7 +1695,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Colorado-Aurora/Cyber-Systems-Engineer---Level-2-or-3_R10240818",
     "source": "Workday",
-    "date_added": "2026-07-22"
+    "date_added": "2026-07-22",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Northrop Grumman",
@@ -1643,7 +1707,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Colorado-Schriever-AFB/Cyber-Systems-Engineer---Level-2_R10239749",
     "source": "Workday",
-    "date_added": "2026-07-22"
+    "date_added": "2026-07-22",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Northrop Grumman",
@@ -1654,7 +1719,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Virginia-Dulles/Cyber-Systems-Engineer--Level-2-or-3-_R10236308",
     "source": "Workday",
-    "date_added": "2026-07-22"
+    "date_added": "2026-07-22",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Northrop Grumman",
@@ -1687,7 +1753,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Colorado-Schriever-AFB/Mod-Sim-System-Engineer--Mission-Support-Threat-Engineer---Level-2-or-3-_R10233966",
     "source": "Workday",
-    "date_added": "2026-07-22"
+    "date_added": "2026-07-22",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "RTX",
@@ -1698,7 +1765,8 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-IA-CEDAR-RAPIDS-137--855-35Th-St-NE--BLDG-137/Cyber-Engineer-II--Onsite---Cedar-Rapids--IA--Secret-Clearance-Required_01858715",
     "source": "Workday",
-    "date_added": "2026-07-22"
+    "date_added": "2026-07-22",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "RTX",
@@ -1720,7 +1788,8 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-IA-CEDAR-RAPIDS-107--400-Collins-Rd-NE--BLDG-107/Embedded-Product-Cybersecurity-Engineer-II--Onsite---Cedar-Rapids--IA-_01846476",
     "source": "Workday",
-    "date_added": "2026-07-22"
+    "date_added": "2026-07-22",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "RTX",
@@ -1731,7 +1800,8 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MA-TEWKSBURY-TB1--50-Apple-Hill-Dr--ASSABET-BLDG/Systems-Security-Engineer-II--Anti-Tamper-Program-Protection---Onsite----P2_01848781",
     "source": "Workday",
-    "date_added": "2026-07-22"
+    "date_added": "2026-07-22",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "RTX",
@@ -1742,7 +1812,8 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-FL-LARGO-382SS--7887-Bryan-Dairy-Rd--BLDG-100/Cyber-Infrastructure-Engineer-II--Onsite-_01845815",
     "source": "Workday",
-    "date_added": "2026-07-22"
+    "date_added": "2026-07-22",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "RTX",
@@ -1753,7 +1824,8 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MA-TEWKSBURY-TB3--50-Apple-Hill-Dr--CONCORD-BLDG-Tewksbury-Tb3-300-Concord/Cybersecurity-Engineer-II_01842996",
     "source": "Workday",
-    "date_added": "2026-07-22"
+    "date_added": "2026-07-22",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "RTX",
@@ -1764,7 +1836,8 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MA-CAMBRIDGE-BBN05--10--50-Moulton-St--MOULTON-B5/Cyber-Research-Software-Engineer-II_01826268",
     "source": "Workday",
-    "date_added": "2026-07-22"
+    "date_added": "2026-07-22",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Amazon",
@@ -1786,7 +1859,8 @@
     "clearance": false,
     "url": "https://instacart.careers/job/?gh_jid=8080512",
     "source": "Greenhouse",
-    "date_added": "2026-07-22"
+    "date_added": "2026-07-22",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Netskope",
@@ -1797,7 +1871,8 @@
     "clearance": false,
     "url": "https://www.netskope.com/company/careers/open-positions/?gh_jid=8045249",
     "source": "Greenhouse",
-    "date_added": "2026-07-22"
+    "date_added": "2026-07-22",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "CACI",
@@ -1808,7 +1883,8 @@
     "clearance": true,
     "url": "https://caci.wd1.myworkdayjobs.com/External/job/Aberdeen-Proving-Ground-MD-US/Junior-Penetration-Tester---Cyber-Engineer_329436",
     "source": "Workday",
-    "date_added": "2026-07-22"
+    "date_added": "2026-07-22",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "GDIT",
@@ -1819,7 +1895,8 @@
     "clearance": true,
     "url": "https://gdit.wd5.myworkdayjobs.com/External_Career_Site/job/USA-VA-Manassas/Network-Cyber-Security-Analyst-Associate_RQ224655-1",
     "source": "Workday",
-    "date_added": "2026-07-22"
+    "date_added": "2026-07-22",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Amazon",
@@ -1865,7 +1942,8 @@
     "clearance": true,
     "url": "https://snc.wd1.myworkdayjobs.com/SNC_External_Career_Site/job/Lone-Tree-CO/Cybersecurity-Analyst-I---Artificial-Intelligence_R0030060",
     "source": "Workday",
-    "date_added": "2026-07-23"
+    "date_added": "2026-07-23",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Nightwing",
@@ -1898,7 +1976,8 @@
     "clearance": false,
     "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/Security-Architect---New-College-Grad-2026_JR2021165",
     "source": "Workday",
-    "date_added": "2026-07-25"
+    "date_added": "2026-07-25",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Affirm",
@@ -1909,7 +1988,8 @@
     "clearance": false,
     "url": "https://job-boards.greenhouse.io/affirm/jobs/7796534003",
     "source": "Greenhouse",
-    "date_added": "2026-07-27"
+    "date_added": "2026-07-27",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Appian",
@@ -1942,7 +2022,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Virginia-Unknown-City/Exploit-Developer-Penetration-Tester-2-3_R10242492-1",
     "source": "Workday",
-    "date_added": "2026-07-27"
+    "date_added": "2026-07-27",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Abnormal AI",
@@ -1966,7 +2047,8 @@
     "clearance": false,
     "url": "https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/Chicago-Illinois-US/Security-Engineer-II--Full-Time----United-States-STO-Cloud-Security-Engineering-ETR_2020031",
     "source": "Workday",
-    "date_added": "2026-07-29"
+    "date_added": "2026-07-29",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Northrop Grumman",
@@ -1977,7 +2059,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-Palmdale/Classified-Cybersecurity-Analyst-2-3---Secret_R10242157",
     "source": "Workday",
-    "date_added": "2026-07-29"
+    "date_added": "2026-07-29",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "CACI",
@@ -1988,7 +2071,8 @@
     "clearance": true,
     "url": "https://caci.wd1.myworkdayjobs.com/External/job/Aberdeen-Proving-Ground-MD-US/Cybersecurity-Specialist--Junior_329537",
     "source": "Workday",
-    "date_added": "2026-07-29"
+    "date_added": "2026-07-29",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "CrowdStrike",
@@ -1999,7 +2083,8 @@
     "clearance": false,
     "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote-TX/CrowdStrike-Platform-Associate-Resident-Consultant--Remote-_R29426",
     "source": "Workday",
-    "date_added": "2026-07-29"
+    "date_added": "2026-07-29",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Proofpoint",
@@ -2010,7 +2095,8 @@
     "clearance": false,
     "url": "https://proofpoint.wd5.myworkdayjobs.com/proofpointcareers/job/California/Associate-Triage-Analyst_R14534",
     "source": "Workday",
-    "date_added": "2026-07-29"
+    "date_added": "2026-07-29",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Amazon",
@@ -2045,7 +2131,8 @@
     "clearance": false,
     "url": "https://intel.wd1.myworkdayjobs.com/External/job/US-Oregon-Hillsboro/AI-Security-Engineer-Contract_JR0286011",
     "source": "Workday",
-    "date_added": "2026-07-30"
+    "date_added": "2026-07-30",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Proofpoint",
@@ -2056,7 +2143,8 @@
     "clearance": false,
     "url": "https://proofpoint.wd5.myworkdayjobs.com/proofpointcareers/job/Oregon/Systems-Security-Engineer-I_R14529-1",
     "source": "Workday",
-    "date_added": "2026-07-30"
+    "date_added": "2026-07-30",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Cisco",
@@ -2067,7 +2155,8 @@
     "clearance": true,
     "url": "https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/Chicago-Illinois-US/Security-Engineer-I--Full-Time----United-States_2016255",
     "source": "Workday",
-    "date_added": "2026-07-31"
+    "date_added": "2026-07-31",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "RTX",
@@ -2078,7 +2167,8 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MT-GREAT-FALLS-6932-CUST--6932-Goddard-Dr--GODDARD-External-Site/Network-Security-Analyst--Onsite-_01855540",
     "source": "Workday",
-    "date_added": "2026-07-31"
+    "date_added": "2026-07-31",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Amazon",
@@ -2335,7 +2425,8 @@
     "clearance": false,
     "url": "https://jobs.lever.co/coalfire/59991dcb-2ca8-46d4-9b89-0d1b00e3e5eb",
     "source": "Lever",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Immuta",
@@ -2522,7 +2613,8 @@
     "clearance": true,
     "url": "https://leidos.wd5.myworkdayjobs.com/External/job/Ashburn-VA/Tier-2-Cyber-Incident-Response-Analyst_R-00190879",
     "source": "Workday",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Motorola Solutions",
@@ -2588,7 +2680,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-El-Segundo/XMLNAME-2026-Associate-Classified-Cybersecurity-Analyst---Pathways-Program---El-Segundo-CA_R10249292",
     "source": "Workday",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Northrop Grumman",
@@ -2621,7 +2714,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Virginia-Chantilly/XMLNAME-2026-Associate-Cyber-Systems-Engineer---Chantilly-VA_R10246293-1",
     "source": "Workday",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Northrop Grumman",
@@ -2665,7 +2759,8 @@
     "clearance": false,
     "url": "https://paypal.wd1.myworkdayjobs.com/jobs/job/San-Jose-California-United-States-of-America/Cybersecurity-Engineer---Recent-Graduate_R0137283",
     "source": "Workday",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "RTX",
@@ -2698,7 +2793,8 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-PR-AGUADILLA-110--Rd-110-N-Km-288--RD110/Software-Engineer-I--RCU--Onsite---Security-Clearance-_01870743",
     "source": "Workday",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "RTX",
@@ -2709,7 +2805,8 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-PR-AGUADILLA-110--Rd-110-N-Km-288--RD110/Software-Engineer-II--RCU--Onsite---Security-Clearance-_01870740",
     "source": "Workday",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Sierra Nevada Corporation",
@@ -2863,7 +2960,8 @@
     "clearance": false,
     "url": "https://ms.wd5.myworkdayjobs.com/External/job/Baltimore-Maryland-United-States-of-America/Cyber-Exercise-Planner-Associate_PT-JR041930",
     "source": "Workday",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Vanguard",
@@ -2929,7 +3027,8 @@
     "clearance": false,
     "url": "https://walmart.wd504.myworkdayjobs.com/WalmartExternal/job/USA-ISD-Office---DGTC-AR-BENTONVILLE-Home-Office/XMLNAME-2026-Intern-Conversion--2027-FT-Penetration-Testing-Engineer-II_R-2630116",
     "source": "Workday",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Walmart",
@@ -2940,7 +3039,8 @@
     "clearance": false,
     "url": "https://walmart.wd504.myworkdayjobs.com/WalmartExternal/job/USA-ISD-Office---DGTC-AR-BENTONVILLE-Home-Office/XMLNAME-2026-Intern-Conversion--2027-FT-Systems-and-Infrastructure-Engineer-II--Information-Security_R-2630114",
     "source": "Workday",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "The Home Depot",
@@ -2962,7 +3062,8 @@
     "clearance": false,
     "url": "https://comcast.wd115.myworkdayjobs.com/Comcast_Careers/job/MD---Baltimore-8031-Corporate-Dr/Investigator-2--Security_R443301",
     "source": "Workday",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Duke Energy",
@@ -2973,7 +3074,8 @@
     "clearance": false,
     "url": "https://dukeenergy.wd1.myworkdayjobs.com/Search/job/Charlotte-NC/Digital-Forensics-Summer-Intern---2027_R41195",
     "source": "Workday",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "JPMorgan Chase",
@@ -3116,7 +3218,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Utah-Roy/XMLNAME-2027-Systems-Security-Engineering-Intern---Roy-UT_R10249815",
     "source": "Workday",
-    "date_added": "2026-09-08"
+    "date_added": "2026-09-08",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "RTX",
@@ -3127,7 +3230,8 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Systems-Security-Engineer-I---Anti-Tamper---Program-Protection--Onsite-Tucson--AZ----P1_01873154",
     "source": "Workday",
-    "date_added": "2026-09-08"
+    "date_added": "2026-09-08",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Rapid7",
@@ -3138,7 +3242,8 @@
     "clearance": false,
     "url": "https://mymoose.wd1.myworkdayjobs.com/careers/job/US---Remote/Security-Operations-Analyst-II_R12304",
     "source": "Workday",
-    "date_added": "2026-09-08"
+    "date_added": "2026-09-08",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Anduril",
@@ -3215,7 +3320,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-San-Diego/XMLNAME-2027-Associate-Cyber-Systems-Engineer-Cyber-Systems-Engineer---CA_R10250113",
     "source": "Workday",
-    "date_added": "2026-09-09"
+    "date_added": "2026-09-09",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Northrop Grumman",
@@ -3347,7 +3453,8 @@
     "clearance": false,
     "url": "https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2616686",
     "source": "Oracle",
-    "date_added": "2026-09-10"
+    "date_added": "2026-09-10",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "SAIC",
@@ -3358,7 +3465,8 @@
     "clearance": false,
     "url": "https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2616725",
     "source": "Oracle",
-    "date_added": "2026-09-11"
+    "date_added": "2026-09-11",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Abnormal AI",
@@ -3380,7 +3488,8 @@
     "clearance": true,
     "url": "https://evergreenix.wd1.myworkdayjobs.com/external-careers2/job/USA_TX_Richardson/Software-Engineer-I_JR500748-1",
     "source": "Workday",
-    "date_added": "2026-09-11"
+    "date_added": "2026-09-11",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Morgan Stanley",
@@ -3391,7 +3500,8 @@
     "clearance": false,
     "url": "https://ms.wd5.myworkdayjobs.com/External/job/New-York-New-York-United-States-of-America/Associate---AI-Governance---Reporting---Model-Risk_PT-JR043622",
     "source": "Workday",
-    "date_added": "2026-09-11"
+    "date_added": "2026-09-11",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Vanguard",
@@ -3446,7 +3556,8 @@
     "clearance": true,
     "url": "https://gdit.wd5.myworkdayjobs.com/External_Career_Site/job/USA-VA-Arlington/Cybersecurity-Exercise-Planner--Junior-_RQ227038-1",
     "source": "Workday",
-    "date_added": "2026-09-14"
+    "date_added": "2026-09-14",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "RTX",
@@ -3660,7 +3771,7 @@
   {
     "company": "RTX",
     "role": "Internship \u2013 Raytheon Systems Security Engineer -Onsite",
-    "location": "Ma, US",
+    "location": "Ma",
     "type": "intern",
     "category": "Cloud & Infra Security",
     "clearance": true,
@@ -3671,7 +3782,7 @@
   {
     "company": "RTX",
     "role": "Internship \u2013 Raytheon Systems Security Engineer-Onsite",
-    "location": "Ri, US",
+    "location": "Ri",
     "type": "intern",
     "category": "Cloud & Infra Security",
     "clearance": true,
@@ -3682,7 +3793,7 @@
   {
     "company": "RTX",
     "role": "Internship \u2013 Raytheon Systems Security Engineer- Onsite",
-    "location": "Ma, US",
+    "location": "Ma",
     "type": "intern",
     "category": "Cloud & Infra Security",
     "clearance": true,
@@ -3693,7 +3804,7 @@
   {
     "company": "RTX",
     "role": "Systems Engineer I, V&V Testing (Onsite - Security Clearance)",
-    "location": "Pr, US",
+    "location": "Pr",
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
@@ -3710,6 +3821,39 @@
     "clearance": false,
     "url": "https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2616831",
     "source": "Oracle",
+    "date_added": "2026-09-16"
+  },
+  {
+    "company": "The Home Depot",
+    "role": "Cybersecurity Engineer II | SIEM and EDR (Remote)",
+    "location": "Remote, GA",
+    "type": "earlycareer",
+    "category": "SOC & Detection",
+    "clearance": false,
+    "url": "https://homedepot.wd5.myworkdayjobs.com/CareerDepot/job/GEORGIA---VIRTUAL---GA01/Cybersecurity-Engineer-II---SIEM-and-EDR--Remote-_Req187569",
+    "source": "Workday",
+    "date_added": "2026-09-16"
+  },
+  {
+    "company": "The Home Depot",
+    "role": "Cybersecurity Software Engineer II | ML & AI (Remote)",
+    "location": "Remote, GA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://homedepot.wd5.myworkdayjobs.com/CareerDepot/job/GEORGIA---VIRTUAL---GA01/Cybersecurity-Software-Engineer-II---ML---AI--Remote-_Req193044",
+    "source": "Workday",
+    "date_added": "2026-09-16"
+  },
+  {
+    "company": "Truist",
+    "role": "Associate Security Engineer",
+    "location": "Atlanta, GA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://truist.wd1.myworkdayjobs.com/Careers/job/Atlanta-GA/Associate-Security-Engineer_R0119107",
+    "source": "Workday",
     "date_added": "2026-09-16"
   }
 ]
