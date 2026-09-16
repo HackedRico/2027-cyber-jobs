@@ -33,6 +33,7 @@ from classify import (
     exceeds_experience_cap,
     is_cyber_title,
     is_rejected_title,
+    is_us_location,
     listing_dedup_key,
     normalize_location,
     prune_seen,
@@ -731,6 +732,57 @@ def retire_vanished_listings(listings, raw_jobs, today):
     return retired
 
 
+def repair_broken_locations(listings, raw_jobs):
+    """Re-derive a stored location that no longer reads as a US one.
+
+    Mutates the rows it repairs and returns them as (entry, before, after).
+
+    `renormalize_locations` re-runs the normalizer over the string a row already
+    holds, which cannot help a row the normalizer itself destroyed:
+    "US-AZ-TUCSON-805 ~ 1151 E Hermans Rd" collapsed to "Az" before #18 repaired
+    the country-prefix bug, and no later pass recovers Tucson from two letters.
+    A row like that also fails the board's own US-only filter, so it is both
+    wrong on the board and unreachable by every existing repair path — the three
+    RTX rows reading "Az" survived #18 and every scrape since. Every run already
+    fetches the live posting, so take the location from there.
+
+    Guardrails follow `retire_vanished_listings`: Community rows carry a
+    maintainer's judgment, a row is matched to its requisition by fingerprint so
+    an unfamiliar URL shape is left alone, and a live posting whose location is
+    missing or normalizes away never overwrites what the row already has. Rows
+    whose stored location still reads as US are never touched, so a board that
+    reorders a multi-location req cannot churn the file run after run.
+    """
+    live = {}
+    for job in raw_jobs:
+        fingerprint = job_fingerprint(job.get('company', ''), job.get('board', ''),
+                                      job.get('url', ''))
+        if fingerprint:
+            live.setdefault(fingerprint, job.get('location', '') or '')
+
+    repaired = []
+    for entry in listings:
+        if entry.get('source') == 'Community':
+            continue
+        before = entry.get('location', '')
+        if is_us_location(before):
+            continue
+        fingerprint = job_fingerprint(entry.get('company', ''), entry.get('source', ''),
+                                      entry.get('url', ''))
+        if fingerprint is None:
+            continue
+        after = normalize_location(live.get(fingerprint, ''))
+        # Only a repair that lands back inside the charter counts. A req that
+        # genuinely moved abroad must not be rewritten to "London, UK" and left
+        # sitting on a US-only board; it keeps the broken string and stays
+        # visible as an anomaly for `retire_vanished_listings` or a maintainer.
+        if not after or after == before or not is_us_location(after):
+            continue
+        entry['location'] = after
+        repaired.append((entry, before, after))
+    return repaired
+
+
 def _days_since(stamp, today):
     """Whole days from `stamp` to `today`, or 0 if either date is unreadable.
 
@@ -1206,6 +1258,12 @@ def main():
     renormalized = renormalize_locations(listings)
     if renormalized:
         print(f'Renormalized {renormalized} location(s)')
+
+    # A location the normalizer destroyed cannot be recovered by normalizing it
+    # again, so re-read it off the live posting.
+    for entry, before, after in repair_broken_locations(listings, raw_jobs):
+        print(f'  REPAIRED [location] {_oneline(entry.get("company", ""))} — '
+              f'{_oneline(entry.get("role", ""))}: {before!r} -> {after!r}')
 
     # Let classifier improvements reach already-scraped listings (title-only).
     listings, reclass_changes, rejected = reclassify_listings(listings)

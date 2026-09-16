@@ -6,11 +6,12 @@
     python .github/scripts/compare_runs.py before.log after.log
 
 Reports rows accepted in only one run, rows whose level changed, existing rows
-one run drops or reclassifies and the other does not, and boards whose status
-changed. Exits 1 when anything differs, so a clean exit is the equivalence
-proof for a scraper or classifier change. Run the two scrapes minutes apart:
-postings arrive continuously, so a row that appears in only the later log
-under a title the change does not target is noise, not a flip.
+one run drops, reclassifies or has its location repaired and the other does
+not, and boards whose status changed. Exits 1 when anything differs, so a clean
+exit is the equivalence proof for a scraper or classifier change. Run the two
+scrapes minutes apart: postings arrive continuously, so a row that appears in
+only the later log under a title the change does not target is noise, not a
+flip.
 """
 
 import re
@@ -21,6 +22,7 @@ from typing import NamedTuple
 NEW_RE = re.compile(r'^\s*NEW \[(\w+)\] (.+)$')
 DROP_RE = re.compile(r'^\s*DROP \[([\w-]+)\] (.+)$')
 RECLASSIFY_RE = re.compile(r'^\s*RECLASSIFY \[(\w+) -> (\w+)\] (.+)$')
+REPAIR_RE = re.compile(r'^\s*REPAIRED \[location\] (.+?): (.+) -> (.+)$')
 BOARD_RE = re.compile(r'^Checking (.+?)\.\.\. (ok|zero|FAILED|CRASHED) \((\d+) postings')
 
 
@@ -28,11 +30,12 @@ class Run(NamedTuple):
     rows: dict        # "Company — Title @ Location" -> level
     dropped: dict     # "Company — Title" -> reason
     reclassified: dict  # "Company — Title" -> (old, new)
+    repaired: dict    # "Company — Title" -> (old location, new location)
     boards: dict      # label -> (status, count)
 
 
 def parse_log(text):
-    rows, dropped, reclassified, boards = {}, {}, {}, {}
+    rows, dropped, reclassified, repaired, boards = {}, {}, {}, {}, {}
     for line in text.splitlines():
         if m := NEW_RE.match(line):
             rows[m.group(2).strip()] = m.group(1)
@@ -40,9 +43,11 @@ def parse_log(text):
             dropped[m.group(2).strip()] = m.group(1)
         elif m := RECLASSIFY_RE.match(line):
             reclassified[m.group(3).strip()] = (m.group(1), m.group(2))
+        elif m := REPAIR_RE.match(line):
+            repaired[m.group(1).strip()] = (m.group(2), m.group(3))
         elif m := BOARD_RE.match(line):
             boards[m.group(1)] = (m.group(2), int(m.group(3)))
-    return Run(rows, dropped, reclassified, boards)
+    return Run(rows, dropped, reclassified, repaired, boards)
 
 
 def _section(title, items):
@@ -64,6 +69,8 @@ def diff(before, after):
                      if after.dropped.get(k) != r)
     reclass = sorted(f'{k}: {o} -> {n}' for k, (o, n) in after.reclassified.items()
                      if before.reclassified.get(k) != (o, n))
+    repairs = sorted(f'{k}: {o} -> {n}' for k, (o, n) in after.repaired.items()
+                     if before.repaired.get(k) != (o, n))
     boards = sorted(f'{label}: {before.boards[label][0]} ({before.boards[label][1]}) '
                     f'-> {after.boards[label][0]} ({after.boards[label][1]})'
                     for label in before.boards if label in after.boards
@@ -74,6 +81,7 @@ def diff(before, after):
             + _section('Existing rows dropped only after', drops)
             + _section('Existing rows dropped only before', undrops)
             + _section('Existing rows reclassified only after', reclass)
+            + _section('Existing rows whose location was repaired only after', repairs)
             + _section('Boards whose status changed', boards))
 
 

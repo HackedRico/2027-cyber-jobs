@@ -382,6 +382,61 @@ def test_retire_vanished_needs_the_whole_board_not_one_posting():
           [e['role'] for e in retired], ['Gone'])
 
 
+def test_repair_broken_locations():
+    """A location the normalizer destroyed is re-read off the live posting."""
+    wd = ('https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/'
+          'US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/'
+          'Systems-Security-Engineer-I_01874755')
+    listings = [
+        # The real regression: "US-AZ-TUCSON-805 ~ ..." became "Az" (#18) and
+        # no amount of re-normalizing two letters brings Tucson back.
+        _listing('RTX', 'Systems Security Engineer I', wd, source='Workday',
+                 location='Az'),
+        # Already fine, and the live posting disagrees — must not be rewritten,
+        # or a board that reorders a multi-location req churns the file forever.
+        _listing('Acme', 'Healthy', 'https://boards.greenhouse.io/acme/jobs/1',
+                 location='Austin, TX'),
+        # Broken, but a maintainer wrote it.
+        _listing('Acme', 'Maintainer Pick', 'https://boards.greenhouse.io/acme/jobs/2',
+                 source='Community', location='Zz'),
+        # Broken, but this run never saw the req.
+        _listing('Acme', 'Unseen', 'https://boards.greenhouse.io/acme/jobs/3',
+                 location='Zz'),
+        # Broken, and the live posting carries no usable location: leave the row
+        # as it is rather than blanking the only value it has.
+        _listing('Acme', 'No Live Location', 'https://boards.greenhouse.io/acme/jobs/4',
+                 location='Zz'),
+        # Broken, but the URL carries no req id to match on.
+        _listing('Acme', 'No Req Id', 'https://acme.com/careers', location='Zz'),
+        # Broken, and the req has moved abroad: a US-only board must not gain a
+        # London row because a repair pass rewrote it.
+        _listing('Acme', 'Moved Abroad', 'https://boards.greenhouse.io/acme/jobs/5',
+                 location='Zz'),
+    ]
+    raw = [
+        {'company': 'RTX', 'board': 'Workday', 'url': wd,
+         'location': 'US-AZ-TUCSON-805 ~ 1151 E Hermans Rd ~ BLDG 805'},
+        {'company': 'Acme', 'board': 'Greenhouse',
+         'url': 'https://boards.greenhouse.io/acme/jobs/1', 'location': 'Remote (US)'},
+        {'company': 'Acme', 'board': 'Greenhouse',
+         'url': 'https://boards.greenhouse.io/acme/jobs/2', 'location': 'Austin, TX'},
+        {'company': 'Acme', 'board': 'Greenhouse',
+         'url': 'https://boards.greenhouse.io/acme/jobs/4', 'location': '   '},
+        {'company': 'Acme', 'board': 'Greenhouse',
+         'url': 'https://boards.greenhouse.io/acme/jobs/5', 'location': 'London, UK'},
+    ]
+    repaired = sj.repair_broken_locations(listings, raw)
+    check('only the destroyed location is repaired',
+          [(e['role'], before, after) for e, before, after in repaired],
+          [('Systems Security Engineer I', 'Az', 'Tucson, AZ')])
+    check('every other row keeps its stored location',
+          [e['location'] for e in listings],
+          ['Tucson, AZ', 'Austin, TX', 'Zz', 'Zz', 'Zz', 'Zz', 'Zz'])
+    # Idempotent: the repaired row now reads as US, so a second pass skips it.
+    check('a repaired row is not repaired again',
+          sj.repair_broken_locations(listings, raw), [])
+
+
 # --- board orchestration: pooled scraping keeps config order -------------------
 def test_scrape_boards_preserves_config_order():
     import threading
@@ -508,7 +563,8 @@ def test_compare_runs_reports_flips_only():
         '  RECLASSIFY [earlycareer -> newgrad] Acme — Analyst\n'
         '  DROP [rejected-title] Acme — Physical Security Guard\n'
         '  NEW [newgrad] Acme — Security Analyst - New Grad @ Austin, TX\n'
-        '  NEW [intern] Acme — Security Engineer II @ Remote (US)\n')
+        '  NEW [intern] Acme — Security Engineer II @ Remote (US)\n'
+        "  REPAIRED [location] Acme — Systems Engineer I: 'Az' -> 'Tucson, AZ'\n")
     check('compare_runs parses board status and count',
           before.boards['Beta (lever/beta)'], ('ok', 3))
     report = compare_runs.diff(before, after)
@@ -520,6 +576,8 @@ def test_compare_runs_reports_flips_only():
           '  - Acme — Physical Security Guard [rejected-title]' in report, True)
     check('compare_runs ignores a reclassify present in both runs',
           any('Analyst:' in line for line in report), False)
+    check('compare_runs lists a location repair only the second run made',
+          "  - Acme — Systems Engineer I: 'Az' -> 'Tucson, AZ'" in report, True)
     check('compare_runs lists a board status change',
           '  - Beta (lever/beta): ok (3) -> FAILED (0)' in report, True)
     check('compare_runs reports identical runs as equivalent',
@@ -537,6 +595,7 @@ for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_drop_over_experienced, test_job_fingerprint_reads_every_ats_url_shape,
            test_retire_vanished_listings,
            test_retire_vanished_needs_the_whole_board_not_one_posting,
+           test_repair_broken_locations,
            test_scrape_boards_preserves_config_order,
            test_build_tasks_honors_board_and_limit, test_board_health_streaks,
            test_board_health_migrates_and_survives_a_corrupt_baseline,
