@@ -53,6 +53,14 @@ python .github/scripts/test_scrapers.py               # offline ATS-parser tests
 python .github/scripts/scrape_jobs.py --dry-run       # full scrape + classify, writes NOTHING
 python .github/scripts/scrape_jobs.py --dry-run --board greenhouse --limit 3  # fast single-board iteration
 python .github/scripts/check_slugs.py                 # find configured slugs that return no jobs (exits 1 if any)
+python .github/scripts/compare_runs.py before.log after.log  # what a change flips between two dry-run logs
 ```
 
 > ⚠️ `python .github/scripts/scrape_jobs.py` **without** `--dry-run` hits every live API and overwrites `listings.json`, `README.md`, `companies.md`, and `.github/data/`. Use `--dry-run` for local testing.
+
+## Working with an AI coding agent
+
+[AGENTS.md](AGENTS.md) is the agent-facing map of the repo: who writes which files, how to
+verify a change, and the rules for classifier edits. Two skills under
+[`.claude/skills/`](.claude/skills/) walk an agent through adding a company and through
+repairing a board that stopped returning postings; both work as checklists for humans too.
