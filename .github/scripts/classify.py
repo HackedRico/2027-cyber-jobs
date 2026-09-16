@@ -77,8 +77,8 @@ SUMMER_RE = re.compile(r'\bsummer\b')
 # inside legitimate words ('sales' in 'salesforce', 'finance' in 'financial')
 # are word-bounded via FUNCTION_REJECT_RE below.
 FUNCTION_REJECT = [
-    'security guard', 'physical security', 'loss prevention', 'public safety',
-    'executive protection', 'transportation security', 'safety and security',
+    'security guard', 'physical security', 'public safety',
+    'executive protection', 'transportation security',
     'security screener', 'campus safety', 'alarm technician',
     # Cleared-facility security functions (FSO/NISPOM work, clearance
     # adjudication, guard forces) carry the word "security" but are not cyber.
@@ -90,7 +90,7 @@ FUNCTION_REJECT = [
     'people technology', 'people operations', 'channel systems',
     'customer success', 'customer support', 'business development', 'partner manager',
     'payroll', 'accountant', 'accounting', 'finance', 'financial analyst', 'treasury',
-    'fp&a', 'revenue', 'billing', 'procurement', 'supply chain',
+    'fp&a', 'revenue', 'billing', 'procurement',
     # Finance-audit work; "SOX/SOC" in an audit title is SOC 1/2 reporting, not
     # a security operations center.
     'internal audit', 'sox',
@@ -118,7 +118,22 @@ def _term_regex(term):
     return pat
 
 
-FUNCTION_REJECT_RE = re.compile('|'.join(_term_regex(t) for t in FUNCTION_REJECT))
+# Three terms above would also reject genuine cyber roles, so they carry a
+# guard instead of sitting in the plain list:
+#   'loss prevention'    — retail LP, but "Data Loss Prevention (DLP) Analyst"
+#                          is a core security control.
+#   'supply chain'       — logistics planning, but software supply chain
+#                          security (SBOM/SLSA/dependency risk) is cyber.
+#   'safety and security' — a guard-force function, but "AI Safety and Security
+#                          Engineering" is an AI-lab security team.
+GUARDED_FUNCTION_REJECTS = [
+    r'(?<!data )\bloss prevention\b',
+    r'\bsupply chain\b(?! security)',
+    r'(?<!ai )\bsafety and security\b',
+]
+
+FUNCTION_REJECT_RE = re.compile(
+    '|'.join([_term_regex(t) for t in FUNCTION_REJECT] + GUARDED_FUNCTION_REJECTS))
 
 # "Security Officer" is usually a guard; keep it only when clearly infosec.
 SECURITY_OFFICER_RE = re.compile(r'\bsecurity officer\b')
@@ -130,6 +145,9 @@ CYBER_KEYWORDS = [
     'penetration test', 'pentest', 'red team', 'blue team', 'purple team',
     'threat', 'incident response', 'forensic', 'malware', 'vulnerability',
     'appsec', 'exploit', 'reverse engineer', 'cryptograph', 'grc',
+    # DLP titles carry neither 'security' nor 'cyber' ("Data Loss Prevention
+    # (DLP) Analyst"); 'insider threat' already matches on 'threat'.
+    'data loss prevention',
     'siem', 'detection engineer', 'detection and response',
     'devsecops', 'identity and access', 'zero trust', 'privacy engineer',
     'iam engineer', 'iam analyst', 'cyber risk', 'security risk',
@@ -147,7 +165,8 @@ CYBER_KEYWORDS = [
 # 'SoC' must not match system-on-chip hardware titles.
 CYBER_REGEXES = [re.compile(p) for p in
                  (r'\bsoc\b(?!\s+(asic|design|verification|rtl|silicon|power|hardware))',
-                  r'\bcnd\b', r'\bcno\b', r'\bdfir\b', r'\bir analyst\b')]
+                  r'\bcnd\b', r'\bcno\b', r'\bdfir\b', r'\bir analyst\b',
+                  r'\bdlp\b')]
 
 # Bare 'safeguards' is an AI-safety signal here, but IAEA/nuclear
 # non-proliferation "Safeguards Analyst" titles (that omit the word 'nuclear'
@@ -309,6 +328,22 @@ US_STATE_ABBRS = {
     'west virginia': 'WV', 'wisconsin': 'WI', 'wyoming': 'WY',
     'district of columbia': 'DC',
 }
+
+# US territories and commonwealths. A posting in San Juan or Hagatna is a US
+# posting — its residents are US citizens/nationals and no visa sponsorship is
+# involved — but with only the 50 states + DC recognized, every one of them was
+# filtered out as foreign (RTX's Aguadilla, PR reqs, federal Pathways roles in
+# Guam). 'Virgin Islands' maps to VI only in its US spelling so a British
+# Virgin Islands posting is not claimed as domestic.
+US_TERRITORY_ABBRS = {
+    'puerto rico': 'PR', 'guam': 'GU', 'american samoa': 'AS',
+    'u.s. virgin islands': 'VI', 'us virgin islands': 'VI',
+    'united states virgin islands': 'VI',
+    'northern mariana islands': 'MP',
+    'commonwealth of the northern mariana islands': 'MP',
+}
+US_STATE_ABBRS.update(US_TERRITORY_ABBRS)
+
 US_STATES = set(US_STATE_ABBRS.values())
 CA_PROVINCES = {'AB', 'BC', 'MB', 'NB', 'NL', 'NS', 'NT', 'NU', 'ON', 'PE',
                 'QC', 'SK', 'YT'}
@@ -326,12 +361,15 @@ US_SUBSTRINGS = [
     'minneapolis', 'nashville', 'charlotte', 'tampa', 'orlando',
     'baltimore', 'detroit', 'kansas city', 'st. louis', 'san diego',
     'sacramento', 'boulder', 'santa clara', 'irvine', 'cambridge',
+    # Metro shorthands ATSs use in place of a city: "Remote - SF Bay Area",
+    # "Remote - NYC", "US Remote (New England)".
+    'nyc', 'bay area', 'socal', 'new england',
 ]
 
 NON_US_SUBSTRINGS = [
     'canada', 'toronto', 'vancouver', 'montreal', 'ottawa', 'calgary',
     'waterloo', 'ontario', 'british columbia', 'quebec',
-    'london', 'united kingdom', ' uk', '(uk)', 'u.k.', 'england', 'scotland',
+    'london', 'united kingdom', ' uk', '(uk)', 'u.k.', 'scotland',
     'ireland', 'dublin', 'belfast',
     'germany', 'berlin', 'munich', 'frankfurt',
     'france', 'paris', 'netherlands', 'amsterdam', 'belgium', 'brussels',
@@ -341,6 +379,8 @@ NON_US_SUBSTRINGS = [
     'finland', 'helsinki', 'switzerland', 'zurich', 'austria', 'vienna',
     'estonia', 'tallinn', 'hungary', 'budapest', 'greece', 'athens',
     'israel', 'tel aviv', 'jerusalem',
+    # Named so the country Georgia is not read as the US state.
+    'tbilisi',
     'india', 'bangalore', 'bengaluru', 'hyderabad', 'pune', 'mumbai',
     'delhi', 'chennai', 'noida', 'gurgaon', 'gurugram',
     'singapore', 'japan', 'tokyo', 'korea', 'seoul', 'china', 'beijing',
@@ -350,17 +390,99 @@ NON_US_SUBSTRINGS = [
     'mexico city', ', mexico', 'brazil', 'sao paulo', 'argentina',
     'buenos aires', 'colombia', 'bogota', 'chile', 'santiago', 'costa rica',
     'peru', 'uruguay',
+    # Named explicitly so it is rejected by rule rather than by the absence of
+    # a US signal — 'virgin islands' alone resolves to the US territory.
+    'british virgin islands',
     'dubai', 'uae', 'saudi', 'riyadh', 'qatar', 'egypt', 'cairo',
     'nigeria', 'lagos', 'south africa', 'kenya', 'nairobi',
     'emea', 'apac', 'latam',
 ]
 
-NON_US_RE = re.compile('|'.join(_term_regex(t) for t in NON_US_SUBSTRINGS))
+# 'england' carries a lookbehind rather than sitting in the list above: the
+# plain term also matched "US Remote (New England)" and rejected a domestic
+# role as British.
+ENGLAND_RE = r'(?<!new )\bengland\b'
+NON_US_RE = re.compile('|'.join([_term_regex(t) for t in NON_US_SUBSTRINGS]
+                                + [ENGLAND_RE]))
 
 REGION_CODE_RE = re.compile(r',\s*([A-Za-z]{2})\.?\s*$')
 # An embedded 2-letter US state token even without a trailing comma, e.g.
 # "Office - USA - VA - Reston", "US - CA - San Jose".
 EMBEDDED_STATE_RE = re.compile(r'\b([A-Z]{2})\b')
+# 'AS' (American Samoa) is excluded from the undelimited scan only: it is the
+# one region code that is also an ordinary English word, so an all-caps site
+# string ("REMOTE AS NEEDED") would otherwise read as a US location. A
+# comma-delimited "Pago Pago, AS" still resolves through REGION_CODE_RE.
+EMBEDDED_STATE_CODES = US_STATES - {'AS'}
+
+# A spelled-out state/territory name anywhere in the string, not just as the
+# trailing comma segment. Without this, the whole family of state-scoped remote
+# postings ATSs emit — "Remote - California", "Illinois Remote Work",
+# "GEORGIA - VIRTUAL - GA01", "Work At Home-Texas", "Field-Virginia",
+# "Northern Virginia" — read as non-US and was dropped. Longest name first so
+# "West Virginia" wins over "Virginia" and "North Carolina" over "Carolina".
+STATE_NAME_RE = re.compile(
+    r'\b(' + '|'.join(re.escape(n) for n in
+                      sorted(US_STATE_ABBRS, key=len, reverse=True)) + r')\b',
+    re.IGNORECASE)
+
+
+# The capital spells out as "Washington" too, so it has to be consumed before
+# the state scan or "Remote - Washington, D.C." resolves to Washington state.
+DC_SPELLING_RE = re.compile(r'\bwashington\s*,?\s*d\.?\s*c\.?(?![a-z])',
+                            re.IGNORECASE)
+
+
+def _state_names(text):
+    """Distinct state/territory abbreviations named in full in `text`."""
+    found = []
+    if DC_SPELLING_RE.search(text):
+        found.append('DC')
+        text = DC_SPELLING_RE.sub(' ', text)
+    for name in STATE_NAME_RE.findall(text):
+        abbr = US_STATE_ABBRS[name.lower()]
+        if abbr not in found:
+            found.append(abbr)
+    return found
+
+
+# Words an ATS uses to say "no fixed office" — the other half of the
+# state-scoped remote forms ("Remote - California", "Work At Home-Texas").
+REMOTE_WORD_RE = re.compile(
+    r'\b(?:remote|virtual|telework|telecommute|work at home|work from home|'
+    r'home office)\b', re.IGNORECASE)
+# "Virginia - Herndon": some Workday tenants lead with the spelled-out state.
+NAME_DASH_NAME_RE = re.compile(r"([A-Za-z .]+?)\s*[-–]\s*([A-Za-z .']+)")
+# Padding that surrounds a state name in these strings. Anything else left over
+# is a city ("Remote - Miami, Florida") whose detail must survive, so the
+# state-scoped rewrite backs off and the generic path keeps the city.
+REMOTE_SCOPE_FILLER = {
+    'work', 'more', 'office', 'hq', 'us', 'usa', 'united', 'states', 'only',
+    'anywhere', 'area', 'state', 'based', 'the', 'in', 'at', 'of', 'and', 'or',
+    'northern', 'southern', 'eastern', 'western', 'central',
+    'north', 'south', 'east', 'west', 'upstate', 'greater',
+}
+
+
+def _remote_state_scope(location):
+    """The one state a remote-only location is scoped to, or None.
+
+    Matches "Remote - California", "Illinois Remote Work, More...",
+    "GEORGIA - VIRTUAL - GA01" and "Work At Home-Texas", and declines anything
+    that also names a city or a second state.
+    """
+    if not REMOTE_WORD_RE.search(location):
+        return None
+    names = _state_names(location)
+    if len(names) != 1:
+        return None
+    rest = REMOTE_WORD_RE.sub(' ', STATE_NAME_RE.sub(
+        ' ', DC_SPELLING_RE.sub(' ', location)))
+    for word in re.findall(r'[A-Za-z]{2,}', rest):
+        # The state's own postal code is not a city ("... - GA01").
+        if word.upper() != names[0] and word.lower() not in REMOTE_SCOPE_FILLER:
+            return None
+    return names[0]
 
 # "Remote (US/Canada)", "US or Remote", "Austin; Remote" split into parts.
 LOCATION_SPLIT_RE = re.compile(r'[;|•/]|\bor\b')
@@ -397,9 +519,11 @@ def _part_is_us(part):
     if region in US_STATE_ABBRS:
         return True
     for code in EMBEDDED_STATE_RE.findall(p):
-        if code in US_STATES:
+        if code in EMBEDDED_STATE_CODES:
             return True
     if re.search(r'\b(us|usa|u\.s\.a?|united states)\b', low):
+        return True
+    if _state_names(p):
         return True
     return any(s in low for s in US_SUBSTRINGS)
 
@@ -477,6 +601,10 @@ REMOTE_VARIANT_RE = re.compile(
 # Site strings that lead with a state code and end in a street address:
 # "MD - Baltimore, 8031 Corporate Dr", "CT, Bloomfield, 900 Cottage Grove Rd".
 STATE_CITY_ADDRESS_RE = re.compile(r'^([A-Z]{2})\s*[-,]\s*([A-Za-z .\']+?),?\s+\d.*$')
+# "US-AZ-TUCSON-805 ~ ...", "US-CA-Menlo Park" — a country prefix in front of a
+# two-letter state code, stripped before the site patterns below.
+COUNTRY_PREFIX_RE = re.compile(r'^(?:USA?|United States)-(?=[A-Z]{2}-)',
+                               re.IGNORECASE)
 # RTX/Collins Workday sites: "MA-TEWKSBURY-TB1 ~ 50 Apple Hill Dr ~ ASSABET BLDG".
 RTX_SITE_RE = re.compile(r'^([A-Z]{2})-([A-Z .\']+?)-[A-Z0-9-]+\s*(?:\(.*\))?\s*~')
 # Northrop site code + address: "M252 Raleigh - 4110 Wake Forest Rd".
@@ -529,6 +657,14 @@ def _is_foreign_part(part):
 
 def _normalize_single_location(location):
     location = location.strip()
+    # Drop a leading country prefix before the site patterns run. The strip
+    # further down happens too late: "US-AZ-TUCSON-805 ~ 1151 E Hermans Rd"
+    # reached RTX_SITE_RE with the country still attached, so it read "US" as
+    # the state and "AZ" as the city and returned "Az, US" — which a second
+    # normalization pass then shortened to "Az", losing Tucson entirely. The
+    # lookahead requires a two-letter state code, so the spelled-out
+    # "United States-California-Palmdale" form below still matches.
+    location = COUNTRY_PREFIX_RE.sub('', location)
     # Amazon: "US, MA, Boston" -> "Boston, MA"; Intel: "US, Oregon, Hillsboro"
     m = re.fullmatch(r'(?:USA?|United States),\s*([A-Za-z .]+),\s*(.+)', location)
     if m:
@@ -559,7 +695,7 @@ def _normalize_single_location(location):
     if m:
         return f'{m.group(2).strip()}, {m.group(1)}'
     m = RTX_SITE_RE.match(location)
-    if m:
+    if m and m.group(1) in US_STATES:
         return f'{_title_city(m.group(2))}, {m.group(1)}'
     m = USA_UNDERSCORE_RE.fullmatch(location)
     if m:
@@ -585,6 +721,16 @@ def _normalize_single_location(location):
     # Amazon: "US, Virtual"
     if re.fullmatch(r'(?:usa?|united states),\s*virtual', loc_l):
         return 'Remote (US)'
+    # A remote role scoped to one state, e.g. "Remote - California".
+    scope = None if REGION_CODE_RE.search(location) else _remote_state_scope(location)
+    if scope:
+        return f'Remote, {scope}'
+    # "Virginia - Herndon" -> "Herndon, VA".
+    m = NAME_DASH_NAME_RE.fullmatch(location)
+    if m:
+        abbr = US_STATE_ABBRS.get(m.group(1).strip().lower())
+        if abbr:
+            return f'{m.group(2).strip()}, {abbr}'
     # Opaque facility code with no human-readable city — drop it.
     if FACILITY_CODE_RE.match(location.strip()):
         return ''
