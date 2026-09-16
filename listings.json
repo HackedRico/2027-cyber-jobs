@@ -92,7 +92,8 @@
     "clearance": false,
     "url": "https://www.pinterestcareers.com/jobs/?gh_jid=8015490",
     "source": "Greenhouse",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Praetorian",
@@ -2337,7 +2338,8 @@
     "clearance": false,
     "url": "https://www.pinterestcareers.com/jobs/?gh_jid=8162046",
     "source": "Greenhouse",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Two Six Technologies",
@@ -3141,7 +3143,8 @@
     "clearance": false,
     "url": "https://www.amazon.jobs/en/jobs/10512781/security-engineer-ii-stores-application-security",
     "source": "Amazon Jobs",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Amazon",
@@ -3398,7 +3401,8 @@
     "clearance": false,
     "url": "https://www.okta.com/company/careers/opportunity/8191371?gh_jid=8191371",
     "source": "Greenhouse",
-    "date_added": "2026-09-10"
+    "date_added": "2026-09-10",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "Tanium",
@@ -3606,7 +3610,7 @@
   {
     "company": "RTX",
     "role": "Systems Security Engineering Intern (Summer 2027)",
-    "location": "Az",
+    "location": "Tucson, AZ",
     "type": "intern",
     "category": "Cloud & Infra Security",
     "clearance": true,
@@ -3617,7 +3621,7 @@
   {
     "company": "RTX",
     "role": "Systems Security Engineer II \u2013 Anti-Tamper / Program Protection (On-site)",
-    "location": "Az",
+    "location": "Tucson, AZ",
     "type": "earlycareer",
     "category": "Cloud & Infra Security",
     "clearance": true,
@@ -3628,7 +3632,7 @@
   {
     "company": "RTX",
     "role": "Systems Security Engineer I \u2013 Anti-Tamper / Program Protection (On-site)",
-    "location": "Az",
+    "location": "Tucson, AZ",
     "type": "earlycareer",
     "category": "Cloud & Infra Security",
     "clearance": true,
@@ -3711,7 +3715,8 @@
     "clearance": false,
     "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Analyst-I--Falcon-Complete--Remote--PST-MST-_R30081",
     "source": "Workday",
-    "date_added": "2026-09-16"
+    "date_added": "2026-09-16",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "CrowdStrike",
@@ -3722,7 +3727,8 @@
     "clearance": false,
     "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Associate-Analyst--Falcon-Complete_R30082",
     "source": "Workday",
-    "date_added": "2026-09-16"
+    "date_added": "2026-09-16",
+    "missing_since": "2026-09-16"
   },
   {
     "company": "CrowdStrike",
@@ -3771,7 +3777,7 @@
   {
     "company": "RTX",
     "role": "Internship \u2013 Raytheon Systems Security Engineer -Onsite",
-    "location": "Ma",
+    "location": "Tewksbury, MA",
     "type": "intern",
     "category": "Cloud & Infra Security",
     "clearance": true,
@@ -3782,7 +3788,7 @@
   {
     "company": "RTX",
     "role": "Internship \u2013 Raytheon Systems Security Engineer-Onsite",
-    "location": "Ri",
+    "location": "Portsmouth, RI",
     "type": "intern",
     "category": "Cloud & Infra Security",
     "clearance": true,
@@ -3793,22 +3799,11 @@
   {
     "company": "RTX",
     "role": "Internship \u2013 Raytheon Systems Security Engineer- Onsite",
-    "location": "Ma",
+    "location": "Woburn, MA",
     "type": "intern",
     "category": "Cloud & Infra Security",
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MA-WOBURN-WB2--225-Presidential-Way--GODDARD-BLDG/Internship---Raytheon-Systems-Security-Engineer--Onsite_01874703",
-    "source": "Workday",
-    "date_added": "2026-09-16"
-  },
-  {
-    "company": "RTX",
-    "role": "Systems Engineer I, V&V Testing (Onsite - Security Clearance)",
-    "location": "Pr",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-PR-AGUADILLA-110--Rd-110-N-Km-288--RD110/Systems-Engineer-I--V-V-Testing--Onsite---Security-Clearance-_01875336",
     "source": "Workday",
     "date_added": "2026-09-16"
   },
@@ -3853,6 +3848,72 @@
     "category": "Security Engineering",
     "clearance": false,
     "url": "https://truist.wd1.myworkdayjobs.com/Careers/job/Atlanta-GA/Associate-Security-Engineer_R0119107",
+    "source": "Workday",
+    "date_added": "2026-09-16"
+  },
+  {
+    "company": "Robinhood",
+    "role": "Security Risk Management Intern (Summer 2027)",
+    "location": "Menlo Park, CA",
+    "type": "intern",
+    "category": "GRC & Risk",
+    "clearance": false,
+    "url": "https://boards.greenhouse.io/robinhood/jobs/8207970?t=gh_src=&gh_jid=8207970",
+    "source": "Greenhouse",
+    "date_added": "2026-09-16"
+  },
+  {
+    "company": "Cisco",
+    "role": "Security Engineer I (Full Time) - United States",
+    "location": "RTP, NC",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/RTP-North-Carolina-US/Security-Engineer-I--Full-Time----United-States_2025883",
+    "source": "Workday",
+    "date_added": "2026-09-16"
+  },
+  {
+    "company": "Cisco",
+    "role": "Security Engineer I (Intern) - United States",
+    "location": "RTP, NC",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/RTP-North-Carolina-US/Security-Engineer-I--Intern----United-States_2025885",
+    "source": "Workday",
+    "date_added": "2026-09-16"
+  },
+  {
+    "company": "Cisco",
+    "role": "Security Research Engineer I (Intern) - United States",
+    "location": "RTP, NC; Austin, TX; Knoxville, TN",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/RTP-North-Carolina-US/Security-Research-Engineer-I--Intern----United-States_2025886",
+    "source": "Workday",
+    "date_added": "2026-09-16"
+  },
+  {
+    "company": "Boeing",
+    "role": "Product Security Engineer (Entry Level or Associate)",
+    "location": "Berkeley, MO; Saint Charles, MO",
+    "type": "earlycareer",
+    "category": "AppSec & ProdSec",
+    "clearance": true,
+    "url": "https://boeing.wd1.myworkdayjobs.com/EXTERNAL_CAREERS/job/USA---Berkeley-MO/Product-Security-Engineer--Entry-Level-or-Associate-_JR2026523936",
+    "source": "Workday",
+    "date_added": "2026-09-16"
+  },
+  {
+    "company": "Duke Energy",
+    "role": "Associate Cybersecurity Systems Engineering Analyst - Data Protection",
+    "location": "Charlotte, NC",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://dukeenergy.wd1.myworkdayjobs.com/Search/job/Charlotte-NC/Associate-Cybersecurity-Systems-Engineering-Analyst---Data-Protection_R41574",
     "source": "Workday",
     "date_added": "2026-09-16"
   }
