@@ -433,19 +433,6 @@
   },
   {
     "company": "Amazon",
-    "role": "Software Dev Engineer II, Enterprise Security Products",
-    "location": "Austin, TX",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "",
-    "source": "Amazon Jobs",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-08-14"
-  },
-  {
-    "company": "Amazon",
     "role": "Data Engineer II, Veritas, Security Tools Foundation",
     "location": "Seattle, WA",
     "type": "earlycareer",
@@ -847,7 +834,8 @@
     "clearance": false,
     "url": "https://job-boards.greenhouse.io/zscaler/jobs/5114254007",
     "source": "Greenhouse",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-17"
   },
   {
     "company": "Zscaler",
@@ -858,7 +846,8 @@
     "clearance": false,
     "url": "https://job-boards.greenhouse.io/zscaler/jobs/5069684007",
     "source": "Greenhouse",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-17"
   },
   {
     "company": "Zscaler",
@@ -869,7 +858,8 @@
     "clearance": false,
     "url": "https://job-boards.greenhouse.io/zscaler/jobs/5100618007",
     "source": "Greenhouse",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-17"
   },
   {
     "company": "Zscaler",
@@ -880,7 +870,8 @@
     "clearance": false,
     "url": "https://job-boards.greenhouse.io/zscaler/jobs/5065302007",
     "source": "Greenhouse",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-17"
   },
   {
     "company": "Zscaler",
@@ -891,7 +882,8 @@
     "clearance": true,
     "url": "https://job-boards.greenhouse.io/zscaler/jobs/5046050007",
     "source": "Greenhouse",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-17"
   },
   {
     "company": "Zscaler",
@@ -902,7 +894,8 @@
     "clearance": false,
     "url": "https://job-boards.greenhouse.io/zscaler/jobs/5045817007",
     "source": "Greenhouse",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-17"
   },
   {
     "company": "Center for AI Safety",
@@ -1778,7 +1771,8 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-TX-MCKINNEY-513WC--2501-W-University-Dr--WING-C-BLDG/Systems-Security-Engineer-II---P2--Onsite-TX-_01859662-1",
     "source": "Workday",
-    "date_added": "2026-07-22"
+    "date_added": "2026-07-22",
+    "missing_since": "2026-09-17"
   },
   {
     "company": "RTX",
@@ -2582,7 +2576,8 @@
     "clearance": true,
     "url": "https://caci.wd1.myworkdayjobs.com/External/job/St-Louis-MO-US/Cyber-Security-Operations-Specialist-I---Tier-1_330972",
     "source": "Workday",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "missing_since": "2026-09-17"
   },
   {
     "company": "Cisco",
@@ -2940,7 +2935,8 @@
     "clearance": true,
     "url": "https://pae.wd1.myworkdayjobs.com/Amentum_Careers/job/US-VA-Dahlgren/Junior-Naval-Systems-Security-Engineer_R0169686",
     "source": "Workday",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "missing_since": "2026-09-17"
   },
   {
     "company": "ICF",
@@ -3931,6 +3927,39 @@
     "category": "Security Engineering",
     "clearance": false,
     "url": "https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2616914",
+    "source": "Oracle",
+    "date_added": "2026-09-17"
+  },
+  {
+    "company": "Amentum",
+    "role": "Job Posting Title Junior Naval Systems Security Engineer",
+    "location": "Dahlgren, VA",
+    "type": "earlycareer",
+    "category": "Cloud & Infra Security",
+    "clearance": true,
+    "url": "https://pae.wd1.myworkdayjobs.com/Amentum_Careers/job/US-VA-Dahlgren/Job-Posting-Title-Junior-Naval-Systems-Security-Engineer_R0170950",
+    "source": "Workday",
+    "date_added": "2026-09-17"
+  },
+  {
+    "company": "The Home Depot",
+    "role": "Cybersecurity Analyst II | Fraud (Remote)",
+    "location": "Remote, GA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://homedepot.wd5.myworkdayjobs.com/CareerDepot/job/GEORGIA---VIRTUAL---GA01/Cybersecurity-Analyst-II---Fraud--Remote-_Req187319",
+    "source": "Workday",
+    "date_added": "2026-09-17"
+  },
+  {
+    "company": "SAIC",
+    "role": "DevSecOps Engineer Associate",
+    "location": "Newport, RI",
+    "type": "earlycareer",
+    "category": "AppSec & ProdSec",
+    "clearance": false,
+    "url": "https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2616945",
     "source": "Oracle",
     "date_added": "2026-09-17"
   }
