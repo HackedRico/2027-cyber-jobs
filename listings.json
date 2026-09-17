@@ -3141,10 +3141,12 @@
     "type": "earlycareer",
     "category": "AppSec & ProdSec",
     "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10512781/security-engineer-ii-stores-application-security",
+    "url": "",
     "source": "Amazon Jobs",
     "date_added": "2026-09-05",
-    "missing_since": "2026-09-16"
+    "missing_since": "2026-09-16",
+    "closed": true,
+    "closed_date": "2026-09-17"
   },
   {
     "company": "Amazon",
@@ -3399,10 +3401,12 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://www.okta.com/company/careers/opportunity/8191371?gh_jid=8191371",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-09-10",
-    "missing_since": "2026-09-16"
+    "missing_since": "2026-09-16",
+    "closed": true,
+    "closed_date": "2026-09-17"
   },
   {
     "company": "Tanium",
