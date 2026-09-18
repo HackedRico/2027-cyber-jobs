@@ -13,7 +13,7 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 
 <!-- STATS -->
 
-**318** open roles tracked · updated September 17, 2026
+**318** open roles tracked · updated September 18, 2026
 
 <!-- /STATS -->
 
