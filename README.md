@@ -13,7 +13,7 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 
 <!-- STATS -->
 
-**318** open roles tracked · updated September 18, 2026
+**322** open roles tracked · updated September 18, 2026
 
 <!-- /STATS -->
 
@@ -81,6 +81,8 @@ Cybersecurity internships and co-ops for current students, including federal Pat
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| Motorola Solutions | Cyber Security - 2027 Summer Internship (Chicago Hybrid) | Chicago, IL, More... | Security Engineering | <a href="https://motorolasolutions.wd5.myworkdayjobs.com/Careers/job/Chicago-IL/Cyber-Security---2027-Summer-Internship--Chicago-Hybrid-_R68369" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 18 |
+| Robinhood | Offensive Security Intern (Summer 2027) | <details><summary>**2 locations**</summary>Bellevue, WA</br>Menlo Park, CA</details> | Offensive Security | <a href="https://boards.greenhouse.io/robinhood/jobs/8214142?t=gh_src=&amp;gh_jid=8214142" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 18 |
 | Cisco 🇺🇸 | Security Engineer I (Intern) - United States | RTP, NC | Security Engineering | <a href="https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/RTP-North-Carolina-US/Security-Engineer-I--Intern----United-States_2025885" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 16 |
 | ↳ | Security Research Engineer I (Intern) - United States | <details><summary>**3 locations**</summary>RTP, NC</br>Austin, TX</br>Knoxville, TN</details> | Security Engineering | <a href="https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/RTP-North-Carolina-US/Security-Research-Engineer-I--Intern----United-States_2025886" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 16 |
 | Northrop Grumman 🇺🇸 | 2027 Cyber Software Engineer Intern - Cincinnati OH | Cincinnati, OH | Security Engineering | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Ohio-Cincinnati/XMLNAME-2027-Cyber-Software-Engineer-Intern---Cincinnati-OH_R10249186" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 16 |
@@ -153,6 +155,8 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| Appian | AI Security Engineer | McLean, VA | AI Security &amp; Safety | <a href="https://job-boards.greenhouse.io/appian/jobs/8201099" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 18 |
+| Cisco | AI Security Engineer | <details><summary>**2 locations**</summary>RTP, NC</br>San Jose, CA</details> | AI Security &amp; Safety | <a href="https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/RTP-North-Carolina-US/AI-Security-Engineer_2024998" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 18 |
 | Amentum 🇺🇸 | Job Posting Title Junior Naval Systems Security Engineer | Dahlgren, VA | Cloud &amp; Infra Security | <a href="https://pae.wd1.myworkdayjobs.com/Amentum_Careers/job/US-VA-Dahlgren/Job-Posting-Title-Junior-Naval-Systems-Security-Engineer_R0170950" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 17 |
 | SAIC | Cyber Engineer Associate | Chantilly, VA | Security Engineering | <a href="https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2616914" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 17 |
 | ↳ | DevSecOps Engineer Associate | Newport, RI | AppSec &amp; ProdSec | <a href="https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2616945" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 17 |

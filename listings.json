@@ -2411,7 +2411,8 @@
     "clearance": false,
     "url": "https://job-boards.greenhouse.io/extrahopnetworks/jobs/6130318004",
     "source": "Greenhouse",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "missing_since": "2026-09-18"
   },
   {
     "company": "Coalfire",
@@ -3856,7 +3857,8 @@
     "clearance": false,
     "url": "https://truist.wd1.myworkdayjobs.com/Careers/job/Atlanta-GA/Associate-Security-Engineer_R0119107",
     "source": "Workday",
-    "date_added": "2026-09-16"
+    "date_added": "2026-09-16",
+    "missing_since": "2026-09-18"
   },
   {
     "company": "Robinhood",
@@ -3967,5 +3969,49 @@
     "url": "https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2616945",
     "source": "Oracle",
     "date_added": "2026-09-17"
+  },
+  {
+    "company": "Appian",
+    "role": "AI Security Engineer",
+    "location": "McLean, VA",
+    "type": "earlycareer",
+    "category": "AI Security & Safety",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/appian/jobs/8201099",
+    "source": "Greenhouse",
+    "date_added": "2026-09-18"
+  },
+  {
+    "company": "Robinhood",
+    "role": "Offensive Security Intern (Summer 2027)",
+    "location": "Bellevue, WA; Menlo Park, CA",
+    "type": "intern",
+    "category": "Offensive Security",
+    "clearance": false,
+    "url": "https://boards.greenhouse.io/robinhood/jobs/8214142?t=gh_src=&gh_jid=8214142",
+    "source": "Greenhouse",
+    "date_added": "2026-09-18"
+  },
+  {
+    "company": "Cisco",
+    "role": "AI Security Engineer",
+    "location": "RTP, NC; San Jose, CA",
+    "type": "earlycareer",
+    "category": "AI Security & Safety",
+    "clearance": false,
+    "url": "https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/RTP-North-Carolina-US/AI-Security-Engineer_2024998",
+    "source": "Workday",
+    "date_added": "2026-09-18"
+  },
+  {
+    "company": "Motorola Solutions",
+    "role": "Cyber Security - 2027 Summer Internship (Chicago Hybrid)",
+    "location": "Chicago, IL, More...",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://motorolasolutions.wd5.myworkdayjobs.com/Careers/job/Chicago-IL/Cyber-Security---2027-Summer-Internship--Chicago-Hybrid-_R68369",
+    "source": "Workday",
+    "date_added": "2026-09-18"
   }
 ]
