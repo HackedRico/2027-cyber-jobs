@@ -3164,10 +3164,12 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10529496/systems-development-engineer-ii-amazon-security",
+    "url": "",
     "source": "Amazon Jobs",
     "date_added": "2026-09-05",
-    "missing_since": "2026-09-18"
+    "missing_since": "2026-09-18",
+    "closed": true,
+    "closed_date": "2026-09-19"
   },
   {
     "company": "Nightwing",
