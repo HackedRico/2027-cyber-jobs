@@ -13,7 +13,7 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 
 <!-- STATS -->
 
-**193** open roles tracked · updated September 21, 2026
+**196** open roles tracked · updated September 21, 2026
 
 <!-- /STATS -->
 
@@ -41,6 +41,8 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| Guidehouse 🇺🇸 | Consulting Analyst - Technology Consulting, Defense &amp; Security - Campus 2027 | VA, McLean | Security Engineering | <a href="https://guidehouse.wd1.myworkdayjobs.com/External/job/US---VA-McLean/Consulting-Analyst---Technology-Consulting--Defense---Security---Campus-2027_44758" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 21 |
+| Okta | Associate Program Analyst (New Grad) | <details><summary>**2 locations**</summary>Bellevue, WA</br>Chicago, IL</details> | Engineering @ Security Co | <a href="https://www.okta.com/company/careers/opportunity/8220584?gh_jid=8220584" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 21 |
 | Northrop Grumman 🇺🇸 | 2027 Associate Classified Cybersecurity Analyst - Pathways Program - Huntsville AL | Huntsville, AL | Security Engineering | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Alabama-Huntsville/XMLNAME-2027-Associate-Classified-Cybersecurity-Analyst---Pathways-Program---Huntsville-AL_R10250629-1" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 15 |
 | Okta | Developer Support Associate (New Grad) | Chicago, IL | Engineering @ Security Co | <a href="https://www.okta.com/company/careers/opportunity/8191506?gh_jid=8191506" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 14 |
 | Anduril 🇺🇸 | 2026 Junior Analyst, Threat Intelligence | Costa Mesa, CA | Threat Intelligence | <a href="https://boards.greenhouse.io/andurilindustries/jobs/5233074007?gh_jid=5233074007" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 9 |
@@ -155,6 +157,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
 | CACI 🇺🇸 | Junior Cyber Software Engineer | Aberdeen Proving Ground, MD | Security Engineering | <a href="https://caci.wd1.myworkdayjobs.com/External/job/Aberdeen-Proving-Ground-MD-US/Junior-Cyber-Software-Engineer_332339" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 21 |
+| ExtraHop | Support Engineer I - Raleigh, NC | <details><summary>**2 locations**</summary>Raleigh, NC</br>Remote (US)</details> | Engineering @ Security Co | <a href="https://job-boards.greenhouse.io/extrahopnetworks/jobs/6202979004" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 21 |
 | JPMorgan Chase | Security Engineer II | Plano, TX | Security Engineering | <a href="https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210792628" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 21 |
 | Truist | AI Security Engineer | Charlotte, NC | AI Security &amp; Safety | <a href="https://truist.wd1.myworkdayjobs.com/Careers/job/Charlotte-NC/AI-Security-Enngineer_R0119088-1" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 21 |
 | Appian | AI Security Engineer | McLean, VA | AI Security &amp; Safety | <a href="https://job-boards.greenhouse.io/appian/jobs/8201099" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 18 |

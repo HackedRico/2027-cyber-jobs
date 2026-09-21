@@ -3445,7 +3445,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Oklahoma-Oklahoma-City/Systems-Security-Engineer--Level-2-or-3---Oklahoma-City-OK-_R10247550",
     "source": "Workday",
-    "date_added": "2026-09-09"
+    "date_added": "2026-09-09",
+    "missing_since": "2026-09-21"
   },
   {
     "company": "SailPoint",
@@ -3809,8 +3810,7 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Alabama-Huntsville/XMLNAME-2027-Associate-Classified-Cybersecurity-Analyst---Pathways-Program---Huntsville-AL_R10250629-1",
     "source": "Workday",
-    "date_added": "2026-09-15",
-    "missing_since": "2026-09-20"
+    "date_added": "2026-09-15"
   },
   {
     "company": "Walmart",
@@ -4177,6 +4177,39 @@
     "clearance": false,
     "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210792628",
     "source": "Oracle",
+    "date_added": "2026-09-21"
+  },
+  {
+    "company": "Okta",
+    "role": "Associate Program Analyst (New Grad)",
+    "location": "Bellevue, WA; Chicago, IL",
+    "type": "newgrad",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://www.okta.com/company/careers/opportunity/8220584?gh_jid=8220584",
+    "source": "Greenhouse",
+    "date_added": "2026-09-21"
+  },
+  {
+    "company": "ExtraHop",
+    "role": "Support Engineer I - Raleigh, NC",
+    "location": "Raleigh, NC; Remote (US)",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/extrahopnetworks/jobs/6202979004",
+    "source": "Greenhouse",
+    "date_added": "2026-09-21"
+  },
+  {
+    "company": "Guidehouse",
+    "role": "Consulting Analyst - Technology Consulting, Defense & Security - Campus 2027",
+    "location": "VA, McLean",
+    "type": "newgrad",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://guidehouse.wd1.myworkdayjobs.com/External/job/US---VA-McLean/Consulting-Analyst---Technology-Consulting--Defense---Security---Campus-2027_44758",
+    "source": "Workday",
     "date_added": "2026-09-21"
   }
 ]
