@@ -930,19 +930,6 @@
     "closed_date": "2026-09-20"
   },
   {
-    "company": "Center for AI Safety",
-    "role": "Research Engineer Intern (Fall 2026)",
-    "location": "San Francisco, CA",
-    "type": "intern",
-    "category": "Engineering @ Security Co",
-    "clearance": false,
-    "url": "",
-    "source": "Lever",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-07-22"
-  },
-  {
     "company": "Nightwing",
     "role": "Vulnerability Researcher Intern \u2013 2026",
     "location": "Palm Bay, FL",
@@ -2042,10 +2029,11 @@
     "type": "newgrad",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://job-boards.greenhouse.io/appian/jobs/8035744",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-07-25",
-    "missing_since": "2026-09-18"
+    "closed": true,
+    "closed_date": "2026-09-21"
   },
   {
     "company": "NVIDIA",
@@ -2506,10 +2494,11 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://job-boards.greenhouse.io/extrahopnetworks/jobs/6130318004",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-09-05",
-    "missing_since": "2026-09-18"
+    "closed": true,
+    "closed_date": "2026-09-21"
   },
   {
     "company": "Coalfire",
@@ -2746,7 +2735,8 @@
     "clearance": false,
     "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Sterling-VA/Software-Engineer-I_JR101958",
     "source": "Workday",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "missing_since": "2026-09-21"
   },
   {
     "company": "Nightwing",
@@ -2792,7 +2782,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Colorado-Aurora/XMLNAME-2026-Part-Time-Cyber-Security-Engineering-Intern---Aurora-CO_R10248520",
     "source": "Workday",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "missing_since": "2026-09-21"
   },
   {
     "company": "Northrop Grumman",
@@ -3031,7 +3022,8 @@
     "clearance": true,
     "url": "https://pae.wd1.myworkdayjobs.com/Amentum_Careers/job/US-VA-Dahlgren/Junior-Naval-Systems-Security-Analyst_R0169689-1",
     "source": "Workday",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "missing_since": "2026-09-21"
   },
   {
     "company": "Amentum",
@@ -3651,10 +3643,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210764907",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-09-11",
-    "missing_since": "2026-09-18"
+    "closed": true,
+    "closed_date": "2026-09-21"
   },
   {
     "company": "Amazon",
@@ -3769,8 +3762,7 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Systems-Security-Engineer-I---Anti-Tamper---Program-Protection--On-site-_01874756",
     "source": "Workday",
-    "date_added": "2026-09-14",
-    "missing_since": "2026-09-19"
+    "date_added": "2026-09-14"
   },
   {
     "company": "Northrop Grumman",
@@ -3802,10 +3794,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-San-Diego/Associate-Cybersecurity-Analyst---Secret---San-Diego-CA_R10244550",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-15",
-    "missing_since": "2026-09-18"
+    "closed": true,
+    "closed_date": "2026-09-21"
   },
   {
     "company": "Northrop Grumman",
@@ -3885,10 +3878,11 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Automation-Engineer-II--Falcon-Complete--Remote-_R29988",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-16",
-    "missing_since": "2026-09-18"
+    "closed": true,
+    "closed_date": "2026-09-21"
   },
   {
     "company": "Northrop Grumman",
@@ -3989,10 +3983,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://truist.wd1.myworkdayjobs.com/Careers/job/Atlanta-GA/Associate-Security-Engineer_R0119107",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-16",
-    "missing_since": "2026-09-18"
+    "closed": true,
+    "closed_date": "2026-09-21"
   },
   {
     "company": "Robinhood",
@@ -4047,7 +4042,8 @@
     "clearance": true,
     "url": "https://boeing.wd1.myworkdayjobs.com/EXTERNAL_CAREERS/job/USA---Berkeley-MO/Product-Security-Engineer--Entry-Level-or-Associate-_JR2026523936",
     "source": "Workday",
-    "date_added": "2026-09-16"
+    "date_added": "2026-09-16",
+    "missing_since": "2026-09-21"
   },
   {
     "company": "Duke Energy",
@@ -4081,7 +4077,8 @@
     "clearance": true,
     "url": "https://pae.wd1.myworkdayjobs.com/Amentum_Careers/job/US-VA-Dahlgren/Job-Posting-Title-Junior-Naval-Systems-Security-Engineer_R0170950",
     "source": "Workday",
-    "date_added": "2026-09-17"
+    "date_added": "2026-09-17",
+    "missing_since": "2026-09-21"
   },
   {
     "company": "The Home Depot",
@@ -4148,5 +4145,38 @@
     "url": "https://motorolasolutions.wd5.myworkdayjobs.com/Careers/job/Chicago-IL/Cyber-Security---2027-Summer-Internship--Chicago-Hybrid-_R68369",
     "source": "Workday",
     "date_added": "2026-09-18"
+  },
+  {
+    "company": "CACI",
+    "role": "Junior Cyber Software Engineer",
+    "location": "Aberdeen Proving Ground, MD",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://caci.wd1.myworkdayjobs.com/External/job/Aberdeen-Proving-Ground-MD-US/Junior-Cyber-Software-Engineer_332339",
+    "source": "Workday",
+    "date_added": "2026-09-21"
+  },
+  {
+    "company": "Truist",
+    "role": "AI Security Engineer",
+    "location": "Charlotte, NC",
+    "type": "earlycareer",
+    "category": "AI Security & Safety",
+    "clearance": false,
+    "url": "https://truist.wd1.myworkdayjobs.com/Careers/job/Charlotte-NC/AI-Security-Enngineer_R0119088-1",
+    "source": "Workday",
+    "date_added": "2026-09-21"
+  },
+  {
+    "company": "JPMorgan Chase",
+    "role": "Security Engineer II",
+    "location": "Plano, TX",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210792628",
+    "source": "Oracle",
+    "date_added": "2026-09-21"
   }
 ]
