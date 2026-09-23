@@ -3698,7 +3698,8 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-PR-AGUADILLA-110--Rd-110-N-Km-288--RD110/Systems-Engineer-I--V-V-Testing--Onsite---Security-Clearance-_01870858",
     "source": "Workday",
-    "date_added": "2026-09-14"
+    "date_added": "2026-09-14",
+    "missing_since": "2026-09-23"
   },
   {
     "company": "Okta",
@@ -4064,10 +4065,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://dukeenergy.wd1.myworkdayjobs.com/Search/job/Charlotte-NC/Associate-Cybersecurity-Systems-Engineering-Analyst---Data-Protection_R41574",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-16",
-    "missing_since": "2026-09-20"
+    "closed": true,
+    "closed_date": "2026-09-23"
   },
   {
     "company": "SAIC",
@@ -4380,5 +4382,49 @@
     "url": "https://www.amazon.jobs/en/jobs/10557073/associate-security-engineer-aws-cirt",
     "source": "Amazon Jobs",
     "date_added": "2026-09-22"
+  },
+  {
+    "company": "Northrop Grumman",
+    "role": "2027 Intern - Systems Security/Cybersecurity Engineer",
+    "location": "Melbourne, FL",
+    "type": "intern",
+    "category": "Cloud & Infra Security",
+    "clearance": true,
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Florida-Melbourne/XMLNAME-2027-Intern---Systems-Security-Cybersecurity-Engineer_R10252418",
+    "source": "Workday",
+    "date_added": "2026-09-23"
+  },
+  {
+    "company": "RTX",
+    "role": "Junior DevSecOps Engineer, EDS Platform Services team, Hybrid role",
+    "location": "Tucson, AZ; Richardson, TX; Woburn, MA; McKinney, TX; Tewksbury, MA; Andover, MA",
+    "type": "earlycareer",
+    "category": "AppSec & ProdSec",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Junior-DevSecOps-Engineer--EDS-Platform-Services-team--Hybrid-rol_01871462",
+    "source": "Workday",
+    "date_added": "2026-09-23"
+  },
+  {
+    "company": "Amazon",
+    "role": "Security Engineer Internship \u2013 2027 (US)",
+    "location": "Seattle, WA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10557133/security-engineer-internship-2027-us",
+    "source": "Amazon Jobs",
+    "date_added": "2026-09-23"
+  },
+  {
+    "company": "Amazon",
+    "role": "Security Engineer \u2013 2027 (US)",
+    "location": "Seattle, WA",
+    "type": "newgrad",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10557132/security-engineer-2027-us",
+    "source": "Amazon Jobs",
+    "date_added": "2026-09-23"
   }
 ]

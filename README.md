@@ -13,7 +13,7 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 
 <!-- STATS -->
 
-**204** open roles tracked · updated September 22, 2026
+**206** open roles tracked · updated September 23, 2026
 
 <!-- /STATS -->
 
@@ -41,6 +41,7 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| Amazon | Security Engineer – 2027 (US) | Seattle, WA | Security Engineering | <a href="https://www.amazon.jobs/en/jobs/10557132/security-engineer-2027-us" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 23 |
 | Guidehouse 🇺🇸 | Consulting Analyst - Technology Consulting, Defense &amp; Security - Campus 2027 | VA, McLean | Security Engineering | <a href="https://guidehouse.wd1.myworkdayjobs.com/External/job/US---VA-McLean/Consulting-Analyst---Technology-Consulting--Defense---Security---Campus-2027_44758" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 21 |
 | Okta | Associate Program Analyst (New Grad) | <details><summary>**2 locations**</summary>Bellevue, WA</br>Chicago, IL</details> | Engineering @ Security Co | <a href="https://www.okta.com/company/careers/opportunity/8220584?gh_jid=8220584" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 21 |
 | Northrop Grumman 🇺🇸 | 2027 Associate Classified Cybersecurity Analyst - Pathways Program - Huntsville AL | Huntsville, AL | Security Engineering | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Alabama-Huntsville/XMLNAME-2027-Associate-Classified-Cybersecurity-Analyst---Pathways-Program---Huntsville-AL_R10250629-1" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 15 |
@@ -83,6 +84,8 @@ Cybersecurity internships and co-ops for current students, including federal Pat
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| Amazon | Security Engineer Internship – 2027 (US) | Seattle, WA | Security Engineering | <a href="https://www.amazon.jobs/en/jobs/10557133/security-engineer-internship-2027-us" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 23 |
+| Northrop Grumman 🇺🇸 | 2027 Intern - Systems Security/Cybersecurity Engineer | Melbourne, FL | Cloud &amp; Infra Security | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Florida-Melbourne/XMLNAME-2027-Intern---Systems-Security-Cybersecurity-Engineer_R10252418" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 23 |
 | Nightwing 🇺🇸 | Multidisciplinary Engineer Intern | Springfield, VA | Engineering @ Security Co | <a href="https://nwis.wd12.myworkdayjobs.com/NW/job/Springfield-VA/Multidisciplinary-Engineer-Intern_JR102090" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 22 |
 | Northrop Grumman 🇺🇸 | 2027 Cyber Software Engineer Intern - Tampa FL | Tampa, FL | Security Engineering | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Florida-Tampa/XMLNAME-2027-Cyber-Software-Engineer-Intern---Tampa-FL_R10249530" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 22 |
 | ↳ | 2027 Cyber Systems Engineer Intern-Tampa FL | Tampa, FL | Security Engineering | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Florida-Tampa/XMLNAME-2027-Cyber-Systems-Engineer-Intern-Tampa-FL_R10249196" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 22 |
@@ -161,6 +164,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| RTX 🇺🇸 | Junior DevSecOps Engineer, EDS Platform Services team, Hybrid role | <details><summary>**6 locations**</summary>Tucson, AZ</br>Richardson, TX</br>Woburn, MA</br>McKinney, TX</br>Tewksbury, MA</br>Andover, MA</details> | AppSec &amp; ProdSec | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Junior-DevSecOps-Engineer--EDS-Platform-Services-team--Hybrid-rol_01871462" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 23 |
 | Abnormal AI | Software Engineer 1 - Data Platforms | Remote (US) | Engineering @ Security Co | <a href="https://abnormal.ai/careers/jobs/8001641003?gh_jid=8001641003" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 22 |
 | Amazon | Security Engineer I, AppSTAR | Austin, TX | Security Engineering | 🔒 | Sep 22 |
 | ↳ | Associate Security Engineer, AWS CIRT | Austin, TX | Security Engineering | <a href="https://www.amazon.jobs/en/jobs/10557073/associate-security-engineer-aws-cirt" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 22 |
@@ -186,7 +190,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 | ↳ | Associate Analyst, Falcon Complete | <details><summary>**2 locations**</summary>Remote (US)</br>St. Louis, MO</details> | Engineering @ Security Co | 🔒 | Sep 16 |
 | ↳ | Analyst I, Falcon Complete GovCloud (Hybrid, St Louis) | <details><summary>**2 locations**</summary>Remote (US)</br>St. Louis, MO</details> | Engineering @ Security Co | <a href="https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Analyst-I--Falcon-Complete-GovCloud--Hybrid--St-Louis-_R29933-1" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 16 |
 | ↳ | Automation Engineer II, Falcon Complete (Remote) | Remote (US) | Engineering @ Security Co | 🔒 | Sep 16 |
-| Duke Energy | Associate Cybersecurity Systems Engineering Analyst - Data Protection | Charlotte, NC | Security Engineering | <a href="https://dukeenergy.wd1.myworkdayjobs.com/Search/job/Charlotte-NC/Associate-Cybersecurity-Systems-Engineering-Analyst---Data-Protection_R41574" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 16 |
+| Duke Energy | Associate Cybersecurity Systems Engineering Analyst - Data Protection | Charlotte, NC | Security Engineering | 🔒 | Sep 16 |
 | Proofpoint | Deals Desk Analyst II | Draper, UT | Engineering @ Security Co | <a href="https://proofpoint.wd5.myworkdayjobs.com/proofpointcareers/job/Draper-UT/Deals-Desk-Analyst-II_R14761" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 16 |
 | SAIC | Tier II or III Microsoft Azure Identity and Access Management (IAM) Administrator | Washington, DC | Identity &amp; IAM | <a href="https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2616831" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 16 |
 | The Home Depot | Cybersecurity Engineer II \| SIEM and EDR (Remote) | Remote, GA | SOC &amp; Detection | <a href="https://homedepot.wd5.myworkdayjobs.com/CareerDepot/job/GEORGIA---VIRTUAL---GA01/Cybersecurity-Engineer-II---SIEM-and-EDR--Remote-_Req187569" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 16 |
