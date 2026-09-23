@@ -93,11 +93,9 @@
     "type": "earlycareer",
     "category": "SOC & Detection",
     "clearance": false,
-    "url": "",
+    "url": "https://www.pinterestcareers.com/jobs/?gh_jid=8015490",
     "source": "Greenhouse",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-09-19"
+    "date_added": "2026-07-12"
   },
   {
     "company": "Praetorian",
@@ -771,11 +769,9 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "",
+    "url": "https://caci.wd1.myworkdayjobs.com/External/job/Florham-Park-NJ-US/Cyber-Software-Engineer--Junior_332538",
     "source": "Workday",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-09-19"
+    "date_added": "2026-07-12"
   },
   {
     "company": "CACI",
@@ -2043,11 +2039,9 @@
     "type": "newgrad",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "",
+    "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/Security-Architect---New-College-Grad-2026_JR2026387-1",
     "source": "Workday",
-    "date_added": "2026-07-25",
-    "closed": true,
-    "closed_date": "2026-09-19"
+    "date_added": "2026-07-25"
   },
   {
     "company": "Affirm",
@@ -3308,7 +3302,8 @@
     "clearance": true,
     "url": "https://ffive.wd5.myworkdayjobs.com/f5jobs/job/Reston/Security-Engineer-II_RP1038649",
     "source": "Workday",
-    "date_added": "2026-09-08"
+    "date_added": "2026-09-08",
+    "missing_since": "2026-09-23"
   },
   {
     "company": "Northrop Grumman",
@@ -4258,7 +4253,8 @@
     "clearance": false,
     "url": "https://abnormal.ai/careers/jobs/8001641003?gh_jid=8001641003",
     "source": "Greenhouse",
-    "date_added": "2026-09-22"
+    "date_added": "2026-09-22",
+    "missing_since": "2026-09-23"
   },
   {
     "company": "Nightwing",
@@ -4335,7 +4331,8 @@
     "clearance": false,
     "url": "https://dukeenergy.wd1.myworkdayjobs.com/Search/job/Charlotte-NC/Associate-Cybersecurity-Government---Risk-Analyst_R41659-1",
     "source": "Workday",
-    "date_added": "2026-09-22"
+    "date_added": "2026-09-22",
+    "missing_since": "2026-09-23"
   },
   {
     "company": "SAIC",
@@ -4346,7 +4343,8 @@
     "clearance": false,
     "url": "https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2617131",
     "source": "Oracle",
-    "date_added": "2026-09-22"
+    "date_added": "2026-09-22",
+    "missing_since": "2026-09-23"
   },
   {
     "company": "SAIC",
@@ -4357,7 +4355,8 @@
     "clearance": false,
     "url": "https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2617134",
     "source": "Oracle",
-    "date_added": "2026-09-22"
+    "date_added": "2026-09-22",
+    "missing_since": "2026-09-23"
   },
   {
     "company": "Amazon",
@@ -4425,6 +4424,72 @@
     "clearance": false,
     "url": "https://www.amazon.jobs/en/jobs/10557132/security-engineer-2027-us",
     "source": "Amazon Jobs",
+    "date_added": "2026-09-23"
+  },
+  {
+    "company": "Delinea",
+    "role": "Advanced Support Engineer I",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/delinea/544e1b85-1961-4269-86dd-a4b011f34948",
+    "source": "Ashby",
+    "date_added": "2026-09-23"
+  },
+  {
+    "company": "CrowdStrike",
+    "role": "Engineer II - Vulnerability Management (Hybrid)",
+    "location": "Sunnyvale, CA",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Sunnyvale-CA/Sr-Vulnerability-Management-Engineer--Remote-_R25646",
+    "source": "Workday",
+    "date_added": "2026-09-23"
+  },
+  {
+    "company": "Northrop Grumman",
+    "role": "Cyber Operator/Field Engineer \u2013 Level 2 (AHT)",
+    "location": "Colorado Springs, CO",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Colorado-Colorado-Springs/Cyber-Operator-Field-Engineer---Level-2--AHT-_R10252571",
+    "source": "Workday",
+    "date_added": "2026-09-23"
+  },
+  {
+    "company": "Northrop Grumman",
+    "role": "Associate Classified Cybersecurity Analyst - Secret",
+    "location": "Chandler, AZ",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Arizona-Chandler/Associate-Classified-Cybersecurity-Analyst---Secret_R10250039-1",
+    "source": "Workday",
+    "date_added": "2026-09-23"
+  },
+  {
+    "company": "Northrop Grumman",
+    "role": "Security Innovation & Integrations Analyst (Level 2 or 3)",
+    "location": "Irving, TX; Remote (US)",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Texas-Irving/Security-Innovation---Integrations-Analyst--Level-2-or-3-_R10252525",
+    "source": "Workday",
+    "date_added": "2026-09-23"
+  },
+  {
+    "company": "State Street",
+    "role": "Junior SIEM Data Engineer",
+    "location": "Quincy, MA",
+    "type": "earlycareer",
+    "category": "SOC & Detection",
+    "clearance": false,
+    "url": "https://statestreet.wd1.myworkdayjobs.com/Global/job/Quincy-Massachusetts/Junior-SIEM-Data-Engineer_R-794329",
+    "source": "Workday",
     "date_added": "2026-09-23"
   }
 ]

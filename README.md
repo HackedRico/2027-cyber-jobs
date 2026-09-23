@@ -13,7 +13,7 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 
 <!-- STATS -->
 
-**206** open roles tracked · updated September 23, 2026
+**215** open roles tracked · updated September 23, 2026
 
 <!-- /STATS -->
 
@@ -62,7 +62,7 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 | ↳ | Applied Scientist, PhD New Grad | United States | Engineering @ Security Co | <a href="https://jobs.ashbyhq.com/sentilink/cbe2397c-5e7a-4649-a8c0-07e5d1204e82" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 5 |
 | Deloitte | Consultative Offerings - Analyst - Cyber | <details><summary>**14 locations**</summary>Austin, TX</br>Boston, MA</br>Chicago, IL</br>Dallas, TX</br>Detroit, MI</br>Houston, TX</br>Los Angeles, CA</br>McLean, VA</br>Miami, FL</br>Minneapolis, MN</br>Nashville, TN</br>New York, NY</br>San Francisco, CA</br>Seattle, WA</details> | GRC &amp; Risk | <a href="https://apply.deloitte.com/en_US/careers/JobDetail/Consultative-Offerings-Analyst-Cyber/350255" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Aug 2 |
 | Appian | Information Security Engineer (2027 Graduate) | McLean, VA | Security Engineering | 🔒 | Jul 25 |
-| NVIDIA | Security Architect - New College Grad 2026 | Santa Clara, CA | Security Engineering | 🔒 | Jul 25 |
+| NVIDIA | Security Architect - New College Grad 2026 | Santa Clara, CA | Security Engineering | <a href="https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/Security-Architect---New-College-Grad-2026_JR2026387-1" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 25 |
 | CrowdStrike | Engineer I, Data Scientist - New Grad (Hybrid) | Sunnyvale, CA | Engineering @ Security Co | 🔒 | Jul 20 |
 | TRM Labs | University Grad – Product Engineer (2026-2027) - Los Angeles Only | Los Angeles, CA | Engineering @ Security Co | <a href="https://jobs.ashbyhq.com/trm-labs/0b8546c0-39ba-44db-aba5-3425bcb2e68d" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 20 |
 | Osano | Jr IT Analyst (part-time) | United States | Engineering @ Security Co | 🔒 | Jul 18 |
@@ -164,7 +164,13 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| CrowdStrike | Engineer II - Vulnerability Management (Hybrid) | Sunnyvale, CA | Engineering @ Security Co | <a href="https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Sunnyvale-CA/Sr-Vulnerability-Management-Engineer--Remote-_R25646" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 23 |
+| Delinea | Advanced Support Engineer I | Remote (US) | Engineering @ Security Co | <a href="https://jobs.ashbyhq.com/delinea/544e1b85-1961-4269-86dd-a4b011f34948" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 23 |
+| Northrop Grumman 🇺🇸 | Cyber Operator/Field Engineer – Level 2 (AHT) | Colorado Springs, CO | Security Engineering | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Colorado-Colorado-Springs/Cyber-Operator-Field-Engineer---Level-2--AHT-_R10252571" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 23 |
+| ↳ | Associate Classified Cybersecurity Analyst - Secret | Chandler, AZ | Security Engineering | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Arizona-Chandler/Associate-Classified-Cybersecurity-Analyst---Secret_R10250039-1" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 23 |
+| ↳ | Security Innovation &amp; Integrations Analyst (Level 2 or 3) | <details><summary>**2 locations**</summary>Irving, TX</br>Remote (US)</details> | Security Engineering | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Texas-Irving/Security-Innovation---Integrations-Analyst--Level-2-or-3-_R10252525" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 23 |
 | RTX 🇺🇸 | Junior DevSecOps Engineer, EDS Platform Services team, Hybrid role | <details><summary>**6 locations**</summary>Tucson, AZ</br>Richardson, TX</br>Woburn, MA</br>McKinney, TX</br>Tewksbury, MA</br>Andover, MA</details> | AppSec &amp; ProdSec | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Junior-DevSecOps-Engineer--EDS-Platform-Services-team--Hybrid-rol_01871462" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 23 |
+| State Street | Junior SIEM Data Engineer | Quincy, MA | SOC &amp; Detection | <a href="https://statestreet.wd1.myworkdayjobs.com/Global/job/Quincy-Massachusetts/Junior-SIEM-Data-Engineer_R-794329" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 23 |
 | Abnormal AI | Software Engineer 1 - Data Platforms | Remote (US) | Engineering @ Security Co | <a href="https://abnormal.ai/careers/jobs/8001641003?gh_jid=8001641003" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 22 |
 | Amazon | Security Engineer I, AppSTAR | Austin, TX | Security Engineering | 🔒 | Sep 22 |
 | ↳ | Associate Security Engineer, AWS CIRT | Austin, TX | Security Engineering | <a href="https://www.amazon.jobs/en/jobs/10557073/associate-security-engineer-aws-cirt" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 22 |
@@ -400,7 +406,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 | ↳ | Safeguards Enforcement Analyst, Safety Evaluations | <details><summary>**4 locations**</summary>Remote (US)</br>San Francisco, CA</br>Washington, DC</br>New York City, NY</details> | AI Security &amp; Safety | <a href="https://job-boards.greenhouse.io/anthropic/jobs/5137183008" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
 | ↳ | Safeguards Policy Analyst, Fraud &amp; Scams | <details><summary>**3 locations**</summary>Remote (US)</br>San Francisco, CA</br>New York City, NY</details> | AI Security &amp; Safety | 🔒 | Jul 12 |
 | CACI 🇺🇸 | Space Systems Cyber Security Engineer - Junior | Colorado Springs, CO | Security Engineering | 🔒 | Jul 12 |
-| ↳ | Cyber Software Engineer, Junior | Florham Park, NJ | Security Engineering | 🔒 | Jul 12 |
+| ↳ | Cyber Software Engineer, Junior | Florham Park, NJ | Security Engineering | <a href="https://caci.wd1.myworkdayjobs.com/External/job/Florham-Park-NJ-US/Cyber-Software-Engineer--Junior_332538" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
 | ↳ | Information Security Analyst II | Camp Smith, HI | Security Engineering | 🔒 | Jul 12 |
 | ↳ | Networking Security Engineer II | Columbia, MD | Security Engineering | <a href="https://caci.wd1.myworkdayjobs.com/External/job/Columbia-MD-US/Networking-Security-Engineer-II_326776" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
 | CrowdStrike 🇺🇸 | Engineer II, Threat Detection - Windows (Hybrid) | <details><summary>**4 locations**</summary>Sunnyvale, CA</br>New York, NY</br>Austin, TX</br>Redmond, WA</details> | SOC &amp; Detection | 🔒 | Jul 12 |
@@ -434,7 +440,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 | ↳ | Researcher, Alignment Science | San Francisco, CA | AI Security &amp; Safety | 🔒 | Jul 12 |
 | Palo Alto Networks | Associate Systems Engineer | TX (US) | Engineering @ Security Co | <a href="https://paloaltonetworks.wd5.myworkdayjobs.com/panwexternalcareers/job/Office---USA---TX/Associate-Systems-Engineer_JR-011810" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
 | Pinterest | Security Software Engineer II, Corporate Security | <details><summary>**2 locations**</summary>San Francisco, CA</br>Remote (US)</details> | Security Engineering | 🔒 | Jul 12 |
-| ↳ | Security Software Engineer II, Detection and Response | <details><summary>**2 locations**</summary>San Francisco, CA</br>Remote (US)</details> | SOC &amp; Detection | 🔒 | Jul 12 |
+| ↳ | Security Software Engineer II, Detection and Response | <details><summary>**2 locations**</summary>San Francisco, CA</br>Remote (US)</details> | SOC &amp; Detection | <a href="https://www.pinterestcareers.com/jobs/?gh_jid=8015490" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
 | Praetorian | Offensive Security Engineer | Austin, TX | Offensive Security | <a href="https://www.praetorian.com/careers/?gh_jid=6324471003#job-opening" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
 <!-- TABLE_END earlycareer -->
 
