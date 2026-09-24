@@ -2397,11 +2397,9 @@
     "type": "earlycareer",
     "category": "AI Security & Safety",
     "clearance": false,
-    "url": "",
+    "url": "https://www.pinterestcareers.com/jobs/?gh_jid=8162046",
     "source": "Greenhouse",
-    "date_added": "2026-09-05",
-    "closed": true,
-    "closed_date": "2026-09-19"
+    "date_added": "2026-09-05"
   },
   {
     "company": "Two Six Technologies",
@@ -2538,7 +2536,8 @@
     "clearance": false,
     "url": "https://jobs.ashbyhq.com/chainalysis-careers/da0b9540-9071-4c80-a1ee-a76d46d19c98",
     "source": "Ashby",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "missing_since": "2026-09-24"
   },
   {
     "company": "Prophet Security",
@@ -2560,7 +2559,8 @@
     "clearance": false,
     "url": "https://jobs.ashbyhq.com/sentilink/a4a5f890-4ecd-4e76-86db-e7b3e18eb6b2",
     "source": "Ashby",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "missing_since": "2026-09-24"
   },
   {
     "company": "SentiLink",
@@ -2571,7 +2571,8 @@
     "clearance": false,
     "url": "https://jobs.ashbyhq.com/sentilink/4e28d1a3-75a8-4031-85eb-82b7847d365a",
     "source": "Ashby",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "missing_since": "2026-09-24"
   },
   {
     "company": "SentiLink",
@@ -2582,7 +2583,8 @@
     "clearance": false,
     "url": "https://jobs.ashbyhq.com/sentilink/f9a47314-c48a-4053-a113-6974b211559f",
     "source": "Ashby",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "missing_since": "2026-09-24"
   },
   {
     "company": "SentiLink",
@@ -2593,7 +2595,8 @@
     "clearance": false,
     "url": "https://jobs.ashbyhq.com/sentilink/cbe2397c-5e7a-4649-a8c0-07e5d1204e82",
     "source": "Ashby",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "missing_since": "2026-09-24"
   },
   {
     "company": "Blackpoint Cyber",
@@ -3270,7 +3273,8 @@
     "clearance": true,
     "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Springfield-VA/Multidisciplinary-Engineer-I_JR102051",
     "source": "Workday",
-    "date_added": "2026-09-06"
+    "date_added": "2026-09-06",
+    "missing_since": "2026-09-24"
   },
   {
     "company": "Semgrep",
@@ -3326,11 +3330,9 @@
     "type": "earlycareer",
     "category": "Cloud & Infra Security",
     "clearance": true,
-    "url": "",
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Systems-Security-Engineer-I---Anti-Tamper---Program-Protection--Onsite-Tucson--AZ----P1_01873154",
     "source": "Workday",
-    "date_added": "2026-09-08",
-    "closed": true,
-    "closed_date": "2026-09-19"
+    "date_added": "2026-09-08"
   },
   {
     "company": "Rapid7",
@@ -4180,7 +4182,8 @@
     "clearance": false,
     "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210792628",
     "source": "Oracle",
-    "date_added": "2026-09-21"
+    "date_added": "2026-09-21",
+    "missing_since": "2026-09-24"
   },
   {
     "company": "Okta",
@@ -4191,7 +4194,8 @@
     "clearance": false,
     "url": "https://www.okta.com/company/careers/opportunity/8220584?gh_jid=8220584",
     "source": "Greenhouse",
-    "date_added": "2026-09-21"
+    "date_added": "2026-09-21",
+    "missing_since": "2026-09-24"
   },
   {
     "company": "ExtraHop",
@@ -4376,7 +4380,8 @@
     "clearance": false,
     "url": "https://www.amazon.jobs/en/jobs/10557073/associate-security-engineer-aws-cirt",
     "source": "Amazon Jobs",
-    "date_added": "2026-09-22"
+    "date_added": "2026-09-22",
+    "missing_since": "2026-09-24"
   },
   {
     "company": "Northrop Grumman",
@@ -4409,7 +4414,8 @@
     "clearance": false,
     "url": "https://www.amazon.jobs/en/jobs/10557133/security-engineer-internship-2027-us",
     "source": "Amazon Jobs",
-    "date_added": "2026-09-23"
+    "date_added": "2026-09-23",
+    "missing_since": "2026-09-24"
   },
   {
     "company": "Amazon",
@@ -4420,7 +4426,8 @@
     "clearance": false,
     "url": "https://www.amazon.jobs/en/jobs/10557132/security-engineer-2027-us",
     "source": "Amazon Jobs",
-    "date_added": "2026-09-23"
+    "date_added": "2026-09-23",
+    "missing_since": "2026-09-24"
   },
   {
     "company": "Delinea",
@@ -4488,5 +4495,115 @@
     "source": "Workday",
     "date_added": "2026-09-23",
     "missing_since": "2026-09-24"
+  },
+  {
+    "company": "Expel",
+    "role": "Associate SOC Analyst",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "SOC & Detection",
+    "clearance": false,
+    "url": "https://expel.com/about/career-listing/8588028002?gh_jid=8588028002",
+    "source": "Greenhouse",
+    "date_added": "2026-09-24"
+  },
+  {
+    "company": "Tenable",
+    "role": "AI Information Security Engineer",
+    "location": "Hybrid - Massachusetts - Boston, US - Headquarters - Maryland - Columbia",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/tenableinc/jobs/5434299008",
+    "source": "Greenhouse",
+    "date_added": "2026-09-24"
+  },
+  {
+    "company": "CrowdStrike",
+    "role": "Engineer II - Virtualization (Remote)",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": true,
+    "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Engineer-II---Virtualization--Remote-_R30160",
+    "source": "Workday",
+    "date_added": "2026-09-24"
+  },
+  {
+    "company": "CrowdStrike",
+    "role": "Engineer II, Full Stack (Remote)",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Engineer-II--Full-Stack--Remote-_R30113",
+    "source": "Workday",
+    "date_added": "2026-09-24"
+  },
+  {
+    "company": "Northrop Grumman",
+    "role": "2026 Associate Cybersecurity Analyst - Pathways Program - Rocket Center WV",
+    "location": "Rocket Center, WV",
+    "type": "newgrad",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-West-Virginia-Rocket-Center/XMLNAME-2026-Associate-Cybersecurity-Analyst---Pathways-Program---Rocket-Center-WV_R10252865",
+    "source": "Workday",
+    "date_added": "2026-09-24"
+  },
+  {
+    "company": "RTX",
+    "role": "Systems Security Engineer II - P2 (Onsite - McKinney, TX)",
+    "location": "McKinney, TX",
+    "type": "earlycareer",
+    "category": "Cloud & Infra Security",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-TX-MCKINNEY-513WC--2501-W-University-Dr--WING-C-BLDG/Systems-Security-Engineer-II---P2--Onsite---McKinney--TX-_01877893-1",
+    "source": "Workday",
+    "date_added": "2026-09-24"
+  },
+  {
+    "company": "RTX",
+    "role": "Software Engineer I, CDS (Onsite - Security Clearance)",
+    "location": "Aguadilla, PR",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-PR-AGUADILLA-110--Rd-110-N-Km-288--RD110/Software-Engineer-I--CDS--Onsite---Security-Clearance-_01877720",
+    "source": "Workday",
+    "date_added": "2026-09-24"
+  },
+  {
+    "company": "RTX",
+    "role": "Software Engineer II, CDS (Onsite - Security Clearance)",
+    "location": "Aguadilla, PR",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-PR-AGUADILLA-110--Rd-110-N-Km-288--RD110/Software-Engineer-II--CDS--Onsite---Security-Clearance-_01877378",
+    "source": "Workday",
+    "date_added": "2026-09-24"
+  },
+  {
+    "company": "RTX",
+    "role": "Software Security Engineer II",
+    "location": "McKinney, TX",
+    "type": "earlycareer",
+    "category": "AppSec & ProdSec",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-TX-MCKINNEY-513PW--2501-W-University-Dr--PW-BLDG/Software-Security-Engineer-II_01877728",
+    "source": "Workday",
+    "date_added": "2026-09-24"
+  },
+  {
+    "company": "JPMorgan Chase",
+    "role": "Cyber Intelligence Associate-Brand Protection Associate",
+    "location": "Wilmington, DE; Jersey City, NJ",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210790691",
+    "source": "Oracle",
+    "date_added": "2026-09-24"
   }
 ]
