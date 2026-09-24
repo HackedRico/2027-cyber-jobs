@@ -477,19 +477,6 @@
   },
   {
     "company": "Amazon",
-    "role": "Software Development Engineer II, Amazon Security, Cloud User Experience",
-    "location": "Austin, TX",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "",
-    "source": "Amazon Jobs",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-07-25"
-  },
-  {
-    "company": "Amazon",
     "role": "Software Dev Engineer II, Customer Service Security",
     "location": "Seattle, WA",
     "type": "earlycareer",
@@ -2729,10 +2716,11 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Sterling-VA/Software-Engineer-I_JR101958",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-05",
-    "missing_since": "2026-09-21"
+    "closed": true,
+    "closed_date": "2026-09-24"
   },
   {
     "company": "Nightwing",
@@ -2776,10 +2764,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Colorado-Aurora/XMLNAME-2026-Part-Time-Cyber-Security-Engineering-Intern---Aurora-CO_R10248520",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-05",
-    "missing_since": "2026-09-21"
+    "closed": true,
+    "closed_date": "2026-09-24"
   },
   {
     "company": "Northrop Grumman",
@@ -3017,10 +3006,11 @@
     "type": "earlycareer",
     "category": "Cloud & Infra Security",
     "clearance": true,
-    "url": "https://pae.wd1.myworkdayjobs.com/Amentum_Careers/job/US-VA-Dahlgren/Junior-Naval-Systems-Security-Analyst_R0169689-1",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-05",
-    "missing_since": "2026-09-21"
+    "closed": true,
+    "closed_date": "2026-09-24"
   },
   {
     "company": "Amentum",
@@ -3441,10 +3431,11 @@
     "type": "earlycareer",
     "category": "Cloud & Infra Security",
     "clearance": true,
-    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Oklahoma-Oklahoma-City/Systems-Security-Engineer--Level-2-or-3---Oklahoma-City-OK-_R10247550",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-09",
-    "missing_since": "2026-09-21"
+    "closed": true,
+    "closed_date": "2026-09-24"
   },
   {
     "company": "SailPoint",
@@ -3814,7 +3805,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Alabama-Huntsville/XMLNAME-2027-Associate-Classified-Cybersecurity-Analyst---Pathways-Program---Huntsville-AL_R10250629-1",
     "source": "Workday",
-    "date_added": "2026-09-15"
+    "date_added": "2026-09-15",
+    "missing_since": "2026-09-24"
   },
   {
     "company": "Walmart",
@@ -4048,10 +4040,11 @@
     "type": "earlycareer",
     "category": "AppSec & ProdSec",
     "clearance": true,
-    "url": "https://boeing.wd1.myworkdayjobs.com/EXTERNAL_CAREERS/job/USA---Berkeley-MO/Product-Security-Engineer--Entry-Level-or-Associate-_JR2026523936",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-16",
-    "missing_since": "2026-09-21"
+    "closed": true,
+    "closed_date": "2026-09-24"
   },
   {
     "company": "Duke Energy",
@@ -4084,10 +4077,11 @@
     "type": "earlycareer",
     "category": "Cloud & Infra Security",
     "clearance": true,
-    "url": "https://pae.wd1.myworkdayjobs.com/Amentum_Careers/job/US-VA-Dahlgren/Job-Posting-Title-Junior-Naval-Systems-Security-Engineer_R0170950",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-17",
-    "missing_since": "2026-09-21"
+    "closed": true,
+    "closed_date": "2026-09-24"
   },
   {
     "company": "The Home Depot",
@@ -4287,7 +4281,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Florida-Tampa/XMLNAME-2027-Cyber-Software-Engineer-Intern---Tampa-FL_R10249530",
     "source": "Workday",
-    "date_added": "2026-09-22"
+    "date_added": "2026-09-22",
+    "missing_since": "2026-09-24"
   },
   {
     "company": "Northrop Grumman",
@@ -4298,7 +4293,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Florida-Tampa/XMLNAME-2027-Cyber-Systems-Engineer-Intern-Tampa-FL_R10249196",
     "source": "Workday",
-    "date_added": "2026-09-22"
+    "date_added": "2026-09-22",
+    "missing_since": "2026-09-24"
   },
   {
     "company": "RTX",
@@ -4490,6 +4486,7 @@
     "clearance": false,
     "url": "https://statestreet.wd1.myworkdayjobs.com/Global/job/Quincy-Massachusetts/Junior-SIEM-Data-Engineer_R-794329",
     "source": "Workday",
-    "date_added": "2026-09-23"
+    "date_added": "2026-09-23",
+    "missing_since": "2026-09-24"
   }
 ]
