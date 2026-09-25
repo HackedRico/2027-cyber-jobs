@@ -4192,10 +4192,12 @@
     "type": "newgrad",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://www.okta.com/company/careers/opportunity/8220584?gh_jid=8220584",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-09-21",
-    "missing_since": "2026-09-24"
+    "missing_since": "2026-09-24",
+    "closed": true,
+    "closed_date": "2026-09-25"
   },
   {
     "company": "ExtraHop",
@@ -4378,10 +4380,12 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10557073/associate-security-engineer-aws-cirt",
+    "url": "",
     "source": "Amazon Jobs",
     "date_added": "2026-09-22",
-    "missing_since": "2026-09-24"
+    "missing_since": "2026-09-24",
+    "closed": true,
+    "closed_date": "2026-09-25"
   },
   {
     "company": "Northrop Grumman",
@@ -4412,10 +4416,12 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10557133/security-engineer-internship-2027-us",
+    "url": "",
     "source": "Amazon Jobs",
     "date_added": "2026-09-23",
-    "missing_since": "2026-09-24"
+    "missing_since": "2026-09-24",
+    "closed": true,
+    "closed_date": "2026-09-25"
   },
   {
     "company": "Amazon",
@@ -4424,10 +4430,12 @@
     "type": "newgrad",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10557132/security-engineer-2027-us",
+    "url": "",
     "source": "Amazon Jobs",
     "date_added": "2026-09-23",
-    "missing_since": "2026-09-24"
+    "missing_since": "2026-09-24",
+    "closed": true,
+    "closed_date": "2026-09-25"
   },
   {
     "company": "Delinea",
