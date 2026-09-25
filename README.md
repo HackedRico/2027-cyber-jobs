@@ -13,7 +13,7 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 
 <!-- STATS -->
 
-**212** open roles tracked · updated September 25, 2026
+**216** open roles tracked · updated September 25, 2026
 
 <!-- /STATS -->
 
@@ -99,9 +99,9 @@ Cybersecurity internships and co-ops for current students, including federal Pat
 | ↳ | Security Research Engineer I (Intern) - United States | <details><summary>**3 locations**</summary>RTP, NC</br>Austin, TX</br>Knoxville, TN</details> | Security Engineering | <a href="https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/RTP-North-Carolina-US/Security-Research-Engineer-I--Intern----United-States_2025886" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 16 |
 | Northrop Grumman 🇺🇸 | 2027 Cyber Software Engineer Intern - Cincinnati OH | Cincinnati, OH | Security Engineering | 🔒 | Sep 16 |
 | Robinhood | Security Risk Management Intern (Summer 2027) | Menlo Park, CA | GRC &amp; Risk | <a href="https://boards.greenhouse.io/robinhood/jobs/8207970?t=gh_src=&amp;gh_jid=8207970" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 16 |
-| RTX 🇺🇸 | Internship – Raytheon Systems Security Engineer -Onsite | Tewksbury, MA | Cloud &amp; Infra Security | 🔒 | Sep 16 |
-| ↳ | Internship – Raytheon Systems Security Engineer-Onsite | Portsmouth, RI | Cloud &amp; Infra Security | 🔒 | Sep 16 |
-| ↳ | Internship – Raytheon Systems Security Engineer- Onsite | Woburn, MA | Cloud &amp; Infra Security | 🔒 | Sep 16 |
+| RTX 🇺🇸 | Internship – Raytheon Systems Security Engineer -Onsite | Tewksbury, MA | Cloud &amp; Infra Security | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MA-TEWKSBURY-TB1--50-Apple-Hill-Dr--ASSABET-BLDG/Internship---Raytheon-Systems-Security-Engineer--Onsite_01874702" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 16 |
+| ↳ | Internship – Raytheon Systems Security Engineer-Onsite | Portsmouth, RI | Cloud &amp; Infra Security | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-RI-PORTSMOUTH-PS1--1847-W-Main-Rd--NIMITZ-BLDG/Internship---Raytheon-Systems-Security-Engineer-Onsite_01874705" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 16 |
+| ↳ | Internship – Raytheon Systems Security Engineer- Onsite | Woburn, MA | Cloud &amp; Infra Security | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MA-WOBURN-WB2--225-Presidential-Way--GODDARD-BLDG/Internship---Raytheon-Systems-Security-Engineer--Onsite_01874703" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 16 |
 | Northrop Grumman 🇺🇸 | 2027 Cyber Systems Engineer Intern - Roy UT | Roy, UT | Security Engineering | 🔒 | Sep 15 |
 | Walmart | Summer 2027 Intern: Cybersecurity Undergrad | Bentonville, AR | Security Engineering | <a href="https://walmart.wd504.myworkdayjobs.com/WalmartExternal/job/USA-ISD-Office---DGTC-AR-BENTONVILLE-Home-Office/Summer-2027-Intern--Cybersecurity-Undergrad_R-2630025" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 15 |
 | ↳ | Summer 2027 Intern: Cybersecurity Masters | Bentonville, AR | Security Engineering | <a href="https://walmart.wd504.myworkdayjobs.com/WalmartExternal/job/USA-ISD-Office---DGTC-AR-BENTONVILLE-Home-Office/Summer-2027-Intern--Cybersecurity-Masters_R-2630026" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 15 |
@@ -166,6 +166,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| Anthropic | Product Designer, Safeguards | <details><summary>**3 locations**</summary>San Francisco, CA</br>New York City, NY</br>Seattle, WA</details> | AI Security &amp; Safety | <a href="https://job-boards.greenhouse.io/anthropic/jobs/5428014008" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 25 |
 | JPMorgan Chase | Security Operations Associate | Seattle, WA | SOC &amp; Detection | <a href="https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210794761" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 25 |
 | CrowdStrike 🇺🇸 | Engineer II - Virtualization (Remote) | Remote (US) | Engineering @ Security Co | <a href="https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Engineer-II---Virtualization--Remote-_R30160" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 24 |
 | ↳ | Engineer II, Full Stack (Remote) | Remote (US) | Engineering @ Security Co | <a href="https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Engineer-II--Full-Stack--Remote-_R30113" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 24 |

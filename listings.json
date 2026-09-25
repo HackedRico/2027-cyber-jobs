@@ -760,7 +760,8 @@
     "clearance": true,
     "url": "https://caci.wd1.myworkdayjobs.com/External/job/Florham-Park-NJ-US/Cyber-Software-Engineer--Junior_332538",
     "source": "Workday",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-25"
   },
   {
     "company": "CACI",
@@ -3922,11 +3923,9 @@
     "type": "intern",
     "category": "Cloud & Infra Security",
     "clearance": true,
-    "url": "",
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MA-TEWKSBURY-TB1--50-Apple-Hill-Dr--ASSABET-BLDG/Internship---Raytheon-Systems-Security-Engineer--Onsite_01874702",
     "source": "Workday",
-    "date_added": "2026-09-16",
-    "closed": true,
-    "closed_date": "2026-09-22"
+    "date_added": "2026-09-16"
   },
   {
     "company": "RTX",
@@ -3935,11 +3934,9 @@
     "type": "intern",
     "category": "Cloud & Infra Security",
     "clearance": true,
-    "url": "",
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-RI-PORTSMOUTH-PS1--1847-W-Main-Rd--NIMITZ-BLDG/Internship---Raytheon-Systems-Security-Engineer-Onsite_01874705",
     "source": "Workday",
-    "date_added": "2026-09-16",
-    "closed": true,
-    "closed_date": "2026-09-22"
+    "date_added": "2026-09-16"
   },
   {
     "company": "RTX",
@@ -3948,11 +3945,9 @@
     "type": "intern",
     "category": "Cloud & Infra Security",
     "clearance": true,
-    "url": "",
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MA-WOBURN-WB2--225-Presidential-Way--GODDARD-BLDG/Internship---Raytheon-Systems-Security-Engineer--Onsite_01874703",
     "source": "Workday",
-    "date_added": "2026-09-16",
-    "closed": true,
-    "closed_date": "2026-09-22"
+    "date_added": "2026-09-16"
   },
   {
     "company": "SAIC",
@@ -4643,6 +4638,18 @@
     "clearance": false,
     "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210794761",
     "source": "Oracle",
+    "date_added": "2026-09-25",
+    "missing_since": "2026-09-25"
+  },
+  {
+    "company": "Anthropic",
+    "role": "Product Designer, Safeguards",
+    "location": "San Francisco, CA; New York City, NY; Seattle, WA",
+    "type": "earlycareer",
+    "category": "AI Security & Safety",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/anthropic/jobs/5428014008",
+    "source": "Greenhouse",
     "date_added": "2026-09-25"
   }
 ]
