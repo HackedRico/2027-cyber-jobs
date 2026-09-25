@@ -58,7 +58,8 @@
     "clearance": false,
     "url": "https://careers.datadoghq.com/detail/7982345/?gh_jid=7982345",
     "source": "Greenhouse",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-25"
   },
   {
     "company": "Dragos",
@@ -563,7 +564,8 @@
     "clearance": true,
     "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/Software-Engineer-1_JR100150",
     "source": "Workday",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-09-25"
   },
   {
     "company": "Nightwing",
@@ -1120,10 +1122,11 @@
     "type": "earlycareer",
     "category": "AI Security & Safety",
     "clearance": false,
-    "url": "https://job-boards.greenhouse.io/anthropic/jobs/5343907008",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-07-15",
-    "missing_since": "2026-09-22"
+    "closed": true,
+    "closed_date": "2026-09-25"
   },
   {
     "company": "Cloudflare",
@@ -1767,7 +1770,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Utah-Roy/Sentinel---Information-Assurance-Engineer--level-2-or-3----18789_R10234599",
     "source": "Workday",
-    "date_added": "2026-07-22"
+    "date_added": "2026-07-22",
+    "missing_since": "2026-09-25"
   },
   {
     "company": "Northrop Grumman",
@@ -2463,10 +2467,11 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://job-boards.greenhouse.io/extrahopnetworks/jobs/6130325004",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-09-05",
-    "missing_since": "2026-09-22"
+    "closed": true,
+    "closed_date": "2026-09-25"
   },
   {
     "company": "ExtraHop",
@@ -2964,10 +2969,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://pae.wd1.myworkdayjobs.com/Amentum_Careers/job/US-HI-Waimea/Cyber-Security-Analyst-2_R0168711",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-05",
-    "missing_since": "2026-09-22"
+    "closed": true,
+    "closed_date": "2026-09-25"
   },
   {
     "company": "Amentum",
@@ -3537,10 +3543,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://kbr.wd5.myworkdayjobs.com/KBR_Careers/job/Chantilly-Virginia/Associate-Security-Specialist_R2129699",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-10",
-    "missing_since": "2026-09-22"
+    "closed": true,
+    "closed_date": "2026-09-25"
   },
   {
     "company": "Northrop Grumman",
@@ -3755,10 +3762,11 @@
     "type": "earlycareer",
     "category": "Cloud & Infra Security",
     "clearance": true,
-    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Systems-Security-Engineer-I---Anti-Tamper---Program-Protection--On-site-_01874756",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-14",
-    "missing_since": "2026-09-22"
+    "closed": true,
+    "closed_date": "2026-09-25"
   },
   {
     "company": "Northrop Grumman",
@@ -3780,10 +3788,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-San-Diego/Cybersecurity-Systems-Engineer--Level-1-2-_R10248284",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-15",
-    "missing_since": "2026-09-22"
+    "closed": true,
+    "closed_date": "2026-09-25"
   },
   {
     "company": "Northrop Grumman",
@@ -4217,10 +4226,11 @@
     "type": "newgrad",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://guidehouse.wd1.myworkdayjobs.com/External/job/US---VA-McLean/Consulting-Analyst---Technology-Consulting--Defense---Security---Campus-2027_44758",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-21",
-    "missing_since": "2026-09-22"
+    "closed": true,
+    "closed_date": "2026-09-25"
   },
   {
     "company": "Tanium",
@@ -4333,8 +4343,7 @@
     "clearance": false,
     "url": "https://dukeenergy.wd1.myworkdayjobs.com/Search/job/Charlotte-NC/Associate-Cybersecurity-Government---Risk-Analyst_R41659-1",
     "source": "Workday",
-    "date_added": "2026-09-22",
-    "missing_since": "2026-09-23"
+    "date_added": "2026-09-22"
   },
   {
     "company": "SAIC",
@@ -4613,5 +4622,27 @@
     "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210790691",
     "source": "Oracle",
     "date_added": "2026-09-24"
+  },
+  {
+    "company": "Snowflake",
+    "role": "Software Engineer Intern (Core, Infrastructure & Security) \u2014 Spring 2027",
+    "location": "Menlo Park, CA; Bellevue, WA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/snowflake/5315b6f6-2c14-4cb9-a884-c2bae69f2c69",
+    "source": "Ashby",
+    "date_added": "2026-09-25"
+  },
+  {
+    "company": "JPMorgan Chase",
+    "role": "Security Operations Associate",
+    "location": "Seattle, WA",
+    "type": "earlycareer",
+    "category": "SOC & Detection",
+    "clearance": false,
+    "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210794761",
+    "source": "Oracle",
+    "date_added": "2026-09-25"
   }
 ]
