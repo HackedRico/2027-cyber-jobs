@@ -427,7 +427,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 | ↳ | Associate Analyst, Falcon Complete (Hybrid) | Remote (US) | Engineering @ Security Co | 🔒 | Jul 12 |
 | ↳ | Platform Operations Associate Consultant - Weekend Shift (Remote) | <details><summary>**2 locations**</summary>Remote, MD</br>Remote (US)</details> | Engineering @ Security Co | 🔒 | Jul 12 |
 | ↳ | Platform Operations Associate Consultant - Weekend Shift (Remote) | Remote (US) | Engineering @ Security Co | 🔒 | Jul 12 |
-| Datadog | Security Engineer 2 - Cyber Threat Intelligence | New York, NY | Threat Intelligence | <a href="https://careers.datadoghq.com/detail/7982345/?gh_jid=7982345" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
+| Datadog | Security Engineer 2 - Cyber Threat Intelligence | New York, NY | Threat Intelligence | 🔒 | Jul 12 |
 | Dragos | Associate Technical Support Engineer | United States | Engineering @ Security Co | 🔒 | Jul 12 |
 | GDIT 🇺🇸 | Security Specialist - Administrative (Junior) | Dayton, OH | Security Engineering | 🔒 | Jul 12 |
 | Leidos 🇺🇸 | Junior Cyber Analyst | Fort Meade, MD | Security Engineering | <a href="https://leidos.wd5.myworkdayjobs.com/External/job/Fort-Meade-MD/Junior-Cyber-Analyst_R-00183704" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |

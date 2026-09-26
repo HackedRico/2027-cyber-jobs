@@ -56,10 +56,12 @@
     "type": "earlycareer",
     "category": "Threat Intelligence",
     "clearance": false,
-    "url": "https://careers.datadoghq.com/detail/7982345/?gh_jid=7982345",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-07-12",
-    "missing_since": "2026-09-25"
+    "missing_since": "2026-09-25",
+    "closed": true,
+    "closed_date": "2026-09-26"
   },
   {
     "company": "Dragos",
