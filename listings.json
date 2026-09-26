@@ -380,19 +380,6 @@
   },
   {
     "company": "Amazon",
-    "role": "Security Engineer II, StoreSec Application Security",
-    "location": "Austin, TX",
-    "type": "earlycareer",
-    "category": "AppSec & ProdSec",
-    "clearance": false,
-    "url": "",
-    "source": "Amazon Jobs",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-07-27"
-  },
-  {
-    "company": "Amazon",
     "role": "Security Engineer II, Amazon Stores Security Healthcare",
     "location": "Austin, TX",
     "type": "earlycareer",
@@ -3303,10 +3290,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://ffive.wd5.myworkdayjobs.com/f5jobs/job/Reston/Security-Engineer-II_RP1038649",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-08",
-    "missing_since": "2026-09-23"
+    "closed": true,
+    "closed_date": "2026-09-26"
   },
   {
     "company": "Northrop Grumman",
@@ -3694,10 +3682,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-PR-AGUADILLA-110--Rd-110-N-Km-288--RD110/Systems-Engineer-I--V-V-Testing--Onsite---Security-Clearance-_01870858",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-14",
-    "missing_since": "2026-09-23"
+    "closed": true,
+    "closed_date": "2026-09-26"
   },
   {
     "company": "Okta",
@@ -4258,10 +4247,11 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://abnormal.ai/careers/jobs/8001641003?gh_jid=8001641003",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-09-22",
-    "missing_since": "2026-09-23"
+    "closed": true,
+    "closed_date": "2026-09-26"
   },
   {
     "company": "Nightwing",
@@ -4349,10 +4339,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2617131",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-09-22",
-    "missing_since": "2026-09-23"
+    "closed": true,
+    "closed_date": "2026-09-26"
   },
   {
     "company": "SAIC",
@@ -4361,10 +4352,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2617134",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-09-22",
-    "missing_since": "2026-09-23"
+    "closed": true,
+    "closed_date": "2026-09-26"
   },
   {
     "company": "Amazon",
@@ -4402,7 +4394,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Florida-Melbourne/XMLNAME-2027-Intern---Systems-Security-Cybersecurity-Engineer_R10252418",
     "source": "Workday",
-    "date_added": "2026-09-23"
+    "date_added": "2026-09-23",
+    "missing_since": "2026-09-26"
   },
   {
     "company": "RTX",
