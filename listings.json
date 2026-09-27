@@ -2529,10 +2529,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://jobs.ashbyhq.com/chainalysis-careers/da0b9540-9071-4c80-a1ee-a76d46d19c98",
+    "url": "",
     "source": "Ashby",
     "date_added": "2026-09-05",
-    "missing_since": "2026-09-24"
+    "closed": true,
+    "closed_date": "2026-09-27"
   },
   {
     "company": "Prophet Security",
@@ -2552,10 +2553,11 @@
     "type": "newgrad",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://jobs.ashbyhq.com/sentilink/a4a5f890-4ecd-4e76-86db-e7b3e18eb6b2",
+    "url": "",
     "source": "Ashby",
     "date_added": "2026-09-05",
-    "missing_since": "2026-09-24"
+    "closed": true,
+    "closed_date": "2026-09-27"
   },
   {
     "company": "SentiLink",
@@ -2564,10 +2566,11 @@
     "type": "newgrad",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://jobs.ashbyhq.com/sentilink/4e28d1a3-75a8-4031-85eb-82b7847d365a",
+    "url": "",
     "source": "Ashby",
     "date_added": "2026-09-05",
-    "missing_since": "2026-09-24"
+    "closed": true,
+    "closed_date": "2026-09-27"
   },
   {
     "company": "SentiLink",
@@ -2576,10 +2579,11 @@
     "type": "newgrad",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://jobs.ashbyhq.com/sentilink/f9a47314-c48a-4053-a113-6974b211559f",
+    "url": "",
     "source": "Ashby",
     "date_added": "2026-09-05",
-    "missing_since": "2026-09-24"
+    "closed": true,
+    "closed_date": "2026-09-27"
   },
   {
     "company": "SentiLink",
@@ -2588,10 +2592,11 @@
     "type": "newgrad",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://jobs.ashbyhq.com/sentilink/cbe2397c-5e7a-4649-a8c0-07e5d1204e82",
+    "url": "",
     "source": "Ashby",
     "date_added": "2026-09-05",
-    "missing_since": "2026-09-24"
+    "closed": true,
+    "closed_date": "2026-09-27"
   },
   {
     "company": "Blackpoint Cyber",
@@ -3267,10 +3272,11 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": true,
-    "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Springfield-VA/Multidisciplinary-Engineer-I_JR102051",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-06",
-    "missing_since": "2026-09-24"
+    "closed": true,
+    "closed_date": "2026-09-27"
   },
   {
     "company": "Semgrep",
@@ -3806,10 +3812,11 @@
     "type": "newgrad",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Alabama-Huntsville/XMLNAME-2027-Associate-Classified-Cybersecurity-Analyst---Pathways-Program---Huntsville-AL_R10250629-1",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-15",
-    "missing_since": "2026-09-24"
+    "closed": true,
+    "closed_date": "2026-09-27"
   },
   {
     "company": "Walmart",
@@ -4175,10 +4182,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210792628",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-09-21",
-    "missing_since": "2026-09-24"
+    "closed": true,
+    "closed_date": "2026-09-27"
   },
   {
     "company": "Okta",
@@ -4282,10 +4290,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Florida-Tampa/XMLNAME-2027-Cyber-Software-Engineer-Intern---Tampa-FL_R10249530",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-22",
-    "missing_since": "2026-09-24"
+    "closed": true,
+    "closed_date": "2026-09-27"
   },
   {
     "company": "Northrop Grumman",
@@ -4294,10 +4303,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Florida-Tampa/XMLNAME-2027-Cyber-Systems-Engineer-Intern-Tampa-FL_R10249196",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-22",
-    "missing_since": "2026-09-24"
+    "closed": true,
+    "closed_date": "2026-09-27"
   },
   {
     "company": "RTX",
@@ -4489,7 +4499,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Texas-Irving/Security-Innovation---Integrations-Analyst--Level-2-or-3-_R10252525",
     "source": "Workday",
-    "date_added": "2026-09-23"
+    "date_added": "2026-09-23",
+    "missing_since": "2026-09-27"
   },
   {
     "company": "State Street",
@@ -4498,10 +4509,11 @@
     "type": "earlycareer",
     "category": "SOC & Detection",
     "clearance": false,
-    "url": "https://statestreet.wd1.myworkdayjobs.com/Global/job/Quincy-Massachusetts/Junior-SIEM-Data-Engineer_R-794329",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-23",
-    "missing_since": "2026-09-24"
+    "closed": true,
+    "closed_date": "2026-09-27"
   },
   {
     "company": "Expel",
