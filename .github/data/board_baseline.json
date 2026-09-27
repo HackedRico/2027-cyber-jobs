@@ -15,7 +15,7 @@
     "zero_runs": 0
   },
   "Accenture (workday/accenture)": {
-    "count": 156,
+    "count": 157,
     "last_nonzero": "2026-09-27",
     "zero_runs": 0
   },
@@ -40,7 +40,7 @@
     "zero_runs": 0
   },
   "Affirm (greenhouse/affirm)": {
-    "count": 180,
+    "count": 179,
     "last_nonzero": "2026-09-27",
     "zero_runs": 0
   },
@@ -80,7 +80,7 @@
     "zero_runs": 0
   },
   "Amentum (workday/pae)": {
-    "count": 1365,
+    "count": 1364,
     "last_nonzero": "2026-09-27",
     "zero_runs": 0
   },
@@ -100,7 +100,7 @@
     "zero_runs": 0
   },
   "Anthropic (greenhouse/anthropic)": {
-    "count": 618,
+    "count": 619,
     "last_nonzero": "2026-09-27",
     "zero_runs": 0
   },
@@ -122,7 +122,7 @@
   "AppOmni (greenhouse/appomni)": {
     "count": 0,
     "last_nonzero": null,
-    "zero_runs": 23
+    "zero_runs": 24
   },
   "Appian (greenhouse/appian)": {
     "count": 174,
@@ -147,7 +147,7 @@
   "Armis (greenhouse/armissecurity)": {
     "count": 0,
     "last_nonzero": "2026-09-22",
-    "zero_runs": 9
+    "zero_runs": 10
   },
   "Asana (greenhouse/asana)": {
     "count": 97,
@@ -167,7 +167,7 @@
   "Beyond Identity (greenhouse/beyondidentity)": {
     "count": 0,
     "last_nonzero": null,
-    "zero_runs": 23
+    "zero_runs": 24
   },
   "BeyondTrust (greenhouse/beyondtrust)": {
     "count": 49,
@@ -220,7 +220,7 @@
     "zero_runs": 0
   },
   "Boeing (workday/boeing)": {
-    "count": 128,
+    "count": 127,
     "last_nonzero": "2026-09-27",
     "zero_runs": 0
   },
@@ -282,7 +282,7 @@
   "Center for AI Safety (lever/aisafety)": {
     "count": 0,
     "last_nonzero": null,
-    "zero_runs": 23
+    "zero_runs": 24
   },
   "Chainalysis (ashby/chainalysis-careers)": {
     "count": 52,
@@ -345,7 +345,7 @@
     "zero_runs": 0
   },
   "Comcast (workday/comcast)": {
-    "count": 80,
+    "count": 79,
     "last_nonzero": "2026-09-27",
     "zero_runs": 0
   },
@@ -367,7 +367,7 @@
   "Contrast Security (ashby/contrast-security)": {
     "count": 0,
     "last_nonzero": null,
-    "zero_runs": 23
+    "zero_runs": 24
   },
   "Corelight (greenhouse/corelight)": {
     "count": 10,
@@ -375,7 +375,7 @@
     "zero_runs": 0
   },
   "Credal (ashby/credal)": {
-    "count": 5,
+    "count": 4,
     "last_nonzero": "2026-09-27",
     "zero_runs": 0
   },
@@ -402,7 +402,7 @@
   "Cyware (greenhouse/cyware)": {
     "count": 0,
     "last_nonzero": null,
-    "zero_runs": 23
+    "zero_runs": 24
   },
   "Dashlane (greenhouse/dashlane)": {
     "count": 16,
@@ -415,7 +415,7 @@
     "zero_runs": 0
   },
   "Databricks (greenhouse/databricks)": {
-    "count": 887,
+    "count": 888,
     "last_nonzero": "2026-09-27",
     "zero_runs": 0
   },
@@ -547,7 +547,7 @@
   "Exabeam (greenhouse/exabeam)": {
     "count": 0,
     "last_nonzero": null,
-    "zero_runs": 23
+    "zero_runs": 24
   },
   "Expel (greenhouse/expel)": {
     "count": 10,
@@ -615,7 +615,7 @@
     "zero_runs": 0
   },
   "Forcepoint (workday/forcepoint)": {
-    "count": 35,
+    "count": 34,
     "last_nonzero": "2026-09-27",
     "zero_runs": 0
   },
@@ -652,7 +652,7 @@
   "GlobalSign (workable/globalsign)": {
     "count": 0,
     "last_nonzero": null,
-    "zero_runs": 23
+    "zero_runs": 24
   },
   "Goodfire (greenhouse/goodfire)": {
     "count": 28,
@@ -660,7 +660,7 @@
     "zero_runs": 0
   },
   "Govini (greenhouse/air)": {
-    "count": 38,
+    "count": 39,
     "last_nonzero": "2026-09-27",
     "zero_runs": 0
   },
@@ -672,7 +672,7 @@
   "Graylog (lever/graylog)": {
     "count": 0,
     "last_nonzero": null,
-    "zero_runs": 23
+    "zero_runs": 24
   },
   "GreyNoise (greenhouse/greynoiseintelligence)": {
     "count": 1,
@@ -805,7 +805,7 @@
     "zero_runs": 0
   },
   "JPMorgan Chase (oracle/jpmc.fa.oraclecloud.com)": {
-    "count": 7502,
+    "count": 7495,
     "last_nonzero": "2026-09-27",
     "zero_runs": 0
   },
@@ -817,7 +817,7 @@
   "Jscrambler (smartrecruiters/jscrambler)": {
     "count": 0,
     "last_nonzero": null,
-    "zero_runs": 23
+    "zero_runs": 24
   },
   "Jumio (greenhouse/jumio)": {
     "count": 27,
@@ -867,7 +867,7 @@
   "Lakera (ashby/lakera.ai)": {
     "count": 0,
     "last_nonzero": null,
-    "zero_runs": 23
+    "zero_runs": 24
   },
   "Lansweeper (recruitee/lansweeper)": {
     "count": 13,
@@ -892,17 +892,17 @@
   "MITRE (workday/mitre)": {
     "count": 0,
     "last_nonzero": null,
-    "zero_runs": 23
+    "zero_runs": 24
   },
   "Malwarebytes (workable/malwarebytes)": {
     "count": 0,
     "last_nonzero": null,
-    "zero_runs": 23
+    "zero_runs": 24
   },
   "ManTech (workday/mantech)": {
     "count": 0,
     "last_nonzero": null,
-    "zero_runs": 23
+    "zero_runs": 24
   },
   "Marqeta (ashby/marqeta-inc)": {
     "count": 40,
@@ -910,7 +910,7 @@
     "zero_runs": 0
   },
   "Mastercard (workday/mastercard)": {
-    "count": 95,
+    "count": 92,
     "last_nonzero": "2026-09-27",
     "zero_runs": 0
   },
@@ -932,7 +932,7 @@
   "Metomic (workable/metomic)": {
     "count": 0,
     "last_nonzero": null,
-    "zero_runs": 23
+    "zero_runs": 24
   },
   "Middesk (ashby/middesk)": {
     "count": 17,
@@ -942,7 +942,7 @@
   "Mindgard (workable/mindgard)": {
     "count": 0,
     "last_nonzero": null,
-    "zero_runs": 23
+    "zero_runs": 24
   },
   "Miro (ashby/miro)": {
     "count": 28,
@@ -952,7 +952,7 @@
   "Mistral AI (lever/mistral)": {
     "count": 0,
     "last_nonzero": null,
-    "zero_runs": 23
+    "zero_runs": 24
   },
   "MongoDB (greenhouse/mongodb)": {
     "count": 396,
@@ -972,7 +972,7 @@
   "NCC Group (workday/nccgroup)": {
     "count": 0,
     "last_nonzero": null,
-    "zero_runs": 23
+    "zero_runs": 24
   },
   "NVIDIA (workday/nvidia)": {
     "count": 132,
@@ -1005,7 +1005,7 @@
     "zero_runs": 0
   },
   "Nike (workday/nike)": {
-    "count": 75,
+    "count": 74,
     "last_nonzero": "2026-09-27",
     "zero_runs": 0
   },
@@ -1015,7 +1015,7 @@
     "zero_runs": 0
   },
   "Northrop Grumman (workday/ngc)": {
-    "count": 1794,
+    "count": 1793,
     "last_nonzero": "2026-09-27",
     "zero_runs": 0
   },
@@ -1032,7 +1032,7 @@
   "Nucleus Security (ashby/nucleus)": {
     "count": 0,
     "last_nonzero": null,
-    "zero_runs": 23
+    "zero_runs": 24
   },
   "Nudge Security (ashby/nudgesecurity)": {
     "count": 3,
@@ -1042,10 +1042,10 @@
   "Nuspire (smartrecruiters/NuspireNetworks)": {
     "count": 0,
     "last_nonzero": null,
-    "zero_runs": 23
+    "zero_runs": 24
   },
   "OPSWAT (greenhouse/opswat)": {
-    "count": 95,
+    "count": 96,
     "last_nonzero": "2026-09-27",
     "zero_runs": 0
   },
@@ -1075,7 +1075,7 @@
     "zero_runs": 0
   },
   "OpenAI (ashby/openai)": {
-    "count": 830,
+    "count": 829,
     "last_nonzero": "2026-09-27",
     "zero_runs": 0
   },
@@ -1132,7 +1132,7 @@
   "Panther Labs (greenhouse/pantherlabs)": {
     "count": 0,
     "last_nonzero": null,
-    "zero_runs": 23
+    "zero_runs": 24
   },
   "Parsons (workday/parsons)": {
     "count": 148,
@@ -1155,12 +1155,12 @@
     "zero_runs": 0
   },
   "Pinterest (greenhouse/pinterest)": {
-    "count": 153,
+    "count": 152,
     "last_nonzero": "2026-09-27",
     "zero_runs": 0
   },
   "Plaid (ashby/plaid)": {
-    "count": 122,
+    "count": 121,
     "last_nonzero": "2026-09-27",
     "zero_runs": 0
   },
@@ -1197,15 +1197,15 @@
   "Push Security (lever/pushsecurity)": {
     "count": 0,
     "last_nonzero": null,
-    "zero_runs": 23
+    "zero_runs": 24
   },
   "Qualcomm (workday/qualcomm)": {
     "count": 0,
     "last_nonzero": null,
-    "zero_runs": 23
+    "zero_runs": 24
   },
   "Qualys (workday/qualys)": {
-    "count": 165,
+    "count": 164,
     "last_nonzero": "2026-09-27",
     "zero_runs": 0
   },
@@ -1282,7 +1282,7 @@
   "STR (greenhouse/str)": {
     "count": 0,
     "last_nonzero": null,
-    "zero_runs": 23
+    "zero_runs": 24
   },
   "SafeBreach (greenhouse/safebreach)": {
     "count": 7,
@@ -1292,7 +1292,7 @@
   "Safety CLI (ashby/safety)": {
     "count": 0,
     "last_nonzero": null,
-    "zero_runs": 23
+    "zero_runs": 24
   },
   "SailPoint (workday/sailpoint)": {
     "count": 76,
@@ -1310,12 +1310,12 @@
     "zero_runs": 0
   },
   "Samsara (greenhouse/samsara)": {
-    "count": 248,
+    "count": 249,
     "last_nonzero": "2026-09-27",
     "zero_runs": 0
   },
   "Sardine (ashby/sardine)": {
-    "count": 39,
+    "count": 36,
     "last_nonzero": "2026-09-27",
     "zero_runs": 0
   },
@@ -1370,7 +1370,7 @@
     "zero_runs": 0
   },
   "SentinelOne (greenhouse/sentinellabs)": {
-    "count": 243,
+    "count": 244,
     "last_nonzero": "2026-09-27",
     "zero_runs": 0
   },
@@ -1412,7 +1412,7 @@
   "Snyk (ashby/snyk)": {
     "count": 0,
     "last_nonzero": "2026-09-18",
-    "zero_runs": 18
+    "zero_runs": 19
   },
   "Socket (greenhouse/socket)": {
     "count": 1,
@@ -1420,7 +1420,7 @@
     "zero_runs": 0
   },
   "Socure (ashby/socure)": {
-    "count": 77,
+    "count": 78,
     "last_nonzero": "2026-09-27",
     "zero_runs": 0
   },
@@ -1440,7 +1440,7 @@
     "zero_runs": 0
   },
   "Southern Company (oracle/emje.fa.us6.oraclecloud.com)": {
-    "count": 95,
+    "count": 96,
     "last_nonzero": "2026-09-27",
     "zero_runs": 0
   },
@@ -1460,12 +1460,12 @@
     "zero_runs": 0
   },
   "State Street (workday/statestreet)": {
-    "count": 137,
+    "count": 136,
     "last_nonzero": "2026-09-27",
     "zero_runs": 0
   },
   "Stellar Cyber (workable/stellar-cyber)": {
-    "count": 22,
+    "count": 23,
     "last_nonzero": "2026-09-27",
     "zero_runs": 0
   },
@@ -1477,17 +1477,17 @@
   "StrongDM (ashby/strongdm)": {
     "count": 0,
     "last_nonzero": null,
-    "zero_runs": 23
+    "zero_runs": 24
   },
   "Stytch (ashby/stytch)": {
     "count": 0,
     "last_nonzero": "2026-09-18",
-    "zero_runs": 18
+    "zero_runs": 19
   },
   "Sublime Security (ashby/sublime-security)": {
     "count": 0,
     "last_nonzero": null,
-    "zero_runs": 23
+    "zero_runs": 24
   },
   "Sumo Logic (greenhouse/sumologic)": {
     "count": 9,
@@ -1502,7 +1502,7 @@
   "Symmetry Systems (lever/SymmetrySystems)": {
     "count": 0,
     "last_nonzero": null,
-    "zero_runs": 23
+    "zero_runs": 24
   },
   "Synack (greenhouse/synack)": {
     "count": 12,
@@ -1542,7 +1542,7 @@
   "Teleport (lever/teleport)": {
     "count": 0,
     "last_nonzero": null,
-    "zero_runs": 23
+    "zero_runs": 24
   },
   "Temporal Technologies (ashby/temporal)": {
     "count": 63,
@@ -1567,12 +1567,12 @@
   "ThreatConnect (workable/threatconnect)": {
     "count": 0,
     "last_nonzero": null,
-    "zero_runs": 23
+    "zero_runs": 24
   },
   "ThreatLocker (greenhouse/threatlocker)": {
     "count": 0,
     "last_nonzero": null,
-    "zero_runs": 23
+    "zero_runs": 24
   },
   "Tines (greenhouse/tines)": {
     "count": 25,
@@ -1587,7 +1587,7 @@
   "Todyl (ashby/Todyl)": {
     "count": 0,
     "last_nonzero": "2026-09-21",
-    "zero_runs": 11
+    "zero_runs": 12
   },
   "Together AI (greenhouse/togetherai)": {
     "count": 78,
@@ -1630,19 +1630,19 @@
     "zero_runs": 0
   },
   "Truist (workday/truist)": {
-    "count": 89,
+    "count": 87,
     "last_nonzero": "2026-09-27",
     "zero_runs": 0
   },
   "TrustedSec (workable/trustedsec)": {
     "count": 0,
     "last_nonzero": null,
-    "zero_runs": 23
+    "zero_runs": 24
   },
   "Tufin (smartrecruiters/tufin)": {
     "count": 0,
     "last_nonzero": null,
-    "zero_runs": 23
+    "zero_runs": 24
   },
   "Twilio (greenhouse/twilio)": {
     "count": 138,
@@ -1662,7 +1662,7 @@
   "USAJOBS (data.usajobs.gov)": {
     "count": 0,
     "last_nonzero": null,
-    "zero_runs": 23
+    "zero_runs": 24
   },
   "UpGuard (ashby/upguard)": {
     "count": 29,
@@ -1697,7 +1697,7 @@
   "Vercel (ashby/vercel)": {
     "count": 0,
     "last_nonzero": null,
-    "zero_runs": 23
+    "zero_runs": 24
   },
   "Veriff (greenhouse/veriff)": {
     "count": 9,
@@ -1717,12 +1717,12 @@
   "Visa (smartrecruiters/Visa)": {
     "count": 0,
     "last_nonzero": null,
-    "zero_runs": 23
+    "zero_runs": 24
   },
   "Wallarm (recruitee/wallarm)": {
     "count": 0,
     "last_nonzero": null,
-    "zero_runs": 23
+    "zero_runs": 24
   },
   "Walmart (workday/walmart)": {
     "count": 138,
@@ -1740,7 +1740,7 @@
     "zero_runs": 0
   },
   "Wells Fargo (workday/wf)": {
-    "count": 121,
+    "count": 120,
     "last_nonzero": "2026-09-27",
     "zero_runs": 0
   },
@@ -1777,7 +1777,7 @@
   "ZeroFox (workable/zerofox)": {
     "count": 0,
     "last_nonzero": null,
-    "zero_runs": 23
+    "zero_runs": 24
   },
   "Zoom (workday/zoom)": {
     "count": 18,
