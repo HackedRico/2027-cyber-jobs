@@ -28,6 +28,7 @@ import requests
 import yaml
 from classify import (
     AI_CATEGORY_RE,
+    _is_foreign_part,
     classify_level,
     evaluate_job,
     exceeds_experience_cap,
@@ -172,7 +173,8 @@ WORKPLACE_LABELS = {'in-office', 'hybrid', 'distributed', 'remote', 'onsite',
 
 def greenhouse_location(job):
     loc = (job.get('location') or {}).get('name', '') or ''
-    if loc.strip().lower() not in WORKPLACE_LABELS:
+    label = loc.strip().lower()
+    if label not in WORKPLACE_LABELS:
         return loc
     parts = [o.get('name') for o in job.get('offices') or [] if o.get('name')]
     for m in job.get('metadata') or []:
@@ -182,6 +184,14 @@ def greenhouse_location(job):
                 parts.extend(str(x) for x in v)
             elif v:
                 parts.append(str(v))
+    if label == 'remote':
+        # 'Remote' is already a location, so only a part that names a place or
+        # a remote scope may replace it. GuidePoint files its US-remote GPSU
+        # internship under the office 'GuidePoint University (GPSU)', which
+        # failed the US check. A part saying 'remote' stays so Bitwarden's
+        # 'UK Remote' does not revert to a US 'Remote'.
+        parts = [p for p in parts if 'remote' in p.lower() or is_us_location(p)
+                 or _is_foreign_part(p)]
     return '; '.join(dict.fromkeys(parts)) if parts else loc
 
 

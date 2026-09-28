@@ -737,6 +737,25 @@ def test_long_silent_board_retires_its_rows():
           [bool(e['url']) for e in listings[1:]], [True, True, True])
 
 
+def test_greenhouse_remote_keeps_a_remote_label():
+    def loc(label, *offices):
+        return sj.greenhouse_location({'location': {'name': label},
+                                       'offices': [{'name': o} for o in offices]})
+    check('a department-style office does not replace Remote',
+          loc('Remote', 'GuidePoint University (GPSU)'), 'Remote')
+    check('a foreign remote scope still replaces Remote', loc('Remote', 'UK Remote'),
+          'UK Remote')
+    check('a foreign office still replaces Remote', loc('Remote', 'London'), 'London')
+    check('only the place-like office parts survive',
+          loc('Remote', 'Headquarters', 'Reston, VA'), 'Reston, VA')
+    check('the office fallback for a non-remote label is unchanged',
+          loc('Hybrid', 'Professional Services'), 'Professional Services')
+    check('GPSU internship is accepted once its location stays Remote',
+          sj.evaluate_job('GPSU Cybersecurity Spring Internship',
+                          loc('Remote', 'GuidePoint University (GPSU)'), '', True),
+          ('intern', 'Security Engineering'))
+
+
 for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_ashby, test_ashby_schema_drift_warns,
            test_smartrecruiters_pagination_short_page_stops, test_oracle,
@@ -754,7 +773,8 @@ for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_board_health_migrates_and_survives_a_corrupt_baseline,
            test_compare_runs_reports_flips_only,
            test_workday_total_only_on_first_page, test_workday_flags_a_cut_short_sweep,
-           test_incomplete_sweep_retires_nothing, test_long_silent_board_retires_its_rows):
+           test_incomplete_sweep_retires_nothing, test_long_silent_board_retires_its_rows,
+           test_greenhouse_remote_keeps_a_remote_label):
     fn()
 
 if failures:
