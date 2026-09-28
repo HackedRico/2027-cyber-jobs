@@ -6,14 +6,15 @@ on:
     - cron: '43 9 * * *'
   workflow_dispatch:
 
+# Every writer commits to main, so they run one at a time. queue: max keeps
+# each pending run instead of cancelling the older one. add-listing joins the
+# same group at job level.
+concurrency:
+  group: readme-updates
+  queue: max
+
 jobs:
   check-links:
-    # Every writer commits to main, so they run one at a time. queue: max
-    # keeps each pending run instead of cancelling the older one, and a
-    # job-level group means a skipped add-listing run never joins the queue.
-    concurrency:
-      group: readme-updates
-      queue: max
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
