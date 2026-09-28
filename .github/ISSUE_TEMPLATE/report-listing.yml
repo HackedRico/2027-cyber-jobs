@@ -1,0 +1,61 @@
+name: Report a Listing
+description: Tell us a row on the board is closed, wrong, or does not belong.
+title: "[REPORT] <Company>: <Role>"
+labels: ["needs review"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for flagging a row. A maintainer checks each report by hand.
+
+        Removing a row by hand only sticks once its posting is gone, because the scraper re-adds any live posting it finds. The details you give here decide whether the fix goes into the row or into the rules.
+
+  - type: input
+    id: listing
+    attributes:
+      label: Listing URL
+      description: The Apply link from the row, or the posting URL if the row shows 🔒.
+      placeholder: "https://boards.greenhouse.io/acme/jobs/12345"
+    validations:
+      required: true
+
+  - type: input
+    id: company
+    attributes:
+      label: Company
+      placeholder: "e.g. CrowdStrike"
+    validations:
+      required: true
+
+  - type: input
+    id: role
+    attributes:
+      label: Role
+      description: The role title as the board shows it.
+      placeholder: "e.g. Associate Security Analyst"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: problem
+    attributes:
+      label: Problem
+      options:
+        - Application closed
+        - Not a cybersecurity role
+        - Too senior
+        - Not in the US
+        - Wrong table
+        - Duplicate
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: What the posting says. For "Too senior", quote the years it asks for. For "Wrong table", say which table it belongs in. For "Duplicate", link the other row.
+      placeholder: "e.g. The posting asks for 5+ years of incident response experience."
+    validations:
+      required: false

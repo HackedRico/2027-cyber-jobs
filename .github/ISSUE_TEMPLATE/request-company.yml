@@ -1,0 +1,47 @@
+name: Request a Company
+description: Ask for an employer's job board to be scraped automatically.
+title: "[COMPANY] <Company>"
+labels: ["needs review"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Check [companies.md](https://github.com/HackedRico/2027-cyber-jobs/blob/main/companies.md) first: the company may already be tracked. A maintainer adds the board and confirms it returns postings before closing this issue.
+
+  - type: input
+    id: company
+    attributes:
+      label: Company
+      placeholder: "e.g. Acme Security"
+    validations:
+      required: true
+
+  - type: input
+    id: careers_url
+    attributes:
+      label: Careers URL
+      description: The page that lists the company's open jobs. A link that shows the job board host (greenhouse.io, lever.co, myworkdayjobs.com and so on) helps most.
+      placeholder: "https://boards.greenhouse.io/acme"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: security_company
+    attributes:
+      label: Is security their main business?
+      description: At a security company every engineering role counts for this board, not only titles that say security.
+      options:
+        - "Yes, they sell security products or services"
+        - "No, they are a general employer with security teams"
+        - "Not sure"
+    validations:
+      required: true
+
+  - type: input
+    id: example_role
+    attributes:
+      label: A role you saw there
+      description: A student-level security role you saw on their board, with its link if you have it.
+      placeholder: "e.g. Security Analyst Intern, https://boards.greenhouse.io/acme/jobs/12345"
+    validations:
+      required: false

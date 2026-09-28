@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Browse the board
+    url: https://github.com/HackedRico/2027-cyber-jobs#readme
+    about: Internship, new-grad and early-career cybersecurity roles in the US, updated twice a day.
+  - name: What the board accepts
+    url: https://github.com/HackedRico/2027-cyber-jobs/blob/main/CONTRIBUTING.md
+    about: The rules a role must meet before you submit it.
+  - name: Tracked companies
+    url: https://github.com/HackedRico/2027-cyber-jobs/blob/main/companies.md
+    about: Every employer whose job board is already scraped.

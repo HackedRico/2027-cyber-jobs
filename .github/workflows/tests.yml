@@ -32,3 +32,9 @@ jobs:
 
       - name: Scraper parser tests
         run: python .github/scripts/test_scrapers.py
+
+      - name: Community submission tests
+        run: python .github/scripts/test_community.py
+
+      - name: Output check and health alarm tests
+        run: python .github/scripts/test_health.py

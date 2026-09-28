@@ -2,19 +2,23 @@ name: Scrape Job Boards
 
 on:
   schedule:
-    - cron: '0 8,20 * * *'
+    # Off the hour: runs at :00 started a median 2.6 to 5.2 hours late.
+    - cron: '17 11,23 * * *'
   workflow_dispatch:
 
+# Every writer commits to main, so they run one at a time. queue: max keeps
+# each pending run instead of cancelling the older one. add-listing joins the
+# same group at job level.
 concurrency:
   group: readme-updates
-  cancel-in-progress: false
+  queue: max
 
 jobs:
   scrape:
     runs-on: ubuntu-latest
     # The pooled scrape finishes in a few minutes; the margin covers a bad day
-    # of slow hosts. Runs that hit this show as "cancelled", not "failed", so
-    # keep it generous rather than silently losing a whole scrape.
+    # of slow hosts. The scrape step's own 25-minute limit fires first, which
+    # reports "failed" rather than the "cancelled" a job timeout shows.
     timeout-minutes: 30
     permissions:
       contents: write
@@ -32,6 +36,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Scrape job boards
+        timeout-minutes: 25
         env:
           USAJOBS_API_KEY: ${{ secrets.USAJOBS_API_KEY }}
           USAJOBS_EMAIL: ${{ secrets.USAJOBS_EMAIL }}
@@ -48,12 +53,27 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add .github/data/seen_jobs.json .github/data/board_baseline.json listings.json README.md companies.md
-          git diff --staged --quiet || git commit -m "add auto-discovered listings"
-          # -X theirs keeps the bot's freshly-scraped rows (listings.json is the
-          # source of truth) on a rare concurrent-push conflict, rather than
-          # silently dropping them.
-          git pull --rebase -X theirs && git push
+          # Problems already on main only warn, so one old bad row cannot block
+          # every run until someone fixes it by hand.
+          git show HEAD:listings.json > "$RUNNER_TEMP/listings.base.json"
+          python .github/scripts/check_outputs.py --baseline "$RUNNER_TEMP/listings.base.json"
+          git add .github/data/seen_jobs.json .github/data/board_baseline.json .github/data/health.json listings.json README.md companies.md
+          if git diff --staged --quiet; then exit 0; fi
+          git commit -m "add auto-discovered listings"
+          before=$(git rev-parse HEAD)
+          # -X theirs keeps this run's side of a conflicting hunk, which can
+          # drop a row another writer pushed meanwhile. When main moved
+          # listings.json, rebuild the README from the merged file and check it
+          # again before pushing.
+          git pull --rebase -X theirs
+          if ! git diff --quiet "$before" HEAD -- listings.json; then
+            python .github/scripts/rebuild_readme.py
+            git show HEAD~1:listings.json > "$RUNNER_TEMP/listings.base.json"
+            python .github/scripts/check_outputs.py --baseline "$RUNNER_TEMP/listings.base.json"
+            git add listings.json README.md companies.md
+            git diff --staged --quiet || git commit --amend --no-edit
+          fi
+          git push
 
       # Default if: success() means this fires only when the push above landed,
       # so no release or alert links to a row that is not on main.
