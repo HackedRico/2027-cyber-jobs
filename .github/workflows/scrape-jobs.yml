@@ -38,8 +38,6 @@ jobs:
       - name: Scrape job boards
         timeout-minutes: 25
         env:
-          USAJOBS_API_KEY: ${{ secrets.USAJOBS_API_KEY }}
-          USAJOBS_EMAIL: ${{ secrets.USAJOBS_EMAIL }}
           # Flush each line as it prints so a timed-out run's log shows where
           # it stalled instead of one burst of buffered output at the end.
           PYTHONUNBUFFERED: '1'

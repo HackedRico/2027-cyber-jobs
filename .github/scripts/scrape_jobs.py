@@ -1583,82 +1583,6 @@ def scrape_amazon():
     return jobs
 
 
-def scrape_usajobs():
-    """Federal cyber roles for recent grads and students (Pathways internships).
-
-    Needs USAJOBS_API_KEY + USAJOBS_EMAIL.
-    """
-    api_key = os.environ.get('USAJOBS_API_KEY')
-    email = os.environ.get('USAJOBS_EMAIL', 'cyber-jobs-scraper@example.com')
-    if not api_key:
-        # Say so explicitly: an unset secret otherwise looks exactly like a
-        # board with no cyber openings, and the zero-run tracker would file it
-        # under dead slugs.
-        print('  [USAJOBS] USAJOBS_API_KEY not set — skipping federal postings')
-        return []
-    headers = {
-        'Host': 'data.usajobs.gov',
-        'User-Agent': email,
-        'Authorization-Key': api_key,
-    }
-    jobs = []
-    any_ok = False
-    # A posting can be open to both hiring paths; keep one copy.
-    seen_ids = set()
-    # 'student' is the Pathways internship path (codelist value STUDENT —
-    # singular, unlike GRADUATES); titles usually come back as
-    # "Student Trainee (...)" and classify as intern.
-    for hiring_path in ('graduates', 'student'):
-        for page in range(1, MAX_PAGES + 1):
-            params = {
-                'Keyword': 'cybersecurity',
-                'HiringPath': hiring_path,
-                'ResultsPerPage': 250,
-                'Page': page,
-            }
-            # allow_redirects=False so the api-key header can't be forwarded to
-            # another host on a cross-host redirect.
-            data = fetch_json('https://data.usajobs.gov/api/search',
-                              params=params, headers=headers, label='USAJOBS',
-                              allow_redirects=False)
-            if data is None:
-                break
-            any_ok = True
-            result = data.get('SearchResult', {})
-            items = result.get('SearchResultItems', [])
-            if not items:
-                break
-            for item in items:
-                d = item.get('MatchedObjectDescriptor', {})
-                job_id = item.get('MatchedObjectId', '')
-                if job_id in seen_ids:
-                    continue
-                seen_ids.add(job_id)
-                locations = d.get('PositionLocation', [])
-                loc = locations[0].get('LocationName', '') if locations else ''
-                # Student-only postings are Pathways internships even when
-                # the title omits "Student Trainee"; a posting also open
-                # to graduates stays title-classified.
-                paths = [p.lower() for p in
-                         (d.get('UserArea', {}).get('Details', {})
-                          .get('HiringPath') or [])]
-                jobs.append({
-                    'id': f'usajobs_{job_id}',
-                    'company': d.get('OrganizationName', 'US Federal Government'),
-                    'title': d.get('PositionTitle', ''),
-                    'location': loc,
-                    'url': d.get('PositionURI', ''),
-                    'board': 'USAJOBS',
-                    'intern_hint': 'student' in paths and 'graduates' not in paths,
-                })
-            if page >= int(result.get('UserArea', {}).get('NumberOfPages', 1)):
-                break
-            time.sleep(0.5)
-    if not any_ok:
-        return None
-    return jobs
-
-
 # ---------------------------------------------------------------------------
 # Persistence
 # ---------------------------------------------------------------------------
@@ -1906,8 +1830,6 @@ def build_tasks(config, board=None, limit=None):
                 entry.get('security_company', False)))
     if want('amazon'):
         tasks.append(BoardTask('Amazon (amazon.jobs)', scrape_amazon, ()))
-    if want('usajobs'):
-        tasks.append(BoardTask('USAJOBS (data.usajobs.gov)', scrape_usajobs, ()))
     return tasks
 
 
@@ -1963,7 +1885,7 @@ def parse_args(argv=None):
                              'README rebuild — safe to run locally')
     parser.add_argument('--board',
                         help='only run this ATS (e.g. greenhouse, workday, '
-                             'eightfold, phenom, jibe, amazon, usajobs) for fast '
+                             'eightfold, phenom, jibe, amazon) for fast '
                              'local iteration')
     parser.add_argument('--limit', type=int,
                         help='only scrape the first N configured companies per board')
@@ -1997,7 +1919,7 @@ def main():
               f'({result["count"]} postings, {result["seconds"]:.1f}s)')
         for job in result['jobs']:
             sec_flags[job['id']] = result['security_company']
-            # Amazon and USAJOBS have no companies.yml entry to read.
+            # Amazon has no companies.yml entry to read.
             company_flags.setdefault(job['company'], result['security_company'])
         raw_jobs.extend(result['jobs'])
         board_stats.append({key: result[key] for key in ('label', 'status', 'count')})

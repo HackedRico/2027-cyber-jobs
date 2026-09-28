@@ -593,11 +593,10 @@ def test_build_tasks_honors_board_and_limit():
                      'search_terms': ['grc']}],
         'oracle': [{'name': 'O', 'host': 'o.fa.us2.oraclecloud.com', 'site': 'CX_1'}],
     }
-    check('build_tasks walks boards in config order and ends with the fixed sources',
+    check('build_tasks walks boards in config order and ends with Amazon',
           [t.label for t in sj.build_tasks(config)],
           ['A (greenhouse/a)', 'B (greenhouse/b)', 'C (greenhouse/c)', 'W (workday/w)',
-           'O (oracle/o.fa.us2.oraclecloud.com)', 'Amazon (amazon.jobs)',
-           'USAJOBS (data.usajobs.gov)'])
+           'O (oracle/o.fa.us2.oraclecloud.com)', 'Amazon (amazon.jobs)'])
     subset = sj.build_tasks(config, board='greenhouse', limit=2)
     check('--board/--limit narrow the task list',
           [(t.label, t.args, t.security_company) for t in subset],
@@ -1594,6 +1593,23 @@ def test_check_links_soft_404():
                                     '2026-09-28'), True)
 
 
+# --- a board that leaves the config leaves the baseline -----------------------
+def test_board_health_forgets_a_removed_board():
+    """USAJOBS left the scrape with a 26-run zero streak in the baseline."""
+    baseline = {'USAJOBS (data.usajobs.gov)': {'count': 0, 'zero_runs': 26,
+                                               'last_nonzero': None},
+                'Acme (greenhouse/acme)': {'count': 4, 'zero_runs': 0,
+                                           'last_nonzero': '2026-09-27'}}
+    stats = [{'label': 'Acme (greenhouse/acme)', 'status': 'ok', 'count': 5}]
+    history, regressed, dead = sj.board_health(stats, baseline, '2026-09-28')
+    check('a removed board drops out of the rolled baseline', sorted(history),
+          ['Acme (greenhouse/acme)'])
+    check('a removed board is neither regressed nor dead', (regressed, dead), ([], []))
+    check('a removed board is not silent', sj.long_silent_boards(stats, baseline), set())
+    check('the scrape no longer builds a USAJOBS task',
+          [t.label for t in sj.build_tasks({}, board='usajobs')], [])
+
+
 for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_ashby, test_ashby_schema_drift_warns,
            test_smartrecruiters_pagination_short_page_stops,
@@ -1639,7 +1655,8 @@ for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_workday_more_suffix_fetches_locations,
            test_amazon_restricts_to_us_reqs,
            test_retire_orphaned_listings,
-           test_check_links_soft_404):
+           test_check_links_soft_404,
+           test_board_health_forgets_a_removed_board):
     fn()
 
 if failures:
