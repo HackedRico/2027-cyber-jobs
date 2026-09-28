@@ -1506,6 +1506,9 @@ def scrape_amazon():
     params = {
         'base_query': 'security engineer OR "security analyst" OR cybersecurity',
         'loc_query': 'united states',
+        # loc_query only ranks: without this filter a page held GBR, AUS, IND
+        # and SGP reqs next to the US ones.
+        'normalized_country_code[]': 'USA',
         'result_limit': 100,
         'offset': 0,
     }

@@ -1523,6 +1523,15 @@ def test_workday_more_suffix_fetches_locations():
           jobs[0]['location'], 'Chicago, IL; Plantation, FL; Allen, TX')
 
 
+# --- amazon.jobs: loc_query ranks, the country filter restricts --------------
+@responses.activate
+def test_amazon_restricts_to_us_reqs():
+    responses.get('https://www.amazon.jobs/en/search.json', json={'hits': 0, 'jobs': []})
+    check('an empty amazon search is an empty board', sj.scrape_amazon(), [])
+    query = parse_qs(urlparse(responses.calls[0].request.url).query)
+    check('amazon search filters to US reqs', query.get('normalized_country_code[]'), ['USA'])
+
+
 for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_ashby, test_ashby_schema_drift_warns,
            test_smartrecruiters_pagination_short_page_stops,
@@ -1565,7 +1574,8 @@ for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_workable_reads_locations_and_description,
            test_lever_appends_lists_to_description,
            test_smartrecruiters_fetches_descriptions_for_candidates,
-           test_workday_more_suffix_fetches_locations):
+           test_workday_more_suffix_fetches_locations,
+           test_amazon_restricts_to_us_reqs):
     fn()
 
 if failures:
