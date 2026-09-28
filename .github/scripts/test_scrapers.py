@@ -693,13 +693,63 @@ def test_incomplete_sweep_retires_nothing():
     raw = [{'company': 'Acme', 'board': 'Workday', 'url': wd + 'Seen_R1',
             'partial_sweep': True},
            {'company': 'Acme', 'board': 'Greenhouse', 'url': gh + '8'}]
-    retired = sj.retire_vanished_listings(listings, raw, '2026-09-10')
+    retired = sj.retire_vanished_listings(listings, raw, '2026-09-10',
+                                          probe=lambda url: None)
     check('a partial sweep retires none of its rows',
           [e['role'] for e in retired], ['Greenhouse Gone'])
     check('rows behind a partial sweep keep their streak as it was',
           [(e['role'], e.get('missing_since'), e.get('closed')) for e in listings[:3]],
           [('Seen', None, None), ('Past The Cap', '2026-09-01', None),
            ('Not Yet Missing', None, None)])
+
+
+def test_partial_workday_sweep_asks_the_detail_endpoint():
+    """CVS, RTX and Northrop stop at the page cap every run."""
+    wd = 'https://acme.wd1.myworkdayjobs.com/Ext/job/Austin-TX/'
+    listings = [
+        _listing('Acme', 'Closed Deep', wd + 'Gone_R1', source='Workday',
+                 missing_since='2026-09-01'),
+        _listing('Acme', 'Live Deep', wd + 'Live_R2', source='Workday',
+                 missing_since='2026-09-01'),
+        _listing('Acme', 'Closed Fresh', wd + 'Gone_R3', source='Workday'),
+    ]
+    raw = [{'company': 'Acme', 'board': 'Workday', 'url': wd + 'Other_R9',
+            'partial_sweep': True}]
+    asked = []
+
+    def probe(url):
+        asked.append(url)
+        return 'gone' if 'Gone' in url else 'live'
+
+    retired = sj.retire_vanished_listings(listings, raw, '2026-09-10', probe=probe)
+    check('a gone answer retires a row whose streak has run',
+          [e['role'] for e in retired], ['Closed Deep'])
+    check('a live answer clears the streak, a fresh gone one starts it',
+          [(e['role'], e.get('missing_since')) for e in listings[1:]],
+          [('Live Deep', None), ('Closed Fresh', '2026-09-10')])
+    check('only rows missing from the sweep are asked about', len(asked), 3)
+
+
+@responses.activate
+def test_workday_posting_state():
+    base = 'https://acme.wd1.myworkdayjobs.com'
+    api = base + '/wday/cxs/acme/Ext/job/Austin-TX/'
+    responses.add(responses.GET, api + 'Live_R1',
+                  json={'jobPostingInfo': {'canApply': True}})
+    responses.add(responses.GET, api + 'Closed_R2', status=403,
+                  json={'errorCode': 'S22', 'httpStatus': 403})
+    responses.add(responses.GET, api + 'Unknown_R3', status=404,
+                  json={'errorCode': 'S21', 'httpStatus': 404})
+    responses.add(responses.GET, api + 'Flaky_R4', status=500, json={})
+    public = base + '/Ext/job/Austin-TX/'
+    check('a 200 with canApply is live', sj.workday_posting_state(public + 'Live_R1'), 'live')
+    check('403 S22 is a closed req', sj.workday_posting_state(public + 'Closed_R2'), 'gone')
+    check('404 S21 is an unknown path', sj.workday_posting_state(public + 'Unknown_R3'), 'gone')
+    check('a 500 says nothing', sj.workday_posting_state(public + 'Flaky_R4'), None)
+    check('a locale prefix is skipped',
+          sj.workday_posting_state(base + '/en-US/Ext/job/Austin-TX/Live_R1'), 'live')
+    check('a non-workday url says nothing',
+          sj.workday_posting_state('https://boards.greenhouse.io/acme/jobs/1'), None)
 
 
 def test_long_silent_board_retires_its_rows():
@@ -830,7 +880,9 @@ for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_board_health_migrates_and_survives_a_corrupt_baseline,
            test_compare_runs_reports_flips_only,
            test_workday_total_only_on_first_page, test_workday_flags_a_cut_short_sweep,
-           test_incomplete_sweep_retires_nothing, test_long_silent_board_retires_its_rows,
+           test_incomplete_sweep_retires_nothing,
+           test_partial_workday_sweep_asks_the_detail_endpoint, test_workday_posting_state,
+           test_long_silent_board_retires_its_rows,
            test_greenhouse_remote_keeps_a_remote_label,
            test_pinpoint_remote_is_us_only_for_usa_locations,
            test_oracle_fetches_descriptions_for_candidates):

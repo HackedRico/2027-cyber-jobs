@@ -420,11 +420,13 @@ def scrape_pinpoint(company, slug):
 
 MULTI_LOCATION_RE = re.compile(r'^\d+ locations$', re.IGNORECASE)
 
-# 100 pages of 20 reach the 2000 hits most big tenants report for 'security'
-# (Walmart, Booz Allen, Accenture). RTX (3730), Northrop and CVS (8541) still
-# run past it; their sweeps are flagged partial instead. The old shared cap of
-# 60 truncated RTX and CACI into retire-then-revive cycles.
-WORKDAY_MAX_PAGES = 100
+# Search results are relevance-ranked, so student cyber titles sit near the top.
+# Paging every term to the end reached 227 title candidates across 73 tenants
+# in 3,243 pages and pushed a full dry run past 14 minutes; 15 pages reach 197
+# of them in 1,551. Most of what lies deeper is Palo Alto Networks reposting
+# 'Associate Systems Engineer'. A sweep that stops here is flagged partial, and
+# retire_vanished_listings asks the detail endpoint about its missing rows.
+WORKDAY_MAX_PAGES = 15
 
 
 def _wants_detail(title, security_company):
@@ -446,6 +448,38 @@ def fetch_workday_detail(cxs_root, path, wd_headers, label=''):
     locations += info.get('additionalLocations', []) or []
     location = '; '.join(dict.fromkeys(x for x in locations if x))
     return location, info.get('jobDescription', '')
+
+
+_WORKDAY_JOB_URL_RE = re.compile(
+    r'^https://([A-Za-z0-9_-]+)\.(wd\d+)\.myworkdayjobs\.com/'
+    r'(?:[a-z]{2}-[A-Z]{2}/)?([A-Za-z0-9_-]+)(/job/[^?#]+)')
+
+
+def workday_posting_state(url):
+    """Ask Workday's detail endpoint whether one posting is still up.
+
+    Returns 'live', 'gone', or None when the answer says nothing. The public
+    job page answers 200 even after a req closes, but the cxs detail endpoint
+    does not: a live req is 200 with canApply, a closed one 403 with errorCode
+    S22 (Nightwing JR102051, RTX 01870858), an unknown path 404 with S21.
+    """
+    m = _WORKDAY_JOB_URL_RE.match(url or '')
+    if not m:
+        return None
+    tenant, instance, board, path = m.groups()
+    api = f'https://{tenant}.{instance}.myworkdayjobs.com/wday/cxs/{tenant}/{board}{path}'
+    try:
+        resp = _session().get(api, headers={'Accept': 'application/json'},
+                              timeout=REQUEST_TIMEOUT)
+        body = resp.json()
+    except (requests.RequestException, ValueError):
+        return None
+    if resp.status_code == 200:
+        info = body.get('jobPostingInfo') or {}
+        return 'gone' if info.get('canApply') is False else 'live'
+    if resp.status_code in (403, 404) and body.get('errorCode') in ('S21', 'S22'):
+        return 'gone'
+    return None
 
 
 def scrape_workday(company, tenant, instance, board, security_company=False,
@@ -772,7 +806,8 @@ def long_silent_boards(board_stats, history):
     return {key for key, is_silent in silent.items() if is_silent}
 
 
-def retire_vanished_listings(listings, raw_jobs, today, silent_boards=frozenset()):
+def retire_vanished_listings(listings, raw_jobs, today, silent_boards=frozenset(),
+                             probe=workday_posting_state):
     """Close rows whose requisition has left its own board's feed.
 
     Mutates and returns the rows it retired. A posting that stops appearing
@@ -790,8 +825,10 @@ def retire_vanished_listings(listings, raw_jobs, today, silent_boards=frozenset(
         so a broken slug, a failed fetch, or a `--board`/`--limit` subset can
         never retire anything it did not actually look at;
       * a board whose sweep was cut short (postings flagged `partial_sweep`,
-        from a page cap or a failed page) retires nothing, since the missing
-        req may sit past the cut;
+        from a page cap or a failed page) retires nothing on absence alone,
+        since the missing req may sit past the cut. A Workday row there is
+        asked about directly through `probe`, and only a 'gone' answer counts
+        as a miss; the big tenants (CVS, RTX, Northrop) cut short every run;
       * a row must be missing for VANISHED_DAYS before it goes, so one partial
         fetch that went unnoticed costs a re-check rather than the listings;
       * Community rows carry a maintainer's judgment and never appear in
@@ -832,7 +869,11 @@ def retire_vanished_listings(listings, raw_jobs, today, silent_boards=frozenset(
             entry.pop('missing_since', None)
             continue
         if (company, source) in partial:
-            continue
+            state = probe(entry['url']) if source == 'Workday' else None
+            if state == 'live':
+                entry.pop('missing_since', None)
+            if state != 'gone':
+                continue
         first_missed = entry.get('missing_since')
         if not first_missed:
             entry['missing_since'] = today
