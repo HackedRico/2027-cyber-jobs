@@ -13,6 +13,7 @@ import tempfile
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
+import check_links  # noqa: E402
 import compare_runs  # noqa: E402
 import responses  # noqa: E402
 import scrape_jobs as sj  # noqa: E402
@@ -612,6 +613,47 @@ def test_compare_runs_reports_flips_only():
           compare_runs.diff(before, before), [])
 
 
+@responses.activate
+def test_check_links_closes_after_two_dead_days():
+    # Only rows nothing else can close are checked: a fingerprinted Greenhouse
+    # row is the scraper's job, so it must not cost a request here.
+    community = {'company': 'Acme', 'role': 'Analyst', 'source': 'Community',
+                 'url': 'https://acme.com/careers/analyst', 'missing_since': '2026-09-20'}
+    amazon = {'company': 'Amazon', 'role': 'Security Engineer', 'source': 'Amazon Jobs',
+              'url': 'https://www.amazon.jobs/en/jobs/123'}
+    greenhouse = {'company': 'Acme', 'role': 'SOC Analyst', 'source': 'Greenhouse',
+                  'url': 'https://boards.greenhouse.io/acme/jobs/9'}
+    closed = {'company': 'Acme', 'role': 'Old', 'source': 'Community', 'url': '',
+              'closed': True}
+    check('link check targets community and amazon rows only',
+          [check_links.is_check_target(e) for e in (community, amazon, greenhouse, closed)],
+          [True, True, False, False])
+
+    responses.add(responses.GET, community['url'], status=404)
+    responses.add(responses.GET, amazon['url'], status=403)
+    check('403 is not dead', check_links.record_result(
+        amazon, check_links.fetch_status(amazon['url']), '2026-09-26'), False)
+    check('403 starts no streak', 'dead_since' in amazon, False)
+
+    status = check_links.fetch_status(community['url'])
+    check('first dead day only starts the streak',
+          check_links.record_result(community, status, '2026-09-26'), False)
+    check('dead_since stamped', community.get('dead_since'), '2026-09-26')
+    check('a second run the same day does not close',
+          check_links.record_result(community, status, '2026-09-26'), False)
+    check('second dead day closes', check_links.record_result(community, 410, '2026-09-27'), True)
+    check('closed row keeps its link and sheds its streaks',
+          {k: community.get(k) for k in ('url', 'last_url', 'closed', 'closed_date',
+                                        'dead_since', 'missing_since')},
+          {'url': '', 'last_url': 'https://acme.com/careers/analyst', 'closed': True,
+           'closed_date': '2026-09-27', 'dead_since': None, 'missing_since': None})
+
+    flaky = {'url': 'https://x/j', 'dead_since': '2026-09-25'}
+    check('a live answer resets the streak',
+          (check_links.record_result(flaky, 200, '2026-09-26'), 'dead_since' in flaky),
+          (False, False))
+
+
 for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_ashby, test_ashby_schema_drift_warns,
            test_smartrecruiters_pagination_short_page_stops, test_oracle,
@@ -627,7 +669,8 @@ for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_scrape_boards_preserves_config_order,
            test_build_tasks_honors_board_and_limit, test_board_health_streaks,
            test_board_health_migrates_and_survives_a_corrupt_baseline,
-           test_compare_runs_reports_flips_only):
+           test_compare_runs_reports_flips_only,
+           test_check_links_closes_after_two_dead_days):
     fn()
 
 if failures:
