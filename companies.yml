@@ -642,6 +642,8 @@ smartrecruiters:
 - name: Kudelski Security
   slug: KudelskiSecurityInc
   security_company: true
+- name: Lawrence Livermore National Laboratory
+  slug: LLNL
 workable:
 - name: Galois
   slug: galois
@@ -701,6 +703,9 @@ recruitee:
 - name: Lansweeper
   slug: lansweeper
 pinpoint:
+- name: NCC Group
+  slug: nccgroup
+  security_company: true
 - name: SANS Institute
   slug: sans
   security_company: true
@@ -883,11 +888,6 @@ workday:
   instance: wd1
   board: external-careers2
   security_company: true
-- name: NCC Group
-  tenant: nccgroup
-  instance: wd3
-  board: NCC_Group
-  security_company: true
 - name: ESET
   tenant: eset
   instance: wd3
@@ -1018,6 +1018,26 @@ workday:
   tenant: travelers
   instance: wd5
   board: External
+- name: Argonne National Laboratory
+  tenant: argonne
+  instance: wd1
+  board: Argonne_Careers
+- name: HP Inc
+  tenant: hp
+  instance: wd5
+  board: ExternalCareerSite
+- name: National Laboratory of the Rockies
+  tenant: nrel
+  instance: wd5
+  board: NLR
+- name: Software Engineering Institute
+  tenant: cmu
+  instance: wd115
+  board: SEI
+- name: Verizon
+  tenant: verizon
+  instance: wd12
+  board: verizon-careers
 oracle:
 - name: SAIC
   host: eihu.fa.us8.oraclecloud.com
@@ -1028,6 +1048,22 @@ oracle:
 - name: Southern Company
   host: emje.fa.us6.oraclecloud.com
   site: SouthernCompanyJobs
+- name: American Express
+  host: egug.fa.us2.oraclecloud.com
+  site: CX_1
+- name: Fortinet
+  host: edel.fa.us2.oraclecloud.com
+  site: CX_2001
+  security_company: true
+- name: Honeywell
+  host: ibqbjb.fa.ocs.oraclecloud.com
+  site: CX_1
+- name: Idaho National Laboratory
+  host: elhe.fa.us8.oraclecloud.com
+  site: CX_1001
+- name: Idaho National Laboratory
+  host: elhe.fa.us8.oraclecloud.com
+  site: CX_1002
 eightfold:
 - name: Lockheed Martin
   tenant: lockheedmartin
