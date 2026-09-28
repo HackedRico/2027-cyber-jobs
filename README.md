@@ -22,7 +22,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 **What belongs here.** US or Remote (US) cybersecurity roles open to students: internships and co-ops, new-grad programs, and entry-level jobs asking for 0 to 2 years. No senior roles and no roles outside the US.
 
-**When to apply.** Summer 2027 internships post from August to October 2026, and the big programs fill early, so apply in the fall. New-grad programs post from September to November. Federal Pathways roles on USAJOBS and many defense contractors hire on their own cycles, so check back through the spring.
+**When to apply.** Summer internships post from August to October of the year before, and the big programs fill early, so apply in the fall. New-grad programs post from September to November. Many defense contractors hire on their own cycles, so check back through the spring.
 
 **What 🇺🇸 means if you are on a visa.** The posting mentions a security clearance, a public trust investigation or U.S. citizenship. A clearance requires U.S. citizenship, so F-1, OPT and H-1B holders can usually skip these rows. A row without 🇺🇸 can still decline to sponsor a visa, so read the posting before you apply.
 
@@ -44,7 +44,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- /LEGEND -->
 
-**Found a role we missed?** Submit it with the [issue form](../../issues/new/choose). Employers whose boards we cannot scrape, such as Google, Microsoft and Lockheed Martin, only show up here when someone submits them. [CONTRIBUTING.md](./CONTRIBUTING.md) lists what qualifies.
+**Found a role we missed?** Submit it with the [issue form](../../issues/new/choose). Employers whose boards we cannot scrape, such as Google and federal agencies on USAJOBS, only show up here when someone submits them. [CONTRIBUTING.md](./CONTRIBUTING.md) lists what qualifies.
 
 </details>
 
@@ -52,7 +52,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 ## 🎒 Internships & Co-ops
 
-Cybersecurity internships and co-ops for current students, including federal Pathways (Student Trainee) positions.
+Cybersecurity internships and co-ops for current students.
 
 <!-- TABLE_START intern -->
 
@@ -155,7 +155,7 @@ Cybersecurity internships and co-ops for current students, including federal Pat
 
 ## 🎓 New Grad & University Programs
 
-Full-time roles and rotational programs for students graduating in 2026 or 2027.
+Full-time roles and rotational programs for students in their final year or just graduated.
 
 <!-- TABLE_START newgrad -->
 
@@ -498,6 +498,6 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 1. [`companies.yml`](companies.yml) lists employers with security teams, plus pure-play security companies, whose job boards expose public APIs.
 2. [`scrape_jobs.py`](.github/scripts/scrape_jobs.py) runs twice a day, pulls every posting, and keeps the ones that are cybersecurity roles, at internship, new-grad or early-career level, and located in the US.
 3. New matches land in [`listings.json`](listings.json) and the tables above are rebuilt from it.
-4. A role closes when its posting leaves the employer's board for 3 days, or, for community, Amazon and other rows the scraper cannot match to a posting, when a daily [link check](.github/scripts/check_links.py) finds the link gone two days in a row. Closed roles fold under each table for 60 days.
+4. A role closes when its posting leaves the employer's board for 3 days or the employer leaves `companies.yml`, or, for community, Amazon and other rows the scraper cannot match to a posting, when a daily [link check](.github/scripts/check_links.py) finds the link gone two days in a row. Closed roles fold under each table for 60 days.
 
 Sources we can't scrape rely on community submissions, so please [contribute](./CONTRIBUTING.md)!
