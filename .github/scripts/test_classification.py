@@ -451,6 +451,18 @@ US_LOC = [
     ('Tbilisi, Georgia', False),
     ('London, England', False),
     ('Remote - United Kingdom', False),
+    # A bare "Remote" beside a foreign place is that country's remote role
+    # (ExtraHop 'Support Engineer I - UK' is 'Remote | United Kingdom')...
+    ('Remote | United Kingdom', False),
+    ('Remote | India', False),
+    ('Remote | Canada', False),
+    ('Remote; London, UK', False),
+    # ...but a US-scoped remote part or a US city still carries the posting.
+    ('Remote (US) | London, UK', True),
+    ('Remote | London, UK | New York, NY', True),
+    ('Remote - US | Remote - Canada', True),
+    ('New York City, Toronto, Chicago, or Remote', True),
+    ('Remote', True),
 ]
 for loc, want in US_LOC:
     got = s.is_us_location(loc)

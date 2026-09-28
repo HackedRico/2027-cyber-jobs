@@ -527,6 +527,25 @@ def _strip_accents(text):
                    if not unicodedata.combining(c))
 
 
+US_TOKEN_RE = re.compile(r'\b(us|usa|u\.s\.a?|united states)\b')
+
+
+def _is_bare_remote(part):
+    # "Remote" or "Remote (Hybrid)", but not "Remote (US)" or "Remote (Texas)".
+    low = part.strip().lower()
+    return (bool(REMOTE_FULL_RE.fullmatch(low)) and not US_TOKEN_RE.search(low)
+            and not _state_names(part))
+
+
+def _is_foreign_only(part):
+    low = _strip_accents(part.lower())
+    if not NON_US_RE.search(low):
+        return False
+    # A comma-joined part can name US cities beside a foreign one: "New York
+    # City, Toronto, Chicago, or Remote".
+    return not (any(s in low for s in US_SUBSTRINGS) or _has_strong_us_token(part))
+
+
 def _part_is_us(part):
     """True if a single location part positively resolves to the US."""
     p = part.strip()
@@ -552,7 +571,7 @@ def _part_is_us(part):
     for code in EMBEDDED_STATE_RE.findall(p):
         if code in EMBEDDED_STATE_CODES:
             return True
-    if re.search(r'\b(us|usa|u\.s\.a?|united states)\b', low):
+    if US_TOKEN_RE.search(low):
         return True
     if _state_names(p):
         return True
@@ -594,7 +613,13 @@ def is_us_location(location):
         return False
 
     parts = [p for p in LOCATION_SPLIT_RE.split(location) if p.strip()]
-    if any(_part_is_us(p) for p in parts):
+    us_parts = [p for p in parts if _part_is_us(p)]
+    # A bare "Remote" is US only when nothing else places the role. ExtraHop's
+    # 'Support Engineer I - UK' is 'Remote | United Kingdom', and its lone
+    # "Remote" part stored it as Remote (US).
+    bare_remote_abroad = (all(_is_bare_remote(p) for p in us_parts)
+                          and any(_is_foreign_only(p) for p in parts))
+    if us_parts and not bare_remote_abroad:
         return True
 
     # An unambiguous US token anywhere means the role lists a US option even in
