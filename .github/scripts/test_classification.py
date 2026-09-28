@@ -760,11 +760,63 @@ if len(reclass_changes) != 1 or reclass_changes[0][0] != 'A' or reclass_changes[
     failures += 1
     print(f'FAIL reclassify_listings changes = {reclass_changes!r}, '
           f"want one A earlycareer->newgrad")
-if ({e['company'] for e in rejected} != {'E', 'F'}
+if ({(e['company'], reason) for e, reason in rejected}
+        != {('E', 'rejected-title'), ('F', 'rejected-title')}
         or [e['company'] for e in kept] != ['A', 'B', 'C', 'D', 'G']):
     failures += 1
-    print(f'FAIL reclassify_listings rejected={[e["company"] for e in rejected]}, '
+    print(f'FAIL reclassify_listings rejected={[(e["company"], r) for e, r in rejected]}, '
           f'kept={[e["company"] for e in kept]}')
+
+# reclassify_listings with the companies.yml flag map: a title that passed only
+# on a security_company flag goes when the company loses it, even with no live
+# posting to re-judge. (company, title, source, flags, expected reason or None)
+FLAGGED = [
+    ('Jumio', 'Research Engineer - Machine Learning & Robotics', 'Greenhouse',
+     {'Jumio': False}, 'not-cyber'),
+    ('Illumio', 'Software Engineer, New Grad', 'Greenhouse', {'Illumio': True}, None),
+    # A board since removed from companies.yml: the flag that admitted it is unknown.
+    ('Todyl', 'Software Engineer, New Grad', 'Greenhouse', {}, None),
+    ('ICF', 'Computer Scientist / Software Developer, Junior - Security Clearance Required',
+     'Workday', {'ICF': False}, 'not-cyber'),
+    ('Jumio', 'Software Engineer Intern', 'Greenhouse', {'Jumio': False}, 'not-cyber'),
+    ('Jumio', 'Software Engineer, New Grad', 'Community', {'Jumio': False}, None),
+]
+for company, title, source, flags, want in FLAGGED:
+    row = {'company': company, 'role': title, 'type': 'newgrad', 'source': source}
+    _, _, rejected = s.reclassify_listings([row], flags)
+    got = rejected[0][1] if rejected else None
+    if got != want:
+        failures += 1
+        print(f'FAIL reclassify_listings({company!r}, {title!r}, {flags!r}) = {got!r}, '
+              f'want {want!r}')
+
+# judge_job names the gate evaluate_job failed on, and agrees with it.
+JUDGED = [
+    # (title, location, description, security_company, expected reason)
+    ('Security Analyst Intern', 'Austin, TX', '', False, None),
+    ('Senior Security Engineer', 'Austin, TX', '', False, 'rejected-title'),
+    ('Research Engineer - Machine Learning & Robotics', 'Austin, TX', '', False, 'not-cyber'),
+    ('Security Specialist II', 'Austin, TX',
+     'Maintains classified document control per the NISPOM.', False, 'facility-security'),
+    ('Security Engineer', 'Austin, TX', '', False, 'no-level'),
+    ('Software Engineer, AI Safety', 'San Francisco, CA',
+     'Years of experience required will correlate with the internal job level requirements',
+     False, 'no-level'),
+    ('Security Engineer II', 'Austin, TX', 'Requires 6+ years of experience.', False,
+     'over-experienced'),
+    ('Support Engineer I - UK', 'Remote | United Kingdom', '', True, 'non-us-location'),
+]
+for title, loc, desc, sec, want in JUDGED:
+    verdict, reason = s.judge_job(title, loc, desc, sec)
+    if reason != want or (verdict is None) != (want is not None):
+        failures += 1
+        print(f'FAIL judge_job({title!r}, {loc!r}) = {(verdict, reason)!r}, want {want!r}')
+    if verdict != s.evaluate_job(title, loc, desc, sec):
+        failures += 1
+        print(f'FAIL judge_job and evaluate_job disagree on {title!r}')
+    if reason is not None and reason not in s.JUDGE_REASONS:
+        failures += 1
+        print(f'FAIL judge_job reason {reason!r} missing from JUDGE_REASONS')
 
 # purge_stale_listings: drop long-closed rows, keep recent-closed and open ones.
 LIFECYCLE = [

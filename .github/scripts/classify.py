@@ -6,7 +6,7 @@ keeps test_classification.py runnable with a bare interpreter and lets the
 scraper, the community-submission scripts, and the tests share one source of
 truth for the taxonomy.
 
-Pipeline per job (see evaluate_job):
+Pipeline per job (see evaluate_job, and judge_job for the deciding gate):
   1. Hard rejects (seniority, non-cyber functions, physical security)
   2. Cyber relevance (title keywords; generic engineering titles allowed at
      pure-play security companies flagged `security_company: true`)
@@ -1393,12 +1393,29 @@ def infer_category(title, security_company=False):
 def evaluate_job(title, location, description='', security_company=False,
                  intern_hint=False):
     """Run the full filter pipeline. Returns (level, category) or None."""
+    return judge_job(title, location, description, security_company, intern_hint)[0]
+
+
+# Every reason judge_job can give. 'no-level' is the one an empty description
+# can cause by itself: a flat title fails it for want of description evidence.
+JUDGE_REASONS = ('rejected-title', 'not-cyber', 'facility-security', 'no-level',
+                 'over-experienced', 'non-us-location')
+
+
+def judge_job(title, location, description='', security_company=False,
+              intern_hint=False):
+    """Run the `evaluate_job` pipeline and name the gate that decided it.
+
+    Returns ((level, category), None) for an accepted posting, or (None, reason)
+    with reason one of JUDGE_REASONS. The stored-row pass logs the reason, and
+    needs it to tell a gate an empty description can trip from the others.
+    """
     if not title or is_rejected_title(title):
-        return None
+        return None, 'rejected-title'
     if not is_cyber_title(title, security_company):
-        return None
+        return None, 'not-cyber'
     if description and _is_facility_security_role(title, description):
-        return None
+        return None, 'facility-security'
     level = classify_level(title, description, intern_hint)
     if level is None:
         # A flat "Security Engineer" title at a security company with a low
@@ -1416,7 +1433,7 @@ def evaluate_job(title, location, description='', security_company=False,
                 or 0 < required_years(description) <= MAX_ALLOWED_YEARS):
             level = 'earlycareer'
         else:
-            return None
+            return None, 'no-level'
     # A junior-sounding title is not proof of a junior role: "Security Engineer
     # II" and "Cyber Analyst II" reqs regularly ask for 4-8 years. Gate every
     # full-time level on the stated experience floor, not just the flat-title
@@ -1425,10 +1442,10 @@ def evaluate_job(title, location, description='', security_company=False,
     # ATS signal, and research-internship reqs cite years of study in ways this
     # parser would misread as a floor.
     if level != 'intern' and exceeds_experience_cap(description):
-        return None
+        return None, 'over-experienced'
     if not is_us_location(location):
-        return None
-    return level, infer_category(title, security_company)
+        return None, 'non-us-location'
+    return (level, infer_category(title, security_company)), None
 
 
 def listing_dedup_key(company, role, location):
@@ -1500,36 +1517,50 @@ def prune_seen(seen, today, ttl_days=45):
             if (_parse_date(stamp) or fallback) >= cutoff}
 
 
-def reclassify_listings(listings):
+def reclassify_listings(listings, sec_flags=None):
     """Re-run title-only classification over stored rows.
 
     Returns (kept, changes, rejected). `changes` lists
-    (company, role, old_type, new_type) re-levelings; `rejected` holds rows
-    whose title now fails `is_rejected_title`, so a seniority or function term
-    added after a row landed retires it instead of leaving it on the board
-    until its link dies. The same title gate runs at ingestion, so this never
-    drops a row the scraper would accept today.
+    (company, role, old_type, new_type) re-levelings. `rejected` holds
+    (row, reason) pairs: 'rejected-title' when the title now fails
+    `is_rejected_title`, 'not-cyber' when it fails `is_cyber_title` under the
+    company's current flag. A seniority or function term added after a row
+    landed, or a `security_company` flag its employer lost, then retires the
+    row instead of leaving it on the board until its link dies. The same title
+    gates run at ingestion, so this never drops a row the scraper would accept
+    today.
+
+    `sec_flags` maps company name to its companies.yml `security_company` flag.
+    This pass reaches rows whose posting has left the feed, which the
+    live-posting pass in scrape_jobs.py cannot: Jumio 'Research Engineer -
+    Machine Learning & Robotics' stayed a new-grad row after Jumio lost the
+    flag. A company missing from the map, a board since removed, skips the
+    cyber-title gate, because the flag that admitted its rows is unknown.
 
     Community rows reflect a maintainer's judgment and are left alone entirely.
     Intern rows may derive from an ATS employment-type hint a title can't
-    reproduce, so they are exempt from re-leveling (not from the reject gate).
+    reproduce, so they are exempt from re-leveling (not from the title gates).
     A title that yields no signal (None) keeps the stored, possibly
     description-derived, type.
     """
+    sec_flags = sec_flags or {}
     kept, changes, rejected = [], [], []
     for entry in listings:
         if entry.get('source') == 'Community':
             kept.append(entry)
             continue
-        if is_rejected_title(entry.get('role', '')):
-            rejected.append(entry)
+        company, role = entry.get('company', ''), entry.get('role', '')
+        if is_rejected_title(role):
+            rejected.append((entry, 'rejected-title'))
+            continue
+        if company in sec_flags and not is_cyber_title(role, sec_flags[company]):
+            rejected.append((entry, 'not-cyber'))
             continue
         kept.append(entry)
         if entry.get('type') == 'intern':
             continue
-        level = classify_level(entry.get('role', ''))
+        level = classify_level(role)
         if level and level != entry.get('type'):
-            changes.append((entry.get('company', ''), entry.get('role', ''),
-                            entry.get('type'), level))
+            changes.append((company, role, entry.get('type'), level))
             entry['type'] = level
     return kept, changes, rejected
