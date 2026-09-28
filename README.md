@@ -2,7 +2,9 @@
 
 The latest **new-grad, internship, and early-career cybersecurity roles in the United States**, updated automatically twice a day by scraping the public APIs of well-known job boards.
 
-> ⭐ **Please star this repo to get the latest jobs as soon as they land!**
+> 🔔 **Get an email or push when roles land:** Watch > Custom > Releases for every batch, or add [releases.atom](https://github.com/HackedRico/2027-cyber-jobs/releases.atom) to a feed reader.
+>
+> For one table only, click Subscribe on its [alert issue](../../issues?q=is%3Aissue+is%3Aopen+label%3Aalerts). Pick one channel, or you get each role twice. Starring does not notify you.
 
 ⚠️ **US-based** (or Remote-US) roles for **students and early-career candidates** only: internships/co-ops, new-grad programs, and entry-level openings (0-2 years). No senior roles, no international listings.
 
