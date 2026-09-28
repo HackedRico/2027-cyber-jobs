@@ -104,6 +104,21 @@ FUNCTION_REJECT = [
     'process engineer', 'mechanical engineer', 'electrical engineer',
     'chemical engineer', 'industrial engineer', 'civil engineer',
     'photolithography', 'metrology',
+    # Reqs a student cannot apply to: return offers for current interns
+    # (Walmart '2026 Intern Conversion: 2027 Return Intern Cybersecurity'),
+    # DoD SkillBridge slots for active-duty members (Blackpoint Cyber), and
+    # dated recruiting events (JPMorgan 'Hiring Event - Security Architecture
+    # & Engineering - Sep 24-25th 2026', whose event year read as a cohort).
+    'intern conversion', 'return intern', 'returning intern', 'skillbridge',
+    'active duty', 'hiring event',
+    # Sales, support and design roles that security-company 'analyst' and
+    # 'developer' titles let in: Proofpoint 'Deals Desk Analyst II', Okta
+    # 'Developer Support Associate (New Grad)', DigiCert 'Associate
+    # Authentication Analyst' (certificate validation), Lakera 'Enterprise
+    # Account Exeuctive' (the typo slips past 'account executive'), Anthropic
+    # 'Product Designer, Safeguards'.
+    'deals desk', 'deal desk', 'developer support', 'authentication analyst',
+    'enterprise account', 'product designer',
 ]
 
 
@@ -138,6 +153,12 @@ FUNCTION_REJECT_RE = re.compile(
 # "Security Officer" is usually a guard; keep it only when clearly infosec.
 SECURITY_OFFICER_RE = re.compile(r'\bsecurity officer\b')
 INFOSEC_OFFICER_HINTS = ['information security', 'cyber', 'ciso', 'iso ']
+
+# A program analyst runs budgets and schedules (Okta 'Associate Program Analyst
+# (New Grad)', let in by the security-company 'analyst' allowance), but a
+# gov-contractor 'Cybersecurity Program Analyst' is GRC work, so the term
+# rejects only a title with no cyber keyword.
+PROGRAM_ANALYST_RE = re.compile(r'\bprogram analyst\b')
 
 # A title containing any of these is a cybersecurity role.
 CYBER_KEYWORDS = [
@@ -868,6 +889,8 @@ def is_rejected_title(title):
         return True
     if SECURITY_OFFICER_RE.search(t) and not any(h in t for h in INFOSEC_OFFICER_HINTS):
         return True
+    if PROGRAM_ANALYST_RE.search(t) and not _has_cyber_keyword(t):
+        return True
     return False
 
 
@@ -884,11 +907,13 @@ def _is_cyber_keyword_hit(t):
     return False
 
 
+def _has_cyber_keyword(t):
+    return _is_cyber_keyword_hit(t) or any(p.search(t) for p in CYBER_REGEXES)
+
+
 def is_cyber_title(title, security_company=False):
     t = title.lower()
-    if _is_cyber_keyword_hit(t):
-        return True
-    if any(p.search(t) for p in CYBER_REGEXES):
+    if _has_cyber_keyword(t):
         return True
     if security_company and any(kw in t for kw in TECH_KEYWORDS):
         return True

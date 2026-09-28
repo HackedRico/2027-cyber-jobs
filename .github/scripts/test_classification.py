@@ -112,6 +112,23 @@ CASES = [
     # ...but a technical support engineer at a security company still counts.
     ('Support Engineer I', 'Dallas, TX', '', True, ('earlycareer', 'Engineering @ Security Co')),
 
+    # -- should be rejected: reqs a student cannot apply to --
+    ('MDR Analyst Skillbridge Intern (Active Duty Military only)', 'Remote (US)', '', True, None),
+    ('Cyber Threat Intelligence Analyst SkillBridge Internship (Active Duty Military Only)', 'Remote (US)', '', True, None),
+    ('2026 Intern Conversion:  2027 Return Intern Cybersecurity', 'Bentonville, AR', '', False, None),
+    ('2026 Intern Conversion: 2027 FT Penetration Testing Engineer II', 'Bentonville, AR', '', False, None),
+    ('Returning Intern - Information Security', 'Bentonville, AR', '', False, None),
+    ('Hiring Event - Security Architecture & Engineering - Sep 24-25th 2026', 'McLean, VA; Jersey City, NJ', '', False, None),
+    # -- should be rejected: sales, support and design at security companies --
+    ('Developer Support Associate (New Grad)', 'San Francisco, CA', '', True, None),
+    ('Deals Desk Analyst II', 'Draper, UT', '', True, None),
+    ('Associate Authentication Analyst', 'Lehi, UT', '', True, None),
+    ('Enterprise Account Exeuctive, AI Security', 'San Francisco, CA', '', True, None),
+    ('Product Designer, Safeguards', 'San Francisco, CA', '', False, None),
+    ('Associate Program Analyst (New Grad)', 'San Francisco, CA', '', True, None),
+    # ...but a program analyst on a cyber team is GRC work and stays.
+    ('Cybersecurity Program Analyst I', 'Arlington, VA', '', False, ('earlycareer', 'Security Engineering')),
+
     # -- should be rejected: physical security --
     ('Security Guard', 'Austin, TX', '', False, None),
     ('Security Officer - Night Shift', 'Austin, TX', '', False, None),
