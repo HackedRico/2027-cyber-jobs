@@ -1563,6 +1563,37 @@ def test_retire_orphaned_listings():
                                       '2026-09-28'), [])
 
 
+# --- check_links: a 200 whose title says the job is gone ----------------------
+@responses.activate
+def test_check_links_soft_404():
+    def page(url, title, content_type='text/html;charset=utf-8'):
+        body = '<html><head>' + ('' if title is None else f'<title>{title}</title>')
+        responses.get(url, status=200, body=body + '</head><body></body></html>',
+                      content_type=content_type)
+
+    bofa = 'https://careers.bankofamerica.com/en-us/students/job-detail/99999/x'
+    page(bofa, '404 Page not found')
+    page('https://jobs.hii-tsd.com/job/x/1391900000/', '')
+    page('https://jobs.hii-tsd.com/job/x/1391937800/',
+         'Cyberspace Operations Analyst 1 Job Details | HII&#39;s Mission Technologies')
+    page('https://acme.com/expired', ' This job has expired\n')
+    page('https://acme.com/no-title', None)
+    page('https://acme.com/pdf', '', content_type='application/pdf')
+    check('a 200 with a not-found title or an empty title is a soft 404',
+          [check_links.fetch_status(r.url, soft_404=True) for r in responses.registered()],
+          [404, 404, 200, 404, 200, 200])
+    check('without soft_404 the raw status stands',
+          check_links.fetch_status(bofa), 200)
+
+    row = {'company': 'Bank of America', 'role': 'Analyst', 'source': 'Community', 'url': bofa}
+    check('a soft 404 starts the streak like a real one',
+          check_links.record_result(row, check_links.fetch_status(bofa, soft_404=True),
+                                    '2026-09-27'), False)
+    check('and closes the row on the next day',
+          check_links.record_result(row, check_links.fetch_status(bofa, soft_404=True),
+                                    '2026-09-28'), True)
+
+
 for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_ashby, test_ashby_schema_drift_warns,
            test_smartrecruiters_pagination_short_page_stops,
@@ -1607,7 +1638,8 @@ for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_smartrecruiters_fetches_descriptions_for_candidates,
            test_workday_more_suffix_fetches_locations,
            test_amazon_restricts_to_us_reqs,
-           test_retire_orphaned_listings):
+           test_retire_orphaned_listings,
+           test_check_links_soft_404):
     fn()
 
 if failures:
