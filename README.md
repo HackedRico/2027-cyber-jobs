@@ -2,7 +2,9 @@
 
 US cybersecurity internships, new-grad roles and early-career openings for students, scraped twice a day from the job boards of [hundreds of employers](./companies.md).
 
-> 🔔 **Get an email or push when roles land:** Watch > Custom > Releases for every batch, or add [releases.atom](https://github.com/HackedRico/2027-cyber-jobs/releases.atom) to a feed reader.
+**[🔎 Search and filter the board](https://hackedrico.github.io/2027-cyber-jobs/)** by category, state, remote, date added, or hide the 🇺🇸 roles.
+
+> 🔔 **Get an email or push when roles land:** Watch > Custom > Releases for every batch, or add [releases.atom](https://github.com/HackedRico/2027-cyber-jobs/releases.atom) to a feed reader. Feeds per table: [internships](https://hackedrico.github.io/2027-cyber-jobs/feed-intern.xml), [new grad](https://hackedrico.github.io/2027-cyber-jobs/feed-newgrad.xml), [early career](https://hackedrico.github.io/2027-cyber-jobs/feed-earlycareer.xml).
 >
 > For one table only, click Subscribe on its [alert issue](../../issues?q=is%3Aissue+is%3Aopen+label%3Aalerts). Pick one channel, or you get each role twice. Starring does not notify you.
 
