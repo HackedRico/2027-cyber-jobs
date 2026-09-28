@@ -83,6 +83,9 @@ FUNCTION_REJECT = [
     'security guard', 'physical security', 'public safety',
     'executive protection', 'transportation security',
     'security screener', 'campus safety', 'alarm technician',
+    # Walmart's store loss-prevention job, '(CAN) Asset Protection Associate
+    # (MUST HAVE SECURITY LICENSE)'; the licence is a guard licence.
+    'asset protection', 'security license', 'security licence',
     # Cleared-facility security functions (FSO/NISPOM work, clearance
     # adjudication, guard forces) carry the word "security" but are not cyber.
     'industrial security', 'personnel security', 'protective services',
@@ -637,6 +640,9 @@ def _has_strong_us_token(location):
     return bool(m and m.group(1).upper() in US_STATES)
 
 
+COUNTRY_CODE_PREFIX_RE = re.compile(r'^\(([A-Z]{3})\)\s')
+
+
 def is_us_location(location):
     """True if any part of a (possibly multi-) location string is in the US.
 
@@ -648,6 +654,12 @@ def is_us_location(location):
         return False
 
     parts = [p for p in LOCATION_SPLIT_RE.split(location) if p.strip()]
+    # Walmart leads each site with a country code, '(USA) AR BENTONVILLE ...'
+    # or '(CAN) ON CAMBRIDGE 03152 WM SUPERCENTER'; the bare Cambridge read as
+    # Massachusetts. When every part carries a code, the codes decide.
+    codes = [COUNTRY_CODE_PREFIX_RE.match(p.strip()) for p in parts]
+    if codes and all(codes):
+        return any(m.group(1) == 'USA' for m in codes)
     us_parts = [p for p in parts if _part_is_us(p)]
     # A bare "Remote" is US only when nothing else places the role. ExtraHop's
     # 'Support Engineer I - UK' is 'Remote | United Kingdom', and its lone

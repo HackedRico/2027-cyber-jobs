@@ -119,6 +119,10 @@ CASES = [
     # ...but a technical support engineer at a security company still counts.
     ('Support Engineer I', 'Dallas, TX', '', True, ('earlycareer', 'Engineering @ Security Co')),
 
+    # Walmart store loss prevention; the licence is a guard licence.
+    ('(CAN) Asset Protection Associate (MUST HAVE SECURITY LICENSE)', 'Bentonville, AR', '', False, None),
+    ('Asset Protection Associate PART TIME (SECURITY LICENSE REQUIRED)', 'Bentonville, AR', '', False, None),
+
     # -- should be rejected: reqs a student cannot apply to --
     ('MDR Analyst Skillbridge Intern (Active Duty Military only)', 'Remote (US)', '', True, None),
     ('Cyber Threat Intelligence Analyst SkillBridge Internship (Active Duty Military Only)', 'Remote (US)', '', True, None),
@@ -514,6 +518,11 @@ US_LOC = [
     # A bare "Remote" beside a foreign place is that country's remote role
     # (ExtraHop 'Support Engineer I - UK' is 'Remote | United Kingdom')...
     ('Remote | United Kingdom', False),
+    # Walmart's country-coded sites: the code decides, not the bare city.
+    ('(CAN) ON CAMBRIDGE 03152 WM SUPERCENTER', False),
+    ('(USA) AR BENTONVILLE HOME OFFICE', True),
+    ('(MEX) CDMX; (CAN) ON TORONTO', False),
+    ('(CAN) ON TORONTO; (USA) AR BENTONVILLE HOME OFFICE', True),
     ('Remote | India', False),
     ('Remote | Canada', False),
     ('Remote; London, UK', False),
