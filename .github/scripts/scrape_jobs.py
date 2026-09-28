@@ -682,6 +682,232 @@ def scrape_oracle(company, host, site):
     return jobs
 
 
+# Eightfold and Phenom search is fuzzy and relevance-ranked: Lockheed's
+# 'security' query matches 3,039 postings led by badge and facility-security
+# reps, and BAE's 'cyber' matches nearly its whole board. Cyber, intern and
+# early-career titles rank near the top, so each term reads a bounded prefix
+# instead of the whole feed.
+EIGHTFOLD_TERMS = ('cyber', 'intern', 'early career')
+EIGHTFOLD_MAX_PAGES = 50
+PHENOM_TERMS = ('cyber', 'intern')
+PHENOM_PAGE_SIZE = 50
+PHENOM_MAX_PAGES = 4
+
+# microsoft.eightfold.ai answers 429 with no Retry-After after about ten quick
+# requests and clears within seconds, which fetch_json's short retries do not
+# outlast.
+RATE_LIMIT_DELAYS = (2, 4, 8, 16)
+EIGHTFOLD_PAGE_DELAY = 0.5
+
+# Lockheed tags each req with a hiring track. 'Experienced Professional' is its
+# lateral-hire track and holds 'Associate Cyber Software Engineer' and 'Level 2
+# DevSecOps Engineer' reqs whose titles read as early career.
+EIGHTFOLD_LEVEL_FIELD = 'efcustomTextLevelofexperience'
+EIGHTFOLD_EXPERIENCED_LEVELS = {'experienced professional'}
+
+
+def _get_json_patiently(url, *, method='GET', label='', **kwargs):
+    kwargs.setdefault('timeout', REQUEST_TIMEOUT)
+    for delay in (*RATE_LIMIT_DELAYS, None):
+        try:
+            resp = _session().request(method, url, **kwargs)
+        except requests.RequestException as e:
+            if delay is None:
+                print(f'  [{label}] request error: {_oneline(e)}')
+                return None
+            time.sleep(delay)
+            continue
+        if resp.status_code in (429, 503):
+            if delay is None:
+                print(f'  [{label}] HTTP {resp.status_code} (rate limited)')
+                return None
+            time.sleep(delay)
+            continue
+        if resp.status_code != 200:
+            print(f'  [{label}] HTTP {resp.status_code}')
+            return None
+        try:
+            return resp.json()
+        except ValueError:
+            print(f'  [{label}] non-JSON 200 response')
+            return None
+    return None
+
+
+def _needs_detail(title, security_company):
+    # The same candidate filter scrape_workday applies before its detail
+    # fetch: only titles that can still pass evaluate_job are worth a request,
+    # and those need the description for the experience gate.
+    if is_rejected_title(title) or not is_cyber_title(title, security_company):
+        return False
+    return classify_level(title) is not None or bool(AI_CATEGORY_RE.search(title.lower()))
+
+
+def scrape_eightfold(company, tenant, domain, security_company=False,
+                     extra_terms=None):
+    """Eightfold PCSX careers search (`<tenant>.eightfold.ai/careers`).
+
+    Reads 10 US postings per page for each search term, skips reqs on the
+    tenant's experienced-hire track, and fetches descriptions for title-level
+    candidates so the experience gate can run.
+    """
+    if not _valid_slug(tenant) or not _valid_host(domain):
+        print(f'  [{company}] invalid eightfold tenant/domain — skipping')
+        return None
+    root = f'https://{tenant}.eightfold.ai'
+    headers = {**HEADERS, 'Accept': 'application/json'}
+    terms = list(EIGHTFOLD_TERMS)
+    if extra_terms:
+        terms += [t for t in extra_terms if t not in terms]
+
+    jobs = []
+    seen_ids = set()
+    any_ok = False
+    for term in terms:
+        start = 0
+        for _page in range(EIGHTFOLD_MAX_PAGES):
+            params = {'domain': domain, 'query': term, 'location': 'United States',
+                      'start': start}
+            data = _get_json_patiently(f'{root}/api/pcsx/search', params=params,
+                                       headers=headers,
+                                       label=f'{company} Eightfold "{term}"')
+            if data is None:
+                break
+            any_ok = True
+            page = data.get('data') if isinstance(data, dict) else None
+            if not isinstance(page, dict):
+                check_container(data, 'data', f'{company} Eightfold')
+                break
+            check_container(page, 'positions', f'{company} Eightfold')
+            positions = page.get('positions') or []
+            if not positions:
+                break
+            for pos in positions:
+                pid = str(pos.get('id', ''))
+                if not pid or pid in seen_ids:
+                    continue
+                seen_ids.add(pid)
+                levels = {str(v).strip().lower() for v in pos.get(EIGHTFOLD_LEVEL_FIELD) or []}
+                if levels & EIGHTFOLD_EXPERIENCED_LEVELS:
+                    continue
+                locations = pos.get('standardizedLocations') or pos.get('locations') or []
+                jobs.append({
+                    'id': f'eightfold_{tenant}_{pid}',
+                    'company': company,
+                    'title': pos.get('name', ''),
+                    'location': '; '.join(dict.fromkeys(x for x in locations if x)),
+                    'url': f'{root}/careers/job/{pid}',
+                    'board': 'Eightfold',
+                })
+            start += len(positions)
+            total = page.get('count')
+            if total is not None and start >= total:
+                break
+            time.sleep(EIGHTFOLD_PAGE_DELAY)
+
+    if not any_ok:
+        return None
+
+    for job in jobs:
+        if not _needs_detail(job['title'], security_company):
+            continue
+        pid = job['id'].rsplit('_', 1)[-1]
+        data = _get_json_patiently(f'{root}/api/pcsx/position_details',
+                                   params={'position_id': pid, 'domain': domain,
+                                           'hl': 'en'},
+                                   headers=headers, label=f'{company} Eightfold detail')
+        detail = (data or {}).get('data') or {}
+        if isinstance(detail, dict) and detail.get('jobDescription'):
+            job['description'] = detail['jobDescription']
+        time.sleep(EIGHTFOLD_PAGE_DELAY)
+    return jobs
+
+
+def _phenom_body(lang, country, **fields):
+    return {'lang': lang, 'country': country, 'deviceType': 'desktop',
+            'siteType': 'external', **fields}
+
+
+def scrape_phenom(company, host, lang, country, security_company=False,
+                  extra_terms=None):
+    """Phenom People career sites, read through their `/widgets` search API.
+
+    `lang` and `country` are the site's locale pair (MITRE `en_us`/`us`, BAE
+    `en_global`/`global`); a wrong pair returns no jobs. Descriptions come from
+    the same endpoint's jobDetail call, for title-level candidates only.
+    """
+    if not _valid_host(host) or not _valid_slug(lang) or not _valid_slug(country):
+        print(f'  [{company}] invalid phenom host/lang/country — skipping')
+        return None
+    api = f'https://{host}/widgets'
+    headers = {**HEADERS, 'Content-Type': 'application/json',
+               'Accept': 'application/json'}
+    locale_path = f'{country}/{lang.split("_")[0]}'
+    terms = list(PHENOM_TERMS)
+    if extra_terms:
+        terms += [t for t in extra_terms if t not in terms]
+
+    jobs = []
+    seen_ids = set()
+    any_ok = False
+    for term in terms:
+        offset = 0
+        for _page in range(PHENOM_MAX_PAGES):
+            body = _phenom_body(lang, country, pageName='search-results',
+                                ddoKey='refineSearch', keywords=term, jobs=True,
+                                size=PHENOM_PAGE_SIZE, selected_fields={})
+            body.update({'from': offset, 'global': True})
+            data = _get_json_patiently(api, method='POST', json=body, headers=headers,
+                                       label=f'{company} Phenom "{term}"')
+            if data is None:
+                break
+            any_ok = True
+            check_container(data, 'refineSearch', f'{company} Phenom')
+            search = data.get('refineSearch') or {}
+            postings = (search.get('data') or {}).get('jobs') or []
+            if not postings:
+                break
+            for job in postings:
+                job_id = str(job.get('jobId') or job.get('reqId') or '')
+                if not _valid_slug(job_id) or job_id in seen_ids:
+                    continue
+                seen_ids.add(job_id)
+                locations = job.get('multi_location') or [job.get('location', '')]
+                jobs.append({
+                    'id': f'phenom_{host}_{job_id}',
+                    'company': company,
+                    'title': job.get('title', ''),
+                    'location': '; '.join(dict.fromkeys(x for x in locations if x)),
+                    'url': f'https://{host}/{locale_path}/job/{job_id}',
+                    'board': 'Phenom',
+                    '_seq': job.get('jobSeqNo', ''),
+                })
+            offset += len(postings)
+            total = search.get('totalHits')
+            if len(postings) < PHENOM_PAGE_SIZE or (total is not None and offset >= total):
+                break
+            time.sleep(0.3)
+
+    if not any_ok:
+        return None
+
+    for job in jobs:
+        seq = job.pop('_seq', '')
+        if not _needs_detail(job['title'], security_company):
+            continue
+        job_id = job['id'].rsplit('_', 1)[-1]
+        body = _phenom_body(lang, country, pageName='job', ddoKey='jobDetail',
+                            jobId=job_id, jobSeqNo=seq)
+        data = _get_json_patiently(api, method='POST', json=body, headers=headers,
+                                   label=f'{company} Phenom detail')
+        detail = ((data or {}).get('jobDetail') or {}).get('data') or {}
+        description = (detail.get('job') or {}).get('description', '')
+        if description:
+            job['description'] = description
+        time.sleep(0.3)
+    return jobs
+
+
 def drop_over_experienced(listings, raw_jobs):
     """Retire stored rows whose live posting states too high an experience bar.
 
@@ -749,6 +975,8 @@ _REQ_PATTERNS = {
     'Workable': (r'/j/([0-9A-F]{8,})',),
     'Recruitee': (r'/o/([\w-]+)$',),
     'Pinpoint': (r'/postings/([0-9a-fA-F-]{36})',),
+    'Eightfold': (r'/careers/job/(\d+)',),
+    'Phenom': (r'/job/([A-Za-z0-9_-]+)$',),
 }
 
 
@@ -1341,6 +1569,20 @@ def build_tasks(config, board=None, limit=None):
                 f'{entry["name"]} (oracle/{entry["host"]})', scrape_oracle,
                 (entry['name'], entry['host'], entry['site']),
                 entry.get('security_company', False)))
+    if want('eightfold'):
+        for entry in limited(config.get('eightfold')):
+            tasks.append(BoardTask(
+                f'{entry["name"]} (eightfold/{entry["tenant"]})', scrape_eightfold,
+                (entry['name'], entry['tenant'], entry['domain'],
+                 entry.get('security_company', False), entry.get('search_terms')),
+                entry.get('security_company', False)))
+    if want('phenom'):
+        for entry in limited(config.get('phenom')):
+            tasks.append(BoardTask(
+                f'{entry["name"]} (phenom/{entry["host"]})', scrape_phenom,
+                (entry['name'], entry['host'], entry['lang'], entry['country'],
+                 entry.get('security_company', False), entry.get('search_terms')),
+                entry.get('security_company', False)))
     if want('amazon'):
         tasks.append(BoardTask('Amazon (amazon.jobs)', scrape_amazon, ()))
     if want('usajobs'):
@@ -1400,7 +1642,8 @@ def parse_args(argv=None):
                              'README rebuild — safe to run locally')
     parser.add_argument('--board',
                         help='only run this ATS (e.g. greenhouse, workday, '
-                             'amazon, usajobs) for fast local iteration')
+                             'eightfold, phenom, amazon, usajobs) for fast '
+                             'local iteration')
     parser.add_argument('--limit', type=int,
                         help='only scrape the first N configured companies per board')
     return parser.parse_args(argv)

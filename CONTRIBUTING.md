@@ -15,7 +15,7 @@ Ground rules — listings must be:
 
 ## 2. Add a company to the scraper
 
-If an employer uses Greenhouse, Lever, Ashby, SmartRecruiters, Workable, Recruitee, Pinpoint, Workday, or Oracle Recruiting Cloud, add it to [`companies.yml`](companies.yml) in a pull request and the scraper will pick up its roles automatically.
+If an employer uses Greenhouse, Lever, Ashby, SmartRecruiters, Workable, Recruitee, Pinpoint, Workday, Oracle Recruiting Cloud, Eightfold, or Phenom, add it to [`companies.yml`](companies.yml) in a pull request and the scraper will pick up its roles automatically.
 
 Find the identifier from the company's careers page URL:
 
@@ -30,6 +30,8 @@ Find the identifier from the company's careers page URL:
 | Pinpoint | `acme.pinpointhq.com` | `- name: Acme` / `slug: acme` |
 | Workday | `acme.wd5.myworkdayjobs.com/External` | `- name: Acme` / `tenant: acme` / `instance: wd5` / `board: External` |
 | Oracle | `acme.fa.us2.oraclecloud.com/...CandidateExperience/en/sites/CX_1` | `- name: Acme` / `host: acme.fa.us2.oraclecloud.com` / `site: CX_1` |
+| Eightfold | `acme.eightfold.ai/careers?domain=acme.com` | `- name: Acme` / `tenant: acme` / `domain: acme.com` |
+| Phenom | `careers.acme.com/us/en/search-results`, page source loads `cdn.phenompeople.com` | `- name: Acme` / `host: careers.acme.com` / `lang: en_us` / `country: us`, read off the `/us/en/` path |
 
 Set `security_company: true` for pure-play security vendors/consultancies — that allows generic engineering titles (not just titles containing security keywords) to be listed from that company.
 

@@ -11,6 +11,7 @@ import json
 import sys
 import tempfile
 from pathlib import Path
+from urllib.parse import parse_qs, urlparse
 
 sys.path.insert(0, str(Path(__file__).parent))
 import check_links  # noqa: E402
@@ -922,6 +923,199 @@ def test_oracle_fetches_descriptions_for_candidates():
     check('oracle keeps its internal req id out of the posting', '_req' in jobs[0], False)
 
 
+# --- scrape_eightfold ----------------------------------------------------------
+EF_SEARCH = 'https://acme.eightfold.ai/api/pcsx/search'
+EF_DETAIL = 'https://acme.eightfold.ai/api/pcsx/position_details'
+
+
+def _ef_page(positions, count):
+    return {'status': 200, 'data': {'positions': positions, 'count': count}}
+
+
+def _ef_pos(pid, name, level=None, locations=('Orlando, FL, US',)):
+    pos = {'id': pid, 'name': name, 'locations': ['Orlando, FL'],
+           'standardizedLocations': list(locations),
+           'positionUrl': f'/careers/job/{pid}'}
+    if level:
+        pos['efcustomTextLevelofexperience'] = [level]
+    return pos
+
+
+def _ef_search(term, start, **kwargs):
+    responses.get(EF_SEARCH, match=[responses.matchers.query_param_matcher(
+        {'query': term, 'start': str(start), 'domain': 'acme.com',
+         'location': 'United States'})], **kwargs)
+
+
+@responses.activate
+def test_eightfold_paginates_backs_off_and_gates_levels():
+    first = [_ef_pos(i, f'Mechanical Engineer {i}', 'Experienced Professional')
+             for i in range(1, 9)]
+    first += [_ef_pos(9, 'Cybersecurity Intern', 'Co-op/Summer Intern'),
+              _ef_pos(10, 'Associate Cyber Software Engineer', 'Experienced Professional')]
+    _ef_search('cyber', 0, json=_ef_page(first, 12))
+    _ef_search('cyber', 10, json=_ef_page(
+        [_ef_pos(11, 'Cyber Systems Security Engineering Associate - Early Career',
+                 '4 yr and up College', ('Colorado Springs, CO, US', 'Remote, US')),
+         _ef_pos(12, 'Security Rep Sr - E3', 'Hourly/Non-Exempt')], 12))
+    _ef_search('intern', 0, json=_ef_page([], 0))
+    # microsoft.eightfold.ai answers 429 mid-sweep; the page must be retried,
+    # not dropped, and a repeat of an id already read must not duplicate it.
+    _ef_search('early career', 0, status=429)
+    _ef_search('early career', 0, json=_ef_page(
+        [_ef_pos(9, 'Cybersecurity Intern', 'Co-op/Summer Intern'),
+         _ef_pos(13, 'Cyber Analyst I - Early Career', '4 yr and up College')], 2))
+    responses.get(EF_DETAIL, json={'data': {'jobDescription': '<p>Pursuing a BS.</p>'}})
+
+    jobs = sj.scrape_eightfold('Acme', 'acme', 'acme.com')
+    check('eightfold skips the experienced-hire track and dedupes ids',
+          [j['title'] for j in jobs],
+          ['Cybersecurity Intern',
+           'Cyber Systems Security Engineering Associate - Early Career',
+           'Security Rep Sr - E3', 'Cyber Analyst I - Early Career'])
+    check('eightfold id, url and board', (jobs[0]['id'], jobs[0]['url'], jobs[0]['board']),
+          ('eightfold_acme_9', 'https://acme.eightfold.ai/careers/job/9', 'Eightfold'))
+    check('eightfold joins standardized locations', jobs[1]['location'],
+          'Colorado Springs, CO, US; Remote, US')
+    detail_ids = [parse_qs(urlparse(c.request.url).query)['position_id'][0]
+                  for c in responses.calls if c.request.url.startswith(EF_DETAIL)]
+    check('eightfold fetches detail for title-level candidates only',
+          sorted(detail_ids), ['11', '13', '9'])
+    check('eightfold attaches the description', jobs[0].get('description'),
+          '<p>Pursuing a BS.</p>')
+    check('eightfold leaves a non-candidate without a description',
+          'description' in jobs[2], False)
+
+
+@responses.activate
+def test_eightfold_none_vs_empty():
+    for term in sj.EIGHTFOLD_TERMS:
+        _ef_search(term, 0, json=_ef_page([], 0))
+    check('eightfold empty board -> []', sj.scrape_eightfold('Acme', 'acme', 'acme.com'), [])
+    responses.reset()
+    responses.get(EF_SEARCH, status=403, json={'message': 'Not authorized for PCSX'})
+    check('eightfold PCSX disabled -> None',
+          sj.scrape_eightfold('Acme', 'acme', 'acme.com'), None)
+
+
+@responses.activate
+def test_eightfold_gives_up_after_sustained_429():
+    responses.get(EF_SEARCH, status=429)
+    check('eightfold sustained 429 -> None',
+          sj.scrape_eightfold('Acme', 'acme', 'acme.com'), None)
+    attempts = len(sj.RATE_LIMIT_DELAYS) + 1
+    check('eightfold retries each term through every backoff step',
+          len(responses.calls), attempts * len(sj.EIGHTFOLD_TERMS))
+
+
+@responses.activate
+def test_eightfold_schema_drift_is_empty_not_crash():
+    responses.get(EF_SEARCH, json={'status': 200, 'data': None})
+    check('eightfold null data -> []', sj.scrape_eightfold('Acme', 'acme', 'acme.com'), [])
+
+
+# --- scrape_phenom -------------------------------------------------------------
+PH_API = 'https://careers.acme.org/widgets'
+
+
+def _ph_job(n, title='Mechanical Engineer', locations=('McLean, Virginia, United States',)):
+    return {'jobId': f'R{n}', 'reqId': f'R{n}', 'jobSeqNo': f'ACMEUSR{n}EXTERNAL',
+            'title': title, 'location': locations[0], 'multi_location': list(locations)}
+
+
+def _ph_search(term, offset, jobs, total):
+    responses.post(PH_API, match=[responses.matchers.json_params_matcher(
+        {'ddoKey': 'refineSearch', 'keywords': term, 'from': offset,
+         'lang': 'en_us', 'country': 'us'}, strict_match=False)],
+        json={'refineSearch': {'status': 200, 'totalHits': total,
+                               'data': {'jobs': jobs}}})
+
+
+@responses.activate
+def test_phenom_paginates_and_fetches_details():
+    size = sj.PHENOM_PAGE_SIZE
+    full = [_ph_job(n) for n in range(size - 1)]
+    full.append(_ph_job(900, 'Embedded Security Intern - Electronics Prototype',
+                        ('Bedford, Massachusetts, United States',
+                         'McLean, Virginia, United States')))
+    _ph_search('cyber', 0, full, size + 1)
+    _ph_search('cyber', size, [_ph_job(901, 'Cyber Analyst I')], size + 1)
+    _ph_search('intern', 0, [_ph_job(900, 'Embedded Security Intern - Electronics Prototype')], 1)
+    responses.post(PH_API, match=[responses.matchers.json_params_matcher(
+        {'ddoKey': 'jobDetail'}, strict_match=False)],
+        json={'jobDetail': {'data': {'job': {'description': 'Requires 1 year.'}}}})
+
+    jobs = sj.scrape_phenom('Acme', 'careers.acme.org', 'en_us', 'us')
+    check('phenom pages past a full first page and dedupes across terms',
+          len(jobs), size + 1)
+    intern = next(j for j in jobs if j['id'] == 'phenom_careers.acme.org_R900')
+    check('phenom url uses the site locale path', intern['url'],
+          'https://careers.acme.org/us/en/job/R900')
+    check('phenom joins multi_location', intern['location'],
+          'Bedford, Massachusetts, United States; McLean, Virginia, United States')
+    check('phenom attaches the jobDetail description', intern.get('description'),
+          'Requires 1 year.')
+    details = [json.loads(c.request.body) for c in responses.calls
+               if json.loads(c.request.body).get('ddoKey') == 'jobDetail']
+    check('phenom fetches detail for title-level candidates only',
+          sorted(d['jobId'] for d in details), ['R900', 'R901'])
+    check('phenom detail carries the job sequence number',
+          next(d['jobSeqNo'] for d in details if d['jobId'] == 'R900'),
+          'ACMEUSR900EXTERNAL')
+    check('phenom drops its private fields', any('_seq' in j for j in jobs), False)
+
+
+@responses.activate
+def test_phenom_caps_pages_on_a_fuzzy_match():
+    # BAE's 'cyber' query matches 1,843 postings; only the ranked prefix is read.
+    size = sj.PHENOM_PAGE_SIZE
+    for page in range(sj.PHENOM_MAX_PAGES + 2):
+        _ph_search('cyber', page * size, [_ph_job(page * size + n) for n in range(size)],
+                   5000)
+    _ph_search('intern', 0, [], 0)
+    jobs = sj.scrape_phenom('Acme', 'careers.acme.org', 'en_us', 'us')
+    check('phenom stops at PHENOM_MAX_PAGES', len(jobs), sj.PHENOM_MAX_PAGES * size)
+
+
+@responses.activate
+def test_phenom_none_vs_empty():
+    _ph_search('cyber', 0, [], 0)
+    _ph_search('intern', 0, [], 0)
+    check('phenom empty board -> []',
+          sj.scrape_phenom('Acme', 'careers.acme.org', 'en_us', 'us'), [])
+    responses.reset()
+    responses.post(PH_API, status=404)
+    check('phenom dead host -> None',
+          sj.scrape_phenom('Acme', 'careers.acme.org', 'en_us', 'us'), None)
+
+
+def test_new_boards_validate_config_and_plumb_through():
+    check('eightfold rejects a tenant with /',
+          sj.scrape_eightfold('X', 'evil.com/', 'x.com'), None)
+    check('eightfold rejects a domain with @',
+          sj.scrape_eightfold('X', 'acme', 'a@b.com'), None)
+    check('phenom rejects a host with a path',
+          sj.scrape_phenom('X', 'evil.com/x', 'en_us', 'us'), None)
+    check('phenom rejects a lang with /', sj.scrape_phenom('X', 'a.org', 'en/us', 'us'), None)
+    config = {
+        'eightfold': [{'name': 'E', 'tenant': 'e', 'domain': 'e.com',
+                       'search_terms': ['security']}],
+        'phenom': [{'name': 'P', 'host': 'jobs.p.com', 'lang': 'en_global',
+                    'country': 'global'}],
+    }
+    check('build_tasks passes eightfold and phenom entries through',
+          [(t.label, t.args) for t in sj.build_tasks(config)][:2],
+          [('E (eightfold/e)', ('E', 'e', 'e.com', False, ['security'])),
+           ('P (phenom/jobs.p.com)', ('P', 'jobs.p.com', 'en_global', 'global', False, None))])
+    check('fingerprint Eightfold',
+          sj.job_fingerprint('Acme', 'Eightfold',
+                             'https://acme.eightfold.ai/careers/job/996476900832'),
+          ('Acme', 'Eightfold', '996476900832'))
+    check('fingerprint Phenom',
+          sj.job_fingerprint('Acme', 'Phenom', 'https://careers.acme.org/us/en/job/R117365'),
+          ('Acme', 'Phenom', 'R117365'))
+
+
 for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_ashby, test_ashby_schema_drift_warns,
            test_smartrecruiters_pagination_short_page_stops,
@@ -946,7 +1140,13 @@ for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_long_silent_board_retires_its_rows,
            test_greenhouse_remote_keeps_a_remote_label,
            test_pinpoint_remote_is_us_only_for_usa_locations,
-           test_oracle_fetches_descriptions_for_candidates):
+           test_oracle_fetches_descriptions_for_candidates,
+           test_eightfold_paginates_backs_off_and_gates_levels,
+           test_eightfold_none_vs_empty, test_eightfold_gives_up_after_sustained_429,
+           test_eightfold_schema_drift_is_empty_not_crash,
+           test_phenom_paginates_and_fetches_details,
+           test_phenom_caps_pages_on_a_fuzzy_match, test_phenom_none_vs_empty,
+           test_new_boards_validate_config_and_plumb_through):
     fn()
 
 if failures:

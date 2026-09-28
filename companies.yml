@@ -764,10 +764,6 @@ workday:
   tenant: mastercard
   instance: wd1
   board: CorporateCareers
-- name: MITRE
-  tenant: mitre
-  instance: wd5
-  board: MITRE
 - name: Motorola Solutions
   tenant: motorolasolutions
   instance: wd5
@@ -808,10 +804,6 @@ workday:
   instance: wd5
   board: proofpointcareers
   security_company: true
-- name: Qualcomm
-  tenant: qualcomm
-  instance: wd12
-  board: External
 - name: Qualys
   tenant: qualys
   instance: wd5
@@ -1036,3 +1028,24 @@ oracle:
 - name: Southern Company
   host: emje.fa.us6.oraclecloud.com
   site: SouthernCompanyJobs
+eightfold:
+- name: Lockheed Martin
+  tenant: lockheedmartin
+  domain: lockheedmartin.com
+- name: Microsoft
+  tenant: microsoft
+  domain: microsoft.com
+  search_terms:
+  - security
+- name: Qualcomm
+  tenant: qualcomm
+  domain: qualcomm.com
+phenom:
+- name: BAE Systems
+  host: jobs.baesystems.com
+  lang: en_global
+  country: global
+- name: MITRE
+  host: careers.mitre.org
+  lang: en_us
+  country: us

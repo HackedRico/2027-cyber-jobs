@@ -116,6 +116,11 @@ CASES = [
     ('Treasury Operations Analyst', 'Emeryville, CA', '', True, None),
     ('Customer Support Engineer (Tier 1)', 'Remote (US)', '', True, None),
     ('Internal Audit (SOX/SOC) Intern', 'Bloomfield, CT', '', False, None),
+    # "SoC" as system-on-chip, from Qualcomm's Eightfold board.
+    ('Hardware (CPU, GPU, SoC, Digital Design, DV) Engineering Internship - Summer 2027', 'San Diego, CA', '', False, None),
+    ('Hardware (CPU, GPU, SoC) Engineering Internship - Summer 2027', 'San Diego, CA', '', False, None),
+    ('SoC Performance Architect (Server CPU) - PhD New Grads Welcome!', 'Santa Clara, CA', '', False, None),
+    ('Security (Product, Systems, Cyber) Engineering Internship - Summer 2027', 'San Diego, CA', '', False, ('intern', 'Security Engineering')),
     # ...but a technical support engineer at a security company still counts.
     ('Support Engineer I', 'Dallas, TX', '', True, ('earlycareer', 'Engineering @ Security Co')),
 
