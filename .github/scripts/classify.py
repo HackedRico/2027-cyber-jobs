@@ -247,22 +247,28 @@ NEWGRAD_SIGNALS = [
 ]
 
 
-def _cohort_years(span=2):
+def _cohort_years(span=2, today=None):
     """Hiring-cycle years accepted in titles: current year through current+span.
 
     Computed relative to today so cohort/new-grad detection keeps working past
     2028 without a code edit (the old hardcoded 2026-2028 window was a silent
-    time-bomb).
+    time-bomb). `today` (a date) is injectable so the rollover can be tested.
     """
-    year = datetime.now().year
+    year = (today or datetime.now().date()).year
     return [year + i for i in range(span + 1)]
 
 
-def _cohort_year_re(span=2):
+def _cohort_year_re(span=2, today=None):
     # Optional leading digit absorbs Northrop's year typos like "22026".
-    century = str(datetime.now().year)[:2]
-    yrs = '|'.join(str(y)[2:] for y in _cohort_years(span))
+    years = _cohort_years(span, today)
+    century = str(years[0])[:2]
+    yrs = '|'.join(str(y)[2:] for y in years)
     return re.compile(rf'\b\d?{century}(?:{yrs})\b')
+
+
+def _newgrad_year_signals(today=None):
+    return [phrase for y in _cohort_years(today=today)
+            for phrase in (f'class of {y}', f'{y} grad')]
 
 
 # Titles carrying a target start year ("2026 Associate Cyber Software
@@ -271,9 +277,7 @@ COHORT_YEAR_RE = _cohort_year_re()
 
 # "Class of 2026", "2027 grad" — generated from the same rolling window so the
 # year phrases never go stale.
-NEWGRAD_YEAR_SIGNALS = [
-    phrase for y in _cohort_years() for phrase in (f'class of {y}', f'{y} grad')
-]
+NEWGRAD_YEAR_SIGNALS = _newgrad_year_signals()
 
 EARLYCAREER_SIGNALS = [
     'entry level', 'entry-level', 'early career', 'junior', 'apprentice',
@@ -333,6 +337,12 @@ CLEARANCE_SIGNALS = [
     'u.s. citizen', 'us citizenship', 'u.s. citizenship', 'public trust',
     'secret-level',
 ]
+# ITAR/EAR export control restricts a role to a "U.S. Person" without asking for
+# a clearance: Amazon 'Security Engineer I, Threat Hunting' had no 🇺🇸. These
+# are word-bounded, unlike the substrings above, so "US personnel" is not one.
+CLEARANCE_WORD_SIGNALS = ['u.s. person', 'us person', 'u.s. persons', 'us persons']
+CLEARANCE_WORD_RE = re.compile(
+    '|'.join(_term_regex(t) for t in CLEARANCE_WORD_SIGNALS))
 
 # Ordered buckets; first matching regex wins. 'privacy' lives in Security
 # Engineering (not GRC) so a "Security and Privacy" research role keeps a
@@ -997,7 +1007,7 @@ def _is_stale_intern_title(title, today):
     years = [int(y) for y in TITLE_YEAR_RE.findall(title)]
     # New-grad titles are exempt: Northrop's '2026 Associate Cybersecurity
     # Analyst - Pathways Program' was posted Sep 24 2026 and is a current req.
-    if not years or classify_level(title) != 'intern':
+    if not years or classify_level(title, today=today) != 'intern':
         return False
     return max(years) < first_open_season(today)
 
@@ -1011,7 +1021,7 @@ def is_rejected_title(title, today=None):
     t = title.lower()
     if any(re.search(p, t) for p in SENIORITY_REJECT):
         return True
-    if ARCHITECT_RE.search(t) and classify_level(title) not in ('newgrad', 'intern'):
+    if ARCHITECT_RE.search(t) and classify_level(title, today=today) not in ('newgrad', 'intern'):
         return True
     if LEVELED_SENIOR_RE.search(t):
         return True
@@ -1042,20 +1052,38 @@ def _is_cyber_keyword_hit(t):
 # Scientist / Software Developer, Junior - Security Clearance Required' and RTX
 # 'Software Engineer I, CDS (Onsite - Security Clearance)' matched 'security'.
 SECURITY_CLEARANCE_RE = re.compile(r'\bsecurity clearance\b')
+# "National Security" names a customer or a business unit, not the work:
+# Salesforce 'Systems Engineering Associate - GovCloud [Salesforce National
+# Security]' and KBR 'National Security Solutions (NSS) Semiconductor Research
+# Internship' matched 'security'. A title that also says 'cyber' keeps it.
+NATIONAL_SECURITY_RE = re.compile(r'\bnational security(?: solutions)?\b')
 
 
 def _has_cyber_keyword(t):
-    t = SECURITY_CLEARANCE_RE.sub(' ', t)
+    t = NATIONAL_SECURITY_RE.sub(' ', SECURITY_CLEARANCE_RE.sub(' ', t))
     return _is_cyber_keyword_hit(t) or any(p.search(t) for p in CYBER_REGEXES)
+
+
+# Defense security companies also staff intelligence-support analysts, whom the
+# bare 'analyst' allowance let in: Nightwing 'Junior Geospatial / Full-Motion
+# Video (FMV) Analyst'. They reject only when 'analyst' is the title's one tech
+# term, so a 'Geospatial Software Engineer' at the same employer stays, and a
+# cyber keyword ('SIGINT Cyber Analyst') is checked before this ever runs.
+INTEL_SUPPORT_RE = re.compile(
+    r'\b(?:geospatial|full[- ]motion video|fmv|imagery|all[- ]source|targeting|'
+    r'linguist|signals collection)\b')
 
 
 def is_cyber_title(title, security_company=False):
     t = title.lower()
     if _has_cyber_keyword(t):
         return True
-    if security_company and any(kw in t for kw in TECH_KEYWORDS):
-        return True
-    return False
+    if not security_company:
+        return False
+    tech = [kw for kw in TECH_KEYWORDS if kw in t]
+    if INTEL_SUPPORT_RE.search(t) and all('analyst' in kw for kw in tech):
+        return False
+    return bool(tech)
 
 
 # Cleared-facility security (the FSO function FUNCTION_REJECT excludes by name)
@@ -1079,15 +1107,24 @@ def _is_facility_security_role(title, description):
     return bool(FACILITY_SECURITY_DESC_RE.search(strip_html(description).lower()))
 
 
-def classify_level(title, description='', intern_hint=False):
-    """Return 'intern', 'newgrad', 'earlycareer', or None."""
+def classify_level(title, description='', intern_hint=False, today=None):
+    """Return 'intern', 'newgrad', 'earlycareer', or None.
+
+    `today` (a date) moves the cohort-year window for tests; by default the
+    window is the one computed at import.
+    """
     t = title.lower()
+    if today is None:
+        cohort_year_re, newgrad_year_signals = COHORT_YEAR_RE, NEWGRAD_YEAR_SIGNALS
+    else:
+        cohort_year_re = _cohort_year_re(today=today)
+        newgrad_year_signals = _newgrad_year_signals(today)
     # Intern wins first: "SOC Intern - Summer 2027" must not fall through to
     # the cohort-year rule and come out as newgrad. `intern_hint` carries an
     # ATS employment-type field for postings whose title omits "intern".
     if intern_hint or any(p.search(t) for p in INTERN_TITLE_RES):
         return 'intern'
-    if any(kw in t for kw in NEWGRAD_SIGNALS) or any(kw in t for kw in NEWGRAD_YEAR_SIGNALS):
+    if any(kw in t for kw in NEWGRAD_SIGNALS) or any(kw in t for kw in newgrad_year_signals):
         return 'newgrad'
     if re.search(r'\bgraduate\b', t) and 'graduate degree' not in t:
         return 'newgrad'
@@ -1097,9 +1134,9 @@ def classify_level(title, description='', intern_hint=False):
         return 'earlycareer'
     # Season + cohort year with no new-grad wording is an internship req;
     # checked before the bare cohort-year rule, which would claim it.
-    if SUMMER_RE.search(t) and COHORT_YEAR_RE.search(t):
+    if SUMMER_RE.search(t) and cohort_year_re.search(t):
         return 'intern'
-    if COHORT_YEAR_RE.search(t):
+    if cohort_year_re.search(t):
         return 'newgrad'
     if EARLYCAREER_RE.search(t):
         return 'earlycareer'
@@ -1126,7 +1163,8 @@ def permits_early_experience(description):
 
 def requires_clearance(title, description=''):
     text = f'{title} {strip_html(description)}'.lower()
-    return any(kw in text for kw in CLEARANCE_SIGNALS)
+    return (any(kw in text for kw in CLEARANCE_SIGNALS)
+            or bool(CLEARANCE_WORD_RE.search(re.sub(r'\s+', ' ', text))))
 
 
 # ---------------------------------------------------------------------------
