@@ -40,6 +40,16 @@ def main():
         record('oracle', e['name'], e['host'],
                sj.scrape_oracle(e['name'], e['host'], e['site']))
 
+    for e in config.get('eightfold') or []:
+        record('eightfold', e['name'], e['tenant'],
+               sj.scrape_eightfold(e['name'], e['tenant'], e['domain'],
+                                   e.get('security_company', False)))
+
+    for e in config.get('phenom') or []:
+        record('phenom', e['name'], e['host'],
+               sj.scrape_phenom(e['name'], e['host'], e['lang'], e['country'],
+                                e.get('security_company', False)))
+
     if problems:
         print('Slugs needing attention:')
         for p in sorted(problems):
