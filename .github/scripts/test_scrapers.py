@@ -777,6 +777,42 @@ def test_pinpoint_remote_is_us_only_for_usa_locations():
           [sj.is_us_location(j['location']) for j in jobs], [False, True, False])
 
 
+@responses.activate
+def test_oracle_fetches_descriptions_for_candidates():
+    host = 'acme.fa.us2.oraclecloud.com'
+    base = f'https://{host}/hcmRestApi/resources/latest/'
+    responses.get(base + 'recruitingCEJobRequisitions', json={'items': [{
+        'TotalJobsCount': 3, 'requisitionList': [
+            {'Id': '1', 'Title': 'Cyber Engineer Associate', 'PrimaryLocation': 'Reston, VA'},
+            {'Id': '2', 'Title': 'Accountant', 'PrimaryLocation': 'Reston, VA'},
+            {'Id': '3', 'Title': 'DevSecOps Engineer Associate',
+             'PrimaryLocation': 'Reston, VA'}]}]})
+    responses.get(base + 'recruitingCEJobRequisitionDetails', json={'items': [{
+        'ExternalDescriptionStr': '<p>Requires an active TS/SCI with polygraph.</p>',
+        'ExternalQualificationsStr': "<p>Bachelor's degree and 5 years of experience</p>"}]})
+    original = sj.ORACLE_DETAIL_CAP
+    try:
+        sj.ORACLE_DETAIL_CAP = 1
+        jobs = sj.scrape_oracle('Acme', host, 'CX_1')
+    finally:
+        sj.ORACLE_DETAIL_CAP = original
+    detail_calls = [c.request.url for c in responses.calls
+                    if 'recruitingCEJobRequisitionDetails' in c.request.url]
+    check('oracle fetches detail for the first candidate only, within the cap',
+          len(detail_calls), 1)
+    check('oracle detail uses the ById finder',
+          'ById%3BId%3D%221%22%2CsiteNumber%3DCX_1' in detail_calls[0], True)
+    check('oracle description joins the body and qualifications',
+          jobs[0].get('description'),
+          "<p>Requires an active TS/SCI with polygraph.</p>\n\n"
+          "<p>Bachelor's degree and 5 years of experience</p>")
+    check('non-candidates and reqs past the cap carry no description',
+          ['description' in j for j in jobs[1:]], [False, False])
+    check('the description reaches the clearance flag',
+          sj.requires_clearance(jobs[0]['title'], jobs[0]['description']), True)
+    check('oracle keeps its internal req id out of the posting', '_req' in jobs[0], False)
+
+
 for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_ashby, test_ashby_schema_drift_warns,
            test_smartrecruiters_pagination_short_page_stops, test_oracle,
@@ -796,7 +832,8 @@ for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_workday_total_only_on_first_page, test_workday_flags_a_cut_short_sweep,
            test_incomplete_sweep_retires_nothing, test_long_silent_board_retires_its_rows,
            test_greenhouse_remote_keeps_a_remote_label,
-           test_pinpoint_remote_is_us_only_for_usa_locations):
+           test_pinpoint_remote_is_us_only_for_usa_locations,
+           test_oracle_fetches_descriptions_for_candidates):
     fn()
 
 if failures:

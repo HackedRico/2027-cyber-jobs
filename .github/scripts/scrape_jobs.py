@@ -558,6 +558,23 @@ def scrape_workday(company, tenant, instance, board, security_company=False,
     return jobs
 
 
+# Detail requests per Oracle board per run. JPMorgan's CX_1001 lists 7,500
+# reqs and today yields 7 candidates, SAIC 3; each detail call is a round trip.
+ORACLE_DETAIL_CAP = 30
+
+
+def fetch_oracle_description(host, site, req_id, label=''):
+    """Return a req's external description and qualifications, or '' on failure."""
+    api = f'https://{host}/hcmRestApi/resources/latest/recruitingCEJobRequisitionDetails'
+    params = {'onlyData': 'true', 'finder': f'ById;Id="{req_id}",siteNumber={site}'}
+    data = fetch_json(api, params=params, label=label)
+    items = (data or {}).get('items') or []
+    if not items:
+        return ''
+    fields = (items[0].get('ExternalDescriptionStr'), items[0].get('ExternalQualificationsStr'))
+    return '\n\n'.join(f for f in fields if f and f.strip())
+
+
 def scrape_oracle(company, host, site):
     """Oracle Recruiting Cloud (Candidate Experience) public JSON API.
 
@@ -572,6 +589,7 @@ def scrape_oracle(company, host, site):
     limit = 200
     jobs = []
     offset = 0
+    complete = True
     for _page in range(MAX_PAGES):
         finder = (f'findReqs;siteNumber={site},limit={limit},offset={offset},'
                   f'sortBy=POSTING_DATES_DESC')
@@ -580,7 +598,10 @@ def scrape_oracle(company, host, site):
                   'finder': finder}
         data = fetch_json(api, params=params, label=f'{company} Oracle')
         if data is None:
-            return jobs if jobs else None
+            if not jobs:
+                return None
+            complete = False
+            break
         items = data.get('items') or []
         req_list = items[0].get('requisitionList', []) if items else []
         if not req_list:
@@ -597,11 +618,32 @@ def scrape_oracle(company, host, site):
                 'location': location,
                 'url': f'https://{host}/hcmUI/CandidateExperience/en/sites/{site}/job/{job_id}',
                 'board': 'Oracle',
+                '_req': job_id,
             })
         total = items[0].get('TotalJobsCount') if items else None
         offset += len(req_list)
         if len(req_list) < limit or (total is not None and offset >= total):
             break
+        time.sleep(0.3)
+    else:
+        complete = False
+
+    # The list view carries no description, so the experience gate and the
+    # clearance flag saw only the title: SAIC 'Tier II or III ... IAM
+    # Administrator' wants 5 years and 'Cyber Engineer Associate' a TS/SCI
+    # with polygraph. Newest reqs come first, so the cap spends its requests
+    # on the postings a student is most likely to still apply to.
+    fetched = 0
+    for job in jobs:
+        req = job.pop('_req')
+        if not complete:
+            job['partial_sweep'] = True
+        if fetched >= ORACLE_DETAIL_CAP or not req or not _wants_detail(job['title'], False):
+            continue
+        fetched += 1
+        description = fetch_oracle_description(host, site, req, label=f'{company} Oracle')
+        if description:
+            job['description'] = description
         time.sleep(0.3)
     return jobs
 
