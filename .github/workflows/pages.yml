@@ -1,0 +1,70 @@
+name: Publish Board Page
+
+on:
+  # A push made with GITHUB_TOKEN starts no Pages build and no push workflow,
+  # so the page follows each writer that just committed listings.json.
+  workflow_run:
+    workflows: [Scrape Job Boards, Check Links, Add Approved Listings]
+    types: [completed]
+  push:
+    branches: [main]
+    paths:
+      - 'site/**'
+      - '.github/scripts/build_site.py'
+      - '.github/scripts/classify.py'
+      - '.github/scripts/rebuild_readme.py'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# A deploy that is cut off midway leaves Pages on the older build, so each run
+# finishes and the next one publishes the newer listings.json.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    # add-listing completes as 'skipped' on every non-approved label event,
+    # and a failed writer pushed nothing new.
+    if: >-
+      github.event_name != 'workflow_run' ||
+      github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      # The default branch head, so listings.json is what the writer pushed.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+
+      - name: Build site
+        run: python .github/scripts/build_site.py --out _site
+
+      - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
