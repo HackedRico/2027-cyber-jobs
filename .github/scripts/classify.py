@@ -255,11 +255,21 @@ DESCRIPTION_SIGNALS = [
 # A description stating a low experience ceiling marks an early-career role
 # even when the title carries no level marker (used, gated, at security_company
 # employers to recover recall on flat "Security Engineer" titles).
-MAX_YOE_RES = [re.compile(p) for p in (
+#
+# Only the ceilings that open at zero may outrank a larger stated floor in
+# exceeds_experience_cap. A "1-2 years" band sits beside real floors: Tenable's
+# 'AI Information Security Engineer' asks for "5 or more years ... with at
+# least 1-2 years focused on securing AI/ML systems".
+ZERO_ANCHORED_YOE_RES = [re.compile(p) for p in (
     r'\b0\s*[-–]\s*2\s*years?\b', r'\b0 to 2 years?\b',
-    r'\b1\s*[-–]\s*2\s*years?\b', r'\b1 to 2 years?\b',
     r'\bup to 2 years?\b', r'\bless than 2 years?\b',
     r'\bminimum of 0 years?\b', r'\bno (?:prior )?experience (?:is )?required\b',
+    # A degreed route with no experience bar: SAIC's "Bachelor's and 0
+    # years", Northrop's "Master's degree with 0 years".
+    r'\b(?:with|and)\s+0\s+years?\b',
+)]
+MAX_YOE_RES = ZERO_ANCHORED_YOE_RES + [re.compile(p) for p in (
+    r'\b1\s*[-–]\s*2\s*years?\b', r'\b1 to 2 years?\b',
 )]
 
 CLEARANCE_SIGNALS = [
@@ -825,11 +835,22 @@ def renormalize_locations(listings):
 # tag-strip regex can't be driven quadratic by a pathological '<'-heavy body.
 MAX_DESCRIPTION_CHARS = 100_000
 
+# Workday serves a description as one line of <p>/<li>/<br> markup. Stripped to
+# spaces, a single "Preferred Qualifications" heading anywhere in the body
+# shadowed the whole line, so required_years read Nightwing's "5+ years" req
+# JR101442 as 0 and the experience gate never fired on a Workday row.
+BLOCK_TAG_RE = re.compile(r'<\s*/?(?:p|br|li|ul|ol|div|h[1-6])\b[^<>]*>',
+                          re.IGNORECASE)
+
 
 def strip_html(text):
+    """Plain text of an HTML description, with block tags kept as line breaks."""
     if not text:
         return ''
-    text = html.unescape(text[:MAX_DESCRIPTION_CHARS])
+    # Northrop writes "associate's degree" with U+2019, which DEGREE_ALT_RE's
+    # straight apostrophe missed.
+    text = html.unescape(text[:MAX_DESCRIPTION_CHARS]).replace('’', "'")
+    text = BLOCK_TAG_RE.sub('\n', text)
     # `[^<>]` excludes '<' too, so an unclosed-tag run of '<' can't be consumed
     # and re-backtracked — linear on every Python version (no ReDoS).
     return re.sub(r'<[^<>]*>', ' ', text)
@@ -981,6 +1002,13 @@ NON_EXPERIENCE_OBJECT_RE = re.compile(
     r'\s*(?:of|in)\s+(?:[a-z.&/-]+\s+){0,3}?'
     r'(?:coursework|education|schooling|studies|residency|residence|'
     r'citizenship|clearances?|tenure|age)\b')
+# A count used as a modifier describes the employer, not the candidate: "one of
+# our 25+ year programs", "a 30-year history". Newline-preserving HTML stripping
+# exposed this cleared-defense boilerplate to the parser, which read it as a
+# 25-year floor.
+YEAR_MODIFIER_RE = re.compile(
+    r'\s*(?:programs?|contracts?|histor(?:y|ies)|legacy|heritage|'
+    r'partnerships?|relationships?|anniversary)\b')
 
 # Markers that open text describing counts the candidate does NOT have to meet.
 # Every section noun is plural-tolerant — "Preferred Qualifications" is the
@@ -1003,10 +1031,19 @@ REQUIRED_MARKER_RE = re.compile(
 # An education alternative near the count: "Bachelor's with 2 years",
 # "Master's with 3 years". Counts in this shape are alternative routes into the
 # same job, so they bound the floor together rather than each on their own.
+#
+# 'bachelors' and 'masters' are spelled without an apostrophe often enough to
+# matter: Northrop's 'Level 2/3 Cyber Systems Engineer - AISR&T Contingent'
+# reads "a Bachelors of Science degree in a STEM field and at least 2 years".
 DEGREE_ALT_RE = re.compile(
-    r"\b(bachelor|master|phd|ph\.d|doctorate|associate'?s degree|"
+    r"\b(bachelor'?s?|master'?s?|phd|ph\.d|doctorate|associate'?s degree|"
     r"hs diploma|high school|ged|undergraduate|graduate degree|"
     r"advanced degree|in lieu of|in place of|equivalent|additional)\b")
+# How far back from a count DEGREE_ALT_RE looks, never past the start of the
+# count's own line. Degree routes run long ("a Bachelors of Science degree in
+# a STEM field and at least 5 years"), and the line bound keeps a degree named
+# in the bullet above from pairing with this one.
+DEGREE_ALT_WINDOW = 120
 
 # Years offered *instead of* a degree: "an additional 4 years ... in lieu of a
 # degree", "BS in CS; or HS Diploma & 5 years". A candidate who has the degree
@@ -1068,7 +1105,8 @@ def _is_requirement(low, start, end, emphatic):
     before = low[max(0, start - 60):start]
     # Disqualifiers first, so neither the emphatic form nor a requirement verb
     # can promote a clearance-recency or coursework count into a floor.
-    if RECENCY_RE.search(before) or NON_EXPERIENCE_OBJECT_RE.match(low, end):
+    if (RECENCY_RE.search(before) or NON_EXPERIENCE_OBJECT_RE.match(low, end)
+            or YEAR_MODIFIER_RE.match(low, end)):
         return False
     if emphatic:
         return True
@@ -1099,7 +1137,8 @@ def _experience_counts(description):
         if ((DEGREE_SUB_BEFORE_RE.search(before) or DEGREE_SUB_AFTER_RE.search(after))
                 and DEGREE_NOUN_RE.search(low[max(0, start - 110):end + 60])):
             alternative.append(0)   # the degreed route needs no years
-        elif DEGREE_ALT_RE.search(low[max(0, start - 70):start]):
+        elif DEGREE_ALT_RE.search(low[max(0, start - DEGREE_ALT_WINDOW,
+                                          low.rfind('\n', 0, start) + 1):start]):
             alternative.append(value)
         else:
             conjunctive.append(value)
@@ -1136,14 +1175,16 @@ def required_years(description):
 def exceeds_experience_cap(description, cap=MAX_ALLOWED_YEARS):
     """True if the posting's required experience floor is above the board's cap.
 
-    An explicit early-career ceiling ("0-2 years", "no prior experience
-    required") names the target audience outright, so it outranks a floor
-    inferred from individual bullets — a req that invites 0-2 candidates stays
-    on the board even if some other bullet asks for more.
+    An explicit ceiling that opens at zero ("0-2 years", "less than 2 years",
+    "no prior experience required") names the target audience outright, so it
+    outranks a floor inferred from individual bullets. RTX's 'Junior DevSecOps
+    Engineer' reads "bachelor's degree and less than 2 years ... or a total of
+    4 years" and stays. A "1-2 years" band does not outrank a larger floor.
     """
-    if permits_early_experience(description):
+    if required_years(description) <= cap:
         return False
-    return required_years(description) > cap
+    d = strip_html(description).lower()
+    return not any(p.search(d) for p in ZERO_ANCHORED_YOE_RES)
 
 
 def requires_experience(description):

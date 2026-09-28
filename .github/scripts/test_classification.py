@@ -393,6 +393,12 @@ EXP = [
     ('We reviewed the past 3 years of CVEs.', False),
     ('Ideal for candidates with 0-2 years of experience.', False),
     ('', False),
+    # Only a ceiling that opens at zero outranks a larger floor. Tenable's
+    # 'AI Information Security Engineer' pairs its 5-year floor with a 1-2 band.
+    ('You have 5 or more years of experience in information security, with at '
+     'least 1-2 years focused on securing AI/ML systems.', True),
+    ('5+ years of experience in network engineering.\n'
+     "A Master's degree with 0 years of experience may substitute.", False),
 ]
 for desc, want in EXP:
     got = s.requires_experience(desc)
@@ -473,6 +479,45 @@ FLOOR = [
      'of SOC experience.', 6),
     ('Requires 6+ years of customer service experience.', 6),
     ('Requires 6+ years of data engineering experience.', 6),
+    # Workday serves each description as one line of HTML. Stripped to spaces,
+    # the "Desired Skills" or "Preferred Qualifications" heading shadowed the
+    # whole body and every row below read 0. Trimmed from the live reqs.
+    # Nightwing JR101442, 'Cyber Network Defense Analyst II':
+    ('<p>Nightwing is seeking a Cyber Network Defense Analyst to support this '
+     'critical customer mission.<br /><br />Required Skills/Clearances:<br />'
+     '<br />- U.S. Citizenship<br />- Active TS/SCI clearance<br />- 5&#43; '
+     'years of direct relevant experience in cyber defense analysis using '
+     'leading edge technologies and industry standard cyber defense tools-<br />'
+     '- Experience successfully developing and deploying signatures<br /><br />'
+     'Desired Skills:<br /><br />- Python programming experience<br /><br />'
+     'Required Education:<br />BS Computer Science, Cyber Security, Computer '
+     'Engineering, or related degree; or HS Diploma &amp; 7&#43; years of '
+     'network investigations experience.</p>', 5),
+    # Truist R0119088, 'AI Security Engineer'. The degree bullet above the
+    # count must not turn it into a degree-paired alternative.
+    ('<p><br /><b>Required Qualifications</b><br />The requirements listed '
+     'below are representative of the knowledge, skill and/or ability '
+     'required.</p><ul><li><p>Bachelor’s degree or equivalent education, '
+     'training, and work-related experience.</p></li><li><p>Minimum of 5 years '
+     'of experience in security engineering or related cybersecurity roles.'
+     '</p></li></ul><p><b>Preferred Qualifications</b></p><ul><li><p>Minimum '
+     'of 5 years of experience in cybersecurity engineering, application '
+     'security, cloud security.</p></li></ul>', 5),
+    # Northrop Level 2/3 reqs pair each band with a degree, spelled
+    # "Bachelors", so the cheaper Level 2 route sets the floor.
+    ('<p><b>Basic Qualifications:</b></p><ul><li><p>Level 2: Must have a '
+     'Bachelors of Science degree in a STEM field and at least 2 years of '
+     'relevant military / professional experience</p></li><li><p>Level 3: Must '
+     'have a Bachelors of Science degree in a STEM field and at least 5 years '
+     'of relevant military / professional experience, OR a Master’s Degree '
+     'in a STEM field and at least 3 years of relevant military / professional '
+     'experience</p></li></ul><p><b>Preferred Qualifications</b></p><ul><li>'
+     '<p>Active Secret clearance</p></li></ul>', 2),
+    # A count that describes the employer is not a floor.
+    ('<p>Join the team behind one of our 25&#43; year programs supporting the '
+     'intelligence community.</p><p><b>Basic Qualifications</b></p><ul><li>'
+     '<p>Bachelor’s degree in Computer Science or a related field</p>'
+     '</li></ul>', 0),
 ]
 for desc, want in FLOOR:
     got = s.required_years(desc)
@@ -499,6 +544,25 @@ GATED = [
      'Education: BS in Cyber Security; or HS Diploma & 5 years of '
      'investigations experience.', 'earlycareer'),
     ('Cybersecurity Analyst, Junior', 'Remote (US)', '', 'earlycareer'),
+    # A "less than 2 years" ceiling outranks the 4-year no-degree route.
+    ('Junior DevSecOps Engineer, EDS Platform Services team, Hybrid role',
+     'Tucson, AZ',
+     '<p><b>Qualifications You Must Have</b></p><ul><li><p>Typically requires '
+     'a bachelor’s degree and less than 2 years of relevant experience or '
+     'a total of 4 years relevant technical experience in IT or Digital '
+     'Technology.</p></li></ul><p><b>Qualifications We Prefer</b></p><ul><li>'
+     '<p>Experience with Kubernetes</p></li></ul>', 'earlycareer'),
+    ('Level 2/3 Cyber Systems Engineer - AISR&T Contingent', 'San Diego, CA',
+     '<p><b>Basic Qualifications:</b></p><ul><li><p>Must have a Bachelors of '
+     'Science degree in a STEM field and at least 2 years of relevant military '
+     '/ professional experience, OR a Master\'s Degree in a STEM field and at '
+     'least some of relevant military / professional / academic experience'
+     '</p></li><li><p>Must have a Bachelors of Science degree in a STEM field '
+     'and at least 5 years of relevant military / professional experience, OR '
+     'a Master\'s Degree in a STEM field and at least 3 years of relevant '
+     'military / professional experience, OR a PhD and at least 1 year of '
+     'relevant military / professional / academic experience</p></li></ul>',
+     'earlycareer'),
     # Interns are exempt: research-internship reqs cite years of study in ways
     # the floor parser would misread.
     ('Security Engineering Intern', 'Seattle, WA',
