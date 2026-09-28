@@ -1358,6 +1358,151 @@ def test_main_writes_run_events_with_inserted_row():
           (events['revived'], events['retired']), ([], []))
 
 
+# --- scrape_workable: the widget API has flat fields and locations[] ---------
+WORKABLE_API = 'https://apply.workable.com/api/v1/widget/accounts/trailofbits'
+
+
+def _workable_job(shortcode, title, *sites, telecommuting=False, city='', state='',
+                  country='United States', description=''):
+    return {'title': title, 'shortcode': shortcode, 'code': '',
+            'employment_type': 'Full-time', 'telecommuting': telecommuting,
+            'department': 'Assurance', 'url': f'https://apply.workable.com/j/{shortcode}',
+            'shortlink': f'https://apply.workable.com/j/{shortcode}',
+            'application_url': f'https://apply.workable.com/j/{shortcode}/apply',
+            'published_on': '2026-08-27', 'created_at': '2026-08-27',
+            'country': country, 'city': city, 'state': state, 'education': '',
+            'experience': 'Entry level', 'function': '', 'industry': '',
+            'locations': [{'country': c, 'countryCode': code, 'city': town,
+                           'region': region, 'hidden': hidden}
+                          for c, code, town, region, hidden in sites],
+            'description': description}
+
+
+US_ANYWHERE = ('United States', 'US', '', None, False)
+
+
+@responses.activate
+def test_workable_reads_locations_and_description():
+    """Trail of Bits 'Security Engineer I, Application Security' never landed."""
+    responses.get(WORKABLE_API, json={'name': 'Trail of Bits', 'description': '', 'jobs': [
+        _workable_job('A1B2C3D4E5', 'Security Engineer I, Application Security', US_ANYWHERE,
+                      telecommuting=True,
+                      description='<p>Entry-level role on the application security team.</p>'),
+        _workable_job('B1B2C3D4E5', 'Principal Scientist',
+                      ('United States', 'US', 'Arlington', 'Virginia', False),
+                      city='Arlington', state='Virginia'),
+        _workable_job('C1B2C3D4E5', 'Security Engineer, Research',
+                      ('United States', 'US', 'Portland', 'Oregon', False),
+                      ('Croatia', 'HR', 'Zagreb', 'Grad Zagreb', False),
+                      ('United States', 'US', 'Boston', 'Massachusetts', True)),
+        _workable_job('D1B2C3D4E5', 'Senior Security Engineer Cryptography',
+                      ('United Kingdom', 'GB', '', None, False),
+                      telecommuting=True, country='United Kingdom'),
+        _workable_job('E1B2C3D4E5', 'Security Analyst', city='Austin', state='Texas'),
+        _workable_job('F1B2C3D4E5', 'SOC Analyst', US_ANYWHERE),
+    ]})
+    jobs = sj.scrape_workable('Trail of Bits', 'trailofbits')
+    check('workable asks for descriptions in the same request',
+          'details=true' in responses.calls[0].request.url, True)
+    check('workable builds each location from locations[] and the flat fields',
+          [j['location'] for j in jobs],
+          ['Remote (US)', 'Arlington, Virginia',
+           'Portland, Oregon; Zagreb, Grad Zagreb, Croatia',
+           'United Kingdom', 'Austin, Texas', 'United States'])
+    check('workable keeps the posting description',
+          jobs[0]['description'], '<p>Entry-level role on the application security team.</p>')
+    check('workable url and id use the shortcode',
+          (jobs[0]['id'], jobs[0]['url']),
+          ('workable_trailofbits_A1B2C3D4E5',
+           'https://apply.workable.com/trailofbits/j/A1B2C3D4E5/'))
+    check('a Workable req now passes the US filter, a UK one still fails',
+          [sj.is_us_location(j['location']) for j in jobs[:4]], [True, True, True, False])
+    check('the Trail of Bits entry-level req is accepted',
+          sj.evaluate_job(jobs[0]['title'], jobs[0]['location'], jobs[0]['description'],
+                          True), ('earlycareer', 'AppSec & ProdSec'))
+
+
+# --- scrape_lever: requirement bullets live in `lists` ------------------------
+@responses.activate
+def test_lever_appends_lists_to_description():
+    """Immuta 'Software Engineer II (Marketplace)' asks for 3 to 5 years in `lists`."""
+    required = ('<div>\n\n<li><strong>Professional Experience:&nbsp;</strong>Typically '
+                '3–5 years of professional software engineering experience.</li>\n'
+                '<li>Proficiency with TypeScript.</li>\n\n</div>')
+    responses.get('https://api.lever.co/v0/postings/immuta', json=[{
+        'id': '7f6f1d3a-8f64-4a4e-9b1c-1a2b3c4d5e6f', 'text': 'Software Engineer II (Marketplace)',
+        'country': 'US', 'categories': {'location': 'College Park, MD', 'commitment': 'Full Time'},
+        'hostedUrl': 'https://jobs.lever.co/immuta/7f6f1d3a-8f64-4a4e-9b1c-1a2b3c4d5e6f',
+        'descriptionPlain': 'Immuta is hiring a software engineer.',
+        'lists': [{'text': 'CORE RESPONSIBILITIES', 'content': '<div><li>Build APIs.</li></div>'},
+                  {'text': 'REQUIRED EXPERIENCE', 'content': required}]}])
+    job = sj.scrape_lever('Immuta', 'immuta')[0]
+    check('lever description keeps the intro and appends each list with its heading',
+          job['description'].startswith('Immuta is hiring a software engineer.\n\n'
+                                        'CORE RESPONSIBILITIES\n'), True)
+    check('lever list html is stripped',
+          ('<li>' in job['description'], 'Typically 3–5 years' in job['description']),
+          (False, True))
+    check('the years in lists now reach the experience gate',
+          sj.evaluate_job(job['title'], job['location'], job['description'], True), None)
+    check('...where the intro alone let the req through',
+          sj.evaluate_job(job['title'], job['location'], 'Immuta is hiring.', True),
+          ('earlycareer', 'Engineering @ Security Co'))
+
+
+# --- scrape_smartrecruiters: descriptions for title-level candidates ---------
+SR_POSTINGS = 'https://api.smartrecruiters.com/v1/companies/KudelskiSecurityInc/postings'
+KUDELSKI_QUALIFICATIONS = (
+    '<p>Qualifications<br />Education<br />*High School diploma, or equivalent '
+    'experience/combined education, with additional specialized technical training '
+    'equivalent to a technical Associate degree and/or demonstrated ability to perform '
+    'assigned technical/para-engineering tasks and 3 years of experience<br />Experience'
+    '<br />*2-3 years&apos; experience working with LAN and WAN topologies, TCP/IP '
+    'protocol, SSL/TLS, OSI Model, firewalls, routers and switches required.</p>')
+
+
+def _sr_posting(pid, name):
+    return {'id': pid, 'name': name, 'uuid': f'uuid-{pid}', 'refNumber': f'REF{pid}',
+            'ref': f'{SR_POSTINGS}/{pid}',
+            'location': {'city': 'Atlanta', 'region': 'GA', 'country': 'us', 'remote': False},
+            'typeOfEmployment': {'id': 'permanent', 'label': 'Full-time'}}
+
+
+@responses.activate
+def test_smartrecruiters_fetches_descriptions_for_candidates():
+    """Kudelski 'Network Support Engineer I/II' wants 2 to 3 years."""
+    responses.get(SR_POSTINGS, json={'offset': 0, 'limit': 100, 'totalFound': 3, 'content': [
+        _sr_posting('114671999', 'Network Support Engineer I/II'),
+        _sr_posting('114672000', 'Account Executive'),
+        _sr_posting('114672001', 'Security Analyst I')]})
+    responses.get(f'{SR_POSTINGS}/114671999', json={'id': '114671999', 'jobAd': {'sections': {
+        'companyDescription': {'title': 'Company Description',
+                               'text': '<p>Kudelski Security, Inc.</p>'},
+        'jobDescription': {'title': 'Job Description', 'text': '<p>Support F5 customers.</p>'},
+        'qualifications': {'title': 'Qualifications',
+                           'text': KUDELSKI_QUALIFICATIONS},
+        'additionalInformation': {'title': 'Additional Information', 'text': ''}}}})
+    original = sj.SMARTRECRUITERS_DETAIL_CAP
+    try:
+        sj.SMARTRECRUITERS_DETAIL_CAP = 1
+        jobs = sj.scrape_smartrecruiters('Kudelski Security', 'KudelskiSecurityInc')
+    finally:
+        sj.SMARTRECRUITERS_DETAIL_CAP = original
+    detail_calls = [c.request.url for c in responses.calls if '/postings/' in c.request.url]
+    check('smartrecruiters fetches detail for the first candidate only, within the cap',
+          detail_calls, [f'{SR_POSTINGS}/114671999'])
+    check('smartrecruiters description joins the jobAd sections with their titles',
+          jobs[0]['description'],
+          '<h3>Company Description</h3><p>Kudelski Security, Inc.</p>\n'
+          '<h3>Job Description</h3><p>Support F5 customers.</p>\n'
+          f'<h3>Qualifications</h3>{KUDELSKI_QUALIFICATIONS}')
+    check('non-candidates and reqs past the cap carry no description',
+          ['description' in j for j in jobs[1:]], [False, False])
+    check('the posting years now reach the experience gate',
+          sj.evaluate_job(jobs[0]['title'], jobs[0]['location'], jobs[0]['description'],
+                          True), None)
+
+
 for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_ashby, test_ashby_schema_drift_warns,
            test_smartrecruiters_pagination_short_page_stops,
@@ -1396,7 +1541,10 @@ for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_jibe_none_vs_empty, test_jibe_retries_429_and_flags_a_cut_short_sweep,
            test_jibe_caps_pages, test_jibe_plumbs_through_config_and_retirement,
            test_new_boards_validate_config_and_plumb_through,
-           test_main_writes_run_events_with_inserted_row):
+           test_main_writes_run_events_with_inserted_row,
+           test_workable_reads_locations_and_description,
+           test_lever_appends_lists_to_description,
+           test_smartrecruiters_fetches_descriptions_for_candidates):
     fn()
 
 if failures:

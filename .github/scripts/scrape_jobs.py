@@ -43,6 +43,7 @@ from classify import (
     reclassify_listings,
     renormalize_locations,
     requires_clearance,
+    strip_html,
 )
 from common import normalize_url, security_company_flags, write_run_events
 
@@ -239,10 +240,26 @@ def scrape_lever(company, slug):
             'location': cats.get('location', ''),
             'url': job.get('hostedUrl', ''),
             'board': 'Lever',
-            'description': job.get('descriptionPlain', ''),
+            'description': _lever_description(job),
             'intern_hint': 'intern' in commitment,
         })
     return jobs
+
+
+def _lever_description(job):
+    # descriptionPlain is only the intro. The requirement bullets live in
+    # `lists`, so Immuta 'Software Engineer II (Marketplace)' hid its "3 to 5
+    # years" from the experience gate. Headings stay so the gate can tell a
+    # REQUIRED list from a PREFERRED one.
+    parts = [job.get('descriptionPlain') or '']
+    for section in job.get('lists') or []:
+        if not isinstance(section, dict):
+            continue
+        heading = (section.get('text') or '').strip()
+        body = strip_html(section.get('content') or '').strip()
+        if heading or body:
+            parts.append(f'{heading}\n{body}'.strip())
+    return '\n\n'.join(p for p in parts if p.strip())
 
 
 def scrape_ashby(company, slug):
@@ -318,37 +335,97 @@ def scrape_smartrecruiters(company, identifier):
         if len(content) < limit or (total is not None and params['offset'] >= total):
             break
         time.sleep(0.3)
+
+    # The postings list carries no description, so Kudelski 'Network Support
+    # Engineer I/II' passed the experience gate on its title while the posting
+    # asks for 2 to 3 years. Every SmartRecruiters board here is a security
+    # company, and the scraper is not told the flag, so candidates are judged
+    # as one; the cap bounds the cost if a general employer is added.
+    fetched = 0
+    for job in jobs:
+        if fetched >= SMARTRECRUITERS_DETAIL_CAP or not _wants_detail(job['title'], True):
+            continue
+        fetched += 1
+        description = fetch_smartrecruiters_description(
+            f'{url}/{job["id"].rsplit("_", 1)[-1]}', label=f'{company} SmartRecruiters')
+        if description:
+            job['description'] = description
+        time.sleep(0.3)
     return jobs
 
 
+# Detail requests per SmartRecruiters board per run, as ORACLE_DETAIL_CAP.
+SMARTRECRUITERS_DETAIL_CAP = 30
+
+
+def fetch_smartrecruiters_description(url, label=''):
+    """Return a posting's jobAd sections as one body, or '' on failure."""
+    data = fetch_json(url, label=label)
+    sections = ((data or {}).get('jobAd') or {}).get('sections') or {}
+    parts = []
+    for section in sections.values():
+        if not isinstance(section, dict):
+            continue
+        text = (section.get('text') or '').strip()
+        if text:
+            parts.append(f'<h3>{section.get("title") or ""}</h3>{text}')
+    return '\n'.join(parts)
+
+
+def _workable_part(city, region, country, code):
+    place = [p.strip() for p in (city, region) if p and p.strip()]
+    if code == 'US':
+        return ', '.join(place)
+    # A foreign part keeps its country so the US filter can reject it: "Attica"
+    # alone says nothing about Greece.
+    return ', '.join(place + [country or code])
+
+
+def workable_location(job):
+    """Build a location from the widget API's `locations[]` and flat fields.
+
+    The widget API has no `location` object. Each posting carries flat `city`,
+    `state`, `country` (a full name) and `telecommuting`, plus `locations[]`
+    with a `countryCode` per site. Reading a `location` key that does not
+    exist gave every Workable posting a blank location, so none ever passed
+    the US filter (Trail of Bits 'Security Engineer I, Application Security').
+    """
+    sites = [(s.get('city'), s.get('region'), s.get('country'),
+              (s.get('countryCode') or '').upper())
+             for s in job.get('locations') or []
+             if isinstance(s, dict) and not s.get('hidden')]
+    if not sites:
+        country = job.get('country') or ''
+        code = 'US' if country.strip().lower() in ('united states', 'us', 'usa') else country
+        sites = [(job.get('city'), job.get('state'), country, code)]
+    parts = [(site[3], _workable_part(*site)) for site in sites]
+    us = any(code == 'US' for code, _ in parts)
+    names = [part for _, part in parts if part]
+    if us and job.get('telecommuting'):
+        names.append('Remote (US)')
+    elif us and not any(part for code, part in parts if code == 'US'):
+        names.append('United States')
+    return '; '.join(dict.fromkeys(names))
+
+
 def scrape_workable(company, slug):
-    url = f'https://apply.workable.com/api/v1/widget/accounts/{slug}'
+    # details=true adds each posting's description to the same response.
+    url = f'https://apply.workable.com/api/v1/widget/accounts/{slug}?details=true'
     data = fetch_json(url, label=f'{company} Workable')
     if data is None:
         return None
     check_container(data, 'jobs', f'{company} Workable')
     jobs = []
     for job in data.get('jobs', []):
-        loc = job.get('location', {})
-        country = loc.get('countryCode', '').upper()
-        if country and country != 'US' and not loc.get('remote'):
-            continue
-        city = loc.get('city', '')
-        region = loc.get('region', '')
-        if loc.get('remote'):
-            location = 'Remote (US)' if country in ('US', '') else ''
-        elif city and region:
-            location = f'{city}, {region}'
-        else:
-            location = city
         job_id = job.get('shortcode', job.get('id', ''))
         jobs.append({
             'id': f'workable_{slug}_{job_id}',
             'company': company,
             'title': job.get('title', ''),
-            'location': location,
+            'location': workable_location(job),
             'url': f'https://apply.workable.com/{slug}/j/{job_id}/',
             'board': 'Workable',
+            'description': job.get('description', ''),
         })
     return jobs
 
