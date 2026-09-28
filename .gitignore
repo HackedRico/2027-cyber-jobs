@@ -21,3 +21,6 @@ venv/
 *.tmp
 *.bak
 *.log
+
+# GitHub Pages build output (build_site.py)
+_site/
