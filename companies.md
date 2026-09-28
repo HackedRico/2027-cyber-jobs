@@ -4,7 +4,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **358 companies tracked.**
 
-## Hiring students now (72)
+## Hiring students now (73)
 
 Employers with open roles on the board today.
 
@@ -13,13 +13,13 @@ Employers with open roles on the board today.
 | Vanguard | 5 |  |  |
 | Palo Alto Networks | 4 |  | 2 |
 | Tanium | 4 |  |  |
-| Nightwing | 3 |  | 14 |
+| Nightwing | 3 |  | 13 |
 | RTX | 3 |  | 10 |
 | Cisco | 3 |  | 2 |
+| Walmart | 3 |  | 2 |
 | Immuta | 3 |  | 1 |
-| Walmart | 3 |  |  |
-| Northrop Grumman | 1 | 1 | 12 |
-| JPMorgan Chase |  | 2 | 3 |
+| Northrop Grumman | 1 | 1 | 11 |
+| JPMorgan Chase |  | 2 | 2 |
 | Blackpoint Cyber | 2 |  |  |
 | Robinhood | 2 |  |  |
 | The Cigna Group | 1 | 1 |  |
@@ -44,10 +44,10 @@ Employers with open roles on the board today.
 | Verkada | 1 |  |  |
 | Anthropic |  |  | 18 |
 | Amazon |  |  | 11 |
-| CrowdStrike |  |  | 6 |
-| CACI |  |  | 4 |
+| CrowdStrike |  |  | 7 |
 | Entrust |  |  | 4 |
 | Amentum |  |  | 3 |
+| CACI |  |  | 3 |
 | KBR |  |  | 3 |
 | Leidos |  |  | 3 |
 | Recorded Future |  |  | 3 |
@@ -56,6 +56,7 @@ Employers with open roles on the board today.
 | ExtraHop |  |  | 2 |
 | Fireblocks |  |  | 2 |
 | Pinterest |  |  | 2 |
+| Arctic Wolf |  |  | 1 |
 | Booz Allen Hamilton |  |  | 1 |
 | Chainalysis |  |  | 1 |
 | Character AI |  |  | 1 |
