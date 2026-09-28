@@ -756,6 +756,27 @@ def test_greenhouse_remote_keeps_a_remote_label():
           ('intern', 'Security Engineering'))
 
 
+@responses.activate
+def test_pinpoint_remote_is_us_only_for_usa_locations():
+    responses.get('https://acme.pinpointhq.com/postings.json', json={'data': [
+        {'id': '1', 'title': 'Associate SOC Analyst', 'workplace_type': 'remote',
+         'location': {'city': 'Manchester', 'province': 'Greater Manchester',
+                      'name': 'GBR Manchester Hardman Boulevard'}},
+        {'id': '2', 'title': 'SOC Analyst', 'workplace_type': 'remote',
+         'location': {'city': 'Remote', 'province': 'Illinois',
+                      'name': 'USA Remote - Central Time'}},
+        {'id': '3', 'title': 'SOC Analyst', 'workplace_type': 'remote',
+         'location': {'city': 'Remote', 'province': 'Greater London',
+                      'name': 'GBR Remote'}},
+    ]})
+    jobs = sj.scrape_pinpoint('Acme', 'acme')
+    check('pinpoint keeps the real location of a non-US remote posting',
+          [j['location'] for j in jobs],
+          ['Manchester, Greater Manchester', 'Remote', 'Remote, Greater London'])
+    check('only the USA remote posting reads as US',
+          [sj.is_us_location(j['location']) for j in jobs], [False, True, False])
+
+
 for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_ashby, test_ashby_schema_drift_warns,
            test_smartrecruiters_pagination_short_page_stops, test_oracle,
@@ -774,7 +795,8 @@ for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_compare_runs_reports_flips_only,
            test_workday_total_only_on_first_page, test_workday_flags_a_cut_short_sweep,
            test_incomplete_sweep_retires_nothing, test_long_silent_board_retires_its_rows,
-           test_greenhouse_remote_keeps_a_remote_label):
+           test_greenhouse_remote_keeps_a_remote_label,
+           test_pinpoint_remote_is_us_only_for_usa_locations):
     fn()
 
 if failures:

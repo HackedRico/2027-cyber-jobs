@@ -398,7 +398,10 @@ def scrape_pinpoint(company, slug):
     jobs = []
     for job in data.get('data', []):
         loc = job.get('location') or {}
-        if job.get('workplace_type') == 'remote':
+        # Pinpoint marks a Manchester-based home worker 'remote' too (NCC Group
+        # 'Associate SOC Analyst'), so only a USA location name reads as US.
+        if (job.get('workplace_type') == 'remote'
+                and (loc.get('name') or '').strip().upper().startswith('USA')):
             location = 'Remote'
         else:
             location = ', '.join(p for p in (loc.get('city'), loc.get('province')) if p)
