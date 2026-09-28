@@ -394,8 +394,6 @@ lever:
 - name: METR
   slug: metr
   security_company: true
-- name: Mistral AI
-  slug: mistral
 - name: Palantir
   slug: palantir
 - name: Saviynt
@@ -575,8 +573,6 @@ ashby:
 - name: Vanta
   slug: vanta
   security_company: true
-- name: Vercel
-  slug: vercel
 - name: WorkOS
   slug: workos
   security_company: true
@@ -645,9 +641,6 @@ smartrecruiters:
   security_company: true
 - name: Kudelski Security
   slug: KudelskiSecurityInc
-  security_company: true
-- name: Nuspire
-  slug: NuspireNetworks
   security_company: true
 workable:
 - name: Galois
