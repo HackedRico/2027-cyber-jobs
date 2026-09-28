@@ -38,3 +38,6 @@ jobs:
 
       - name: Output check and health alarm tests
         run: python .github/scripts/test_health.py
+
+      - name: Board page build tests
+        run: python .github/scripts/test_site.py
