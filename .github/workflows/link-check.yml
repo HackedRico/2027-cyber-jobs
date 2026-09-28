@@ -2,12 +2,16 @@ name: Check Links
 
 on:
   schedule:
-    - cron: '0 2 * * *'
+    # Off the hour: the 02:00 slot started a median 4.9 hours late.
+    - cron: '43 9 * * *'
   workflow_dispatch:
 
+# Every writer commits to main, so they run one at a time. queue: max keeps
+# each pending run instead of cancelling the older one. add-listing joins the
+# same group at job level.
 concurrency:
   group: readme-updates
-  cancel-in-progress: false
+  queue: max
 
 jobs:
   check-links:
@@ -34,6 +38,24 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add README.md listings.json
-          git diff --staged --quiet || git commit -m "mark closed positions"
-          git pull --rebase -X theirs && git push
+          # Problems already on main only warn, so one old bad row cannot block
+          # every run until someone fixes it by hand.
+          git show HEAD:listings.json > "$RUNNER_TEMP/listings.base.json"
+          python .github/scripts/check_outputs.py --baseline "$RUNNER_TEMP/listings.base.json"
+          git add README.md listings.json companies.md
+          if git diff --staged --quiet; then exit 0; fi
+          git commit -m "mark closed positions"
+          before=$(git rev-parse HEAD)
+          # -X theirs keeps this run's side of a conflicting hunk, which can
+          # drop a row another writer pushed meanwhile. When main moved
+          # listings.json, rebuild the README from the merged file and check it
+          # again before pushing.
+          git pull --rebase -X theirs
+          if ! git diff --quiet "$before" HEAD -- listings.json; then
+            python .github/scripts/rebuild_readme.py
+            git show HEAD~1:listings.json > "$RUNNER_TEMP/listings.base.json"
+            python .github/scripts/check_outputs.py --baseline "$RUNNER_TEMP/listings.base.json"
+            git add listings.json README.md companies.md
+            git diff --staged --quiet || git commit --amend --no-edit
+          fi
+          git push

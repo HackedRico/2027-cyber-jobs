@@ -26,9 +26,6 @@ greenhouse:
 - name: Arkose Labs
   slug: arkoselabs
   security_company: true
-- name: Armis
-  slug: armissecurity
-  security_company: true
 - name: Asana
   slug: asana
 - name: Axonius
@@ -65,6 +62,8 @@ greenhouse:
 - name: Censys
   slug: censys
   security_company: true
+- name: Center for AI Safety
+  slug: centerforartificialintelligencesafetyinc
 - name: Chainguard
   slug: chainguard
   security_company: true
@@ -74,9 +73,6 @@ greenhouse:
   slug: cloudflare
 - name: Cobalt
   slug: cobaltio
-  security_company: true
-- name: Cyware
-  slug: cyware
   security_company: true
 - name: Cockroach Labs
   slug: cockroachlabs
@@ -116,9 +112,6 @@ greenhouse:
   security_company: true
 - name: Epirus
   slug: epirus
-- name: Exabeam
-  slug: exabeam
-  security_company: true
 - name: Expel
   slug: expel
   security_company: true
@@ -251,7 +244,7 @@ greenhouse:
   slug: spycloud
   security_company: true
 - name: STR
-  slug: str
+  slug: systemstechnologyresearch
   security_company: true
 - name: Stripe
   slug: stripe
@@ -316,9 +309,6 @@ greenhouse:
 - name: Zscaler
   slug: zscaler
   security_company: true
-- name: ThreatLocker
-  slug: threatlocker
-  security_company: true
 - name: DigiCert
   slug: digicert
   security_company: true
@@ -333,7 +323,6 @@ greenhouse:
   security_company: true
 - name: Jumio
   slug: jumio
-  security_company: true
 - name: ID.me
   slug: idme
   security_company: true
@@ -390,9 +379,6 @@ lever:
 - name: Apollo Research
   slug: apolloresearch
   security_company: true
-- name: Center for AI Safety
-  slug: aisafety
-  security_company: true
 - name: Coalfire
   slug: coalfire
   security_company: true
@@ -408,13 +394,8 @@ lever:
 - name: METR
   slug: metr
   security_company: true
-- name: Mistral AI
-  slug: mistral
 - name: Palantir
   slug: palantir
-- name: Push Security
-  slug: pushsecurity
-  security_company: true
 - name: Saviynt
   slug: saviynt
   security_company: true
@@ -428,12 +409,6 @@ lever:
   security_company: true
 - name: Sysdig
   slug: sysdig
-  security_company: true
-- name: Teleport
-  slug: teleport
-  security_company: true
-- name: Symmetry Systems
-  slug: SymmetrySystems
   security_company: true
 - name: Very Good Security
   slug: verygoodsecurity
@@ -535,9 +510,6 @@ ashby:
   security_company: true
 - name: Notion
   slug: notion
-- name: Nucleus Security
-  slug: nucleus
-  security_company: true
 - name: Nudge Security
   slug: nudgesecurity
   security_company: true
@@ -575,7 +547,6 @@ ashby:
   security_company: true
 - name: SentiLink
   slug: sentilink
-  security_company: true
 - name: Sentra
   slug: sentra
   security_company: true
@@ -587,17 +558,14 @@ ashby:
   security_company: true
 - name: Snowflake
   slug: snowflake
-- name: Snyk
-  slug: snyk
-  security_company: true
 - name: Socure
   slug: socure
   security_company: true
-- name: Stytch
-  slug: stytch
-  security_company: true
 - name: Sublime Security
   slug: sublime-security
+  security_company: true
+- name: Teleport
+  slug: goteleport
   security_company: true
 - name: TRM Labs
   slug: trm-labs
@@ -605,8 +573,6 @@ ashby:
 - name: Vanta
   slug: vanta
   security_company: true
-- name: Vercel
-  slug: vercel
 - name: WorkOS
   slug: workos
   security_company: true
@@ -618,17 +584,11 @@ ashby:
 - name: Blackpoint Cyber
   slug: 'Blackpoint Cyber'
   security_company: true
-- name: Todyl
-  slug: Todyl
-  security_company: true
 - name: Contrast Security
   slug: contrast-security
   security_company: true
 - name: UpGuard
   slug: upguard
-  security_company: true
-- name: StrongDM
-  slug: strongdm
   security_company: true
 - name: Ethyca
   slug: ethyca
@@ -676,19 +636,11 @@ smartrecruiters:
 - name: Securiti
   slug: Securiti
   security_company: true
-- name: Visa
-  slug: Visa
 - name: Sectigo
   slug: Sectigo
   security_company: true
-- name: Tufin
-  slug: tufin
-  security_company: true
 - name: Kudelski Security
   slug: KudelskiSecurityInc
-  security_company: true
-- name: Nuspire
-  slug: NuspireNetworks
   security_company: true
 workable:
 - name: Galois
@@ -721,32 +673,17 @@ workable:
 - name: Stellar Cyber
   slug: stellar-cyber
   security_company: true
-- name: ThreatConnect
-  slug: threatconnect
-  security_company: true
 - name: JupiterOne
   slug: jupiterone
   security_company: true
 - name: Fortanix
   slug: fortanix
   security_company: true
-- name: TrustedSec
-  slug: trustedsec
-  security_company: true
 - name: Proficio
   slug: proficio-inc
   security_company: true
-- name: ZeroFox
-  slug: zerofox
-  security_company: true
 - name: DomainTools
   slug: domain-tools
-  security_company: true
-- name: Malwarebytes
-  slug: malwarebytes
-  security_company: true
-- name: GlobalSign
-  slug: globalsign
   security_company: true
 - name: Dispel
   slug: dispel
@@ -823,18 +760,10 @@ workday:
   tenant: leidos
   instance: wd5
   board: External
-- name: ManTech
-  tenant: mantech
-  instance: wd1
-  board: External
 - name: Mastercard
   tenant: mastercard
   instance: wd1
   board: CorporateCareers
-- name: MITRE
-  tenant: mitre
-  instance: wd5
-  board: MITRE
 - name: Motorola Solutions
   tenant: motorolasolutions
   instance: wd5
@@ -875,10 +804,6 @@ workday:
   instance: wd5
   board: proofpointcareers
   security_company: true
-- name: Qualcomm
-  tenant: qualcomm
-  instance: wd12
-  board: External
 - name: Qualys
   tenant: qualys
   instance: wd5
@@ -906,11 +831,24 @@ workday:
   tenant: snc
   instance: wd1
   board: SNC_External_Career_Site
+- name: Snyk
+  tenant: snyk
+  instance: wd103
+  board: External
+  security_company: true
 - name: Trend Micro
   tenant: trendmicro
   instance: wd3
   board: External
   security_company: true
+- name: U.S. Bank
+  tenant: usbank
+  instance: wd1
+  board: US_Bank_Careers
+- name: Visa
+  tenant: visa
+  instance: wd5
+  board: Visa
 - name: Zoom
   tenant: zoom
   instance: wd5
@@ -1090,3 +1028,24 @@ oracle:
 - name: Southern Company
   host: emje.fa.us6.oraclecloud.com
   site: SouthernCompanyJobs
+eightfold:
+- name: Lockheed Martin
+  tenant: lockheedmartin
+  domain: lockheedmartin.com
+- name: Microsoft
+  tenant: microsoft
+  domain: microsoft.com
+  search_terms:
+  - security
+- name: Qualcomm
+  tenant: qualcomm
+  domain: qualcomm.com
+phenom:
+- name: BAE Systems
+  host: jobs.baesystems.com
+  lang: en_global
+  country: global
+- name: MITRE
+  host: careers.mitre.org
+  lang: en_us
+  country: us

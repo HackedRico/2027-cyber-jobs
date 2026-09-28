@@ -18,7 +18,7 @@ import threading
 import time
 from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor
-from datetime import datetime
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import NamedTuple
 from urllib.parse import parse_qs, urlparse
@@ -28,6 +28,7 @@ import requests
 import yaml
 from classify import (
     AI_CATEGORY_RE,
+    _is_foreign_part,
     classify_level,
     evaluate_job,
     exceeds_experience_cap,
@@ -47,6 +48,8 @@ from common import normalize_url
 LISTINGS_FILE = Path('listings.json')
 SEEN_JOBS_FILE = Path('.github/data/seen_jobs.json')
 BOARD_BASELINE_FILE = Path('.github/data/board_baseline.json')
+# Read by health_check.py, which opens the "Scraper health" issue.
+HEALTH_FILE = Path('.github/data/health.json')
 
 HEADERS = {'User-Agent': 'Mozilla/5.0 (compatible; cyber-jobs-scraper/1.0)'}
 
@@ -158,7 +161,8 @@ def check_container(data, key, label):
 
 # ---------------------------------------------------------------------------
 # ATS scrapers — each yields dicts with:
-#   id, company, title, location, url, board, description (optional)
+#   id, company, title, location, url, board, description (optional),
+#   partial_sweep (optional: True when the board's feed was cut short)
 # Scrapers return None on an unrecoverable fetch failure and a (possibly empty)
 # list otherwise, so the run summary can tell breakage from an empty board.
 # ---------------------------------------------------------------------------
@@ -171,7 +175,8 @@ WORKPLACE_LABELS = {'in-office', 'hybrid', 'distributed', 'remote', 'onsite',
 
 def greenhouse_location(job):
     loc = (job.get('location') or {}).get('name', '') or ''
-    if loc.strip().lower() not in WORKPLACE_LABELS:
+    label = loc.strip().lower()
+    if label not in WORKPLACE_LABELS:
         return loc
     parts = [o.get('name') for o in job.get('offices') or [] if o.get('name')]
     for m in job.get('metadata') or []:
@@ -181,6 +186,14 @@ def greenhouse_location(job):
                 parts.extend(str(x) for x in v)
             elif v:
                 parts.append(str(v))
+    if label == 'remote':
+        # 'Remote' is already a location, so only a part that names a place or
+        # a remote scope may replace it. GuidePoint files its US-remote GPSU
+        # internship under the office 'GuidePoint University (GPSU)', which
+        # failed the US check. A part saying 'remote' stays so Bitwarden's
+        # 'UK Remote' does not revert to a US 'Remote'.
+        parts = [p for p in parts if 'remote' in p.lower() or is_us_location(p)
+                 or _is_foreign_part(p)]
     return '; '.join(dict.fromkeys(parts)) if parts else loc
 
 
@@ -387,7 +400,10 @@ def scrape_pinpoint(company, slug):
     jobs = []
     for job in data.get('data', []):
         loc = job.get('location') or {}
-        if job.get('workplace_type') == 'remote':
+        # Pinpoint marks a Manchester-based home worker 'remote' too (NCC Group
+        # 'Associate SOC Analyst'), so only a USA location name reads as US.
+        if (job.get('workplace_type') == 'remote'
+                and (loc.get('name') or '').strip().upper().startswith('USA')):
             location = 'Remote'
         else:
             location = ', '.join(p for p in (loc.get('city'), loc.get('province')) if p)
@@ -406,6 +422,23 @@ def scrape_pinpoint(company, slug):
 
 MULTI_LOCATION_RE = re.compile(r'^\d+ locations$', re.IGNORECASE)
 
+# Search results are relevance-ranked, so student cyber titles sit near the top.
+# Paging every term to the end reached 227 title candidates across 73 tenants
+# in 3,243 pages and pushed a full dry run past 14 minutes; 15 pages reach 197
+# of them in 1,551. Most of what lies deeper is Palo Alto Networks reposting
+# 'Associate Systems Engineer'. A sweep that stops here is flagged partial, and
+# retire_vanished_listings asks the detail endpoint about its missing rows.
+WORKDAY_MAX_PAGES = 15
+
+
+def _wants_detail(title, security_company):
+    if is_rejected_title(title) or not is_cyber_title(title, security_company):
+        return False
+    # Leveled candidates need the description, since the experience gate in
+    # evaluate_job runs on every level; AI flat titles need it for the same
+    # reason.
+    return classify_level(title) is not None or bool(AI_CATEGORY_RE.search(title.lower()))
+
 
 def fetch_workday_detail(cxs_root, path, wd_headers, label=''):
     """Fetch a posting's real locations and description (list view hides both)."""
@@ -417,6 +450,38 @@ def fetch_workday_detail(cxs_root, path, wd_headers, label=''):
     locations += info.get('additionalLocations', []) or []
     location = '; '.join(dict.fromkeys(x for x in locations if x))
     return location, info.get('jobDescription', '')
+
+
+_WORKDAY_JOB_URL_RE = re.compile(
+    r'^https://([A-Za-z0-9_-]+)\.(wd\d+)\.myworkdayjobs\.com/'
+    r'(?:[a-z]{2}-[A-Z]{2}/)?([A-Za-z0-9_-]+)(/job/[^?#]+)')
+
+
+def workday_posting_state(url):
+    """Ask Workday's detail endpoint whether one posting is still up.
+
+    Returns 'live', 'gone', or None when the answer says nothing. The public
+    job page answers 200 even after a req closes, but the cxs detail endpoint
+    does not: a live req is 200 with canApply, a closed one 403 with errorCode
+    S22 (Nightwing JR102051, RTX 01870858), an unknown path 404 with S21.
+    """
+    m = _WORKDAY_JOB_URL_RE.match(url or '')
+    if not m:
+        return None
+    tenant, instance, board, path = m.groups()
+    api = f'https://{tenant}.{instance}.myworkdayjobs.com/wday/cxs/{tenant}/{board}{path}'
+    try:
+        resp = _session().get(api, headers={'Accept': 'application/json'},
+                              timeout=REQUEST_TIMEOUT)
+        body = resp.json()
+    except (requests.RequestException, ValueError):
+        return None
+    if resp.status_code == 200:
+        info = body.get('jobPostingInfo') or {}
+        return 'gone' if info.get('canApply') is False else 'live'
+    if resp.status_code in (403, 404) and body.get('errorCode') in ('S21', 'S22'):
+        return 'gone'
+    return None
 
 
 def scrape_workday(company, tenant, instance, board, security_company=False,
@@ -455,20 +520,30 @@ def scrape_workday(company, tenant, instance, board, security_company=False,
     jobs = []
     seen_paths = set()
     any_ok = False
+    # Cleared when a term hits the page cap or a page fails mid-sweep. Postings
+    # past that point went unseen, so their absence says nothing about closure
+    # and retire_vanished_listings must not judge this board this run.
+    complete = True
     for term in search_terms:
         offset = 0
-        for _page in range(MAX_PAGES):
+        total = None
+        for page in range(WORKDAY_MAX_PAGES):
             payload = {'appliedFacets': {}, 'limit': limit, 'offset': offset,
                        'searchText': term}
             data = fetch_json(api_url, method='POST', json=payload,
                               headers=wd_headers,
                               label=f'{company} Workday "{term}"')
             if data is None:
+                complete = False
                 break
             any_ok = True
-            postings = data.get('jobPostings', [])
-            if not postings:
-                break
+            postings = data.get('jobPostings') or []
+            if page == 0:
+                # cxs reports `total` on the first page only and 0 after it
+                # (Leidos 'security': 1662 at offset 0, 0 at offset 20). Re-read
+                # per page, it stopped every term after 40 postings and hid
+                # Booz Allen's 2027 Summer Games cyber interns at position 93.
+                total = data.get('total')
             for job in postings:
                 path = job.get('externalPath', '')
                 if not path or path in seen_paths:
@@ -485,32 +560,28 @@ def scrape_workday(company, tenant, instance, board, security_company=False,
                     'board': 'Workday',
                     '_path': path,
                 })
-            total = data.get('total')
             offset += len(postings)
-            # Short page, exhausted `total` (when present), or the MAX_PAGES
-            # backstop stop the loop so a bad `total` can't run to the timeout.
-            if len(postings) < limit or (total is not None and offset >= total):
+            # A short or empty page, the first page's `total`, or the page cap
+            # ends the term, so a lying `total` can't run to the timeout.
+            if len(postings) < limit or (total and offset >= total):
                 break
             time.sleep(0.3)
+        else:
+            complete = False
 
-    # No page fetched at all -> a real failure, not an empty board.
-    if not any_ok:
+    # No page fetched at all -> a real failure, not an empty board. A sweep
+    # that lost pages and found nothing is not proof of an empty board either.
+    if not any_ok or (not complete and not jobs):
         return None
 
     # The list view gives no description and hides multi-location postings
     # behind "N Locations". Fetch details for the few title-level candidates
     # so the US filter and clearance detection see real data.
     for job in jobs:
-        title = job['title']
         path = job.pop('_path', None)
-        if is_rejected_title(title) or not is_cyber_title(title, security_company):
-            continue
-        # Leveled candidates need location detail AND the description, since
-        # the experience gate in evaluate_job now runs on every level; AI flat
-        # titles need the description for the same reason.
-        if classify_level(title) is None and not AI_CATEGORY_RE.search(title.lower()):
-            continue
-        if not path:
+        if not complete:
+            job['partial_sweep'] = True
+        if not path or not _wants_detail(job['title'], security_company):
             continue
         needs_locations = MULTI_LOCATION_RE.match(job['location'].strip())
         location, description = fetch_workday_detail(cxs_root, path, wd_headers,
@@ -521,6 +592,23 @@ def scrape_workday(company, tenant, instance, board, security_company=False,
             job['description'] = description
         time.sleep(0.3)
     return jobs
+
+
+# Detail requests per Oracle board per run. JPMorgan's CX_1001 lists 7,500
+# reqs and today yields 7 candidates, SAIC 3; each detail call is a round trip.
+ORACLE_DETAIL_CAP = 30
+
+
+def fetch_oracle_description(host, site, req_id, label=''):
+    """Return a req's external description and qualifications, or '' on failure."""
+    api = f'https://{host}/hcmRestApi/resources/latest/recruitingCEJobRequisitionDetails'
+    params = {'onlyData': 'true', 'finder': f'ById;Id="{req_id}",siteNumber={site}'}
+    data = fetch_json(api, params=params, label=label)
+    items = (data or {}).get('items') or []
+    if not items:
+        return ''
+    fields = (items[0].get('ExternalDescriptionStr'), items[0].get('ExternalQualificationsStr'))
+    return '\n\n'.join(f for f in fields if f and f.strip())
 
 
 def scrape_oracle(company, host, site):
@@ -537,6 +625,7 @@ def scrape_oracle(company, host, site):
     limit = 200
     jobs = []
     offset = 0
+    complete = True
     for _page in range(MAX_PAGES):
         finder = (f'findReqs;siteNumber={site},limit={limit},offset={offset},'
                   f'sortBy=POSTING_DATES_DESC')
@@ -545,7 +634,10 @@ def scrape_oracle(company, host, site):
                   'finder': finder}
         data = fetch_json(api, params=params, label=f'{company} Oracle')
         if data is None:
-            return jobs if jobs else None
+            if not jobs:
+                return None
+            complete = False
+            break
         items = data.get('items') or []
         req_list = items[0].get('requisitionList', []) if items else []
         if not req_list:
@@ -562,11 +654,258 @@ def scrape_oracle(company, host, site):
                 'location': location,
                 'url': f'https://{host}/hcmUI/CandidateExperience/en/sites/{site}/job/{job_id}',
                 'board': 'Oracle',
+                '_req': job_id,
             })
         total = items[0].get('TotalJobsCount') if items else None
         offset += len(req_list)
         if len(req_list) < limit or (total is not None and offset >= total):
             break
+        time.sleep(0.3)
+    else:
+        complete = False
+
+    # The list view carries no description, so the experience gate and the
+    # clearance flag saw only the title: SAIC 'Tier II or III ... IAM
+    # Administrator' wants 5 years and 'Cyber Engineer Associate' a TS/SCI
+    # with polygraph. Newest reqs come first, so the cap spends its requests
+    # on the postings a student is most likely to still apply to.
+    fetched = 0
+    for job in jobs:
+        req = job.pop('_req')
+        if not complete:
+            job['partial_sweep'] = True
+        if fetched >= ORACLE_DETAIL_CAP or not req or not _wants_detail(job['title'], False):
+            continue
+        fetched += 1
+        description = fetch_oracle_description(host, site, req, label=f'{company} Oracle')
+        if description:
+            job['description'] = description
+        time.sleep(0.3)
+    return jobs
+
+
+# Eightfold and Phenom search is fuzzy and relevance-ranked: Lockheed's
+# 'security' query matches 3,039 postings led by badge and facility-security
+# reps, and BAE's 'cyber' matches nearly its whole board. Cyber, intern and
+# early-career titles rank near the top, so each term reads a bounded prefix
+# instead of the whole feed.
+EIGHTFOLD_TERMS = ('cyber', 'intern', 'early career')
+EIGHTFOLD_MAX_PAGES = 50
+PHENOM_TERMS = ('cyber', 'intern')
+PHENOM_PAGE_SIZE = 50
+PHENOM_MAX_PAGES = 4
+
+# microsoft.eightfold.ai answers 429 with no Retry-After after about ten quick
+# requests and clears within seconds, which fetch_json's short retries do not
+# outlast.
+RATE_LIMIT_DELAYS = (2, 4, 8, 16)
+EIGHTFOLD_PAGE_DELAY = 0.5
+
+# Lockheed tags each req with a hiring track. 'Experienced Professional' is its
+# lateral-hire track and holds 'Associate Cyber Software Engineer' and 'Level 2
+# DevSecOps Engineer' reqs whose titles read as early career.
+EIGHTFOLD_LEVEL_FIELD = 'efcustomTextLevelofexperience'
+EIGHTFOLD_EXPERIENCED_LEVELS = {'experienced professional'}
+
+
+def _get_json_patiently(url, *, method='GET', label='', **kwargs):
+    kwargs.setdefault('timeout', REQUEST_TIMEOUT)
+    for delay in (*RATE_LIMIT_DELAYS, None):
+        try:
+            resp = _session().request(method, url, **kwargs)
+        except requests.RequestException as e:
+            if delay is None:
+                print(f'  [{label}] request error: {_oneline(e)}')
+                return None
+            time.sleep(delay)
+            continue
+        if resp.status_code in (429, 503):
+            if delay is None:
+                print(f'  [{label}] HTTP {resp.status_code} (rate limited)')
+                return None
+            time.sleep(delay)
+            continue
+        if resp.status_code != 200:
+            print(f'  [{label}] HTTP {resp.status_code}')
+            return None
+        try:
+            return resp.json()
+        except ValueError:
+            print(f'  [{label}] non-JSON 200 response')
+            return None
+    return None
+
+
+def _needs_detail(title, security_company):
+    # The same candidate filter scrape_workday applies before its detail
+    # fetch: only titles that can still pass evaluate_job are worth a request,
+    # and those need the description for the experience gate.
+    if is_rejected_title(title) or not is_cyber_title(title, security_company):
+        return False
+    return classify_level(title) is not None or bool(AI_CATEGORY_RE.search(title.lower()))
+
+
+def scrape_eightfold(company, tenant, domain, security_company=False,
+                     extra_terms=None):
+    """Eightfold PCSX careers search (`<tenant>.eightfold.ai/careers`).
+
+    Reads 10 US postings per page for each search term, skips reqs on the
+    tenant's experienced-hire track, and fetches descriptions for title-level
+    candidates so the experience gate can run.
+    """
+    if not _valid_slug(tenant) or not _valid_host(domain):
+        print(f'  [{company}] invalid eightfold tenant/domain — skipping')
+        return None
+    root = f'https://{tenant}.eightfold.ai'
+    headers = {**HEADERS, 'Accept': 'application/json'}
+    terms = list(EIGHTFOLD_TERMS)
+    if extra_terms:
+        terms += [t for t in extra_terms if t not in terms]
+
+    jobs = []
+    seen_ids = set()
+    any_ok = False
+    for term in terms:
+        start = 0
+        for _page in range(EIGHTFOLD_MAX_PAGES):
+            params = {'domain': domain, 'query': term, 'location': 'United States',
+                      'start': start}
+            data = _get_json_patiently(f'{root}/api/pcsx/search', params=params,
+                                       headers=headers,
+                                       label=f'{company} Eightfold "{term}"')
+            if data is None:
+                break
+            any_ok = True
+            page = data.get('data') if isinstance(data, dict) else None
+            if not isinstance(page, dict):
+                check_container(data, 'data', f'{company} Eightfold')
+                break
+            check_container(page, 'positions', f'{company} Eightfold')
+            positions = page.get('positions') or []
+            if not positions:
+                break
+            for pos in positions:
+                pid = str(pos.get('id', ''))
+                if not pid or pid in seen_ids:
+                    continue
+                seen_ids.add(pid)
+                levels = {str(v).strip().lower() for v in pos.get(EIGHTFOLD_LEVEL_FIELD) or []}
+                if levels & EIGHTFOLD_EXPERIENCED_LEVELS:
+                    continue
+                locations = pos.get('standardizedLocations') or pos.get('locations') or []
+                jobs.append({
+                    'id': f'eightfold_{tenant}_{pid}',
+                    'company': company,
+                    'title': pos.get('name', ''),
+                    'location': '; '.join(dict.fromkeys(x for x in locations if x)),
+                    'url': f'{root}/careers/job/{pid}',
+                    'board': 'Eightfold',
+                })
+            start += len(positions)
+            total = page.get('count')
+            if total is not None and start >= total:
+                break
+            time.sleep(EIGHTFOLD_PAGE_DELAY)
+
+    if not any_ok:
+        return None
+
+    for job in jobs:
+        if not _needs_detail(job['title'], security_company):
+            continue
+        pid = job['id'].rsplit('_', 1)[-1]
+        data = _get_json_patiently(f'{root}/api/pcsx/position_details',
+                                   params={'position_id': pid, 'domain': domain,
+                                           'hl': 'en'},
+                                   headers=headers, label=f'{company} Eightfold detail')
+        detail = (data or {}).get('data') or {}
+        if isinstance(detail, dict) and detail.get('jobDescription'):
+            job['description'] = detail['jobDescription']
+        time.sleep(EIGHTFOLD_PAGE_DELAY)
+    return jobs
+
+
+def _phenom_body(lang, country, **fields):
+    return {'lang': lang, 'country': country, 'deviceType': 'desktop',
+            'siteType': 'external', **fields}
+
+
+def scrape_phenom(company, host, lang, country, security_company=False,
+                  extra_terms=None):
+    """Phenom People career sites, read through their `/widgets` search API.
+
+    `lang` and `country` are the site's locale pair (MITRE `en_us`/`us`, BAE
+    `en_global`/`global`); a wrong pair returns no jobs. Descriptions come from
+    the same endpoint's jobDetail call, for title-level candidates only.
+    """
+    if not _valid_host(host) or not _valid_slug(lang) or not _valid_slug(country):
+        print(f'  [{company}] invalid phenom host/lang/country — skipping')
+        return None
+    api = f'https://{host}/widgets'
+    headers = {**HEADERS, 'Content-Type': 'application/json',
+               'Accept': 'application/json'}
+    locale_path = f'{country}/{lang.split("_")[0]}'
+    terms = list(PHENOM_TERMS)
+    if extra_terms:
+        terms += [t for t in extra_terms if t not in terms]
+
+    jobs = []
+    seen_ids = set()
+    any_ok = False
+    for term in terms:
+        offset = 0
+        for _page in range(PHENOM_MAX_PAGES):
+            body = _phenom_body(lang, country, pageName='search-results',
+                                ddoKey='refineSearch', keywords=term, jobs=True,
+                                size=PHENOM_PAGE_SIZE, selected_fields={})
+            body.update({'from': offset, 'global': True})
+            data = _get_json_patiently(api, method='POST', json=body, headers=headers,
+                                       label=f'{company} Phenom "{term}"')
+            if data is None:
+                break
+            any_ok = True
+            check_container(data, 'refineSearch', f'{company} Phenom')
+            search = data.get('refineSearch') or {}
+            postings = (search.get('data') or {}).get('jobs') or []
+            if not postings:
+                break
+            for job in postings:
+                job_id = str(job.get('jobId') or job.get('reqId') or '')
+                if not _valid_slug(job_id) or job_id in seen_ids:
+                    continue
+                seen_ids.add(job_id)
+                locations = job.get('multi_location') or [job.get('location', '')]
+                jobs.append({
+                    'id': f'phenom_{host}_{job_id}',
+                    'company': company,
+                    'title': job.get('title', ''),
+                    'location': '; '.join(dict.fromkeys(x for x in locations if x)),
+                    'url': f'https://{host}/{locale_path}/job/{job_id}',
+                    'board': 'Phenom',
+                    '_seq': job.get('jobSeqNo', ''),
+                })
+            offset += len(postings)
+            total = search.get('totalHits')
+            if len(postings) < PHENOM_PAGE_SIZE or (total is not None and offset >= total):
+                break
+            time.sleep(0.3)
+
+    if not any_ok:
+        return None
+
+    for job in jobs:
+        seq = job.pop('_seq', '')
+        if not _needs_detail(job['title'], security_company):
+            continue
+        job_id = job['id'].rsplit('_', 1)[-1]
+        body = _phenom_body(lang, country, pageName='job', ddoKey='jobDetail',
+                            jobId=job_id, jobSeqNo=seq)
+        data = _get_json_patiently(api, method='POST', json=body, headers=headers,
+                                   label=f'{company} Phenom detail')
+        detail = ((data or {}).get('jobDetail') or {}).get('data') or {}
+        description = (detail.get('job') or {}).get('description', '')
+        if description:
+            job['description'] = description
         time.sleep(0.3)
     return jobs
 
@@ -638,6 +977,8 @@ _REQ_PATTERNS = {
     'Workable': (r'/j/([0-9A-F]{8,})',),
     'Recruitee': (r'/o/([\w-]+)$',),
     'Pinpoint': (r'/postings/([0-9a-fA-F-]{36})',),
+    'Eightfold': (r'/careers/job/(\d+)',),
+    'Phenom': (r'/job/([A-Za-z0-9_-]+)$',),
 }
 
 
@@ -671,33 +1012,68 @@ def job_fingerprint(company, source, url):
     return None
 
 
-def retire_vanished_listings(listings, raw_jobs, today):
+# A board silent this many runs in a row is treated as gone, which is twice
+# VANISHED_DAYS at two runs a day. Lakera's board sat empty for 24 runs and
+# Todyl's answered 404 for 12 while their open rows stayed on the board, since
+# retirement only ever judged boards that returned something.
+SILENT_BOARD_RUNS = 4 * VANISHED_DAYS
+
+
+def long_silent_boards(board_stats, history):
+    """Return the (company, ats) pairs silent for SILENT_BOARD_RUNS runs straight.
+
+    `board_stats` is this run's per-board result and `history` the stored
+    board baseline, so a `--board`/`--limit` run only judges what it fetched.
+    A company with two boards on one ATS is silent only when both are.
+    """
+    silent = {}
+    for b in board_stats:
+        name, _, rest = b['label'].rpartition(' (')
+        ats = rest.split('/', 1)[0].rstrip(')').lower()
+        streak = (history.get(b['label']) or {}).get('zero_runs', 0)
+        quiet = b['count'] == 0 and streak >= SILENT_BOARD_RUNS
+        silent[(name, ats)] = silent.get((name, ats), True) and quiet
+    return {key for key, is_silent in silent.items() if is_silent}
+
+
+def retire_vanished_listings(listings, raw_jobs, today, silent_boards=frozenset(),
+                             probe=workday_posting_state):
     """Close rows whose requisition has left its own board's feed.
 
-    Mutates and returns the rows it retired. Every run fetches each board in
-    full, so a posting that stops appearing among its company's results is a
-    closed req. This is the only path that can retire a Workday, Ashby, Oracle
-    or Greenhouse row: those hosts all answer 200 for a job that no longer
-    exists, so the dead-link sweep never marks one closed and such a row would
-    otherwise sit on the board forever.
+    Mutates and returns the rows it retired. A posting that stops appearing
+    among its company's results is a closed req. This is the only path that
+    can retire a Workday, Ashby, Oracle or Greenhouse row: those hosts all
+    answer 200 for a job that no longer exists, so the dead-link sweep never
+    marks one closed and such a row would otherwise sit on the board forever.
+
+    `silent_boards` holds the (company, ats) pairs from `long_silent_boards`.
+    Their rows retire at once: the board has held nothing for longer than
+    VANISHED_DAYS, so no posting behind it is still live.
 
     Guardrails, all in the keep direction:
       * only companies that returned at least one posting this run are judged,
         so a broken slug, a failed fetch, or a `--board`/`--limit` subset can
         never retire anything it did not actually look at;
+      * a board whose sweep was cut short (postings flagged `partial_sweep`,
+        from a page cap or a failed page) retires nothing on absence alone,
+        since the missing req may sit past the cut. A Workday row there is
+        asked about directly through `probe`, and only a 'gone' answer counts
+        as a miss; the big tenants (CVS, RTX, Northrop) cut short every run;
       * a row must be missing for VANISHED_DAYS before it goes, so one partial
-        fetch of a paginated board costs a re-check rather than the listings;
+        fetch that went unnoticed costs a re-check rather than the listings;
       * Community rows carry a maintainer's judgment and never appear in
         `raw_jobs`, so they are exempt, as are rows with no fingerprint.
 
-    Retirement writes exactly what a dead link writes — blank url plus
-    `closed` — so the existing revive path self-heals a false positive and
+    Retirement writes exactly what a dead link writes, blank url plus
+    `closed`, so the existing revive path self-heals a false positive and
     `purge_stale_listings` does the eventual removal.
     """
-    live, healthy = set(), set()
+    live, healthy, partial = set(), set(), set()
     for job in raw_jobs:
         company = job.get('company', '')
         healthy.add(company)
+        if job.get('partial_sweep'):
+            partial.add((company, job.get('board', '')))
         fingerprint = job_fingerprint(company, job.get('board', ''), job.get('url', ''))
         if fingerprint:
             live.add(fingerprint)
@@ -707,10 +1083,14 @@ def retire_vanished_listings(listings, raw_jobs, today):
         if (entry.get('source') == 'Community' or entry.get('closed')
                 or not entry.get('url')):
             continue
-        if entry.get('company', '') not in healthy:
+        company, source = entry.get('company', ''), entry.get('source', '')
+        if (company, source.lower()) in silent_boards:
+            _retire(entry, today)
+            retired.append(entry)
             continue
-        fingerprint = job_fingerprint(entry.get('company', ''), entry.get('source', ''),
-                                      entry.get('url', ''))
+        if company not in healthy:
+            continue
+        fingerprint = job_fingerprint(company, source, entry.get('url', ''))
         if fingerprint is None:
             continue
         if fingerprint in live:
@@ -718,18 +1098,28 @@ def retire_vanished_listings(listings, raw_jobs, today):
             # out of one page never accumulates its way to retirement.
             entry.pop('missing_since', None)
             continue
+        if (company, source) in partial:
+            state = probe(entry['url']) if source == 'Workday' else None
+            if state == 'live':
+                entry.pop('missing_since', None)
+            if state != 'gone':
+                continue
         first_missed = entry.get('missing_since')
         if not first_missed:
             entry['missing_since'] = today
             continue
         if _days_since(first_missed, today) < VANISHED_DAYS:
             continue
-        entry['url'] = ''
-        entry['closed'] = True
-        entry.setdefault('closed_date', today)
-        entry.pop('missing_since', None)
+        _retire(entry, today)
         retired.append(entry)
     return retired
+
+
+def _retire(entry, today):
+    entry['url'] = ''
+    entry['closed'] = True
+    entry.setdefault('closed_date', today)
+    entry.pop('missing_since', None)
 
 
 def _location_is_broken(location):
@@ -1112,6 +1502,15 @@ def report_board_health(board_stats, today=None, persist=True):
         BOARD_BASELINE_FILE.parent.mkdir(parents=True, exist_ok=True)
         BOARD_BASELINE_FILE.write_text(
             json.dumps(history, indent=2, sort_keys=True))
+        HEALTH_FILE.write_text(json.dumps({
+            'date': today,
+            'boards': len(board_stats),
+            'ok': ok,
+            'empty': len(zero),
+            'failed': sorted(b['label'] for b in broken),
+            'regressed': [{'board': label, 'had': was} for label, was in regressed],
+            'silent': len(dead),
+        }, indent=2) + '\n')
 
 
 def load_listings():
@@ -1126,6 +1525,22 @@ def save_listings(listings):
     with open(tmp, 'w') as f:
         json.dump(listings, f, indent=2)
     tmp.replace(LISTINGS_FILE)
+
+
+def write_run_events(path, added, revived, retired):
+    """Write this run's inserted, revived and retired rows for notify.py.
+
+    Only main() knows which rows are new: diffing listings.json over-reports
+    whenever renormalisation rewrites a location or a closure blanks a url.
+    """
+    events = {
+        'schema_version': 1,
+        'run_at': datetime.now(UTC).strftime('%Y-%m-%dT%H:%M:%SZ'),
+        'added': added,
+        'revived': revived,
+        'retired': retired,
+    }
+    Path(path).write_text(json.dumps(events, indent=2))
 
 
 # ---------------------------------------------------------------------------
@@ -1180,6 +1595,20 @@ def build_tasks(config, board=None, limit=None):
             tasks.append(BoardTask(
                 f'{entry["name"]} (oracle/{entry["host"]})', scrape_oracle,
                 (entry['name'], entry['host'], entry['site']),
+                entry.get('security_company', False)))
+    if want('eightfold'):
+        for entry in limited(config.get('eightfold')):
+            tasks.append(BoardTask(
+                f'{entry["name"]} (eightfold/{entry["tenant"]})', scrape_eightfold,
+                (entry['name'], entry['tenant'], entry['domain'],
+                 entry.get('security_company', False), entry.get('search_terms')),
+                entry.get('security_company', False)))
+    if want('phenom'):
+        for entry in limited(config.get('phenom')):
+            tasks.append(BoardTask(
+                f'{entry["name"]} (phenom/{entry["host"]})', scrape_phenom,
+                (entry['name'], entry['host'], entry['lang'], entry['country'],
+                 entry.get('security_company', False), entry.get('search_terms')),
                 entry.get('security_company', False)))
     if want('amazon'):
         tasks.append(BoardTask('Amazon (amazon.jobs)', scrape_amazon, ()))
@@ -1240,7 +1669,8 @@ def parse_args(argv=None):
                              'README rebuild — safe to run locally')
     parser.add_argument('--board',
                         help='only run this ATS (e.g. greenhouse, workday, '
-                             'amazon, usajobs) for fast local iteration')
+                             'eightfold, phenom, amazon, usajobs) for fast '
+                             'local iteration')
     parser.add_argument('--limit', type=int,
                         help='only scrape the first N configured companies per board')
     return parser.parse_args(argv)
@@ -1326,7 +1756,10 @@ def main():
     # Retire rows whose req has left its board's feed. Nothing else can retire a
     # Workday/Ashby/Oracle/Greenhouse row: those hosts answer 200 for a job that
     # no longer exists, so check_links.py never sees one die.
-    vanished = retire_vanished_listings(listings, raw_jobs, today)
+    # On a full run report_board_health has already rolled this run into the
+    # baseline; a dry or partial run reads it one run behind, which only keeps.
+    vanished = retire_vanished_listings(
+        listings, raw_jobs, today, long_silent_boards(board_stats, load_board_baseline()))
     for entry in vanished:
         print(f'  RETIRED [vanished] {_oneline(entry.get("company", ""))} — '
               f'{_oneline(entry.get("role", ""))}')
@@ -1343,8 +1776,8 @@ def main():
     blanked = {listing_dedup_key(e.get('company', ''), e.get('role', ''),
                                  e.get('location', '')): e
                for e in listings if not e.get('url')}
-    added = 0
-    revived = 0
+    added_rows = []
+    revived_rows = []
 
     for job in raw_jobs:
         jid = job['id']
@@ -1378,7 +1811,7 @@ def main():
             # months-old stamp and retire on the next run.
             row.pop('missing_since', None)
             existing_urls.add(normalize_url(url))
-            revived += 1
+            revived_rows.append(row)
             print(f'  REVIVED {_oneline(job["company"])} — {_oneline(job["title"])}')
             continue
         if normalize_url(url) in existing_urls or key in existing_keys:
@@ -1386,7 +1819,7 @@ def main():
         existing_urls.add(normalize_url(url))
         existing_keys.add(key)
 
-        listings.append({
+        row = {
             'company': job['company'],
             'role': job['title'].strip(),
             'location': location,
@@ -1397,8 +1830,9 @@ def main():
             'url': url,
             'source': job.get('board', ''),
             'date_added': today,
-        })
-        added += 1
+        }
+        listings.append(row)
+        added_rows.append(row)
         print(f'  NEW [{level}] {_oneline(job["company"])} — {_oneline(job["title"])} '
               f'@ {_oneline(job.get("location", ""))}')
 
@@ -1407,6 +1841,8 @@ def main():
         if job['id'] in seen:
             seen[job['id']] = today
     seen = prune_seen(seen, today)
+
+    added, revived = len(added_rows), len(revived_rows)
 
     # `missing_since` stamps land on rows that stay, so a run that only starts a
     # streak still has to save listings.json or the streak resets every run.
@@ -1429,6 +1865,9 @@ def main():
         rebuild_readme.main()
 
     save_seen_jobs(seen)
+    events_file = os.environ.get('RUN_EVENTS_FILE')
+    if events_file:
+        write_run_events(events_file, added_rows, revived_rows, vanished)
     print('Done')
 
 

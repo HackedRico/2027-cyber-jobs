@@ -1,0 +1,45 @@
+name: Scraper Health
+
+on:
+  workflow_run:
+    workflows: [Scrape Job Boards, Check Links, Add Approved Listings]
+    types: [completed]
+  # A dropped cron slot produces no workflow_run event, so a daily check
+  # catches a scrape that never started.
+  schedule:
+    - cron: '29 16 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: scraper-health
+  cancel-in-progress: false
+
+permissions:
+  actions: read
+  contents: read
+  issues: write
+
+jobs:
+  health:
+    # add-listing completes as 'skipped' on every non-approved label event.
+    if: >-
+      github.event_name != 'workflow_run' ||
+      github.event.workflow_run.conclusion != 'skipped'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      # The default branch, so health.json and listings.json are what the
+      # writer that just finished pushed.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+
+      - name: Check scraper health
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python .github/scripts/health_check.py

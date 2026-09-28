@@ -8,12 +8,18 @@ location extraction, pagination stops, intern hints, schema drift, and the
 retry/backoff fetch layer — without touching the network.
 """
 import json
+import os
+import re
 import sys
 import tempfile
 from pathlib import Path
+from urllib.parse import parse_qs, urlparse
 
 sys.path.insert(0, str(Path(__file__).parent))
+import check_links  # noqa: E402
+import check_slugs  # noqa: E402
 import compare_runs  # noqa: E402
+import notify  # noqa: E402
 import responses  # noqa: E402
 import scrape_jobs as sj  # noqa: E402
 
@@ -126,6 +132,20 @@ def test_smartrecruiters_pagination_short_page_stops():
     jobs = sj.scrape_smartrecruiters('Acme', 'Acme')
     check('smartrecruiters short page stops', len(jobs), 1)
     check('smartrecruiters location', jobs[0]['location'], 'Austin, TX')
+
+
+# --- check_slugs SmartRecruiters id probe --------------------------------------
+@responses.activate
+def test_check_slugs_flags_unknown_smartrecruiters_id():
+    # The postings API returns 200 and an empty list for a made-up id, so only
+    # the careers page's 302 tells a typo from a quiet board.
+    responses.get('https://careers.smartrecruiters.com/zzqnotarealco987', status=302,
+                  headers={'Location': 'https://jobs.smartrecruiters.com/'})
+    responses.get('https://careers.smartrecruiters.com/Acme', body='<html></html>')
+    check('check_slugs flags a redirecting SmartRecruiters id',
+          check_slugs._smartrecruiters_id_unknown('zzqnotarealco987'), True)
+    check('check_slugs passes a real SmartRecruiters id',
+          check_slugs._smartrecruiters_id_unknown('Acme'), False)
 
 
 # --- scrape_oracle -------------------------------------------------------------
@@ -612,9 +632,691 @@ def test_compare_runs_reports_flips_only():
           compare_runs.diff(before, before), [])
 
 
+@responses.activate
+def test_check_links_closes_after_two_dead_days():
+    # Only rows nothing else can close are checked: a fingerprinted Greenhouse
+    # row is the scraper's job, so it must not cost a request here.
+    community = {'company': 'Acme', 'role': 'Analyst', 'source': 'Community',
+                 'url': 'https://acme.com/careers/analyst', 'missing_since': '2026-09-20'}
+    amazon = {'company': 'Amazon', 'role': 'Security Engineer', 'source': 'Amazon Jobs',
+              'url': 'https://www.amazon.jobs/en/jobs/123'}
+    greenhouse = {'company': 'Acme', 'role': 'SOC Analyst', 'source': 'Greenhouse',
+                  'url': 'https://boards.greenhouse.io/acme/jobs/9'}
+    closed = {'company': 'Acme', 'role': 'Old', 'source': 'Community', 'url': '',
+              'closed': True}
+    check('link check targets community and amazon rows only',
+          [check_links.is_check_target(e) for e in (community, amazon, greenhouse, closed)],
+          [True, True, False, False])
+
+    responses.add(responses.GET, community['url'], status=404)
+    responses.add(responses.GET, amazon['url'], status=403)
+    check('403 is not dead', check_links.record_result(
+        amazon, check_links.fetch_status(amazon['url']), '2026-09-26'), False)
+    check('403 starts no streak', 'dead_since' in amazon, False)
+
+    status = check_links.fetch_status(community['url'])
+    check('first dead day only starts the streak',
+          check_links.record_result(community, status, '2026-09-26'), False)
+    check('dead_since stamped', community.get('dead_since'), '2026-09-26')
+    check('a second run the same day does not close',
+          check_links.record_result(community, status, '2026-09-26'), False)
+    check('second dead day closes', check_links.record_result(community, 410, '2026-09-27'), True)
+    check('closed row keeps its link and sheds its streaks',
+          {k: community.get(k) for k in ('url', 'last_url', 'closed', 'closed_date',
+                                        'dead_since', 'missing_since')},
+          {'url': '', 'last_url': 'https://acme.com/careers/analyst', 'closed': True,
+           'closed_date': '2026-09-27', 'dead_since': None, 'missing_since': None})
+
+    flaky = {'url': 'https://x/j', 'dead_since': '2026-09-25'}
+    check('a live answer resets the streak',
+          (check_links.record_result(flaky, 200, '2026-09-26'), 'dead_since' in flaky),
+          (False, False))
+
+
+# --- Workday paging: `total` only arrives on the first page ------------------
+WD_API = 'https://t.wd5.myworkdayjobs.com/wday/cxs/t/B/jobs'
+
+
+def _workday_pages(pages_by_term, fail_at=None):
+    """A cxs /jobs callback serving `pages_by_term[term][offset // 20]`."""
+    def callback(request):
+        body = json.loads(request.body)
+        term, page = body['searchText'], body['offset'] // body['limit']
+        if fail_at == (term, page):
+            return 500, {}, '{}'
+        pages = pages_by_term.get(term, [])
+        return 200, {}, json.dumps(pages[page] if page < len(pages)
+                                   else {'total': 0, 'jobPostings': []})
+    return callback
+
+
+def _wd_page(total, start, count):
+    # Non-cyber titles, so no detail fetch is attempted.
+    return {'total': total, 'jobPostings': [
+        {'title': f'Accountant {i}', 'externalPath': f'/job/Austin-TX/Acct_R{i}',
+         'locationsText': 'Austin, TX'} for i in range(start, start + count)]}
+
+
+@responses.activate
+def test_workday_total_only_on_first_page():
+    """Leidos 'security' reports 1662 at offset 0 and 0 at offset 20."""
+    responses.add_callback(responses.POST, WD_API, callback=_workday_pages({
+        'cyber': [_wd_page(45, 0, 20), _wd_page(0, 20, 20), _wd_page(0, 40, 5)]}))
+    jobs = sj.scrape_workday('X', 't', 'wd5', 'B')
+    check('workday pages past a zero total on page 2', len(jobs), 45)
+    check('a sweep that reached every short page is complete',
+          any(j.get('partial_sweep') for j in jobs), False)
+    check('workday url keeps the board segment', jobs[0]['url'],
+          'https://t.wd5.myworkdayjobs.com/B/job/Austin-TX/Acct_R0')
+
+
+@responses.activate
+def test_workday_flags_a_cut_short_sweep():
+    original = sj.WORKDAY_MAX_PAGES
+    try:
+        sj.WORKDAY_MAX_PAGES = 2
+        responses.add_callback(responses.POST, WD_API, callback=_workday_pages({
+            'cyber': [_wd_page(100, 0, 20), _wd_page(0, 20, 20), _wd_page(0, 40, 20)]}))
+        jobs = sj.scrape_workday('X', 't', 'wd5', 'B')
+        check('workday stops at the page cap', len(jobs), 40)
+        check('a capped sweep flags every posting partial',
+              all(j.get('partial_sweep') for j in jobs), True)
+    finally:
+        sj.WORKDAY_MAX_PAGES = original
+
+    responses.reset()
+    responses.add_callback(responses.POST, WD_API, callback=_workday_pages(
+        {'cyber': [_wd_page(60, 0, 20), _wd_page(0, 20, 20), _wd_page(0, 40, 20)]},
+        fail_at=('cyber', 1)))
+    jobs = sj.scrape_workday('X', 't', 'wd5', 'B')
+    check('a page that fails mid-sweep keeps what came before it', len(jobs), 20)
+    check('...and flags the sweep partial', all(j.get('partial_sweep') for j in jobs), True)
+
+    responses.reset()
+    responses.add_callback(responses.POST, WD_API, callback=_workday_pages(
+        {}, fail_at=('security', 0)))
+    check('a partial sweep that found nothing is a failure, not an empty board',
+          sj.scrape_workday('X', 't', 'wd5', 'B'), None)
+
+
+def test_incomplete_sweep_retires_nothing():
+    wd = 'https://acme.wd1.myworkdayjobs.com/Ext/job/Austin-TX/'
+    gh = 'https://boards.greenhouse.io/acme/jobs/'
+    listings = [
+        _listing('Acme', 'Seen', wd + 'Seen_R1', source='Workday',
+                 missing_since='2026-09-01'),
+        _listing('Acme', 'Past The Cap', wd + 'Deep_R2', source='Workday',
+                 missing_since='2026-09-01'),
+        _listing('Acme', 'Not Yet Missing', wd + 'Deep_R3', source='Workday'),
+        # The same company's complete Greenhouse board is still judged.
+        _listing('Acme', 'Greenhouse Gone', gh + '7', missing_since='2026-09-01'),
+    ]
+    raw = [{'company': 'Acme', 'board': 'Workday', 'url': wd + 'Seen_R1',
+            'partial_sweep': True},
+           {'company': 'Acme', 'board': 'Greenhouse', 'url': gh + '8'}]
+    retired = sj.retire_vanished_listings(listings, raw, '2026-09-10',
+                                          probe=lambda url: None)
+    check('a partial sweep retires none of its rows',
+          [e['role'] for e in retired], ['Greenhouse Gone'])
+    check('rows behind a partial sweep keep their streak as it was',
+          [(e['role'], e.get('missing_since'), e.get('closed')) for e in listings[:3]],
+          [('Seen', None, None), ('Past The Cap', '2026-09-01', None),
+           ('Not Yet Missing', None, None)])
+
+
+def test_partial_workday_sweep_asks_the_detail_endpoint():
+    """CVS, RTX and Northrop stop at the page cap every run."""
+    wd = 'https://acme.wd1.myworkdayjobs.com/Ext/job/Austin-TX/'
+    listings = [
+        _listing('Acme', 'Closed Deep', wd + 'Gone_R1', source='Workday',
+                 missing_since='2026-09-01'),
+        _listing('Acme', 'Live Deep', wd + 'Live_R2', source='Workday',
+                 missing_since='2026-09-01'),
+        _listing('Acme', 'Closed Fresh', wd + 'Gone_R3', source='Workday'),
+    ]
+    raw = [{'company': 'Acme', 'board': 'Workday', 'url': wd + 'Other_R9',
+            'partial_sweep': True}]
+    asked = []
+
+    def probe(url):
+        asked.append(url)
+        return 'gone' if 'Gone' in url else 'live'
+
+    retired = sj.retire_vanished_listings(listings, raw, '2026-09-10', probe=probe)
+    check('a gone answer retires a row whose streak has run',
+          [e['role'] for e in retired], ['Closed Deep'])
+    check('a live answer clears the streak, a fresh gone one starts it',
+          [(e['role'], e.get('missing_since')) for e in listings[1:]],
+          [('Live Deep', None), ('Closed Fresh', '2026-09-10')])
+    check('only rows missing from the sweep are asked about', len(asked), 3)
+
+
+@responses.activate
+def test_workday_posting_state():
+    base = 'https://acme.wd1.myworkdayjobs.com'
+    api = base + '/wday/cxs/acme/Ext/job/Austin-TX/'
+    responses.add(responses.GET, api + 'Live_R1',
+                  json={'jobPostingInfo': {'canApply': True}})
+    responses.add(responses.GET, api + 'Closed_R2', status=403,
+                  json={'errorCode': 'S22', 'httpStatus': 403})
+    responses.add(responses.GET, api + 'Unknown_R3', status=404,
+                  json={'errorCode': 'S21', 'httpStatus': 404})
+    responses.add(responses.GET, api + 'Flaky_R4', status=500, json={})
+    public = base + '/Ext/job/Austin-TX/'
+    check('a 200 with canApply is live', sj.workday_posting_state(public + 'Live_R1'), 'live')
+    check('403 S22 is a closed req', sj.workday_posting_state(public + 'Closed_R2'), 'gone')
+    check('404 S21 is an unknown path', sj.workday_posting_state(public + 'Unknown_R3'), 'gone')
+    check('a 500 says nothing', sj.workday_posting_state(public + 'Flaky_R4'), None)
+    check('a locale prefix is skipped',
+          sj.workday_posting_state(base + '/en-US/Ext/job/Austin-TX/Live_R1'), 'live')
+    check('a non-workday url says nothing',
+          sj.workday_posting_state('https://boards.greenhouse.io/acme/jobs/1'), None)
+
+
+def test_long_silent_board_retires_its_rows():
+    """Lakera's board sat empty for 24 runs while its open row stayed up."""
+    stats = [
+        {'label': 'Lakera (ashby/lakera.ai)', 'status': 'zero', 'count': 0},
+        {'label': 'Todyl (ashby/Todyl)', 'status': 'FAILED', 'count': 0},
+        {'label': 'Quiet (greenhouse/quiet)', 'status': 'zero', 'count': 0},
+        # One of two tenants is still posting, so the pair is not silent.
+        {'label': 'Duo (workday/a)', 'status': 'zero', 'count': 0},
+        {'label': 'Duo (workday/b)', 'status': 'ok', 'count': 5},
+    ]
+    history = {'Lakera (ashby/lakera.ai)': {'zero_runs': 24},
+               'Todyl (ashby/Todyl)': {'zero_runs': sj.SILENT_BOARD_RUNS},
+               'Quiet (greenhouse/quiet)': {'zero_runs': sj.SILENT_BOARD_RUNS - 1},
+               'Duo (workday/a)': {'zero_runs': 30}}
+    silent = sj.long_silent_boards(stats, history)
+    check('only boards silent for SILENT_BOARD_RUNS on every tenant are silent',
+          sorted(silent), [('Lakera', 'ashby'), ('Todyl', 'ashby')])
+
+    ashby = 'https://jobs.ashbyhq.com/lakera.ai/b9dee2a0-9bb3-447e-9bce-2b1bed784e5b'
+    listings = [
+        _listing('Lakera', 'AI Security Engineer', ashby, source='Ashby'),
+        _listing('Lakera', 'Maintainer Pick', ashby, source='Community'),
+        _listing('Lakera', 'Other Board Row', 'https://boards.greenhouse.io/l/jobs/1'),
+        _listing('Quiet', 'Not Silent Long Enough', 'https://boards.greenhouse.io/q/jobs/2'),
+    ]
+    retired = sj.retire_vanished_listings(listings, [], '2026-09-27', silent)
+    check('a long-silent board retires its rows at once',
+          [e['role'] for e in retired], ['AI Security Engineer'])
+    check('the retired row is blanked the way the revive path expects',
+          (listings[0]['url'], listings[0]['closed'], listings[0]['closed_date']),
+          ('', True, '2026-09-27'))
+    check('community, other-ATS and short-silence rows keep their url',
+          [bool(e['url']) for e in listings[1:]], [True, True, True])
+
+
+def test_greenhouse_remote_keeps_a_remote_label():
+    def loc(label, *offices):
+        return sj.greenhouse_location({'location': {'name': label},
+                                       'offices': [{'name': o} for o in offices]})
+    check('a department-style office does not replace Remote',
+          loc('Remote', 'GuidePoint University (GPSU)'), 'Remote')
+    check('a foreign remote scope still replaces Remote', loc('Remote', 'UK Remote'),
+          'UK Remote')
+    check('a foreign office still replaces Remote', loc('Remote', 'London'), 'London')
+    check('only the place-like office parts survive',
+          loc('Remote', 'Headquarters', 'Reston, VA'), 'Reston, VA')
+    check('the office fallback for a non-remote label is unchanged',
+          loc('Hybrid', 'Professional Services'), 'Professional Services')
+    check('GPSU internship is accepted once its location stays Remote',
+          sj.evaluate_job('GPSU Cybersecurity Spring Internship',
+                          loc('Remote', 'GuidePoint University (GPSU)'), '', True),
+          ('intern', 'Security Engineering'))
+
+
+@responses.activate
+def test_pinpoint_remote_is_us_only_for_usa_locations():
+    responses.get('https://acme.pinpointhq.com/postings.json', json={'data': [
+        {'id': '1', 'title': 'Associate SOC Analyst', 'workplace_type': 'remote',
+         'location': {'city': 'Manchester', 'province': 'Greater Manchester',
+                      'name': 'GBR Manchester Hardman Boulevard'}},
+        {'id': '2', 'title': 'SOC Analyst', 'workplace_type': 'remote',
+         'location': {'city': 'Remote', 'province': 'Illinois',
+                      'name': 'USA Remote - Central Time'}},
+        {'id': '3', 'title': 'SOC Analyst', 'workplace_type': 'remote',
+         'location': {'city': 'Remote', 'province': 'Greater London',
+                      'name': 'GBR Remote'}},
+    ]})
+    jobs = sj.scrape_pinpoint('Acme', 'acme')
+    check('pinpoint keeps the real location of a non-US remote posting',
+          [j['location'] for j in jobs],
+          ['Manchester, Greater Manchester', 'Remote', 'Remote, Greater London'])
+    check('only the USA remote posting reads as US',
+          [sj.is_us_location(j['location']) for j in jobs], [False, True, False])
+
+
+@responses.activate
+def test_oracle_fetches_descriptions_for_candidates():
+    host = 'acme.fa.us2.oraclecloud.com'
+    base = f'https://{host}/hcmRestApi/resources/latest/'
+    responses.get(base + 'recruitingCEJobRequisitions', json={'items': [{
+        'TotalJobsCount': 3, 'requisitionList': [
+            {'Id': '1', 'Title': 'Cyber Engineer Associate', 'PrimaryLocation': 'Reston, VA'},
+            {'Id': '2', 'Title': 'Accountant', 'PrimaryLocation': 'Reston, VA'},
+            {'Id': '3', 'Title': 'DevSecOps Engineer Associate',
+             'PrimaryLocation': 'Reston, VA'}]}]})
+    responses.get(base + 'recruitingCEJobRequisitionDetails', json={'items': [{
+        'ExternalDescriptionStr': '<p>Requires an active TS/SCI with polygraph.</p>',
+        'ExternalQualificationsStr': "<p>Bachelor's degree and 5 years of experience</p>"}]})
+    original = sj.ORACLE_DETAIL_CAP
+    try:
+        sj.ORACLE_DETAIL_CAP = 1
+        jobs = sj.scrape_oracle('Acme', host, 'CX_1')
+    finally:
+        sj.ORACLE_DETAIL_CAP = original
+    detail_calls = [c.request.url for c in responses.calls
+                    if 'recruitingCEJobRequisitionDetails' in c.request.url]
+    check('oracle fetches detail for the first candidate only, within the cap',
+          len(detail_calls), 1)
+    check('oracle detail uses the ById finder',
+          'ById%3BId%3D%221%22%2CsiteNumber%3DCX_1' in detail_calls[0], True)
+    check('oracle description joins the body and qualifications',
+          jobs[0].get('description'),
+          "<p>Requires an active TS/SCI with polygraph.</p>\n\n"
+          "<p>Bachelor's degree and 5 years of experience</p>")
+    check('non-candidates and reqs past the cap carry no description',
+          ['description' in j for j in jobs[1:]], [False, False])
+    check('the description reaches the clearance flag',
+          sj.requires_clearance(jobs[0]['title'], jobs[0]['description']), True)
+    check('oracle keeps its internal req id out of the posting', '_req' in jobs[0], False)
+
+
+# --- scrape_eightfold ----------------------------------------------------------
+EF_SEARCH = 'https://acme.eightfold.ai/api/pcsx/search'
+EF_DETAIL = 'https://acme.eightfold.ai/api/pcsx/position_details'
+
+
+def _ef_page(positions, count):
+    return {'status': 200, 'data': {'positions': positions, 'count': count}}
+
+
+def _ef_pos(pid, name, level=None, locations=('Orlando, FL, US',)):
+    pos = {'id': pid, 'name': name, 'locations': ['Orlando, FL'],
+           'standardizedLocations': list(locations),
+           'positionUrl': f'/careers/job/{pid}'}
+    if level:
+        pos['efcustomTextLevelofexperience'] = [level]
+    return pos
+
+
+def _ef_search(term, start, **kwargs):
+    responses.get(EF_SEARCH, match=[responses.matchers.query_param_matcher(
+        {'query': term, 'start': str(start), 'domain': 'acme.com',
+         'location': 'United States'})], **kwargs)
+
+
+@responses.activate
+def test_eightfold_paginates_backs_off_and_gates_levels():
+    first = [_ef_pos(i, f'Mechanical Engineer {i}', 'Experienced Professional')
+             for i in range(1, 9)]
+    first += [_ef_pos(9, 'Cybersecurity Intern', 'Co-op/Summer Intern'),
+              _ef_pos(10, 'Associate Cyber Software Engineer', 'Experienced Professional')]
+    _ef_search('cyber', 0, json=_ef_page(first, 12))
+    _ef_search('cyber', 10, json=_ef_page(
+        [_ef_pos(11, 'Cyber Systems Security Engineering Associate - Early Career',
+                 '4 yr and up College', ('Colorado Springs, CO, US', 'Remote, US')),
+         _ef_pos(12, 'Security Rep Sr - E3', 'Hourly/Non-Exempt')], 12))
+    _ef_search('intern', 0, json=_ef_page([], 0))
+    # microsoft.eightfold.ai answers 429 mid-sweep; the page must be retried,
+    # not dropped, and a repeat of an id already read must not duplicate it.
+    _ef_search('early career', 0, status=429)
+    _ef_search('early career', 0, json=_ef_page(
+        [_ef_pos(9, 'Cybersecurity Intern', 'Co-op/Summer Intern'),
+         _ef_pos(13, 'Cyber Analyst I - Early Career', '4 yr and up College')], 2))
+    responses.get(EF_DETAIL, json={'data': {'jobDescription': '<p>Pursuing a BS.</p>'}})
+
+    jobs = sj.scrape_eightfold('Acme', 'acme', 'acme.com')
+    check('eightfold skips the experienced-hire track and dedupes ids',
+          [j['title'] for j in jobs],
+          ['Cybersecurity Intern',
+           'Cyber Systems Security Engineering Associate - Early Career',
+           'Security Rep Sr - E3', 'Cyber Analyst I - Early Career'])
+    check('eightfold id, url and board', (jobs[0]['id'], jobs[0]['url'], jobs[0]['board']),
+          ('eightfold_acme_9', 'https://acme.eightfold.ai/careers/job/9', 'Eightfold'))
+    check('eightfold joins standardized locations', jobs[1]['location'],
+          'Colorado Springs, CO, US; Remote, US')
+    detail_ids = [parse_qs(urlparse(c.request.url).query)['position_id'][0]
+                  for c in responses.calls if c.request.url.startswith(EF_DETAIL)]
+    check('eightfold fetches detail for title-level candidates only',
+          sorted(detail_ids), ['11', '13', '9'])
+    check('eightfold attaches the description', jobs[0].get('description'),
+          '<p>Pursuing a BS.</p>')
+    check('eightfold leaves a non-candidate without a description',
+          'description' in jobs[2], False)
+
+
+@responses.activate
+def test_eightfold_none_vs_empty():
+    for term in sj.EIGHTFOLD_TERMS:
+        _ef_search(term, 0, json=_ef_page([], 0))
+    check('eightfold empty board -> []', sj.scrape_eightfold('Acme', 'acme', 'acme.com'), [])
+    responses.reset()
+    responses.get(EF_SEARCH, status=403, json={'message': 'Not authorized for PCSX'})
+    check('eightfold PCSX disabled -> None',
+          sj.scrape_eightfold('Acme', 'acme', 'acme.com'), None)
+
+
+@responses.activate
+def test_eightfold_gives_up_after_sustained_429():
+    responses.get(EF_SEARCH, status=429)
+    check('eightfold sustained 429 -> None',
+          sj.scrape_eightfold('Acme', 'acme', 'acme.com'), None)
+    attempts = len(sj.RATE_LIMIT_DELAYS) + 1
+    check('eightfold retries each term through every backoff step',
+          len(responses.calls), attempts * len(sj.EIGHTFOLD_TERMS))
+
+
+@responses.activate
+def test_eightfold_schema_drift_is_empty_not_crash():
+    responses.get(EF_SEARCH, json={'status': 200, 'data': None})
+    check('eightfold null data -> []', sj.scrape_eightfold('Acme', 'acme', 'acme.com'), [])
+
+
+# --- scrape_phenom -------------------------------------------------------------
+PH_API = 'https://careers.acme.org/widgets'
+
+
+def _ph_job(n, title='Mechanical Engineer', locations=('McLean, Virginia, United States',)):
+    return {'jobId': f'R{n}', 'reqId': f'R{n}', 'jobSeqNo': f'ACMEUSR{n}EXTERNAL',
+            'title': title, 'location': locations[0], 'multi_location': list(locations)}
+
+
+def _ph_search(term, offset, jobs, total):
+    responses.post(PH_API, match=[responses.matchers.json_params_matcher(
+        {'ddoKey': 'refineSearch', 'keywords': term, 'from': offset,
+         'lang': 'en_us', 'country': 'us'}, strict_match=False)],
+        json={'refineSearch': {'status': 200, 'totalHits': total,
+                               'data': {'jobs': jobs}}})
+
+
+@responses.activate
+def test_phenom_paginates_and_fetches_details():
+    size = sj.PHENOM_PAGE_SIZE
+    full = [_ph_job(n) for n in range(size - 1)]
+    full.append(_ph_job(900, 'Embedded Security Intern - Electronics Prototype',
+                        ('Bedford, Massachusetts, United States',
+                         'McLean, Virginia, United States')))
+    _ph_search('cyber', 0, full, size + 1)
+    _ph_search('cyber', size, [_ph_job(901, 'Cyber Analyst I')], size + 1)
+    _ph_search('intern', 0, [_ph_job(900, 'Embedded Security Intern - Electronics Prototype')], 1)
+    responses.post(PH_API, match=[responses.matchers.json_params_matcher(
+        {'ddoKey': 'jobDetail'}, strict_match=False)],
+        json={'jobDetail': {'data': {'job': {'description': 'Requires 1 year.'}}}})
+
+    jobs = sj.scrape_phenom('Acme', 'careers.acme.org', 'en_us', 'us')
+    check('phenom pages past a full first page and dedupes across terms',
+          len(jobs), size + 1)
+    intern = next(j for j in jobs if j['id'] == 'phenom_careers.acme.org_R900')
+    check('phenom url uses the site locale path', intern['url'],
+          'https://careers.acme.org/us/en/job/R900')
+    check('phenom joins multi_location', intern['location'],
+          'Bedford, Massachusetts, United States; McLean, Virginia, United States')
+    check('phenom attaches the jobDetail description', intern.get('description'),
+          'Requires 1 year.')
+    details = [json.loads(c.request.body) for c in responses.calls
+               if json.loads(c.request.body).get('ddoKey') == 'jobDetail']
+    check('phenom fetches detail for title-level candidates only',
+          sorted(d['jobId'] for d in details), ['R900', 'R901'])
+    check('phenom detail carries the job sequence number',
+          next(d['jobSeqNo'] for d in details if d['jobId'] == 'R900'),
+          'ACMEUSR900EXTERNAL')
+    check('phenom drops its private fields', any('_seq' in j for j in jobs), False)
+
+
+@responses.activate
+def test_phenom_caps_pages_on_a_fuzzy_match():
+    # BAE's 'cyber' query matches 1,843 postings; only the ranked prefix is read.
+    size = sj.PHENOM_PAGE_SIZE
+    for page in range(sj.PHENOM_MAX_PAGES + 2):
+        _ph_search('cyber', page * size, [_ph_job(page * size + n) for n in range(size)],
+                   5000)
+    _ph_search('intern', 0, [], 0)
+    jobs = sj.scrape_phenom('Acme', 'careers.acme.org', 'en_us', 'us')
+    check('phenom stops at PHENOM_MAX_PAGES', len(jobs), sj.PHENOM_MAX_PAGES * size)
+
+
+@responses.activate
+def test_phenom_none_vs_empty():
+    _ph_search('cyber', 0, [], 0)
+    _ph_search('intern', 0, [], 0)
+    check('phenom empty board -> []',
+          sj.scrape_phenom('Acme', 'careers.acme.org', 'en_us', 'us'), [])
+    responses.reset()
+    responses.post(PH_API, status=404)
+    check('phenom dead host -> None',
+          sj.scrape_phenom('Acme', 'careers.acme.org', 'en_us', 'us'), None)
+
+
+def test_new_boards_validate_config_and_plumb_through():
+    check('eightfold rejects a tenant with /',
+          sj.scrape_eightfold('X', 'evil.com/', 'x.com'), None)
+    check('eightfold rejects a domain with @',
+          sj.scrape_eightfold('X', 'acme', 'a@b.com'), None)
+    check('phenom rejects a host with a path',
+          sj.scrape_phenom('X', 'evil.com/x', 'en_us', 'us'), None)
+    check('phenom rejects a lang with /', sj.scrape_phenom('X', 'a.org', 'en/us', 'us'), None)
+    config = {
+        'eightfold': [{'name': 'E', 'tenant': 'e', 'domain': 'e.com',
+                       'search_terms': ['security']}],
+        'phenom': [{'name': 'P', 'host': 'jobs.p.com', 'lang': 'en_global',
+                    'country': 'global'}],
+    }
+    check('build_tasks passes eightfold and phenom entries through',
+          [(t.label, t.args) for t in sj.build_tasks(config)][:2],
+          [('E (eightfold/e)', ('E', 'e', 'e.com', False, ['security'])),
+           ('P (phenom/jobs.p.com)', ('P', 'jobs.p.com', 'en_global', 'global', False, None))])
+    check('fingerprint Eightfold',
+          sj.job_fingerprint('Acme', 'Eightfold',
+                             'https://acme.eightfold.ai/careers/job/996476900832'),
+          ('Acme', 'Eightfold', '996476900832'))
+    check('fingerprint Phenom',
+          sj.job_fingerprint('Acme', 'Phenom', 'https://careers.acme.org/us/en/job/R117365'),
+          ('Acme', 'Phenom', 'R117365'))
+
+
+@responses.activate
+def test_main_writes_run_events_with_inserted_row():
+    responses.get(
+        'https://boards-api.greenhouse.io/v1/boards/acme/jobs',
+        json={'jobs': [{'id': 7, 'title': 'Security Engineering Intern',
+                        'location': {'name': 'Austin, TX'},
+                        'absolute_url': 'https://boards.greenhouse.io/acme/jobs/7',
+                        'content': 'Summer 2027 internship'}]})
+    saved = (sj.LISTINGS_FILE, sj.SEEN_JOBS_FILE, sj.BOARD_BASELINE_FILE,
+             sj.rebuild_readme.main, sys.argv, os.getcwd())
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        (tmp / 'companies.yml').write_text('greenhouse:\n  - name: Acme\n    slug: acme\n')
+        events_file = tmp / 'run_events.json'
+        os.environ['RUN_EVENTS_FILE'] = str(events_file)
+        try:
+            os.chdir(tmp)
+            sj.LISTINGS_FILE = tmp / 'listings.json'
+            sj.SEEN_JOBS_FILE = tmp / 'seen_jobs.json'
+            sj.BOARD_BASELINE_FILE = tmp / 'board_baseline.json'
+            sj.rebuild_readme.main = lambda: None
+            sys.argv = ['scrape_jobs.py', '--board', 'greenhouse']
+            sj.main()
+            events = json.loads(events_file.read_text())
+        finally:
+            del os.environ['RUN_EVENTS_FILE']
+            (sj.LISTINGS_FILE, sj.SEEN_JOBS_FILE, sj.BOARD_BASELINE_FILE,
+             sj.rebuild_readme.main, sys.argv, cwd) = saved
+            os.chdir(cwd)
+    check('events file carries the schema version', events['schema_version'], 1)
+    check('events file lists the inserted row',
+          [(r['company'], r['role'], r['type']) for r in events['added']],
+          [('Acme', 'Security Engineering Intern', 'intern')])
+    check('events file has no revived or retired rows',
+          (events['revived'], events['retired']), ([], []))
+
+
+# --- notify.py -----------------------------------------------------------------
+RUN_AT = '2026-09-23T13:37:00Z'
+GH = 'https://api.github.com/repos/o/r'
+
+
+def _row(company, role, kind='intern', **extra):
+    row = {'company': company, 'role': role, 'location': 'Austin, TX', 'type': kind,
+           'category': 'Security Engineering', 'clearance': False,
+           'url': f'https://x/{company}/{role}'.replace(' ', '-'), 'source': 'Greenhouse',
+           'date_added': '2026-09-23'}
+    row.update(extra)
+    return row
+
+
+def _events(added):
+    return {'schema_version': 1, 'run_at': RUN_AT, 'added': added,
+            'revived': [], 'retired': []}
+
+
+check('format_row neutralises mentions, links and HTML in scraped fields',
+      notify.format_row(_row('Acme', 'Intern @octocat [x](https://evil) <b>',
+                             url='https://x/a_(b)'), set()),
+      '- **Acme**: Intern @&#8203;octocat \\[x\\](https://evil) &lt;b&gt; · Austin, TX · '
+      'Security Engineering · [Apply](https://x/a_%28b%29)')
+check('format_row caps a long site list',
+      notify.format_row(_row('Acme', 'SOC Intern', location='A, TX; B, TX; C, TX; D, TX'),
+                        set()).split(' · ')[1], 'A, TX; B, TX; 2 more')
+
+
+def _release_payload():
+    posts = [c for c in responses.calls if c.request.url.endswith('/releases')]
+    return json.loads(posts[0].request.body) if posts else None
+
+
+def _mock_github(issues=()):
+    responses.post(f'{GH}/releases', status=201, json={'html_url': 'https://rel'})
+    responses.get(f'{GH}/issues', json=list(issues))
+    responses.post(f'{GH}/issues', status=201, json={'number': 99, 'locked': False})
+    responses.post(re.compile(rf'{GH}/issues/\d+/comments'), status=201, json={})
+    responses.put(re.compile(rf'{GH}/issues/\d+/lock'), status=204)
+    responses.delete(re.compile(rf'{GH}/issues/\d+/lock'), status=204)
+
+
+@responses.activate
+def test_notify_skips_release_when_nothing_added():
+    posted = notify.announce(_events([]), [], 'tok', 'o/r')
+    check('notify posts nothing when no row was added', posted, [])
+    check('notify makes no HTTP call when no row was added', len(responses.calls), 0)
+
+
+@responses.activate
+def test_notify_burst_cap_lists_ten_student_rows():
+    _mock_github()
+    added = ([_row('Intern Co', f'Security Intern {i}') for i in range(8)]
+             + [_row('Grad Co', f'Security Analyst New Grad {i}', 'newgrad') for i in range(6)]
+             + [_row('Early Co', f'Security Analyst I {i}', 'earlycareer') for i in range(9)])
+    notify.announce(_events(added), [], 'tok', 'o/r')
+    body = _release_payload()['body']
+    check('burst release states the counts per type',
+          '**23 new roles** this run: 8 intern, 6 new grad, 9 early career.' in body, True)
+    check('burst release lists ten rows', body.count('\n- **'), 10)
+    check('burst release leaves early-career rows to the board', 'Early Co' in body, False)
+    check('burst release links the board',
+          '[board](https://github.com/o/r#readme)' in body, True)
+
+
+@responses.activate
+def test_notify_puts_security_company_rows_last():
+    _mock_github()
+    added = [_row('CrowdStrike', 'Software Engineer Intern'),
+             _row('Acme', 'SOC Analyst Intern', clearance=True)]
+    earlier = [_row('CrowdStrike', 'Old', date_added='2026-09-01'),
+               _row('Acme', 'Old', date_added='2026-09-01')]
+    notify.announce(_events(added), earlier, 'tok', 'o/r')
+    body = _release_payload()['body']
+    check('cyber rows stay under their type heading',
+          body.startswith('## 🎒 Internships (1)\n- **Acme** 🇺🇸: SOC Analyst Intern'), True)
+    check('non-cyber rows go under the security-company heading',
+          '## 🛡️ Also hiring at security companies (1)\n- **CrowdStrike**: '
+          'Software Engineer Intern · Austin, TX · intern' in body, True)
+
+
+@responses.activate
+def test_notify_opener_leads_the_title():
+    _mock_github()
+    added = [_row('Amazon', 'Security Engineer Internship 2027 (US)'),
+             _row('Northrop Grumman', '2027 Intern, Cybersecurity Engineer'),
+             _row('Anduril', 'Security Engineer', 'earlycareer')]
+    listings = added + [
+        _row('Northrop Grumman', 'Cyber Intern', closed=True, closed_date='2026-09-01'),
+        # Closed more than 60 days ago, so it no longer counts against Amazon.
+        _row('Amazon', 'Old Intern', closed=True, closed_date='2026-07-01')]
+    notify.announce(_events(added), listings, 'tok', 'o/r')
+    payload = _release_payload()
+    check('opener leads the release title', payload['name'],
+          '🚨 Amazon opened intern hiring · 3 new roles')
+    check('opener row carries the siren',
+          '- **Amazon** 🚨: Security Engineer Internship 2027 (US)' in payload['body'], True)
+    check('a company with a recent intern row is not an opener',
+          '**Northrop Grumman** 🚨' in payload['body'], False)
+    check('release tag is the run minute in UTC', payload['tag_name'], 'roles-20260923-1337')
+    check('release becomes latest on main',
+          (payload['make_latest'], payload['target_commitish']), ('true', 'main'))
+
+
+@responses.activate
+def test_notify_unlocks_comments_and_relocks():
+    issue = {'number': 5, 'locked': True, 'author_association': 'OWNER',
+             'body': 'Subscribe\n<!-- alert-stream: earlycareer -->'}
+    stranger = {'number': 6, 'locked': False, 'author_association': 'NONE',
+                'body': '<!-- alert-stream: earlycareer -->'}
+    _mock_github([issue, stranger])
+    notify.announce(_events([_row('Acme', 'Security Analyst I', 'earlycareer')]),
+                    [], 'tok', 'o/r')
+    calls = [(c.request.method, c.request.url.removeprefix(GH))
+             for c in responses.calls if '/issues/5' in c.request.url]
+    check('an owner issue is unlocked, commented on and relocked', calls,
+          [('DELETE', '/issues/5/lock'), ('POST', '/issues/5/comments'),
+           ('PUT', '/issues/5/lock')])
+    check("a stranger's issue with the marker is ignored",
+          any('/issues/6' in c.request.url for c in responses.calls), False)
+
+
+@responses.activate
+def test_notify_fails_when_relock_fails():
+    issue = {'number': 5, 'locked': True, 'author_association': 'OWNER',
+             'body': '<!-- alert-stream: earlycareer -->'}
+    responses.post(f'{GH}/releases', status=201, json={})
+    responses.get(f'{GH}/issues', json=[issue])
+    responses.delete(f'{GH}/issues/5/lock', status=204)
+    responses.post(f'{GH}/issues/5/comments', status=201, json={})
+    responses.put(f'{GH}/issues/5/lock', status=403)
+    try:
+        notify.announce(_events([_row('Acme', 'Security Analyst I', 'earlycareer')]),
+                        [], 'tok', 'o/r')
+        raised = False
+    except RuntimeError:
+        raised = True
+    check('a failed relock fails the step', raised, True)
+
+
+@responses.activate
+def test_notify_creates_missing_stream_issue():
+    _mock_github()
+    notify.announce(_events([_row('Acme', 'Security Analyst I', 'earlycareer')]),
+                    [], 'tok', 'o/r')
+    created = [json.loads(c.request.body) for c in responses.calls
+               if c.request.method == 'POST' and c.request.url == f'{GH}/issues']
+    check('a missing stream issue is created once', len(created), 1)
+    check('the new issue is titled and labeled for its stream',
+          (created[0]['title'], created[0]['labels']), ('🌱 Early-career alerts', ['alerts']))
+    check('the new issue carries the stream marker',
+          '<!-- alert-stream: earlycareer -->' in created[0]['body'], True)
+    sequence = [(c.request.method, c.request.url.removeprefix(GH))
+                for c in responses.calls if '/issues/99' in c.request.url]
+    check('the new issue gets the comment and is then locked', sequence,
+          [('POST', '/issues/99/comments'), ('PUT', '/issues/99/lock')])
+
+
 for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_ashby, test_ashby_schema_drift_warns,
-           test_smartrecruiters_pagination_short_page_stops, test_oracle,
+           test_smartrecruiters_pagination_short_page_stops,
+           test_check_slugs_flags_unknown_smartrecruiters_id, test_oracle,
            test_fetch_json_retries_transient, test_fetch_json_gives_up_on_404,
            test_slug_validation_blocks_host_reparenting,
            test_workday_total_failure_returns_none,
@@ -627,7 +1329,27 @@ for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_scrape_boards_preserves_config_order,
            test_build_tasks_honors_board_and_limit, test_board_health_streaks,
            test_board_health_migrates_and_survives_a_corrupt_baseline,
-           test_compare_runs_reports_flips_only):
+           test_compare_runs_reports_flips_only,
+           test_check_links_closes_after_two_dead_days,
+           test_workday_total_only_on_first_page, test_workday_flags_a_cut_short_sweep,
+           test_incomplete_sweep_retires_nothing,
+           test_partial_workday_sweep_asks_the_detail_endpoint, test_workday_posting_state,
+           test_long_silent_board_retires_its_rows,
+           test_greenhouse_remote_keeps_a_remote_label,
+           test_pinpoint_remote_is_us_only_for_usa_locations,
+           test_oracle_fetches_descriptions_for_candidates,
+           test_eightfold_paginates_backs_off_and_gates_levels,
+           test_eightfold_none_vs_empty, test_eightfold_gives_up_after_sustained_429,
+           test_eightfold_schema_drift_is_empty_not_crash,
+           test_phenom_paginates_and_fetches_details,
+           test_phenom_caps_pages_on_a_fuzzy_match, test_phenom_none_vs_empty,
+           test_new_boards_validate_config_and_plumb_through,
+           test_main_writes_run_events_with_inserted_row,
+           test_notify_skips_release_when_nothing_added,
+           test_notify_burst_cap_lists_ten_student_rows,
+           test_notify_puts_security_company_rows_last,
+           test_notify_opener_leads_the_title, test_notify_unlocks_comments_and_relocks,
+           test_notify_fails_when_relock_fails, test_notify_creates_missing_stream_issue):
     fn()
 
 if failures:
