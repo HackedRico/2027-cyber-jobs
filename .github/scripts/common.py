@@ -2,14 +2,14 @@
 """Shared helpers used by more than one script.
 
 Kept dependency-free (stdlib only) so the classification test suite and the
-scraper both import the SAME url/issue logic — the URL dedup guard only works
+scraper both import the SAME url/issue logic. The URL dedup guard only works
 if the scraper and the community-submission flow normalize identically.
 """
 
 import re
 from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
 
-from classify import US_STATES
+from classify import DC_SPELLING_RE, REGION_CODE_RE, US_STATES, normalize_location
 
 # Tracking params stripped before URL comparison so the same posting under
 # different campaign tags dedupes to one listing.
@@ -80,11 +80,36 @@ def parse_issue_body(body):
 REMOTE_RE = re.compile(r'^remote\s*(\(us\)|\(usa\)|\(united states\))?$', re.IGNORECASE)
 BARE_COUNTRY_RE = re.compile(r'^(us|usa|united states|nationwide)$', re.IGNORECASE)
 CITY_STATE_RE = re.compile(r'^.+,\s*([A-Z]{2})$')
+SUBMITTED_SPLIT_RE = re.compile(r'[;\n]')
+
+
+def _fix_typed_spelling(part):
+    # normalize_location reads scraper shapes; a person types "Washington,
+    # D.C." and "McLean, Va", which it passes through unchanged.
+    part = DC_SPELLING_RE.sub('Washington, DC', part.strip())
+    return REGION_CODE_RE.sub(lambda m: f', {m.group(1).upper()}', part)
+
+
+def normalize_submitted_location(location):
+    """Return a form location in the board's "City, ST; Remote (US)" shape.
+
+    Runs the scraper's normalize_location over the whole string, so a foreign
+    option beside a US one is dropped the same way it is for scraped rows.
+    """
+    parts = [_fix_typed_spelling(p) for p in SUBMITTED_SPLIT_RE.split(location or '')
+             if p.strip()]
+    return normalize_location('; '.join(parts)) or ''
 
 
 def validate_location(location):
-    """Return a list of error strings for a submitted location, empty if valid."""
-    parts = [p.strip() for p in re.split(r'[;\n]', location) if p.strip()]
+    """Return a list of error strings for a submitted location, empty if valid.
+
+    The location is normalized first, so the spellings the scraper's location
+    rules accept for a US place ("Arlington, Virginia", "Arlington VA",
+    "Washington, D.C.") pass here too.
+    """
+    parts = [p.strip() for p in normalize_submitted_location(location).split(';')
+             if p.strip()]
     if not parts:
         return ['location is empty']
     errors = []
@@ -94,13 +119,25 @@ def validate_location(location):
         m = CITY_STATE_RE.match(part)
         if not m:
             errors.append(
-                f'`{part}` — use "City, ST" format (e.g. "Arlington, VA") '
+                f'`{part}`: use "City, ST" format (e.g. "Arlington, VA") '
                 f'or "Remote (US)"'
             )
-            continue
-        if m.group(1) not in US_STATES:
+        elif m.group(1) not in US_STATES:
             errors.append(
-                f'`{part}` — `{m.group(1)}` is not a US state code. '
+                f'`{part}`: `{m.group(1)}` is not a US state code. '
                 f'This board is US-only.'
             )
     return errors
+
+
+def security_company_names(config):
+    """Lowercased names of companies.yml entries flagged `security_company`.
+
+    Takes the parsed config so this module stays stdlib-only.
+    """
+    names = set()
+    for entries in (config or {}).values():
+        for entry in entries or []:
+            if isinstance(entry, dict) and entry.get('security_company'):
+                names.add(str(entry.get('name', '')).strip().lower())
+    return names
