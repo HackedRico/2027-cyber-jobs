@@ -4,7 +4,88 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **358 companies tracked.**
 
-## Ashby (76)
+## Hiring students now (72)
+
+Employers with open roles on the board today.
+
+| Company | Internships | New grad | Early career |
+| ------- | ----------- | -------- | ------------ |
+| Vanguard | 5 |  |  |
+| Palo Alto Networks | 4 |  | 2 |
+| Tanium | 4 |  |  |
+| Nightwing | 3 |  | 14 |
+| RTX | 3 |  | 10 |
+| Cisco | 3 |  | 2 |
+| Immuta | 3 |  | 1 |
+| Walmart | 3 |  |  |
+| Northrop Grumman | 1 | 1 | 12 |
+| JPMorgan Chase |  | 2 | 3 |
+| Blackpoint Cyber | 2 |  |  |
+| Robinhood | 2 |  |  |
+| The Cigna Group | 1 | 1 |  |
+| The Home Depot | 1 |  | 3 |
+| Appian | 1 |  | 1 |
+| Motorola Solutions | 1 |  | 1 |
+| Anduril |  | 1 |  |
+| Applied Intuition |  | 1 |  |
+| Bank of America | 1 |  |  |
+| Boeing | 1 |  |  |
+| Deloitte |  | 1 |  |
+| Jumio |  | 1 |  |
+| Northern Trust | 1 |  |  |
+| NVIDIA |  | 1 |  |
+| Okta |  | 1 |  |
+| Palantir | 1 |  |  |
+| Prophet Security | 1 |  |  |
+| Semgrep | 1 |  |  |
+| Sierra Nevada Corporation | 1 |  |  |
+| Snowflake | 1 |  |  |
+| TRM Labs |  | 1 |  |
+| Verkada | 1 |  |  |
+| Anthropic |  |  | 18 |
+| Amazon |  |  | 11 |
+| CrowdStrike |  |  | 6 |
+| CACI |  |  | 4 |
+| Entrust |  |  | 4 |
+| Amentum |  |  | 3 |
+| KBR |  |  | 3 |
+| Leidos |  |  | 3 |
+| Recorded Future |  |  | 3 |
+| SAIC |  |  | 3 |
+| Abnormal AI |  |  | 2 |
+| ExtraHop |  |  | 2 |
+| Fireblocks |  |  | 2 |
+| Pinterest |  |  | 2 |
+| Booz Allen Hamilton |  |  | 1 |
+| Chainalysis |  |  | 1 |
+| Character AI |  |  | 1 |
+| Delinea |  |  | 1 |
+| DigiCert |  |  | 1 |
+| Dragos |  |  | 1 |
+| Duke Energy |  |  | 1 |
+| Everfox |  |  | 1 |
+| Expel |  |  | 1 |
+| HII |  |  | 1 |
+| ICF |  |  | 1 |
+| ID.me |  |  | 1 |
+| Illumio |  |  | 1 |
+| Kudelski Security |  |  | 1 |
+| Lakera |  |  | 1 |
+| MIT Lincoln Laboratory |  |  | 1 |
+| Obsidian Security |  |  | 1 |
+| OpenAI |  |  | 1 |
+| Praetorian |  |  | 1 |
+| Proofpoint |  |  | 1 |
+| ReliaQuest |  |  | 1 |
+| SailPoint |  |  | 1 |
+| Tenable |  |  | 1 |
+| Todyl |  |  | 1 |
+| Truist |  |  | 1 |
+| Two Six Technologies |  |  | 1 |
+
+## Every tracked board (358)
+
+### Ashby (76)
 
 - 1Password 🛡️
 - Airbyte
@@ -83,7 +164,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - WorkOS 🛡️
 - Zapier
 
-## Greenhouse (146)
+### Greenhouse (146)
 
 - Abnormal AI 🛡️
 - Affirm
@@ -232,7 +313,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Yubico 🛡️
 - Zscaler 🛡️
 
-## Lever (27)
+### Lever (27)
 
 - Anchorage Digital
 - Anomali 🛡️
@@ -262,23 +343,23 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - WatchGuard 🛡️
 - Xage Security 🛡️
 
-## Oracle (3)
+### Oracle (3)
 
 - JPMorgan Chase
 - SAIC
 - Southern Company
 
-## Pinpoint (1)
+### Pinpoint (1)
 
 - SANS Institute 🛡️
 
-## Recruitee (3)
+### Recruitee (3)
 
 - Aikido Security 🛡️
 - Lansweeper
 - Wallarm 🛡️
 
-## SmartRecruiters (8)
+### SmartRecruiters (8)
 
 - Check Point 🛡️
 - Jscrambler 🛡️
@@ -289,7 +370,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - Tufin 🛡️
 - Visa
 
-## Workable (21)
+### Workable (21)
 
 - Action1 🛡️
 - Anvilogic 🛡️
@@ -313,7 +394,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 - TrustedSec 🛡️
 - ZeroFox 🛡️
 
-## Workday (73)
+### Workday (73)
 
 - Accenture
 - Adobe

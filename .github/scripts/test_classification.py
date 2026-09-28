@@ -616,13 +616,89 @@ for name, ok in RENDER:
         failures += 1
         print(f'FAIL render: {name}')
 
-# The headline stat counts open roles; closed rows stay in the tables (🔒)
-# until the purge, so they must not inflate it.
-STAT_ROWS = [{'company': 'A'}, {'company': 'B', 'closed': True},
-             {'company': 'C', 'closed': False}]
-if rr.count_open(STAT_ROWS) != 2:
+# The headline counts rows by the same predicate the open tables use: closed
+# rows and url-less rows fold away, so neither may inflate a count.
+STAT_ROWS = [
+    {'company': 'A', 'type': 'intern', 'url': 'https://x/a', 'date_added': '2026-09-25',
+     'clearance': True},
+    {'company': 'B', 'type': 'intern', 'url': '', 'closed': True, 'date_added': '2026-09-25'},
+    {'company': 'C', 'type': 'newgrad', 'url': 'https://x/c', 'closed': False,
+     'date_added': '2026-09-01'},
+    {'company': 'D', 'type': 'earlycareer', 'url': '', 'date_added': '2026-09-26'},
+    {'company': 'E', 'type': 'earlycareer', 'url': 'https://x/e', 'date_added': '2026-09-20'},
+]
+stat_counts = rr.count_open_by_type(STAT_ROWS)
+if (stat_counts['intern'], stat_counts['newgrad'], stat_counts['earlycareer']) != (1, 1, 1):
     failures += 1
-    print(f'FAIL count_open = {rr.count_open(STAT_ROWS)}, want 2')
+    print(f'FAIL count_open_by_type = {dict(stat_counts)!r}, want one open row per type')
+stat = rr.stats_line(STAT_ROWS, '2026-09-27')
+for want in ('**1** internships', '**1** new grad', '**1** early career open',
+             '**2** added in the last 7 days', '**1** need a clearance', 'updated Sep 27, 2026'):
+    if want not in stat:
+        failures += 1
+        print(f'FAIL stats_line missing {want!r}: {stat!r}')
+
+# Rebuild layout. Two same-company, same-date rows collapse under ↳, and the
+# 🇺🇸 flag must follow the row that carries clearance, not the group's first.
+PAIR = [
+    {'company': 'Acme', 'role': 'Analyst I', 'type': 'earlycareer', 'url': 'https://x/1',
+     'date_added': '2026-09-01', 'category': 'SOC & Detection', 'clearance': False,
+     'location': 'Austin, TX'},
+    {'company': 'Acme', 'role': 'Analyst II', 'type': 'earlycareer', 'url': 'https://x/2',
+     'date_added': '2026-09-01', 'category': 'SOC & Detection', 'clearance': True,
+     'location': 'Austin, TX'},
+]
+pair_rows = rr.build_table(PAIR, '2026-09-27')
+flag_rows = [r for r in pair_rows if '🇺🇸' in r]
+if len(pair_rows) != 2 or len(flag_rows) != 1 or not flag_rows[0].startswith('| ↳ | Analyst II 🇺🇸'):
+    failures += 1
+    print(f'FAIL 🇺🇸 flag should sit on the ↳ Analyst II row only: {pair_rows!r}')
+if not pair_rows[0].startswith('| Acme | Analyst I<br><sub>SOC &amp; Detection</sub> | <a href='):
+    failures += 1
+    print(f'FAIL row layout should be Company, Role + category, Apply: {pair_rows[0]!r}')
+if 'alt="Apply: Acme Analyst I"' not in pair_rows[0] or 'target=' in pair_rows[0]:
+    failures += 1
+    print(f'FAIL apply badge alt text / attributes: {pair_rows[0]!r}')
+if '🆕' in pair_rows[0] or '🆕 Analyst I' not in rr.build_table(PAIR, '2026-09-05')[0]:
+    failures += 1
+    print('FAIL 🆕 should mark rows added within the last 7 days only')
+
+# Closed rows fold into their own table, newest closure first, grouped among
+# themselves; the open table keeps only open rows and writes its own header.
+BOARD = PAIR + [
+    {'company': 'Beta', 'role': 'Old Intern', 'type': 'earlycareer', 'url': '', 'closed': True,
+     'closed_date': '2026-09-10', 'date_added': '2026-08-01'},
+    {'company': 'Beta', 'role': 'Older Intern', 'type': 'earlycareer', 'url': '', 'closed': True,
+     'closed_date': '2026-09-10', 'date_added': '2026-07-01'},
+    {'company': 'Gamma', 'role': 'Dead Link', 'type': 'earlycareer', 'url': '',
+     'date_added': '2026-09-20'},
+]
+SKELETON = '\n'.join(
+    ['<!-- STATS -->', 'stale', '<!-- /STATS -->', '<!-- LEGEND -->', '<!-- /LEGEND -->']
+    + [f'<!-- TABLE_START {t} -->\n| Old | Header |\n| --- | --- |\n<!-- TABLE_END {t} -->\n'
+       f'<!-- CLOSED_START {t} -->\n<!-- CLOSED_END {t} -->' for t in rr.TABLE_TYPES])
+page = rr.render_readme(SKELETON, BOARD, '2026-09-27')
+ec_open = page.split('<!-- TABLE_START earlycareer -->')[1].split('<!-- TABLE_END')[0]
+ec_closed = page.split('<!-- CLOSED_START earlycareer -->')[1].split('<!-- CLOSED_END')[0]
+if rr.TABLE_HEADER not in ec_open or '| Old | Header |' in page or ec_open.count('\n| ') != 4:
+    failures += 1
+    print(f'FAIL open table should hold TABLE_HEADER and the two open rows: {ec_open!r}')
+if ('🔒 3 closed in the last 60 days' not in ec_closed
+        or ec_closed.index('Dead Link') > ec_closed.index('Old Intern')
+        or '| ↳ | Older Intern | Sep 10 |' not in ec_closed):
+    failures += 1
+    print(f'FAIL closed block: {ec_closed!r}')
+if '<!-- CLOSED_START intern -->\n<!-- CLOSED_END intern -->' not in page:
+    failures += 1
+    print('FAIL a type with no closed rows should render an empty closed block')
+
+# The legend is generated from classify.CATEGORY_RULES; a new category must
+# show up there with a one-line explanation.
+legend = '\n'.join(rr.legend_lines())
+for name in [*s.CATEGORY_NAMES, *s.FALLBACK_CATEGORIES]:
+    if f'**{rr.escape_cell(name)}**: ' not in legend:
+        failures += 1
+        print(f'FAIL legend has no line for category {name!r}; add it to CATEGORY_BLURBS')
 
 # strip_html caps pathological input so the tag-strip regex stays sub-quadratic.
 _huge = '<' * 300000
