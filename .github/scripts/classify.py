@@ -675,6 +675,13 @@ USA_UNDERSCORE_RE = re.compile(r'^USA?_([A-Z]{2})_(.+)$')
 # Walmart Workday: "(USA) ISD Office - DGTC AR BENTONVILLE Home Office".
 HOME_OFFICE_RE = re.compile(r'\b([A-Z]{2})\s+([A-Z][A-Z ]+?)\s+Home Office$')
 CITY_SPACE_STATE_RE = re.compile(r'^([A-Za-z .\']+)\s+([A-Z]{2})$')
+# Workday appends ", More..." when a req lists further sites: "Chicago, IL,
+# More...".
+MORE_SITES_RE = re.compile(r',?\s*more\.{3}$', re.IGNORECASE)
+# A state code before the city: JPMorgan's "VA, McLean".
+STATE_COMMA_CITY_RE = re.compile(r'^([A-Z]{2}),\s*([A-Za-z .\']+)$')
+# The Home Depot's site names: "STORE SUPPORT CENTER, ATLANTA - 9090".
+SITE_CITY_STORE_RE = re.compile(r'^[A-Z .&\']+,\s*([A-Z .\']+?)\s*-\s*\d+$')
 
 # Bare cities that need no state to be unambiguous on a US board. Names that
 # exist in several states (Portland, Columbia, Arlington, Cambridge) are
@@ -725,6 +732,18 @@ def _normalize_single_location(location):
     # lookahead requires a two-letter state code, so the spelled-out
     # "United States-California-Palmdale" form below still matches.
     location = COUNTRY_PREFIX_RE.sub('', location)
+    location = MORE_SITES_RE.sub('', location).strip()
+    # A leading code is a country as often as a state ("IL, Haifa"), so only a
+    # city this module already places in that state is rewritten.
+    m = STATE_COMMA_CITY_RE.fullmatch(location)
+    if m and BARE_CITY_STATE.get(m.group(2).strip().lower()) == m.group(1):
+        return f'{m.group(2).strip()}, {m.group(1)}'
+    m = SITE_CITY_STORE_RE.fullmatch(location)
+    if m:
+        city = _title_city(m.group(1))
+        state = BARE_CITY_STATE.get(city.lower())
+        if state:
+            return f'{city}, {state}'
     # Amazon: "US, MA, Boston" -> "Boston, MA"; Intel: "US, Oregon, Hillsboro"
     m = re.fullmatch(r'(?:USA?|United States),\s*([A-Za-z .]+),\s*(.+)', location)
     if m:
@@ -1366,7 +1385,12 @@ def listing_dedup_key(company, role, location):
     """
     def norm(value):
         return re.sub(r'\s+', ' ', (value or '').strip()).lower()
-    return norm(company), norm(role), norm(location)
+    # Reposts of one req list the same sites in any order and spacing:
+    # JPMorgan's two 'Hiring Event' reqs read 'McLean, VA; Jersey City, NJ' and
+    # 'Jersey City, NJ; Mc Lean, VA'.
+    sites = {re.sub(r'\s+', '', p).lower()
+             for p in re.split(r'[;|]', location or '') if p.strip()}
+    return norm(company), norm(role), ';'.join(sorted(sites))
 
 
 def _parse_date(value):

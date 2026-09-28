@@ -339,6 +339,14 @@ NORM = [
     ('US-DC-Washington', 'Washington, DC'),
     # ...while the spelled-out country/state form still resolves.
     ('United States-California-Palmdale', 'Palmdale, CA'),
+    # Workday's ", More..." suffix, a state code ahead of its city, and The
+    # Home Depot's "<SITE>, <CITY> - <store number>" site names.
+    ('Chicago, IL, More...', 'Chicago, IL'),
+    ('Illinois Remote Work, More...', 'Remote, IL'),
+    ('VA, McLean', 'McLean, VA'),
+    ('IL, Haifa', 'IL, Haifa'),  # IL is Israel here; an unknown city is left alone
+    ('STORE SUPPORT CENTER, ATLANTA - 9090', 'Atlanta, GA'),
+    ('OH, United States', 'OH'),
 ]
 for raw, want in NORM:
     got = s.normalize_location(raw)
@@ -370,6 +378,20 @@ renorm_locs = [r['location'] for r in renorm_rows]
 if renorm_n != 1 or renorm_locs != ['Baltimore, MD', 'Austin, TX', 'HQ - Sunnyvale (Office)', 'CASD14']:
     failures += 1
     print(f'FAIL renormalize_locations: changed={renorm_n}, locations={renorm_locs}')
+
+# listing_dedup_key: reposts of one req list the same sites in any order and
+# spacing, and must collapse to one row.
+DEDUP = [
+    (('JPMorgan Chase', 'Hiring Event', 'McLean, VA; Jersey City, NJ'),
+     ('JPMorgan Chase', 'Hiring Event', 'Jersey City, NJ; Mc Lean, VA'), True),
+    (('Acme', 'SOC Analyst I', 'Austin, TX'), ('acme', 'SOC  Analyst I', 'Austin, TX'), True),
+    (('Acme', 'SOC Analyst I', 'Austin, TX'), ('Acme', 'SOC Analyst I', 'Austin, TX; Dallas, TX'), False),
+]
+for a, b, want in DEDUP:
+    got = s.listing_dedup_key(*a) == s.listing_dedup_key(*b)
+    if got != want:
+        failures += 1
+        print(f'FAIL listing_dedup_key({a!r}) == ({b!r}) is {got}, want {want}')
 
 LEVEL = [
     ('SOC Level 10 Analyst', None),           # 'level 1' not inside 'level 10'
