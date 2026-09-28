@@ -1042,10 +1042,15 @@ def _is_cyber_keyword_hit(t):
 # Scientist / Software Developer, Junior - Security Clearance Required' and RTX
 # 'Software Engineer I, CDS (Onsite - Security Clearance)' matched 'security'.
 SECURITY_CLEARANCE_RE = re.compile(r'\bsecurity clearance\b')
+# "National Security" names a customer or a business unit, not the work:
+# Salesforce 'Systems Engineering Associate - GovCloud [Salesforce National
+# Security]' and KBR 'National Security Solutions (NSS) Semiconductor Research
+# Internship' matched 'security'. A title that also says 'cyber' keeps it.
+NATIONAL_SECURITY_RE = re.compile(r'\bnational security(?: solutions)?\b')
 
 
 def _has_cyber_keyword(t):
-    t = SECURITY_CLEARANCE_RE.sub(' ', t)
+    t = NATIONAL_SECURITY_RE.sub(' ', SECURITY_CLEARANCE_RE.sub(' ', t))
     return _is_cyber_keyword_hit(t) or any(p.search(t) for p in CYBER_REGEXES)
 
 

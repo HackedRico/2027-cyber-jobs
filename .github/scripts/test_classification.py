@@ -154,6 +154,14 @@ CASES = [
     ('Software Engineer I, CDS (Onsite - Security Clearance)', 'Cedar Rapids, IA', '', False, None),
     # ...while a cyber title that also names the clearance stays.
     ('Cyber Software Engineer I (Security Clearance Required)', 'Chantilly, VA', '', False, ('earlycareer', 'Security Engineering')),
+    # -- should be rejected: "National Security" is a customer, not the work --
+    ('Systems Engineering Associate - GovCloud [Salesforce National Security]', 'Reston, VA', '', False, None),
+    ('National Security Solutions (NSS) Semiconductor Research Internship', 'Huntsville, AL', '', False, None),
+    ('Associate Software Engineer, National Security Programs', 'Columbia, MD', '', False, None),
+    # ...while a title with its own cyber signal stays.
+    ('National Security Cyber Analyst I', 'Columbia, MD', '', False, ('earlycareer', 'Security Engineering')),
+    ('Associate Security Engineer, National Security', 'Reston, VA', '', False, ('earlycareer', 'Security Engineering')),
+    ('Junior Threat Analyst - National Security Solutions', 'Chantilly, VA', '', False, ('earlycareer', 'Security Engineering')),
     # -- should be rejected: facility-security work behind a bare 'security' title --
     ('Security Specialist II', 'Cambridge, MA',
      'Maintain classified document control and personnel security processing '
