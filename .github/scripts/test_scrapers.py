@@ -1503,6 +1503,26 @@ def test_smartrecruiters_fetches_descriptions_for_candidates():
                           True), None)
 
 
+# --- Workday: Motorola writes "More..." where others write "N Locations" -----
+@responses.activate
+def test_workday_more_suffix_fetches_locations():
+    check('multi-location labels',
+          [bool(sj.MULTI_LOCATION_RE.search(x)) for x in
+           ('3 Locations', 'Chicago, IL, More...', 'Chicago, IL', 'Elmore...')],
+          [True, True, False, False])
+    path = '/job/Chicago-IL/Cybersecurity-Analyst-I_R59000'
+    responses.add_callback(responses.POST, WD_API, callback=_workday_pages({'cyber': [{
+        'total': 1, 'jobPostings': [{'title': 'Cybersecurity Analyst I', 'externalPath': path,
+                                     'locationsText': 'Chicago, IL, More...'}]}]}))
+    responses.get(f'https://t.wd5.myworkdayjobs.com/wday/cxs/t/B{path}', json={
+        'jobPostingInfo': {'location': 'Chicago, IL',
+                           'additionalLocations': ['Plantation, FL', 'Allen, TX'],
+                           'jobDescription': '<p>Entry-level SOC role.</p>'}})
+    jobs = sj.scrape_workday('Motorola Solutions', 't', 'wd5', 'B')
+    check('a trailing More... takes every site from the detail endpoint',
+          jobs[0]['location'], 'Chicago, IL; Plantation, FL; Allen, TX')
+
+
 for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_ashby, test_ashby_schema_drift_warns,
            test_smartrecruiters_pagination_short_page_stops,
@@ -1544,7 +1564,8 @@ for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_main_writes_run_events_with_inserted_row,
            test_workable_reads_locations_and_description,
            test_lever_appends_lists_to_description,
-           test_smartrecruiters_fetches_descriptions_for_candidates):
+           test_smartrecruiters_fetches_descriptions_for_candidates,
+           test_workday_more_suffix_fetches_locations):
     fn()
 
 if failures:

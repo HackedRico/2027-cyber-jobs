@@ -498,7 +498,9 @@ def scrape_pinpoint(company, slug):
     return jobs
 
 
-MULTI_LOCATION_RE = re.compile(r'^\d+ locations$', re.IGNORECASE)
+# Most tenants hide a multi-site req behind "N Locations"; Motorola lists its
+# first site and a trailing "More..." ("Chicago, IL, More...") instead.
+MULTI_LOCATION_RE = re.compile(r'^\d+ locations$|(?:^|[\s,])more\.{3}$', re.IGNORECASE)
 
 # Search results are relevance-ranked, so student cyber titles sit near the top.
 # Paging every term to the end reached 227 title candidates across 73 tenants
@@ -661,7 +663,7 @@ def scrape_workday(company, tenant, instance, board, security_company=False,
             job['partial_sweep'] = True
         if not path or not _wants_detail(job['title'], security_company):
             continue
-        needs_locations = MULTI_LOCATION_RE.match(job['location'].strip())
+        needs_locations = MULTI_LOCATION_RE.search(job['location'].strip())
         location, description = fetch_workday_detail(cxs_root, path, wd_headers,
                                                      label=f'{company} Workday')
         if needs_locations and location:
