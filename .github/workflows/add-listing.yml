@@ -40,9 +40,27 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # Problems already on main only warn, so one old bad row cannot block
+          # every run until someone fixes it by hand.
+          git show HEAD:listings.json > "$RUNNER_TEMP/listings.base.json"
+          python .github/scripts/check_outputs.py --baseline "$RUNNER_TEMP/listings.base.json"
           git add listings.json README.md companies.md
-          git diff --staged --quiet || git commit -m "add community-submitted listings"
-          git pull --rebase -X theirs && git push
+          if git diff --staged --quiet; then exit 0; fi
+          git commit -m "add community-submitted listings"
+          before=$(git rev-parse HEAD)
+          # -X theirs keeps this run's side of a conflicting hunk, which can
+          # drop a row another writer pushed meanwhile. When main moved
+          # listings.json, rebuild the README from the merged file and check it
+          # again before pushing.
+          git pull --rebase -X theirs
+          if ! git diff --quiet "$before" HEAD -- listings.json; then
+            python .github/scripts/rebuild_readme.py
+            git show HEAD~1:listings.json > "$RUNNER_TEMP/listings.base.json"
+            python .github/scripts/check_outputs.py --baseline "$RUNNER_TEMP/listings.base.json"
+            git add listings.json README.md companies.md
+            git diff --staged --quiet || git commit --amend --no-edit
+          fi
+          git push
 
       # Runs after the push so an issue closes only once its row is on main. A
       # failed push leaves added issues open and approved for the next run.
