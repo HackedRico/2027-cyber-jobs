@@ -1426,7 +1426,7 @@ def test_workable_reads_locations_and_description():
 def test_lever_appends_lists_to_description():
     """Immuta 'Software Engineer II (Marketplace)' asks for 3 to 5 years in `lists`."""
     required = ('<div>\n\n<li><strong>Professional Experience:&nbsp;</strong>Typically '
-                '3–5 years of professional software engineering experience.</li>\n'
+                '3\u20135 years of professional software engineering experience.</li>\n'
                 '<li>Proficiency with TypeScript.</li>\n\n</div>')
     responses.get('https://api.lever.co/v0/postings/immuta', json=[{
         'id': '7f6f1d3a-8f64-4a4e-9b1c-1a2b3c4d5e6f', 'text': 'Software Engineer II (Marketplace)',
@@ -1440,7 +1440,7 @@ def test_lever_appends_lists_to_description():
           job['description'].startswith('Immuta is hiring a software engineer.\n\n'
                                         'CORE RESPONSIBILITIES\n'), True)
     check('lever list html is stripped',
-          ('<li>' in job['description'], 'Typically 3–5 years' in job['description']),
+          ('<li>' in job['description'], 'Typically 3\u20135 years' in job['description']),
           (False, True))
     check('the years in lists now reach the experience gate',
           sj.evaluate_job(job['title'], job['location'], job['description'], True), None)
