@@ -1220,16 +1220,28 @@ def _parse_date(value):
 def purge_stale_listings(listings, today, max_age_days=60):
     """Drop closed listings older than N days; return (kept, removed_count).
 
-    Only closed rows are eligible — an old but still-open posting is kept, so
+    Only closed rows are eligible, so an old but still-open posting is kept and
     the board doesn't silently discard a live long-running req. Age is measured
-    from closed_date, falling back to date_added. Community rows are exempt:
-    they can't self-heal through the scraper's revival path (they never appear
-    in raw_jobs), so a transient link-check failure must not delete them.
+    from closed_date, falling back to date_added. Community rows share the
+    clock: the link check now needs two dead days before it closes one, so a
+    single flake cannot start it.
+
+    A row with no url but no closed flag is closed here, stamped today. Amazon
+    'Software Dev Engineer II, Customer Service Security' sat that way as a
+    padlocked row that counted as open and could never age out. Closed rows
+    also shed their missing_since and dead_since streaks, which otherwise keep
+    the scraper saving listings.json for rows nothing will judge again.
     """
-    cutoff = (_parse_date(today) or datetime.now().date()) - timedelta(days=max_age_days)
+    today_date = _parse_date(today) or datetime.now().date()
+    cutoff = today_date - timedelta(days=max_age_days)
     kept, removed = [], 0
     for entry in listings:
-        if entry.get('closed') and entry.get('source') != 'Community':
+        if not entry.get('closed') and not (entry.get('url') or '').strip():
+            entry['closed'] = True
+            entry.setdefault('closed_date', today_date.isoformat())
+        if entry.get('closed'):
+            entry.pop('missing_since', None)
+            entry.pop('dead_since', None)
             stamp = _parse_date(entry.get('closed_date') or entry.get('date_added'))
             if stamp and stamp < cutoff:
                 removed += 1

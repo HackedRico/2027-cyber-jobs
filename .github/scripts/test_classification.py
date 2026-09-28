@@ -542,13 +542,23 @@ if ({e['company'] for e in rejected} != {'E', 'F'}
 # purge_stale_listings: drop long-closed rows, keep recent-closed and open ones.
 LIFECYCLE = [
     {'company': 'A', 'role': 'x', 'closed': True, 'closed_date': '2026-01-01'},  # old -> drop
-    {'company': 'B', 'role': 'y', 'closed': True, 'closed_date': '2026-07-10'},  # recent -> keep
-    {'company': 'C', 'role': 'z', 'date_added': '2026-01-01'},                   # open & old -> keep
+    {'company': 'B', 'role': 'y', 'closed': True, 'closed_date': '2026-07-10',
+     'missing_since': '2026-07-08'},                                             # recent -> keep
+    {'company': 'C', 'role': 'z', 'url': 'https://x/c', 'date_added': '2026-01-01'},  # open & old -> keep
+    {'company': 'D', 'role': 'w', 'closed': True, 'closed_date': '2026-01-01',
+     'source': 'Community'},                                                     # community, old -> drop
+    {'company': 'E', 'role': 'v', 'url': '', 'date_added': '2026-01-01'},        # url-less -> closed today
 ]
 kept, removed = s.purge_stale_listings([dict(r) for r in LIFECYCLE], '2026-07-18', max_age_days=60)
-if removed != 1 or {e['company'] for e in kept} != {'B', 'C'}:
+if removed != 2 or [e['company'] for e in kept] != ['B', 'C', 'E']:
     failures += 1
     print(f'FAIL purge_stale_listings: removed={removed}, kept={[e["company"] for e in kept]}')
+elif not (kept[2].get('closed') and kept[2].get('closed_date') == '2026-07-18'):
+    failures += 1
+    print(f'FAIL purge_stale_listings left the url-less row open: {kept[2]!r}')
+elif 'missing_since' in kept[0] or kept[1].get('closed'):
+    failures += 1
+    print(f'FAIL purge_stale_listings streak/open handling: {kept[:2]!r}')
 
 # prune_seen: expire ids not refreshed within the TTL.
 pruned = s.prune_seen({'a': '2026-07-18', 'b': '2026-01-01'}, '2026-07-18', ttl_days=45)
