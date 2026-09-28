@@ -158,7 +158,8 @@ def check_container(data, key, label):
 
 # ---------------------------------------------------------------------------
 # ATS scrapers — each yields dicts with:
-#   id, company, title, location, url, board, description (optional)
+#   id, company, title, location, url, board, description (optional),
+#   partial_sweep (optional: True when the board's feed was cut short)
 # Scrapers return None on an unrecoverable fetch failure and a (possibly empty)
 # list otherwise, so the run summary can tell breakage from an empty board.
 # ---------------------------------------------------------------------------
@@ -406,6 +407,21 @@ def scrape_pinpoint(company, slug):
 
 MULTI_LOCATION_RE = re.compile(r'^\d+ locations$', re.IGNORECASE)
 
+# 100 pages of 20 reach the 2000 hits most big tenants report for 'security'
+# (Walmart, Booz Allen, Accenture). RTX (3730), Northrop and CVS (8541) still
+# run past it; their sweeps are flagged partial instead. The old shared cap of
+# 60 truncated RTX and CACI into retire-then-revive cycles.
+WORKDAY_MAX_PAGES = 100
+
+
+def _wants_detail(title, security_company):
+    if is_rejected_title(title) or not is_cyber_title(title, security_company):
+        return False
+    # Leveled candidates need the description, since the experience gate in
+    # evaluate_job runs on every level; AI flat titles need it for the same
+    # reason.
+    return classify_level(title) is not None or bool(AI_CATEGORY_RE.search(title.lower()))
+
 
 def fetch_workday_detail(cxs_root, path, wd_headers, label=''):
     """Fetch a posting's real locations and description (list view hides both)."""
@@ -455,20 +471,30 @@ def scrape_workday(company, tenant, instance, board, security_company=False,
     jobs = []
     seen_paths = set()
     any_ok = False
+    # Cleared when a term hits the page cap or a page fails mid-sweep. Postings
+    # past that point went unseen, so their absence says nothing about closure
+    # and retire_vanished_listings must not judge this board this run.
+    complete = True
     for term in search_terms:
         offset = 0
-        for _page in range(MAX_PAGES):
+        total = None
+        for page in range(WORKDAY_MAX_PAGES):
             payload = {'appliedFacets': {}, 'limit': limit, 'offset': offset,
                        'searchText': term}
             data = fetch_json(api_url, method='POST', json=payload,
                               headers=wd_headers,
                               label=f'{company} Workday "{term}"')
             if data is None:
+                complete = False
                 break
             any_ok = True
-            postings = data.get('jobPostings', [])
-            if not postings:
-                break
+            postings = data.get('jobPostings') or []
+            if page == 0:
+                # cxs reports `total` on the first page only and 0 after it
+                # (Leidos 'security': 1662 at offset 0, 0 at offset 20). Re-read
+                # per page, it stopped every term after 40 postings and hid
+                # Booz Allen's 2027 Summer Games cyber interns at position 93.
+                total = data.get('total')
             for job in postings:
                 path = job.get('externalPath', '')
                 if not path or path in seen_paths:
@@ -485,32 +511,28 @@ def scrape_workday(company, tenant, instance, board, security_company=False,
                     'board': 'Workday',
                     '_path': path,
                 })
-            total = data.get('total')
             offset += len(postings)
-            # Short page, exhausted `total` (when present), or the MAX_PAGES
-            # backstop stop the loop so a bad `total` can't run to the timeout.
-            if len(postings) < limit or (total is not None and offset >= total):
+            # A short or empty page, the first page's `total`, or the page cap
+            # ends the term, so a lying `total` can't run to the timeout.
+            if len(postings) < limit or (total and offset >= total):
                 break
             time.sleep(0.3)
+        else:
+            complete = False
 
-    # No page fetched at all -> a real failure, not an empty board.
-    if not any_ok:
+    # No page fetched at all -> a real failure, not an empty board. A sweep
+    # that lost pages and found nothing is not proof of an empty board either.
+    if not any_ok or (not complete and not jobs):
         return None
 
     # The list view gives no description and hides multi-location postings
     # behind "N Locations". Fetch details for the few title-level candidates
     # so the US filter and clearance detection see real data.
     for job in jobs:
-        title = job['title']
         path = job.pop('_path', None)
-        if is_rejected_title(title) or not is_cyber_title(title, security_company):
-            continue
-        # Leveled candidates need location detail AND the description, since
-        # the experience gate in evaluate_job now runs on every level; AI flat
-        # titles need the description for the same reason.
-        if classify_level(title) is None and not AI_CATEGORY_RE.search(title.lower()):
-            continue
-        if not path:
+        if not complete:
+            job['partial_sweep'] = True
+        if not path or not _wants_detail(job['title'], security_company):
             continue
         needs_locations = MULTI_LOCATION_RE.match(job['location'].strip())
         location, description = fetch_workday_detail(cxs_root, path, wd_headers,
@@ -674,30 +696,34 @@ def job_fingerprint(company, source, url):
 def retire_vanished_listings(listings, raw_jobs, today):
     """Close rows whose requisition has left its own board's feed.
 
-    Mutates and returns the rows it retired. Every run fetches each board in
-    full, so a posting that stops appearing among its company's results is a
-    closed req. This is the only path that can retire a Workday, Ashby, Oracle
-    or Greenhouse row: those hosts all answer 200 for a job that no longer
-    exists, so the dead-link sweep never marks one closed and such a row would
-    otherwise sit on the board forever.
+    Mutates and returns the rows it retired. A posting that stops appearing
+    among its company's results is a closed req. This is the only path that
+    can retire a Workday, Ashby, Oracle or Greenhouse row: those hosts all
+    answer 200 for a job that no longer exists, so the dead-link sweep never
+    marks one closed and such a row would otherwise sit on the board forever.
 
     Guardrails, all in the keep direction:
       * only companies that returned at least one posting this run are judged,
         so a broken slug, a failed fetch, or a `--board`/`--limit` subset can
         never retire anything it did not actually look at;
+      * a board whose sweep was cut short (postings flagged `partial_sweep`,
+        from a page cap or a failed page) retires nothing, since the missing
+        req may sit past the cut;
       * a row must be missing for VANISHED_DAYS before it goes, so one partial
-        fetch of a paginated board costs a re-check rather than the listings;
+        fetch that went unnoticed costs a re-check rather than the listings;
       * Community rows carry a maintainer's judgment and never appear in
         `raw_jobs`, so they are exempt, as are rows with no fingerprint.
 
-    Retirement writes exactly what a dead link writes — blank url plus
-    `closed` — so the existing revive path self-heals a false positive and
+    Retirement writes exactly what a dead link writes, blank url plus
+    `closed`, so the existing revive path self-heals a false positive and
     `purge_stale_listings` does the eventual removal.
     """
-    live, healthy = set(), set()
+    live, healthy, partial = set(), set(), set()
     for job in raw_jobs:
         company = job.get('company', '')
         healthy.add(company)
+        if job.get('partial_sweep'):
+            partial.add((company, job.get('board', '')))
         fingerprint = job_fingerprint(company, job.get('board', ''), job.get('url', ''))
         if fingerprint:
             live.add(fingerprint)
@@ -707,10 +733,10 @@ def retire_vanished_listings(listings, raw_jobs, today):
         if (entry.get('source') == 'Community' or entry.get('closed')
                 or not entry.get('url')):
             continue
-        if entry.get('company', '') not in healthy:
+        company, source = entry.get('company', ''), entry.get('source', '')
+        if company not in healthy:
             continue
-        fingerprint = job_fingerprint(entry.get('company', ''), entry.get('source', ''),
-                                      entry.get('url', ''))
+        fingerprint = job_fingerprint(company, source, entry.get('url', ''))
         if fingerprint is None:
             continue
         if fingerprint in live:
@@ -718,18 +744,24 @@ def retire_vanished_listings(listings, raw_jobs, today):
             # out of one page never accumulates its way to retirement.
             entry.pop('missing_since', None)
             continue
+        if (company, source) in partial:
+            continue
         first_missed = entry.get('missing_since')
         if not first_missed:
             entry['missing_since'] = today
             continue
         if _days_since(first_missed, today) < VANISHED_DAYS:
             continue
-        entry['url'] = ''
-        entry['closed'] = True
-        entry.setdefault('closed_date', today)
-        entry.pop('missing_since', None)
+        _retire(entry, today)
         retired.append(entry)
     return retired
+
+
+def _retire(entry, today):
+    entry['url'] = ''
+    entry['closed'] = True
+    entry.setdefault('closed_date', today)
+    entry.pop('missing_since', None)
 
 
 def _location_is_broken(location):

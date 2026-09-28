@@ -612,6 +612,96 @@ def test_compare_runs_reports_flips_only():
           compare_runs.diff(before, before), [])
 
 
+# --- Workday paging: `total` only arrives on the first page ------------------
+WD_API = 'https://t.wd5.myworkdayjobs.com/wday/cxs/t/B/jobs'
+
+
+def _workday_pages(pages_by_term, fail_at=None):
+    """A cxs /jobs callback serving `pages_by_term[term][offset // 20]`."""
+    def callback(request):
+        body = json.loads(request.body)
+        term, page = body['searchText'], body['offset'] // body['limit']
+        if fail_at == (term, page):
+            return 500, {}, '{}'
+        pages = pages_by_term.get(term, [])
+        return 200, {}, json.dumps(pages[page] if page < len(pages)
+                                   else {'total': 0, 'jobPostings': []})
+    return callback
+
+
+def _wd_page(total, start, count):
+    # Non-cyber titles, so no detail fetch is attempted.
+    return {'total': total, 'jobPostings': [
+        {'title': f'Accountant {i}', 'externalPath': f'/job/Austin-TX/Acct_R{i}',
+         'locationsText': 'Austin, TX'} for i in range(start, start + count)]}
+
+
+@responses.activate
+def test_workday_total_only_on_first_page():
+    """Leidos 'security' reports 1662 at offset 0 and 0 at offset 20."""
+    responses.add_callback(responses.POST, WD_API, callback=_workday_pages({
+        'cyber': [_wd_page(45, 0, 20), _wd_page(0, 20, 20), _wd_page(0, 40, 5)]}))
+    jobs = sj.scrape_workday('X', 't', 'wd5', 'B')
+    check('workday pages past a zero total on page 2', len(jobs), 45)
+    check('a sweep that reached every short page is complete',
+          any(j.get('partial_sweep') for j in jobs), False)
+    check('workday url keeps the board segment', jobs[0]['url'],
+          'https://t.wd5.myworkdayjobs.com/B/job/Austin-TX/Acct_R0')
+
+
+@responses.activate
+def test_workday_flags_a_cut_short_sweep():
+    original = sj.WORKDAY_MAX_PAGES
+    try:
+        sj.WORKDAY_MAX_PAGES = 2
+        responses.add_callback(responses.POST, WD_API, callback=_workday_pages({
+            'cyber': [_wd_page(100, 0, 20), _wd_page(0, 20, 20), _wd_page(0, 40, 20)]}))
+        jobs = sj.scrape_workday('X', 't', 'wd5', 'B')
+        check('workday stops at the page cap', len(jobs), 40)
+        check('a capped sweep flags every posting partial',
+              all(j.get('partial_sweep') for j in jobs), True)
+    finally:
+        sj.WORKDAY_MAX_PAGES = original
+
+    responses.reset()
+    responses.add_callback(responses.POST, WD_API, callback=_workday_pages(
+        {'cyber': [_wd_page(60, 0, 20), _wd_page(0, 20, 20), _wd_page(0, 40, 20)]},
+        fail_at=('cyber', 1)))
+    jobs = sj.scrape_workday('X', 't', 'wd5', 'B')
+    check('a page that fails mid-sweep keeps what came before it', len(jobs), 20)
+    check('...and flags the sweep partial', all(j.get('partial_sweep') for j in jobs), True)
+
+    responses.reset()
+    responses.add_callback(responses.POST, WD_API, callback=_workday_pages(
+        {}, fail_at=('security', 0)))
+    check('a partial sweep that found nothing is a failure, not an empty board',
+          sj.scrape_workday('X', 't', 'wd5', 'B'), None)
+
+
+def test_incomplete_sweep_retires_nothing():
+    wd = 'https://acme.wd1.myworkdayjobs.com/Ext/job/Austin-TX/'
+    gh = 'https://boards.greenhouse.io/acme/jobs/'
+    listings = [
+        _listing('Acme', 'Seen', wd + 'Seen_R1', source='Workday',
+                 missing_since='2026-09-01'),
+        _listing('Acme', 'Past The Cap', wd + 'Deep_R2', source='Workday',
+                 missing_since='2026-09-01'),
+        _listing('Acme', 'Not Yet Missing', wd + 'Deep_R3', source='Workday'),
+        # The same company's complete Greenhouse board is still judged.
+        _listing('Acme', 'Greenhouse Gone', gh + '7', missing_since='2026-09-01'),
+    ]
+    raw = [{'company': 'Acme', 'board': 'Workday', 'url': wd + 'Seen_R1',
+            'partial_sweep': True},
+           {'company': 'Acme', 'board': 'Greenhouse', 'url': gh + '8'}]
+    retired = sj.retire_vanished_listings(listings, raw, '2026-09-10')
+    check('a partial sweep retires none of its rows',
+          [e['role'] for e in retired], ['Greenhouse Gone'])
+    check('rows behind a partial sweep keep their streak as it was',
+          [(e['role'], e.get('missing_since'), e.get('closed')) for e in listings[:3]],
+          [('Seen', None, None), ('Past The Cap', '2026-09-01', None),
+           ('Not Yet Missing', None, None)])
+
+
 for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_ashby, test_ashby_schema_drift_warns,
            test_smartrecruiters_pagination_short_page_stops, test_oracle,
@@ -627,7 +717,9 @@ for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_scrape_boards_preserves_config_order,
            test_build_tasks_honors_board_and_limit, test_board_health_streaks,
            test_board_health_migrates_and_survives_a_corrupt_baseline,
-           test_compare_runs_reports_flips_only):
+           test_compare_runs_reports_flips_only,
+           test_workday_total_only_on_first_page, test_workday_flags_a_cut_short_sweep,
+           test_incomplete_sweep_retires_nothing):
     fn()
 
 if failures:
