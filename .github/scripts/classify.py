@@ -251,6 +251,10 @@ EARLYCAREER_SIGNALS = [
     'entry level', 'entry-level', 'early career', 'junior', 'apprentice',
     'associate', 'tier 1', 'tier i', 'tier 2', 'tier ii', 'level 1', 'level 2',
     'early in career',
+    # A cohort, not the senior title 'Fellow' that SENIORITY_REJECT holds. It
+    # keeps Anthropic 'Fellows Program, AI Safety & Security' once AI flat
+    # titles need early-career evidence.
+    'fellows program',
 ]
 # Word-bounded so 'level 1' doesn't match 'level 10' and 'associate' doesn't
 # match 'associated'. 'tier ii' is listed explicitly so it isn't lost when
@@ -1329,9 +1333,14 @@ def evaluate_job(title, location, description='', security_company=False,
         if security_company and permits_early_experience(description):
             level = 'earlycareer'
         # AI labs use flat titles ("Software Engineer, AI Safety") with no
-        # level marker, so accept AI security/safety roles here and let the
-        # experience gate below decide.
-        elif AI_CATEGORY_RE.search(title.lower()):
+        # level marker, so an AI security/safety title needs early-career
+        # evidence in its description: a low ceiling, or a stated floor of
+        # at most two years. A silent description is not evidence. Anthropic
+        # says only that years "will correlate with the internal job level",
+        # which let 18 of its flat titles onto the early-career table.
+        elif AI_CATEGORY_RE.search(title.lower()) and (
+                permits_early_experience(description)
+                or 0 < required_years(description) <= MAX_ALLOWED_YEARS):
             level = 'earlycareer'
         else:
             return None

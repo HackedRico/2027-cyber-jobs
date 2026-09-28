@@ -52,10 +52,12 @@ CASES = [
     ('Associate LLM Security Analyst', 'Seattle, WA', '', False, ('earlycareer', 'AI Security & Safety')),
     ('Analyst I, Safeguards', 'Remote (US)', '', False, ('earlycareer', 'AI Security & Safety')),
     ('AI Red Team Specialist, Entry Level', 'Washington, DC', '', False, ('earlycareer', 'AI Security & Safety')),
-    # AI-lab flat titles are accepted unless the posting wants 3+ years.
-    ('Software Engineer, AI Safety', 'San Francisco, CA', '', False, ('earlycareer', 'AI Security & Safety')),
-    ('Researcher, Alignment Science', 'San Francisco, CA', 'Strong coding ability required.', False, ('earlycareer', 'AI Security & Safety')),
-    ('AI Red Teamer', 'US, Remote', '', True, ('earlycareer', 'AI Security & Safety')),
+    # AI-lab flat titles are accepted only on early-career evidence in the
+    # description: a stated floor of 1-2 years, or a ceiling like "0-2 years".
+    ('Software Engineer, AI Safety', 'San Francisco, CA', 'You have 2+ years of software engineering experience.', False, ('earlycareer', 'AI Security & Safety')),
+    ('Researcher, Alignment Science', 'San Francisco, CA', 'Open to candidates with 0-2 years of research experience.', False, ('earlycareer', 'AI Security & Safety')),
+    ('AI Red Teamer', 'US, Remote', 'Requires 1+ years of red teaming experience.', True, ('earlycareer', 'AI Security & Safety')),
+    ('Fellows Program, AI Safety', 'San Francisco, CA', '', False, ('earlycareer', 'AI Security & Safety')),
     ('Junior Security Analyst', 'Remote- US', '', False, ('earlycareer', 'Security Engineering')),
     # 'Architect' is a senior signal, but a named early-career cohort overrides
     # it (NVIDIA's "Security Architect - New College Grad" is a new-grad req).
@@ -168,6 +170,12 @@ CASES = [
     # AI flat-title acceptance does not apply when the posting wants 3+ years
     ('Researcher, Alignment', 'San Francisco, CA', 'You have 5+ years of research experience.', False, None),
     ('Software Engineer, AI Safety', 'Seattle, WA', 'Requires 7 years of industry experience.', False, None),
+    # ...nor when the description is silent on years. Anthropic's flat titles
+    # say only that years "will correlate with the internal job level".
+    ('Software Engineer, AI Safety', 'San Francisco, CA', '', False, None),
+    ('Safeguards Enforcement Analyst', 'San Francisco, CA',
+     'Years of experience will correlate with the internal job level requirements.', False, None),
+    ('Researcher, Alignment Science', 'San Francisco, CA', 'Strong coding ability required.', False, None),
 
     # -- should be rejected: not US --
     ('Junior Security Analyst', 'London, United Kingdom', '', False, None),
@@ -207,7 +215,7 @@ CASES = [
 
     # -- bug fix: requires_experience anchors to a requirement context --
     # incidental "past 5 years" is not an experience requirement (AI role kept).
-    ('Researcher, Alignment Science', 'San Francisco, CA', 'You will analyze the past 5 years of incidents.', False, ('earlycareer', 'AI Security & Safety')),
+    ('Researcher, Alignment Science', 'San Francisco, CA', 'You will analyze the past 5 years of incidents across our products and publish what you learn from them. Requires 1+ years of research experience.', False, ('earlycareer', 'AI Security & Safety')),
     # spelled-out and abbreviated year requirements still gate the AI path.
     ('Software Engineer, AI Safety', 'Seattle, WA', 'Requires three years of experience.', False, None),
     ('Software Engineer, AI Safety', 'Seattle, WA', 'Minimum 4+ yrs of experience required.', False, None),
