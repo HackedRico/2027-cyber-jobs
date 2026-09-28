@@ -335,7 +335,6 @@ greenhouse:
   security_company: true
 - name: Jumio
   slug: jumio
-  security_company: true
 - name: ID.me
   slug: idme
   security_company: true
@@ -571,7 +570,6 @@ ashby:
   security_company: true
 - name: SentiLink
   slug: sentilink
-  security_company: true
 - name: Sentra
   slug: sentra
   security_company: true
