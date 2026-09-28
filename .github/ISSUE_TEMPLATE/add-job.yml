@@ -1,6 +1,6 @@
 name: Add Job Listing
 description: Submit a new-grad, internship, or early-career cybersecurity role (US) to be added to the list.
-title: "[JOB] <Company> — <Role>"
+title: "[JOB] <Company>: <Role>"
 labels: ["new listing", "needs review"]
 body:
   - type: markdown
@@ -14,7 +14,7 @@ body:
     id: company
     attributes:
       label: Company Name
-      description: The official name of the company (plain text — no URL needed here).
+      description: The official name of the company (plain text, no URL needed here).
       placeholder: "e.g. CrowdStrike"
     validations:
       required: true
@@ -44,7 +44,7 @@ body:
     id: category
     attributes:
       label: Category
-      description: Which security domain fits this role best?
+      description: Which security domain fits this role best? Pick "Not sure" and the title decides.
       options:
         - Security Engineering
         - SOC & Detection
@@ -57,6 +57,7 @@ body:
         - Identity & IAM
         - GRC & Risk
         - Engineering @ Security Co
+        - Not sure
     validations:
       required: true
 
@@ -76,7 +77,7 @@ body:
       description: Does the posting require a clearance, clearance eligibility, or U.S. citizenship?
       options:
         - "No"
-        - "Yes — clearance or U.S. citizenship required (adds 🇺🇸)"
+        - "Yes, clearance or U.S. citizenship required (adds 🇺🇸)"
         - "Unknown"
     validations:
       required: true
@@ -105,7 +106,7 @@ body:
       label: Checklist
       description: Please confirm the following before submitting.
       options:
-        - label: The role targets students or early-career candidates — an internship/co-op, a new-grad program, or a full-time role needing 0–2 years.
+        - label: The role targets students or early-career candidates: an internship or co-op, a new-grad program, or a full-time role that asks for 2 years of experience or less.
           required: true
         - label: The role is located in the United States or is Remote (US).
           required: true
