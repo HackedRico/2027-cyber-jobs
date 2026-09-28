@@ -502,6 +502,47 @@ for title, today, want in STALE_INTERN:
         failures += 1
         print(f'FAIL is_rejected_title({title!r}, today={today}) = {got!r}, want {want!r}')
 
+# classify_level across the new year: the cohort window drops the old year on
+# Jan 1, so a still-open "2026" new-grad row with a junior or associate word
+# re-levels to early career, and one with no other signal loses its level.
+DEC_31 = date(2026, 12, 31)
+JAN_1 = date(2027, 1, 1)
+COHORT = [
+    # (title, today, expected level)
+    ('2026 Junior Analyst', DEC_31, 'newgrad'),
+    ('2026 Junior Analyst', JAN_1, 'earlycareer'),
+    ('2026 Associate Cyber Systems Engineer', DEC_31, 'newgrad'),
+    ('2026 Associate Cyber Systems Engineer', JAN_1, 'earlycareer'),
+    ('Cyber Software Engineer - Class of 2026', DEC_31, 'newgrad'),
+    ('Cyber Software Engineer - Class of 2026', JAN_1, None),
+    # The next cohorts are unaffected, and the window gains 2029.
+    ('2027 Associate Cyber Systems Engineer', JAN_1, 'newgrad'),
+    ('2029 Cyber Analyst', DEC_31, None),
+    ('2029 Cyber Analyst', JAN_1, 'newgrad'),
+    # A named program keeps its level whatever the year.
+    ('2026 Cyber Analyst - Pathways Program', JAN_1, 'newgrad'),
+]
+for title, today, want in COHORT:
+    got = s.classify_level(title, today=today)
+    if got != want:
+        failures += 1
+        print(f'FAIL classify_level({title!r}, today={today}) = {got!r}, want {want!r}')
+
+# first_open_season turns over to next summer on September 1.
+SEASONS = [
+    (date(2026, 8, 31), 2026),
+    (date(2026, 9, 1), 2027),
+    (DEC_31, 2027),
+    (JAN_1, 2027),
+    (date(2027, 8, 31), 2027),
+    (date(2027, 9, 1), 2028),
+]
+for today, want in SEASONS:
+    got = s.first_open_season(today)
+    if got != want:
+        failures += 1
+        print(f'FAIL first_open_season({today}) = {got!r}, want {want!r}')
+
 # is_us_location: multi-region acceptance and accent-aware foreign rejection.
 US_LOC = [
     ('Remote (US/Canada)', True),
