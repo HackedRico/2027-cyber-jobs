@@ -19,8 +19,10 @@ and `.github/data/`. Change the board by changing its inputs (`companies.yml`, t
 an approved issue), never by editing the outputs.
 
 Three workflows share the `readme-updates` concurrency group and commit as
-`github-actions[bot]`: the scrape at 08:00 and 20:00 UTC, the link check at 02:00 UTC that
-marks 🔒, and add-listing when a maintainer applies the `approved` label. A branch a day old is
+`github-actions[bot]`: the scrape at 11:17 and 23:17 UTC, the link check at 09:43 UTC that
+marks 🔒, and add-listing when a maintainer applies the `approved` label. Each runs
+`check_outputs.py` before committing, and `health.yml` runs `health_check.py` after each one to
+keep the "Scraper health" issue current. A branch a day old is
 behind `main`. Rebase before opening a PR, and take `main` for any conflict in a bot-owned file.
 
 ## Module map
@@ -36,8 +38,11 @@ behind `main`. Rebase before opening a PR, and take `main` for any conflict in a
   over-experience drop, the location repair and the vanished-req retire over existing rows
   before dedup and insert of new ones.
 - `rebuild_readme.py` regenerates the tables between the `TABLE_START <type>` markers.
-- `validate_issue.py` and `process_approved.py` are the community path: issue form, validation
-  comment, `approved` label, row added, issue closed.
+- `validate_issue.py` and `process_approved.py` are the community path: issue form, one
+  advisory verdict comment edited in place, `approved` label, row added, issue closed after
+  the push lands. `test_community.py` covers them.
+- `check_outputs.py` and `health_check.py` are stdlib-only guards on the bot's output and runs;
+  `test_health.py` covers them.
 
 ## Changing the classifier
 
