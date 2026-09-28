@@ -1016,6 +1016,26 @@ workday:
   tenant: travelers
   instance: wd5
   board: External
+- name: Argonne National Laboratory
+  tenant: argonne
+  instance: wd1
+  board: Argonne_Careers
+- name: HP Inc
+  tenant: hp
+  instance: wd5
+  board: ExternalCareerSite
+- name: National Laboratory of the Rockies
+  tenant: nrel
+  instance: wd5
+  board: NLR
+- name: Software Engineering Institute
+  tenant: cmu
+  instance: wd115
+  board: SEI
+- name: Verizon
+  tenant: verizon
+  instance: wd12
+  board: verizon-careers
 oracle:
 - name: SAIC
   host: eihu.fa.us8.oraclecloud.com
