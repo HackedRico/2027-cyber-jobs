@@ -241,6 +241,27 @@ CASES = [
     ('Cyber Intelligence Associate-Brand Protection Associate', 'New York, NY', '', False, ('earlycareer', 'Threat Intelligence')),
     ('Fraud Analyst I', 'Somerville, MA', '', True, ('earlycareer', 'Threat Intelligence')),
 
+    # -- recall: live early-career titles the rules used to miss --
+    ('Cybersecurity Ops Technologist I (Email Security)', 'Hartford, CT', '', False, ('earlycareer', 'Security Engineering')),
+    ('IS Security Officer 1', 'Cambridge, MA', '', False, ('earlycareer', 'Security Engineering')),
+    ('Computer Network Defense Analyst (CNDA) Level 1', 'Jessup, MD', '', False, ('earlycareer', 'SOC & Detection')),
+    ('Incident Responder I', 'Austin, TX', '', False, ('earlycareer', 'SOC & Detection')),
+    ('Junior Incident Responder', 'Austin, TX', '', False, ('earlycareer', 'SOC & Detection')),
+    ('Technology Leadership Program - Risk & Security (Analyst)', 'Malvern, PA', '', False, ('newgrad', 'GRC & Risk')),
+    ('Cyber New Professionals Program', 'McLean, VA', '', False, ('newgrad', 'Security Engineering')),
+    ('Internships in Cybersecurity and Information Security', 'McLean, VA', '', False, ('intern', 'Security Engineering')),
+    # ...and the limits on those rules. A guard post stays a guard post, an
+    # officer counts only at level 1, and 'Jr.' is not a level signal: it
+    # would admit Leidos 'Jr. Security Specialist', a badging role.
+    ('Security Officer I -Plant McIntosh, Rincon, GA', 'Rincon, GA', '', False, None),
+    ('Security Officer II', 'Austin, TX', '', False, None),
+    ('Security Officer - Kansas City, Missouri', 'Kansas City, MO', '', False, None),
+    ('Information Security Officer 2', 'Cambridge, MA', '', False, None),
+    ('Information System Security Officer - Jr.', 'Washington, DC', '', False, None),
+    ('Jr. Security Specialist', 'Omaha, NE', '', False, None),
+    ('Cybersecurity Technologist III', 'Hartford, CT', '', False, None),
+    ('Emergency Responder I', 'Austin, TX', '', False, None),
+
     # -- bug fix: US territories are US locations, not foreign --
     ('Cyber Software Engineer I', 'Aguadilla, PR', '', False, ('earlycareer', 'Security Engineering')),
     ('Student Trainee (Cybersecurity)', 'Hagatna, GU', '', False, ('intern', 'Security Engineering')),

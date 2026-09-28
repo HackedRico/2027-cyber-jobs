@@ -53,14 +53,17 @@ ARCHITECT_RE = re.compile(r'\barchitect\b')
 LEVELED_SENIOR_RE = re.compile(
     r'\b(?:analyst|engineer|consultant|specialist|administrator|technician|'
     r'developer|tester|responder|investigator|scientist|researcher|'
-    r'tier|level)\s+(?:iii|iv|3|4)\b'
+    r'technologist|officer|tier|level)\s+(?:iii|iv|3|4)\b'
 )
 
 # Internships and co-ops get their own level. Title signals only — job
 # descriptions mention "our internship program" as boilerplate far too often
 # to be trusted. Word boundaries keep 'intern' from matching 'internal'.
 INTERN_TITLE_RES = [re.compile(p) for p in (
-    r'\bintern\b', r'\binternship\b', r'\bco-?op\b',
+    # Plural 'Internships' names a program page (MITRE 'Internships in
+    # Cybersecurity and Information Security'). Bare 'intern' stays singular:
+    # 'For 2026 Interns Only' titles are return offers.
+    r'\bintern\b', r'\binternships?\b', r'\bco-?op\b',
     # Bank-style ("Cybersecurity Summer Analyst") and USAJOBS Pathways
     # ("Student Trainee") internship titles.
     r'\bsummer analyst\b', r'\bstudent trainee\b',
@@ -153,6 +156,11 @@ FUNCTION_REJECT_RE = re.compile(
 # "Security Officer" is usually a guard; keep it only when clearly infosec.
 SECURITY_OFFICER_RE = re.compile(r'\bsecurity officer\b')
 INFOSEC_OFFICER_HINTS = ['information security', 'cyber', 'ciso', 'iso ']
+# ISSO wording the substring hints miss: Draper 'IS Security Officer 1', CACI
+# 'Information System Security Officer - Jr.'. Word-bounded, since 'isso' sits
+# inside 'Missouri'.
+ISSO_HINT_RE = re.compile(
+    r'\b(?:information systems? security|is security|isso|issm)\b')
 
 # A program analyst runs budgets and schedules (Okta 'Associate Program Analyst
 # (New Grad)', let in by the security-company 'analyst' allowance), but a
@@ -165,6 +173,9 @@ CYBER_KEYWORDS = [
     'security', 'cyber', 'infosec', 'information assurance',
     'penetration test', 'pentest', 'red team', 'blue team', 'purple team',
     'threat', 'incident response', 'forensic', 'malware', 'vulnerability',
+    # 'Incident Responder I' misses 'incident response', and AeroVironment's
+    # 'Computer Network Defense Analyst (CNDA) Level 1' carries no other term.
+    'incident responder', 'network defense',
     'appsec', 'exploit', 'reverse engineer', 'cryptograph', 'grc',
     # DLP titles carry neither 'security' nor 'cyber' ("Data Loss Prevention
     # (DLP) Analyst"); 'insider threat' already matches on 'threat'.
@@ -216,6 +227,10 @@ NEWGRAD_SIGNALS = [
     'leadership development program', 'graduate development program',
     'cyber development program', 'early career development',
     'pathways program',
+    # Vanguard 'Technology Leadership Program - Risk & Security' is "a
+    # two-year rotational development experience designed for graduating
+    # students"; MITRE runs a 'Cyber New Professionals Program'.
+    'technology leadership program', 'new professionals program',
 ]
 
 
@@ -262,10 +277,13 @@ EARLYCAREER_SIGNALS = [
 EARLYCAREER_RE = re.compile('|'.join(_term_regex(t) for t in EARLYCAREER_SIGNALS))
 
 # "Analyst I", "Engineer 1", "SOC Analyst II" — I/II count as early career,
-# III+ is rejected by LEVELED_SENIOR_RE above.
+# III+ is rejected by LEVELED_SENIOR_RE above. 'Technologist' is Travelers'
+# level noun ('Cybersecurity Ops Technologist I'). 'Officer' counts at level 1
+# only: Draper's 'Information Security Officer 2' asks for 3-5 years.
 LEVELED_TITLE_RE = re.compile(
-    r'\b(analyst|engineer|consultant|specialist|administrator|technician|'
-    r'developer|tester|responder|investigator)\s+(i|ii|1|2)\b'
+    r'\b(?:(analyst|engineer|consultant|specialist|administrator|technician|'
+    r'developer|tester|responder|investigator|technologist)\s+(i|ii|1|2)'
+    r'|officer\s+(?:i|1))\b'
 )
 
 # Strong phrases in a job description that mark a role as early career.
@@ -977,7 +995,8 @@ def is_rejected_title(title, today=None):
         return True
     if FUNCTION_REJECT_RE.search(t):
         return True
-    if SECURITY_OFFICER_RE.search(t) and not any(h in t for h in INFOSEC_OFFICER_HINTS):
+    if (SECURITY_OFFICER_RE.search(t) and not ISSO_HINT_RE.search(t)
+            and not any(h in t for h in INFOSEC_OFFICER_HINTS)):
         return True
     if PROGRAM_ANALYST_RE.search(t) and not _has_cyber_keyword(t):
         return True
