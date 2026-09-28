@@ -349,8 +349,8 @@ body, ok = vi.build_verdict(common.parse_issue_body(form(location='Arlington, Vi
                             EXISTING, frozenset(), ALIVE)
 check('build_verdict shows the stored location',
       'Location will be stored as `Arlington, VA`' in body, True)
-check('build_verdict body has no dashes a reader would see as em or en dashes',
-      '—' in body or '–' in body, False)
+check('build_verdict body has no em or en dashes',
+      '\u2014' in body or '\u2013' in body, False)
 
 
 for fn in (test_notify_after_push, test_notify_leaves_added_issue_open_when_push_failed,
