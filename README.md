@@ -13,7 +13,7 @@ The latest **new-grad, internship, and early-career cybersecurity roles in the U
 
 <!-- STATS -->
 
-**199** open roles tracked · updated September 27, 2026
+**199** open roles tracked · updated September 28, 2026
 
 <!-- /STATS -->
 
@@ -166,8 +166,12 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 | Company | Role | Location | Category | Apply | Date Added |
 | ------- | ---- | -------- | -------- | ----- | ---------- |
+| Arctic Wolf | Professional Services Engineer 1 | <details><summary>**2 locations**</summary>Eden Prairie, MN</br>San Antonio, TX</details> | Engineering @ Security Co | <a href="https://arcticwolf.wd1.myworkdayjobs.com/External/job/Waterloo-ON-CAN/Professional-Services-Engineer-1_R26_1068" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 28 |
+| CrowdStrike 🇺🇸 | CrowdStrike Platform Associate Resident Consultant (Remote) | Remote (US) | Engineering @ Security Co | <a href="https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/CrowdStrike-Platform-Associate-Resident-Consultant--Remote-_R30195" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 28 |
+| Walmart | (CAN) Asset Protection Associate PART TIME (SECURITY LICENSE REQUIRED) | (CAN) ON CAMBRIDGE 03152 WM SUPERCENTER | Security Engineering | <a href="https://walmart.wd504.myworkdayjobs.com/WalmartExternal/job/CAN-ON-CAMBRIDGE-03152-WM-SUPERCENTER/XMLNAME--CAN--Asset-Protection-Associate-PART-TIME--SECURITY-LICENSE-REQUIRED-_R-2641541" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 28 |
+| ↳ | (CAN) Asset Protection Associate (MUST HAVE SECURITY LICENSE) | (CAN) ON CAMBRIDGE 03152 WM SUPERCENTER | Security Engineering | <a href="https://walmart.wd504.myworkdayjobs.com/WalmartExternal/job/CAN-ON-CAMBRIDGE-03152-WM-SUPERCENTER/XMLNAME--CAN--Asset-Protection-Associate--MUST-HAVE-SECURITY-LICENSE-_R-2641515" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 28 |
 | Anthropic | Product Designer, Safeguards | <details><summary>**3 locations**</summary>San Francisco, CA</br>New York City, NY</br>Seattle, WA</details> | AI Security &amp; Safety | <a href="https://job-boards.greenhouse.io/anthropic/jobs/5428014008" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 25 |
-| JPMorgan Chase | Security Operations Associate | Seattle, WA | SOC &amp; Detection | <a href="https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210794761" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 25 |
+| JPMorgan Chase | Security Operations Associate | Seattle, WA | SOC &amp; Detection | 🔒 | Sep 25 |
 | CrowdStrike 🇺🇸 | Engineer II - Virtualization (Remote) | Remote (US) | Engineering @ Security Co | <a href="https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Engineer-II---Virtualization--Remote-_R30160" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 24 |
 | ↳ | Engineer II, Full Stack (Remote) | Remote (US) | Engineering @ Security Co | <a href="https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Engineer-II--Full-Stack--Remote-_R30113" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 24 |
 | Expel | Associate SOC Analyst | Remote (US) | SOC &amp; Detection | <a href="https://expel.com/about/career-listing/8588028002?gh_jid=8588028002" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Sep 24 |
@@ -341,7 +345,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 | Northrop Grumman 🇺🇸 | Cyber Systems Engineer - Level 2 or 3 | Aurora, CO | Security Engineering | 🔒 | Jul 22 |
 | ↳ | Cyber Systems Engineer - Level 2 | Schriever AFB, CO | Security Engineering | 🔒 | Jul 22 |
 | ↳ | Cyber Systems Engineer (Level 2 or 3) | Dulles, VA | Security Engineering | 🔒 | Jul 22 |
-| ↳ | Sentinel - Information Assurance Engineer (level 2 or 3) - 18789 | Roy, UT | GRC &amp; Risk | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Utah-Roy/Sentinel---Information-Assurance-Engineer--level-2-or-3----18789_R10234599" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 22 |
+| ↳ | Sentinel - Information Assurance Engineer (level 2 or 3) - 18789 | Roy, UT | GRC &amp; Risk | 🔒 | Jul 22 |
 | ↳ | Sentinel - Systems Security Engineer 2/3 - 14554-1 | Roy, UT | Cloud &amp; Infra Security | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Utah-Roy/Sentinel---Systems-Security-Engineer-2-3---14554-1_R10229441" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 22 |
 | ↳ | Mod Sim System Engineer (Mission Support Threat Engineer - Level 2 or 3) | Schriever AFB, CO | Security Engineering | 🔒 | Jul 22 |
 | Obsidian Security | AI Security Engineer | Palo Alto, CA | AI Security &amp; Safety | <a href="https://job-boards.greenhouse.io/obsidiansecurity/jobs/5290880008" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 22 |
@@ -417,7 +421,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 | ↳ | Safeguards Enforcement Analyst, Safety Evaluations | <details><summary>**4 locations**</summary>Remote (US)</br>San Francisco, CA</br>Washington, DC</br>New York City, NY</details> | AI Security &amp; Safety | <a href="https://job-boards.greenhouse.io/anthropic/jobs/5137183008" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
 | ↳ | Safeguards Policy Analyst, Fraud &amp; Scams | <details><summary>**3 locations**</summary>Remote (US)</br>San Francisco, CA</br>New York City, NY</details> | AI Security &amp; Safety | 🔒 | Jul 12 |
 | CACI 🇺🇸 | Space Systems Cyber Security Engineer - Junior | Colorado Springs, CO | Security Engineering | 🔒 | Jul 12 |
-| ↳ | Cyber Software Engineer, Junior | Florham Park, NJ | Security Engineering | <a href="https://caci.wd1.myworkdayjobs.com/External/job/Florham-Park-NJ-US/Cyber-Software-Engineer--Junior_332538" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
+| ↳ | Cyber Software Engineer, Junior | Florham Park, NJ | Security Engineering | 🔒 | Jul 12 |
 | ↳ | Information Security Analyst II | Camp Smith, HI | Security Engineering | 🔒 | Jul 12 |
 | ↳ | Networking Security Engineer II | Columbia, MD | Security Engineering | <a href="https://caci.wd1.myworkdayjobs.com/External/job/Columbia-MD-US/Networking-Security-Engineer-II_326776" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
 | CrowdStrike 🇺🇸 | Engineer II, Threat Detection - Windows (Hybrid) | <details><summary>**4 locations**</summary>Sunnyvale, CA</br>New York, NY</br>Austin, TX</br>Redmond, WA</details> | SOC &amp; Detection | 🔒 | Jul 12 |
@@ -439,7 +443,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 | ↳ | Cyber Host Forensic Analyst II | Arlington, VA | Forensics &amp; IR | <a href="https://nwis.wd12.myworkdayjobs.com/NW/job/Arlington-VA/Cyber-Host-Forensic-Analyst-II_JR101459" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
 | ↳ | Junior DevOps Engineer | Annapolis Junction, MD | Engineering @ Security Co | 🔒 | Jul 12 |
 | ↳ | Software Engineer 2 | Annapolis Junction, MD | Engineering @ Security Co | <a href="https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/Software-Engineer-2_JR101119" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
-| ↳ | Software Engineer 1 | Annapolis Junction, MD | Engineering @ Security Co | <a href="https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/Software-Engineer-1_JR100150" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
+| ↳ | Software Engineer 1 | Annapolis Junction, MD | Engineering @ Security Co | 🔒 | Jul 12 |
 | ↳ | Cloud Software Engineer 2 | Annapolis Junction, MD | Engineering @ Security Co | 🔒 | Jul 12 |
 | ↳ | Junior Software Engineer (SWE0) | Annapolis Junction, MD | Engineering @ Security Co | <a href="https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/Junior-Software-Engineer_01677525" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |
 | ↳ | Junior Software Developer | Annapolis Junction, MD | Engineering @ Security Co | <a href="https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/Junior-Software-Developer_JR101126" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply"></a> | Jul 12 |

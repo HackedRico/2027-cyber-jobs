@@ -551,10 +551,11 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": true,
-    "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/Software-Engineer-1_JR100150",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-07-12",
-    "missing_since": "2026-09-25"
+    "closed": true,
+    "closed_date": "2026-09-28"
   },
   {
     "company": "Nightwing",
@@ -747,10 +748,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://caci.wd1.myworkdayjobs.com/External/job/Florham-Park-NJ-US/Cyber-Software-Engineer--Junior_332538",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-07-12",
-    "missing_since": "2026-09-25"
+    "closed": true,
+    "closed_date": "2026-09-28"
   },
   {
     "company": "CACI",
@@ -1758,10 +1760,11 @@
     "type": "earlycareer",
     "category": "GRC & Risk",
     "clearance": true,
-    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Utah-Roy/Sentinel---Information-Assurance-Engineer--level-2-or-3----18789_R10234599",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-07-22",
-    "missing_since": "2026-09-25"
+    "closed": true,
+    "closed_date": "2026-09-28"
   },
   {
     "company": "Northrop Grumman",
@@ -3335,7 +3338,8 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Systems-Security-Engineer-I---Anti-Tamper---Program-Protection--Onsite-Tucson--AZ----P1_01873154",
     "source": "Workday",
-    "date_added": "2026-09-08"
+    "date_added": "2026-09-08",
+    "missing_since": "2026-09-28"
   },
   {
     "company": "Rapid7",
@@ -3827,7 +3831,8 @@
     "clearance": false,
     "url": "https://walmart.wd504.myworkdayjobs.com/WalmartExternal/job/USA-ISD-Office---DGTC-AR-BENTONVILLE-Home-Office/Summer-2027-Intern--Cybersecurity-Undergrad_R-2630025",
     "source": "Workday",
-    "date_added": "2026-09-15"
+    "date_added": "2026-09-15",
+    "missing_since": "2026-09-28"
   },
   {
     "company": "Walmart",
@@ -3838,7 +3843,8 @@
     "clearance": false,
     "url": "https://walmart.wd504.myworkdayjobs.com/WalmartExternal/job/USA-ISD-Office---DGTC-AR-BENTONVILLE-Home-Office/Summer-2027-Intern--Cybersecurity-Masters_R-2630026",
     "source": "Workday",
-    "date_added": "2026-09-15"
+    "date_added": "2026-09-15",
+    "missing_since": "2026-09-28"
   },
   {
     "company": "CrowdStrike",
@@ -4096,7 +4102,8 @@
     "clearance": false,
     "url": "https://homedepot.wd5.myworkdayjobs.com/CareerDepot/job/GEORGIA---VIRTUAL---GA01/Cybersecurity-Analyst-II---Fraud--Remote-_Req187319",
     "source": "Workday",
-    "date_added": "2026-09-17"
+    "date_added": "2026-09-17",
+    "missing_since": "2026-09-28"
   },
   {
     "company": "SAIC",
@@ -4329,7 +4336,8 @@
     "clearance": false,
     "url": "https://walmart.wd504.myworkdayjobs.com/WalmartExternal/job/USA-ISD-Office---DGTC-AR-BENTONVILLE-Home-Office/XMLNAME-2026-Intern-Conversion---2027-Return-Intern-Cybersecurity_R-2630154",
     "source": "Workday",
-    "date_added": "2026-09-22"
+    "date_added": "2026-09-22",
+    "missing_since": "2026-09-28"
   },
   {
     "company": "Duke Energy",
@@ -4340,7 +4348,8 @@
     "clearance": false,
     "url": "https://dukeenergy.wd1.myworkdayjobs.com/Search/job/Charlotte-NC/Associate-Cybersecurity-Government---Risk-Analyst_R41659-1",
     "source": "Workday",
-    "date_added": "2026-09-22"
+    "date_added": "2026-09-22",
+    "missing_since": "2026-09-28"
   },
   {
     "company": "SAIC",
@@ -4466,7 +4475,8 @@
     "clearance": false,
     "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Sunnyvale-CA/Sr-Vulnerability-Management-Engineer--Remote-_R25646",
     "source": "Workday",
-    "date_added": "2026-09-23"
+    "date_added": "2026-09-23",
+    "missing_since": "2026-09-28"
   },
   {
     "company": "Northrop Grumman",
@@ -4488,7 +4498,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Arizona-Chandler/Associate-Classified-Cybersecurity-Analyst---Secret_R10250039-1",
     "source": "Workday",
-    "date_added": "2026-09-23"
+    "date_added": "2026-09-23",
+    "missing_since": "2026-09-28"
   },
   {
     "company": "Northrop Grumman",
@@ -4546,7 +4557,8 @@
     "clearance": true,
     "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Engineer-II---Virtualization--Remote-_R30160",
     "source": "Workday",
-    "date_added": "2026-09-24"
+    "date_added": "2026-09-24",
+    "missing_since": "2026-09-28"
   },
   {
     "company": "CrowdStrike",
@@ -4557,7 +4569,8 @@
     "clearance": false,
     "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Engineer-II--Full-Stack--Remote-_R30113",
     "source": "Workday",
-    "date_added": "2026-09-24"
+    "date_added": "2026-09-24",
+    "missing_since": "2026-09-28"
   },
   {
     "company": "Northrop Grumman",
@@ -4643,10 +4656,11 @@
     "type": "earlycareer",
     "category": "SOC & Detection",
     "clearance": false,
-    "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210794761",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-09-25",
-    "missing_since": "2026-09-25"
+    "closed": true,
+    "closed_date": "2026-09-28"
   },
   {
     "company": "Anthropic",
@@ -4658,5 +4672,49 @@
     "url": "https://job-boards.greenhouse.io/anthropic/jobs/5428014008",
     "source": "Greenhouse",
     "date_added": "2026-09-25"
+  },
+  {
+    "company": "Arctic Wolf",
+    "role": "Professional Services Engineer 1",
+    "location": "Eden Prairie, MN; San Antonio, TX",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://arcticwolf.wd1.myworkdayjobs.com/External/job/Waterloo-ON-CAN/Professional-Services-Engineer-1_R26_1068",
+    "source": "Workday",
+    "date_added": "2026-09-28"
+  },
+  {
+    "company": "CrowdStrike",
+    "role": "CrowdStrike Platform Associate Resident Consultant (Remote)",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": true,
+    "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/CrowdStrike-Platform-Associate-Resident-Consultant--Remote-_R30195",
+    "source": "Workday",
+    "date_added": "2026-09-28"
+  },
+  {
+    "company": "Walmart",
+    "role": "(CAN) Asset Protection Associate PART TIME (SECURITY LICENSE REQUIRED)",
+    "location": "(CAN) ON CAMBRIDGE 03152 WM SUPERCENTER",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://walmart.wd504.myworkdayjobs.com/WalmartExternal/job/CAN-ON-CAMBRIDGE-03152-WM-SUPERCENTER/XMLNAME--CAN--Asset-Protection-Associate-PART-TIME--SECURITY-LICENSE-REQUIRED-_R-2641541",
+    "source": "Workday",
+    "date_added": "2026-09-28"
+  },
+  {
+    "company": "Walmart",
+    "role": "(CAN) Asset Protection Associate (MUST HAVE SECURITY LICENSE)",
+    "location": "(CAN) ON CAMBRIDGE 03152 WM SUPERCENTER",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://walmart.wd504.myworkdayjobs.com/WalmartExternal/job/CAN-ON-CAMBRIDGE-03152-WM-SUPERCENTER/XMLNAME--CAN--Asset-Protection-Associate--MUST-HAVE-SECURITY-LICENSE-_R-2641515",
+    "source": "Workday",
+    "date_added": "2026-09-28"
   }
 ]
