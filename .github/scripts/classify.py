@@ -333,6 +333,12 @@ CLEARANCE_SIGNALS = [
     'u.s. citizen', 'us citizenship', 'u.s. citizenship', 'public trust',
     'secret-level',
 ]
+# ITAR/EAR export control restricts a role to a "U.S. Person" without asking for
+# a clearance: Amazon 'Security Engineer I, Threat Hunting' had no 🇺🇸. These
+# are word-bounded, unlike the substrings above, so "US personnel" is not one.
+CLEARANCE_WORD_SIGNALS = ['u.s. person', 'us person', 'u.s. persons', 'us persons']
+CLEARANCE_WORD_RE = re.compile(
+    '|'.join(_term_regex(t) for t in CLEARANCE_WORD_SIGNALS))
 
 # Ordered buckets; first matching regex wins. 'privacy' lives in Security
 # Engineering (not GRC) so a "Security and Privacy" research role keeps a
@@ -1144,7 +1150,8 @@ def permits_early_experience(description):
 
 def requires_clearance(title, description=''):
     text = f'{title} {strip_html(description)}'.lower()
-    return any(kw in text for kw in CLEARANCE_SIGNALS)
+    return (any(kw in text for kw in CLEARANCE_SIGNALS)
+            or bool(CLEARANCE_WORD_RE.search(re.sub(r'\s+', ' ', text))))
 
 
 # ---------------------------------------------------------------------------

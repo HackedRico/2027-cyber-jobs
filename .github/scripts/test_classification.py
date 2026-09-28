@@ -872,6 +872,14 @@ CLEAR = [
     ('Cyber Analyst', 'Must be a US citizen.', True),
     ('Cyber Analyst', 'Remote, no clearance needed but a public trust helps.', True),
     ('Security Engineer', 'No special requirements.', False),
+    # Export control restricts a role to US Persons without naming a clearance.
+    ('Security Engineer I, Threat Hunting',
+     'BASIC QUALIFICATIONS\n- Must be a U.S. Person as defined by ITAR (22 CFR 120.62).', True),
+    ('Security Engineer I', 'Candidates must be US persons as defined by the EAR.', True),
+    ('Security Engineer I', 'This role requires a U.S.&nbsp;Person.', True),
+    # ...but "US personnel" is a workforce, not a requirement.
+    ('Security Engineer I', 'You will partner with US personnel across the org.', False),
+    ('Security Engineer I', 'Train U.S. personnel on phishing response.', False),
 ]
 for title, desc, want in CLEAR:
     got = s.requires_clearance(title, desc)
