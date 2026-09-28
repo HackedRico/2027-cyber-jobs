@@ -149,6 +149,12 @@ def _term_regex(term):
 #                          Engineering" is an AI-lab security team.
 GUARDED_FUNCTION_REJECTS = [
     r'(?<!data )\bloss prevention\b',
+    # Hourly shift posts: Walmart 'Asset Protection / Security Associate,
+    # Manufacturing (Tuesday-Friday, 11:00am-9:30pm) - $21.30/hr.' and its
+    # overnight twin are plant guards. 'Overnight' alone would also catch SOC
+    # night shifts, so the pay rate and the manufacturing site carry it.
+    r'\$\d+(?:\.\d+)?\s*/\s*(?:hr|hour)\b',
+    r'\bsecurity associate, manufacturing\b',
     r'\bsupply chain\b(?! security)',
     r'(?<!ai )\bsafety and security\b',
 ]

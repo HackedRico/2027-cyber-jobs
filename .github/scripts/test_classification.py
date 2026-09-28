@@ -122,6 +122,10 @@ CASES = [
     # Walmart store loss prevention; the licence is a guard licence.
     ('(CAN) Asset Protection Associate (MUST HAVE SECURITY LICENSE)', 'Bentonville, AR', '', False, None),
     ('Asset Protection Associate PART TIME (SECURITY LICENSE REQUIRED)', 'Bentonville, AR', '', False, None),
+    ('(USA) Security Associate, Manufacturing (Tue - Fri, Overnight)', 'Olathe, KS', '', False, None),
+    ('Security Associate, Manufacturing (Tuesday-Friday, 11:00am-9:30pm) - $21.30/hr.', 'Robinson, TX', '', False, None),
+    # ...but a SOC night shift is still a SOC role.
+    ('SOC Analyst I (Overnight Shift)', 'Austin, TX', '', False, ('earlycareer', 'SOC & Detection')),
 
     # -- should be rejected: reqs a student cannot apply to --
     ('MDR Analyst Skillbridge Intern (Active Duty Military only)', 'Remote (US)', '', True, None),
