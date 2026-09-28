@@ -232,6 +232,15 @@ CASES = [
     ('Supply Chain Analyst I', 'Austin, TX', '', True, None),
     ('Safety and Security Officer', 'Austin, TX', '', False, None),
 
+    # -- categories: titles that used to fall into the catch-all buckets --
+    ('Analyst I, Falcon Complete GovCloud (Hybrid, St Louis)', 'St. Louis, MO', '', True, ('earlycareer', 'SOC & Detection')),
+    ('MDR Analyst I', 'Remote (US)', '', True, ('earlycareer', 'SOC & Detection')),
+    ('Cyber Network Defense Analyst II', 'Sterling, VA', '', False, ('earlycareer', 'SOC & Detection')),
+    ('Cyber Ops Analyst II', 'Pearl Harbor, HI', '', False, ('earlycareer', 'SOC & Detection')),
+    ('Junior CNO Developer (Onsite)', 'Annapolis Junction, MD', '', False, ('earlycareer', 'Offensive Security')),
+    ('Cyber Intelligence Associate-Brand Protection Associate', 'New York, NY', '', False, ('earlycareer', 'Threat Intelligence')),
+    ('Fraud Analyst I', 'Somerville, MA', '', True, ('earlycareer', 'Threat Intelligence')),
+
     # -- bug fix: US territories are US locations, not foreign --
     ('Cyber Software Engineer I', 'Aguadilla, PR', '', False, ('earlycareer', 'Security Engineering')),
     ('Student Trainee (Cybersecurity)', 'Hagatna, GU', '', False, ('intern', 'Security Engineering')),

@@ -313,12 +313,25 @@ CATEGORY_RULES = [
                              r'trustworthy ai|ai red team|adversarial|'
                              r'alignment|safeguards'),
     ('Offensive Security', r'penetration|pentest|red team|offensive|exploit|'
-                           r'vulnerability research|purple team'),
+                           r'vulnerability research|purple team|'
+                           # Computer network operations: Nightwing 'Junior
+                           # CNO Developer'.
+                           r'\bcno\b'),
     ('SOC & Detection', r'\bsoc\b|security operations|detection|blue team|'
                         r'incident response|threat hunt|csirt|siem|'
-                        r'cyber defense|defensive cyber|triage'),
+                        r'cyber defense|defensive cyber|triage|'
+                        # Managed detection and network-defense titles that
+                        # fell to the catch-alls: CrowdStrike 'Analyst I,
+                        # Falcon Complete GovCloud', Nightwing 'Cyber Network
+                        # Defense Analyst II', Amentum 'Cyber Ops Analyst II',
+                        # 'Incident Responder I'.
+                        r'\bmdr\b|falcon complete|network defense|cyber ops\b|'
+                        r'responder'),
     ('Threat Intelligence', r'threat intel|\bcti\b|intelligence analyst|'
-                            r'threat research|adversary'),
+                            r'threat research|adversary|'
+                            # JPMorgan 'Cyber Intelligence Associate', Recorded
+                            # Future 'Fraud Analyst'.
+                            r'cyber intelligence|\bfraud analyst'),
     ('Forensics & IR', r'forensic|\bdfir\b|malware analy|reverse engineer'),
     ('AppSec & ProdSec', r'application security|product security|appsec|'
                          r'secure code|devsecops|software security'),
