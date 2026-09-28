@@ -1610,6 +1610,17 @@ def test_board_health_forgets_a_removed_board():
           [t.label for t in sj.build_tasks({}, board='usajobs')], [])
 
 
+def test_compare_runs_reports_retirements():
+    board = 'Checking Acme (greenhouse/acme)... ok (12 postings, 1.0s)\n'
+    before = compare_runs.parse_log(board + '  RETIRED [vanished] Acme — Old Req\n')
+    after = compare_runs.parse_log(board + '  RETIRED [vanished] Acme — Old Req\n'
+                                   '  RETIRED [orphaned] Todyl — Site Reliability Engineer II\n')
+    check('compare_runs lists a retirement only one run made',
+          compare_runs.diff(before, after),
+          ['Existing rows retired only after (1):',
+           '  - Todyl — Site Reliability Engineer II [orphaned]', ''])
+
+
 for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_ashby, test_ashby_schema_drift_warns,
            test_smartrecruiters_pagination_short_page_stops,
@@ -1652,11 +1663,10 @@ for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_workable_reads_locations_and_description,
            test_lever_appends_lists_to_description,
            test_smartrecruiters_fetches_descriptions_for_candidates,
-           test_workday_more_suffix_fetches_locations,
-           test_amazon_restricts_to_us_reqs,
-           test_retire_orphaned_listings,
-           test_check_links_soft_404,
-           test_board_health_forgets_a_removed_board):
+           test_workday_more_suffix_fetches_locations, test_amazon_restricts_to_us_reqs,
+           test_retire_orphaned_listings, test_check_links_soft_404,
+           test_board_health_forgets_a_removed_board,
+           test_compare_runs_reports_retirements):
     fn()
 
 if failures:
