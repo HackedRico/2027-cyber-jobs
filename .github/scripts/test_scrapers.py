@@ -1178,6 +1178,124 @@ def test_phenom_none_vs_empty():
           sj.scrape_phenom('Acme', 'careers.acme.org', 'en_us', 'us'), None)
 
 
+# --- scrape_jibe ---------------------------------------------------------------
+JB_API = 'https://careers.acme.org/api/jobs'
+
+
+def _jb_job(n, title='Mechanical Engineer', city='Laurel', state='Maryland',
+            country='US', **extra):
+    data = {'slug': str(n), 'req_id': str(n), 'title': title, 'city': city,
+            'state': state, 'country_code': country,
+            'description': f'<p>Posting {n}.</p>',
+            'apply_url': f'https://careers-acme.icims.com/jobs/{n}/login', **extra}
+    return {'data': data}
+
+
+def _jb_search(term, page, jobs=(), total=None, **kwargs):
+    if 'status' not in kwargs:
+        kwargs['json'] = {'jobs': list(jobs), 'totalCount': total, 'count': total}
+    responses.get(JB_API, match=[responses.matchers.query_param_matcher(
+        {'keywords': term, 'page': str(page), 'limit': str(sj.JIBE_PAGE_SIZE)})], **kwargs)
+
+
+@responses.activate
+def test_jibe_paginates_maps_fields_and_keeps_the_crawl_delay():
+    size = sj.JIBE_PAGE_SIZE
+    _jb_search('cyber', 1, [_jb_job(n) for n in range(size)], size + 1)
+    _jb_search('cyber', 2, [_jb_job(900, '2027 Internship - Cyber Security - Cyber Dominance',
+                                    tags9=['Internship'])], size + 1)
+    # Exelon's '(Various Exelon Locations)' reqs list their other sites in
+    # additional_locations, one of them foreign here.
+    _jb_search('cybersecurity', 1, [
+        _jb_job(900, '2027 Internship - Cyber Security - Cyber Dominance'),
+        _jb_job(901, '2027 Summer Internship - Cyber Security', city='OAKBROOK TERRACE',
+                state='Illinois', categories=[{'name': 'Intern/Co-Op'}],
+                additional_locations=[
+                    {'city': 'Washington', 'state': 'Washington, DC', 'country_code': 'US'},
+                    {'city': 'Toronto', 'state': 'Ontario', 'country_code': 'CA'}]),
+        _jb_job(902, 'Cyber Analyst', city=None, state=None,
+                tags2=['International Programs'])], 3)
+    _jb_search('intern', 1, [_jb_job(903, 'Security Intern', city='London', state='England',
+                                     country='GB')], 1)
+    delays = []
+    sj.time.sleep = delays.append
+    try:
+        jobs = sj.scrape_jibe('Acme', 'careers.acme.org')
+    finally:
+        sj.time.sleep = lambda *a, **k: None
+
+    check('jibe pages past a full first page, dedupes, skips a foreign-only req',
+          len(jobs), size + 3)
+    intern = next(j for j in jobs if j['id'] == 'jibe_careers.acme.org_900')
+    check('jibe links the Jibe job page, not the iCIMS login wall',
+          (intern['url'], intern['board']), ('https://careers.acme.org/jobs/900', 'Jibe'))
+    check('jibe keeps the payload description', intern['description'], '<p>Posting 900.</p>')
+    check('jibe reads an intern tag as an intern hint', intern['intern_hint'], True)
+    multi = next(j for j in jobs if j['id'].endswith('_901'))
+    check('jibe joins US locations and drops foreign ones', multi['location'],
+          'Oakbrook Terrace, Illinois; Washington, DC')
+    check('jibe reads an intern category as an intern hint', multi['intern_hint'], True)
+    bare = next(j for j in jobs if j['id'].endswith('_902'))
+    check('jibe falls back to the country for a placeless US req', bare['location'],
+          'United States')
+    check('jibe does not read International as intern', bare['intern_hint'], False)
+    check('jibe waits the crawl delay between requests', delays,
+          [sj.JIBE_REQUEST_DELAY] * 3)
+    check('jibe sweep that finished is not partial',
+          any(j.get('partial_sweep') for j in jobs), False)
+
+
+@responses.activate
+def test_jibe_none_vs_empty():
+    for term in sj.JIBE_TERMS:
+        _jb_search(term, 1, [], 0)
+    check('jibe empty board -> []', sj.scrape_jibe('Acme', 'careers.acme.org'), [])
+    responses.reset()
+    responses.get(JB_API, status=404)
+    check('jibe dead host -> None', sj.scrape_jibe('Acme', 'careers.acme.org'), None)
+    check('jibe rejects a host with a path', sj.scrape_jibe('X', 'evil.com/x'), None)
+
+
+@responses.activate
+def test_jibe_retries_429_and_flags_a_cut_short_sweep():
+    _jb_search('cyber', 1, status=429)
+    _jb_search('cyber', 1, [_jb_job(1, 'Cyber Analyst I')], 1)
+    _jb_search('cybersecurity', 1, [], 0)
+    # A term that fails outright leaves postings unseen, so the sweep is partial
+    # and retire_vanished_listings must not read the gap as closures.
+    _jb_search('intern', 1, status=500)
+    jobs = sj.scrape_jibe('Acme', 'careers.acme.org')
+    check('jibe retries a 429 page', [j['title'] for j in jobs], ['Cyber Analyst I'])
+    check('jibe flags a sweep with a failed term', jobs[0].get('partial_sweep'), True)
+    responses.reset()
+    responses.get(JB_API, status=429)
+    check('jibe sustained 429 -> None', sj.scrape_jibe('Acme', 'careers.acme.org'), None)
+    check('jibe retries each term through every backoff step', len(responses.calls),
+          (len(sj.RATE_LIMIT_DELAYS) + 1) * len(sj.JIBE_TERMS))
+
+
+@responses.activate
+def test_jibe_caps_pages():
+    size = sj.JIBE_PAGE_SIZE
+    for page in range(1, sj.JIBE_MAX_PAGES + 2):
+        _jb_search('cyber', page, [_jb_job(page * size + n) for n in range(size)], 5000)
+    _jb_search('cybersecurity', 1, [], 0)
+    _jb_search('intern', 1, [], 0)
+    jobs = sj.scrape_jibe('Acme', 'careers.acme.org')
+    check('jibe stops at JIBE_MAX_PAGES', len(jobs), sj.JIBE_MAX_PAGES * size)
+    check('jibe flags a capped sweep', all(j.get('partial_sweep') for j in jobs), True)
+
+
+def test_jibe_plumbs_through_config_and_retirement():
+    config = {'jibe': [{'name': 'J', 'host': 'careers.j.org', 'search_terms': ['reverse']}]}
+    check('build_tasks passes jibe entries through',
+          [(t.label, t.args) for t in sj.build_tasks(config, board='jibe')],
+          [('J (jibe/careers.j.org)', ('J', 'careers.j.org', ['reverse']))])
+    check('fingerprint Jibe',
+          sj.job_fingerprint('Acme', 'Jibe', 'https://careers.acme.org/jobs/59772'),
+          ('Acme', 'Jibe', '59772'))
+
+
 def test_new_boards_validate_config_and_plumb_through():
     check('eightfold rejects a tenant with /',
           sj.scrape_eightfold('X', 'evil.com/', 'x.com'), None)
@@ -1435,6 +1553,9 @@ for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_eightfold_schema_drift_is_empty_not_crash,
            test_phenom_paginates_and_fetches_details,
            test_phenom_caps_pages_on_a_fuzzy_match, test_phenom_none_vs_empty,
+           test_jibe_paginates_maps_fields_and_keeps_the_crawl_delay,
+           test_jibe_none_vs_empty, test_jibe_retries_429_and_flags_a_cut_short_sweep,
+           test_jibe_caps_pages, test_jibe_plumbs_through_config_and_retirement,
            test_new_boards_validate_config_and_plumb_through,
            test_main_writes_run_events_with_inserted_row,
            test_notify_skips_release_when_nothing_added,

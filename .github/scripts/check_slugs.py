@@ -70,6 +70,9 @@ def main():
                sj.scrape_phenom(e['name'], e['host'], e['lang'], e['country'],
                                 e.get('security_company', False)))
 
+    for e in config.get('jibe') or []:
+        record('jibe', e['name'], e['host'], sj.scrape_jibe(e['name'], e['host']))
+
     if problems:
         print('Slugs needing attention:')
         for p in sorted(problems):

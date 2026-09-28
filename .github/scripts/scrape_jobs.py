@@ -911,6 +911,125 @@ def scrape_phenom(company, host, lang, country, security_company=False,
     return jobs
 
 
+# Jibe search matches descriptions as well as titles, so these stay small:
+# JHU APL answers 58 for 'cyber', 71 for 'cybersecurity' and 73 for 'intern',
+# against 503 for 'security'. 'cyber' alone misses APL's '2027 Internship -
+# Cybersecurity - Mission Engineering', which only the whole word matches.
+JIBE_TERMS = ('cyber', 'cybersecurity', 'intern')
+JIBE_PAGE_SIZE = 100
+JIBE_MAX_PAGES = 5
+# careers.jhuapl.edu, careers.pnnl.gov and jobs.exeloncorp.com all set
+# crawl-delay: 5 in robots.txt.
+JIBE_REQUEST_DELAY = 5
+
+# Each tenant files the student track in its own custom field: APL's tags9
+# 'Internship', PNNL's tags2 'University Internships', Exelon's category
+# 'Intern/Co-Op'. The word boundary keeps 'International' out.
+_JIBE_INTERN_RE = re.compile(r'\bintern(?:ships?|s)?\b', re.IGNORECASE)
+
+
+def _jibe_place(place):
+    city, state = place.get('city') or '', place.get('state') or ''
+    if city.isupper():
+        city = city.title()
+    # Exelon files DC as city 'Washington', state 'Washington, DC'.
+    if city and state.startswith(f'{city},'):
+        return state
+    return ', '.join(p for p in (city, state) if p) or 'United States'
+
+
+def _jibe_location(data):
+    parts = []
+    for place in (data, *(data.get('additional_locations') or [])):
+        country = (place.get('country_code') or place.get('country') or '').upper()
+        if country and country not in ('US', 'USA', 'UNITED STATES'):
+            continue
+        parts.append(_jibe_place(place))
+    return '; '.join(dict.fromkeys(parts))
+
+
+def _jibe_intern_hint(data):
+    labels = [c.get('name', '') for c in data.get('categories') or [] if isinstance(c, dict)]
+    for key, value in data.items():
+        if key.startswith('tags') and isinstance(value, list):
+            labels += [str(v) for v in value]
+    return any(_JIBE_INTERN_RE.search(label) for label in labels)
+
+
+def scrape_jibe(company, host, extra_terms=None):
+    """iCIMS Jibe career sites, read through the site's own `/api/jobs` search.
+
+    `host` is the branded careers host (careers.jhuapl.edu). Each search page
+    already carries the full description, so there is no detail pass. A
+    posting's link is the Jibe job page, since the payload's `apply_url` is an
+    iCIMS login wall.
+    """
+    if not _valid_host(host):
+        print(f'  [{company}] invalid jibe host {host!r}, skipping')
+        return None
+    api = f'https://{host}/api/jobs'
+    headers = {**HEADERS, 'Accept': 'application/json'}
+    terms = list(JIBE_TERMS)
+    if extra_terms:
+        terms += [t for t in extra_terms if t not in terms]
+
+    jobs = []
+    seen_ids = set()
+    any_ok = False
+    # Cleared when a page fails or a term hits the page cap, so
+    # retire_vanished_listings does not read a cut-short sweep as closures.
+    complete = True
+    first_request = True
+    for term in terms:
+        for page in range(1, JIBE_MAX_PAGES + 1):
+            if not first_request:
+                time.sleep(JIBE_REQUEST_DELAY)
+            first_request = False
+            params = {'keywords': term, 'page': page, 'limit': JIBE_PAGE_SIZE}
+            data = _get_json_patiently(api, params=params, headers=headers,
+                                       label=f'{company} Jibe "{term}"')
+            if data is None:
+                complete = False
+                break
+            any_ok = True
+            if not isinstance(data, dict):
+                break
+            check_container(data, 'jobs', f'{company} Jibe')
+            postings = data.get('jobs') or []
+            for posting in postings:
+                info = (posting or {}).get('data') or {}
+                slug = str(info.get('slug') or info.get('req_id') or '')
+                if not _valid_slug(slug) or slug in seen_ids:
+                    continue
+                seen_ids.add(slug)
+                location = _jibe_location(info)
+                if not location:
+                    continue
+                jobs.append({
+                    'id': f'jibe_{host}_{slug}',
+                    'company': company,
+                    'title': info.get('title', ''),
+                    'location': location,
+                    'url': f'https://{host}/jobs/{slug}',
+                    'board': 'Jibe',
+                    'description': info.get('description') or info.get('qualifications') or '',
+                    'intern_hint': _jibe_intern_hint(info),
+                })
+            total = data.get('totalCount')
+            if len(postings) < JIBE_PAGE_SIZE or (total is not None
+                                                 and page * JIBE_PAGE_SIZE >= total):
+                break
+        else:
+            complete = False
+
+    if not any_ok or (not complete and not jobs):
+        return None
+    if not complete:
+        for job in jobs:
+            job['partial_sweep'] = True
+    return jobs
+
+
 def _has_description(job):
     return bool((job.get('description') or '').strip())
 
@@ -1041,6 +1160,7 @@ _REQ_PATTERNS = {
     'Pinpoint': (r'/postings/([0-9a-fA-F-]{36})',),
     'Eightfold': (r'/careers/job/(\d+)',),
     'Phenom': (r'/job/([A-Za-z0-9_-]+)$',),
+    'Jibe': (r'/jobs/([A-Za-z0-9_-]+)$',),
 }
 
 
@@ -1656,6 +1776,12 @@ def build_tasks(config, board=None, limit=None):
                 (entry['name'], entry['host'], entry['lang'], entry['country'],
                  entry.get('security_company', False), entry.get('search_terms')),
                 entry.get('security_company', False)))
+    if want('jibe'):
+        for entry in limited(config.get('jibe')):
+            tasks.append(BoardTask(
+                f'{entry["name"]} (jibe/{entry["host"]})', scrape_jibe,
+                (entry['name'], entry['host'], entry.get('search_terms')),
+                entry.get('security_company', False)))
     if want('amazon'):
         tasks.append(BoardTask('Amazon (amazon.jobs)', scrape_amazon, ()))
     if want('usajobs'):
@@ -1715,7 +1841,7 @@ def parse_args(argv=None):
                              'README rebuild — safe to run locally')
     parser.add_argument('--board',
                         help='only run this ATS (e.g. greenhouse, workday, '
-                             'eightfold, phenom, amazon, usajobs) for fast '
+                             'eightfold, phenom, jibe, amazon, usajobs) for fast '
                              'local iteration')
     parser.add_argument('--limit', type=int,
                         help='only scrape the first N configured companies per board')

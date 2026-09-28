@@ -1085,3 +1085,10 @@ phenom:
   host: careers.mitre.org
   lang: en_us
   country: us
+jibe:
+- name: Exelon
+  host: jobs.exeloncorp.com
+- name: Johns Hopkins APL
+  host: careers.jhuapl.edu
+- name: PNNL
+  host: careers.pnnl.gov

@@ -67,7 +67,7 @@ Use the **Report a Listing** form when a row is closed, is not a security role, 
 
 The easy way is the **Request a Company** form: give the careers URL and a role you saw there, and a maintainer adds and verifies the board.
 
-To do it yourself: if an employer uses Greenhouse, Lever, Ashby, SmartRecruiters, Workable, Recruitee, Pinpoint, Workday, Oracle Recruiting Cloud, Eightfold, or Phenom, add it to [`companies.yml`](companies.yml) in a pull request and the scraper picks up its roles.
+To do it yourself: if an employer uses Greenhouse, Lever, Ashby, SmartRecruiters, Workable, Recruitee, Pinpoint, Workday, Oracle Recruiting Cloud, Eightfold, Phenom, or iCIMS Jibe, add it to [`companies.yml`](companies.yml) in a pull request and the scraper picks up its roles.
 
 Find the identifier from the company's careers page URL:
 
@@ -84,6 +84,7 @@ Find the identifier from the company's careers page URL:
 | Oracle | `acme.fa.us2.oraclecloud.com/...CandidateExperience/en/sites/CX_1` | `- name: Acme` / `host: acme.fa.us2.oraclecloud.com` / `site: CX_1` |
 | Eightfold | `acme.eightfold.ai/careers?domain=acme.com` | `- name: Acme` / `tenant: acme` / `domain: acme.com` |
 | Phenom | `careers.acme.com/us/en/search-results`, page source loads `cdn.phenompeople.com` | `- name: Acme` / `host: careers.acme.com` / `lang: en_us` / `country: us`, read off the `/us/en/` path |
+| Jibe | `careers.acme.com/jobs/12345`, and `careers.acme.com/api/jobs?keywords=cyber` returns JSON with `totalCount` | `- name: Acme` / `host: careers.acme.com` |
 
 Set `security_company: true` for companies whose main business is security, such as vendors and consultancies. It lets the technical titles listed under section 1 through without a security word.
 
