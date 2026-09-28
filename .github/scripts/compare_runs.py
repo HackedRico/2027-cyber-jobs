@@ -6,8 +6,8 @@
     python .github/scripts/compare_runs.py before.log after.log
 
 Reports rows accepted in only one run, rows whose level changed, existing rows
-one run drops, reclassifies or has its location repaired and the other does
-not, and boards whose status changed. Exits 1 when anything differs, so a clean
+one run drops, reclassifies, refreshes or has its location repaired and the
+other does not, and boards whose status changed. Exits 1 when anything differs, so a clean
 exit is the equivalence proof for a scraper or classifier change. Run the two
 scrapes minutes apart: postings arrive continuously, so a row that appears in
 only the later log under a title the change does not target is noise, not a
@@ -26,6 +26,9 @@ RECLASSIFY_RE = re.compile(r'^\s*RECLASSIFY \[(\w+) -> (\w+)\] (.+)$')
 # title that itself contains ": " ("Summer 2027 Intern: Cybersecurity") intact.
 REPAIR_RE = re.compile(
     r'''^\s*REPAIRED \[location\] (.+): ('[^']*'|"[^"]*") -> ('[^']*'|"[^"]*")$''')
+# A refreshed category is a quoted string and a clearance flag a bare bool.
+_VALUE = r'''('[^']*'|"[^"]*"|True|False|None)'''
+REFRESH_RE = re.compile(rf'^\s*REFRESHED \[(\w+)\] (.+): {_VALUE} -> {_VALUE}$')
 BOARD_RE = re.compile(r'^Checking (.+?)\.\.\. (ok|zero|FAILED|CRASHED) \((\d+) postings')
 
 
@@ -35,10 +38,11 @@ class Run(NamedTuple):
     reclassified: dict  # "Company — Title" -> (old, new)
     repaired: dict    # ("Company — Title", old location) -> new location
     boards: dict      # label -> (status, count)
+    refreshed: dict   # ("Company — Title", field, old) -> new
 
 
 def parse_log(text):
-    rows, dropped, reclassified, repaired, boards = {}, {}, {}, {}, {}
+    rows, dropped, reclassified, repaired, boards, refreshed = {}, {}, {}, {}, {}, {}
     for line in text.splitlines():
         if m := NEW_RE.match(line):
             rows[m.group(2).strip()] = m.group(1)
@@ -50,9 +54,11 @@ def parse_log(text):
             # Keyed with the old location too: one title is posted per site,
             # so same-title repairs must not overwrite each other.
             repaired[(m.group(1).strip(), m.group(2))] = m.group(3)
+        elif m := REFRESH_RE.match(line):
+            refreshed[(m.group(2).strip(), m.group(1), m.group(3))] = m.group(4)
         elif m := BOARD_RE.match(line):
             boards[m.group(1)] = (m.group(2), int(m.group(3)))
-    return Run(rows, dropped, reclassified, repaired, boards)
+    return Run(rows, dropped, reclassified, repaired, boards, refreshed)
 
 
 def _section(title, items):
@@ -78,6 +84,12 @@ def diff(before, after):
                      if before.repaired.get((k, o)) != n)
     unrepairs = sorted(f'{k}: {o} -> {n}' for (k, o), n in before.repaired.items()
                        if after.repaired.get((k, o)) != n)
+    refreshes = sorted(f'{k} [{field}]: {o} -> {n}'
+                       for (k, field, o), n in after.refreshed.items()
+                       if before.refreshed.get((k, field, o)) != n)
+    unrefreshes = sorted(f'{k} [{field}]: {o} -> {n}'
+                         for (k, field, o), n in before.refreshed.items()
+                         if after.refreshed.get((k, field, o)) != n)
     boards = sorted(f'{label}: {before.boards[label][0]} ({before.boards[label][1]}) '
                     f'-> {after.boards[label][0]} ({after.boards[label][1]})'
                     for label in before.boards if label in after.boards
@@ -90,6 +102,8 @@ def diff(before, after):
             + _section('Existing rows reclassified only after', reclass)
             + _section('Existing rows whose location was repaired only after', repairs)
             + _section('Existing rows whose location was repaired only before', unrepairs)
+            + _section('Existing rows refreshed only after', refreshes)
+            + _section('Existing rows refreshed only before', unrefreshes)
             + _section('Boards whose status changed', boards))
 
 

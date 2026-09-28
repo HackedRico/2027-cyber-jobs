@@ -35,6 +35,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
+          # Hands the added rows to "Announce new roles", outside the checkout
+          # so the commit step never picks it up. Set per step because the
+          # runner context is not available in job-level env.
+          RUN_EVENTS_FILE: ${{ runner.temp }}/run_events.json
         run: python .github/scripts/process_approved.py
 
       - name: Commit changes
@@ -63,6 +67,16 @@ jobs:
             git diff --staged --quiet || git commit --amend --no-edit
           fi
           git push
+
+      # Default if: success() means this fires only when the push above landed,
+      # so no release or alert links to a row that is not on main. A community
+      # row reaches the same alert streams as a scraped one.
+      - name: Announce new roles
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          RUN_EVENTS_FILE: ${{ runner.temp }}/run_events.json
+        run: python .github/scripts/notify.py
 
       # Runs after the push so an issue closes only once its row is on main. A
       # failed push leaves added issues open and approved for the next run.

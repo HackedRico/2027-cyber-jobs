@@ -35,7 +35,7 @@ behind `main`. Rebase before opening a PR, and take `main` for any conflict in a
 - `scrape_jobs.py` owns one `scrape_<ats>` function per platform, persistence
   (`seen_jobs.json` is per-posting last-seen, `board_baseline.json` is per-board counts for the
   silent-board alarm), and `main()`, which runs purge, renormalise, reclassify, the
-  over-experience drop, the location repair and the vanished-req retire over existing rows
+  stored-row re-evaluation, the location repair and the vanished-req retire over existing rows
   before dedup and insert of new ones.
 - `rebuild_readme.py` regenerates the tables between the `TABLE_START <type>` markers.
 - `validate_issue.py` and `process_approved.py` are the community path: issue form, one
@@ -49,8 +49,10 @@ behind `main`. Rebase before opening a PR, and take `main` for any conflict in a
 Every keyword or location change lands with a case in `test_classification.py`, and the PR
 names the example titles that flip. Rejects are cheap. An accept rule costs precision, so it
 needs a real title the current rules miss and a reason no existing rule should catch it.
-Existing rows are reclassified on the next scrape from title only, so a description-based rule
-reaches new rows only. A new category is added in `CATEGORY_RULES` and in the issue template
+Every rule reaches existing rows on the next scrape. Each row gets the title rules under its
+company's current `security_company` flag, and a row whose posting is still in the feed also
+goes through the full `judge_job` pipeline, which drops it or refreshes its type, category and
+🇺🇸 flag. A missing description never drops a row. A new category is added in `CATEGORY_RULES` and in the issue template
 dropdown together.
 
 ## Verifying a scraper change

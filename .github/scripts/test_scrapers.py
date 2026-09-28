@@ -237,52 +237,133 @@ def test_amazon_description_includes_qualifications():
           sj._amazon_description({'description': 'Body only.'}), 'Body only.')
 
 
-# --- stored rows self-heal when the live posting is over the cap --------------
-def test_drop_over_experienced():
+# --- stored rows are re-judged against their live posting ---------------------
+GH_JOBS = 'https://boards.greenhouse.io/{}/jobs/{}'
+
+
+def _stored(company, role, n, kind='earlycareer', **extra):
+    row = {'company': company, 'role': role, 'location': 'Austin, TX', 'type': kind,
+           'category': 'Security Engineering', 'clearance': False,
+           'url': GH_JOBS.format(company.lower(), n), 'source': 'Greenhouse'}
+    row.update(extra)
+    return row
+
+
+def _live(company, title, n, description='', location='Austin, TX', **extra):
+    job = {'id': f'gh-{company}-{n}', 'company': company, 'title': title,
+           'location': location, 'url': GH_JOBS.format(company.lower(), n),
+           'board': 'Greenhouse', 'description': description}
+    job.update(extra)
+    return job
+
+
+def _reevaluate(listings, raw, flags=None):
+    kept, dropped, refreshed = sj.reevaluate_stored_listings(listings, raw, flags or {})
+    return (kept, [(e['company'], e['role'], reason) for e, reason in dropped],
+            [(e['role'], field, old, new) for e, field, old, new in refreshed])
+
+
+def test_reevaluate_drops_rows_the_pipeline_now_rejects():
     listings = [
-        {'company': 'Acme', 'role': 'Security Engineer II', 'location': 'Austin, TX',
-         'type': 'earlycareer', 'source': 'Greenhouse', 'url': 'https://a.co/1'},
-        {'company': 'Acme', 'role': 'SOC Analyst I', 'location': 'Austin, TX',
-         'type': 'earlycareer', 'source': 'Greenhouse', 'url': 'https://a.co/2'},
-        {'company': 'Acme', 'role': 'Security Intern', 'location': 'Austin, TX',
-         'type': 'intern', 'source': 'Greenhouse', 'url': 'https://a.co/3'},
-        {'company': 'Acme', 'role': 'Cyber Analyst', 'location': 'Austin, TX',
-         'type': 'earlycareer', 'source': 'Community', 'url': 'https://a.co/4'},
-        {'company': 'Acme', 'role': 'Threat Analyst II', 'location': 'Austin, TX',
-         'type': 'earlycareer', 'source': 'Greenhouse', 'url': 'https://a.co/5'},
-        {'company': 'Ghost', 'role': 'Security Engineer II', 'location': 'Austin, TX',
-         'type': 'earlycareer', 'source': 'Greenhouse', 'url': 'https://g.co/9'},
+        # Admitted on a security_company flag the company has since lost.
+        _stored('Jumio', 'Research Engineer - Machine Learning & Robotics', 1,
+                kind='newgrad', category='Engineering @ Security Co'),
+        # An AI flat title whose posting states no years.
+        _stored('Anthropic', 'Safeguards Enforcement Analyst, Child Safety', 2),
+        _stored('Acme', 'Security Engineer II', 3),
+        _stored('ExtraHop', 'Support Engineer I - UK', 4, location='Remote (US)'),
+        _stored('Acme', 'SOC Analyst I', 5),
     ]
     raw = [
-        # over the cap -> drop
-        {'company': 'Acme', 'title': 'Security Engineer II', 'location': 'Austin, TX',
-         'url': 'https://a.co/1', 'description': 'Requires 6+ years of experience.'},
-        # under the cap -> keep
-        {'company': 'Acme', 'title': 'SOC Analyst I', 'location': 'Austin, TX',
-         'url': 'https://a.co/2', 'description': 'Requires 1+ year of experience.'},
-        # intern + community are exempt even though both descriptions are over
-        {'company': 'Acme', 'title': 'Security Intern', 'location': 'Austin, TX',
-         'url': 'https://a.co/3', 'description': 'Requires 6+ years of experience.'},
-        {'company': 'Acme', 'title': 'Cyber Analyst', 'location': 'Austin, TX',
-         'url': 'https://a.co/4', 'description': 'Requires 6+ years of experience.'},
-        # empty description must never delete a row
-        {'company': 'Acme', 'title': 'Threat Analyst II', 'location': 'Austin, TX',
-         'url': 'https://a.co/5', 'description': '   '},
+        _live('Jumio', 'Research Engineer - Machine Learning & Robotics', 1,
+              'Join our new grad research team.'),
+        _live('Anthropic', 'Safeguards Enforcement Analyst, Child Safety', 2,
+              'Minimum years of experience: Years of experience required will correlate '
+              'with the internal job level requirements.'),
+        _live('Acme', 'Security Engineer II', 3, 'Requires 6+ years of experience.'),
+        _live('ExtraHop', 'Support Engineer I - UK', 4, 'Support our customers.',
+              location='Remote | United Kingdom'),
+        _live('Acme', 'SOC Analyst I', 5, 'Requires 1+ year of experience.'),
     ]
-    kept, dropped = sj.drop_over_experienced(listings, raw)
-    check('over-experienced row dropped', [e['role'] for e in dropped],
-          ['Security Engineer II'])
-    check('under-cap, intern, community, blank-description and unscraped rows kept',
-          [e['company'] + '/' + e['role'] for e in kept],
-          ['Acme/SOC Analyst I', 'Acme/Security Intern', 'Acme/Cyber Analyst',
-           'Acme/Threat Analyst II', 'Ghost/Security Engineer II'])
-    # A req that moved to a new URL still matches on (company, role, location).
-    moved = [{'company': 'Acme', 'title': 'Security Engineer II',
-              'location': 'Austin, TX', 'url': 'https://a.co/1-v2',
-              'description': 'Requires 6+ years of experience.'}]
-    _, dropped_moved = sj.drop_over_experienced(listings[:1], moved)
-    check('row matched by dedup key when the req URL changed',
-          len(dropped_moved), 1)
+    kept, dropped, _ = _reevaluate(listings, raw, {'Jumio': False, 'ExtraHop': True})
+    check('re-evaluation drops each row with the gate that failed', dropped, [
+        ('Jumio', 'Research Engineer - Machine Learning & Robotics', 'not-cyber'),
+        ('Anthropic', 'Safeguards Enforcement Analyst, Child Safety', 'no-level'),
+        ('Acme', 'Security Engineer II', 'over-experienced'),
+        ('ExtraHop', 'Support Engineer I - UK', 'non-us-location'),
+    ])
+    check('re-evaluation keeps the row that still passes', [e['role'] for e in kept],
+          ['SOC Analyst I'])
+
+
+def test_reevaluate_refreshes_category_type_and_clearance():
+    listings = [
+        _stored('Acme', 'SOC Analyst I', 1, category='Security Engineering'),
+        _stored('Acme', 'Cyber Analyst', 2, kind='earlycareer'),
+        _stored('Acme', 'Security Engineer I', 3, clearance=False),
+        _stored('Acme', 'Security Engineer I', 4, location='Reston, VA', clearance=True),
+    ]
+    raw = [
+        _live('Acme', 'SOC Analyst I', 1, 'Monitor alerts.'),
+        _live('Acme', 'Cyber Analyst', 2, 'Open to new graduates of 2026 programs.'),
+        _live('Acme', 'Security Engineer I', 3,
+              'Must hold an active TS/SCI clearance.'),
+        _live('Acme', 'Security Engineer I', 4, 'Build detection tooling.',
+              location='Reston, VA'),
+    ]
+    kept, dropped, refreshed = _reevaluate(listings, raw)
+    check('refresh drops nothing', dropped, [])
+    check('refresh rewrites category, type and clearance from the live posting', refreshed, [
+        ('SOC Analyst I', 'category', 'Security Engineering', 'SOC & Detection'),
+        ('Cyber Analyst', 'type', 'earlycareer', 'newgrad'),
+        ('Security Engineer I', 'clearance', False, True),
+        ('Security Engineer I', 'clearance', True, False),
+    ])
+    check('refresh writes the new values onto the rows',
+          [(e['category'], e['type'], e['clearance']) for e in kept],
+          [('SOC & Detection', 'earlycareer', False),
+           ('Security Engineering', 'newgrad', False),
+           ('Security Engineering', 'earlycareer', True),
+           ('Security Engineering', 'earlycareer', False)])
+
+
+def test_reevaluate_guardrails_keep_rows():
+    listings = [
+        # No live match on a board that did return postings.
+        _stored('Acme', 'SOC Analyst I', 1),
+        # A company whose board returned nothing this run.
+        _stored('Ghost', 'Research Engineer - Machine Learning & Robotics', 2,
+                kind='newgrad'),
+        # Flat title whose level came from a description the live copy lacks.
+        _stored('Acme', 'Security Engineer', 3),
+        # Community rows carry a maintainer's judgment.
+        _stored('Acme', 'Senior Staff Security Architect', 4, source='Community'),
+        # Interns keep their type even when the live title reads otherwise.
+        _stored('Acme', 'Security Engineer', 5, kind='intern'),
+        # A blank live location says nothing about where the job is.
+        _stored('Acme', 'Cyber Analyst I', 6),
+    ]
+    raw = [
+        _live('Acme', 'Security Engineer', 3, '   '),
+        _live('Acme', 'Senior Staff Security Architect', 4, 'Requires 10+ years.'),
+        _live('Acme', 'Security Engineer', 5, 'Requires 6+ years of experience.'),
+        _live('Acme', 'Cyber Analyst I', 6, 'Entry level.', location=''),
+    ]
+    kept, dropped, refreshed = _reevaluate(listings, raw, {'Ghost': False})
+    check('guardrails drop nothing', dropped, [])
+    check('guardrails keep every row', len(kept), len(listings))
+    check('guardrails refresh nothing on a Community row or an intern type',
+          [r for r in refreshed if r[1] == 'type' or r[0].startswith('Senior')], [])
+    check('an intern row stays an intern', kept[4]['type'], 'intern')
+
+
+def test_reevaluate_matches_a_moved_req_by_dedup_key():
+    listings = [_stored('Acme', 'Security Engineer II', 1)]
+    moved = [dict(_live('Acme', 'Security Engineer II', 1,
+                        'Requires 6+ years of experience.'),
+                  url='https://acme.example/careers?id=77', board='')]
+    _, dropped, _ = _reevaluate(listings, moved)
+    check('row matched by dedup key when the req URL changed', len(dropped), 1)
 
 
 # --- a req that leaves its board's feed is retired ----------------------------
@@ -604,7 +685,10 @@ def test_compare_runs_reports_flips_only():
         "  REPAIRED [location] Acme — Systems Engineer I: 'Az' -> 'Tucson, AZ'\n"
         "  REPAIRED [location] Acme — Intern: Cybersecurity Undergrad: 'Ar' -> 'Bentonville, AR'\n"
         "  REPAIRED [location] Acme — Site Intern: 'Ri' -> 'Portsmouth, RI'\n"
-        "  REPAIRED [location] Acme — Site Intern: 'Ma' -> 'Tewksbury, MA'\n")
+        "  REPAIRED [location] Acme — Site Intern: 'Ma' -> 'Tewksbury, MA'\n"
+        "  REFRESHED [category] Acme — SOC Analyst I: 'Security Engineering' -> "
+        "'SOC & Detection'\n"
+        '  REFRESHED [clearance] Acme — Cyber Analyst I: False -> True\n')
     check('compare_runs parses board status and count',
           before.boards['Beta (lever/beta)'], ('ok', 3))
     report = compare_runs.diff(before, after)
@@ -626,6 +710,10 @@ def test_compare_runs_reports_flips_only():
            "  - Acme — Site Intern: 'Ri' -> 'Portsmouth, RI'"])
     check('compare_runs lists a repair only the first run made',
           "  - Acme — Lost Repair: 'Ma' -> 'Woburn, MA'" in report, True)
+    check('compare_runs lists refreshed categories and clearance flags',
+          [line for line in report if '[category]' in line or '[clearance]' in line],
+          ["  - Acme — Cyber Analyst I [clearance]: False -> True",
+           "  - Acme — SOC Analyst I [category]: 'Security Engineering' -> 'SOC & Detection'"])
     check('compare_runs lists a board status change',
           '  - Beta (lever/beta): ok (3) -> FAILED (0)' in report, True)
     check('compare_runs reports identical runs as equivalent',
@@ -1322,7 +1410,11 @@ for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_workday_total_failure_returns_none,
            test_smartrecruiters_missing_total_keeps_paging,
            test_amazon_description_includes_qualifications,
-           test_drop_over_experienced, test_job_fingerprint_reads_every_ats_url_shape,
+           test_reevaluate_drops_rows_the_pipeline_now_rejects,
+           test_reevaluate_refreshes_category_type_and_clearance,
+           test_reevaluate_guardrails_keep_rows,
+           test_reevaluate_matches_a_moved_req_by_dedup_key,
+           test_job_fingerprint_reads_every_ats_url_shape,
            test_retire_vanished_listings,
            test_retire_vanished_needs_the_whole_board_not_one_posting,
            test_repair_broken_locations,

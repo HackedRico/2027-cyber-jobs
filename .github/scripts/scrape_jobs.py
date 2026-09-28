@@ -16,9 +16,10 @@ import re
 import sys
 import threading
 import time
+from collections import Counter
 from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor
-from datetime import UTC, datetime
+from datetime import datetime
 from pathlib import Path
 from typing import NamedTuple
 from urllib.parse import parse_qs, urlparse
@@ -31,10 +32,10 @@ from classify import (
     _is_foreign_part,
     classify_level,
     evaluate_job,
-    exceeds_experience_cap,
     is_cyber_title,
     is_rejected_title,
     is_us_location,
+    judge_job,
     listing_dedup_key,
     normalize_location,
     prune_seen,
@@ -43,7 +44,7 @@ from classify import (
     renormalize_locations,
     requires_clearance,
 )
-from common import normalize_url
+from common import normalize_url, security_company_flags, write_run_events
 
 LISTINGS_FILE = Path('listings.json')
 SEEN_JOBS_FILE = Path('.github/data/seen_jobs.json')
@@ -910,49 +911,110 @@ def scrape_phenom(company, host, lang, country, security_company=False,
     return jobs
 
 
-def drop_over_experienced(listings, raw_jobs):
-    """Retire stored rows whose live posting states too high an experience bar.
+def _has_description(job):
+    return bool((job.get('description') or '').strip())
 
-    Returns (kept, dropped). Each run re-scrapes every live posting, so a
-    stored row can be re-judged against this run's description even though it
-    was added before the gate existed. Matching is by normalized URL first,
-    then by the (company, role, location) dedup key for boards that reshuffle
-    req URLs.
 
-    Guardrails, all in the keep direction: a row is only dropped when the
-    matching posting actually carried a description, so a board that returns an
-    empty body (or a company that isn't in this run's `--board` subset) can't
-    silently erase listings. Community rows reflect a maintainer's judgment and
-    interns are exempt from the gate, so both are left alone.
-    """
-    by_url, by_key = {}, {}
+def _index_live_postings(raw_jobs, companies):
+    by_fingerprint, by_url, by_key = {}, {}, {}
+
+    def put(index, key, job):
+        held = index.get(key)
+        # Eightfold and Workday list one req under several search terms, and
+        # only some copies carry the detail body; keep the one that does.
+        if held is None or (not _has_description(held) and _has_description(job)):
+            index[key] = job
+
     for job in raw_jobs:
-        description = job.get('description', '') or ''
-        if not description.strip():
+        company = job.get('company', '')
+        if company not in companies:
             continue
+        fingerprint = job_fingerprint(company, job.get('board', ''), job.get('url', ''))
+        if fingerprint:
+            put(by_fingerprint, fingerprint, job)
         if job.get('url'):
-            by_url[normalize_url(job['url'])] = description
-        key = listing_dedup_key(job.get('company', ''), job.get('title', ''),
-                                normalize_location(job.get('location', '')))
-        by_key.setdefault(key, description)
+            put(by_url, normalize_url(job['url']), job)
+        put(by_key, listing_dedup_key(company, job.get('title', ''),
+                                      normalize_location(job.get('location', ''))), job)
+    return by_fingerprint, by_url, by_key
 
-    kept, dropped = [], []
-    for entry in listings:
-        if entry.get('source') == 'Community' or entry.get('type') == 'intern':
-            kept.append(entry)
+
+def reevaluate_stored_listings(listings, raw_jobs, sec_flags):
+    """Re-judge stored rows against this run's copy of their live posting.
+
+    Returns (kept, dropped, refreshed). `dropped` holds (row, reason) pairs,
+    reason one of classify.JUDGE_REASONS; `refreshed` holds
+    (row, field, old, new) for each changed `type`, `category` or `clearance`.
+
+    Every run re-scrapes each live posting, so a stored row can go through the
+    full `judge_job` pipeline on its live title, raw location and description,
+    with the company's current `security_company` flag from `sec_flags`.
+    Without this, a rule or flag change reached only rows inserted after it:
+    Jumio kept a 'Research Engineer - Machine Learning & Robotics' new-grad row
+    after losing the flag, ExtraHop 'Support Engineer I - UK' stayed Remote (US),
+    and categories and 🇺🇸 flags froze at insert. A row is matched to its
+    posting by `job_fingerprint`, then normalized URL, then the
+    (company, role, location) dedup key for boards that reshuffle req URLs.
+
+    Guardrails, all in the keep direction:
+      * only companies that returned postings this run are judged, and a row
+        with no live match is kept, so a broken slug or a `--board` subset
+        cannot erase rows;
+      * Community rows carry a maintainer's judgment and are never judged;
+      * a posting with no description (Workday and Oracle fetch detail only
+        for candidate titles) is not evidence: a 'no-level' verdict, the one
+        gate an empty body trips alone, keeps the row with its stored type, and
+        `clearance` only turns on from the title;
+      * a blank live location never drops a row;
+      * intern rows stay interns: their level may come from an ATS hint, and
+        the experience gate exempts them, as it does at insert.
+    """
+    healthy = {job.get('company', '') for job in raw_jobs}
+    candidates = [e for e in listings
+                  if e.get('source') != 'Community' and e.get('company', '') in healthy]
+    if not candidates:
+        return listings, [], []
+    by_fingerprint, by_url, by_key = _index_live_postings(
+        raw_jobs, {e.get('company', '') for e in candidates})
+
+    dropped, refreshed = [], []
+    for entry in candidates:
+        company, url = entry.get('company', ''), entry.get('url', '')
+        fingerprint = job_fingerprint(company, entry.get('source', ''), url)
+        job = ((by_fingerprint.get(fingerprint) if fingerprint else None)
+               or (by_url.get(normalize_url(url)) if url else None)
+               or by_key.get(listing_dedup_key(company, entry.get('role', ''),
+                                               entry.get('location', ''))))
+        if job is None:
             continue
-        description = None
-        if entry.get('url'):
-            description = by_url.get(normalize_url(entry['url']))
-        if description is None:
-            description = by_key.get(listing_dedup_key(
-                entry.get('company', ''), entry.get('role', ''),
-                entry.get('location', '')))
-        if description and exceeds_experience_cap(description):
-            dropped.append(entry)
+        described = _has_description(job)
+        description = job.get('description', '') if described else ''
+        was_intern = entry.get('type') == 'intern'
+        verdict, reason = judge_job(
+            job.get('title', ''), job.get('location', ''), description,
+            sec_flags.get(company, False), job.get('intern_hint', False) or was_intern)
+        if verdict is None:
+            if reason == 'no-level' and not described:
+                continue
+            if reason == 'non-us-location' and not (job.get('location') or '').strip():
+                continue
+            dropped.append((entry, reason))
             continue
-        kept.append(entry)
-    return kept, dropped
+        level, category = verdict
+        clearance = requires_clearance(job.get('title', ''), description)
+        updates = [('category', category)]
+        if not was_intern:
+            updates.append(('type', level))
+        if described or clearance:
+            updates.append(('clearance', clearance))
+        for field, new in updates:
+            old = entry.get(field)
+            if old != new:
+                entry[field] = new
+                refreshed.append((entry, field, old, new))
+    gone = {id(e) for e, _ in dropped}
+    kept = [e for e in listings if id(e) not in gone]
+    return kept, dropped, refreshed
 
 
 # A row is retired once its requisition has been missing from a healthy board
@@ -1527,22 +1589,6 @@ def save_listings(listings):
     tmp.replace(LISTINGS_FILE)
 
 
-def write_run_events(path, added, revived, retired):
-    """Write this run's inserted, revived and retired rows for notify.py.
-
-    Only main() knows which rows are new: diffing listings.json over-reports
-    whenever renormalisation rewrites a location or a closure blanks a url.
-    """
-    events = {
-        'schema_version': 1,
-        'run_at': datetime.now(UTC).strftime('%Y-%m-%dT%H:%M:%SZ'),
-        'added': added,
-        'revived': revived,
-        'retired': retired,
-    }
-    Path(path).write_text(json.dumps(events, indent=2))
-
-
 # ---------------------------------------------------------------------------
 # Orchestration
 # ---------------------------------------------------------------------------
@@ -1691,6 +1737,9 @@ def main():
     seen = load_seen_jobs()
     raw_jobs = []
     sec_flags = {}
+    # Read from the whole config, not this run's tasks, so a --board run still
+    # judges every stored row against its company's current flag.
+    company_flags = security_company_flags(config)
     board_stats = []
 
     tasks = build_tasks(config, board=args.board, limit=args.limit)
@@ -1700,6 +1749,8 @@ def main():
               f'({result["count"]} postings, {result["seconds"]:.1f}s)')
         for job in result['jobs']:
             sec_flags[job['id']] = result['security_company']
+            # Amazon and USAJOBS have no companies.yml entry to read.
+            company_flags.setdefault(job['company'], result['security_company'])
         raw_jobs.extend(result['jobs'])
         board_stats.append({key: result[key] for key in ('label', 'status', 'count')})
     print(f'\nScraped {len(tasks)} board(s) in {time.monotonic() - started:.0f}s')
@@ -1725,22 +1776,30 @@ def main():
         print(f'Renormalized {renormalized} location(s)')
 
     # Let classifier improvements reach already-scraped listings (title-only).
-    listings, reclass_changes, rejected = reclassify_listings(listings)
+    listings, reclass_changes, rejected = reclassify_listings(listings, company_flags)
     for company, role, old, new in reclass_changes:
         print(f'  RECLASSIFY [{old} -> {new}] {company} — {role}')
-    for entry in rejected:
-        print(f'  DROP [rejected-title] {_oneline(entry.get("company", ""))} — '
-              f'{_oneline(entry.get("role", ""))}')
     reclassified = len(reclass_changes)
 
-    # Retire rows whose live posting turns out to demand more experience than
-    # the board's charter allows. reclassify_listings only re-runs title logic,
-    # so without this a pre-gate "Engineer II @ 6 yrs" row would sit here
-    # forever (issue #11).
-    listings, over_exp = drop_over_experienced(listings, raw_jobs)
-    for entry in over_exp:
-        print(f'  DROP [over-experienced] {_oneline(entry.get("company", ""))} — '
+    # Re-judge each row against its live posting with the full pipeline, so a
+    # description, location or flag rule reaches rows inserted before it: a
+    # pre-gate "Engineer II @ 6 yrs" row would otherwise sit here forever
+    # (issue #11), as would a category or 🇺🇸 flag set at insert.
+    listings, reevaluated, refreshed = reevaluate_stored_listings(
+        listings, raw_jobs, company_flags)
+    drops = rejected + reevaluated
+    for entry, reason in drops:
+        print(f'  DROP [{reason}] {_oneline(entry.get("company", ""))} — '
               f'{_oneline(entry.get("role", ""))}')
+    for entry, field, old, new in refreshed:
+        label = f'{_oneline(entry.get("company", ""))} — {_oneline(entry.get("role", ""))}'
+        if field == 'type':
+            print(f'  RECLASSIFY [{old} -> {new}] {label}')
+        else:
+            print(f'  REFRESHED [{field}] {label}: {old!r} -> {new!r}')
+    relevelled = sum(1 for _, field, _, _ in refreshed if field == 'type')
+    reclassified += relevelled
+    drop_counts = Counter(reason for _, reason in drops)
 
     # A location the normalizer destroyed cannot be recovered by normalizing it
     # again, so re-read it off the live posting. Runs after the drop passes so a
@@ -1847,13 +1906,15 @@ def main():
     # `missing_since` stamps land on rows that stay, so a run that only starts a
     # streak still has to save listings.json or the streak resets every run.
     pending = sum(1 for e in listings if e.get('missing_since'))
-    changed = (added or reclassified or revived or purged or over_exp or rejected
+    changed = (added or reclassified or revived or purged or drops or refreshed
                or renormalized or repaired or folded or vanished or pending)
+    dropped_by = ', '.join(f'{n} {reason}' for reason, n in sorted(drop_counts.items()))
     print(f'\nAdded {added} new listing(s), revived {revived}, '
           f'reclassified {reclassified}, purged {purged}, '
           f'repaired {len(repaired)} location(s) + folded {len(folded)} duplicate(s), '
           f'retired {len(vanished)} vanished ({pending} more missing), '
-          f'dropped {len(over_exp)} over-experienced + {len(rejected)} rejected-title')
+          f'dropped {len(drops)} ({dropped_by or "none"}), '
+          f'refreshed {len(refreshed) - relevelled} category or clearance field(s)')
 
     if args.dry_run:
         print('[dry-run] no files written; skipping README rebuild')

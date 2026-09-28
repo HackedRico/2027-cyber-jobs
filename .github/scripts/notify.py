@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Announce a scrape run's new rows as a GitHub Release and alert-issue comments.
+"""Announce a run's new rows as a GitHub Release and alert-issue comments.
 
     python .github/scripts/notify.py [--dry-run] [--events FILE]
 
-Reads the events file scrape_jobs.main() writes to $RUN_EVENTS_FILE. Students
-subscribe through GitHub itself (Watch > Custom > Releases, or Subscribe on one
-alert issue), so this stores nothing about them.
+Reads the events file that scrape_jobs.main() or process_approved.py writes to
+$RUN_EVENTS_FILE. Students subscribe through GitHub itself (Watch > Custom >
+Releases, or Subscribe on one alert issue), so this stores nothing about them.
 """
 
 import argparse
