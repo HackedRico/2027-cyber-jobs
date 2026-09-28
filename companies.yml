@@ -849,6 +849,10 @@ workday:
   instance: wd3
   board: External
   security_company: true
+- name: U.S. Bank
+  tenant: usbank
+  instance: wd1
+  board: US_Bank_Careers
 - name: Visa
   tenant: visa
   instance: wd5
