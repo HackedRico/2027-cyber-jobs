@@ -4,12 +4,23 @@ on:
   issues:
     types: [opened, edited]
 
+# A burst of edits posts one verdict: the newest run replaces the older ones.
+concurrency:
+  group: validate-issue-${{ github.event.issue.number }}
+  cancel-in-progress: true
+
 jobs:
   validate:
-    if: contains(github.event.issue.labels.*.name, 'new listing')
+    # The title prefix catches a submission whose form labels did not apply,
+    # which is what happened while the 'new listing' label did not exist.
+    if: >-
+      github.event.issue.state == 'open' &&
+      (contains(github.event.issue.labels.*.name, 'new listing') ||
+       startsWith(github.event.issue.title, '[JOB]'))
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
+      contents: read
       issues: write
 
     steps:
