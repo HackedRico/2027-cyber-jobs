@@ -35,3 +35,6 @@ jobs:
 
       - name: Community submission tests
         run: python .github/scripts/test_community.py
+
+      - name: Output check and health alarm tests
+        run: python .github/scripts/test_health.py
