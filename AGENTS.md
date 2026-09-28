@@ -35,8 +35,17 @@ behind `main`. Rebase before opening a PR, and take `main` for any conflict in a
 - `scrape_jobs.py` owns one `scrape_<ats>` function per platform, persistence
   (`seen_jobs.json` is per-posting last-seen, `board_baseline.json` is per-board counts for the
   silent-board alarm), and `main()`, which runs purge, renormalise, reclassify, the
-  stored-row re-evaluation, the location repair and the vanished-req retire over existing rows
+  stored-row re-evaluation, the location repair, the vanished-req retire and the orphan retire
+  (a row whose company has no board for its source in `companies.yml`) over existing rows
   before dedup and insert of new ones.
+- `check_links.py` is the daily link check. It only visits rows the scraper cannot retire:
+  Community rows, amazon.jobs rows and rows with no req id in the URL. A 404 or 410, or for a
+  Community row a 200 whose `<title>` reads as not found or is empty, closes the row on its
+  second day.
+- `notify.py` turns the events file a scrape or add-listing run writes into a GitHub Release
+  and one comment per matching alert issue, unlocking and relocking each thread.
+  `test_notify.py` covers it.
+- `compare_runs.py` diffs two dry-run logs; see "Verifying a scraper change".
 - `rebuild_readme.py` regenerates the tables between the `TABLE_START <type>` markers.
 - `validate_issue.py` and `process_approved.py` are the community path: issue form, one
   advisory verdict comment edited in place, `approved` label, row added, issue closed after
@@ -61,8 +70,9 @@ dropdown together.
 
 ## Verifying a scraper change
 
-1. `ruff check .github/scripts`, then `test_classification.py` and `test_scrapers.py`. All
-   offline.
+1. `ruff check .github/scripts`, then every test script under `.github/scripts/`:
+   `test_classification.py`, `test_scrapers.py`, `test_community.py`, `test_health.py`,
+   `test_notify.py` and `test_site.py`. All offline, and `tests.yml` runs the same set.
 2. `scrape_jobs.py --dry-run --board <ats> --limit 3` while iterating on one parser.
 3. A full `--dry-run` on `main` and on the branch, minutes apart, each redirected to a log,
    then `compare_runs.py before.log after.log`. A clean exit is the equivalence proof; the
