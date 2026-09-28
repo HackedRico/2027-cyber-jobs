@@ -2,7 +2,8 @@ name: Scrape Job Boards
 
 on:
   schedule:
-    - cron: '0 8,20 * * *'
+    # Off the hour: runs at :00 started a median 2.6 to 5.2 hours late.
+    - cron: '17 11,23 * * *'
   workflow_dispatch:
 
 jobs:
@@ -15,8 +16,8 @@ jobs:
       queue: max
     runs-on: ubuntu-latest
     # The pooled scrape finishes in a few minutes; the margin covers a bad day
-    # of slow hosts. Runs that hit this show as "cancelled", not "failed", so
-    # keep it generous rather than silently losing a whole scrape.
+    # of slow hosts. The scrape step's own 25-minute limit fires first, which
+    # reports "failed" rather than the "cancelled" a job timeout shows.
     timeout-minutes: 30
     permissions:
       contents: write
@@ -33,6 +34,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Scrape job boards
+        timeout-minutes: 25
         env:
           USAJOBS_API_KEY: ${{ secrets.USAJOBS_API_KEY }}
           USAJOBS_EMAIL: ${{ secrets.USAJOBS_EMAIL }}

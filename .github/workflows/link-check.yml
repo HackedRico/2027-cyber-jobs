@@ -2,7 +2,8 @@ name: Check Links
 
 on:
   schedule:
-    - cron: '0 2 * * *'
+    # Off the hour: the 02:00 slot started a median 4.9 hours late.
+    - cron: '43 9 * * *'
   workflow_dispatch:
 
 jobs:
