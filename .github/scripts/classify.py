@@ -877,7 +877,36 @@ def strip_html(text):
     return re.sub(r'<[^<>]*>', ' ', text)
 
 
-def is_rejected_title(title):
+# A year in an intern title names the season it hires for, and nothing retires
+# a finished season whose req stays live: Nightwing 'Vulnerability Researcher
+# Intern - 2026' (posted Feb 10) was still on the board in late September.
+# Optional leading digit absorbs Northrop's "22026" typo, as COHORT_YEAR_RE does.
+TITLE_YEAR_RE = re.compile(r'\b\d?(20\d\d)\b')
+# From this month on, next summer is the season students are recruiting for.
+SEASON_ROLLOVER_MONTH = 9
+
+
+def first_open_season(today=None):
+    """Earliest intern season still recruiting: this year until September, then next."""
+    today = today or datetime.now().date()
+    return today.year if today.month < SEASON_ROLLOVER_MONTH else today.year + 1
+
+
+def _is_stale_intern_title(title, today):
+    years = [int(y) for y in TITLE_YEAR_RE.findall(title)]
+    # New-grad titles are exempt: Northrop's '2026 Associate Cybersecurity
+    # Analyst - Pathways Program' was posted Sep 24 2026 and is a current req.
+    if not years or classify_level(title) != 'intern':
+        return False
+    return max(years) < first_open_season(today)
+
+
+def is_rejected_title(title, today=None):
+    """True if the title alone rules the role out: too senior, not cyber work,
+    a physical-security guard post, or an internship whose season has passed.
+
+    `today` (a date) is injectable so the season check can be tested.
+    """
     t = title.lower()
     if any(re.search(p, t) for p in SENIORITY_REJECT):
         return True
@@ -891,7 +920,7 @@ def is_rejected_title(title):
         return True
     if PROGRAM_ANALYST_RE.search(t) and not _has_cyber_keyword(t):
         return True
-    return False
+    return _is_stale_intern_title(title, today)
 
 
 def _is_cyber_keyword_hit(t):

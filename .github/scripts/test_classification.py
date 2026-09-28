@@ -4,11 +4,16 @@
 Run from anywhere: python .github/scripts/test_classification.py
 """
 import sys
+from datetime import date
 
 sys.path.insert(0, str(__import__('pathlib').Path(__file__).parent))
 import classify as s
 import common
 import rebuild_readme as rr
+
+# Intern titles carrying a year are judged against the season recruiting today,
+# so the rows below name that season instead of a fixed year.
+SEASON = s.first_open_season()
 
 CASES = [
     # (title, location, description, security_company, expected)
@@ -60,14 +65,14 @@ CASES = [
     # -- should be accepted: internships --
     ('Security Engineer Intern', 'Austin, TX', '', False, ('intern', 'Security Engineering')),
     ('Cybersecurity Co-op', 'Boston, MA', '', False, ('intern', 'Security Engineering')),
-    ('SOC Analyst Intern - Summer 2027', 'San Antonio, TX', '', False, ('intern', 'SOC & Detection')),
+    (f'SOC Analyst Intern - Summer {SEASON}', 'San Antonio, TX', '', False, ('intern', 'SOC & Detection')),
     ('Offensive Security Intern', 'Remote (US)', '', False, ('intern', 'Offensive Security')),
     ('Cybersecurity Summer Analyst', 'New York, NY', '', False, ('intern', 'Security Engineering')),
     ('Student Trainee (Cybersecurity)', 'Washington, DC', '', False, ('intern', 'Security Engineering')),
     # A season + cohort year is an internship req even without the word
     # "intern" — but explicit new-grad wording wins over the season, and a
     # stale year outside the cohort window is not resurrected as an intern.
-    ('Security Engineer - Summer 2026', 'Seattle, WA', '', False, ('intern', 'Security Engineering')),
+    (f'Security Engineer - Summer {SEASON}', 'Seattle, WA', '', False, ('intern', 'Security Engineering')),
     ('New Grad Security Engineer - Summer 2026 Start', 'Austin, TX', '', False, ('newgrad', 'Security Engineering')),
     ('Security Engineer - Summer 2019', 'Seattle, WA', '', False, None),
     ('Software Engineer Intern', 'Austin, TX', '', True, ('intern', 'Engineering @ Security Co')),
@@ -351,6 +356,39 @@ for title, want in LEVEL:
     if got != want:
         failures += 1
         print(f'FAIL classify_level({title!r}) = {got!r}, want {want!r}')
+
+# is_rejected_title: an intern title whose years all precede the season being
+# recruited is a finished cohort. From September that season is next year.
+SEPT_27 = date(2026, 9, 27)
+JUNE_1 = date(2026, 6, 1)
+THIS_YEAR = date.today().year
+STALE_INTERN = [
+    # (title, today, rejected)
+    ('Vulnerability Researcher Intern - 2026', SEPT_27, True),
+    ('RF Engineering Intern - 2026', SEPT_27, True),
+    ('Security Engineer Intern (Fall 2026)', SEPT_27, True),
+    ('PhD Research Intern, Security and Privacy - Fall 2026', SEPT_27, True),
+    ('2026 Part-Time Cyber Security Engineering Intern - Aurora CO', SEPT_27, True),
+    # The season form with no "intern" only reads as an internship while its
+    # year is inside COHORT_YEAR_RE's window, which moves with the real date.
+    (f'Security Engineer - Summer {THIS_YEAR}', date(THIS_YEAR, 9, 27), True),
+    ('Security Engineer Intern - Summer 2019', SEPT_27, True),
+    # The coming season, or any title that also names it, stays.
+    ('Cyber Intern (Spring 2027)', SEPT_27, False),
+    ('Security Engineering Intern - Summer 2027', SEPT_27, False),
+    ('Cybersecurity Co-op, Fall 2026 / Spring 2027', SEPT_27, False),
+    ('Security Engineer Intern', SEPT_27, False),
+    # Before September the current summer is still recruiting.
+    ('Security Engineer Intern - Summer 2026', JUNE_1, False),
+    # New-grad titles are left alone.
+    ('2026 Associate Cybersecurity Analyst - Pathways Program', SEPT_27, False),
+    ('New Grad Security Engineer - Summer 2026 Start', SEPT_27, False),
+]
+for title, today, want in STALE_INTERN:
+    got = s.is_rejected_title(title, today=today)
+    if got != want:
+        failures += 1
+        print(f'FAIL is_rejected_title({title!r}, today={today}) = {got!r}, want {want!r}')
 
 # is_us_location: multi-region acceptance and accent-aware foreign rejection.
 US_LOC = [
