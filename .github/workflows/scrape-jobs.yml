@@ -5,12 +5,14 @@ on:
     - cron: '0 8,20 * * *'
   workflow_dispatch:
 
-concurrency:
-  group: readme-updates
-  cancel-in-progress: false
-
 jobs:
   scrape:
+    # Every writer commits to main, so they run one at a time. queue: max
+    # keeps each pending run instead of cancelling the older one, and a
+    # job-level group means a skipped add-listing run never joins the queue.
+    concurrency:
+      group: readme-updates
+      queue: max
     runs-on: ubuntu-latest
     # The pooled scrape finishes in a few minutes; the margin covers a bad day
     # of slow hosts. Runs that hit this show as "cancelled", not "failed", so

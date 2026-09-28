@@ -4,13 +4,15 @@ on:
   issues:
     types: [labeled]
 
-concurrency:
-  group: readme-updates
-  cancel-in-progress: false
-
 jobs:
   add-listing:
     if: github.event.label.name == 'approved'
+    # Every writer commits to main, so they run one at a time. queue: max
+    # keeps each pending run instead of cancelling the older one, and a
+    # job-level group means a skipped add-listing run never joins the queue.
+    concurrency:
+      group: readme-updates
+      queue: max
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
