@@ -4,84 +4,82 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **342 companies tracked.**
 
-## Hiring students now (73)
+## Hiring students now (71)
 
 Employers with open roles on the board today.
 
 | Company | Internships | New grad | Early career |
 | ------- | ----------- | -------- | ------------ |
-| Vanguard | 5 |  |  |
+| Booz Allen Hamilton | 17 |  | 3 |
+| Vanguard | 5 | 6 |  |
+| RTX | 4 |  | 8 |
 | Palo Alto Networks | 4 |  | 2 |
 | Tanium | 4 |  |  |
-| Nightwing | 3 |  | 13 |
-| RTX | 3 |  | 10 |
-| Cisco | 3 |  | 2 |
-| Walmart | 3 |  | 2 |
+| Northrop Grumman | 1 | 2 | 11 |
+| Cisco | 3 |  | 1 |
 | Immuta | 3 |  | 1 |
-| Northrop Grumman | 1 | 1 | 11 |
-| JPMorgan Chase |  | 2 | 2 |
-| Blackpoint Cyber | 2 |  |  |
+| MITRE | 2 | 1 | 1 |
+| Microsoft | 2 |  | 2 |
+| Lockheed Martin | 2 |  | 1 |
 | Robinhood | 2 |  |  |
 | The Cigna Group | 1 | 1 |  |
+| Walmart | 2 |  |  |
+| Nightwing | 1 |  | 14 |
+| Leidos | 1 |  | 4 |
 | The Home Depot | 1 |  | 3 |
 | Appian | 1 |  | 1 |
+| GuidePoint Security | 1 |  | 1 |
 | Motorola Solutions | 1 |  | 1 |
 | Anduril |  | 1 |  |
 | Applied Intuition |  | 1 |  |
 | Bank of America | 1 |  |  |
 | Boeing | 1 |  |  |
 | Deloitte |  | 1 |  |
-| Jumio |  | 1 |  |
 | Northern Trust | 1 |  |  |
 | NVIDIA |  | 1 |  |
-| Okta |  | 1 |  |
 | Palantir | 1 |  |  |
 | Prophet Security | 1 |  |  |
+| Qualcomm | 1 |  |  |
 | Semgrep | 1 |  |  |
 | Sierra Nevada Corporation | 1 |  |  |
 | Snowflake | 1 |  |  |
 | TRM Labs |  | 1 |  |
+| U.S. Bank | 1 |  |  |
 | Verkada | 1 |  |  |
-| Anthropic |  |  | 18 |
 | Amazon |  |  | 11 |
-| CrowdStrike |  |  | 7 |
-| Entrust |  |  | 4 |
-| Amentum |  |  | 3 |
+| CrowdStrike |  |  | 10 |
+| KBR |  |  | 4 |
 | CACI |  |  | 3 |
-| KBR |  |  | 3 |
-| Leidos |  |  | 3 |
 | Recorded Future |  |  | 3 |
-| SAIC |  |  | 3 |
 | Abnormal AI |  |  | 2 |
-| ExtraHop |  |  | 2 |
+| Amentum |  |  | 2 |
+| BAE Systems |  |  | 2 |
 | Fireblocks |  |  | 2 |
+| JPMorgan Chase |  |  | 2 |
 | Pinterest |  |  | 2 |
+| SAIC |  |  | 2 |
+| AeroVironment |  |  | 1 |
+| Anthropic |  |  | 1 |
 | Arctic Wolf |  |  | 1 |
-| Booz Allen Hamilton |  |  | 1 |
 | Chainalysis |  |  | 1 |
-| Character AI |  |  | 1 |
 | Delinea |  |  | 1 |
-| DigiCert |  |  | 1 |
 | Dragos |  |  | 1 |
+| Draper |  |  | 1 |
 | Duke Energy |  |  | 1 |
-| Everfox |  |  | 1 |
 | Expel |  |  | 1 |
+| ExtraHop |  |  | 1 |
 | HII |  |  | 1 |
-| ICF |  |  | 1 |
 | ID.me |  |  | 1 |
 | Illumio |  |  | 1 |
 | Kudelski Security |  |  | 1 |
-| Lakera |  |  | 1 |
 | MIT Lincoln Laboratory |  |  | 1 |
 | Obsidian Security |  |  | 1 |
-| OpenAI |  |  | 1 |
 | Praetorian |  |  | 1 |
-| Proofpoint |  |  | 1 |
 | ReliaQuest |  |  | 1 |
 | SailPoint |  |  | 1 |
-| Tenable |  |  | 1 |
+| Salesforce |  |  | 1 |
+| STR |  |  | 1 |
 | Todyl |  |  | 1 |
-| Truist |  |  | 1 |
 | Two Six Technologies |  |  | 1 |
 
 ## Every tracked board (342)
