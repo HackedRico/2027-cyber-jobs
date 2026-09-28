@@ -6,7 +6,10 @@ scraper both import the SAME url/issue logic. The URL dedup guard only works
 if the scraper and the community-submission flow normalize identically.
 """
 
+import json
 import re
+from datetime import UTC, datetime
+from pathlib import Path
 from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
 
 from classify import DC_SPELLING_RE, REGION_CODE_RE, US_STATES, normalize_location
@@ -141,3 +144,36 @@ def security_company_names(config):
             if isinstance(entry, dict) and entry.get('security_company'):
                 names.add(str(entry.get('name', '')).strip().lower())
     return names
+
+
+def security_company_flags(config):
+    """Map each companies.yml entry's name to its `security_company` flag.
+
+    A company listed under two ATSes counts as a security company when either
+    entry says so. Names keep their case, since they must equal the `company`
+    field on stored rows.
+    """
+    flags = {}
+    for entries in (config or {}).values():
+        for entry in entries or []:
+            if isinstance(entry, dict) and entry.get('name'):
+                name = str(entry['name'])
+                flags[name] = flags.get(name, False) or bool(entry.get('security_company'))
+    return flags
+
+
+def write_run_events(path, added, revived=(), retired=()):
+    """Write one run's inserted, revived and retired rows for notify.py.
+
+    Only the writer knows which rows are new: diffing listings.json
+    over-reports whenever renormalisation rewrites a location or a closure
+    blanks a url. The scrape and the community path both write this shape.
+    """
+    events = {
+        'schema_version': 1,
+        'run_at': datetime.now(UTC).strftime('%Y-%m-%dT%H:%M:%SZ'),
+        'added': list(added),
+        'revived': list(revived),
+        'retired': list(retired),
+    }
+    Path(path).write_text(json.dumps(events, indent=2))
