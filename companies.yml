@@ -1046,6 +1046,22 @@ oracle:
 - name: Southern Company
   host: emje.fa.us6.oraclecloud.com
   site: SouthernCompanyJobs
+- name: American Express
+  host: egug.fa.us2.oraclecloud.com
+  site: CX_1
+- name: Fortinet
+  host: edel.fa.us2.oraclecloud.com
+  site: CX_2001
+  security_company: true
+- name: Honeywell
+  host: ibqbjb.fa.ocs.oraclecloud.com
+  site: CX_1
+- name: Idaho National Laboratory
+  host: elhe.fa.us8.oraclecloud.com
+  site: CX_1001
+- name: Idaho National Laboratory
+  host: elhe.fa.us8.oraclecloud.com
+  site: CX_1002
 eightfold:
 - name: Lockheed Martin
   tenant: lockheedmartin
