@@ -13,6 +13,7 @@ import tempfile
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
+import check_slugs  # noqa: E402
 import compare_runs  # noqa: E402
 import responses  # noqa: E402
 import scrape_jobs as sj  # noqa: E402
@@ -126,6 +127,20 @@ def test_smartrecruiters_pagination_short_page_stops():
     jobs = sj.scrape_smartrecruiters('Acme', 'Acme')
     check('smartrecruiters short page stops', len(jobs), 1)
     check('smartrecruiters location', jobs[0]['location'], 'Austin, TX')
+
+
+# --- check_slugs SmartRecruiters id probe --------------------------------------
+@responses.activate
+def test_check_slugs_flags_unknown_smartrecruiters_id():
+    # The postings API returns 200 and an empty list for a made-up id, so only
+    # the careers page's 302 tells a typo from a quiet board.
+    responses.get('https://careers.smartrecruiters.com/zzqnotarealco987', status=302,
+                  headers={'Location': 'https://jobs.smartrecruiters.com/'})
+    responses.get('https://careers.smartrecruiters.com/Acme', body='<html></html>')
+    check('check_slugs flags a redirecting SmartRecruiters id',
+          check_slugs._smartrecruiters_id_unknown('zzqnotarealco987'), True)
+    check('check_slugs passes a real SmartRecruiters id',
+          check_slugs._smartrecruiters_id_unknown('Acme'), False)
 
 
 # --- scrape_oracle -------------------------------------------------------------
@@ -614,7 +629,8 @@ def test_compare_runs_reports_flips_only():
 
 for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_ashby, test_ashby_schema_drift_warns,
-           test_smartrecruiters_pagination_short_page_stops, test_oracle,
+           test_smartrecruiters_pagination_short_page_stops,
+           test_check_slugs_flags_unknown_smartrecruiters_id, test_oracle,
            test_fetch_json_retries_transient, test_fetch_json_gives_up_on_404,
            test_slug_validation_blocks_host_reparenting,
            test_workday_total_failure_returns_none,

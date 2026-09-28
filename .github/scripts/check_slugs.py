@@ -4,17 +4,33 @@
     python .github/scripts/check_slugs.py
 
 Read-only maintenance tool: hits each board's list endpoint and reports slugs
-that error or return zero postings, so dead entries can be fixed or dropped
+that error or return zero postings, plus SmartRecruiters ids whose careers page
+redirects because no such company exists, so dead entries can be fixed or dropped
 from companies.yml. (The scraper's run summary flags regressions automatically;
 this is the deeper on-demand sweep.)
 """
 import sys
 from pathlib import Path
 
+import requests
 import yaml
 
 sys.path.insert(0, str(Path(__file__).parent))
 import scrape_jobs as sj  # noqa: E402
+
+
+def _smartrecruiters_id_unknown(identifier):
+    # The postings API answers 200 with an empty list for any id, so a typo
+    # reads as a quiet board. The public careers page 302s to
+    # jobs.smartrecruiters.com for an id that does not exist (zzqnotarealco987)
+    # and returns 200 for a real one.
+    try:
+        r = requests.get(f'https://careers.smartrecruiters.com/{identifier}',
+                         headers=sj.HEADERS, timeout=sj.REQUEST_TIMEOUT,
+                         allow_redirects=False)
+    except requests.RequestException:
+        return False
+    return r.status_code == 302
 
 
 def main():
@@ -29,6 +45,10 @@ def main():
 
     for board, fn in sj.SIMPLE_BOARDS.items():
         for e in config.get(board) or []:
+            if board == 'smartrecruiters' and _smartrecruiters_id_unknown(e['slug']):
+                problems.append(f'{board}/{e["name"]} ({e["slug"]}): unknown id '
+                                '(careers page redirects)')
+                continue
             record(board, e['name'], e['slug'], fn(e['name'], e['slug']))
 
     for e in config.get('workday') or []:
