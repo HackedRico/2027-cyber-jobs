@@ -949,7 +949,7 @@ def strip_html(text):
         return ''
     # Northrop writes "associate's degree" with U+2019, which DEGREE_ALT_RE's
     # straight apostrophe missed.
-    text = html.unescape(text[:MAX_DESCRIPTION_CHARS]).replace('’', "'")
+    text = html.unescape(text[:MAX_DESCRIPTION_CHARS]).replace('\u2019', "'")
     text = BLOCK_TAG_RE.sub('\n', text)
     # `[^<>]` excludes '<' too, so an unclosed-tag run of '<' can't be consumed
     # and re-backtracked — linear on every Python version (no ReDoS).
@@ -1386,9 +1386,9 @@ def evaluate_job(title, location, description='', security_company=False,
         # AI labs use flat titles ("Software Engineer, AI Safety") with no
         # level marker, so an AI security/safety title needs early-career
         # evidence in its description: a low ceiling, or a stated floor of
-        # at most two years. A silent description is not evidence. Anthropic
+        # at most two years. A silent description is not evidence: Anthropic
         # says only that years "will correlate with the internal job level",
-        # which let 18 of its flat titles onto the early-career table.
+        # and that put its flat Safeguards titles on the early-career table.
         elif AI_CATEGORY_RE.search(title.lower()) and (
                 permits_early_experience(description)
                 or 0 < required_years(description) <= MAX_ALLOWED_YEARS):

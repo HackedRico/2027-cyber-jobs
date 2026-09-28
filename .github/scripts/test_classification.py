@@ -642,7 +642,7 @@ FLOOR = [
     # count must not turn it into a degree-paired alternative.
     ('<p><br /><b>Required Qualifications</b><br />The requirements listed '
      'below are representative of the knowledge, skill and/or ability '
-     'required.</p><ul><li><p>Bachelor’s degree or equivalent education, '
+     'required.</p><ul><li><p>Bachelor\u2019s degree or equivalent education, '
      'training, and work-related experience.</p></li><li><p>Minimum of 5 years '
      'of experience in security engineering or related cybersecurity roles.'
      '</p></li></ul><p><b>Preferred Qualifications</b></p><ul><li><p>Minimum '
@@ -654,14 +654,14 @@ FLOOR = [
      'Bachelors of Science degree in a STEM field and at least 2 years of '
      'relevant military / professional experience</p></li><li><p>Level 3: Must '
      'have a Bachelors of Science degree in a STEM field and at least 5 years '
-     'of relevant military / professional experience, OR a Master’s Degree '
+     'of relevant military / professional experience, OR a Master\u2019s Degree '
      'in a STEM field and at least 3 years of relevant military / professional '
      'experience</p></li></ul><p><b>Preferred Qualifications</b></p><ul><li>'
      '<p>Active Secret clearance</p></li></ul>', 2),
     # A count that describes the employer is not a floor.
     ('<p>Join the team behind one of our 25&#43; year programs supporting the '
      'intelligence community.</p><p><b>Basic Qualifications</b></p><ul><li>'
-     '<p>Bachelor’s degree in Computer Science or a related field</p>'
+     '<p>Bachelor\u2019s degree in Computer Science or a related field</p>'
      '</li></ul>', 0),
 ]
 for desc, want in FLOOR:
@@ -693,7 +693,7 @@ GATED = [
     ('Junior DevSecOps Engineer, EDS Platform Services team, Hybrid role',
      'Tucson, AZ',
      '<p><b>Qualifications You Must Have</b></p><ul><li><p>Typically requires '
-     'a bachelor’s degree and less than 2 years of relevant experience or '
+     'a bachelor\u2019s degree and less than 2 years of relevant experience or '
      'a total of 4 years relevant technical experience in IT or Digital '
      'Technology.</p></li></ul><p><b>Qualifications We Prefer</b></p><ul><li>'
      '<p>Experience with Kubernetes</p></li></ul>', 'earlycareer'),
