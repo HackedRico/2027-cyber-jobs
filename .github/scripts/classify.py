@@ -1054,13 +1054,26 @@ def _has_cyber_keyword(t):
     return _is_cyber_keyword_hit(t) or any(p.search(t) for p in CYBER_REGEXES)
 
 
+# Defense security companies also staff intelligence-support analysts, whom the
+# bare 'analyst' allowance let in: Nightwing 'Junior Geospatial / Full-Motion
+# Video (FMV) Analyst'. They reject only when 'analyst' is the title's one tech
+# term, so a 'Geospatial Software Engineer' at the same employer stays, and a
+# cyber keyword ('SIGINT Cyber Analyst') is checked before this ever runs.
+INTEL_SUPPORT_RE = re.compile(
+    r'\b(?:geospatial|full[- ]motion video|fmv|imagery|all[- ]source|targeting|'
+    r'linguist|signals collection)\b')
+
+
 def is_cyber_title(title, security_company=False):
     t = title.lower()
     if _has_cyber_keyword(t):
         return True
-    if security_company and any(kw in t for kw in TECH_KEYWORDS):
-        return True
-    return False
+    if not security_company:
+        return False
+    tech = [kw for kw in TECH_KEYWORDS if kw in t]
+    if INTEL_SUPPORT_RE.search(t) and all('analyst' in kw for kw in tech):
+        return False
+    return bool(tech)
 
 
 # Cleared-facility security (the FSO function FUNCTION_REJECT excludes by name)

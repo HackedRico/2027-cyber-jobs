@@ -148,6 +148,19 @@ CASES = [
     ('Associate Program Analyst (New Grad)', 'San Francisco, CA', '', True, None),
     # ...but a program analyst on a cyber team is GRC work and stays.
     ('Cybersecurity Program Analyst I', 'Arlington, VA', '', False, ('earlycareer', 'Security Engineering')),
+    # -- should be rejected: intelligence-support analysts at security companies --
+    ('Junior Geospatial / Full-Motion Video (FMV) Analyst', 'Lumber Bridge, NC', '', True, None),
+    ('Associate Imagery Analyst', 'Springfield, VA', '', True, None),
+    ('Junior All-Source Analyst', 'Tampa, FL', '', True, None),
+    ('Targeting Analyst I', 'Fort Meade, MD', '', True, None),
+    ('Junior Linguist Analyst', 'Fort Gordon, GA', '', True, None),
+    ('Signals Collection Analyst I', 'Fort Meade, MD', '', True, None),
+    # ...but a cyber-signalled analyst, or an engineer on the same team, stays.
+    ('Cyber Intelligence Analyst I', 'Herndon, VA', '', True, ('earlycareer', 'Threat Intelligence')),
+    ('Junior Threat Intelligence Analyst', 'Herndon, VA', '', True, ('earlycareer', 'Threat Intelligence')),
+    ('SIGINT Cyber Analyst I', 'Fort Meade, MD', '', True, ('earlycareer', 'Security Engineering')),
+    ('Junior Geospatial Software Engineer', 'Herndon, VA', '', True, ('earlycareer', 'Engineering @ Security Co')),
+    ('Junior Data Analyst', 'Herndon, VA', '', True, ('earlycareer', 'Engineering @ Security Co')),
 
     # -- should be rejected: "Security Clearance" is a requirement, not the work --
     ('Computer Scientist / Software Developer, Junior - Security Clearance Required', 'Adelphi, MD', '', False, None),
