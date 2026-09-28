@@ -936,7 +936,14 @@ def _is_cyber_keyword_hit(t):
     return False
 
 
+# "Security Clearance" names a hiring requirement, not the work: ICF 'Computer
+# Scientist / Software Developer, Junior - Security Clearance Required' and RTX
+# 'Software Engineer I, CDS (Onsite - Security Clearance)' matched 'security'.
+SECURITY_CLEARANCE_RE = re.compile(r'\bsecurity clearance\b')
+
+
 def _has_cyber_keyword(t):
+    t = SECURITY_CLEARANCE_RE.sub(' ', t)
     return _is_cyber_keyword_hit(t) or any(p.search(t) for p in CYBER_REGEXES)
 
 
@@ -947,6 +954,27 @@ def is_cyber_title(title, security_company=False):
     if security_company and any(kw in t for kw in TECH_KEYWORDS):
         return True
     return False
+
+
+# Cleared-facility security (the FSO function FUNCTION_REJECT excludes by name)
+# also hides behind plain titles: RTX 'Security Specialist II' maintains
+# "classified document control ... NISPOM ... COMSEC". Cyber roles cite the
+# NISPOM too (Amentum 'Cyber Security Analyst 1' performs RMF tasks "required by
+# the 32 CFR part 117 NISPOM"), so the description decides only when the bare
+# word 'security' is the title's one cyber signal.
+FACILITY_SECURITY_DESC_RE = re.compile(
+    r'nispom|32 cfr (?:part )?117|classified document control')
+INFOSEC_TITLE_RE = re.compile(
+    r'\b(?:information|systems?|network|cloud|application|data|isso|issm)\b')
+
+
+def _is_facility_security_role(title, description):
+    t = SECURITY_CLEARANCE_RE.sub(' ', title.lower())
+    if not re.search(r'\bsecurity\b', t) or INFOSEC_TITLE_RE.search(t):
+        return False
+    if _has_cyber_keyword(re.sub(r'\bsecurity\b', ' ', t)):
+        return False
+    return bool(FACILITY_SECURITY_DESC_RE.search(strip_html(description).lower()))
 
 
 def classify_level(title, description='', intern_hint=False):
@@ -1266,6 +1294,8 @@ def evaluate_job(title, location, description='', security_company=False,
     if not title or is_rejected_title(title):
         return None
     if not is_cyber_title(title, security_company):
+        return None
+    if description and _is_facility_security_role(title, description):
         return None
     level = classify_level(title, description, intern_hint)
     if level is None:

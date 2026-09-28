@@ -134,6 +134,24 @@ CASES = [
     # ...but a program analyst on a cyber team is GRC work and stays.
     ('Cybersecurity Program Analyst I', 'Arlington, VA', '', False, ('earlycareer', 'Security Engineering')),
 
+    # -- should be rejected: "Security Clearance" is a requirement, not the work --
+    ('Computer Scientist / Software Developer, Junior - Security Clearance Required', 'Adelphi, MD', '', False, None),
+    ('Software Engineer I, CDS (Onsite - Security Clearance)', 'Cedar Rapids, IA', '', False, None),
+    # ...while a cyber title that also names the clearance stays.
+    ('Cyber Software Engineer I (Security Clearance Required)', 'Chantilly, VA', '', False, ('earlycareer', 'Security Engineering')),
+    # -- should be rejected: facility-security work behind a bare 'security' title --
+    ('Security Specialist II', 'Cambridge, MA',
+     'Maintain classified document control and personnel security processing '
+     'in accordance with 32 CFR part 117 and the NISPOM rule.', False, None),
+    # ...but a cyber title citing the NISPOM, or a bare one that does not, stays.
+    ('Cyber Security Analyst 1', 'Waimea, HI',
+     'Perform security tasks required by the 32 CFR part 117 National '
+     'Industrial Security Operating Manual (NISPOM) and NIST SP 800-53.', False,
+     ('earlycareer', 'Security Engineering')),
+    ('Security Specialist II', 'Cambridge, MA',
+     'Triage endpoint alerts and tune SIEM detections.', False,
+     ('earlycareer', 'Security Engineering')),
+
     # -- should be rejected: physical security --
     ('Security Guard', 'Austin, TX', '', False, None),
     ('Security Officer - Night Shift', 'Austin, TX', '', False, None),
