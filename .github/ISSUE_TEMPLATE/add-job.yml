@@ -106,7 +106,7 @@ body:
       label: Checklist
       description: Please confirm the following before submitting.
       options:
-        - label: The role targets students or early-career candidates: an internship or co-op, a new-grad program, or a full-time role that asks for 2 years of experience or less.
+        - label: The role targets students or early-career candidates, such as an internship or co-op, a new-grad program, or a full-time role that asks for 2 years of experience or less.
           required: true
         - label: The role is located in the United States or is Remote (US).
           required: true
