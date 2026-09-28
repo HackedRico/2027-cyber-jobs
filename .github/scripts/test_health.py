@@ -123,18 +123,26 @@ README = """# Board
 <!-- STATS -->
 **1** open roles tracked · updated January 1, 2026
 <!-- /STATS -->
-<!-- TABLE_START newgrad -->
-| Company | Role | Location | Category | Apply | Date Added |
-| ------- | ---- | -------- | -------- | ----- | ---------- |
-<!-- TABLE_END newgrad -->
+<!-- LEGEND -->
+<!-- /LEGEND -->
 <!-- TABLE_START intern -->
-| Company | Role | Location | Category | Apply | Date Added |
-| ------- | ---- | -------- | -------- | ----- | ---------- |
+| Company | Role | Apply | Location | Added |
+| ------- | ---- | ----- | -------- | ----- |
 <!-- TABLE_END intern -->
+<!-- CLOSED_START intern -->
+<!-- CLOSED_END intern -->
+<!-- TABLE_START newgrad -->
+| Company | Role | Apply | Location | Added |
+| ------- | ---- | ----- | -------- | ----- |
+<!-- TABLE_END newgrad -->
+<!-- CLOSED_START newgrad -->
+<!-- CLOSED_END newgrad -->
 <!-- TABLE_START earlycareer -->
-| Company | Role | Location | Category | Apply | Date Added |
-| ------- | ---- | -------- | -------- | ----- | ---------- |
+| Company | Role | Apply | Location | Added |
+| ------- | ---- | ----- | -------- | ----- |
 <!-- TABLE_END earlycareer -->
+<!-- CLOSED_START earlycareer -->
+<!-- CLOSED_END earlycareer -->
 """
 code, out = run_check_outputs([row()], readme=README)
 check('check_outputs warns when the README is behind listings.json',

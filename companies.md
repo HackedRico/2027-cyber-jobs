@@ -2,7 +2,7 @@
 
 Employers whose job boards are scraped automatically (see [companies.yml](companies.yml)). 🛡️ marks pure-play security companies, where every engineering role is a security-industry job.
 
-**358 companies tracked.**
+**342 companies tracked.**
 
 ## Hiring students now (73)
 
@@ -84,9 +84,9 @@ Employers with open roles on the board today.
 | Truist |  |  | 1 |
 | Two Six Technologies |  |  | 1 |
 
-## Every tracked board (358)
+## Every tracked board (342)
 
-### Ashby (76)
+### Ashby (71)
 
 - 1Password 🛡️
 - Airbyte
@@ -128,7 +128,6 @@ Employers with open roles on the board today.
 - Miro
 - Nightfall AI 🛡️
 - Notion
-- Nucleus Security 🛡️
 - Nudge Security 🛡️
 - Opal Security 🛡️
 - OpenAI
@@ -145,27 +144,29 @@ Employers with open roles on the board today.
 - Saronic
 - Semgrep 🛡️
 - Semperis 🛡️
-- SentiLink 🛡️
+- SentiLink
 - Sentra 🛡️
 - Sift 🛡️
 - Skyflow 🛡️
 - Snowflake
-- Snyk 🛡️
 - Socure 🛡️
-- StrongDM 🛡️
-- Stytch 🛡️
 - Sublime Security 🛡️
+- Teleport 🛡️
 - Temporal Technologies
-- Todyl 🛡️
 - TRM Labs 🛡️
 - UpGuard 🛡️
 - Vanta 🛡️
-- Vercel
 - WitnessAI 🛡️
 - WorkOS 🛡️
 - Zapier
 
-### Greenhouse (146)
+### Eightfold (3)
+
+- Lockheed Martin
+- Microsoft
+- Qualcomm
+
+### Greenhouse (143)
 
 - Abnormal AI 🛡️
 - Affirm
@@ -178,7 +179,6 @@ Employers with open roles on the board today.
 - Appian
 - AppOmni 🛡️
 - Arkose Labs 🛡️
-- Armis 🛡️
 - Asana
 - Automox 🛡️
 - Axonius 🛡️
@@ -195,6 +195,7 @@ Employers with open roles on the board today.
 - Bugcrowd 🛡️
 - Cato Networks 🛡️
 - Censys 🛡️
+- Center for AI Safety
 - Chainguard 🛡️
 - Chime
 - Cloudflare
@@ -205,7 +206,6 @@ Employers with open roles on the board today.
 - Corelight 🛡️
 - Cribl
 - Cybereason 🛡️
-- Cyware 🛡️
 - Dashlane 🛡️
 - Databricks
 - Datadog
@@ -219,7 +219,6 @@ Employers with open roles on the board today.
 - Elastic
 - Endor Labs 🛡️
 - Epirus
-- Exabeam 🛡️
 - Expel 🛡️
 - ExtraHop 🛡️
 - Fastly
@@ -244,7 +243,7 @@ Employers with open roles on the board today.
 - Instacart
 - Ivanti 🛡️
 - JFrog
-- Jumio 🛡️
+- Jumio
 - Keeper Security 🛡️
 - Keyfactor 🛡️
 - KnowBe4 🛡️
@@ -294,7 +293,6 @@ Employers with open roles on the board today.
 - Tailscale 🛡️
 - Tanium 🛡️
 - Tenable 🛡️
-- ThreatLocker 🛡️
 - Tines 🛡️
 - Toast
 - Together AI
@@ -314,31 +312,26 @@ Employers with open roles on the board today.
 - Yubico 🛡️
 - Zscaler 🛡️
 
-### Lever (27)
+### Lever (22)
 
 - Anchorage Digital
 - Anomali 🛡️
 - Apollo Research 🛡️
 - BlueCat
-- Center for AI Safety 🛡️
 - Coalfire 🛡️
 - Epoch AI 🛡️
 - Graylog 🛡️
 - Immuta 🛡️
 - Ketch 🛡️
 - METR 🛡️
-- Mistral AI
 - Palantir
-- Push Security 🛡️
 - Saviynt 🛡️
 - Secureframe 🛡️
 - Shield AI
 - Sonatype 🛡️
 - Sophos 🛡️
 - StackHawk 🛡️
-- Symmetry Systems 🛡️
 - Sysdig 🛡️
-- Teleport 🛡️
 - Twingate 🛡️
 - Very Good Security 🛡️
 - WatchGuard 🛡️
@@ -350,6 +343,11 @@ Employers with open roles on the board today.
 - SAIC
 - Southern Company
 
+### Phenom (2)
+
+- BAE Systems
+- MITRE
+
 ### Pinpoint (1)
 
 - SANS Institute 🛡️
@@ -360,18 +358,15 @@ Employers with open roles on the board today.
 - Lansweeper
 - Wallarm 🛡️
 
-### SmartRecruiters (8)
+### SmartRecruiters (5)
 
 - Check Point 🛡️
 - Jscrambler 🛡️
 - Kudelski Security 🛡️
-- Nuspire 🛡️
 - Sectigo 🛡️
 - Securiti 🛡️
-- Tufin 🛡️
-- Visa
 
-### Workable (21)
+### Workable (16)
 
 - Action1 🛡️
 - Anvilogic 🛡️
@@ -379,21 +374,16 @@ Employers with open roles on the board today.
 - DomainTools 🛡️
 - Fortanix 🛡️
 - Galois 🛡️
-- GlobalSign 🛡️
 - Hack The Box 🛡️
 - Invicti 🛡️
 - JupiterOne 🛡️
-- Malwarebytes 🛡️
 - Metomic 🛡️
 - Mindgard 🛡️
 - Ordr 🛡️
 - Proficio 🛡️
 - ReversingLabs 🛡️
 - Stellar Cyber 🛡️
-- ThreatConnect 🛡️
 - Trail of Bits 🛡️
-- TrustedSec 🛡️
-- ZeroFox 🛡️
 
 ### Workday (73)
 
@@ -432,9 +422,7 @@ Employers with open roles on the board today.
 - Jamf
 - KBR
 - Leidos
-- ManTech
 - Mastercard
-- MITRE
 - Morgan Stanley
 - Motorola Solutions
 - NCC Group 🛡️
@@ -449,7 +437,6 @@ Employers with open roles on the board today.
 - PayPal
 - PNC
 - Proofpoint 🛡️
-- Qualcomm
 - Qualys 🛡️
 - Rapid7 🛡️
 - ReliaQuest 🛡️
@@ -457,6 +444,7 @@ Employers with open roles on the board today.
 - SailPoint 🛡️
 - Salesforce
 - Sierra Nevada Corporation
+- Snyk 🛡️
 - State Street
 - T-Mobile
 - Target
@@ -466,7 +454,9 @@ Employers with open roles on the board today.
 - Trellix 🛡️
 - Trend Micro 🛡️
 - Truist
+- U.S. Bank
 - Vanguard
+- Visa
 - Walmart
 - Wells Fargo
 - Zoom

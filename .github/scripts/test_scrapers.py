@@ -17,8 +17,6 @@ from urllib.parse import parse_qs, urlparse
 
 sys.path.insert(0, str(Path(__file__).parent))
 import check_links  # noqa: E402
-
-
 import check_slugs  # noqa: E402
 import compare_runs  # noqa: E402
 import notify  # noqa: E402
