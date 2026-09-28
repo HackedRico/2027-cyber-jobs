@@ -53,14 +53,17 @@ ARCHITECT_RE = re.compile(r'\barchitect\b')
 LEVELED_SENIOR_RE = re.compile(
     r'\b(?:analyst|engineer|consultant|specialist|administrator|technician|'
     r'developer|tester|responder|investigator|scientist|researcher|'
-    r'tier|level)\s+(?:iii|iv|3|4)\b'
+    r'technologist|officer|tier|level)\s+(?:iii|iv|3|4)\b'
 )
 
 # Internships and co-ops get their own level. Title signals only — job
 # descriptions mention "our internship program" as boilerplate far too often
 # to be trusted. Word boundaries keep 'intern' from matching 'internal'.
 INTERN_TITLE_RES = [re.compile(p) for p in (
-    r'\bintern\b', r'\binternship\b', r'\bco-?op\b',
+    # Plural 'Internships' names a program page (MITRE 'Internships in
+    # Cybersecurity and Information Security'). Bare 'intern' stays singular:
+    # 'For 2026 Interns Only' titles are return offers.
+    r'\bintern\b', r'\binternships?\b', r'\bco-?op\b',
     # Bank-style ("Cybersecurity Summer Analyst") and USAJOBS Pathways
     # ("Student Trainee") internship titles.
     r'\bsummer analyst\b', r'\bstudent trainee\b',
@@ -80,6 +83,9 @@ FUNCTION_REJECT = [
     'security guard', 'physical security', 'public safety',
     'executive protection', 'transportation security',
     'security screener', 'campus safety', 'alarm technician',
+    # Walmart's store loss-prevention job, '(CAN) Asset Protection Associate
+    # (MUST HAVE SECURITY LICENSE)'; the licence is a guard licence.
+    'asset protection', 'security license', 'security licence',
     # Cleared-facility security functions (FSO/NISPOM work, clearance
     # adjudication, guard forces) carry the word "security" but are not cyber.
     'industrial security', 'personnel security', 'protective services',
@@ -104,6 +110,21 @@ FUNCTION_REJECT = [
     'process engineer', 'mechanical engineer', 'electrical engineer',
     'chemical engineer', 'industrial engineer', 'civil engineer',
     'photolithography', 'metrology',
+    # Reqs a student cannot apply to: return offers for current interns
+    # (Walmart '2026 Intern Conversion: 2027 Return Intern Cybersecurity'),
+    # DoD SkillBridge slots for active-duty members (Blackpoint Cyber), and
+    # dated recruiting events (JPMorgan 'Hiring Event - Security Architecture
+    # & Engineering - Sep 24-25th 2026', whose event year read as a cohort).
+    'intern conversion', 'return intern', 'returning intern', 'skillbridge',
+    'active duty', 'hiring event',
+    # Sales, support and design roles that security-company 'analyst' and
+    # 'developer' titles let in: Proofpoint 'Deals Desk Analyst II', Okta
+    # 'Developer Support Associate (New Grad)', DigiCert 'Associate
+    # Authentication Analyst' (certificate validation), Lakera 'Enterprise
+    # Account Exeuctive' (the typo slips past 'account executive'), Anthropic
+    # 'Product Designer, Safeguards'.
+    'deals desk', 'deal desk', 'developer support', 'authentication analyst',
+    'enterprise account', 'product designer',
 ]
 
 
@@ -128,6 +149,12 @@ def _term_regex(term):
 #                          Engineering" is an AI-lab security team.
 GUARDED_FUNCTION_REJECTS = [
     r'(?<!data )\bloss prevention\b',
+    # Hourly shift posts: Walmart 'Asset Protection / Security Associate,
+    # Manufacturing (Tuesday-Friday, 11:00am-9:30pm) - $21.30/hr.' and its
+    # overnight twin are plant guards. 'Overnight' alone would also catch SOC
+    # night shifts, so the pay rate and the manufacturing site carry it.
+    r'\$\d+(?:\.\d+)?\s*/\s*(?:hr|hour)\b',
+    r'\bsecurity associate, manufacturing\b',
     r'\bsupply chain\b(?! security)',
     r'(?<!ai )\bsafety and security\b',
 ]
@@ -138,12 +165,26 @@ FUNCTION_REJECT_RE = re.compile(
 # "Security Officer" is usually a guard; keep it only when clearly infosec.
 SECURITY_OFFICER_RE = re.compile(r'\bsecurity officer\b')
 INFOSEC_OFFICER_HINTS = ['information security', 'cyber', 'ciso', 'iso ']
+# ISSO wording the substring hints miss: Draper 'IS Security Officer 1', CACI
+# 'Information System Security Officer - Jr.'. Word-bounded, since 'isso' sits
+# inside 'Missouri'.
+ISSO_HINT_RE = re.compile(
+    r'\b(?:information systems? security|is security|isso|issm)\b')
+
+# A program analyst runs budgets and schedules (Okta 'Associate Program Analyst
+# (New Grad)', let in by the security-company 'analyst' allowance), but a
+# gov-contractor 'Cybersecurity Program Analyst' is GRC work, so the term
+# rejects only a title with no cyber keyword.
+PROGRAM_ANALYST_RE = re.compile(r'\bprogram analyst\b')
 
 # A title containing any of these is a cybersecurity role.
 CYBER_KEYWORDS = [
     'security', 'cyber', 'infosec', 'information assurance',
     'penetration test', 'pentest', 'red team', 'blue team', 'purple team',
     'threat', 'incident response', 'forensic', 'malware', 'vulnerability',
+    # 'Incident Responder I' misses 'incident response', and AeroVironment's
+    # 'Computer Network Defense Analyst (CNDA) Level 1' carries no other term.
+    'incident responder', 'network defense',
     'appsec', 'exploit', 'reverse engineer', 'cryptograph', 'grc',
     # DLP titles carry neither 'security' nor 'cyber' ("Data Loss Prevention
     # (DLP) Analyst"); 'insider threat' already matches on 'threat'.
@@ -195,6 +236,10 @@ NEWGRAD_SIGNALS = [
     'leadership development program', 'graduate development program',
     'cyber development program', 'early career development',
     'pathways program',
+    # Vanguard 'Technology Leadership Program - Risk & Security' is "a
+    # two-year rotational development experience designed for graduating
+    # students"; MITRE runs a 'Cyber New Professionals Program'.
+    'technology leadership program', 'new professionals program',
 ]
 
 
@@ -230,6 +275,10 @@ EARLYCAREER_SIGNALS = [
     'entry level', 'entry-level', 'early career', 'junior', 'apprentice',
     'associate', 'tier 1', 'tier i', 'tier 2', 'tier ii', 'level 1', 'level 2',
     'early in career',
+    # A cohort, not the senior title 'Fellow' that SENIORITY_REJECT holds. It
+    # keeps Anthropic 'Fellows Program, AI Safety & Security' once AI flat
+    # titles need early-career evidence.
+    'fellows program',
 ]
 # Word-bounded so 'level 1' doesn't match 'level 10' and 'associate' doesn't
 # match 'associated'. 'tier ii' is listed explicitly so it isn't lost when
@@ -237,10 +286,13 @@ EARLYCAREER_SIGNALS = [
 EARLYCAREER_RE = re.compile('|'.join(_term_regex(t) for t in EARLYCAREER_SIGNALS))
 
 # "Analyst I", "Engineer 1", "SOC Analyst II" — I/II count as early career,
-# III+ is rejected by LEVELED_SENIOR_RE above.
+# III+ is rejected by LEVELED_SENIOR_RE above. 'Technologist' is Travelers'
+# level noun ('Cybersecurity Ops Technologist I'). 'Officer' counts at level 1
+# only: Draper's 'Information Security Officer 2' asks for 3-5 years.
 LEVELED_TITLE_RE = re.compile(
-    r'\b(analyst|engineer|consultant|specialist|administrator|technician|'
-    r'developer|tester|responder|investigator)\s+(i|ii|1|2)\b'
+    r'\b(?:(analyst|engineer|consultant|specialist|administrator|technician|'
+    r'developer|tester|responder|investigator|technologist)\s+(i|ii|1|2)'
+    r'|officer\s+(?:i|1))\b'
 )
 
 # Strong phrases in a job description that mark a role as early career.
@@ -255,11 +307,21 @@ DESCRIPTION_SIGNALS = [
 # A description stating a low experience ceiling marks an early-career role
 # even when the title carries no level marker (used, gated, at security_company
 # employers to recover recall on flat "Security Engineer" titles).
-MAX_YOE_RES = [re.compile(p) for p in (
+#
+# Only the ceilings that open at zero may outrank a larger stated floor in
+# exceeds_experience_cap. A "1-2 years" band sits beside real floors: Tenable's
+# 'AI Information Security Engineer' asks for "5 or more years ... with at
+# least 1-2 years focused on securing AI/ML systems".
+ZERO_ANCHORED_YOE_RES = [re.compile(p) for p in (
     r'\b0\s*[-–]\s*2\s*years?\b', r'\b0 to 2 years?\b',
-    r'\b1\s*[-–]\s*2\s*years?\b', r'\b1 to 2 years?\b',
     r'\bup to 2 years?\b', r'\bless than 2 years?\b',
     r'\bminimum of 0 years?\b', r'\bno (?:prior )?experience (?:is )?required\b',
+    # A degreed route with no experience bar: SAIC's "Bachelor's and 0
+    # years", Northrop's "Master's degree with 0 years".
+    r'\b(?:with|and)\s+0\s+years?\b',
+)]
+MAX_YOE_RES = ZERO_ANCHORED_YOE_RES + [re.compile(p) for p in (
+    r'\b1\s*[-–]\s*2\s*years?\b', r'\b1 to 2 years?\b',
 )]
 
 CLEARANCE_SIGNALS = [
@@ -278,12 +340,25 @@ CATEGORY_RULES = [
                              r'trustworthy ai|ai red team|adversarial|'
                              r'alignment|safeguards'),
     ('Offensive Security', r'penetration|pentest|red team|offensive|exploit|'
-                           r'vulnerability research|purple team'),
+                           r'vulnerability research|purple team|'
+                           # Computer network operations: Nightwing 'Junior
+                           # CNO Developer'.
+                           r'\bcno\b'),
     ('SOC & Detection', r'\bsoc\b|security operations|detection|blue team|'
                         r'incident response|threat hunt|csirt|siem|'
-                        r'cyber defense|defensive cyber|triage'),
+                        r'cyber defense|defensive cyber|triage|'
+                        # Managed detection and network-defense titles that
+                        # fell to the catch-alls: CrowdStrike 'Analyst I,
+                        # Falcon Complete GovCloud', Nightwing 'Cyber Network
+                        # Defense Analyst II', Amentum 'Cyber Ops Analyst II',
+                        # 'Incident Responder I'.
+                        r'\bmdr\b|falcon complete|network defense|cyber ops\b|'
+                        r'responder'),
     ('Threat Intelligence', r'threat intel|\bcti\b|intelligence analyst|'
-                            r'threat research|adversary'),
+                            r'threat research|adversary|'
+                            # JPMorgan 'Cyber Intelligence Associate', Recorded
+                            # Future 'Fraud Analyst'.
+                            r'cyber intelligence|\bfraud analyst'),
     ('Forensics & IR', r'forensic|\bdfir\b|malware analy|reverse engineer'),
     ('AppSec & ProdSec', r'application security|product security|appsec|'
                          r'secure code|devsecops|software security'),
@@ -496,6 +571,25 @@ def _strip_accents(text):
                    if not unicodedata.combining(c))
 
 
+US_TOKEN_RE = re.compile(r'\b(us|usa|u\.s\.a?|united states)\b')
+
+
+def _is_bare_remote(part):
+    # "Remote" or "Remote (Hybrid)", but not "Remote (US)" or "Remote (Texas)".
+    low = part.strip().lower()
+    return (bool(REMOTE_FULL_RE.fullmatch(low)) and not US_TOKEN_RE.search(low)
+            and not _state_names(part))
+
+
+def _is_foreign_only(part):
+    low = _strip_accents(part.lower())
+    if not NON_US_RE.search(low):
+        return False
+    # A comma-joined part can name US cities beside a foreign one: "New York
+    # City, Toronto, Chicago, or Remote".
+    return not (any(s in low for s in US_SUBSTRINGS) or _has_strong_us_token(part))
+
+
 def _part_is_us(part):
     """True if a single location part positively resolves to the US."""
     p = part.strip()
@@ -521,7 +615,7 @@ def _part_is_us(part):
     for code in EMBEDDED_STATE_RE.findall(p):
         if code in EMBEDDED_STATE_CODES:
             return True
-    if re.search(r'\b(us|usa|u\.s\.a?|united states)\b', low):
+    if US_TOKEN_RE.search(low):
         return True
     if _state_names(p):
         return True
@@ -552,6 +646,9 @@ def _has_strong_us_token(location):
     return bool(m and m.group(1).upper() in US_STATES)
 
 
+COUNTRY_CODE_PREFIX_RE = re.compile(r'^\(([A-Z]{3})\)\s')
+
+
 def is_us_location(location):
     """True if any part of a (possibly multi-) location string is in the US.
 
@@ -563,7 +660,19 @@ def is_us_location(location):
         return False
 
     parts = [p for p in LOCATION_SPLIT_RE.split(location) if p.strip()]
-    if any(_part_is_us(p) for p in parts):
+    # Walmart leads each site with a country code, '(USA) AR BENTONVILLE ...'
+    # or '(CAN) ON CAMBRIDGE 03152 WM SUPERCENTER'; the bare Cambridge read as
+    # Massachusetts. When every part carries a code, the codes decide.
+    codes = [COUNTRY_CODE_PREFIX_RE.match(p.strip()) for p in parts]
+    if codes and all(codes):
+        return any(m.group(1) == 'USA' for m in codes)
+    us_parts = [p for p in parts if _part_is_us(p)]
+    # A bare "Remote" is US only when nothing else places the role. ExtraHop's
+    # 'Support Engineer I - UK' is 'Remote | United Kingdom', and its lone
+    # "Remote" part stored it as Remote (US).
+    bare_remote_abroad = (all(_is_bare_remote(p) for p in us_parts)
+                          and any(_is_foreign_only(p) for p in parts))
+    if us_parts and not bare_remote_abroad:
         return True
 
     # An unambiguous US token anywhere means the role lists a US option even in
@@ -615,6 +724,13 @@ USA_UNDERSCORE_RE = re.compile(r'^USA?_([A-Z]{2})_(.+)$')
 # Walmart Workday: "(USA) ISD Office - DGTC AR BENTONVILLE Home Office".
 HOME_OFFICE_RE = re.compile(r'\b([A-Z]{2})\s+([A-Z][A-Z ]+?)\s+Home Office$')
 CITY_SPACE_STATE_RE = re.compile(r'^([A-Za-z .\']+)\s+([A-Z]{2})$')
+# Workday appends ", More..." when a req lists further sites: "Chicago, IL,
+# More...".
+MORE_SITES_RE = re.compile(r',?\s*more\.{3}$', re.IGNORECASE)
+# A state code before the city: JPMorgan's "VA, McLean".
+STATE_COMMA_CITY_RE = re.compile(r'^([A-Z]{2}),\s*([A-Za-z .\']+)$')
+# The Home Depot's site names: "STORE SUPPORT CENTER, ATLANTA - 9090".
+SITE_CITY_STORE_RE = re.compile(r'^[A-Z .&\']+,\s*([A-Z .\']+?)\s*-\s*\d+$')
 
 # Bare cities that need no state to be unambiguous on a US board. Names that
 # exist in several states (Portland, Columbia, Arlington, Cambridge) are
@@ -665,6 +781,18 @@ def _normalize_single_location(location):
     # lookahead requires a two-letter state code, so the spelled-out
     # "United States-California-Palmdale" form below still matches.
     location = COUNTRY_PREFIX_RE.sub('', location)
+    location = MORE_SITES_RE.sub('', location).strip()
+    # A leading code is a country as often as a state ("IL, Haifa"), so only a
+    # city this module already places in that state is rewritten.
+    m = STATE_COMMA_CITY_RE.fullmatch(location)
+    if m and BARE_CITY_STATE.get(m.group(2).strip().lower()) == m.group(1):
+        return f'{m.group(2).strip()}, {m.group(1)}'
+    m = SITE_CITY_STORE_RE.fullmatch(location)
+    if m:
+        city = _title_city(m.group(1))
+        state = BARE_CITY_STATE.get(city.lower())
+        if state:
+            return f'{city}, {state}'
     # Amazon: "US, MA, Boston" -> "Boston, MA"; Intel: "US, Oregon, Hillsboro"
     m = re.fullmatch(r'(?:USA?|United States),\s*([A-Za-z .]+),\s*(.+)', location)
     if m:
@@ -825,17 +953,57 @@ def renormalize_locations(listings):
 # tag-strip regex can't be driven quadratic by a pathological '<'-heavy body.
 MAX_DESCRIPTION_CHARS = 100_000
 
+# Workday serves a description as one line of <p>/<li>/<br> markup. Stripped to
+# spaces, a single "Preferred Qualifications" heading anywhere in the body
+# shadowed the whole line, so required_years read Nightwing's "5+ years" req
+# JR101442 as 0 and the experience gate never fired on a Workday row.
+BLOCK_TAG_RE = re.compile(r'<\s*/?(?:p|br|li|ul|ol|div|h[1-6])\b[^<>]*>',
+                          re.IGNORECASE)
+
 
 def strip_html(text):
+    """Plain text of an HTML description, with block tags kept as line breaks."""
     if not text:
         return ''
-    text = html.unescape(text[:MAX_DESCRIPTION_CHARS])
+    # Northrop writes "associate's degree" with U+2019, which DEGREE_ALT_RE's
+    # straight apostrophe missed.
+    text = html.unescape(text[:MAX_DESCRIPTION_CHARS]).replace('\u2019', "'")
+    text = BLOCK_TAG_RE.sub('\n', text)
     # `[^<>]` excludes '<' too, so an unclosed-tag run of '<' can't be consumed
     # and re-backtracked — linear on every Python version (no ReDoS).
     return re.sub(r'<[^<>]*>', ' ', text)
 
 
-def is_rejected_title(title):
+# A year in an intern title names the season it hires for, and nothing retires
+# a finished season whose req stays live: Nightwing 'Vulnerability Researcher
+# Intern - 2026' (posted Feb 10) was still on the board in late September.
+# Optional leading digit absorbs Northrop's "22026" typo, as COHORT_YEAR_RE does.
+TITLE_YEAR_RE = re.compile(r'\b\d?(20\d\d)\b')
+# From this month on, next summer is the season students are recruiting for.
+SEASON_ROLLOVER_MONTH = 9
+
+
+def first_open_season(today=None):
+    """Earliest intern season still recruiting: this year until September, then next."""
+    today = today or datetime.now().date()
+    return today.year if today.month < SEASON_ROLLOVER_MONTH else today.year + 1
+
+
+def _is_stale_intern_title(title, today):
+    years = [int(y) for y in TITLE_YEAR_RE.findall(title)]
+    # New-grad titles are exempt: Northrop's '2026 Associate Cybersecurity
+    # Analyst - Pathways Program' was posted Sep 24 2026 and is a current req.
+    if not years or classify_level(title) != 'intern':
+        return False
+    return max(years) < first_open_season(today)
+
+
+def is_rejected_title(title, today=None):
+    """True if the title alone rules the role out: too senior, not cyber work,
+    a physical-security guard post, or an internship whose season has passed.
+
+    `today` (a date) is injectable so the season check can be tested.
+    """
     t = title.lower()
     if any(re.search(p, t) for p in SENIORITY_REJECT):
         return True
@@ -845,9 +1013,12 @@ def is_rejected_title(title):
         return True
     if FUNCTION_REJECT_RE.search(t):
         return True
-    if SECURITY_OFFICER_RE.search(t) and not any(h in t for h in INFOSEC_OFFICER_HINTS):
+    if (SECURITY_OFFICER_RE.search(t) and not ISSO_HINT_RE.search(t)
+            and not any(h in t for h in INFOSEC_OFFICER_HINTS)):
         return True
-    return False
+    if PROGRAM_ANALYST_RE.search(t) and not _has_cyber_keyword(t):
+        return True
+    return _is_stale_intern_title(title, today)
 
 
 def _is_cyber_keyword_hit(t):
@@ -863,15 +1034,45 @@ def _is_cyber_keyword_hit(t):
     return False
 
 
+# "Security Clearance" names a hiring requirement, not the work: ICF 'Computer
+# Scientist / Software Developer, Junior - Security Clearance Required' and RTX
+# 'Software Engineer I, CDS (Onsite - Security Clearance)' matched 'security'.
+SECURITY_CLEARANCE_RE = re.compile(r'\bsecurity clearance\b')
+
+
+def _has_cyber_keyword(t):
+    t = SECURITY_CLEARANCE_RE.sub(' ', t)
+    return _is_cyber_keyword_hit(t) or any(p.search(t) for p in CYBER_REGEXES)
+
+
 def is_cyber_title(title, security_company=False):
     t = title.lower()
-    if _is_cyber_keyword_hit(t):
-        return True
-    if any(p.search(t) for p in CYBER_REGEXES):
+    if _has_cyber_keyword(t):
         return True
     if security_company and any(kw in t for kw in TECH_KEYWORDS):
         return True
     return False
+
+
+# Cleared-facility security (the FSO function FUNCTION_REJECT excludes by name)
+# also hides behind plain titles: RTX 'Security Specialist II' maintains
+# "classified document control ... NISPOM ... COMSEC". Cyber roles cite the
+# NISPOM too (Amentum 'Cyber Security Analyst 1' performs RMF tasks "required by
+# the 32 CFR part 117 NISPOM"), so the description decides only when the bare
+# word 'security' is the title's one cyber signal.
+FACILITY_SECURITY_DESC_RE = re.compile(
+    r'nispom|32 cfr (?:part )?117|classified document control')
+INFOSEC_TITLE_RE = re.compile(
+    r'\b(?:information|systems?|network|cloud|application|data|isso|issm)\b')
+
+
+def _is_facility_security_role(title, description):
+    t = SECURITY_CLEARANCE_RE.sub(' ', title.lower())
+    if not re.search(r'\bsecurity\b', t) or INFOSEC_TITLE_RE.search(t):
+        return False
+    if _has_cyber_keyword(re.sub(r'\bsecurity\b', ' ', t)):
+        return False
+    return bool(FACILITY_SECURITY_DESC_RE.search(strip_html(description).lower()))
 
 
 def classify_level(title, description='', intern_hint=False):
@@ -981,6 +1182,13 @@ NON_EXPERIENCE_OBJECT_RE = re.compile(
     r'\s*(?:of|in)\s+(?:[a-z.&/-]+\s+){0,3}?'
     r'(?:coursework|education|schooling|studies|residency|residence|'
     r'citizenship|clearances?|tenure|age)\b')
+# A count used as a modifier describes the employer, not the candidate: "one of
+# our 25+ year programs", "a 30-year history". Newline-preserving HTML stripping
+# exposed this cleared-defense boilerplate to the parser, which read it as a
+# 25-year floor.
+YEAR_MODIFIER_RE = re.compile(
+    r'\s*(?:programs?|contracts?|histor(?:y|ies)|legacy|heritage|'
+    r'partnerships?|relationships?|anniversary)\b')
 
 # Markers that open text describing counts the candidate does NOT have to meet.
 # Every section noun is plural-tolerant — "Preferred Qualifications" is the
@@ -1003,10 +1211,19 @@ REQUIRED_MARKER_RE = re.compile(
 # An education alternative near the count: "Bachelor's with 2 years",
 # "Master's with 3 years". Counts in this shape are alternative routes into the
 # same job, so they bound the floor together rather than each on their own.
+#
+# 'bachelors' and 'masters' are spelled without an apostrophe often enough to
+# matter: Northrop's 'Level 2/3 Cyber Systems Engineer - AISR&T Contingent'
+# reads "a Bachelors of Science degree in a STEM field and at least 2 years".
 DEGREE_ALT_RE = re.compile(
-    r"\b(bachelor|master|phd|ph\.d|doctorate|associate'?s degree|"
+    r"\b(bachelor'?s?|master'?s?|phd|ph\.d|doctorate|associate'?s degree|"
     r"hs diploma|high school|ged|undergraduate|graduate degree|"
     r"advanced degree|in lieu of|in place of|equivalent|additional)\b")
+# How far back from a count DEGREE_ALT_RE looks, never past the start of the
+# count's own line. Degree routes run long ("a Bachelors of Science degree in
+# a STEM field and at least 5 years"), and the line bound keeps a degree named
+# in the bullet above from pairing with this one.
+DEGREE_ALT_WINDOW = 120
 
 # Years offered *instead of* a degree: "an additional 4 years ... in lieu of a
 # degree", "BS in CS; or HS Diploma & 5 years". A candidate who has the degree
@@ -1068,7 +1285,8 @@ def _is_requirement(low, start, end, emphatic):
     before = low[max(0, start - 60):start]
     # Disqualifiers first, so neither the emphatic form nor a requirement verb
     # can promote a clearance-recency or coursework count into a floor.
-    if RECENCY_RE.search(before) or NON_EXPERIENCE_OBJECT_RE.match(low, end):
+    if (RECENCY_RE.search(before) or NON_EXPERIENCE_OBJECT_RE.match(low, end)
+            or YEAR_MODIFIER_RE.match(low, end)):
         return False
     if emphatic:
         return True
@@ -1099,7 +1317,8 @@ def _experience_counts(description):
         if ((DEGREE_SUB_BEFORE_RE.search(before) or DEGREE_SUB_AFTER_RE.search(after))
                 and DEGREE_NOUN_RE.search(low[max(0, start - 110):end + 60])):
             alternative.append(0)   # the degreed route needs no years
-        elif DEGREE_ALT_RE.search(low[max(0, start - 70):start]):
+        elif DEGREE_ALT_RE.search(low[max(0, start - DEGREE_ALT_WINDOW,
+                                          low.rfind('\n', 0, start) + 1):start]):
             alternative.append(value)
         else:
             conjunctive.append(value)
@@ -1136,14 +1355,16 @@ def required_years(description):
 def exceeds_experience_cap(description, cap=MAX_ALLOWED_YEARS):
     """True if the posting's required experience floor is above the board's cap.
 
-    An explicit early-career ceiling ("0-2 years", "no prior experience
-    required") names the target audience outright, so it outranks a floor
-    inferred from individual bullets — a req that invites 0-2 candidates stays
-    on the board even if some other bullet asks for more.
+    An explicit ceiling that opens at zero ("0-2 years", "less than 2 years",
+    "no prior experience required") names the target audience outright, so it
+    outranks a floor inferred from individual bullets. RTX's 'Junior DevSecOps
+    Engineer' reads "bachelor's degree and less than 2 years ... or a total of
+    4 years" and stays. A "1-2 years" band does not outrank a larger floor.
     """
-    if permits_early_experience(description):
+    if required_years(description) <= cap:
         return False
-    return required_years(description) > cap
+    d = strip_html(description).lower()
+    return not any(p.search(d) for p in ZERO_ANCHORED_YOE_RES)
 
 
 def requires_experience(description):
@@ -1172,6 +1393,8 @@ def evaluate_job(title, location, description='', security_company=False,
         return None
     if not is_cyber_title(title, security_company):
         return None
+    if description and _is_facility_security_role(title, description):
+        return None
     level = classify_level(title, description, intern_hint)
     if level is None:
         # A flat "Security Engineer" title at a security company with a low
@@ -1179,9 +1402,14 @@ def evaluate_job(title, location, description='', security_company=False,
         if security_company and permits_early_experience(description):
             level = 'earlycareer'
         # AI labs use flat titles ("Software Engineer, AI Safety") with no
-        # level marker, so accept AI security/safety roles here and let the
-        # experience gate below decide.
-        elif AI_CATEGORY_RE.search(title.lower()):
+        # level marker, so an AI security/safety title needs early-career
+        # evidence in its description: a low ceiling, or a stated floor of
+        # at most two years. A silent description is not evidence: Anthropic
+        # says only that years "will correlate with the internal job level",
+        # and that put its flat Safeguards titles on the early-career table.
+        elif AI_CATEGORY_RE.search(title.lower()) and (
+                permits_early_experience(description)
+                or 0 < required_years(description) <= MAX_ALLOWED_YEARS):
             level = 'earlycareer'
         else:
             return None
@@ -1207,7 +1435,12 @@ def listing_dedup_key(company, role, location):
     """
     def norm(value):
         return re.sub(r'\s+', ' ', (value or '').strip()).lower()
-    return norm(company), norm(role), norm(location)
+    # Reposts of one req list the same sites in any order and spacing:
+    # JPMorgan's two 'Hiring Event' reqs read 'McLean, VA; Jersey City, NJ' and
+    # 'Jersey City, NJ; Mc Lean, VA'.
+    sites = {re.sub(r'\s+', '', p).lower()
+             for p in re.split(r'[;|]', location or '') if p.strip()}
+    return norm(company), norm(role), ';'.join(sorted(sites))
 
 
 def _parse_date(value):
