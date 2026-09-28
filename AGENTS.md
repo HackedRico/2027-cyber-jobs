@@ -43,6 +43,10 @@ behind `main`. Rebase before opening a PR, and take `main` for any conflict in a
   the push lands. `test_community.py` covers them.
 - `check_outputs.py` and `health_check.py` are stdlib-only guards on the bot's output and runs;
   `test_health.py` covers them.
+- `build_site.py` turns `site/` (plain HTML, CSS and JS, no build step) and `listings.json` into
+  the untracked `_site/`: the Pages board, its trimmed data file and the Atom feeds.
+  `pages.yml` deploys it after each writer finishes, because a push made with `GITHUB_TOKEN`
+  starts no Pages build. `test_site.py` covers it.
 
 ## Changing the classifier
 
