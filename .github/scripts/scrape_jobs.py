@@ -47,6 +47,8 @@ from common import normalize_url
 LISTINGS_FILE = Path('listings.json')
 SEEN_JOBS_FILE = Path('.github/data/seen_jobs.json')
 BOARD_BASELINE_FILE = Path('.github/data/board_baseline.json')
+# Read by health_check.py, which opens the "Scraper health" issue.
+HEALTH_FILE = Path('.github/data/health.json')
 
 HEADERS = {'User-Agent': 'Mozilla/5.0 (compatible; cyber-jobs-scraper/1.0)'}
 
@@ -1112,6 +1114,15 @@ def report_board_health(board_stats, today=None, persist=True):
         BOARD_BASELINE_FILE.parent.mkdir(parents=True, exist_ok=True)
         BOARD_BASELINE_FILE.write_text(
             json.dumps(history, indent=2, sort_keys=True))
+        HEALTH_FILE.write_text(json.dumps({
+            'date': today,
+            'boards': len(board_stats),
+            'ok': ok,
+            'empty': len(zero),
+            'failed': sorted(b['label'] for b in broken),
+            'regressed': [{'board': label, 'had': was} for label, was in regressed],
+            'silent': len(dead),
+        }, indent=2) + '\n')
 
 
 def load_listings():
