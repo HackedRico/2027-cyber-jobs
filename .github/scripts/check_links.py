@@ -8,7 +8,9 @@ adds requests. What remains is Community rows, rows with no fingerprint, and
 amazon.jobs rows, which this check closes the same day the posting goes.
 """
 
+import html
 import json
+import re
 import time
 from datetime import datetime
 from pathlib import Path
@@ -40,6 +42,14 @@ DEAD_STATUSES = frozenset({404, 410})
 
 REQUEST_DELAY = 0.75
 
+# Some career sites answer 200 for a job id that does not exist: Bank of
+# America serves "404 Page not found" as the page title, and HII's
+# jobs.hii-tsd.com an empty <title>. A live page names the role in its title.
+SOFT_404_TITLE_RE = re.compile(
+    r'\b404\b|not found|no longer available|job has expired|position has been filled',
+    re.IGNORECASE)
+TITLE_RE = re.compile(r'<title\b[^>]*>(.*?)</title\s*>', re.IGNORECASE | re.DOTALL)
+
 
 def should_skip(url):
     return any(domain in url for domain in SKIP_DOMAINS)
@@ -55,14 +65,34 @@ def is_check_target(entry):
     return job_fingerprint(entry.get('company', ''), entry.get('source', ''), url) is None
 
 
-def fetch_status(url):
-    """HTTP status for url, or None when the request itself failed."""
+def is_soft_404(resp):
+    """True for a 200 HTML page whose <title> says not found, or is empty.
+
+    A page with no <title> tag at all says nothing, so it is not counted.
+    """
+    if resp.status_code != 200 or 'html' not in resp.headers.get('Content-Type', '').lower():
+        return False
+    match = TITLE_RE.search(resp.text)
+    if match is None:
+        return False
+    title = ' '.join(html.unescape(match.group(1)).split())
+    return not title or bool(SOFT_404_TITLE_RE.search(title))
+
+
+def fetch_status(url, soft_404=False):
+    """HTTP status for url, or None when the request itself failed.
+
+    With `soft_404`, a 200 page that `is_soft_404` reads as missing counts as 404.
+    """
     try:
         resp = requests.get(url, timeout=12, allow_redirects=True, headers=HEADERS)
-        return resp.status_code
     except requests.RequestException as e:
         print(f'  Request error: {e}')
         return None
+    if soft_404 and is_soft_404(resp):
+        print(f'  Soft 404 (page title reads as missing): {url}')
+        return 404
+    return resp.status_code
 
 
 def record_result(entry, status, today):
@@ -104,7 +134,9 @@ def main():
         if should_skip(url):
             print(f'  SKIP (bot-blocked domain): {url}')
             continue
-        status = fetch_status(url)
+        # Only Community links point at arbitrary career sites; amazon.jobs
+        # answers a real 404 for a closed req.
+        status = fetch_status(url, soft_404=entry.get('source') == 'Community')
         if record_result(entry, status, today):
             closed += 1
             print(f'  CLOSED {status}: {url}')

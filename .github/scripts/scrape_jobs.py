@@ -43,6 +43,7 @@ from classify import (
     reclassify_listings,
     renormalize_locations,
     requires_clearance,
+    strip_html,
 )
 from common import normalize_url, security_company_flags, write_run_events
 
@@ -239,10 +240,26 @@ def scrape_lever(company, slug):
             'location': cats.get('location', ''),
             'url': job.get('hostedUrl', ''),
             'board': 'Lever',
-            'description': job.get('descriptionPlain', ''),
+            'description': _lever_description(job),
             'intern_hint': 'intern' in commitment,
         })
     return jobs
+
+
+def _lever_description(job):
+    # descriptionPlain is only the intro. The requirement bullets live in
+    # `lists`, so Immuta 'Software Engineer II (Marketplace)' hid its "3 to 5
+    # years" from the experience gate. Headings stay so the gate can tell a
+    # REQUIRED list from a PREFERRED one.
+    parts = [job.get('descriptionPlain') or '']
+    for section in job.get('lists') or []:
+        if not isinstance(section, dict):
+            continue
+        heading = (section.get('text') or '').strip()
+        body = strip_html(section.get('content') or '').strip()
+        if heading or body:
+            parts.append(f'{heading}\n{body}'.strip())
+    return '\n\n'.join(p for p in parts if p.strip())
 
 
 def scrape_ashby(company, slug):
@@ -318,37 +335,97 @@ def scrape_smartrecruiters(company, identifier):
         if len(content) < limit or (total is not None and params['offset'] >= total):
             break
         time.sleep(0.3)
+
+    # The postings list carries no description, so Kudelski 'Network Support
+    # Engineer I/II' passed the experience gate on its title while the posting
+    # asks for 2 to 3 years. Every SmartRecruiters board here is a security
+    # company, and the scraper is not told the flag, so candidates are judged
+    # as one; the cap bounds the cost if a general employer is added.
+    fetched = 0
+    for job in jobs:
+        if fetched >= SMARTRECRUITERS_DETAIL_CAP or not _wants_detail(job['title'], True):
+            continue
+        fetched += 1
+        description = fetch_smartrecruiters_description(
+            f'{url}/{job["id"].rsplit("_", 1)[-1]}', label=f'{company} SmartRecruiters')
+        if description:
+            job['description'] = description
+        time.sleep(0.3)
     return jobs
 
 
+# Detail requests per SmartRecruiters board per run, as ORACLE_DETAIL_CAP.
+SMARTRECRUITERS_DETAIL_CAP = 30
+
+
+def fetch_smartrecruiters_description(url, label=''):
+    """Return a posting's jobAd sections as one body, or '' on failure."""
+    data = fetch_json(url, label=label)
+    sections = ((data or {}).get('jobAd') or {}).get('sections') or {}
+    parts = []
+    for section in sections.values():
+        if not isinstance(section, dict):
+            continue
+        text = (section.get('text') or '').strip()
+        if text:
+            parts.append(f'<h3>{section.get("title") or ""}</h3>{text}')
+    return '\n'.join(parts)
+
+
+def _workable_part(city, region, country, code):
+    place = [p.strip() for p in (city, region) if p and p.strip()]
+    if code == 'US':
+        return ', '.join(place)
+    # A foreign part keeps its country so the US filter can reject it: "Attica"
+    # alone says nothing about Greece.
+    return ', '.join(place + [country or code])
+
+
+def workable_location(job):
+    """Build a location from the widget API's `locations[]` and flat fields.
+
+    The widget API has no `location` object. Each posting carries flat `city`,
+    `state`, `country` (a full name) and `telecommuting`, plus `locations[]`
+    with a `countryCode` per site. Reading a `location` key that does not
+    exist gave every Workable posting a blank location, so none ever passed
+    the US filter (Trail of Bits 'Security Engineer I, Application Security').
+    """
+    sites = [(s.get('city'), s.get('region'), s.get('country'),
+              (s.get('countryCode') or '').upper())
+             for s in job.get('locations') or []
+             if isinstance(s, dict) and not s.get('hidden')]
+    if not sites:
+        country = job.get('country') or ''
+        code = 'US' if country.strip().lower() in ('united states', 'us', 'usa') else country
+        sites = [(job.get('city'), job.get('state'), country, code)]
+    parts = [(site[3], _workable_part(*site)) for site in sites]
+    us = any(code == 'US' for code, _ in parts)
+    names = [part for _, part in parts if part]
+    if us and job.get('telecommuting'):
+        names.append('Remote (US)')
+    elif us and not any(part for code, part in parts if code == 'US'):
+        names.append('United States')
+    return '; '.join(dict.fromkeys(names))
+
+
 def scrape_workable(company, slug):
-    url = f'https://apply.workable.com/api/v1/widget/accounts/{slug}'
+    # details=true adds each posting's description to the same response.
+    url = f'https://apply.workable.com/api/v1/widget/accounts/{slug}?details=true'
     data = fetch_json(url, label=f'{company} Workable')
     if data is None:
         return None
     check_container(data, 'jobs', f'{company} Workable')
     jobs = []
     for job in data.get('jobs', []):
-        loc = job.get('location', {})
-        country = loc.get('countryCode', '').upper()
-        if country and country != 'US' and not loc.get('remote'):
-            continue
-        city = loc.get('city', '')
-        region = loc.get('region', '')
-        if loc.get('remote'):
-            location = 'Remote (US)' if country in ('US', '') else ''
-        elif city and region:
-            location = f'{city}, {region}'
-        else:
-            location = city
         job_id = job.get('shortcode', job.get('id', ''))
         jobs.append({
             'id': f'workable_{slug}_{job_id}',
             'company': company,
             'title': job.get('title', ''),
-            'location': location,
+            'location': workable_location(job),
             'url': f'https://apply.workable.com/{slug}/j/{job_id}/',
             'board': 'Workable',
+            'description': job.get('description', ''),
         })
     return jobs
 
@@ -421,7 +498,9 @@ def scrape_pinpoint(company, slug):
     return jobs
 
 
-MULTI_LOCATION_RE = re.compile(r'^\d+ locations$', re.IGNORECASE)
+# Most tenants hide a multi-site req behind "N Locations"; Motorola lists its
+# first site and a trailing "More..." ("Chicago, IL, More...") instead.
+MULTI_LOCATION_RE = re.compile(r'^\d+ locations$|(?:^|[\s,])more\.{3}$', re.IGNORECASE)
 
 # Search results are relevance-ranked, so student cyber titles sit near the top.
 # Paging every term to the end reached 227 title candidates across 73 tenants
@@ -584,7 +663,7 @@ def scrape_workday(company, tenant, instance, board, security_company=False,
             job['partial_sweep'] = True
         if not path or not _wants_detail(job['title'], security_company):
             continue
-        needs_locations = MULTI_LOCATION_RE.match(job['location'].strip())
+        needs_locations = MULTI_LOCATION_RE.search(job['location'].strip())
         location, description = fetch_workday_detail(cxs_root, path, wd_headers,
                                                      label=f'{company} Workday')
         if needs_locations and location:
@@ -649,7 +728,10 @@ def scrape_oracle(company, host, site):
             locations = [job.get('PrimaryLocation', '')] + secondary
             location = '; '.join(dict.fromkeys(x for x in locations if x))
             jobs.append({
-                'id': f'oracle_{site}_{job_id}',
+                # Amex and Honeywell both post under site CX_1, so the site
+                # alone does not scope a req id.
+                'id': f'oracle_{host}_{site}_{job_id}',
+                'legacy_id': f'oracle_{site}_{job_id}',
                 'company': company,
                 'title': job.get('Title', ''),
                 'location': location,
@@ -1212,7 +1294,8 @@ def long_silent_boards(board_stats, history):
     for b in board_stats:
         name, _, rest = b['label'].rpartition(' (')
         ats = rest.split('/', 1)[0].rstrip(')').lower()
-        streak = (history.get(b['label']) or {}).get('zero_runs', 0)
+        streak = (history.get(b['label']) or history.get(_legacy_label(b['label']))
+                  or {}).get('zero_runs', 0)
         quiet = b['count'] == 0 and streak >= SILENT_BOARD_RUNS
         silent[(name, ats)] = silent.get((name, ats), True) and quiet
     return {key for key, is_silent in silent.items() if is_silent}
@@ -1291,6 +1374,46 @@ def retire_vanished_listings(listings, raw_jobs, today, silent_boards=frozenset(
             entry['missing_since'] = today
             continue
         if _days_since(first_missed, today) < VANISHED_DAYS:
+            continue
+        _retire(entry, today)
+        retired.append(entry)
+    return retired
+
+
+# Sources whose rows come from one companies.yml entry each. Amazon Jobs is a
+# hardcoded scraper with no entry, so its rows are never orphans.
+CONFIGURED_SOURCES = {'greenhouse', 'lever', 'ashby', 'smartrecruiters', 'workable',
+                      'recruitee', 'pinpoint', 'workday', 'oracle', 'eightfold', 'phenom'}
+
+
+def retire_orphaned_listings(listings, config, today):
+    """Close open rows whose company no longer has a board for their source.
+
+    Mutates and returns the rows it retired. `retire_vanished_listings` only
+    judges boards this run scraped, and `long_silent_boards` only boards still
+    in the baseline, so a row outlives the removal of its board: Todyl 'Site
+    Reliability Engineer II' stayed open after 4e80f86 dropped Todyl's Ashby
+    entry, since the job page still answers 200.
+
+    Guardrails, all in the keep direction:
+      * Community rows and any source outside the config-driven ATSs (Amazon
+        Jobs, or a new hardcoded scraper) are never judged;
+      * a config with no boards at all retires nothing, so an empty or
+        truncated companies.yml cannot close the board.
+    """
+    sources = CONFIGURED_SOURCES | {key.lower() for key in config}
+    configured = {(str(entry.get('name', '')).casefold(), kind.lower())
+                  for kind, entries in config.items() if isinstance(entries, list)
+                  for entry in entries if isinstance(entry, dict)}
+    if not configured:
+        return []
+    retired = []
+    for entry in listings:
+        source = (entry.get('source') or '').lower()
+        if (source not in sources or entry.get('source') == 'Community'
+                or entry.get('closed') or not entry.get('url')):
+            continue
+        if (entry.get('company', '').casefold(), source) in configured:
             continue
         _retire(entry, today)
         retired.append(entry)
@@ -1427,6 +1550,9 @@ def scrape_amazon():
     params = {
         'base_query': 'security engineer OR "security analyst" OR cybersecurity',
         'loc_query': 'united states',
+        # loc_query only ranks: without this filter a page held GBR, AUS, IND
+        # and SGP reqs next to the US ones.
+        'normalized_country_code[]': 'USA',
         'result_limit': 100,
         'offset': 0,
     }
@@ -1458,82 +1584,6 @@ def scrape_amazon():
                 or (total is not None and params['offset'] >= total)):
             break
         time.sleep(0.5)
-    return jobs
-
-
-def scrape_usajobs():
-    """Federal cyber roles for recent grads and students (Pathways internships).
-
-    Needs USAJOBS_API_KEY + USAJOBS_EMAIL.
-    """
-    api_key = os.environ.get('USAJOBS_API_KEY')
-    email = os.environ.get('USAJOBS_EMAIL', 'cyber-jobs-scraper@example.com')
-    if not api_key:
-        # Say so explicitly: an unset secret otherwise looks exactly like a
-        # board with no cyber openings, and the zero-run tracker would file it
-        # under dead slugs.
-        print('  [USAJOBS] USAJOBS_API_KEY not set — skipping federal postings')
-        return []
-    headers = {
-        'Host': 'data.usajobs.gov',
-        'User-Agent': email,
-        'Authorization-Key': api_key,
-    }
-    jobs = []
-    any_ok = False
-    # A posting can be open to both hiring paths; keep one copy.
-    seen_ids = set()
-    # 'student' is the Pathways internship path (codelist value STUDENT —
-    # singular, unlike GRADUATES); titles usually come back as
-    # "Student Trainee (...)" and classify as intern.
-    for hiring_path in ('graduates', 'student'):
-        for page in range(1, MAX_PAGES + 1):
-            params = {
-                'Keyword': 'cybersecurity',
-                'HiringPath': hiring_path,
-                'ResultsPerPage': 250,
-                'Page': page,
-            }
-            # allow_redirects=False so the api-key header can't be forwarded to
-            # another host on a cross-host redirect.
-            data = fetch_json('https://data.usajobs.gov/api/search',
-                              params=params, headers=headers, label='USAJOBS',
-                              allow_redirects=False)
-            if data is None:
-                break
-            any_ok = True
-            result = data.get('SearchResult', {})
-            items = result.get('SearchResultItems', [])
-            if not items:
-                break
-            for item in items:
-                d = item.get('MatchedObjectDescriptor', {})
-                job_id = item.get('MatchedObjectId', '')
-                if job_id in seen_ids:
-                    continue
-                seen_ids.add(job_id)
-                locations = d.get('PositionLocation', [])
-                loc = locations[0].get('LocationName', '') if locations else ''
-                # Student-only postings are Pathways internships even when
-                # the title omits "Student Trainee"; a posting also open
-                # to graduates stays title-classified.
-                paths = [p.lower() for p in
-                         (d.get('UserArea', {}).get('Details', {})
-                          .get('HiringPath') or [])]
-                jobs.append({
-                    'id': f'usajobs_{job_id}',
-                    'company': d.get('OrganizationName', 'US Federal Government'),
-                    'title': d.get('PositionTitle', ''),
-                    'location': loc,
-                    'url': d.get('PositionURI', ''),
-                    'board': 'USAJOBS',
-                    'intern_hint': 'student' in paths and 'graduates' not in paths,
-                })
-            if page >= int(result.get('UserArea', {}).get('NumberOfPages', 1)):
-                break
-            time.sleep(0.5)
-    if not any_ok:
-        return None
     return jobs
 
 
@@ -1594,6 +1644,16 @@ def load_board_baseline():
     return history
 
 
+# Oracle labels gained the site once Idaho National Laboratory put two sites
+# on one host; a board keeps the history stored under its old label.
+_ORACLE_LABEL_RE = re.compile(r'^(.* \(oracle/[^/()]+)/[^/()]+\)$')
+
+
+def _legacy_label(label):
+    m = _ORACLE_LABEL_RE.match(label)
+    return f'{m.group(1)})' if m else None
+
+
 def board_health(board_stats, baseline, today):
     """Fold this run's counts into the stored per-board history.
 
@@ -1612,7 +1672,7 @@ def board_health(board_stats, baseline, today):
     history, regressed, dead = {}, [], []
     for b in board_stats:
         label = b['label']
-        prev = baseline.get(label) or {}
+        prev = baseline.get(label) or baseline.get(_legacy_label(label)) or {}
         if b['count'] > 0:
             history[label] = {'count': b['count'], 'zero_runs': 0,
                               'last_nonzero': today}
@@ -1759,7 +1819,7 @@ def build_tasks(config, board=None, limit=None):
     if want('oracle'):
         for entry in limited(config.get('oracle')):
             tasks.append(BoardTask(
-                f'{entry["name"]} (oracle/{entry["host"]})', scrape_oracle,
+                f'{entry["name"]} (oracle/{entry["host"]}/{entry["site"]})', scrape_oracle,
                 (entry['name'], entry['host'], entry['site']),
                 entry.get('security_company', False)))
     if want('eightfold'):
@@ -1784,8 +1844,6 @@ def build_tasks(config, board=None, limit=None):
                 entry.get('security_company', False)))
     if want('amazon'):
         tasks.append(BoardTask('Amazon (amazon.jobs)', scrape_amazon, ()))
-    if want('usajobs'):
-        tasks.append(BoardTask('USAJOBS (data.usajobs.gov)', scrape_usajobs, ()))
     return tasks
 
 
@@ -1841,7 +1899,7 @@ def parse_args(argv=None):
                              'README rebuild — safe to run locally')
     parser.add_argument('--board',
                         help='only run this ATS (e.g. greenhouse, workday, '
-                             'eightfold, phenom, jibe, amazon, usajobs) for fast '
+                             'eightfold, phenom, jibe, amazon) for fast '
                              'local iteration')
     parser.add_argument('--limit', type=int,
                         help='only scrape the first N configured companies per board')
@@ -1875,7 +1933,7 @@ def main():
               f'({result["count"]} postings, {result["seconds"]:.1f}s)')
         for job in result['jobs']:
             sec_flags[job['id']] = result['security_company']
-            # Amazon and USAJOBS have no companies.yml entry to read.
+            # Amazon has no companies.yml entry to read.
             company_flags.setdefault(job['company'], result['security_company'])
         raw_jobs.extend(result['jobs'])
         board_stats.append({key: result[key] for key in ('label', 'status', 'count')})
@@ -1948,6 +2006,10 @@ def main():
     for entry in vanished:
         print(f'  RETIRED [vanished] {_oneline(entry.get("company", ""))} — '
               f'{_oneline(entry.get("role", ""))}')
+    orphaned = retire_orphaned_listings(listings, config, today)
+    for entry in orphaned:
+        print(f'  RETIRED [orphaned] {_oneline(entry.get("company", ""))} — '
+              f'{_oneline(entry.get("role", ""))}')
 
     existing_urls = {normalize_url(e.get('url', '')) for e in listings if e.get('url')}
     # Secondary key catches the same role reposted per-location under distinct
@@ -1966,6 +2028,11 @@ def main():
 
     for job in raw_jobs:
         jid = job['id']
+        # seen_jobs.json holds Oracle reqs under their pre-host id; carrying
+        # the date over keeps a known req from a second trip through the gates.
+        legacy = job.get('legacy_id')
+        if jid not in seen and legacy in seen:
+            seen[jid] = seen[legacy]
         location = normalize_location(job.get('location', ''))
         key = listing_dedup_key(job['company'], job.get('title', ''), location)
         # Skip already-seen jobs unless they could revive a blanked row.
@@ -2033,12 +2100,12 @@ def main():
     # streak still has to save listings.json or the streak resets every run.
     pending = sum(1 for e in listings if e.get('missing_since'))
     changed = (added or reclassified or revived or purged or drops or refreshed
-               or renormalized or repaired or folded or vanished or pending)
+               or renormalized or repaired or folded or vanished or orphaned or pending)
     dropped_by = ', '.join(f'{n} {reason}' for reason, n in sorted(drop_counts.items()))
     print(f'\nAdded {added} new listing(s), revived {revived}, '
           f'reclassified {reclassified}, purged {purged}, '
           f'repaired {len(repaired)} location(s) + folded {len(folded)} duplicate(s), '
-          f'retired {len(vanished)} vanished ({pending} more missing), '
+          f'retired {len(vanished)} vanished ({pending} more missing) + {len(orphaned)} orphaned, '
           f'dropped {len(drops)} ({dropped_by or "none"}), '
           f'refreshed {len(refreshed) - relevelled} category or clearance field(s)')
 
@@ -2054,7 +2121,7 @@ def main():
     save_seen_jobs(seen)
     events_file = os.environ.get('RUN_EVENTS_FILE')
     if events_file:
-        write_run_events(events_file, added_rows, revived_rows, vanished)
+        write_run_events(events_file, added_rows, revived_rows, vanished + orphaned)
     print('Done')
 
 

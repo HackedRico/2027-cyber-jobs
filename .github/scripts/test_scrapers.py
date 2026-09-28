@@ -9,7 +9,6 @@ retry/backoff fetch layer — without touching the network.
 """
 import json
 import os
-import re
 import sys
 import tempfile
 from pathlib import Path
@@ -19,7 +18,6 @@ sys.path.insert(0, str(Path(__file__).parent))
 import check_links  # noqa: E402
 import check_slugs  # noqa: E402
 import compare_runs  # noqa: E402
-import notify  # noqa: E402
 import responses  # noqa: E402
 import scrape_jobs as sj  # noqa: E402
 
@@ -160,7 +158,7 @@ def test_oracle():
              'secondaryLocations': [{'Name': 'Remote'}]}]}]})
     jobs = sj.scrape_oracle('Acme', 'acme.fa.us2.oraclecloud.com', 'CX_1')
     check('oracle parses one req', len(jobs), 1)
-    check('oracle id', jobs[0]['id'], 'oracle_CX_1_77')
+    check('oracle id', jobs[0]['id'], 'oracle_acme.fa.us2.oraclecloud.com_CX_1_77')
     check('oracle merges locations', jobs[0]['location'],
           'Austin, TX, United States; Remote')
 
@@ -595,11 +593,10 @@ def test_build_tasks_honors_board_and_limit():
                      'search_terms': ['grc']}],
         'oracle': [{'name': 'O', 'host': 'o.fa.us2.oraclecloud.com', 'site': 'CX_1'}],
     }
-    check('build_tasks walks boards in config order and ends with the fixed sources',
+    check('build_tasks walks boards in config order and ends with Amazon',
           [t.label for t in sj.build_tasks(config)],
           ['A (greenhouse/a)', 'B (greenhouse/b)', 'C (greenhouse/c)', 'W (workday/w)',
-           'O (oracle/o.fa.us2.oraclecloud.com)', 'Amazon (amazon.jobs)',
-           'USAJOBS (data.usajobs.gov)'])
+           'O (oracle/o.fa.us2.oraclecloud.com/CX_1)', 'Amazon (amazon.jobs)'])
     subset = sj.build_tasks(config, board='greenhouse', limit=2)
     check('--board/--limit narrow the task list',
           [(t.label, t.args, t.security_company) for t in subset],
@@ -1360,163 +1357,374 @@ def test_main_writes_run_events_with_inserted_row():
           (events['revived'], events['retired']), ([], []))
 
 
-# --- notify.py -----------------------------------------------------------------
-RUN_AT = '2026-09-23T13:37:00Z'
-GH = 'https://api.github.com/repos/o/r'
+# --- scrape_workable: the widget API has flat fields and locations[] ---------
+WORKABLE_API = 'https://apply.workable.com/api/v1/widget/accounts/trailofbits'
 
 
-def _row(company, role, kind='intern', **extra):
-    row = {'company': company, 'role': role, 'location': 'Austin, TX', 'type': kind,
-           'category': 'Security Engineering', 'clearance': False,
-           'url': f'https://x/{company}/{role}'.replace(' ', '-'), 'source': 'Greenhouse',
-           'date_added': '2026-09-23'}
-    row.update(extra)
-    return row
+def _workable_job(shortcode, title, *sites, telecommuting=False, city='', state='',
+                  country='United States', description=''):
+    return {'title': title, 'shortcode': shortcode, 'code': '',
+            'employment_type': 'Full-time', 'telecommuting': telecommuting,
+            'department': 'Assurance', 'url': f'https://apply.workable.com/j/{shortcode}',
+            'shortlink': f'https://apply.workable.com/j/{shortcode}',
+            'application_url': f'https://apply.workable.com/j/{shortcode}/apply',
+            'published_on': '2026-08-27', 'created_at': '2026-08-27',
+            'country': country, 'city': city, 'state': state, 'education': '',
+            'experience': 'Entry level', 'function': '', 'industry': '',
+            'locations': [{'country': c, 'countryCode': code, 'city': town,
+                           'region': region, 'hidden': hidden}
+                          for c, code, town, region, hidden in sites],
+            'description': description}
 
 
-def _events(added):
-    return {'schema_version': 1, 'run_at': RUN_AT, 'added': added,
-            'revived': [], 'retired': []}
-
-
-check('format_row neutralises mentions, links and HTML in scraped fields',
-      notify.format_row(_row('Acme', 'Intern @octocat [x](https://evil) <b>',
-                             url='https://x/a_(b)'), set()),
-      '- **Acme**: Intern @&#8203;octocat \\[x\\](https://evil) &lt;b&gt; · Austin, TX · '
-      'Security Engineering · [Apply](https://x/a_%28b%29)')
-check('format_row caps a long site list',
-      notify.format_row(_row('Acme', 'SOC Intern', location='A, TX; B, TX; C, TX; D, TX'),
-                        set()).split(' · ')[1], 'A, TX; B, TX; 2 more')
-
-
-def _release_payload():
-    posts = [c for c in responses.calls if c.request.url.endswith('/releases')]
-    return json.loads(posts[0].request.body) if posts else None
-
-
-def _mock_github(issues=()):
-    responses.post(f'{GH}/releases', status=201, json={'html_url': 'https://rel'})
-    responses.get(f'{GH}/issues', json=list(issues))
-    responses.post(f'{GH}/issues', status=201, json={'number': 99, 'locked': False})
-    responses.post(re.compile(rf'{GH}/issues/\d+/comments'), status=201, json={})
-    responses.put(re.compile(rf'{GH}/issues/\d+/lock'), status=204)
-    responses.delete(re.compile(rf'{GH}/issues/\d+/lock'), status=204)
+US_ANYWHERE = ('United States', 'US', '', None, False)
 
 
 @responses.activate
-def test_notify_skips_release_when_nothing_added():
-    posted = notify.announce(_events([]), [], 'tok', 'o/r')
-    check('notify posts nothing when no row was added', posted, [])
-    check('notify makes no HTTP call when no row was added', len(responses.calls), 0)
+def test_workable_reads_locations_and_description():
+    """Trail of Bits 'Security Engineer I, Application Security' never landed."""
+    responses.get(WORKABLE_API, json={'name': 'Trail of Bits', 'description': '', 'jobs': [
+        _workable_job('A1B2C3D4E5', 'Security Engineer I, Application Security', US_ANYWHERE,
+                      telecommuting=True,
+                      description='<p>Entry-level role on the application security team.</p>'),
+        _workable_job('B1B2C3D4E5', 'Principal Scientist',
+                      ('United States', 'US', 'Arlington', 'Virginia', False),
+                      city='Arlington', state='Virginia'),
+        _workable_job('C1B2C3D4E5', 'Security Engineer, Research',
+                      ('United States', 'US', 'Portland', 'Oregon', False),
+                      ('Croatia', 'HR', 'Zagreb', 'Grad Zagreb', False),
+                      ('United States', 'US', 'Boston', 'Massachusetts', True)),
+        _workable_job('D1B2C3D4E5', 'Senior Security Engineer Cryptography',
+                      ('United Kingdom', 'GB', '', None, False),
+                      telecommuting=True, country='United Kingdom'),
+        _workable_job('E1B2C3D4E5', 'Security Analyst', city='Austin', state='Texas'),
+        _workable_job('F1B2C3D4E5', 'SOC Analyst', US_ANYWHERE),
+    ]})
+    jobs = sj.scrape_workable('Trail of Bits', 'trailofbits')
+    check('workable asks for descriptions in the same request',
+          'details=true' in responses.calls[0].request.url, True)
+    check('workable builds each location from locations[] and the flat fields',
+          [j['location'] for j in jobs],
+          ['Remote (US)', 'Arlington, Virginia',
+           'Portland, Oregon; Zagreb, Grad Zagreb, Croatia',
+           'United Kingdom', 'Austin, Texas', 'United States'])
+    check('workable keeps the posting description',
+          jobs[0]['description'], '<p>Entry-level role on the application security team.</p>')
+    check('workable url and id use the shortcode',
+          (jobs[0]['id'], jobs[0]['url']),
+          ('workable_trailofbits_A1B2C3D4E5',
+           'https://apply.workable.com/trailofbits/j/A1B2C3D4E5/'))
+    check('a Workable req now passes the US filter, a UK one still fails',
+          [sj.is_us_location(j['location']) for j in jobs[:4]], [True, True, True, False])
+    check('the Trail of Bits entry-level req is accepted',
+          sj.evaluate_job(jobs[0]['title'], jobs[0]['location'], jobs[0]['description'],
+                          True), ('earlycareer', 'AppSec & ProdSec'))
+
+
+# --- scrape_lever: requirement bullets live in `lists` ------------------------
+@responses.activate
+def test_lever_appends_lists_to_description():
+    """Immuta 'Software Engineer II (Marketplace)' asks for 3 to 5 years in `lists`."""
+    required = ('<div>\n\n<li><strong>Professional Experience:&nbsp;</strong>Typically '
+                '3\u20135 years of professional software engineering experience.</li>\n'
+                '<li>Proficiency with TypeScript.</li>\n\n</div>')
+    responses.get('https://api.lever.co/v0/postings/immuta', json=[{
+        'id': '7f6f1d3a-8f64-4a4e-9b1c-1a2b3c4d5e6f', 'text': 'Software Engineer II (Marketplace)',
+        'country': 'US', 'categories': {'location': 'College Park, MD', 'commitment': 'Full Time'},
+        'hostedUrl': 'https://jobs.lever.co/immuta/7f6f1d3a-8f64-4a4e-9b1c-1a2b3c4d5e6f',
+        'descriptionPlain': 'Immuta is hiring a software engineer.',
+        'lists': [{'text': 'CORE RESPONSIBILITIES', 'content': '<div><li>Build APIs.</li></div>'},
+                  {'text': 'REQUIRED EXPERIENCE', 'content': required}]}])
+    job = sj.scrape_lever('Immuta', 'immuta')[0]
+    check('lever description keeps the intro and appends each list with its heading',
+          job['description'].startswith('Immuta is hiring a software engineer.\n\n'
+                                        'CORE RESPONSIBILITIES\n'), True)
+    check('lever list html is stripped',
+          ('<li>' in job['description'], 'Typically 3\u20135 years' in job['description']),
+          (False, True))
+    check('the years in lists now reach the experience gate',
+          sj.evaluate_job(job['title'], job['location'], job['description'], True), None)
+    check('...where the intro alone let the req through',
+          sj.evaluate_job(job['title'], job['location'], 'Immuta is hiring.', True),
+          ('earlycareer', 'Engineering @ Security Co'))
+
+
+# --- scrape_smartrecruiters: descriptions for title-level candidates ---------
+SR_POSTINGS = 'https://api.smartrecruiters.com/v1/companies/KudelskiSecurityInc/postings'
+KUDELSKI_QUALIFICATIONS = (
+    '<p>Qualifications<br />Education<br />*High School diploma, or equivalent '
+    'experience/combined education, with additional specialized technical training '
+    'equivalent to a technical Associate degree and/or demonstrated ability to perform '
+    'assigned technical/para-engineering tasks and 3 years of experience<br />Experience'
+    '<br />*2-3 years&apos; experience working with LAN and WAN topologies, TCP/IP '
+    'protocol, SSL/TLS, OSI Model, firewalls, routers and switches required.</p>')
+
+
+def _sr_posting(pid, name):
+    return {'id': pid, 'name': name, 'uuid': f'uuid-{pid}', 'refNumber': f'REF{pid}',
+            'ref': f'{SR_POSTINGS}/{pid}',
+            'location': {'city': 'Atlanta', 'region': 'GA', 'country': 'us', 'remote': False},
+            'typeOfEmployment': {'id': 'permanent', 'label': 'Full-time'}}
 
 
 @responses.activate
-def test_notify_burst_cap_lists_ten_student_rows():
-    _mock_github()
-    added = ([_row('Intern Co', f'Security Intern {i}') for i in range(8)]
-             + [_row('Grad Co', f'Security Analyst New Grad {i}', 'newgrad') for i in range(6)]
-             + [_row('Early Co', f'Security Analyst I {i}', 'earlycareer') for i in range(9)])
-    notify.announce(_events(added), [], 'tok', 'o/r')
-    body = _release_payload()['body']
-    check('burst release states the counts per type',
-          '**23 new roles** this run: 8 intern, 6 new grad, 9 early career.' in body, True)
-    check('burst release lists ten rows', body.count('\n- **'), 10)
-    check('burst release leaves early-career rows to the board', 'Early Co' in body, False)
-    check('burst release links the board',
-          '[board](https://github.com/o/r#readme)' in body, True)
-
-
-@responses.activate
-def test_notify_puts_security_company_rows_last():
-    _mock_github()
-    added = [_row('CrowdStrike', 'Software Engineer Intern'),
-             _row('Acme', 'SOC Analyst Intern', clearance=True)]
-    earlier = [_row('CrowdStrike', 'Old', date_added='2026-09-01'),
-               _row('Acme', 'Old', date_added='2026-09-01')]
-    notify.announce(_events(added), earlier, 'tok', 'o/r')
-    body = _release_payload()['body']
-    check('cyber rows stay under their type heading',
-          body.startswith('## 🎒 Internships (1)\n- **Acme** 🇺🇸: SOC Analyst Intern'), True)
-    check('non-cyber rows go under the security-company heading',
-          '## 🛡️ Also hiring at security companies (1)\n- **CrowdStrike**: '
-          'Software Engineer Intern · Austin, TX · intern' in body, True)
-
-
-@responses.activate
-def test_notify_opener_leads_the_title():
-    _mock_github()
-    added = [_row('Amazon', 'Security Engineer Internship 2027 (US)'),
-             _row('Northrop Grumman', '2027 Intern, Cybersecurity Engineer'),
-             _row('Anduril', 'Security Engineer', 'earlycareer')]
-    listings = added + [
-        _row('Northrop Grumman', 'Cyber Intern', closed=True, closed_date='2026-09-01'),
-        # Closed more than 60 days ago, so it no longer counts against Amazon.
-        _row('Amazon', 'Old Intern', closed=True, closed_date='2026-07-01')]
-    notify.announce(_events(added), listings, 'tok', 'o/r')
-    payload = _release_payload()
-    check('opener leads the release title', payload['name'],
-          '🚨 Amazon opened intern hiring · 3 new roles')
-    check('opener row carries the siren',
-          '- **Amazon** 🚨: Security Engineer Internship 2027 (US)' in payload['body'], True)
-    check('a company with a recent intern row is not an opener',
-          '**Northrop Grumman** 🚨' in payload['body'], False)
-    check('release tag is the run minute in UTC', payload['tag_name'], 'roles-20260923-1337')
-    check('release becomes latest on main',
-          (payload['make_latest'], payload['target_commitish']), ('true', 'main'))
-
-
-@responses.activate
-def test_notify_unlocks_comments_and_relocks():
-    issue = {'number': 5, 'locked': True, 'author_association': 'OWNER',
-             'body': 'Subscribe\n<!-- alert-stream: earlycareer -->'}
-    stranger = {'number': 6, 'locked': False, 'author_association': 'NONE',
-                'body': '<!-- alert-stream: earlycareer -->'}
-    _mock_github([issue, stranger])
-    notify.announce(_events([_row('Acme', 'Security Analyst I', 'earlycareer')]),
-                    [], 'tok', 'o/r')
-    calls = [(c.request.method, c.request.url.removeprefix(GH))
-             for c in responses.calls if '/issues/5' in c.request.url]
-    check('an owner issue is unlocked, commented on and relocked', calls,
-          [('DELETE', '/issues/5/lock'), ('POST', '/issues/5/comments'),
-           ('PUT', '/issues/5/lock')])
-    check("a stranger's issue with the marker is ignored",
-          any('/issues/6' in c.request.url for c in responses.calls), False)
-
-
-@responses.activate
-def test_notify_fails_when_relock_fails():
-    issue = {'number': 5, 'locked': True, 'author_association': 'OWNER',
-             'body': '<!-- alert-stream: earlycareer -->'}
-    responses.post(f'{GH}/releases', status=201, json={})
-    responses.get(f'{GH}/issues', json=[issue])
-    responses.delete(f'{GH}/issues/5/lock', status=204)
-    responses.post(f'{GH}/issues/5/comments', status=201, json={})
-    responses.put(f'{GH}/issues/5/lock', status=403)
+def test_smartrecruiters_fetches_descriptions_for_candidates():
+    """Kudelski 'Network Support Engineer I/II' wants 2 to 3 years."""
+    responses.get(SR_POSTINGS, json={'offset': 0, 'limit': 100, 'totalFound': 3, 'content': [
+        _sr_posting('114671999', 'Network Support Engineer I/II'),
+        _sr_posting('114672000', 'Account Executive'),
+        _sr_posting('114672001', 'Security Analyst I')]})
+    responses.get(f'{SR_POSTINGS}/114671999', json={'id': '114671999', 'jobAd': {'sections': {
+        'companyDescription': {'title': 'Company Description',
+                               'text': '<p>Kudelski Security, Inc.</p>'},
+        'jobDescription': {'title': 'Job Description', 'text': '<p>Support F5 customers.</p>'},
+        'qualifications': {'title': 'Qualifications',
+                           'text': KUDELSKI_QUALIFICATIONS},
+        'additionalInformation': {'title': 'Additional Information', 'text': ''}}}})
+    original = sj.SMARTRECRUITERS_DETAIL_CAP
     try:
-        notify.announce(_events([_row('Acme', 'Security Analyst I', 'earlycareer')]),
-                        [], 'tok', 'o/r')
-        raised = False
-    except RuntimeError:
-        raised = True
-    check('a failed relock fails the step', raised, True)
+        sj.SMARTRECRUITERS_DETAIL_CAP = 1
+        jobs = sj.scrape_smartrecruiters('Kudelski Security', 'KudelskiSecurityInc')
+    finally:
+        sj.SMARTRECRUITERS_DETAIL_CAP = original
+    detail_calls = [c.request.url for c in responses.calls if '/postings/' in c.request.url]
+    check('smartrecruiters fetches detail for the first candidate only, within the cap',
+          detail_calls, [f'{SR_POSTINGS}/114671999'])
+    check('smartrecruiters description joins the jobAd sections with their titles',
+          jobs[0]['description'],
+          '<h3>Company Description</h3><p>Kudelski Security, Inc.</p>\n'
+          '<h3>Job Description</h3><p>Support F5 customers.</p>\n'
+          f'<h3>Qualifications</h3>{KUDELSKI_QUALIFICATIONS}')
+    check('non-candidates and reqs past the cap carry no description',
+          ['description' in j for j in jobs[1:]], [False, False])
+    check('the posting years now reach the experience gate',
+          sj.evaluate_job(jobs[0]['title'], jobs[0]['location'], jobs[0]['description'],
+                          True), None)
+
+
+# --- Workday: Motorola writes "More..." where others write "N Locations" -----
+@responses.activate
+def test_workday_more_suffix_fetches_locations():
+    check('multi-location labels',
+          [bool(sj.MULTI_LOCATION_RE.search(x)) for x in
+           ('3 Locations', 'Chicago, IL, More...', 'Chicago, IL', 'Elmore...')],
+          [True, True, False, False])
+    path = '/job/Chicago-IL/Cybersecurity-Analyst-I_R59000'
+    responses.add_callback(responses.POST, WD_API, callback=_workday_pages({'cyber': [{
+        'total': 1, 'jobPostings': [{'title': 'Cybersecurity Analyst I', 'externalPath': path,
+                                     'locationsText': 'Chicago, IL, More...'}]}]}))
+    responses.get(f'https://t.wd5.myworkdayjobs.com/wday/cxs/t/B{path}', json={
+        'jobPostingInfo': {'location': 'Chicago, IL',
+                           'additionalLocations': ['Plantation, FL', 'Allen, TX'],
+                           'jobDescription': '<p>Entry-level SOC role.</p>'}})
+    jobs = sj.scrape_workday('Motorola Solutions', 't', 'wd5', 'B')
+    check('a trailing More... takes every site from the detail endpoint',
+          jobs[0]['location'], 'Chicago, IL; Plantation, FL; Allen, TX')
+
+
+# --- amazon.jobs: loc_query ranks, the country filter restricts --------------
+@responses.activate
+def test_amazon_restricts_to_us_reqs():
+    responses.get('https://www.amazon.jobs/en/search.json', json={'hits': 0, 'jobs': []})
+    check('an empty amazon search is an empty board', sj.scrape_amazon(), [])
+    query = parse_qs(urlparse(responses.calls[0].request.url).query)
+    check('amazon search filters to US reqs', query.get('normalized_country_code[]'), ['USA'])
+
+
+# --- rows whose board left companies.yml --------------------------------------
+def test_retire_orphaned_listings():
+    """Todyl's Ashby entry was dropped in 4e80f86 and its row stayed open."""
+    config = {'ashby': [{'name': 'Lakera', 'slug': 'lakera.ai'}],
+              'greenhouse': [{'name': 'Acme', 'slug': 'acme'}]}
+    ashby = 'https://jobs.ashbyhq.com/Todyl/7ebf4aa1-b1eb-451d-a81e-c1f49336a8a3'
+    listings = [
+        _listing('Todyl', 'Site Reliability Engineer II', ashby, source='Ashby'),
+        _listing('Lakera', 'AI Security Engineer', ashby, source='Ashby'),
+        _listing('ACME', 'Case Differs', 'https://boards.greenhouse.io/acme/jobs/1'),
+        _listing('Acme', 'Moved Off Workday', 'https://acme.wd1.myworkdayjobs.com/x/job/y',
+                 source='Workday'),
+        _listing('Amazon', 'Security Engineer I', 'https://www.amazon.jobs/en/jobs/1',
+                 source='Amazon Jobs'),
+        _listing('Todyl', 'Maintainer Pick', 'https://todyl.com/careers', source='Community'),
+        _listing('Todyl', 'Unknown Feed', 'https://todyl.com/jobs/1', source='Some Feed'),
+        _listing('Todyl', 'Already Closed', '', source='Ashby', closed=True),
+    ]
+    retired = sj.retire_orphaned_listings(listings, config, '2026-09-28')
+    check('rows whose company has no board for their source retire',
+          [e['role'] for e in retired], ['Site Reliability Engineer II', 'Moved Off Workday'])
+    check('an orphaned row is blanked the way the revive path expects',
+          (listings[0]['url'], listings[0]['closed'], listings[0]['closed_date']),
+          ('', True, '2026-09-28'))
+    check('configured, Amazon, Community, unknown-source and closed rows are untouched',
+          [bool(e['url']) for e in listings[1:3] + listings[4:7]], [True] * 5)
+    check('an empty config retires nothing',
+          sj.retire_orphaned_listings([_listing('Todyl', 'X', ashby, source='Ashby')], {},
+                                      '2026-09-28'), [])
+
+
+# --- check_links: a 200 whose title says the job is gone ----------------------
+@responses.activate
+def test_check_links_soft_404():
+    def page(url, title, content_type='text/html;charset=utf-8'):
+        body = '<html><head>' + ('' if title is None else f'<title>{title}</title>')
+        responses.get(url, status=200, body=body + '</head><body></body></html>',
+                      content_type=content_type)
+
+    bofa = 'https://careers.bankofamerica.com/en-us/students/job-detail/99999/x'
+    page(bofa, '404 Page not found')
+    page('https://jobs.hii-tsd.com/job/x/1391900000/', '')
+    page('https://jobs.hii-tsd.com/job/x/1391937800/',
+         'Cyberspace Operations Analyst 1 Job Details | HII&#39;s Mission Technologies')
+    page('https://acme.com/expired', ' This job has expired\n')
+    page('https://acme.com/no-title', None)
+    page('https://acme.com/pdf', '', content_type='application/pdf')
+    check('a 200 with a not-found title or an empty title is a soft 404',
+          [check_links.fetch_status(r.url, soft_404=True) for r in responses.registered()],
+          [404, 404, 200, 404, 200, 200])
+    check('without soft_404 the raw status stands',
+          check_links.fetch_status(bofa), 200)
+
+    row = {'company': 'Bank of America', 'role': 'Analyst', 'source': 'Community', 'url': bofa}
+    check('a soft 404 starts the streak like a real one',
+          check_links.record_result(row, check_links.fetch_status(bofa, soft_404=True),
+                                    '2026-09-27'), False)
+    check('and closes the row on the next day',
+          check_links.record_result(row, check_links.fetch_status(bofa, soft_404=True),
+                                    '2026-09-28'), True)
+
+
+# --- a board that leaves the config leaves the baseline -----------------------
+def test_board_health_forgets_a_removed_board():
+    """USAJOBS left the scrape with a 26-run zero streak in the baseline."""
+    baseline = {'USAJOBS (data.usajobs.gov)': {'count': 0, 'zero_runs': 26,
+                                               'last_nonzero': None},
+                'Acme (greenhouse/acme)': {'count': 4, 'zero_runs': 0,
+                                           'last_nonzero': '2026-09-27'}}
+    stats = [{'label': 'Acme (greenhouse/acme)', 'status': 'ok', 'count': 5}]
+    history, regressed, dead = sj.board_health(stats, baseline, '2026-09-28')
+    check('a removed board drops out of the rolled baseline', sorted(history),
+          ['Acme (greenhouse/acme)'])
+    check('a removed board is neither regressed nor dead', (regressed, dead), ([], []))
+    check('a removed board is not silent', sj.long_silent_boards(stats, baseline), set())
+    check('the scrape no longer builds a USAJOBS task',
+          [t.label for t in sj.build_tasks({}, board='usajobs')], [])
+
+
+def test_compare_runs_reports_retirements():
+    board = 'Checking Acme (greenhouse/acme)... ok (12 postings, 1.0s)\n'
+    before = compare_runs.parse_log(board + '  RETIRED [vanished] Acme — Old Req\n')
+    after = compare_runs.parse_log(board + '  RETIRED [vanished] Acme — Old Req\n'
+                                   '  RETIRED [orphaned] Todyl — Site Reliability Engineer II\n')
+    check('compare_runs lists a retirement only one run made',
+          compare_runs.diff(before, after),
+          ['Existing rows retired only after (1):',
+           '  - Todyl — Site Reliability Engineer II [orphaned]', ''])
+
+
+# --- Oracle: one host can carry two sites, one site name two hosts ------------
+def test_oracle_ids_and_labels_carry_host_and_site():
+    config = {'oracle': [
+        {'name': 'Idaho National Laboratory', 'host': 'inl.fa.us2.oraclecloud.com',
+         'site': 'CX_1001'},
+        {'name': 'Idaho National Laboratory', 'host': 'inl.fa.us2.oraclecloud.com',
+         'site': 'CX_1002'}]}
+    check('two sites on one host get two labels, so two baseline keys',
+          [t.label for t in sj.build_tasks(config, board='oracle')],
+          ['Idaho National Laboratory (oracle/inl.fa.us2.oraclecloud.com/CX_1001)',
+           'Idaho National Laboratory (oracle/inl.fa.us2.oraclecloud.com/CX_1002)'])
+    check('an oracle label maps back to its pre-site key',
+          sj._legacy_label('SAIC (oracle/eihu.fa.us8.oraclecloud.com/CX)'),
+          'SAIC (oracle/eihu.fa.us8.oraclecloud.com)')
+    check('other labels have no legacy key',
+          [sj._legacy_label(x) for x in ('SAIC (oracle/eihu.fa.us8.oraclecloud.com)',
+                                         'Acme (greenhouse/acme)', 'Amazon (amazon.jobs)')],
+          [None, None, None])
 
 
 @responses.activate
-def test_notify_creates_missing_stream_issue():
-    _mock_github()
-    notify.announce(_events([_row('Acme', 'Security Analyst I', 'earlycareer')]),
-                    [], 'tok', 'o/r')
-    created = [json.loads(c.request.body) for c in responses.calls
-               if c.request.method == 'POST' and c.request.url == f'{GH}/issues']
-    check('a missing stream issue is created once', len(created), 1)
-    check('the new issue is titled and labeled for its stream',
-          (created[0]['title'], created[0]['labels']), ('🌱 Early-career alerts', ['alerts']))
-    check('the new issue carries the stream marker',
-          '<!-- alert-stream: earlycareer -->' in created[0]['body'], True)
-    sequence = [(c.request.method, c.request.url.removeprefix(GH))
-                for c in responses.calls if '/issues/99' in c.request.url]
-    check('the new issue gets the comment and is then locked', sequence,
-          [('POST', '/issues/99/comments'), ('PUT', '/issues/99/lock')])
+def test_oracle_ids_differ_across_hosts_on_one_site():
+    for host in ('amex.fa.us2.oraclecloud.com', 'honeywell.fa.us2.oraclecloud.com'):
+        responses.get(f'https://{host}/hcmRestApi/resources/latest/recruitingCEJobRequisitions',
+                      json={'items': [{'TotalJobsCount': 1, 'requisitionList': [
+                          {'Id': '77', 'Title': 'Accountant', 'PrimaryLocation': 'Austin, TX'}]}]})
+    amex = sj.scrape_oracle('Amex', 'amex.fa.us2.oraclecloud.com', 'CX_1')[0]
+    honeywell = sj.scrape_oracle('Honeywell', 'honeywell.fa.us2.oraclecloud.com', 'CX_1')[0]
+    check('the same req number on site CX_1 of two hosts gets two ids',
+          (amex['id'], honeywell['id']),
+          ('oracle_amex.fa.us2.oraclecloud.com_CX_1_77',
+           'oracle_honeywell.fa.us2.oraclecloud.com_CX_1_77'))
+    check('each keeps its pre-host id for seen_jobs.json',
+          (amex['legacy_id'], honeywell['legacy_id']), ('oracle_CX_1_77', 'oracle_CX_1_77'))
+
+
+def test_board_health_carries_an_oracle_board_across_the_label_change():
+    old = 'SAIC (oracle/eihu.fa.us8.oraclecloud.com)'
+    new = 'SAIC (oracle/eihu.fa.us8.oraclecloud.com/CX)'
+    baseline = {old: {'count': 40, 'zero_runs': 0, 'last_nonzero': '2026-09-27'},
+                'JPMorgan Chase (oracle/jpmc.fa.oraclecloud.com)': {
+                    'count': 0, 'zero_runs': sj.SILENT_BOARD_RUNS, 'last_nonzero': None}}
+    healthy = [{'label': new, 'status': 'ok', 'count': 41}]
+    history, regressed, dead = sj.board_health(healthy, baseline, '2026-09-28')
+    check('a renamed healthy board raises nothing and is stored under its new label',
+          (regressed, dead, sorted(history)), ([], [], [new]))
+    history, regressed, _ = sj.board_health(
+        [{'label': new, 'status': 'zero', 'count': 0}], baseline, '2026-09-28')
+    check('a renamed board that empties still reports a real regression',
+          (regressed, history[new]['last_nonzero']), ([(new, 40)], '2026-09-27'))
+    stats = [{'label': 'JPMorgan Chase (oracle/jpmc.fa.oraclecloud.com/CX_1001)',
+              'status': 'zero', 'count': 0}]
+    check('a silent streak survives the rename',
+          sj.long_silent_boards(stats, baseline), {('JPMorgan Chase', 'oracle')})
+    check('the streak carries into the new key',
+          sj.board_health(stats, baseline, '2026-09-28')[0][stats[0]['label']]['zero_runs'],
+          sj.SILENT_BOARD_RUNS + 1)
+
+
+@responses.activate
+def test_main_carries_seen_oracle_reqs_to_the_new_id():
+    host = 'eihu.fa.us8.oraclecloud.com'
+    url = f'https://{host}/hcmUI/CandidateExperience/en/sites/CX/job/5'
+    responses.get(f'https://{host}/hcmRestApi/resources/latest/recruitingCEJobRequisitions',
+                  json={'items': [{'TotalJobsCount': 2, 'requisitionList': [
+                      {'Id': '5', 'Title': 'Cybersecurity Analyst Intern',
+                       'PrimaryLocation': 'Reston, VA'},
+                      {'Id': '6', 'Title': 'Security Operations Center Intern',
+                       'PrimaryLocation': 'Reston, VA'}]}]})
+    responses.get(f'https://{host}/hcmRestApi/resources/latest/'
+                  'recruitingCEJobRequisitionDetails', json={'items': []})
+    saved = (sj.LISTINGS_FILE, sj.SEEN_JOBS_FILE, sj.BOARD_BASELINE_FILE,
+             sj.rebuild_readme.main, sys.argv, os.getcwd())
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        (tmp / 'companies.yml').write_text(
+            f'oracle:\n  - name: SAIC\n    host: {host}\n    site: CX\n')
+        # Req 5 was judged under its old id and has left the board since; a
+        # new id alone must not bring it back.
+        (tmp / 'listings.json').write_text('[]')
+        (tmp / 'seen_jobs.json').write_text(json.dumps({'oracle_CX_5': '2026-09-27'}))
+        events_file = tmp / 'run_events.json'
+        os.environ['RUN_EVENTS_FILE'] = str(events_file)
+        try:
+            os.chdir(tmp)
+            sj.LISTINGS_FILE = tmp / 'listings.json'
+            sj.SEEN_JOBS_FILE = tmp / 'seen_jobs.json'
+            sj.BOARD_BASELINE_FILE = tmp / 'board_baseline.json'
+            sj.rebuild_readme.main = lambda: None
+            sys.argv = ['scrape_jobs.py', '--board', 'oracle']
+            sj.main()
+            events = json.loads(events_file.read_text())
+            seen = json.loads((tmp / 'seen_jobs.json').read_text())
+            rows = json.loads((tmp / 'listings.json').read_text())
+        finally:
+            del os.environ['RUN_EVENTS_FILE']
+            (sj.LISTINGS_FILE, sj.SEEN_JOBS_FILE, sj.BOARD_BASELINE_FILE,
+             sj.rebuild_readme.main, sys.argv, cwd) = saved
+            os.chdir(cwd)
+    check('a req seen under its old id is not judged or announced again',
+          ([r['role'] for r in events['added']], [r['url'] for r in rows]),
+          (['Security Operations Center Intern'], [url.replace('/job/5', '/job/6')]))
+    check('seen_jobs.json carries the req under its new id',
+          f'oracle_{host}_CX_5' in seen, True)
 
 
 for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
@@ -1558,11 +1766,17 @@ for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_jibe_caps_pages, test_jibe_plumbs_through_config_and_retirement,
            test_new_boards_validate_config_and_plumb_through,
            test_main_writes_run_events_with_inserted_row,
-           test_notify_skips_release_when_nothing_added,
-           test_notify_burst_cap_lists_ten_student_rows,
-           test_notify_puts_security_company_rows_last,
-           test_notify_opener_leads_the_title, test_notify_unlocks_comments_and_relocks,
-           test_notify_fails_when_relock_fails, test_notify_creates_missing_stream_issue):
+           test_workable_reads_locations_and_description,
+           test_lever_appends_lists_to_description,
+           test_smartrecruiters_fetches_descriptions_for_candidates,
+           test_workday_more_suffix_fetches_locations, test_amazon_restricts_to_us_reqs,
+           test_retire_orphaned_listings, test_check_links_soft_404,
+           test_board_health_forgets_a_removed_board,
+           test_compare_runs_reports_retirements,
+           test_oracle_ids_and_labels_carry_host_and_site,
+           test_oracle_ids_differ_across_hosts_on_one_site,
+           test_board_health_carries_an_oracle_board_across_the_label_change,
+           test_main_carries_seen_oracle_reqs_to_the_new_id):
     fn()
 
 if failures:

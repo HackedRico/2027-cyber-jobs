@@ -6,8 +6,8 @@
     python .github/scripts/compare_runs.py before.log after.log
 
 Reports rows accepted in only one run, rows whose level changed, existing rows
-one run drops, reclassifies, refreshes or has its location repaired and the
-other does not, and boards whose status changed. Exits 1 when anything differs, so a clean
+one run drops, retires, reclassifies, refreshes or has its location repaired
+and the other does not, and boards whose status changed. Exits 1 when anything differs, so a clean
 exit is the equivalence proof for a scraper or classifier change. Run the two
 scrapes minutes apart: postings arrive continuously, so a row that appears in
 only the later log under a title the change does not target is noise, not a
@@ -21,6 +21,7 @@ from typing import NamedTuple
 
 NEW_RE = re.compile(r'^\s*NEW \[(\w+)\] (.+)$')
 DROP_RE = re.compile(r'^\s*DROP \[([\w-]+)\] (.+)$')
+RETIRED_RE = re.compile(r'^\s*RETIRED \[([\w-]+)\] (.+)$')
 RECLASSIFY_RE = re.compile(r'^\s*RECLASSIFY \[(\w+) -> (\w+)\] (.+)$')
 # Both locations are printed with !r, so anchoring on the repr quotes keeps a
 # title that itself contains ": " ("Summer 2027 Intern: Cybersecurity") intact.
@@ -39,15 +40,19 @@ class Run(NamedTuple):
     repaired: dict    # ("Company — Title", old location) -> new location
     boards: dict      # label -> (status, count)
     refreshed: dict   # ("Company — Title", field, old) -> new
+    retired: dict     # "Company — Title" -> reason
 
 
 def parse_log(text):
     rows, dropped, reclassified, repaired, boards, refreshed = {}, {}, {}, {}, {}, {}
+    retired = {}
     for line in text.splitlines():
         if m := NEW_RE.match(line):
             rows[m.group(2).strip()] = m.group(1)
         elif m := DROP_RE.match(line):
             dropped[m.group(2).strip()] = m.group(1)
+        elif m := RETIRED_RE.match(line):
+            retired[m.group(2).strip()] = m.group(1)
         elif m := RECLASSIFY_RE.match(line):
             reclassified[m.group(3).strip()] = (m.group(1), m.group(2))
         elif m := REPAIR_RE.match(line):
@@ -58,7 +63,7 @@ def parse_log(text):
             refreshed[(m.group(2).strip(), m.group(1), m.group(3))] = m.group(4)
         elif m := BOARD_RE.match(line):
             boards[m.group(1)] = (m.group(2), int(m.group(3)))
-    return Run(rows, dropped, reclassified, repaired, boards, refreshed)
+    return Run(rows, dropped, reclassified, repaired, boards, refreshed, retired)
 
 
 def _section(title, items):
@@ -78,6 +83,10 @@ def diff(before, after):
                    if before.dropped.get(k) != r)
     undrops = sorted(f'{k} [{r}]' for k, r in before.dropped.items()
                      if after.dropped.get(k) != r)
+    retires = sorted(f'{k} [{r}]' for k, r in after.retired.items()
+                     if before.retired.get(k) != r)
+    unretires = sorted(f'{k} [{r}]' for k, r in before.retired.items()
+                       if after.retired.get(k) != r)
     reclass = sorted(f'{k}: {o} -> {n}' for k, (o, n) in after.reclassified.items()
                      if before.reclassified.get(k) != (o, n))
     repairs = sorted(f'{k}: {o} -> {n}' for (k, o), n in after.repaired.items()
@@ -99,6 +108,8 @@ def diff(before, after):
             + _section('Rows whose level changed', relevelled)
             + _section('Existing rows dropped only after', drops)
             + _section('Existing rows dropped only before', undrops)
+            + _section('Existing rows retired only after', retires)
+            + _section('Existing rows retired only before', unretires)
             + _section('Existing rows reclassified only after', reclass)
             + _section('Existing rows whose location was repaired only after', repairs)
             + _section('Existing rows whose location was repaired only before', unrepairs)
