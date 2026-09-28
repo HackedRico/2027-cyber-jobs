@@ -701,6 +701,9 @@ recruitee:
 - name: Lansweeper
   slug: lansweeper
 pinpoint:
+- name: NCC Group
+  slug: nccgroup
+  security_company: true
 - name: SANS Institute
   slug: sans
   security_company: true
@@ -882,11 +885,6 @@ workday:
   tenant: evergreenix
   instance: wd1
   board: external-careers2
-  security_company: true
-- name: NCC Group
-  tenant: nccgroup
-  instance: wd3
-  board: NCC_Group
   security_company: true
 - name: ESET
   tenant: eset
