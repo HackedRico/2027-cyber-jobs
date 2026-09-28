@@ -65,6 +65,8 @@ greenhouse:
 - name: Censys
   slug: censys
   security_company: true
+- name: Center for AI Safety
+  slug: centerforartificialintelligencesafetyinc
 - name: Chainguard
   slug: chainguard
   security_company: true
@@ -251,7 +253,7 @@ greenhouse:
   slug: spycloud
   security_company: true
 - name: STR
-  slug: str
+  slug: systemstechnologyresearch
   security_company: true
 - name: Stripe
   slug: stripe
@@ -390,9 +392,6 @@ lever:
 - name: Apollo Research
   slug: apolloresearch
   security_company: true
-- name: Center for AI Safety
-  slug: aisafety
-  security_company: true
 - name: Coalfire
   slug: coalfire
   security_company: true
@@ -428,9 +427,6 @@ lever:
   security_company: true
 - name: Sysdig
   slug: sysdig
-  security_company: true
-- name: Teleport
-  slug: teleport
   security_company: true
 - name: Symmetry Systems
   slug: SymmetrySystems
@@ -587,9 +583,6 @@ ashby:
   security_company: true
 - name: Snowflake
   slug: snowflake
-- name: Snyk
-  slug: snyk
-  security_company: true
 - name: Socure
   slug: socure
   security_company: true
@@ -598,6 +591,9 @@ ashby:
   security_company: true
 - name: Sublime Security
   slug: sublime-security
+  security_company: true
+- name: Teleport
+  slug: goteleport
   security_company: true
 - name: TRM Labs
   slug: trm-labs
@@ -676,8 +672,6 @@ smartrecruiters:
 - name: Securiti
   slug: Securiti
   security_company: true
-- name: Visa
-  slug: Visa
 - name: Sectigo
   slug: Sectigo
   security_company: true
@@ -906,11 +900,20 @@ workday:
   tenant: snc
   instance: wd1
   board: SNC_External_Career_Site
+- name: Snyk
+  tenant: snyk
+  instance: wd103
+  board: External
+  security_company: true
 - name: Trend Micro
   tenant: trendmicro
   instance: wd3
   board: External
   security_company: true
+- name: Visa
+  tenant: visa
+  instance: wd5
+  board: Visa
 - name: Zoom
   tenant: zoom
   instance: wd5
