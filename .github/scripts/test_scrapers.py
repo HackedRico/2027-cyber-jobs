@@ -158,7 +158,7 @@ def test_oracle():
              'secondaryLocations': [{'Name': 'Remote'}]}]}]})
     jobs = sj.scrape_oracle('Acme', 'acme.fa.us2.oraclecloud.com', 'CX_1')
     check('oracle parses one req', len(jobs), 1)
-    check('oracle id', jobs[0]['id'], 'oracle_CX_1_77')
+    check('oracle id', jobs[0]['id'], 'oracle_acme.fa.us2.oraclecloud.com_CX_1_77')
     check('oracle merges locations', jobs[0]['location'],
           'Austin, TX, United States; Remote')
 
@@ -596,7 +596,7 @@ def test_build_tasks_honors_board_and_limit():
     check('build_tasks walks boards in config order and ends with Amazon',
           [t.label for t in sj.build_tasks(config)],
           ['A (greenhouse/a)', 'B (greenhouse/b)', 'C (greenhouse/c)', 'W (workday/w)',
-           'O (oracle/o.fa.us2.oraclecloud.com)', 'Amazon (amazon.jobs)'])
+           'O (oracle/o.fa.us2.oraclecloud.com/CX_1)', 'Amazon (amazon.jobs)'])
     subset = sj.build_tasks(config, board='greenhouse', limit=2)
     check('--board/--limit narrow the task list',
           [(t.label, t.args, t.security_company) for t in subset],
@@ -1621,6 +1621,112 @@ def test_compare_runs_reports_retirements():
            '  - Todyl — Site Reliability Engineer II [orphaned]', ''])
 
 
+# --- Oracle: one host can carry two sites, one site name two hosts ------------
+def test_oracle_ids_and_labels_carry_host_and_site():
+    config = {'oracle': [
+        {'name': 'Idaho National Laboratory', 'host': 'inl.fa.us2.oraclecloud.com',
+         'site': 'CX_1001'},
+        {'name': 'Idaho National Laboratory', 'host': 'inl.fa.us2.oraclecloud.com',
+         'site': 'CX_1002'}]}
+    check('two sites on one host get two labels, so two baseline keys',
+          [t.label for t in sj.build_tasks(config, board='oracle')],
+          ['Idaho National Laboratory (oracle/inl.fa.us2.oraclecloud.com/CX_1001)',
+           'Idaho National Laboratory (oracle/inl.fa.us2.oraclecloud.com/CX_1002)'])
+    check('an oracle label maps back to its pre-site key',
+          sj._legacy_label('SAIC (oracle/eihu.fa.us8.oraclecloud.com/CX)'),
+          'SAIC (oracle/eihu.fa.us8.oraclecloud.com)')
+    check('other labels have no legacy key',
+          [sj._legacy_label(x) for x in ('SAIC (oracle/eihu.fa.us8.oraclecloud.com)',
+                                         'Acme (greenhouse/acme)', 'Amazon (amazon.jobs)')],
+          [None, None, None])
+
+
+@responses.activate
+def test_oracle_ids_differ_across_hosts_on_one_site():
+    for host in ('amex.fa.us2.oraclecloud.com', 'honeywell.fa.us2.oraclecloud.com'):
+        responses.get(f'https://{host}/hcmRestApi/resources/latest/recruitingCEJobRequisitions',
+                      json={'items': [{'TotalJobsCount': 1, 'requisitionList': [
+                          {'Id': '77', 'Title': 'Accountant', 'PrimaryLocation': 'Austin, TX'}]}]})
+    amex = sj.scrape_oracle('Amex', 'amex.fa.us2.oraclecloud.com', 'CX_1')[0]
+    honeywell = sj.scrape_oracle('Honeywell', 'honeywell.fa.us2.oraclecloud.com', 'CX_1')[0]
+    check('the same req number on site CX_1 of two hosts gets two ids',
+          (amex['id'], honeywell['id']),
+          ('oracle_amex.fa.us2.oraclecloud.com_CX_1_77',
+           'oracle_honeywell.fa.us2.oraclecloud.com_CX_1_77'))
+    check('each keeps its pre-host id for seen_jobs.json',
+          (amex['legacy_id'], honeywell['legacy_id']), ('oracle_CX_1_77', 'oracle_CX_1_77'))
+
+
+def test_board_health_carries_an_oracle_board_across_the_label_change():
+    old = 'SAIC (oracle/eihu.fa.us8.oraclecloud.com)'
+    new = 'SAIC (oracle/eihu.fa.us8.oraclecloud.com/CX)'
+    baseline = {old: {'count': 40, 'zero_runs': 0, 'last_nonzero': '2026-09-27'},
+                'JPMorgan Chase (oracle/jpmc.fa.oraclecloud.com)': {
+                    'count': 0, 'zero_runs': sj.SILENT_BOARD_RUNS, 'last_nonzero': None}}
+    healthy = [{'label': new, 'status': 'ok', 'count': 41}]
+    history, regressed, dead = sj.board_health(healthy, baseline, '2026-09-28')
+    check('a renamed healthy board raises nothing and is stored under its new label',
+          (regressed, dead, sorted(history)), ([], [], [new]))
+    history, regressed, _ = sj.board_health(
+        [{'label': new, 'status': 'zero', 'count': 0}], baseline, '2026-09-28')
+    check('a renamed board that empties still reports a real regression',
+          (regressed, history[new]['last_nonzero']), ([(new, 40)], '2026-09-27'))
+    stats = [{'label': 'JPMorgan Chase (oracle/jpmc.fa.oraclecloud.com/CX_1001)',
+              'status': 'zero', 'count': 0}]
+    check('a silent streak survives the rename',
+          sj.long_silent_boards(stats, baseline), {('JPMorgan Chase', 'oracle')})
+    check('the streak carries into the new key',
+          sj.board_health(stats, baseline, '2026-09-28')[0][stats[0]['label']]['zero_runs'],
+          sj.SILENT_BOARD_RUNS + 1)
+
+
+@responses.activate
+def test_main_carries_seen_oracle_reqs_to_the_new_id():
+    host = 'eihu.fa.us8.oraclecloud.com'
+    url = f'https://{host}/hcmUI/CandidateExperience/en/sites/CX/job/5'
+    responses.get(f'https://{host}/hcmRestApi/resources/latest/recruitingCEJobRequisitions',
+                  json={'items': [{'TotalJobsCount': 2, 'requisitionList': [
+                      {'Id': '5', 'Title': 'Cybersecurity Analyst Intern',
+                       'PrimaryLocation': 'Reston, VA'},
+                      {'Id': '6', 'Title': 'Security Operations Center Intern',
+                       'PrimaryLocation': 'Reston, VA'}]}]})
+    responses.get(f'https://{host}/hcmRestApi/resources/latest/'
+                  'recruitingCEJobRequisitionDetails', json={'items': []})
+    saved = (sj.LISTINGS_FILE, sj.SEEN_JOBS_FILE, sj.BOARD_BASELINE_FILE,
+             sj.rebuild_readme.main, sys.argv, os.getcwd())
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        (tmp / 'companies.yml').write_text(
+            f'oracle:\n  - name: SAIC\n    host: {host}\n    site: CX\n')
+        # Req 5 was judged under its old id and has left the board since; a
+        # new id alone must not bring it back.
+        (tmp / 'listings.json').write_text('[]')
+        (tmp / 'seen_jobs.json').write_text(json.dumps({'oracle_CX_5': '2026-09-27'}))
+        events_file = tmp / 'run_events.json'
+        os.environ['RUN_EVENTS_FILE'] = str(events_file)
+        try:
+            os.chdir(tmp)
+            sj.LISTINGS_FILE = tmp / 'listings.json'
+            sj.SEEN_JOBS_FILE = tmp / 'seen_jobs.json'
+            sj.BOARD_BASELINE_FILE = tmp / 'board_baseline.json'
+            sj.rebuild_readme.main = lambda: None
+            sys.argv = ['scrape_jobs.py', '--board', 'oracle']
+            sj.main()
+            events = json.loads(events_file.read_text())
+            seen = json.loads((tmp / 'seen_jobs.json').read_text())
+            rows = json.loads((tmp / 'listings.json').read_text())
+        finally:
+            del os.environ['RUN_EVENTS_FILE']
+            (sj.LISTINGS_FILE, sj.SEEN_JOBS_FILE, sj.BOARD_BASELINE_FILE,
+             sj.rebuild_readme.main, sys.argv, cwd) = saved
+            os.chdir(cwd)
+    check('a req seen under its old id is not judged or announced again',
+          ([r['role'] for r in events['added']], [r['url'] for r in rows]),
+          (['Security Operations Center Intern'], [url.replace('/job/5', '/job/6')]))
+    check('seen_jobs.json carries the req under its new id',
+          f'oracle_{host}_CX_5' in seen, True)
+
+
 for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_ashby, test_ashby_schema_drift_warns,
            test_smartrecruiters_pagination_short_page_stops,
@@ -1666,7 +1772,11 @@ for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_workday_more_suffix_fetches_locations, test_amazon_restricts_to_us_reqs,
            test_retire_orphaned_listings, test_check_links_soft_404,
            test_board_health_forgets_a_removed_board,
-           test_compare_runs_reports_retirements):
+           test_compare_runs_reports_retirements,
+           test_oracle_ids_and_labels_carry_host_and_site,
+           test_oracle_ids_differ_across_hosts_on_one_site,
+           test_board_health_carries_an_oracle_board_across_the_label_change,
+           test_main_carries_seen_oracle_reqs_to_the_new_id):
     fn()
 
 if failures:

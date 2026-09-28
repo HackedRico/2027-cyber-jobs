@@ -728,7 +728,10 @@ def scrape_oracle(company, host, site):
             locations = [job.get('PrimaryLocation', '')] + secondary
             location = '; '.join(dict.fromkeys(x for x in locations if x))
             jobs.append({
-                'id': f'oracle_{site}_{job_id}',
+                # Amex and Honeywell both post under site CX_1, so the site
+                # alone does not scope a req id.
+                'id': f'oracle_{host}_{site}_{job_id}',
+                'legacy_id': f'oracle_{site}_{job_id}',
                 'company': company,
                 'title': job.get('Title', ''),
                 'location': location,
@@ -1291,7 +1294,8 @@ def long_silent_boards(board_stats, history):
     for b in board_stats:
         name, _, rest = b['label'].rpartition(' (')
         ats = rest.split('/', 1)[0].rstrip(')').lower()
-        streak = (history.get(b['label']) or {}).get('zero_runs', 0)
+        streak = (history.get(b['label']) or history.get(_legacy_label(b['label']))
+                  or {}).get('zero_runs', 0)
         quiet = b['count'] == 0 and streak >= SILENT_BOARD_RUNS
         silent[(name, ats)] = silent.get((name, ats), True) and quiet
     return {key for key, is_silent in silent.items() if is_silent}
@@ -1640,6 +1644,16 @@ def load_board_baseline():
     return history
 
 
+# Oracle labels gained the site once Idaho National Laboratory put two sites
+# on one host; a board keeps the history stored under its old label.
+_ORACLE_LABEL_RE = re.compile(r'^(.* \(oracle/[^/()]+)/[^/()]+\)$')
+
+
+def _legacy_label(label):
+    m = _ORACLE_LABEL_RE.match(label)
+    return f'{m.group(1)})' if m else None
+
+
 def board_health(board_stats, baseline, today):
     """Fold this run's counts into the stored per-board history.
 
@@ -1658,7 +1672,7 @@ def board_health(board_stats, baseline, today):
     history, regressed, dead = {}, [], []
     for b in board_stats:
         label = b['label']
-        prev = baseline.get(label) or {}
+        prev = baseline.get(label) or baseline.get(_legacy_label(label)) or {}
         if b['count'] > 0:
             history[label] = {'count': b['count'], 'zero_runs': 0,
                               'last_nonzero': today}
@@ -1805,7 +1819,7 @@ def build_tasks(config, board=None, limit=None):
     if want('oracle'):
         for entry in limited(config.get('oracle')):
             tasks.append(BoardTask(
-                f'{entry["name"]} (oracle/{entry["host"]})', scrape_oracle,
+                f'{entry["name"]} (oracle/{entry["host"]}/{entry["site"]})', scrape_oracle,
                 (entry['name'], entry['host'], entry['site']),
                 entry.get('security_company', False)))
     if want('eightfold'):
@@ -2014,6 +2028,11 @@ def main():
 
     for job in raw_jobs:
         jid = job['id']
+        # seen_jobs.json holds Oracle reqs under their pre-host id; carrying
+        # the date over keeps a known req from a second trip through the gates.
+        legacy = job.get('legacy_id')
+        if jid not in seen and legacy in seen:
+            seen[jid] = seen[legacy]
         location = normalize_location(job.get('location', ''))
         key = listing_dedup_key(job['company'], job.get('title', ''), location)
         # Skip already-seen jobs unless they could revive a blanked row.
