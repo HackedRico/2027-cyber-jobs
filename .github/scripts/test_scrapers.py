@@ -654,6 +654,257 @@ def test_check_links_closes_after_two_dead_days():
           (False, False))
 
 
+# --- Workday paging: `total` only arrives on the first page ------------------
+WD_API = 'https://t.wd5.myworkdayjobs.com/wday/cxs/t/B/jobs'
+
+
+def _workday_pages(pages_by_term, fail_at=None):
+    """A cxs /jobs callback serving `pages_by_term[term][offset // 20]`."""
+    def callback(request):
+        body = json.loads(request.body)
+        term, page = body['searchText'], body['offset'] // body['limit']
+        if fail_at == (term, page):
+            return 500, {}, '{}'
+        pages = pages_by_term.get(term, [])
+        return 200, {}, json.dumps(pages[page] if page < len(pages)
+                                   else {'total': 0, 'jobPostings': []})
+    return callback
+
+
+def _wd_page(total, start, count):
+    # Non-cyber titles, so no detail fetch is attempted.
+    return {'total': total, 'jobPostings': [
+        {'title': f'Accountant {i}', 'externalPath': f'/job/Austin-TX/Acct_R{i}',
+         'locationsText': 'Austin, TX'} for i in range(start, start + count)]}
+
+
+@responses.activate
+def test_workday_total_only_on_first_page():
+    """Leidos 'security' reports 1662 at offset 0 and 0 at offset 20."""
+    responses.add_callback(responses.POST, WD_API, callback=_workday_pages({
+        'cyber': [_wd_page(45, 0, 20), _wd_page(0, 20, 20), _wd_page(0, 40, 5)]}))
+    jobs = sj.scrape_workday('X', 't', 'wd5', 'B')
+    check('workday pages past a zero total on page 2', len(jobs), 45)
+    check('a sweep that reached every short page is complete',
+          any(j.get('partial_sweep') for j in jobs), False)
+    check('workday url keeps the board segment', jobs[0]['url'],
+          'https://t.wd5.myworkdayjobs.com/B/job/Austin-TX/Acct_R0')
+
+
+@responses.activate
+def test_workday_flags_a_cut_short_sweep():
+    original = sj.WORKDAY_MAX_PAGES
+    try:
+        sj.WORKDAY_MAX_PAGES = 2
+        responses.add_callback(responses.POST, WD_API, callback=_workday_pages({
+            'cyber': [_wd_page(100, 0, 20), _wd_page(0, 20, 20), _wd_page(0, 40, 20)]}))
+        jobs = sj.scrape_workday('X', 't', 'wd5', 'B')
+        check('workday stops at the page cap', len(jobs), 40)
+        check('a capped sweep flags every posting partial',
+              all(j.get('partial_sweep') for j in jobs), True)
+    finally:
+        sj.WORKDAY_MAX_PAGES = original
+
+    responses.reset()
+    responses.add_callback(responses.POST, WD_API, callback=_workday_pages(
+        {'cyber': [_wd_page(60, 0, 20), _wd_page(0, 20, 20), _wd_page(0, 40, 20)]},
+        fail_at=('cyber', 1)))
+    jobs = sj.scrape_workday('X', 't', 'wd5', 'B')
+    check('a page that fails mid-sweep keeps what came before it', len(jobs), 20)
+    check('...and flags the sweep partial', all(j.get('partial_sweep') for j in jobs), True)
+
+    responses.reset()
+    responses.add_callback(responses.POST, WD_API, callback=_workday_pages(
+        {}, fail_at=('security', 0)))
+    check('a partial sweep that found nothing is a failure, not an empty board',
+          sj.scrape_workday('X', 't', 'wd5', 'B'), None)
+
+
+def test_incomplete_sweep_retires_nothing():
+    wd = 'https://acme.wd1.myworkdayjobs.com/Ext/job/Austin-TX/'
+    gh = 'https://boards.greenhouse.io/acme/jobs/'
+    listings = [
+        _listing('Acme', 'Seen', wd + 'Seen_R1', source='Workday',
+                 missing_since='2026-09-01'),
+        _listing('Acme', 'Past The Cap', wd + 'Deep_R2', source='Workday',
+                 missing_since='2026-09-01'),
+        _listing('Acme', 'Not Yet Missing', wd + 'Deep_R3', source='Workday'),
+        # The same company's complete Greenhouse board is still judged.
+        _listing('Acme', 'Greenhouse Gone', gh + '7', missing_since='2026-09-01'),
+    ]
+    raw = [{'company': 'Acme', 'board': 'Workday', 'url': wd + 'Seen_R1',
+            'partial_sweep': True},
+           {'company': 'Acme', 'board': 'Greenhouse', 'url': gh + '8'}]
+    retired = sj.retire_vanished_listings(listings, raw, '2026-09-10',
+                                          probe=lambda url: None)
+    check('a partial sweep retires none of its rows',
+          [e['role'] for e in retired], ['Greenhouse Gone'])
+    check('rows behind a partial sweep keep their streak as it was',
+          [(e['role'], e.get('missing_since'), e.get('closed')) for e in listings[:3]],
+          [('Seen', None, None), ('Past The Cap', '2026-09-01', None),
+           ('Not Yet Missing', None, None)])
+
+
+def test_partial_workday_sweep_asks_the_detail_endpoint():
+    """CVS, RTX and Northrop stop at the page cap every run."""
+    wd = 'https://acme.wd1.myworkdayjobs.com/Ext/job/Austin-TX/'
+    listings = [
+        _listing('Acme', 'Closed Deep', wd + 'Gone_R1', source='Workday',
+                 missing_since='2026-09-01'),
+        _listing('Acme', 'Live Deep', wd + 'Live_R2', source='Workday',
+                 missing_since='2026-09-01'),
+        _listing('Acme', 'Closed Fresh', wd + 'Gone_R3', source='Workday'),
+    ]
+    raw = [{'company': 'Acme', 'board': 'Workday', 'url': wd + 'Other_R9',
+            'partial_sweep': True}]
+    asked = []
+
+    def probe(url):
+        asked.append(url)
+        return 'gone' if 'Gone' in url else 'live'
+
+    retired = sj.retire_vanished_listings(listings, raw, '2026-09-10', probe=probe)
+    check('a gone answer retires a row whose streak has run',
+          [e['role'] for e in retired], ['Closed Deep'])
+    check('a live answer clears the streak, a fresh gone one starts it',
+          [(e['role'], e.get('missing_since')) for e in listings[1:]],
+          [('Live Deep', None), ('Closed Fresh', '2026-09-10')])
+    check('only rows missing from the sweep are asked about', len(asked), 3)
+
+
+@responses.activate
+def test_workday_posting_state():
+    base = 'https://acme.wd1.myworkdayjobs.com'
+    api = base + '/wday/cxs/acme/Ext/job/Austin-TX/'
+    responses.add(responses.GET, api + 'Live_R1',
+                  json={'jobPostingInfo': {'canApply': True}})
+    responses.add(responses.GET, api + 'Closed_R2', status=403,
+                  json={'errorCode': 'S22', 'httpStatus': 403})
+    responses.add(responses.GET, api + 'Unknown_R3', status=404,
+                  json={'errorCode': 'S21', 'httpStatus': 404})
+    responses.add(responses.GET, api + 'Flaky_R4', status=500, json={})
+    public = base + '/Ext/job/Austin-TX/'
+    check('a 200 with canApply is live', sj.workday_posting_state(public + 'Live_R1'), 'live')
+    check('403 S22 is a closed req', sj.workday_posting_state(public + 'Closed_R2'), 'gone')
+    check('404 S21 is an unknown path', sj.workday_posting_state(public + 'Unknown_R3'), 'gone')
+    check('a 500 says nothing', sj.workday_posting_state(public + 'Flaky_R4'), None)
+    check('a locale prefix is skipped',
+          sj.workday_posting_state(base + '/en-US/Ext/job/Austin-TX/Live_R1'), 'live')
+    check('a non-workday url says nothing',
+          sj.workday_posting_state('https://boards.greenhouse.io/acme/jobs/1'), None)
+
+
+def test_long_silent_board_retires_its_rows():
+    """Lakera's board sat empty for 24 runs while its open row stayed up."""
+    stats = [
+        {'label': 'Lakera (ashby/lakera.ai)', 'status': 'zero', 'count': 0},
+        {'label': 'Todyl (ashby/Todyl)', 'status': 'FAILED', 'count': 0},
+        {'label': 'Quiet (greenhouse/quiet)', 'status': 'zero', 'count': 0},
+        # One of two tenants is still posting, so the pair is not silent.
+        {'label': 'Duo (workday/a)', 'status': 'zero', 'count': 0},
+        {'label': 'Duo (workday/b)', 'status': 'ok', 'count': 5},
+    ]
+    history = {'Lakera (ashby/lakera.ai)': {'zero_runs': 24},
+               'Todyl (ashby/Todyl)': {'zero_runs': sj.SILENT_BOARD_RUNS},
+               'Quiet (greenhouse/quiet)': {'zero_runs': sj.SILENT_BOARD_RUNS - 1},
+               'Duo (workday/a)': {'zero_runs': 30}}
+    silent = sj.long_silent_boards(stats, history)
+    check('only boards silent for SILENT_BOARD_RUNS on every tenant are silent',
+          sorted(silent), [('Lakera', 'ashby'), ('Todyl', 'ashby')])
+
+    ashby = 'https://jobs.ashbyhq.com/lakera.ai/b9dee2a0-9bb3-447e-9bce-2b1bed784e5b'
+    listings = [
+        _listing('Lakera', 'AI Security Engineer', ashby, source='Ashby'),
+        _listing('Lakera', 'Maintainer Pick', ashby, source='Community'),
+        _listing('Lakera', 'Other Board Row', 'https://boards.greenhouse.io/l/jobs/1'),
+        _listing('Quiet', 'Not Silent Long Enough', 'https://boards.greenhouse.io/q/jobs/2'),
+    ]
+    retired = sj.retire_vanished_listings(listings, [], '2026-09-27', silent)
+    check('a long-silent board retires its rows at once',
+          [e['role'] for e in retired], ['AI Security Engineer'])
+    check('the retired row is blanked the way the revive path expects',
+          (listings[0]['url'], listings[0]['closed'], listings[0]['closed_date']),
+          ('', True, '2026-09-27'))
+    check('community, other-ATS and short-silence rows keep their url',
+          [bool(e['url']) for e in listings[1:]], [True, True, True])
+
+
+def test_greenhouse_remote_keeps_a_remote_label():
+    def loc(label, *offices):
+        return sj.greenhouse_location({'location': {'name': label},
+                                       'offices': [{'name': o} for o in offices]})
+    check('a department-style office does not replace Remote',
+          loc('Remote', 'GuidePoint University (GPSU)'), 'Remote')
+    check('a foreign remote scope still replaces Remote', loc('Remote', 'UK Remote'),
+          'UK Remote')
+    check('a foreign office still replaces Remote', loc('Remote', 'London'), 'London')
+    check('only the place-like office parts survive',
+          loc('Remote', 'Headquarters', 'Reston, VA'), 'Reston, VA')
+    check('the office fallback for a non-remote label is unchanged',
+          loc('Hybrid', 'Professional Services'), 'Professional Services')
+    check('GPSU internship is accepted once its location stays Remote',
+          sj.evaluate_job('GPSU Cybersecurity Spring Internship',
+                          loc('Remote', 'GuidePoint University (GPSU)'), '', True),
+          ('intern', 'Security Engineering'))
+
+
+@responses.activate
+def test_pinpoint_remote_is_us_only_for_usa_locations():
+    responses.get('https://acme.pinpointhq.com/postings.json', json={'data': [
+        {'id': '1', 'title': 'Associate SOC Analyst', 'workplace_type': 'remote',
+         'location': {'city': 'Manchester', 'province': 'Greater Manchester',
+                      'name': 'GBR Manchester Hardman Boulevard'}},
+        {'id': '2', 'title': 'SOC Analyst', 'workplace_type': 'remote',
+         'location': {'city': 'Remote', 'province': 'Illinois',
+                      'name': 'USA Remote - Central Time'}},
+        {'id': '3', 'title': 'SOC Analyst', 'workplace_type': 'remote',
+         'location': {'city': 'Remote', 'province': 'Greater London',
+                      'name': 'GBR Remote'}},
+    ]})
+    jobs = sj.scrape_pinpoint('Acme', 'acme')
+    check('pinpoint keeps the real location of a non-US remote posting',
+          [j['location'] for j in jobs],
+          ['Manchester, Greater Manchester', 'Remote', 'Remote, Greater London'])
+    check('only the USA remote posting reads as US',
+          [sj.is_us_location(j['location']) for j in jobs], [False, True, False])
+
+
+@responses.activate
+def test_oracle_fetches_descriptions_for_candidates():
+    host = 'acme.fa.us2.oraclecloud.com'
+    base = f'https://{host}/hcmRestApi/resources/latest/'
+    responses.get(base + 'recruitingCEJobRequisitions', json={'items': [{
+        'TotalJobsCount': 3, 'requisitionList': [
+            {'Id': '1', 'Title': 'Cyber Engineer Associate', 'PrimaryLocation': 'Reston, VA'},
+            {'Id': '2', 'Title': 'Accountant', 'PrimaryLocation': 'Reston, VA'},
+            {'Id': '3', 'Title': 'DevSecOps Engineer Associate',
+             'PrimaryLocation': 'Reston, VA'}]}]})
+    responses.get(base + 'recruitingCEJobRequisitionDetails', json={'items': [{
+        'ExternalDescriptionStr': '<p>Requires an active TS/SCI with polygraph.</p>',
+        'ExternalQualificationsStr': "<p>Bachelor's degree and 5 years of experience</p>"}]})
+    original = sj.ORACLE_DETAIL_CAP
+    try:
+        sj.ORACLE_DETAIL_CAP = 1
+        jobs = sj.scrape_oracle('Acme', host, 'CX_1')
+    finally:
+        sj.ORACLE_DETAIL_CAP = original
+    detail_calls = [c.request.url for c in responses.calls
+                    if 'recruitingCEJobRequisitionDetails' in c.request.url]
+    check('oracle fetches detail for the first candidate only, within the cap',
+          len(detail_calls), 1)
+    check('oracle detail uses the ById finder',
+          'ById%3BId%3D%221%22%2CsiteNumber%3DCX_1' in detail_calls[0], True)
+    check('oracle description joins the body and qualifications',
+          jobs[0].get('description'),
+          "<p>Requires an active TS/SCI with polygraph.</p>\n\n"
+          "<p>Bachelor's degree and 5 years of experience</p>")
+    check('non-candidates and reqs past the cap carry no description',
+          ['description' in j for j in jobs[1:]], [False, False])
+    check('the description reaches the clearance flag',
+          sj.requires_clearance(jobs[0]['title'], jobs[0]['description']), True)
+    check('oracle keeps its internal req id out of the posting', '_req' in jobs[0], False)
+
+
 for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_ashby, test_ashby_schema_drift_warns,
            test_smartrecruiters_pagination_short_page_stops, test_oracle,
@@ -670,7 +921,14 @@ for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_build_tasks_honors_board_and_limit, test_board_health_streaks,
            test_board_health_migrates_and_survives_a_corrupt_baseline,
            test_compare_runs_reports_flips_only,
-           test_check_links_closes_after_two_dead_days):
+           test_check_links_closes_after_two_dead_days,
+           test_workday_total_only_on_first_page, test_workday_flags_a_cut_short_sweep,
+           test_incomplete_sweep_retires_nothing,
+           test_partial_workday_sweep_asks_the_detail_endpoint, test_workday_posting_state,
+           test_long_silent_board_retires_its_rows,
+           test_greenhouse_remote_keeps_a_remote_label,
+           test_pinpoint_remote_is_us_only_for_usa_locations,
+           test_oracle_fetches_descriptions_for_candidates):
     fn()
 
 if failures:
