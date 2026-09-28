@@ -642,6 +642,8 @@ smartrecruiters:
 - name: Kudelski Security
   slug: KudelskiSecurityInc
   security_company: true
+- name: Lawrence Livermore National Laboratory
+  slug: LLNL
 workable:
 - name: Galois
   slug: galois
