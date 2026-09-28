@@ -162,9 +162,13 @@ CYBER_KEYWORDS = [
 ]
 
 # Short acronyms need word boundaries ('soc' is inside 'associate'), and
-# 'SoC' must not match system-on-chip hardware titles.
+# 'SoC' must not match system-on-chip hardware titles. Qualcomm lists SoC among
+# chip disciplines ("Hardware (CPU, GPU, SoC, Digital Design, DV) Engineering
+# Internship") and as a prefix ("SoC Performance Architect"), so a comma-listed
+# neighbour counts as well as a following word.
 CYBER_REGEXES = [re.compile(p) for p in
-                 (r'\bsoc\b(?!\s+(asic|design|verification|rtl|silicon|power|hardware))',
+                 (r'(?<!pu, )\bsoc\b(?![\s,/-]+(asic|design|digital design|verification|'
+                  r'rtl|silicon|power|performance|hardware))',
                   r'\bcnd\b', r'\bcno\b', r'\bdfir\b', r'\bir analyst\b',
                   r'\bdlp\b')]
 
