@@ -41,3 +41,6 @@ jobs:
 
       - name: Board page build tests
         run: python .github/scripts/test_site.py
+
+      - name: Release and alert notification tests
+        run: python .github/scripts/test_notify.py
