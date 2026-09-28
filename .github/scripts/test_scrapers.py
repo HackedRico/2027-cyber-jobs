@@ -702,6 +702,41 @@ def test_incomplete_sweep_retires_nothing():
            ('Not Yet Missing', None, None)])
 
 
+def test_long_silent_board_retires_its_rows():
+    """Lakera's board sat empty for 24 runs while its open row stayed up."""
+    stats = [
+        {'label': 'Lakera (ashby/lakera.ai)', 'status': 'zero', 'count': 0},
+        {'label': 'Todyl (ashby/Todyl)', 'status': 'FAILED', 'count': 0},
+        {'label': 'Quiet (greenhouse/quiet)', 'status': 'zero', 'count': 0},
+        # One of two tenants is still posting, so the pair is not silent.
+        {'label': 'Duo (workday/a)', 'status': 'zero', 'count': 0},
+        {'label': 'Duo (workday/b)', 'status': 'ok', 'count': 5},
+    ]
+    history = {'Lakera (ashby/lakera.ai)': {'zero_runs': 24},
+               'Todyl (ashby/Todyl)': {'zero_runs': sj.SILENT_BOARD_RUNS},
+               'Quiet (greenhouse/quiet)': {'zero_runs': sj.SILENT_BOARD_RUNS - 1},
+               'Duo (workday/a)': {'zero_runs': 30}}
+    silent = sj.long_silent_boards(stats, history)
+    check('only boards silent for SILENT_BOARD_RUNS on every tenant are silent',
+          sorted(silent), [('Lakera', 'ashby'), ('Todyl', 'ashby')])
+
+    ashby = 'https://jobs.ashbyhq.com/lakera.ai/b9dee2a0-9bb3-447e-9bce-2b1bed784e5b'
+    listings = [
+        _listing('Lakera', 'AI Security Engineer', ashby, source='Ashby'),
+        _listing('Lakera', 'Maintainer Pick', ashby, source='Community'),
+        _listing('Lakera', 'Other Board Row', 'https://boards.greenhouse.io/l/jobs/1'),
+        _listing('Quiet', 'Not Silent Long Enough', 'https://boards.greenhouse.io/q/jobs/2'),
+    ]
+    retired = sj.retire_vanished_listings(listings, [], '2026-09-27', silent)
+    check('a long-silent board retires its rows at once',
+          [e['role'] for e in retired], ['AI Security Engineer'])
+    check('the retired row is blanked the way the revive path expects',
+          (listings[0]['url'], listings[0]['closed'], listings[0]['closed_date']),
+          ('', True, '2026-09-27'))
+    check('community, other-ATS and short-silence rows keep their url',
+          [bool(e['url']) for e in listings[1:]], [True, True, True])
+
+
 for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_ashby, test_ashby_schema_drift_warns,
            test_smartrecruiters_pagination_short_page_stops, test_oracle,
@@ -719,7 +754,7 @@ for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_board_health_migrates_and_survives_a_corrupt_baseline,
            test_compare_runs_reports_flips_only,
            test_workday_total_only_on_first_page, test_workday_flags_a_cut_short_sweep,
-           test_incomplete_sweep_retires_nothing):
+           test_incomplete_sweep_retires_nothing, test_long_silent_board_retires_its_rows):
     fn()
 
 if failures:

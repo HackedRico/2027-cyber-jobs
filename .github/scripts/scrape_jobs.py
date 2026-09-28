@@ -693,7 +693,31 @@ def job_fingerprint(company, source, url):
     return None
 
 
-def retire_vanished_listings(listings, raw_jobs, today):
+# A board silent this many runs in a row is treated as gone, which is twice
+# VANISHED_DAYS at two runs a day. Lakera's board sat empty for 24 runs and
+# Todyl's answered 404 for 12 while their open rows stayed on the board, since
+# retirement only ever judged boards that returned something.
+SILENT_BOARD_RUNS = 4 * VANISHED_DAYS
+
+
+def long_silent_boards(board_stats, history):
+    """Return the (company, ats) pairs silent for SILENT_BOARD_RUNS runs straight.
+
+    `board_stats` is this run's per-board result and `history` the stored
+    board baseline, so a `--board`/`--limit` run only judges what it fetched.
+    A company with two boards on one ATS is silent only when both are.
+    """
+    silent = {}
+    for b in board_stats:
+        name, _, rest = b['label'].rpartition(' (')
+        ats = rest.split('/', 1)[0].rstrip(')').lower()
+        streak = (history.get(b['label']) or {}).get('zero_runs', 0)
+        quiet = b['count'] == 0 and streak >= SILENT_BOARD_RUNS
+        silent[(name, ats)] = silent.get((name, ats), True) and quiet
+    return {key for key, is_silent in silent.items() if is_silent}
+
+
+def retire_vanished_listings(listings, raw_jobs, today, silent_boards=frozenset()):
     """Close rows whose requisition has left its own board's feed.
 
     Mutates and returns the rows it retired. A posting that stops appearing
@@ -701,6 +725,10 @@ def retire_vanished_listings(listings, raw_jobs, today):
     can retire a Workday, Ashby, Oracle or Greenhouse row: those hosts all
     answer 200 for a job that no longer exists, so the dead-link sweep never
     marks one closed and such a row would otherwise sit on the board forever.
+
+    `silent_boards` holds the (company, ats) pairs from `long_silent_boards`.
+    Their rows retire at once: the board has held nothing for longer than
+    VANISHED_DAYS, so no posting behind it is still live.
 
     Guardrails, all in the keep direction:
       * only companies that returned at least one posting this run are judged,
@@ -734,6 +762,10 @@ def retire_vanished_listings(listings, raw_jobs, today):
                 or not entry.get('url')):
             continue
         company, source = entry.get('company', ''), entry.get('source', '')
+        if (company, source.lower()) in silent_boards:
+            _retire(entry, today)
+            retired.append(entry)
+            continue
         if company not in healthy:
             continue
         fingerprint = job_fingerprint(company, source, entry.get('url', ''))
@@ -1358,7 +1390,10 @@ def main():
     # Retire rows whose req has left its board's feed. Nothing else can retire a
     # Workday/Ashby/Oracle/Greenhouse row: those hosts answer 200 for a job that
     # no longer exists, so check_links.py never sees one die.
-    vanished = retire_vanished_listings(listings, raw_jobs, today)
+    # On a full run report_board_health has already rolled this run into the
+    # baseline; a dry or partial run reads it one run behind, which only keeps.
+    vanished = retire_vanished_listings(
+        listings, raw_jobs, today, long_silent_boards(board_stats, load_board_baseline()))
     for entry in vanished:
         print(f'  RETIRED [vanished] {_oneline(entry.get("company", ""))} — '
               f'{_oneline(entry.get("role", ""))}')
