@@ -1376,6 +1376,46 @@ def retire_vanished_listings(listings, raw_jobs, today, silent_boards=frozenset(
     return retired
 
 
+# Sources whose rows come from one companies.yml entry each. Amazon Jobs is a
+# hardcoded scraper with no entry, so its rows are never orphans.
+CONFIGURED_SOURCES = {'greenhouse', 'lever', 'ashby', 'smartrecruiters', 'workable',
+                      'recruitee', 'pinpoint', 'workday', 'oracle', 'eightfold', 'phenom'}
+
+
+def retire_orphaned_listings(listings, config, today):
+    """Close open rows whose company no longer has a board for their source.
+
+    Mutates and returns the rows it retired. `retire_vanished_listings` only
+    judges boards this run scraped, and `long_silent_boards` only boards still
+    in the baseline, so a row outlives the removal of its board: Todyl 'Site
+    Reliability Engineer II' stayed open after 4e80f86 dropped Todyl's Ashby
+    entry, since the job page still answers 200.
+
+    Guardrails, all in the keep direction:
+      * Community rows and any source outside the config-driven ATSs (Amazon
+        Jobs, or a new hardcoded scraper) are never judged;
+      * a config with no boards at all retires nothing, so an empty or
+        truncated companies.yml cannot close the board.
+    """
+    sources = CONFIGURED_SOURCES | {key.lower() for key in config}
+    configured = {(str(entry.get('name', '')).casefold(), kind.lower())
+                  for kind, entries in config.items() if isinstance(entries, list)
+                  for entry in entries if isinstance(entry, dict)}
+    if not configured:
+        return []
+    retired = []
+    for entry in listings:
+        source = (entry.get('source') or '').lower()
+        if (source not in sources or entry.get('source') == 'Community'
+                or entry.get('closed') or not entry.get('url')):
+            continue
+        if (entry.get('company', '').casefold(), source) in configured:
+            continue
+        _retire(entry, today)
+        retired.append(entry)
+    return retired
+
+
 def _retire(entry, today):
     entry['url'] = ''
     entry['closed'] = True
@@ -2030,6 +2070,10 @@ def main():
     for entry in vanished:
         print(f'  RETIRED [vanished] {_oneline(entry.get("company", ""))} — '
               f'{_oneline(entry.get("role", ""))}')
+    orphaned = retire_orphaned_listings(listings, config, today)
+    for entry in orphaned:
+        print(f'  RETIRED [orphaned] {_oneline(entry.get("company", ""))} — '
+              f'{_oneline(entry.get("role", ""))}')
 
     existing_urls = {normalize_url(e.get('url', '')) for e in listings if e.get('url')}
     # Secondary key catches the same role reposted per-location under distinct
@@ -2115,12 +2159,12 @@ def main():
     # streak still has to save listings.json or the streak resets every run.
     pending = sum(1 for e in listings if e.get('missing_since'))
     changed = (added or reclassified or revived or purged or drops or refreshed
-               or renormalized or repaired or folded or vanished or pending)
+               or renormalized or repaired or folded or vanished or orphaned or pending)
     dropped_by = ', '.join(f'{n} {reason}' for reason, n in sorted(drop_counts.items()))
     print(f'\nAdded {added} new listing(s), revived {revived}, '
           f'reclassified {reclassified}, purged {purged}, '
           f'repaired {len(repaired)} location(s) + folded {len(folded)} duplicate(s), '
-          f'retired {len(vanished)} vanished ({pending} more missing), '
+          f'retired {len(vanished)} vanished ({pending} more missing) + {len(orphaned)} orphaned, '
           f'dropped {len(drops)} ({dropped_by or "none"}), '
           f'refreshed {len(refreshed) - relevelled} category or clearance field(s)')
 
@@ -2136,7 +2180,7 @@ def main():
     save_seen_jobs(seen)
     events_file = os.environ.get('RUN_EVENTS_FILE')
     if events_file:
-        write_run_events(events_file, added_rows, revived_rows, vanished)
+        write_run_events(events_file, added_rows, revived_rows, vanished + orphaned)
     print('Done')
 
 

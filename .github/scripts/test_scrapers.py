@@ -1532,6 +1532,37 @@ def test_amazon_restricts_to_us_reqs():
     check('amazon search filters to US reqs', query.get('normalized_country_code[]'), ['USA'])
 
 
+# --- rows whose board left companies.yml --------------------------------------
+def test_retire_orphaned_listings():
+    """Todyl's Ashby entry was dropped in 4e80f86 and its row stayed open."""
+    config = {'ashby': [{'name': 'Lakera', 'slug': 'lakera.ai'}],
+              'greenhouse': [{'name': 'Acme', 'slug': 'acme'}]}
+    ashby = 'https://jobs.ashbyhq.com/Todyl/7ebf4aa1-b1eb-451d-a81e-c1f49336a8a3'
+    listings = [
+        _listing('Todyl', 'Site Reliability Engineer II', ashby, source='Ashby'),
+        _listing('Lakera', 'AI Security Engineer', ashby, source='Ashby'),
+        _listing('ACME', 'Case Differs', 'https://boards.greenhouse.io/acme/jobs/1'),
+        _listing('Acme', 'Moved Off Workday', 'https://acme.wd1.myworkdayjobs.com/x/job/y',
+                 source='Workday'),
+        _listing('Amazon', 'Security Engineer I', 'https://www.amazon.jobs/en/jobs/1',
+                 source='Amazon Jobs'),
+        _listing('Todyl', 'Maintainer Pick', 'https://todyl.com/careers', source='Community'),
+        _listing('Todyl', 'Unknown Feed', 'https://todyl.com/jobs/1', source='Some Feed'),
+        _listing('Todyl', 'Already Closed', '', source='Ashby', closed=True),
+    ]
+    retired = sj.retire_orphaned_listings(listings, config, '2026-09-28')
+    check('rows whose company has no board for their source retire',
+          [e['role'] for e in retired], ['Site Reliability Engineer II', 'Moved Off Workday'])
+    check('an orphaned row is blanked the way the revive path expects',
+          (listings[0]['url'], listings[0]['closed'], listings[0]['closed_date']),
+          ('', True, '2026-09-28'))
+    check('configured, Amazon, Community, unknown-source and closed rows are untouched',
+          [bool(e['url']) for e in listings[1:3] + listings[4:7]], [True] * 5)
+    check('an empty config retires nothing',
+          sj.retire_orphaned_listings([_listing('Todyl', 'X', ashby, source='Ashby')], {},
+                                      '2026-09-28'), [])
+
+
 for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_ashby, test_ashby_schema_drift_warns,
            test_smartrecruiters_pagination_short_page_stops,
@@ -1575,7 +1606,8 @@ for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_lever_appends_lists_to_description,
            test_smartrecruiters_fetches_descriptions_for_candidates,
            test_workday_more_suffix_fetches_locations,
-           test_amazon_restricts_to_us_reqs):
+           test_amazon_restricts_to_us_reqs,
+           test_retire_orphaned_listings):
     fn()
 
 if failures:
