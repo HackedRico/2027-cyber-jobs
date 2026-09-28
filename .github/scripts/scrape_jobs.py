@@ -18,7 +18,7 @@ import threading
 import time
 from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor
-from datetime import datetime
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import NamedTuple
 from urllib.parse import parse_qs, urlparse
@@ -1128,6 +1128,22 @@ def save_listings(listings):
     tmp.replace(LISTINGS_FILE)
 
 
+def write_run_events(path, added, revived, retired):
+    """Write this run's inserted, revived and retired rows for notify.py.
+
+    Only main() knows which rows are new: diffing listings.json over-reports
+    whenever renormalisation rewrites a location or a closure blanks a url.
+    """
+    events = {
+        'schema_version': 1,
+        'run_at': datetime.now(UTC).strftime('%Y-%m-%dT%H:%M:%SZ'),
+        'added': added,
+        'revived': revived,
+        'retired': retired,
+    }
+    Path(path).write_text(json.dumps(events, indent=2))
+
+
 # ---------------------------------------------------------------------------
 # Orchestration
 # ---------------------------------------------------------------------------
@@ -1343,8 +1359,8 @@ def main():
     blanked = {listing_dedup_key(e.get('company', ''), e.get('role', ''),
                                  e.get('location', '')): e
                for e in listings if not e.get('url')}
-    added = 0
-    revived = 0
+    added_rows = []
+    revived_rows = []
 
     for job in raw_jobs:
         jid = job['id']
@@ -1378,7 +1394,7 @@ def main():
             # months-old stamp and retire on the next run.
             row.pop('missing_since', None)
             existing_urls.add(normalize_url(url))
-            revived += 1
+            revived_rows.append(row)
             print(f'  REVIVED {_oneline(job["company"])} — {_oneline(job["title"])}')
             continue
         if normalize_url(url) in existing_urls or key in existing_keys:
@@ -1386,7 +1402,7 @@ def main():
         existing_urls.add(normalize_url(url))
         existing_keys.add(key)
 
-        listings.append({
+        row = {
             'company': job['company'],
             'role': job['title'].strip(),
             'location': location,
@@ -1397,8 +1413,9 @@ def main():
             'url': url,
             'source': job.get('board', ''),
             'date_added': today,
-        })
-        added += 1
+        }
+        listings.append(row)
+        added_rows.append(row)
         print(f'  NEW [{level}] {_oneline(job["company"])} — {_oneline(job["title"])} '
               f'@ {_oneline(job.get("location", ""))}')
 
@@ -1407,6 +1424,8 @@ def main():
         if job['id'] in seen:
             seen[job['id']] = today
     seen = prune_seen(seen, today)
+
+    added, revived = len(added_rows), len(revived_rows)
 
     # `missing_since` stamps land on rows that stay, so a run that only starts a
     # streak still has to save listings.json or the streak resets every run.
@@ -1429,6 +1448,9 @@ def main():
         rebuild_readme.main()
 
     save_seen_jobs(seen)
+    events_file = os.environ.get('RUN_EVENTS_FILE')
+    if events_file:
+        write_run_events(events_file, added_rows, revived_rows, vanished)
     print('Done')
 
 

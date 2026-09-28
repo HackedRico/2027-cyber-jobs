@@ -8,6 +8,7 @@ location extraction, pagination stops, intern hints, schema drift, and the
 retry/backoff fetch layer — without touching the network.
 """
 import json
+import os
 import sys
 import tempfile
 from pathlib import Path
@@ -612,6 +613,43 @@ def test_compare_runs_reports_flips_only():
           compare_runs.diff(before, before), [])
 
 
+@responses.activate
+def test_main_writes_run_events_with_inserted_row():
+    responses.get(
+        'https://boards-api.greenhouse.io/v1/boards/acme/jobs',
+        json={'jobs': [{'id': 7, 'title': 'Security Engineering Intern',
+                        'location': {'name': 'Austin, TX'},
+                        'absolute_url': 'https://boards.greenhouse.io/acme/jobs/7',
+                        'content': 'Summer 2027 internship'}]})
+    saved = (sj.LISTINGS_FILE, sj.SEEN_JOBS_FILE, sj.BOARD_BASELINE_FILE,
+             sj.rebuild_readme.main, sys.argv, os.getcwd())
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        (tmp / 'companies.yml').write_text('greenhouse:\n  - name: Acme\n    slug: acme\n')
+        events_file = tmp / 'run_events.json'
+        os.environ['RUN_EVENTS_FILE'] = str(events_file)
+        try:
+            os.chdir(tmp)
+            sj.LISTINGS_FILE = tmp / 'listings.json'
+            sj.SEEN_JOBS_FILE = tmp / 'seen_jobs.json'
+            sj.BOARD_BASELINE_FILE = tmp / 'board_baseline.json'
+            sj.rebuild_readme.main = lambda: None
+            sys.argv = ['scrape_jobs.py', '--board', 'greenhouse']
+            sj.main()
+            events = json.loads(events_file.read_text())
+        finally:
+            del os.environ['RUN_EVENTS_FILE']
+            (sj.LISTINGS_FILE, sj.SEEN_JOBS_FILE, sj.BOARD_BASELINE_FILE,
+             sj.rebuild_readme.main, sys.argv, cwd) = saved
+            os.chdir(cwd)
+    check('events file carries the schema version', events['schema_version'], 1)
+    check('events file lists the inserted row',
+          [(r['company'], r['role'], r['type']) for r in events['added']],
+          [('Acme', 'Security Engineering Intern', 'intern')])
+    check('events file has no revived or retired rows',
+          (events['revived'], events['retired']), ([], []))
+
+
 for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_ashby, test_ashby_schema_drift_warns,
            test_smartrecruiters_pagination_short_page_stops, test_oracle,
@@ -627,7 +665,8 @@ for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_scrape_boards_preserves_config_order,
            test_build_tasks_honors_board_and_limit, test_board_health_streaks,
            test_board_health_migrates_and_survives_a_corrupt_baseline,
-           test_compare_runs_reports_flips_only):
+           test_compare_runs_reports_flips_only,
+           test_main_writes_run_events_with_inserted_row):
     fn()
 
 if failures:
