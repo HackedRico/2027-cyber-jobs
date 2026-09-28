@@ -8,6 +8,8 @@ location extraction, pagination stops, intern hints, schema drift, and the
 retry/backoff fetch layer — without touching the network.
 """
 import json
+import os
+import re
 import sys
 import tempfile
 from pathlib import Path
@@ -19,6 +21,7 @@ import check_links  # noqa: E402
 
 import check_slugs  # noqa: E402
 import compare_runs  # noqa: E402
+import notify  # noqa: E402
 import responses  # noqa: E402
 import scrape_jobs as sj  # noqa: E402
 
@@ -1116,6 +1119,202 @@ def test_new_boards_validate_config_and_plumb_through():
           ('Acme', 'Phenom', 'R117365'))
 
 
+@responses.activate
+def test_main_writes_run_events_with_inserted_row():
+    responses.get(
+        'https://boards-api.greenhouse.io/v1/boards/acme/jobs',
+        json={'jobs': [{'id': 7, 'title': 'Security Engineering Intern',
+                        'location': {'name': 'Austin, TX'},
+                        'absolute_url': 'https://boards.greenhouse.io/acme/jobs/7',
+                        'content': 'Summer 2027 internship'}]})
+    saved = (sj.LISTINGS_FILE, sj.SEEN_JOBS_FILE, sj.BOARD_BASELINE_FILE,
+             sj.rebuild_readme.main, sys.argv, os.getcwd())
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        (tmp / 'companies.yml').write_text('greenhouse:\n  - name: Acme\n    slug: acme\n')
+        events_file = tmp / 'run_events.json'
+        os.environ['RUN_EVENTS_FILE'] = str(events_file)
+        try:
+            os.chdir(tmp)
+            sj.LISTINGS_FILE = tmp / 'listings.json'
+            sj.SEEN_JOBS_FILE = tmp / 'seen_jobs.json'
+            sj.BOARD_BASELINE_FILE = tmp / 'board_baseline.json'
+            sj.rebuild_readme.main = lambda: None
+            sys.argv = ['scrape_jobs.py', '--board', 'greenhouse']
+            sj.main()
+            events = json.loads(events_file.read_text())
+        finally:
+            del os.environ['RUN_EVENTS_FILE']
+            (sj.LISTINGS_FILE, sj.SEEN_JOBS_FILE, sj.BOARD_BASELINE_FILE,
+             sj.rebuild_readme.main, sys.argv, cwd) = saved
+            os.chdir(cwd)
+    check('events file carries the schema version', events['schema_version'], 1)
+    check('events file lists the inserted row',
+          [(r['company'], r['role'], r['type']) for r in events['added']],
+          [('Acme', 'Security Engineering Intern', 'intern')])
+    check('events file has no revived or retired rows',
+          (events['revived'], events['retired']), ([], []))
+
+
+# --- notify.py -----------------------------------------------------------------
+RUN_AT = '2026-09-23T13:37:00Z'
+GH = 'https://api.github.com/repos/o/r'
+
+
+def _row(company, role, kind='intern', **extra):
+    row = {'company': company, 'role': role, 'location': 'Austin, TX', 'type': kind,
+           'category': 'Security Engineering', 'clearance': False,
+           'url': f'https://x/{company}/{role}'.replace(' ', '-'), 'source': 'Greenhouse',
+           'date_added': '2026-09-23'}
+    row.update(extra)
+    return row
+
+
+def _events(added):
+    return {'schema_version': 1, 'run_at': RUN_AT, 'added': added,
+            'revived': [], 'retired': []}
+
+
+check('format_row neutralises mentions, links and HTML in scraped fields',
+      notify.format_row(_row('Acme', 'Intern @octocat [x](https://evil) <b>',
+                             url='https://x/a_(b)'), set()),
+      '- **Acme**: Intern @&#8203;octocat \\[x\\](https://evil) &lt;b&gt; · Austin, TX · '
+      'Security Engineering · [Apply](https://x/a_%28b%29)')
+check('format_row caps a long site list',
+      notify.format_row(_row('Acme', 'SOC Intern', location='A, TX; B, TX; C, TX; D, TX'),
+                        set()).split(' · ')[1], 'A, TX; B, TX; 2 more')
+
+
+def _release_payload():
+    posts = [c for c in responses.calls if c.request.url.endswith('/releases')]
+    return json.loads(posts[0].request.body) if posts else None
+
+
+def _mock_github(issues=()):
+    responses.post(f'{GH}/releases', status=201, json={'html_url': 'https://rel'})
+    responses.get(f'{GH}/issues', json=list(issues))
+    responses.post(f'{GH}/issues', status=201, json={'number': 99, 'locked': False})
+    responses.post(re.compile(rf'{GH}/issues/\d+/comments'), status=201, json={})
+    responses.put(re.compile(rf'{GH}/issues/\d+/lock'), status=204)
+    responses.delete(re.compile(rf'{GH}/issues/\d+/lock'), status=204)
+
+
+@responses.activate
+def test_notify_skips_release_when_nothing_added():
+    posted = notify.announce(_events([]), [], 'tok', 'o/r')
+    check('notify posts nothing when no row was added', posted, [])
+    check('notify makes no HTTP call when no row was added', len(responses.calls), 0)
+
+
+@responses.activate
+def test_notify_burst_cap_lists_ten_student_rows():
+    _mock_github()
+    added = ([_row('Intern Co', f'Security Intern {i}') for i in range(8)]
+             + [_row('Grad Co', f'Security Analyst New Grad {i}', 'newgrad') for i in range(6)]
+             + [_row('Early Co', f'Security Analyst I {i}', 'earlycareer') for i in range(9)])
+    notify.announce(_events(added), [], 'tok', 'o/r')
+    body = _release_payload()['body']
+    check('burst release states the counts per type',
+          '**23 new roles** this run: 8 intern, 6 new grad, 9 early career.' in body, True)
+    check('burst release lists ten rows', body.count('\n- **'), 10)
+    check('burst release leaves early-career rows to the board', 'Early Co' in body, False)
+    check('burst release links the board',
+          '[board](https://github.com/o/r#readme)' in body, True)
+
+
+@responses.activate
+def test_notify_puts_security_company_rows_last():
+    _mock_github()
+    added = [_row('CrowdStrike', 'Software Engineer Intern'),
+             _row('Acme', 'SOC Analyst Intern', clearance=True)]
+    earlier = [_row('CrowdStrike', 'Old', date_added='2026-09-01'),
+               _row('Acme', 'Old', date_added='2026-09-01')]
+    notify.announce(_events(added), earlier, 'tok', 'o/r')
+    body = _release_payload()['body']
+    check('cyber rows stay under their type heading',
+          body.startswith('## 🎒 Internships (1)\n- **Acme** 🇺🇸: SOC Analyst Intern'), True)
+    check('non-cyber rows go under the security-company heading',
+          '## 🛡️ Also hiring at security companies (1)\n- **CrowdStrike**: '
+          'Software Engineer Intern · Austin, TX · intern' in body, True)
+
+
+@responses.activate
+def test_notify_opener_leads_the_title():
+    _mock_github()
+    added = [_row('Amazon', 'Security Engineer Internship 2027 (US)'),
+             _row('Northrop Grumman', '2027 Intern, Cybersecurity Engineer'),
+             _row('Anduril', 'Security Engineer', 'earlycareer')]
+    listings = added + [
+        _row('Northrop Grumman', 'Cyber Intern', closed=True, closed_date='2026-09-01'),
+        # Closed more than 60 days ago, so it no longer counts against Amazon.
+        _row('Amazon', 'Old Intern', closed=True, closed_date='2026-07-01')]
+    notify.announce(_events(added), listings, 'tok', 'o/r')
+    payload = _release_payload()
+    check('opener leads the release title', payload['name'],
+          '🚨 Amazon opened intern hiring · 3 new roles')
+    check('opener row carries the siren',
+          '- **Amazon** 🚨: Security Engineer Internship 2027 (US)' in payload['body'], True)
+    check('a company with a recent intern row is not an opener',
+          '**Northrop Grumman** 🚨' in payload['body'], False)
+    check('release tag is the run minute in UTC', payload['tag_name'], 'roles-20260923-1337')
+    check('release becomes latest on main',
+          (payload['make_latest'], payload['target_commitish']), ('true', 'main'))
+
+
+@responses.activate
+def test_notify_unlocks_comments_and_relocks():
+    issue = {'number': 5, 'locked': True, 'author_association': 'OWNER',
+             'body': 'Subscribe\n<!-- alert-stream: earlycareer -->'}
+    stranger = {'number': 6, 'locked': False, 'author_association': 'NONE',
+                'body': '<!-- alert-stream: earlycareer -->'}
+    _mock_github([issue, stranger])
+    notify.announce(_events([_row('Acme', 'Security Analyst I', 'earlycareer')]),
+                    [], 'tok', 'o/r')
+    calls = [(c.request.method, c.request.url.removeprefix(GH))
+             for c in responses.calls if '/issues/5' in c.request.url]
+    check('an owner issue is unlocked, commented on and relocked', calls,
+          [('DELETE', '/issues/5/lock'), ('POST', '/issues/5/comments'),
+           ('PUT', '/issues/5/lock')])
+    check("a stranger's issue with the marker is ignored",
+          any('/issues/6' in c.request.url for c in responses.calls), False)
+
+
+@responses.activate
+def test_notify_fails_when_relock_fails():
+    issue = {'number': 5, 'locked': True, 'author_association': 'OWNER',
+             'body': '<!-- alert-stream: earlycareer -->'}
+    responses.post(f'{GH}/releases', status=201, json={})
+    responses.get(f'{GH}/issues', json=[issue])
+    responses.delete(f'{GH}/issues/5/lock', status=204)
+    responses.post(f'{GH}/issues/5/comments', status=201, json={})
+    responses.put(f'{GH}/issues/5/lock', status=403)
+    try:
+        notify.announce(_events([_row('Acme', 'Security Analyst I', 'earlycareer')]),
+                        [], 'tok', 'o/r')
+        raised = False
+    except RuntimeError:
+        raised = True
+    check('a failed relock fails the step', raised, True)
+
+
+@responses.activate
+def test_notify_creates_missing_stream_issue():
+    _mock_github()
+    notify.announce(_events([_row('Acme', 'Security Analyst I', 'earlycareer')]),
+                    [], 'tok', 'o/r')
+    created = [json.loads(c.request.body) for c in responses.calls
+               if c.request.method == 'POST' and c.request.url == f'{GH}/issues']
+    check('a missing stream issue is created once', len(created), 1)
+    check('the new issue is titled and labeled for its stream',
+          (created[0]['title'], created[0]['labels']), ('🌱 Early-career alerts', ['alerts']))
+    check('the new issue carries the stream marker',
+          '<!-- alert-stream: earlycareer -->' in created[0]['body'], True)
+    sequence = [(c.request.method, c.request.url.removeprefix(GH))
+                for c in responses.calls if '/issues/99' in c.request.url]
+    check('the new issue gets the comment and is then locked', sequence,
+          [('POST', '/issues/99/comments'), ('PUT', '/issues/99/lock')])
+
+
 for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_ashby, test_ashby_schema_drift_warns,
            test_smartrecruiters_pagination_short_page_stops,
@@ -1146,7 +1345,13 @@ for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_eightfold_schema_drift_is_empty_not_crash,
            test_phenom_paginates_and_fetches_details,
            test_phenom_caps_pages_on_a_fuzzy_match, test_phenom_none_vs_empty,
-           test_new_boards_validate_config_and_plumb_through):
+           test_new_boards_validate_config_and_plumb_through,
+           test_main_writes_run_events_with_inserted_row,
+           test_notify_skips_release_when_nothing_added,
+           test_notify_burst_cap_lists_ten_student_rows,
+           test_notify_puts_security_company_rows_last,
+           test_notify_opener_leads_the_title, test_notify_unlocks_comments_and_relocks,
+           test_notify_fails_when_relock_fails, test_notify_creates_missing_stream_issue):
     fn()
 
 if failures:

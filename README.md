@@ -2,7 +2,9 @@
 
 US cybersecurity internships, new-grad roles and early-career openings for students, scraped twice a day from the job boards of [hundreds of employers](./companies.md).
 
-> ⭐ **Please star this repo to get the latest jobs as soon as they land!**
+> 🔔 **Get an email or push when roles land:** Watch > Custom > Releases for every batch, or add [releases.atom](https://github.com/HackedRico/2027-cyber-jobs/releases.atom) to a feed reader.
+>
+> For one table only, click Subscribe on its [alert issue](../../issues?q=is%3Aissue+is%3Aopen+label%3Aalerts). Pick one channel, or you get each role twice. Starring does not notify you.
 
 <!-- STATS -->
 
