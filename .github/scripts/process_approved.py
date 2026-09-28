@@ -2,7 +2,8 @@
 """Add community listings from issues labeled 'approved' to listings.json.
 
 Runs twice per add-listing workflow. The default mode adds rows, rebuilds the
-README and writes each issue's outcome to $GITHUB_OUTPUT. `--notify` runs after
+README, writes each issue's outcome to $GITHUB_OUTPUT and the added rows to
+$RUN_EVENTS_FILE for notify.py's alerts. `--notify` runs after
 the push step and comments on, closes or unlabels the issues. Closing an issue
 before the row reaches `main` loses the row for good when the push fails,
 because only open approved issues are fetched.
@@ -30,6 +31,7 @@ from common import (  # noqa: E402
     parse_issue_body,
     security_company_names,
     validate_location,
+    write_run_events,
 )
 
 LISTINGS_FILE = Path('listings.json')
@@ -182,18 +184,26 @@ def run_ingest(token, repo):
     issues = get_approved_issues(token, repo)
     print(f'Found {len(issues)} approved issue(s) to process')
     listings = json.loads(LISTINGS_FILE.read_text()) if LISTINGS_FILE.exists() else []
+    held = len(listings)
     results = ingest(issues, listings, load_security_companies())
     for r in results:
         print(f"  Issue #{r['number']}: {r['outcome']}, {r['detail']}")
     write_output(results)
 
-    added = sum(1 for r in results if r['outcome'] == 'added')
-    if added:
+    # ingest only appends, so the tail is this run's rows. Written even when
+    # empty: notify.py fails on a missing file, since that means a broken
+    # handoff rather than a quiet run.
+    added_rows = listings[held:]
+    events_file = os.environ.get('RUN_EVENTS_FILE')
+    if events_file:
+        write_run_events(events_file, added_rows)
+
+    if added_rows:
         tmp = LISTINGS_FILE.with_suffix('.tmp')
         tmp.write_text(json.dumps(listings, indent=2))
         tmp.replace(LISTINGS_FILE)
         rebuild_readme.main()
-    print(f'\nAdded {added} listing(s)')
+    print(f'\nAdded {len(added_rows)} listing(s)')
 
 
 def _api(method, token, url, **kwargs):

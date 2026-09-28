@@ -6,7 +6,10 @@
 Covers issue-form parsing, the location check, the approved-issue ingest and
 notify steps, and the validator's verdict comment.
 """
+import json
+import os
 import sys
+import tempfile
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
@@ -220,6 +223,37 @@ def test_notify_leaves_added_issue_open_when_push_failed():
 
 
 @responses.activate
+def test_ingest_writes_run_events_for_added_rows():
+    responses.get('https://api.github.com/repos/o/r/issues', json=[
+        {'number': 1, 'body': form()},
+        {'number': 2, 'body': form(link='https://boards.greenhouse.io/acme/jobs/9')},
+    ])
+    responses.get('https://api.github.com/repos/o/r/issues', json=[])
+    saved = (pa.LISTINGS_FILE, pa.load_security_companies, pa.rebuild_readme.main)
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        events_file = tmp / 'run_events.json'
+        (tmp / 'listings.json').write_text(json.dumps(EXISTING))
+        os.environ['RUN_EVENTS_FILE'] = str(events_file)
+        try:
+            pa.LISTINGS_FILE = tmp / 'listings.json'
+            pa.load_security_companies = lambda: set()
+            pa.rebuild_readme.main = lambda: None
+            pa.run_ingest('t', 'o/r')
+            events = json.loads(events_file.read_text())
+        finally:
+            del os.environ['RUN_EVENTS_FILE']
+            pa.LISTINGS_FILE, pa.load_security_companies, pa.rebuild_readme.main = saved
+    check('ingest events carry the schema notify.py reads',
+          sorted(events), ['added', 'retired', 'revived', 'run_at', 'schema_version'])
+    check('ingest events list only the added row, not the duplicate',
+          [(r['company'], r['role'], r['source']) for r in events['added']],
+          [('Acme', 'Security Analyst Intern', 'Community')])
+    check('ingest events have no revived or retired rows',
+          (events['schema_version'], events['revived'], events['retired']), (1, [], []))
+
+
+@responses.activate
 def test_notify_reports_api_failure():
     responses.post('https://api.github.com/repos/o/r/issues/1/comments', status=403)
     responses.patch('https://api.github.com/repos/o/r/issues/1', json={})
@@ -354,7 +388,7 @@ check('build_verdict body has no em or en dashes',
 
 
 for fn in (test_notify_after_push, test_notify_leaves_added_issue_open_when_push_failed,
-           test_notify_reports_api_failure):
+           test_notify_reports_api_failure, test_ingest_writes_run_events_for_added_rows):
     fn()
 
 if failures:
