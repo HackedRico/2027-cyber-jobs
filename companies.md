@@ -2,29 +2,34 @@
 
 Employers whose job boards are scraped automatically (see [companies.yml](companies.yml)). 🛡️ marks pure-play security companies, where every engineering role is a security-industry job.
 
-**342 companies tracked.**
+**356 companies tracked.**
 
-## Hiring students now (71)
+## Hiring students now (78)
 
 Employers with open roles on the board today.
 
 | Company | Internships | New grad | Early career |
 | ------- | ----------- | -------- | ------------ |
+| Johns Hopkins APL | 10 | 9 |  |
 | Booz Allen Hamilton | 17 |  | 3 |
+| American Express | 8 | 4 |  |
 | Vanguard | 5 | 6 |  |
 | RTX | 4 |  | 8 |
 | Palo Alto Networks | 4 |  | 2 |
 | Tanium | 4 |  |  |
-| Northrop Grumman | 1 | 2 | 11 |
 | Cisco | 3 |  | 1 |
-| Immuta | 3 |  | 1 |
 | MITRE | 2 | 1 | 1 |
+| Immuta | 3 |  |  |
+| Northrop Grumman |  | 2 | 11 |
 | Microsoft | 2 |  | 2 |
 | Lockheed Martin | 2 |  | 1 |
+| Honeywell | 2 |  |  |
+| Idaho National Laboratory | 2 |  |  |
 | Robinhood | 2 |  |  |
 | The Cigna Group | 1 | 1 |  |
 | Walmart | 2 |  |  |
-| Nightwing | 1 |  | 14 |
+| Nightwing | 1 |  | 13 |
+| Software Engineering Institute | 1 |  | 5 |
 | Leidos | 1 |  | 4 |
 | The Home Depot | 1 |  | 3 |
 | Appian | 1 |  | 1 |
@@ -35,6 +40,8 @@ Employers with open roles on the board today.
 | Bank of America | 1 |  |  |
 | Boeing | 1 |  |  |
 | Deloitte |  | 1 |  |
+| Exelon | 1 |  |  |
+| HP Inc | 1 |  |  |
 | Northern Trust | 1 |  |  |
 | NVIDIA |  | 1 |  |
 | Palantir | 1 |  |  |
@@ -58,6 +65,8 @@ Employers with open roles on the board today.
 | JPMorgan Chase |  |  | 2 |
 | Pinterest |  |  | 2 |
 | SAIC |  |  | 2 |
+| Trail of Bits |  |  | 2 |
+| Action1 |  |  | 1 |
 | AeroVironment |  |  | 1 |
 | Anthropic |  |  | 1 |
 | Arctic Wolf |  |  | 1 |
@@ -71,18 +80,16 @@ Employers with open roles on the board today.
 | HII |  |  | 1 |
 | ID.me |  |  | 1 |
 | Illumio |  |  | 1 |
-| Kudelski Security |  |  | 1 |
 | MIT Lincoln Laboratory |  |  | 1 |
 | Obsidian Security |  |  | 1 |
 | Praetorian |  |  | 1 |
 | ReliaQuest |  |  | 1 |
 | SailPoint |  |  | 1 |
-| Salesforce |  |  | 1 |
 | STR |  |  | 1 |
-| Todyl |  |  | 1 |
 | Two Six Technologies |  |  | 1 |
+| Verizon |  |  | 1 |
 
-## Every tracked board (342)
+## Every tracked board (356)
 
 ### Ashby (71)
 
@@ -310,6 +317,12 @@ Employers with open roles on the board today.
 - Yubico 🛡️
 - Zscaler 🛡️
 
+### Jibe (3)
+
+- Exelon
+- Johns Hopkins APL
+- PNNL
+
 ### Lever (22)
 
 - Anchorage Digital
@@ -335,8 +348,13 @@ Employers with open roles on the board today.
 - WatchGuard 🛡️
 - Xage Security 🛡️
 
-### Oracle (3)
+### Oracle (8)
 
+- American Express
+- Fortinet 🛡️
+- Honeywell
+- Idaho National Laboratory
+- Idaho National Laboratory
 - JPMorgan Chase
 - SAIC
 - Southern Company
@@ -346,8 +364,9 @@ Employers with open roles on the board today.
 - BAE Systems
 - MITRE
 
-### Pinpoint (1)
+### Pinpoint (2)
 
+- NCC Group 🛡️
 - SANS Institute 🛡️
 
 ### Recruitee (3)
@@ -356,11 +375,12 @@ Employers with open roles on the board today.
 - Lansweeper
 - Wallarm 🛡️
 
-### SmartRecruiters (5)
+### SmartRecruiters (6)
 
 - Check Point 🛡️
 - Jscrambler 🛡️
 - Kudelski Security 🛡️
+- Lawrence Livermore National Laboratory
 - Sectigo 🛡️
 - Securiti 🛡️
 
@@ -383,7 +403,7 @@ Employers with open roles on the board today.
 - Stellar Cyber 🛡️
 - Trail of Bits 🛡️
 
-### Workday (73)
+### Workday (77)
 
 - Accenture
 - Adobe
@@ -392,6 +412,7 @@ Employers with open roles on the board today.
 - Allstate
 - Amentum
 - Arctic Wolf 🛡️
+- Argonne National Laboratory
 - AT&T
 - Bitsight 🛡️
 - BlackRock
@@ -415,6 +436,7 @@ Employers with open roles on the board today.
 - Fortra 🛡️
 - GDIT
 - Guidehouse
+- HP Inc
 - ICF
 - Intel
 - Jamf
@@ -423,7 +445,7 @@ Employers with open roles on the board today.
 - Mastercard
 - Morgan Stanley
 - Motorola Solutions
-- NCC Group 🛡️
+- National Laboratory of the Rockies
 - Nightwing 🛡️
 - Nike
 - Northern Trust
@@ -443,6 +465,7 @@ Employers with open roles on the board today.
 - Salesforce
 - Sierra Nevada Corporation
 - Snyk 🛡️
+- Software Engineering Institute
 - State Street
 - T-Mobile
 - Target
@@ -454,6 +477,7 @@ Employers with open roles on the board today.
 - Truist
 - U.S. Bank
 - Vanguard
+- Verizon
 - Visa
 - Walmart
 - Wells Fargo
