@@ -108,6 +108,31 @@ def test_lever():
           [j['intern_hint'] for j in jobs], [False, True])
 
 
+@responses.activate
+def test_lever_reads_all_locations():
+    """Saviynt files a Vancouver + Milpitas req under country CA."""
+    def posting(pid, country, primary, *others):
+        return {'id': pid, 'text': 'Security Engineer', 'country': country,
+                'categories': {'location': primary, 'allLocations': [primary, *others]},
+                'hostedUrl': f'https://jobs.lever.co/acme/{pid}'}
+    responses.get('https://api.lever.co/v0/postings/acme', json=[
+        posting('a', 'CA', 'Vancouver', 'Milpitas, California'),
+        posting('b', 'US', 'Wichita Metro Area', 'San Diego, California', 'Dallas, Texas'),
+        posting('c', 'CA', 'Vancouver'),
+        posting('d', 'DK', 'Remote Denmark', 'Remote Sweden'),
+        {'id': 'e', 'text': 'Security Analyst', 'country': 'US',
+         'categories': {'location': 'Austin, TX'}, 'hostedUrl': 'x'},
+    ])
+    jobs = sj.scrape_lever('Acme', 'acme')
+    check('lever joins allLocations and skips only a req with no US site',
+          [(j['id'], j['location']) for j in jobs],
+          [('lever_acme_a', 'Vancouver; Milpitas, California'),
+           ('lever_acme_b', 'Wichita Metro Area; San Diego, California; Dallas, Texas'),
+           ('lever_acme_e', 'Austin, TX')])
+    check('each kept req passes the US filter',
+          [sj.is_us_location(j['location']) for j in jobs], [True, True, True])
+
+
 # --- scrape_ashby --------------------------------------------------------------
 @responses.activate
 def test_ashby():
@@ -1870,6 +1895,7 @@ def test_main_carries_seen_oracle_reqs_to_the_new_id():
 
 for fn in (test_greenhouse_location_reads_only_location_fields,
            test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
+           test_lever_reads_all_locations,
            test_ashby, test_ashby_schema_drift_warns,
            test_ashby_falls_back_to_the_postal_address,
            test_smartrecruiters_pagination_short_page_stops,

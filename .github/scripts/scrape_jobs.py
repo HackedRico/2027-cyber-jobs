@@ -242,18 +242,25 @@ def scrape_lever(company, slug):
         return None
     jobs = []
     for job in data:
+        cats = job.get('categories') or {}
+        # `location` and `country` describe the primary site only. Saviynt
+        # files a Vancouver + Milpitas req under country CA, and Shield AI
+        # lists 'Wichita Metro Area' first with six US sites behind it in
+        # `allLocations`.
+        sites = [cats.get('location') or '']
+        sites += [x for x in cats.get('allLocations') or [] if isinstance(x, str)]
+        location = '; '.join(dict.fromkeys(x.strip() for x in sites if x and x.strip()))
         country = job.get('country', '')
-        if country and country.upper() != 'US':
+        if country and country.upper() != 'US' and not is_us_location(location):
             continue
         # Lever's commitment category ("Internship", "Intern") flags intern
         # reqs whose titles omit the word.
-        cats = job.get('categories') or {}
         commitment = (cats.get('commitment') or '').lower()
         jobs.append({
             'id': f'lever_{slug}_{job["id"]}',
             'company': company,
             'title': job.get('text', ''),
-            'location': cats.get('location', ''),
+            'location': location,
             'url': job.get('hostedUrl', ''),
             'board': 'Lever',
             'description': _lever_description(job),
