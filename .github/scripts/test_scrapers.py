@@ -1727,6 +1727,24 @@ def test_main_carries_seen_oracle_reqs_to_the_new_id():
           f'oracle_{host}_CX_5' in seen, True)
 
 
+# --- persistence passes: probes, matching, re-adds and renames -----------------
+@responses.activate
+def test_workday_posting_survives_a_non_dict_body():
+    api = 'https://acme.wd1.myworkdayjobs.com/wday/cxs/acme/Ext/job/Austin-TX/'
+    public = 'https://acme.wd1.myworkdayjobs.com/Ext/job/Austin-TX/'
+    responses.add(responses.GET, api + 'Null_R1', body='null',
+                  content_type='application/json')
+    responses.add(responses.GET, api + 'List_R2', status=403, json=[])
+    responses.add(responses.GET, api + 'Live_R3', json={'jobPostingInfo': {
+        'canApply': True, 'title': 'Security Specialist II', 'location': 'Cambridge, MA'}})
+    check('a JSON null body says nothing', sj.workday_posting(public + 'Null_R1'),
+          (None, None))
+    check('a JSON list body says nothing', sj.workday_posting_state(public + 'List_R2'), None)
+    state, info = sj.workday_posting(public + 'Live_R3')
+    check('a live answer carries the posting info',
+          (state, info.get('title')), ('live', 'Security Specialist II'))
+
+
 for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_ashby, test_ashby_schema_drift_warns,
            test_smartrecruiters_pagination_short_page_stops,
@@ -1776,7 +1794,8 @@ for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_oracle_ids_and_labels_carry_host_and_site,
            test_oracle_ids_differ_across_hosts_on_one_site,
            test_board_health_carries_an_oracle_board_across_the_label_change,
-           test_main_carries_seen_oracle_reqs_to_the_new_id):
+           test_main_carries_seen_oracle_reqs_to_the_new_id,
+           test_workday_posting_survives_a_non_dict_body):
     fn()
 
 if failures:

@@ -537,17 +537,20 @@ _WORKDAY_JOB_URL_RE = re.compile(
     r'(?:[a-z]{2}-[A-Z]{2}/)?([A-Za-z0-9_-]+)(/job/[^?#]+)')
 
 
-def workday_posting_state(url):
-    """Ask Workday's detail endpoint whether one posting is still up.
+def workday_posting(url):
+    """Ask Workday's detail endpoint about one posting.
 
-    Returns 'live', 'gone', or None when the answer says nothing. The public
-    job page answers 200 even after a req closes, but the cxs detail endpoint
-    does not: a live req is 200 with canApply, a closed one 403 with errorCode
-    S22 (Nightwing JR102051, RTX 01870858), an unknown path 404 with S21.
+    Returns (state, info). `state` is 'live', 'gone', or None when the answer
+    says nothing. The public job page answers 200 even after a req closes, but
+    the cxs detail endpoint does not: a live req is 200 with canApply, a closed
+    one 403 with errorCode S22 (Nightwing JR102051, RTX 01870858), an unknown
+    path 404 with S21. `info` is the live posting's `jobPostingInfo` (title,
+    location, additionalLocations, jobDescription), else None, so a row past a
+    capped sweep can be re-judged off the same request.
     """
     m = _WORKDAY_JOB_URL_RE.match(url or '')
     if not m:
-        return None
+        return None, None
     tenant, instance, board, path = m.groups()
     api = f'https://{tenant}.{instance}.myworkdayjobs.com/wday/cxs/{tenant}/{board}{path}'
     try:
@@ -555,13 +558,25 @@ def workday_posting_state(url):
                               timeout=REQUEST_TIMEOUT)
         body = resp.json()
     except (requests.RequestException, ValueError):
-        return None
+        return None, None
+    # A JSON null or list body raised AttributeError out of the vanished pass
+    # and took the whole scrape down with it.
+    if not isinstance(body, dict):
+        return None, None
     if resp.status_code == 200:
-        info = body.get('jobPostingInfo') or {}
-        return 'gone' if info.get('canApply') is False else 'live'
+        info = body.get('jobPostingInfo')
+        info = info if isinstance(info, dict) else {}
+        if info.get('canApply') is False:
+            return 'gone', None
+        return 'live', info
     if resp.status_code in (403, 404) and body.get('errorCode') in ('S21', 'S22'):
-        return 'gone'
-    return None
+        return 'gone', None
+    return None, None
+
+
+def workday_posting_state(url):
+    """Return only the 'live', 'gone' or None state from `workday_posting`."""
+    return workday_posting(url)[0]
 
 
 def scrape_workday(company, tenant, instance, board, security_company=False,
