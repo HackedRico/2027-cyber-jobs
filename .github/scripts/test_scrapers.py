@@ -1715,7 +1715,7 @@ def test_smartrecruiters_fetches_descriptions_for_candidates():
     original = sj.SMARTRECRUITERS_DETAIL_CAP
     try:
         sj.SMARTRECRUITERS_DETAIL_CAP = 1
-        jobs = sj.scrape_smartrecruiters('Kudelski Security', 'KudelskiSecurityInc')
+        jobs = sj.scrape_smartrecruiters('Kudelski Security', 'KudelskiSecurityInc', True)
     finally:
         sj.SMARTRECRUITERS_DETAIL_CAP = original
     detail_calls = [c.request.url for c in responses.calls if '/postings/' in c.request.url]
@@ -1731,6 +1731,48 @@ def test_smartrecruiters_fetches_descriptions_for_candidates():
     check('the posting years now reach the experience gate',
           sj.evaluate_job(jobs[0]['title'], jobs[0]['location'], jobs[0]['description'],
                           True), None)
+
+
+@responses.activate
+def test_oracle_and_smartrecruiters_use_the_security_flag():
+    """Fortinet (Oracle) never fetched 'Software Engineer I'; LLNL spent its cap on interns."""
+    host = 'fortinet.fa.us2.oraclecloud.com'
+    base = f'https://{host}/hcmRestApi/resources/latest/'
+    responses.get(base + 'recruitingCEJobRequisitions', json={'items': [{
+        'TotalJobsCount': 1, 'requisitionList': [
+            {'Id': '1', 'Title': 'Software Engineer I', 'PrimaryLocation': 'Sunnyvale, CA'}]}]})
+    responses.get(base + 'recruitingCEJobRequisitionDetails', json={'items': [{
+        'ExternalDescriptionStr': '<p>3+ years of experience.</p>'}]})
+    responses.get(SR_POSTINGS, json={'totalFound': 1, 'content': [
+        _sr_posting('1', 'Software Engineering Intern')]})
+    responses.get(f'{SR_POSTINGS}/1', json={'jobAd': {'sections': {
+        'qualifications': {'title': 'Qualifications', 'text': '<p>Enrolled in a BS.</p>'}}}})
+
+    def details(fn, *args):
+        responses.calls.reset()
+        jobs = fn(*args)
+        return len([c for c in responses.calls
+                    if 'Details' in c.request.url or '/postings/' in c.request.url]), jobs
+
+    check('oracle at a general employer skips a generic leveled title',
+          details(sj.scrape_oracle, 'Acme', host, 'CX_1')[0], 0)
+    count, jobs = details(sj.scrape_oracle, 'Fortinet', host, 'CX_1', True)
+    check('oracle at a security company fetches it', count, 1)
+    check('...so the experience gate sees the years',
+          sj.evaluate_job(jobs[0]['title'], jobs[0]['location'], jobs[0]['description'],
+                          True), None)
+    check('smartrecruiters at a general employer skips a generic intern title',
+          details(sj.scrape_smartrecruiters, 'LLNL', 'KudelskiSecurityInc')[0], 0)
+    check('smartrecruiters at a security company fetches it',
+          details(sj.scrape_smartrecruiters, 'Acme', 'KudelskiSecurityInc', True)[0], 1)
+
+    config = {'smartrecruiters': [{'name': 'S', 'slug': 's', 'security_company': True}],
+              'oracle': [{'name': 'O', 'host': 'o.fa.us2.oraclecloud.com', 'site': 'CX_1',
+                          'security_company': True}],
+              'greenhouse': [{'name': 'G', 'slug': 'g', 'security_company': True}]}
+    check('build_tasks passes the flag to smartrecruiters and oracle only',
+          [t.args for t in sj.build_tasks(config)][:3],
+          [('G', 'g'), ('S', 's', True), ('O', 'o.fa.us2.oraclecloud.com', 'CX_1', True)])
 
 
 # --- Workday: Motorola writes "More..." where others write "N Locations" -----
@@ -2048,6 +2090,7 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_workable_reads_locations_and_description,
            test_lever_appends_lists_to_description,
            test_smartrecruiters_fetches_descriptions_for_candidates,
+           test_oracle_and_smartrecruiters_use_the_security_flag,
            test_workday_more_suffix_fetches_locations, test_amazon_restricts_to_us_reqs,
            test_smartrecruiters_and_amazon_flag_a_cut_short_sweep,
            test_retire_orphaned_listings, test_check_links_soft_404,

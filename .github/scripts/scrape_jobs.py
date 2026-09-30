@@ -347,7 +347,7 @@ def _ashby_place(label, address):
     return ', '.join(p for p in (city, region) if p)
 
 
-def scrape_smartrecruiters(company, identifier):
+def scrape_smartrecruiters(company, identifier, security_company=False):
     url = f'https://api.smartrecruiters.com/v1/companies/{identifier}/postings'
     limit = 100
     params = {'limit': limit, 'offset': 0}
@@ -408,12 +408,13 @@ def scrape_smartrecruiters(company, identifier):
 
     # The postings list carries no description, so Kudelski 'Network Support
     # Engineer I/II' passed the experience gate on its title while the posting
-    # asks for 2 to 3 years. Every SmartRecruiters board here is a security
-    # company, and the scraper is not told the flag, so candidates are judged
-    # as one; the cap bounds the cost if a general employer is added.
+    # asks for 2 to 3 years. Candidates are judged under the company's own
+    # flag: judged as a security company, LLNL spent its cap on generic
+    # intern titles that evaluate_job rejects anyway.
     fetched = 0
     for job in jobs:
-        if fetched >= SMARTRECRUITERS_DETAIL_CAP or not _wants_detail(job['title'], True):
+        if (fetched >= SMARTRECRUITERS_DETAIL_CAP
+                or not _wants_detail(job['title'], security_company)):
             continue
         fetched += 1
         description = fetch_smartrecruiters_description(
@@ -790,7 +791,7 @@ def fetch_oracle_description(host, site, req_id, label=''):
     return '\n\n'.join(f for f in fields if f and f.strip())
 
 
-def scrape_oracle(company, host, site):
+def scrape_oracle(company, host, site, security_company=False):
     """Oracle Recruiting Cloud (Candidate Experience) public JSON API.
 
     `host` is the tenant host (e.g. 'company.fa.us2.oraclecloud.com'); `site`
@@ -850,13 +851,16 @@ def scrape_oracle(company, host, site):
     # clearance flag saw only the title: SAIC 'Tier II or III ... IAM
     # Administrator' wants 5 years and 'Cyber Engineer Associate' a TS/SCI
     # with polygraph. Newest reqs come first, so the cap spends its requests
-    # on the postings a student is most likely to still apply to.
+    # on the postings a student is most likely to still apply to. Judged as a
+    # general employer, Fortinet never fetched 'Software Engineer I' and its
+    # like, so they skipped the experience gate.
     fetched = 0
     for job in jobs:
         req = job.pop('_req')
         if not complete:
             job['partial_sweep'] = True
-        if fetched >= ORACLE_DETAIL_CAP or not req or not _wants_detail(job['title'], False):
+        if (fetched >= ORACLE_DETAIL_CAP or not req
+                or not _wants_detail(job['title'], security_company)):
             continue
         fetched += 1
         description = fetch_oracle_description(host, site, req, label=f'{company} Oracle')
@@ -1909,6 +1913,9 @@ SIMPLE_BOARDS = {
     'recruitee': scrape_recruitee,
     'pinpoint': scrape_pinpoint,
 }
+# Simple boards whose scraper fetches descriptions for title-level candidates,
+# which is_cyber_title judges under the company's security_company flag.
+FLAGGED_SIMPLE_BOARDS = {'smartrecruiters'}
 
 
 class BoardTask(NamedTuple):
@@ -1933,9 +1940,12 @@ def build_tasks(config, board=None, limit=None):
         if not want(name):
             continue
         for entry in limited(config.get(name)):
+            flag = entry.get('security_company', False)
+            args = (entry['name'], entry['slug'])
+            if name in FLAGGED_SIMPLE_BOARDS:
+                args += (flag,)
             tasks.append(BoardTask(
-                f'{entry["name"]} ({name}/{entry["slug"]})', scraper,
-                (entry['name'], entry['slug']), entry.get('security_company', False)))
+                f'{entry["name"]} ({name}/{entry["slug"]})', scraper, args, flag))
     if want('workday'):
         for entry in limited(config.get('workday')):
             tasks.append(BoardTask(
@@ -1947,7 +1957,8 @@ def build_tasks(config, board=None, limit=None):
         for entry in limited(config.get('oracle')):
             tasks.append(BoardTask(
                 f'{entry["name"]} (oracle/{entry["host"]}/{entry["site"]})', scrape_oracle,
-                (entry['name'], entry['host'], entry['site']),
+                (entry['name'], entry['host'], entry['site'],
+                 entry.get('security_company', False)),
                 entry.get('security_company', False)))
     if want('eightfold'):
         for entry in limited(config.get('eightfold')):
