@@ -40,6 +40,14 @@ SENIORITY_REJECT = [
     # so "Cyber Leadership Development Program" (a new-grad cohort) survives.
     r'\bsupervisor\b', r'\bleader\b',
 ]
+# Seniority words inside a level name or an org unit, not the role: Anthropic
+# 'Member of Technical Staff, Security - New Grad', MIT Lincoln Laboratory
+# 'Cyber Security Researcher - Associate Staff', 'Intern, Office of the Chief
+# Information Security Officer'. Removed before SENIORITY_REJECT runs, so a
+# plain 'Staff Security Engineer' or CISO title still rejects.
+SENIORITY_EXEMPT_RE = re.compile(
+    r'\bmember of (?:the )?technical staff\b|\bassociate staff\b'
+    r'|\boffice of the chief [a-z ]{0,40}?officer\b')
 
 # 'Architect' usually marks a senior IC, but named early-career cohorts run
 # "Security Architect - New College Grad 2026" reqs. It rejects only when the
@@ -50,10 +58,18 @@ ARCHITECT_RE = re.compile(r'\barchitect\b')
 # Senior levels are rejected only when III/IV/3/4 qualifies a role/level noun,
 # so "SOC Analyst III" and "Tier 3 Responder" are rejected but "Layer 3 Network
 # Analyst I", "PCI DSS 4.0 Compliance Analyst", and "Cyber IV&V Engineer" pass.
+#
+# The level can also follow a separator ("Analyst - III", "Analyst (IV)") and
+# sit in the L-scale ("L3 SOC Analyst"). A separated numeral has to end the
+# title or a bracketed part, so "Analyst - 4 days onsite" is not a level.
+_LEVEL_NOUNS = (r'analyst|engineer|consultant|specialist|administrator|technician|'
+                r'developer|tester|responder|investigator|hunter|technologist')
+_LEVEL_TAIL = r'\s*(?=$|[)\-–,/|(])'
 LEVELED_SENIOR_RE = re.compile(
-    r'\b(?:analyst|engineer|consultant|specialist|administrator|technician|'
-    r'developer|tester|responder|investigator|scientist|researcher|'
-    r'technologist|officer|tier|level)\s+(?:iii|iv|3|4)\b'
+    r'\b(?:' + _LEVEL_NOUNS + r'|scientist|researcher|officer|tier|level)'
+    r'\s+(?:iii|iv|3|4)\b'
+    r'|\b(?:' + _LEVEL_NOUNS + r'|officer)\s*[-–,(]\s*(?:level\s+)?(?:iii|iv|3|4)'
+    + _LEVEL_TAIL + r'|\bl[34]\b'
 )
 
 # Internships and co-ops get their own level. Title signals only — job
@@ -92,11 +108,10 @@ FUNCTION_REJECT = [
     'fire operation',
     'nuclear safeguards',  # 'safeguards' alone is an AI-safety signal
     'sales', 'account executive', 'account manager', 'marketing',
-    'recruiter', 'recruiting', 'talent acquisition', 'human resources',
+    'recruiter', 'recruiting', 'talent acquisition',
     'people technology', 'people operations', 'channel systems',
     'customer success', 'customer support', 'business development', 'partner manager',
-    'payroll', 'accountant', 'accounting', 'finance', 'financial analyst', 'treasury',
-    'fp&a', 'revenue', 'billing', 'procurement',
+    'accountant', 'accounting', 'financial analyst', 'fp&a',
     # Finance-audit work; "SOX/SOC" in an audit title is SOC 1/2 reporting, not
     # a security operations center.
     'internal audit', 'sox',
@@ -106,7 +121,7 @@ FUNCTION_REJECT = [
     'hackathon', 'general interest', 'talent community', 'talent network',
     # Hardware/manufacturing — "SoC" (system-on-chip) titles are not SOC roles.
     'asic', 'rtl design', 'soc design', 'soc verification', 'soc architect',
-    'silicon', 'chip design', 'tapeout', 'manufacturing engineer',
+    'chip design', 'tapeout', 'manufacturing engineer',
     'process engineer', 'mechanical engineer', 'electrical engineer',
     'chemical engineer', 'industrial engineer', 'civil engineer',
     'photolithography', 'metrology',
@@ -155,12 +170,59 @@ GUARDED_FUNCTION_REJECTS = [
     # night shifts, so the pay rate and the manufacturing site carry it.
     r'\$\d+(?:\.\d+)?\s*/\s*(?:hr|hour)\b',
     r'\bsecurity associate, manufacturing\b',
-    r'\bsupply chain\b(?! security)',
     r'(?<!ai )\bsafety and security\b',
 ]
 
 FUNCTION_REJECT_RE = re.compile(
     '|'.join([_term_regex(t) for t in FUNCTION_REJECT] + GUARDED_FUNCTION_REJECTS))
+
+# Departments that name the team a security role supports as often as the job
+# itself: 'Cybersecurity Analyst - Finance Systems', 'Security Engineer I,
+# Payments & Billing', 'Supply Chain Cyber Risk Analyst I', 'Silicon Security
+# Researcher'. They reject only a title that does not also name security work
+# (see _names_security_work), so 'Treasury Operations Analyst' and 'Supply
+# Chain Analyst I' at a security company stay out. Sales and marketing are
+# never security work and stay in FUNCTION_REJECT.
+DEPARTMENT_REJECT = [
+    'finance', 'treasury', 'revenue', 'billing', 'human resources', 'payroll',
+    'procurement', 'silicon',
+]
+DEPARTMENT_REJECT_RE = re.compile(
+    '|'.join([_term_regex(t) for t in DEPARTMENT_REJECT]
+             + [r'\bsupply chain\b(?! security)']))
+
+# 'Security' senses that are not information security: 'Social Security
+# Intern', 'Food Security Analyst I', 'Homeland Security Intern', 'Campus
+# Security Intern', 'Security Forces Intern', 'Security Badging Intern'.
+# Stripped before the cyber-keyword scan, as 'national security' is, so a
+# title needs its own cyber term ('Cybersecurity Intern, Homeland Security').
+NON_CYBER_SECURITY_RE = re.compile(
+    r'\b(?:social|food|energy|border|homeland|campus|event|corporate)\s+security\b'
+    r'|\bsecurity\s+(?:forces|badging)\b')
+
+# A bare 'security' before these role nouns is usually a facility, badging or
+# guard job: RTX 'Security Specialist II' (COMSEC, NISPOM), SAIC 'Security
+# Associate', KBR 'Associate Security Specialist', GDIT 'Security Specialist -
+# Administrative (Junior)', 'Security Access Control Technician I'. Such a
+# title needs a second cyber term ('Cyber Security Specialist I', 'IT Security
+# Specialist I') or a technical role noun ('Associate Security Analyst').
+WEAK_SECURITY_ROLE_RE = re.compile(
+    r'\b(?:specialist|technician|associate|assistant|coordinator|officer)s?\b')
+TECH_SECURITY_ROLE_RE = re.compile(
+    r'\b(?:analyst|engineer|engineering|consultant|administrator|developer|tester|'
+    r'responder|investigator|researcher|scientist|architect|auditor|hunter)s?\b')
+# The role noun has to follow the word 'security' closely for a department
+# title to count as security work: 'Silicon Security Researcher' does,
+# 'Revenue Platform Engineer, Security' does not.
+SECURITY_ROLE_RE = re.compile(
+    r'\bsecurity\s+(?:[a-z]+\s+)?(?:analyst|engineer|consultant|administrator|'
+    r'developer|tester|responder|investigator|researcher|scientist|architect|'
+    r'auditor|hunter)s?\b')
+# A word that makes 'security' information security by itself.
+INFOSEC_QUALIFIER_RE = re.compile(
+    r'\b(?:information|info|it|is|systems?|network|cloud|application|app|data|'
+    r'computer|product|software|endpoint|email|web|platform|infrastructure|'
+    r'offensive|defensive|digital|mobile|database|identity|ot|ics|iot)\s+security\b')
 
 # "Security Officer" is usually a guard; keep it only when clearly infosec.
 SECURITY_OFFICER_RE = re.compile(r'\bsecurity officer\b')
@@ -191,6 +253,9 @@ CYBER_KEYWORDS = [
     'data loss prevention',
     'siem', 'detection engineer', 'detection and response',
     'devsecops', 'identity and access', 'zero trust', 'privacy engineer',
+    # 'Identity Access Management Analyst I', 'Governance, Risk and Compliance
+    # Analyst I'. '&' is read as 'and' before the scan.
+    'identity access management', 'governance, risk',
     'iam engineer', 'iam analyst', 'cyber risk', 'security risk',
     'technology risk',
     # AI security & AI safety — model/LLM security, adversarial ML, and
@@ -202,6 +267,10 @@ CYBER_KEYWORDS = [
     'ai alignment', 'alignment science', 'alignment research', 'safeguards',
 ]
 
+# 'SOC 1', 'SOC 2' and 'SOC Reporting' are audit reports, not a security
+# operations center: 'SOC 1 Analyst I', 'SOC 1 Audit Associate'.
+SOC_AUDIT_GUARD = r'(?![\s-]*[12]\b)(?!\s+reporting\b)'
+
 # Short acronyms need word boundaries ('soc' is inside 'associate'), and
 # 'SoC' must not match system-on-chip hardware titles. Qualcomm lists SoC among
 # chip disciplines ("Hardware (CPU, GPU, SoC, Digital Design, DV) Engineering
@@ -209,9 +278,12 @@ CYBER_KEYWORDS = [
 # neighbour counts as well as a following word.
 CYBER_REGEXES = [re.compile(p) for p in
                  (r'(?<!pu, )\bsoc\b(?![\s,/-]+(asic|design|digital design|verification|'
-                  r'rtl|silicon|power|performance|hardware))',
+                  r'rtl|silicon|power|performance|hardware))' + SOC_AUDIT_GUARD,
+                  # SOC 2 is the security audit report, so its compliance work
+                  # is GRC; SOC 1 covers financial controls and stays out.
+                  r'\bsoc[\s-]*2\s+compliance\b',
                   r'\bcnd\b', r'\bcno\b', r'\bdfir\b', r'\bir analyst\b',
-                  r'\bdlp\b')]
+                  r'\bdlp\b', r'\biam\b', r'\bcsirt\b')]
 
 # Bare 'safeguards' is an AI-safety signal here, but IAEA/nuclear
 # non-proliferation "Safeguards Analyst" titles (that omit the word 'nuclear'
@@ -283,6 +355,11 @@ EARLYCAREER_SIGNALS = [
     'entry level', 'entry-level', 'early career', 'junior', 'apprentice',
     'associate', 'tier 1', 'tier i', 'tier 2', 'tier ii', 'level 1', 'level 2',
     'early in career',
+    # 'Jr. Security Analyst', 'Jr SOC Analyst'. The badging role that kept 'jr'
+    # out, Leidos 'Jr. Security Specialist', now fails WEAK_SECURITY_ROLE_RE.
+    'jr',
+    # 'Security Analyst, Level I', 'L1 SOC Analyst', 'SOC Analyst L2'.
+    'level i', 'level ii', 'l1', 'l2',
     # A cohort, not the senior title 'Fellow' that SENIORITY_REJECT holds. It
     # keeps Anthropic 'Fellows Program, AI Safety & Security' once AI flat
     # titles need early-career evidence.
@@ -297,10 +374,12 @@ EARLYCAREER_RE = re.compile('|'.join(_term_regex(t) for t in EARLYCAREER_SIGNALS
 # III+ is rejected by LEVELED_SENIOR_RE above. 'Technologist' is Travelers'
 # level noun ('Cybersecurity Ops Technologist I'). 'Officer' counts at level 1
 # only: Draper's 'Information Security Officer 2' asks for 3-5 years.
+# Separated forms follow the same rule as LEVELED_SENIOR_RE: 'Security Analyst
+# - I', 'Security Analyst (I)'. 'Hunter' is a level noun ('Cyber Threat
+# Hunter I').
 LEVELED_TITLE_RE = re.compile(
-    r'\b(?:(analyst|engineer|consultant|specialist|administrator|technician|'
-    r'developer|tester|responder|investigator|technologist)\s+(i|ii|1|2)'
-    r'|officer\s+(?:i|1))\b'
+    r'\b(?:(?:' + _LEVEL_NOUNS + r')\s+(?:i|ii|1|2)|officer\s+(?:i|1))\b'
+    r'|\b(?:' + _LEVEL_NOUNS + r')\s*[-–,(]\s*(?:level\s+)?(?:i|ii|1|2)' + _LEVEL_TAIL
 )
 
 # Strong phrases in a job description that mark a role as early career.
@@ -311,6 +390,17 @@ DESCRIPTION_SIGNALS = [
     'entry level role', 'entry-level role', 'entry level position',
     'entry-level position', 'entry level opportunity',
 ]
+
+# A description levels a flat title as new grad only when it addresses the
+# reader: "open to recent graduates", "designed for new graduates", "new grad
+# role". A bare mention does not: "Our teams include everyone from recent
+# graduates to industry veterans" put a flat 'Security Engineer' on the
+# new-grad table.
+DESCRIPTION_NEWGRAD_RE = re.compile(
+    r'\b(?:for|open to|aimed at|targeting|welcomes?)\s+(?:recent|new)\s+'
+    r'(?:college\s+|university\s+)?grad(?:uate)?s?\b'
+    r'|\bnew[- ]grad(?:uate)?\s+(?:role|position|program|opportunity|hire)s?\b'
+    r'|\b(?:recent|new)\s+grad(?:uate)?s?\s+(?:are\s+)?(?:encouraged|welcome)\b')
 
 # A description stating a low experience ceiling marks an early-career role
 # even when the title carries no level marker (used, gated, at security_company
@@ -336,7 +426,23 @@ CLEARANCE_SIGNALS = [
     'clearance', 'ts/sci', 'top secret', 'polygraph', 'us citizen',
     'u.s. citizen', 'us citizenship', 'u.s. citizenship', 'public trust',
     'secret-level',
+    # Spellings the substrings above missed: 'TS / SCI', 'Top-Secret', 'Must be
+    # a United States citizen'.
+    'ts / sci', 'top-secret', 'united states citizen',
 ]
+# Phrases that name a clearance or citizenship only to waive it. CACI prints
+# "Clearance Level Must Currently Possess: None" on every req, so these are
+# removed before the scan. The form field must not reach past its own value:
+# "... Possess: None Clearance Level Must Be Able to Obtain: Secret" still flags.
+CLEARANCE_NEGATION_RE = re.compile(
+    r"\b(?:u\.?s\.? )?(?:clearance|polygraph|citizenship)(?: [a-z/']+){0,6}? ?: ?"
+    r'(?:none|no|n/a|not required|not applicable)\b'
+    r'|\bno (?:active |security |government )*(?:clearance|polygraph)s? '
+    r'(?:is |are )?(?:required|needed|necessary)\b'
+    r'|\b(?:does|do|will) not require (?:a |an |any )?(?:active |security |government )*'
+    r'(?:clearance|polygraph|(?:u\.?s\.? )?citizenship)\b'
+    r'|\b(?:(?:u\.?s\.? )?citizenship|clearance|polygraph)s? (?:is |are )?not '
+    r'(?:required|needed|necessary)\b')
 # ITAR/EAR export control restricts a role to a "U.S. Person" without asking for
 # a clearance: Amazon 'Security Engineer I, Threat Hunting' had no 🇺🇸. These
 # are word-bounded, unlike the substrings above, so "US personnel" is not one.
@@ -358,7 +464,8 @@ CATEGORY_RULES = [
                            # Computer network operations: Nightwing 'Junior
                            # CNO Developer'.
                            r'\bcno\b'),
-    ('SOC & Detection', r'\bsoc\b|security operations|detection|blue team|'
+    ('SOC & Detection', r'\bsoc\b' + SOC_AUDIT_GUARD
+                        + r'|security operations|detection|blue team|'
                         r'incident response|threat hunt|csirt|siem|'
                         r'cyber defense|defensive cyber|triage|'
                         # Managed detection and network-defense titles that
@@ -1082,7 +1189,7 @@ def is_rejected_title(title, today=None):
     `today` (a date) is injectable so the season check can be tested.
     """
     t = title.lower()
-    if any(re.search(p, t) for p in SENIORITY_REJECT):
+    if any(re.search(p, SENIORITY_EXEMPT_RE.sub(' ', t)) for p in SENIORITY_REJECT):
         return True
     if ARCHITECT_RE.search(t) and classify_level(title, today=today) not in ('newgrad', 'intern'):
         return True
@@ -1094,6 +1201,14 @@ def is_rejected_title(title, today=None):
             and not any(h in t for h in INFOSEC_OFFICER_HINTS)):
         return True
     if PROGRAM_ANALYST_RE.search(t) and not _has_cyber_keyword(t):
+        return True
+    if NON_CYBER_SECURITY_RE.search(t) and not _has_cyber_keyword(t):
+        return True
+    if DEPARTMENT_REJECT_RE.search(t) and not _names_security_work(t):
+        return True
+    if (re.search(r'\bsecurity\b', _strip_non_cyber_security(t))
+            and WEAK_SECURITY_ROLE_RE.search(t) and not TECH_SECURITY_ROLE_RE.search(t)
+            and not _has_second_cyber_term(t)):
         return True
     return _is_stale_intern_title(title, today)
 
@@ -1122,9 +1237,27 @@ SECURITY_CLEARANCE_RE = re.compile(r'\bsecurity clearance\b')
 NATIONAL_SECURITY_RE = re.compile(r'\bnational security(?: solutions)?\b')
 
 
+def _strip_non_cyber_security(t):
+    t = SECURITY_CLEARANCE_RE.sub(' ', t)
+    return NON_CYBER_SECURITY_RE.sub(' ', NATIONAL_SECURITY_RE.sub(' ', t))
+
+
 def _has_cyber_keyword(t):
-    t = NATIONAL_SECURITY_RE.sub(' ', SECURITY_CLEARANCE_RE.sub(' ', t))
+    # 'Identity & Access Management Intern' reads as 'identity and access'.
+    t = re.sub(r'\s+', ' ', _strip_non_cyber_security(t).replace('&', ' and '))
     return _is_cyber_keyword_hit(t) or any(p.search(t) for p in CYBER_REGEXES)
+
+
+def _has_second_cyber_term(t):
+    # A cyber term besides the bare word 'security', or a qualifier that makes
+    # 'security' information security.
+    return (_has_cyber_keyword(re.sub(r'\bsecurity\b', ' ', t))
+            or bool(INFOSEC_QUALIFIER_RE.search(t)) or bool(ISSO_HINT_RE.search(t))
+            or any(h in t for h in INFOSEC_OFFICER_HINTS))
+
+
+def _names_security_work(t):
+    return _has_second_cyber_term(t) or bool(SECURITY_ROLE_RE.search(t))
 
 
 # Defense security companies also staff intelligence-support analysts, whom the
@@ -1205,7 +1338,7 @@ def classify_level(title, description='', intern_hint=False, today=None):
         return 'earlycareer'
     if description:
         d = strip_html(description).lower()
-        if any(kw in d for kw in ('new grad', 'new graduate', 'recent graduate')):
+        if DESCRIPTION_NEWGRAD_RE.search(d):
             return 'newgrad'
         if any(kw in d for kw in DESCRIPTION_SIGNALS):
             return 'earlycareer'
@@ -1225,9 +1358,13 @@ def permits_early_experience(description):
 
 
 def requires_clearance(title, description=''):
-    text = f'{title} {strip_html(description)}'.lower()
+    """True if the posting asks for a clearance, US citizenship or US-person status."""
+    # Whitespace collapses first so "U.S.\ncitizen" and "U.S.&nbsp;citizen"
+    # read as one phrase.
+    text = re.sub(r'\s+', ' ', f'{title} {strip_html(description)}'.lower())
+    text = CLEARANCE_NEGATION_RE.sub(' ', text)
     return (any(kw in text for kw in CLEARANCE_SIGNALS)
-            or bool(CLEARANCE_WORD_RE.search(re.sub(r'\s+', ' ', text))))
+            or bool(CLEARANCE_WORD_RE.search(text)))
 
 
 # ---------------------------------------------------------------------------

@@ -176,7 +176,7 @@ CASES = [
     ('Associate Security Engineer, National Security', 'Reston, VA', '', False, ('earlycareer', 'Security Engineering')),
     ('Junior Threat Analyst - National Security Solutions', 'Chantilly, VA', '', False, ('earlycareer', 'Security Engineering')),
     # -- should be rejected: facility-security work behind a bare 'security' title --
-    ('Security Specialist II', 'Cambridge, MA',
+    ('Security Analyst II', 'Cambridge, MA',
      'Maintain classified document control and personnel security processing '
      'in accordance with 32 CFR part 117 and the NISPOM rule.', False, None),
     # ...but a cyber title citing the NISPOM, or a bare one that does not, stays.
@@ -184,7 +184,7 @@ CASES = [
      'Perform security tasks required by the 32 CFR part 117 National '
      'Industrial Security Operating Manual (NISPOM) and NIST SP 800-53.', False,
      ('earlycareer', 'Security Engineering')),
-    ('Security Specialist II', 'Cambridge, MA',
+    ('Security Analyst II', 'Cambridge, MA',
      'Triage endpoint alerts and tune SIEM detections.', False,
      ('earlycareer', 'Security Engineering')),
 
@@ -288,13 +288,12 @@ CASES = [
     ('Cyber New Professionals Program', 'McLean, VA', '', False, ('newgrad', 'Security Engineering')),
     ('Internships in Cybersecurity and Information Security', 'McLean, VA', '', False, ('intern', 'Security Engineering')),
     # ...and the limits on those rules. A guard post stays a guard post, an
-    # officer counts only at level 1, and 'Jr.' is not a level signal: it
-    # would admit Leidos 'Jr. Security Specialist', a badging role.
+    # officer counts only at level 1, and Leidos 'Jr. Security Specialist', a
+    # badging role, fails the bare-security role rule now that 'Jr.' levels.
     ('Security Officer I -Plant McIntosh, Rincon, GA', 'Rincon, GA', '', False, None),
     ('Security Officer II', 'Austin, TX', '', False, None),
     ('Security Officer - Kansas City, Missouri', 'Kansas City, MO', '', False, None),
     ('Information Security Officer 2', 'Cambridge, MA', '', False, None),
-    ('Information System Security Officer - Jr.', 'Washington, DC', '', False, None),
     ('Jr. Security Specialist', 'Omaha, NE', '', False, None),
     ('Cybersecurity Technologist III', 'Hartford, CT', '', False, None),
     ('Emergency Responder I', 'Austin, TX', '', False, None),
@@ -304,6 +303,94 @@ CASES = [
     ('Student Trainee (Cybersecurity)', 'Hagatna, GU', '', False, ('intern', 'Security Engineering')),
     # ...but a foreign territory that merely shares a name is still rejected.
     ('Junior Security Analyst', 'Tortola, British Virgin Islands', '', False, None),
+
+    # -- should be rejected: 'security' that is not information security --
+    ('Social Security Intern', 'Baltimore, MD', '', False, None),
+    ('Food Security Analyst I', 'Austin, TX', '', False, None),
+    ('Energy Security Intern', 'Austin, TX', '', False, None),
+    ('Border Security Intern', 'Austin, TX', '', False, None),
+    ('Homeland Security Intern', 'Washington, DC', '', False, None),
+    ('Campus Security Intern', 'Austin, TX', '', False, None),
+    ('Event Security Intern', 'Austin, TX', '', False, None),
+    ('Corporate Security Intern', 'Charlotte, NC', '', False, None),
+    ('Security Forces Intern', 'Austin, TX', '', False, None),
+    ('Security Badging Intern', 'Austin, TX', '', False, None),
+    # ...and a bare 'security' before a facility-style role noun.
+    ('Security Access Control Technician I', 'Austin, TX', '', False, None),
+    ('Security Specialist II', 'Cambridge, MA', '', False, None),
+    ('Security Specialist - Administrative (Junior)', 'Falls Church, VA', '', False, None),
+    ('Associate Security Specialist', 'Huntsville, AL', '', False, None),
+    ('Security Associate', 'Reston, VA', '', False, None),
+    # ...while a second cyber term, a technical role noun, or its own cyber
+    # term beside the other sense keeps the title.
+    ('Security Analyst I', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Security Engineer I', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Cyber Security Specialist I', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Information Security Specialist I', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('IT Security Specialist I', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Cybersecurity Intern, Homeland Security', 'Washington, DC', '', False, ('intern', 'Security Engineering')),
+    ('Access Control Analyst I', 'Austin, TX', '', True, ('earlycareer', 'Engineering @ Security Co')),
+
+    # -- department words do not reject a title that names security work --
+    ('Cybersecurity Analyst - Finance Systems', 'Austin, TX',
+     'Open to candidates with 0-2 years of experience.', False, ('earlycareer', 'Security Engineering')),
+    ('Security Engineer I, Payments & Billing', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Security Engineer I, Revenue Platform', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Information Security Analyst I - Human Resources Systems', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Cyber Security Analyst I, Treasury Systems', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Supply Chain Cyber Risk Analyst I', 'Austin, TX', '', False, ('earlycareer', 'GRC & Risk')),
+    ('Silicon Security Researcher - New Grad', 'Austin, TX', '', False, ('newgrad', 'Security Engineering')),
+    # ...but sales, account and department-only titles stay out.
+    ('Cyber Sales Intern', 'Austin, TX', '', True, None),
+    ('Security Account Executive I', 'Austin, TX', '', True, None),
+    ('Revenue Platform Engineer, Security', 'Austin, TX', '', True, None),
+    ('Human Resources Analyst I', 'Austin, TX', '', True, None),
+
+    # -- level markers: Jr, separated numerals, Level I/II, L1/L2 --
+    ('Jr. Security Analyst', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Jr SOC Analyst', 'Austin, TX', '', False, ('earlycareer', 'SOC & Detection')),
+    ('JR SOC ANALYST', 'Austin, TX', '', False, ('earlycareer', 'SOC & Detection')),
+    ('Information System Security Officer - Jr.', 'Washington, DC', '', False, ('earlycareer', 'Security Engineering')),
+    ('Security Analyst - I', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Security Analyst (I)', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Security Analyst, Level I', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Cybersecurity Analyst Level II', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('L1 SOC Analyst', 'Austin, TX', '', False, ('earlycareer', 'SOC & Detection')),
+    ('SOC Analyst L2', 'Austin, TX', '', False, ('earlycareer', 'SOC & Detection')),
+    ('Cyber Threat Hunter I', 'Austin, TX', '', False, ('earlycareer', 'SOC & Detection')),
+    # ...while the senior forms stay out.
+    ('Security Analyst Level III', 'Austin, TX', '', False, None),
+    ('Security Analyst - III', 'Austin, TX', '', False, None),
+    ('L3 SOC Analyst', 'Austin, TX', '', False, None),
+    ('Threat Hunter III', 'Austin, TX', '', False, None),
+    ('Security Analyst - 4 days onsite', 'Austin, TX', '', False, None),
+
+    # -- keyword gaps --
+    ('Identity & Access Management Intern', 'Austin, TX', '', False, ('intern', 'Identity & IAM')),
+    ('Identity Access Management Analyst I', 'Austin, TX', '', False, ('earlycareer', 'Identity & IAM')),
+    ('IAM Intern', 'Austin, TX', '', False, ('intern', 'Identity & IAM')),
+    ('Governance, Risk and Compliance Analyst I', 'Austin, TX', '', False, ('earlycareer', 'GRC & Risk')),
+    ('CSIRT Analyst I', 'Austin, TX', '', False, ('earlycareer', 'SOC & Detection')),
+
+    # -- SOC 1 and SOC 2 are audit reports, not a security operations center --
+    ('SOC 1 Analyst I', 'Austin, TX', '', False, None),
+    ('SOC 1 Audit Associate', 'Austin, TX', '', False, None),
+    ('SOC Reporting Intern', 'Austin, TX', '', False, None),
+    ('SOC 2 Compliance Analyst I', 'Austin, TX', '', False, ('earlycareer', 'GRC & Risk')),
+
+    # -- seniority words inside a level name or an org unit --
+    ('Member of Technical Staff, Security - New Grad', 'San Francisco, CA', '', False, ('newgrad', 'Security Engineering')),
+    ('Cyber Security Researcher - Associate Staff', 'Lexington, MA', '', False, ('earlycareer', 'Security Engineering')),
+    ('Intern, Office of the Chief Information Security Officer', 'Austin, TX', '', False, ('intern', 'Security Engineering')),
+    ('Chief Information Security Officer', 'Austin, TX', '', False, None),
+
+    # -- a description levels a flat title only when it addresses the reader --
+    ('Security Engineer', 'Austin, TX',
+     'Our teams include everyone from recent graduates to industry veterans.', False, None),
+    ('Security Engineer', 'Austin, TX', 'This role is open to recent graduates.', False,
+     ('newgrad', 'Security Engineering')),
+    ('Security Engineer', 'Austin, TX', 'A new grad role on our detection team.', False,
+     ('newgrad', 'Security Engineering')),
 ]
 
 failures = 0
@@ -932,7 +1019,7 @@ JUDGED = [
     ('Security Analyst Intern', 'Austin, TX', '', False, None),
     ('Senior Security Engineer', 'Austin, TX', '', False, 'rejected-title'),
     ('Research Engineer - Machine Learning & Robotics', 'Austin, TX', '', False, 'not-cyber'),
-    ('Security Specialist II', 'Austin, TX',
+    ('Security Analyst II', 'Austin, TX',
      'Maintains classified document control per the NISPOM.', False, 'facility-security'),
     ('Security Engineer', 'Austin, TX', '', False, 'no-level'),
     ('Software Engineer, AI Safety', 'San Francisco, CA',
@@ -995,6 +1082,23 @@ CLEAR = [
     # ...but "US personnel" is a workforce, not a requirement.
     ('Security Engineer I', 'You will partner with US personnel across the org.', False),
     ('Security Engineer I', 'Train U.S. personnel on phishing response.', False),
+    # A clearance or citizenship named only to waive it is no requirement...
+    ('Cyber Analyst', 'Clearance Level Must Currently Possess: None', False),
+    ('Cyber Analyst', 'No clearance required.', False),
+    ('Cyber Analyst', 'This role does not require a clearance.', False),
+    ('Cyber Analyst', 'Polygraph: None', False),
+    ('Cyber Analyst', 'US Citizenship Required: No', False),
+    ('Cyber Analyst', 'U.S. citizenship is not required.', False),
+    # ...but the obtainable level on the same CACI form still flags.
+    ('Cyber Analyst', '<p>Clearance Level Must Currently Possess: None</p>'
+     '<p>Clearance Level Must Be Able to Obtain: Secret</p>', True),
+    # Spellings split by markup or punctuation.
+    ('Cyber Analyst', 'Must be a U.S.&nbsp;citizen.', True),
+    ('Cyber Analyst', 'Must be a U.S.\ncitizen.', True),
+    ('Cyber Analyst', 'Active TS / SCI required.', True),
+    ('Cyber Analyst', 'Top-Secret eligibility.', True),
+    ('Cyber Analyst', 'Must hold an active Secret clearance.', True),
+    ('Cyber Analyst', 'Must be a United States citizen.', True),
 ]
 for title, desc, want in CLEAR:
     got = s.requires_clearance(title, desc)
