@@ -501,7 +501,7 @@ ashby:
   slug: materialsecurity
   security_company: true
 - name: Menlo Security
-  slug: menlo
+  slug: menlosecurity
   security_company: true
 - name: Miro
   slug: miro
