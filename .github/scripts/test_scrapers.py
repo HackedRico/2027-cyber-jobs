@@ -2440,6 +2440,52 @@ def test_orphan_pass_covers_jibe_rows():
           ['Cyber Analyst'])
 
 
+@responses.activate
+def test_fetches_refuse_a_redirect_to_another_host():
+    """A board API that answers from a host companies.yml does not name is not that board."""
+    responses.get('https://api.test/moved', status=302,
+                  headers={'Location': 'https://evil.test/jobs'})
+    responses.get('https://evil.test/jobs', json={'jobs': [{'id': 1}]})
+    responses.get('https://api.test/old', status=301,
+                  headers={'Location': 'https://api.test/new'})
+    responses.get('https://api.test/new', json={'ok': True})
+    check('fetch_json refuses a cross-host redirect',
+          sj.fetch_json('https://api.test/moved', label='t'), None)
+    check('...and does not retry it',
+          len([c for c in responses.calls if c.request.url == 'https://api.test/moved']), 1)
+    check('fetch_json follows a redirect on the same host',
+          sj.fetch_json('https://api.test/old', label='t'), {'ok': True})
+    check('_get_json_patiently refuses a cross-host redirect',
+          sj._get_json_patiently('https://api.test/moved', label='t'), None)
+    check('_get_json_patiently follows a redirect on the same host',
+          sj._get_json_patiently('https://api.test/old', label='t'), {'ok': True})
+    page = 'https://t.wd5.myworkdayjobs.com/B/job/Reston-VA/Analyst_R1'
+    responses.get('https://t.wd5.myworkdayjobs.com/wday/cxs/t/B/job/Reston-VA/Analyst_R1',
+                  status=302, headers={'Location': 'https://evil.test/jobs'})
+    check('workday_posting_state says nothing about a cross-host redirect',
+          sj.workday_posting_state(page), None)
+
+
+@responses.activate
+def test_fetches_cap_the_response_size():
+    body = json.dumps({'jobs': ['x' * 200]})
+    responses.get('https://api.test/big', body=body, content_type='application/json')
+    responses.get('https://api.test/small', json={'jobs': []})
+    original = sj.MAX_RESPONSE_BYTES
+    try:
+        sj.MAX_RESPONSE_BYTES = 100
+        check('fetch_json treats a body over the cap as a failed fetch',
+              sj.fetch_json('https://api.test/big', label='t'), None)
+        check('_get_json_patiently does too',
+              sj._get_json_patiently('https://api.test/big', label='t'), None)
+        check('a body under the cap still parses',
+              sj.fetch_json('https://api.test/small', label='t'), {'jobs': []})
+    finally:
+        sj.MAX_RESPONSE_BYTES = original
+    check('the real cap fits the largest board, Anduril at 41.6 MB',
+          sj.MAX_RESPONSE_BYTES > 42 * 1024 * 1024, True)
+
+
 for fn in (test_greenhouse_location_reads_only_location_fields,
            test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_lever_reads_all_locations,
@@ -2512,7 +2558,9 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_revive_takes_the_new_source, test_orphan_pass_renames_a_renamed_company,
            test_failed_board_holds_its_companys_rows,
            test_failed_boards_do_not_grow_the_silent_streak,
-           test_orphan_pass_covers_jibe_rows):
+           test_orphan_pass_covers_jibe_rows,
+           test_fetches_refuse_a_redirect_to_another_host,
+           test_fetches_cap_the_response_size):
     fn()
 
 if failures:

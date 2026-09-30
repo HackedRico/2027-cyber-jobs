@@ -107,6 +107,51 @@ def _sleep_backoff(attempt, retry_after=None):
     time.sleep(min(delay, MAX_BACKOFF))
 
 
+# The largest board payload in September 2026 was Greenhouse andurilindustries
+# with content at 41.6 MB, then Ashby openai at 13.9 MB, so a 25 MB cap would
+# have failed Anduril every run. A body past this is a tenant misbehaving or
+# hostile, and reading it whole could exhaust the runner's memory mid-scrape.
+MAX_RESPONSE_BYTES = 64 * 1024 * 1024
+
+
+def _host_of(url):
+    try:
+        return (urlparse(url).hostname or '').lower()
+    except ValueError:
+        return ''
+
+
+def _left_host(url, resp, label):
+    # requests follows a redirect to any host. A board API that answers from a
+    # host other than the one companies.yml names is no longer that employer's
+    # board, so its postings must not reach the table under the employer's name.
+    final = _host_of(resp.url)
+    if final == _host_of(url):
+        return False
+    print(f'  [{_oneline(label)}] redirected from {_host_of(url)} to '
+          f'{_oneline(final) or "?"}, treating as a failed fetch')
+    return True
+
+
+def _read_capped(resp, label):
+    # Returns the body, or None once it passes MAX_RESPONSE_BYTES. The size is
+    # counted after decompression, which is what the JSON parse holds in memory.
+    declared = resp.headers.get('Content-Length', '')
+    if declared.isdigit() and int(declared) > MAX_RESPONSE_BYTES:
+        print(f'  [{_oneline(label)}] response of {declared} bytes is over the cap, '
+              'treating as a failed fetch')
+        return None
+    chunks, size = [], 0
+    for chunk in resp.iter_content(chunk_size=1 << 16):
+        size += len(chunk)
+        if size > MAX_RESPONSE_BYTES:
+            print(f'  [{_oneline(label)}] response over {MAX_RESPONSE_BYTES} bytes, '
+                  'treating as a failed fetch')
+            return None
+        chunks.append(chunk)
+    return b''.join(chunks)
+
+
 def fetch_json(url, *, method='GET', label='', **kwargs):
     """HTTP request returning parsed JSON, or None on unrecoverable failure.
 
@@ -114,38 +159,53 @@ def fetch_json(url, *, method='GET', label='', **kwargs):
     honoring Retry-After, and 200s with a non-JSON body) with exponential
     backoff plus jitter, over the calling thread's pooled Session. Returning
     None (not []) lets callers tell a broken fetch apart from a genuinely
-    empty board.
+    empty board. A redirect to another host or a body over
+    MAX_RESPONSE_BYTES is a failed fetch, not retried.
     """
     kwargs.setdefault('timeout', REQUEST_TIMEOUT)
+    kwargs['stream'] = True
     for attempt in range(MAX_RETRIES):
         last = attempt + 1 == MAX_RETRIES
         try:
             resp = _session().request(method, url, **kwargs)
         except requests.RequestException as e:
             if last:
-                print(f'  [{label}] request error: {e}')
+                print(f'  [{_oneline(label)}] request error: {_oneline(e)}')
                 return None
             _sleep_backoff(attempt)
             continue
-        # A lone Workday 502 or 504 used to end the whole search term on its
-        # first try, and the term's postings with it.
-        if resp.status_code == 429 or resp.status_code >= 500:
-            if last:
-                reason = ' (rate limited)' if resp.status_code in (429, 503) else ''
-                print(f'  [{label}] HTTP {resp.status_code}{reason}')
+        with resp:
+            if _left_host(url, resp, label):
                 return None
-            _sleep_backoff(attempt, resp.headers.get('Retry-After'))
-            continue
-        if resp.status_code != 200:
-            print(f'  [{label}] HTTP {resp.status_code}')
-            return None
-        try:
-            return resp.json()
-        except ValueError:
-            if last:
-                print(f'  [{label}] non-JSON 200 response')
+            # A lone Workday 502 or 504 used to end the whole search term on its
+            # first try, and the term's postings with it.
+            if resp.status_code == 429 or resp.status_code >= 500:
+                if last:
+                    reason = ' (rate limited)' if resp.status_code in (429, 503) else ''
+                    print(f'  [{_oneline(label)}] HTTP {resp.status_code}{reason}')
+                    return None
+                _sleep_backoff(attempt, resp.headers.get('Retry-After'))
+                continue
+            if resp.status_code != 200:
+                print(f'  [{_oneline(label)}] HTTP {resp.status_code}')
                 return None
-            _sleep_backoff(attempt)
+            try:
+                body = _read_capped(resp, label)
+            except requests.RequestException as e:
+                if last:
+                    print(f'  [{_oneline(label)}] request error: {_oneline(e)}')
+                    return None
+                _sleep_backoff(attempt)
+                continue
+            if body is None:
+                return None
+            try:
+                return json.loads(body)
+            except ValueError:
+                if last:
+                    print(f'  [{_oneline(label)}] non-JSON 200 response')
+                    return None
+                _sleep_backoff(attempt)
     return None
 
 
@@ -653,10 +713,14 @@ def workday_posting(url):
         return None, None
     tenant, instance, board, path = m.groups()
     api = f'https://{tenant}.{instance}.myworkdayjobs.com/wday/cxs/{tenant}/{board}{path}'
+    label = f'Workday detail {tenant}'
     try:
-        resp = _session().get(api, headers={'Accept': 'application/json'},
-                              timeout=REQUEST_TIMEOUT)
-        body = resp.json()
+        with _session().get(api, headers={'Accept': 'application/json'},
+                            timeout=REQUEST_TIMEOUT, stream=True) as resp:
+            if _left_host(api, resp, label):
+                return None, None
+            raw = _read_capped(resp, label)
+        body = json.loads(raw) if raw is not None else None
     except (requests.RequestException, ValueError):
         return None, None
     # A JSON null or list body raised AttributeError out of the vanished pass
@@ -910,29 +974,43 @@ EIGHTFOLD_EXPERIENCED_LEVELS = {'experienced professional'}
 
 def _get_json_patiently(url, *, method='GET', label='', **kwargs):
     kwargs.setdefault('timeout', REQUEST_TIMEOUT)
+    kwargs['stream'] = True
     for delay in (*RATE_LIMIT_DELAYS, None):
         try:
             resp = _session().request(method, url, **kwargs)
         except requests.RequestException as e:
             if delay is None:
-                print(f'  [{label}] request error: {_oneline(e)}')
+                print(f'  [{_oneline(label)}] request error: {_oneline(e)}')
                 return None
             time.sleep(delay)
             continue
-        if resp.status_code in (429, 503):
-            if delay is None:
-                print(f'  [{label}] HTTP {resp.status_code} (rate limited)')
+        with resp:
+            if _left_host(url, resp, label):
                 return None
-            time.sleep(delay)
-            continue
-        if resp.status_code != 200:
-            print(f'  [{label}] HTTP {resp.status_code}')
-            return None
-        try:
-            return resp.json()
-        except ValueError:
-            print(f'  [{label}] non-JSON 200 response')
-            return None
+            if resp.status_code in (429, 503):
+                if delay is None:
+                    print(f'  [{_oneline(label)}] HTTP {resp.status_code} (rate limited)')
+                    return None
+                time.sleep(delay)
+                continue
+            if resp.status_code != 200:
+                print(f'  [{_oneline(label)}] HTTP {resp.status_code}')
+                return None
+            try:
+                body = _read_capped(resp, label)
+            except requests.RequestException as e:
+                if delay is None:
+                    print(f'  [{_oneline(label)}] request error: {_oneline(e)}')
+                    return None
+                time.sleep(delay)
+                continue
+            if body is None:
+                return None
+            try:
+                return json.loads(body)
+            except ValueError:
+                print(f'  [{_oneline(label)}] non-JSON 200 response')
+                return None
     return None
 
 
