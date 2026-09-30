@@ -56,6 +56,19 @@ PAGE_FIELDS = ('company', 'role', 'location', 'type', 'category', 'clearance', '
 
 STATE_CODE_RE = re.compile(r'\b([A-Z]{2})\b')
 REMOTE_RE = re.compile(r'\bremote\b', re.IGNORECASE)
+# Characters XML 1.0 forbids: C0 controls but tab and newlines, lone
+# surrogates, U+FFFE and U+FFFF, plus DEL to match common.CONTROL_RE.
+# ElementTree writes them unchecked, so one scraped title carrying one made
+# every feed unparseable, and a lone surrogate made the UTF-8 write raise and
+# stopped the whole build.
+XML_INVALID_RE = re.compile(
+    '[^\t\n\r\x20-\x7e\x80-퟿-�\U00010000-\U0010ffff]')
+HTTP_URL_RE = re.compile(r'^https?://\S+$', re.IGNORECASE)
+
+
+def clean_text(value):
+    """`value` without the characters XML_INVALID_RE matches."""
+    return XML_INVALID_RE.sub('', value)
 
 
 def row_id(entry, ordinal=0):
@@ -71,7 +84,10 @@ def row_id(entry, ordinal=0):
     fields = [entry.get(f, '').strip() for f in ('company', 'role', 'date_added')]
     if ordinal:
         fields.append(str(ordinal))
-    return hashlib.sha256('\x1f'.join(fields).encode()).hexdigest()[:12]
+    # surrogatepass: a lone surrogate in a scraped title stopped the build,
+    # and it leaves every other row's id as it was.
+    joined = '\x1f'.join(fields).encode('utf-8', 'surrogatepass')
+    return hashlib.sha256(joined).hexdigest()[:12]
 
 
 def row_ids(listings):
@@ -138,7 +154,7 @@ def page_row(entry, rid=None):
     out = {'id': rid or row_id(entry)}
     for field in PAGE_FIELDS:
         value = entry.get(field, '')
-        out[field] = value.strip() if isinstance(value, str) else value
+        out[field] = clean_text(value).strip() if isinstance(value, str) else value
     out['clearance'] = bool(entry.get('clearance'))
     out['category'] = out['category'] or 'Security Engineering'
     out['states'], out['remote'] = derive_places(out['location'])
@@ -169,9 +185,10 @@ def page_data(listings, today):
 
 
 def _sub(parent, tag, text=None, **attrs):
-    el = ET.SubElement(parent, f'{{{ATOM_NS}}}{tag}', attrs)
+    el = ET.SubElement(parent, f'{{{ATOM_NS}}}{tag}',
+                       {k: clean_text(str(v)) for k, v in attrs.items()})
     if text is not None:
-        el.text = text
+        el.text = clean_text(text)
     return el
 
 
@@ -213,7 +230,10 @@ def build_feed(rows, kind=None):
         _sub(entry, 'title', f'{row["company"]}: {row["role"]}{flag}')
         _sub(entry, 'updated', _stamp(row['date_added']))
         _sub(entry, 'published', _stamp(row['date_added']))
-        _sub(entry, 'link', rel='alternate', type='text/html', href=row['url'])
+        # A feed reader opens any scheme it is handed, javascript: included,
+        # so a row without an http(s) link points at the board instead.
+        href = row['url'] if HTTP_URL_RE.match(row['url'] or '') else SITE_URL
+        _sub(entry, 'link', rel='alternate', type='text/html', href=href)
         _sub(entry, 'category', term=row['category'])
         _sub(entry, 'content', _entry_html(row), type='html')
     ET.indent(feed)

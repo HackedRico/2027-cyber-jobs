@@ -201,6 +201,37 @@ check('feed.xml caps at 50 entries', len(items), bs.FEED_SIZE)
 check('real feed entry ids are unique', len({e.find(f'{A}id').text for e in items}), len(items))
 
 
+# --- one bad row cannot break the feeds ----------------------------------------
+HOSTILE = [
+    row(company='Acme\x00', role='SOC\x1b[31m Analyst\x0b I', date_added='2026-09-27',
+        url='javascript:alert(document.domain)'),
+    row(company='Beta', role='Security Intern \ud800', type='intern', date_added='2026-09-26',
+        category='SOC & Detection\x7f', url='data:text/html,<script>alert(1)</script>'),
+    row(company='Gamma', role='Cyber Analyst I', date_added='2026-09-25',
+        url='https://gamma.example/jobs/1'),
+]
+with tempfile.TemporaryDirectory() as tmp:
+    src = Path(tmp) / 'listings.json'
+    src.write_text(json.dumps(HOSTILE), encoding='utf-8')
+    out = Path(tmp) / '_site'
+    bs.build(out, listings_file=src, src=ROOT / 'site', today=TODAY)
+    feed_text = (out / 'feed.xml').read_text(encoding='utf-8')
+    page = json.loads((out / 'listings.json').read_text(encoding='utf-8'))
+_, items = entries(feed_text)
+check('a feed with control characters and a lone surrogate still parses',
+      [e.find(f'{A}title').text for e in items],
+      ['Acme: SOC[31m Analyst I', 'Beta: Security Intern', 'Gamma: Cyber Analyst I'])
+check('a feed links only to http(s) urls, else to the board',
+      [e.find(f'{A}link').get('href') for e in items],
+      [bs.SITE_URL, bs.SITE_URL, 'https://gamma.example/jobs/1'])
+check('a feed category drops a DEL', items[1].find(f'{A}category').get('term'),
+      'SOC & Detection')
+check('the page data drops the same characters',
+      [(r['company'], r['role']) for r in page['rows']],
+      [('Acme', 'SOC[31m Analyst I'), ('Beta', 'Security Intern'),
+       ('Gamma', 'Cyber Analyst I')])
+
+
 if failures:
     print(f'\n{failures} site test(s) failed')
     sys.exit(1)
