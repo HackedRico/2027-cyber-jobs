@@ -116,7 +116,7 @@ The filtering logic lives in [`classify.py`](.github/scripts/classify.py): the k
 ## Testing locally
 
 ```bash
-pip install -r requirements-dev.txt
+pip install --require-hashes -r requirements-dev.txt
 ruff check .github/scripts                            # lint
 python .github/scripts/test_classification.py         # classification spot checks (run after keyword changes)
 python .github/scripts/test_scrapers.py               # offline ATS-parser tests

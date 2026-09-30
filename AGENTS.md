@@ -104,7 +104,9 @@ root. Beyond what the linter enforces:
   broke and the issue number; match that.
 - Public functions carry a short docstring; private helpers do not.
 - `classify.py` and `common.py` import from the standard library only. New third-party
-  dependencies belong in `scrape_jobs.py` and get pinned in `requirements.txt`.
+  dependencies belong in `scrape_jobs.py`. Add them to `requirements.in`, then regenerate the
+  hash-locked `requirements.txt` and `requirements-dev.txt` with the `uv pip compile` command
+  at the top of each `.in` file. The workflows install with `--require-hashes`.
 - Tests are plain scripts run with `python <file>`, no pytest. `test_classification.py` is
   data tables of `(input, expected)` rows looped through `check`; `test_scrapers.py` is
   `test_*` functions over mocked HTTP, each registered in the tuple at the bottom of the
