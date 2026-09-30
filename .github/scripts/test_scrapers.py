@@ -379,7 +379,7 @@ def test_job_fingerprint_reads_every_ats_url_shape():
          'b9dee2a0-9bb3-447e-9bce-2b1bed784e5b'),
         ('Acme', 'Workday',
          'https://acme.wd1.myworkdayjobs.com/External/job/Austin-TX/Cyber-Eng_R123',
-         '/job/Austin-TX/Cyber-Eng_R123'),
+         'R123'),
         ('Acme', 'Oracle',
          'https://x.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2615114',
          '2615114'),
@@ -1745,6 +1745,32 @@ def test_workday_posting_survives_a_non_dict_body():
           (state, info.get('title')), ('live', 'Security Specialist II'))
 
 
+def test_workday_fingerprint_survives_a_location_move():
+    root = 'https://acme.wd1.myworkdayjobs.com/Ext'
+    cases = [
+        ('/job/Chantilly-VA/Cyber-Analyst-I_R123', 'R123'),
+        ('/job/Reston-VA/Cyber-Analyst-I-Updated_R123', 'R123'),
+        ('/job/Remote/Software-Engineer-2_JR102090', 'JR102090'),
+        ('/job/Remote/Intern---Threat-Intelligence_JR-013988-1', 'JR-013988-1'),
+        ('/job/Austin-TX/Security-Analyst_R-00123', 'R-00123'),
+        # Arctic Wolf ids carry their own underscore.
+        ('/job/Waterloo-ON-CAN/Professional-Services-Engineer-1_R26_1068', 'R26_1068'),
+        ('/job/Cyber-Analyst_R77', 'R77'),
+        # No '_<id>' suffix: the whole path is all there is to go on.
+        ('/job/Austin-TX/Cyber-Analyst', '/job/Austin-TX/Cyber-Analyst'),
+    ]
+    for path, want in cases:
+        check(f'workday fingerprint {path}', sj.job_fingerprint('Acme', 'Workday', root + path),
+              ('Acme', 'Workday', want))
+    moved = [_listing('Acme', 'Cyber Analyst I', root + '/job/Chantilly-VA/Cyber-Analyst-I_R123',
+                      source='Workday', missing_since='2026-09-01')]
+    raw = [{'company': 'Acme', 'board': 'Workday',
+            'url': root + '/job/Reston-VA/Cyber-Analyst-I_R123'}]
+    check('a req whose location slug moved is not vanished',
+          (sj.retire_vanished_listings(moved, raw, '2026-09-10'),
+           moved[0].get('missing_since')), ([], None))
+
+
 for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_ashby, test_ashby_schema_drift_warns,
            test_smartrecruiters_pagination_short_page_stops,
@@ -1795,7 +1821,8 @@ for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_oracle_ids_differ_across_hosts_on_one_site,
            test_board_health_carries_an_oracle_board_across_the_label_change,
            test_main_carries_seen_oracle_reqs_to_the_new_id,
-           test_workday_posting_survives_a_non_dict_body):
+           test_workday_posting_survives_a_non_dict_body,
+           test_workday_fingerprint_survives_a_location_move):
     fn()
 
 if failures:

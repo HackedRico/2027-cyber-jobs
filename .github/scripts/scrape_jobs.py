@@ -1248,7 +1248,12 @@ _REQ_PATTERNS = {
     'Greenhouse': (r'/jobs/(\d+)',),
     'Lever': (r'/([0-9a-fA-F-]{36})',),
     'Ashby': (r'/([0-9a-fA-F-]{36})',),
-    'Workday': (r'(/job/.+)$',),
+    # Workday rewrites the location and title slugs of a live req
+    # (/job/Chantilly-VA/X_R123 -> /job/Reston-VA/X_R123), which made the row
+    # look vanished and let a duplicate in. The req id follows the first '_'
+    # of the last segment, since a title slug never holds one and Arctic
+    # Wolf's ids do ('Professional-Services-Engineer-1_R26_1068').
+    'Workday': (r'/job/(?:.*/)?[^/_]*_([^/]+)$', r'(/job/.+)$'),
     'Oracle': (r'/job/(\d+)',),
     'Amazon Jobs': (r'/jobs/(\d+)',),
     'SmartRecruiters': (r'/(\d+)/?$',),
@@ -2033,6 +2038,8 @@ def main():
     # separate rows.
     existing_keys = {listing_dedup_key(e.get('company', ''), e.get('role', ''),
                                        e.get('location', '')) for e in listings}
+    existing_fps = {job_fingerprint(e.get('company', ''), e.get('source', ''), e['url'])
+                    for e in listings if e.get('url')} - {None}
     # Rows a dead-link sweep blanked; a still-live posting revives them so a
     # 403/transient false positive self-heals instead of staying 🔒 forever.
     blanked = {listing_dedup_key(e.get('company', ''), e.get('role', ''),
@@ -2081,10 +2088,16 @@ def main():
             revived_rows.append(row)
             print(f'  REVIVED {_oneline(job["company"])} — {_oneline(job["title"])}')
             continue
-        if normalize_url(url) in existing_urls or key in existing_keys:
+        # The fingerprint catches a Workday req whose URL and location both
+        # moved, which neither the URL nor the key can see.
+        fingerprint = job_fingerprint(job['company'], job.get('board', ''), url)
+        if (normalize_url(url) in existing_urls or key in existing_keys
+                or (fingerprint and fingerprint in existing_fps)):
             continue
         existing_urls.add(normalize_url(url))
         existing_keys.add(key)
+        if fingerprint:
+            existing_fps.add(fingerprint)
 
         row = {
             'company': job['company'],
