@@ -42,9 +42,11 @@ SENIORITY_REJECT = [
 ]
 
 # 'Architect' usually marks a senior IC, but named early-career cohorts run
-# "Security Architect - New College Grad 2026" reqs. It rejects only when the
-# title carries no explicit new-grad/intern signal — the other seniority terms
-# above still hard-reject even inside a cohort title.
+# "Security Architect - New College Grad 2026" reqs, and presales teams hire
+# Tenable 'Associate Services Architect'. It rejects only when the title
+# carries no new-grad, intern or early-career word — the other seniority terms
+# above still hard-reject even inside a cohort title. A bare I/II is not enough:
+# Honeywell 'Cyber Security Architect/Engineer II' reads as a mid-level req.
 ARCHITECT_RE = re.compile(r'\barchitect\b')
 
 # Senior levels are rejected only when III/IV/3/4 qualifies a role/level noun,
@@ -91,7 +93,10 @@ FUNCTION_REJECT = [
     'industrial security', 'personnel security', 'protective services',
     'fire operation',
     'nuclear safeguards',  # 'safeguards' alone is an AI-safety signal
-    'sales', 'account executive', 'account manager', 'marketing',
+    # Camera and door-badge presales: Motorola Solutions 'Pre-Sales Solutions
+    # Engineer - Video Security & Access Control'.
+    'video security',
+    'account executive', 'account manager', 'marketing',
     'recruiter', 'recruiting', 'talent acquisition', 'human resources',
     'people technology', 'people operations', 'channel systems',
     'customer success', 'customer support', 'business development', 'partner manager',
@@ -147,7 +152,12 @@ def _term_regex(term):
 #                          security (SBOM/SLSA/dependency risk) is cyber.
 #   'safety and security' — a guard-force function, but "AI Safety and Security
 #                          Engineering" is an AI-lab security team.
+#   'sales'              — a quota-carrying seller, but a sales engineer is the
+#                          technical presales role: ESET 'Sales Engineer I',
+#                          Palo Alto Networks 'Sales Engineer - Intern'. Only a
+#                          cyber keyword or a security_company flag admits one.
 GUARDED_FUNCTION_REJECTS = [
+    r'\bsales\b(?!\s+(?:solutions?\s+)?engineer)',
     r'(?<!data )\bloss prevention\b',
     # Hourly shift posts: Walmart 'Asset Protection / Security Associate,
     # Manufacturing (Tuesday-Friday, 11:00am-9:30pm) - $21.30/hr.' and its
@@ -191,6 +201,10 @@ CYBER_KEYWORDS = [
     'data loss prevention',
     'siem', 'detection engineer', 'detection and response',
     'devsecops', 'identity and access', 'zero trust', 'privacy engineer',
+    # Spellings the terms above miss: Leidos 'Junior Cloud/SecDevOps Engineer',
+    # BlackRock 'Access & Identity Management Engineer, Associate'.
+    'secdevops', 'identity & access', 'access & identity', 'access and identity',
+    'identity management', 'privileged access',
     'iam engineer', 'iam analyst', 'cyber risk', 'security risk',
     'technology risk',
     # AI security & AI safety — model/LLM security, adversarial ML, and
@@ -226,7 +240,24 @@ TECH_KEYWORDS = [
     'scientist', 'data analyst', 'solutions engineer', 'support engineer',
     'infrastructure', 'platform', 'backend', 'frontend', 'full stack',
     'full-stack', 'machine learning', 'detection', 'analyst',
+    # Presales and services roles at a security vendor run its products for
+    # customers: Palo Alto Networks 'Solutions Consultant 1' and 'Domain
+    # Consultant 2 - NetSec', Tenable 'Associate Services Architect',
+    # CrowdStrike 'Readiness Services Consultant'.
+    'solutions consultant', 'solution consultant', 'domain consultant',
+    'services consultant', 'technical consultant', 'architect',
 ]
+
+# A software team named for security work puts an engineer on a security team
+# even when the title never says 'security': Microsoft 'Software Engineer II -
+# Compromise & Fraud Protection', Palantir 'Privacy & Civil Liberties Engineer
+# - New Grad'. The team word counts only beside an engineering noun, so fraud
+# call-centre reqs (JPMorgan 'Credit Card Fraud Specialist I') and content
+# moderators (Accenture 'Trust & Safety New Associate') stay out.
+SECURITY_TEAM_RE = re.compile(
+    r'\b(?:identity|authentication|privacy|trust (?:and|&) safety|anti-?abuse|'
+    r'fraud protection|compromise)\b')
+ENGINEERING_ROLE_RE = re.compile(r'\b(?:engineer|engineering|developer)\b')
 
 NEWGRAD_SIGNALS = [
     'new grad', 'new-grad', 'university grad', 'college grad', 'campus hire',
@@ -375,11 +406,12 @@ CATEGORY_RULES = [
                             r'cyber intelligence|\bfraud analyst'),
     ('Forensics & IR', r'forensic|\bdfir\b|malware analy|reverse engineer'),
     ('AppSec & ProdSec', r'application security|product security|appsec|'
-                         r'secure code|devsecops|software security'),
+                         r'secure code|devsecops|secdevops|software security'),
     ('Cloud & Infra Security', r'cloud security|infrastructure security|'
                                r'network security|platform security|'
                                r'systems security'),
-    ('Identity & IAM', r'\biam\b|identity|access management|zero trust'),
+    ('Identity & IAM', r'\biam\b|identity|access management|zero trust|'
+                       r'authentication|privileged access'),
     ('GRC & Risk', r'\bgrc\b|governance|risk|compliance|audit|policy|'
                    r'information assurance'),
     ('Security Engineering', r'security|cyber|infosec|cryptograph|privacy'),
@@ -1012,6 +1044,16 @@ def _is_stale_intern_title(title, today):
     return max(years) < first_open_season(today)
 
 
+def is_senior_architect(title, today=None):
+    """True for an architect title with no new-grad, intern or early-career word."""
+    t = title.lower()
+    if not ARCHITECT_RE.search(t):
+        return False
+    if classify_level(title, today=today) in ('newgrad', 'intern'):
+        return False
+    return not EARLYCAREER_RE.search(t)
+
+
 def is_rejected_title(title, today=None):
     """True if the title alone rules the role out: too senior, not cyber work,
     a physical-security guard post, or an internship whose season has passed.
@@ -1021,7 +1063,7 @@ def is_rejected_title(title, today=None):
     t = title.lower()
     if any(re.search(p, t) for p in SENIORITY_REJECT):
         return True
-    if ARCHITECT_RE.search(t) and classify_level(title, today=today) not in ('newgrad', 'intern'):
+    if is_senior_architect(title, today):
         return True
     if LEVELED_SENIOR_RE.search(t):
         return True
@@ -1074,9 +1116,17 @@ INTEL_SUPPORT_RE = re.compile(
     r'linguist|signals collection)\b')
 
 
+def _fold(title):
+    # ATS titles carry non-breaking spaces ("Access\xa0& Identity\xa0Management")
+    # that break the multi-word keywords.
+    return ' '.join(title.lower().split())
+
+
 def is_cyber_title(title, security_company=False):
-    t = title.lower()
+    t = _fold(title)
     if _has_cyber_keyword(t):
+        return True
+    if SECURITY_TEAM_RE.search(t) and ENGINEERING_ROLE_RE.search(t):
         return True
     if not security_company:
         return False
@@ -1419,7 +1469,7 @@ def requires_experience(description):
 
 
 def infer_category(title, security_company=False):
-    t = title.lower()
+    t = _fold(title)
     for category, pattern in CATEGORY_RULES:
         if pattern.search(t):
             return category

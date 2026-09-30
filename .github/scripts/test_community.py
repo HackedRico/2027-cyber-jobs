@@ -271,6 +271,8 @@ GATES = [
     ('Security Sales Associate', 'Austin, TX', False, '"sales" marks a non-cyber function'),
     ('Security Officer I', 'Austin, TX', False, 'guard role'),
     ('Security Architect', 'Austin, TX', False, 'architect'),
+    ('Associate Solutions Architect, Security', 'Austin, TX', False, None),
+    ('Security Sales Engineer I', 'Austin, TX', False, None),
     ('Software Engineer, New Grad', 'Austin, TX', False, 'no cybersecurity keyword'),
     ('Software Engineer, New Grad', 'Austin, TX', True, None),
     ('Security Engineer', 'Austin, TX', False, 'no intern, new grad'),

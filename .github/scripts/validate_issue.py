@@ -22,7 +22,6 @@ import requests
 
 sys.path.insert(0, str(Path(__file__).parent))
 from classify import (  # noqa: E402
-    ARCHITECT_RE,
     FUNCTION_REJECT_RE,
     INFOSEC_OFFICER_HINTS,
     LEVELED_SENIOR_RE,
@@ -33,6 +32,7 @@ from classify import (  # noqa: E402
     infer_category,
     is_cyber_title,
     is_rejected_title,
+    is_senior_architect,
     is_us_location,
     listing_dedup_key,
 )
@@ -96,8 +96,8 @@ def rejected_title_reason(title):
         m = re.search(pattern, t)
         if m:
             return f'the title has the seniority term "{m.group(0)}"'
-    if ARCHITECT_RE.search(t) and classify_level(title) not in ('newgrad', 'intern'):
-        return 'an architect title needs a new grad or intern signal'
+    if is_senior_architect(title):
+        return 'an architect title needs a new grad, intern or early-career signal'
     m = LEVELED_SENIOR_RE.search(t)
     if m:
         return f'"{m.group(0)}" is a senior level'
