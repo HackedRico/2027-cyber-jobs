@@ -25,7 +25,13 @@ jobs:
       issues: write
 
     steps:
+      # main as it stands when this run leaves the readme-updates queue, not
+      # the commit it was triggered at. A queued run built on the older
+      # listings.json and its pull-rebase with -X theirs could drop the rows
+      # the writer ahead of it pushed.
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
 
       - name: Set up Python
         uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
@@ -74,8 +80,11 @@ jobs:
           git push
 
       # Default if: success() means this fires only when the push above landed,
-      # so no release or alert links to a row that is not on main.
+      # so no release or alert links to a row that is not on main. The rows
+      # are already pushed by then, so a failed announcement shows on the step
+      # without failing the run, which would skip the Pages deploy.
       - name: Announce new roles
+        continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}

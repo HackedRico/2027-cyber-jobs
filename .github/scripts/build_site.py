@@ -58,15 +58,35 @@ STATE_CODE_RE = re.compile(r'\b([A-Z]{2})\b')
 REMOTE_RE = re.compile(r'\bremote\b', re.IGNORECASE)
 
 
-def row_id(entry):
-    """Short hash of company, role, location and date_added.
+def row_id(entry, ordinal=0):
+    """Short hash of company, role, date_added and the row's ordinal among twins.
 
     The page uses it as a DOM key and the feeds as the entry id, so it must not
-    change when the scraper rewrites a row's url or category.
+    change when the scraper rewrites a row's url, category or location. The
+    renormalize and repair passes rewrite locations, and a location in the hash
+    showed feed readers the same job again. `ordinal` tells apart the rows one
+    posting spawns per site on the same day (Recorded Future 'Fraud Analyst' in
+    DC, NY and Boston); the first such row takes 0 and hashes without it.
     """
-    key = '\x1f'.join(entry.get(f, '').strip() for f in
-                      ('company', 'role', 'location', 'date_added'))
-    return hashlib.sha256(key.encode()).hexdigest()[:12]
+    fields = [entry.get(f, '').strip() for f in ('company', 'role', 'date_added')]
+    if ordinal:
+        fields.append(str(ordinal))
+    return hashlib.sha256('\x1f'.join(fields).encode()).hexdigest()[:12]
+
+
+def row_ids(listings):
+    """row_id for each row of `listings`, in order.
+
+    Twins are numbered in listings.json order, which only appends and purges,
+    so a location rewrite never moves a row's number.
+    """
+    seen = {}
+    ids = []
+    for entry in listings:
+        twin = tuple(entry.get(f, '').strip() for f in ('company', 'role', 'date_added'))
+        ids.append(row_id(entry, seen.get(twin, 0)))
+        seen[twin] = seen.get(twin, 0) + 1
+    return ids
 
 
 def derive_places(location):
@@ -113,9 +133,9 @@ def select_rows(listings, today):
     return picked
 
 
-def page_row(entry):
+def page_row(entry, rid=None):
     """The fields the page reads, plus id, states and remote."""
-    out = {'id': row_id(entry)}
+    out = {'id': rid or row_id(entry)}
     for field in PAGE_FIELDS:
         value = entry.get(field, '')
         out[field] = value.strip() if isinstance(value, str) else value
@@ -136,7 +156,8 @@ def _newest_first(rows):
 
 def page_data(listings, today):
     """The object written to _site/listings.json."""
-    rows = _newest_first(page_row(e) for e in select_rows(listings, today))
+    ids = {id(e): rid for e, rid in zip(listings, row_ids(listings), strict=True)}
+    rows = _newest_first(page_row(e, ids[id(e)]) for e in select_rows(listings, today))
     return {
         'generated': today.isoformat(),
         'new_days': NEW_DAYS,

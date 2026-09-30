@@ -61,6 +61,23 @@ for name, body, want in PARSE:
     check(f'parse_issue_body {name}', {k: got.get(k) for k in want}, want)
 
 
+# --- normalize_url -------------------------------------------------------------
+# A submitter's link and the scraper's link for one req must compare equal, or
+# the approved issue lands as a second row.
+WORKDAY = 'https://nwis.wd12.myworkdayjobs.com/job/Springfield-VA/X_JR1'
+URLS = [
+    ('a Workday link with locale and site', 'https://nwis.wd12.myworkdayjobs.com/en-US/NW/job/Springfield-VA/X_JR1',
+     WORKDAY),
+    ('the scraper Workday link with a site and no locale',
+     'https://nwis.wd12.myworkdayjobs.com/NW/job/Springfield-VA/X_JR1', WORKDAY),
+    ('a Workday link with a lowercase locale',
+     'https://nwis.wd12.myworkdayjobs.com/en-us/NW/job/Springfield-VA/X_JR1/apply', WORKDAY),
+    ('a bare Workday link', WORKDAY, WORKDAY),
+]
+for name, url, want in URLS:
+    check(f'normalize_url {name}', common.normalize_url(url), want)
+
+
 # --- validate_location ---------------------------------------------------------
 # (submitted, stored form, valid). Every accepted spelling must also pass the
 # scraper's is_us_location, so the form never admits a row the scraper would
@@ -156,7 +173,13 @@ EXISTING = [
     {'company': 'Acme', 'role': 'SOC Analyst I', 'location': 'Austin, TX',
      'url': 'https://boards.greenhouse.io/acme/jobs/9', 'type': 'earlycareer'},
     {'company': 'Beta', 'role': 'Security Engineer Intern', 'location': 'Reston, VA',
+     'url': '', 'closed': True, 'closed_date': '2026-09-01', 'missing_since': '2026-08-20',
+     'dead_since': '2026-08-30', 'source': 'Greenhouse', 'type': 'intern'},
+    # Closed and open rows under one key: the open one makes it a duplicate.
+    {'company': 'Gamma', 'role': 'SOC Analyst Intern', 'location': 'Austin, TX',
      'url': '', 'closed': True, 'type': 'intern'},
+    {'company': 'Gamma', 'role': 'SOC Analyst Intern', 'location': 'Austin, TX',
+     'url': 'https://gamma.example/jobs/5', 'type': 'intern'},
 ]
 issues = [
     {'number': 1, 'body': form()},
@@ -171,17 +194,26 @@ issues = [
     {'number': 6, 'body': form(company='')},
     # A second submission of issue 1's row in the same batch.
     {'number': 7, 'body': form()},
+    {'number': 8, 'body': form(company='Gamma', role='SOC Analyst Intern',
+                               link='https://gamma.example/jobs/6')},
+    # Issue 3 reopened Beta's row, so a repeat of it is now an open duplicate.
+    {'number': 9, 'body': form(company='Beta', role='Security Engineer Intern',
+                               location='Reston, VA', link='https://beta.example/jobs/3')},
 ]
 listings = [dict(e) for e in EXISTING]
 results = pa.ingest(issues, listings, today='2026-09-27')
 check('ingest outcomes', [(r['number'], r['outcome']) for r in results],
-      [(1, 'added'), (2, 'duplicate'), (3, 'duplicate'), (4, 'skipped'), (5, 'skipped'),
-       (6, 'skipped'), (7, 'duplicate')])
+      [(1, 'added'), (2, 'duplicate'), (3, 'revived'), (4, 'skipped'), (5, 'skipped'),
+       (6, 'skipped'), (7, 'duplicate'), (8, 'duplicate'), (9, 'duplicate')])
 check('ingest appends only the added row', len(listings), len(EXISTING) + 1)
 check('ingest names the location problem', 'London, UK' in results[3]['detail'], True)
 check('ingest names the url problem', 'http(s)' in results[4]['detail'], True)
-check('ingest describes a duplicate of a closed row',
-      results[2]['detail'], 'Beta: Security Engineer Intern, closed')
+check('ingest revives a closed row in place as a Community row', listings[1], {
+    'company': 'Beta', 'role': 'Security Engineer Intern', 'location': 'Reston, VA',
+    'url': 'https://beta.example/jobs/2', 'source': 'Community', 'type': 'intern'})
+check('ingest calls an open twin of a closed row a duplicate',
+      results[7]['detail'], 'Gamma: SOC Analyst Intern, open')
+check('ingest leaves the closed twin closed', listings[2].get('closed'), True)
 
 
 # --- run_notify ----------------------------------------------------------------
@@ -222,13 +254,79 @@ def test_notify_leaves_added_issue_open_when_push_failed():
           ['issues/4/comments', 'issues/4/labels/approved'])
 
 
+APPROVED_AT = '2026-09-27T10:00:00Z'
+
+
+def _mock_approval(edits, approved=None):
+    """Mock the events API and GraphQL for issues keyed by number.
+
+    `edits` maps an issue number to its lastEditedAt (None when never edited,
+    or 'error' for a GraphQL failure). `approved` maps a number to its labeled
+    time; a number missing from it gets APPROVED_AT.
+    """
+    approved = approved or {}
+    for number in edits:
+        responses.get(f'https://api.github.com/repos/o/r/issues/{number}/events', json=[
+            {'event': 'labeled', 'label': {'name': 'approved'},
+             'created_at': '2026-09-20T09:00:00Z'},
+            {'event': 'labeled', 'label': {'name': 'valid'}, 'created_at': '2026-09-28T09:00:00Z'},
+            {'event': 'labeled', 'label': {'name': 'approved'},
+             'created_at': approved.get(number, APPROVED_AT)},
+        ])
+
+    def graphql(request):
+        number = json.loads(request.body)['variables']['number']
+        if edits[number] == 'error':
+            return 200, {}, json.dumps({'errors': [{'message': 'boom'}]})
+        return 200, {}, json.dumps(
+            {'data': {'repository': {'issue': {'lastEditedAt': edits[number]}}}})
+    responses.add_callback(responses.POST, 'https://api.github.com/graphql', callback=graphql)
+
+
+@responses.activate
+def test_screen_edited_skips_an_issue_edited_after_approval():
+    _mock_approval({1: None, 2: '2026-09-26T08:00:00Z', 3: '2026-09-27T10:05:00Z',
+                    4: 'error'})
+    issues = [{'number': n, 'body': form()} for n in (1, 2, 3, 4)]
+    current, results = pa.screen_edited('t', 'o/r', issues)
+    check('screen_edited keeps a never-edited issue and one edited before approval',
+          [i['number'] for i in current], [1, 2])
+    check('screen_edited skips an issue edited after approval and holds an unreadable one',
+          [(r['number'], r['outcome']) for r in results], [(3, 'skipped'), (4, 'held')])
+    check('screen_edited says why it skipped', results[0]['detail'], pa.EDITED_REASON)
+
+
+@responses.activate
+def test_notify_revived_and_held():
+    api = 'https://api.github.com/repos/o/r/issues'
+    responses.post(f'{api}/3/comments', json={}, status=201)
+    responses.patch(f'{api}/3', json={})
+    results = [{'number': 3, 'outcome': 'revived', 'detail': 'Beta: X'},
+               {'number': 4, 'outcome': 'held', 'detail': 'could not read'}]
+    failed = pa.run_notify('t', 'o/r', results, pushed=True)
+    check('notify closes a revived issue and leaves a held one alone',
+          (failed, [(c.request.method, c.request.url.rsplit('/repos/o/r/', 1)[1])
+                    for c in responses.calls]),
+          (0, [('POST', 'issues/3/comments'), ('PATCH', 'issues/3')]))
+    check('notify tells the submitter the row reopened',
+          b'reopened' in responses.calls[0].request.body, True)
+    responses.calls.reset()
+    pa.run_notify('t', 'o/r', results[:1], pushed=False)
+    check('notify leaves a revived issue open when the push failed', len(responses.calls), 0)
+
+
 @responses.activate
 def test_ingest_writes_run_events_for_added_rows():
     responses.get('https://api.github.com/repos/o/r/issues', json=[
         {'number': 1, 'body': form()},
         {'number': 2, 'body': form(link='https://boards.greenhouse.io/acme/jobs/9')},
+        {'number': 3, 'body': form(company='Beta', role='Security Engineer Intern',
+                                   location='Reston, VA', link='https://beta.example/jobs/2')},
+        # Edited after approval, so its new link never reaches the board.
+        {'number': 4, 'body': form(role='Swapped Link Intern', link='https://evil.example/')},
     ])
     responses.get('https://api.github.com/repos/o/r/issues', json=[])
+    _mock_approval({1: None, 2: None, 3: None, 4: '2026-09-27T10:05:00Z'})
     saved = (pa.LISTINGS_FILE, pa.load_security_companies, pa.rebuild_readme.main)
     with tempfile.TemporaryDirectory() as tmp:
         tmp = Path(tmp)
@@ -249,8 +347,13 @@ def test_ingest_writes_run_events_for_added_rows():
     check('ingest events list only the added row, not the duplicate',
           [(r['company'], r['role'], r['source']) for r in events['added']],
           [('Acme', 'Security Analyst Intern', 'Community')])
-    check('ingest events have no revived or retired rows',
-          (events['schema_version'], events['revived'], events['retired']), (1, [], []))
+    check('ingest events list the reopened row as revived',
+          [(r['company'], r['url']) for r in events['revived']],
+          [('Beta', 'https://beta.example/jobs/2')])
+    check('ingest events have no retired rows',
+          (events['schema_version'], events['retired']), (1, []))
+    check('ingest never adds the link from an edit made after approval',
+          'Swapped Link Intern' in json.dumps(events), False)
 
 
 @responses.activate
@@ -387,8 +490,53 @@ check('build_verdict body has no em or en dashes',
       '\u2014' in body or '\u2013' in body, False)
 
 
+# --- escaping echoed fields ----------------------------------------------------
+check('md_code wraps plain text in one backtick', common.md_code('Austin, TX'), '`Austin, TX`')
+check('md_code outruns a backtick in the text', common.md_code('a`b'), '`` a`b ``')
+check('md_code outruns a double backtick', common.md_code('``x'), '``` ``x ```')
+check('md_code shows an empty value', common.md_code('  '), '(empty)')
+check('md_escape breaks a bare url autolink',
+      common.md_escape('see https://evil.example or www.evil.example'),
+      'see https&#8203;://evil.example or www&#8203;.evil.example')
+
+# A submitted Category of this shape once closed the verdict's code span and
+# rendered a phishing link and @mentions in the bot's comment.
+EVIL = 'x` [Verify your account](https://evil.example/login) @octocat `'
+EVIL_LOCATION = 'Austin` [a](https://evil.example) @octocat, ZZ'
+body, ok = vi.build_verdict(
+    common.parse_issue_body(form(listing_type=EVIL, category=EVIL, location=EVIL_LOCATION)),
+    [{'company': 'Acme', 'role': 'Security Analyst Intern', 'location': EVIL_LOCATION,
+      'url': 'https://boards.greenhouse.io/acme/jobs/1'}], frozenset(),
+    vi.check_link('http://a`b.example/', get=never, resolves_public=lambda h: False))
+check('build_verdict echoes no free text from an allowlisted field',
+      'Verify your account' in body, False)
+check('build_verdict names an off-form Listing Type and Category',
+      body.count('submitted a value that is not a form option'), 2)
+check('build_verdict quotes a location part in a span it cannot close',
+      f'`` {EVIL_LOCATION} ``: `ZZ` is not a US state code' in body, True)
+check('build_verdict escapes a duplicate row',
+      'Austin\\` \\[a\\](https&#8203;://evil.example) @&#8203;octocat, ZZ' in body, True)
+check('build_verdict quotes a link host in a span it cannot close',
+      '`` a`b.example `` does not resolve' in body, True)
+outside_code = ''.join(body.split('``')[::2])
+check('build_verdict pings nobody outside a code span', '@octocat' in outside_code, False)
+check('_describe escapes a duplicate for the issue comment',
+      pa._describe({'company': '@octocat', 'role': '[x](https://evil)', 'url': 'u'}),
+      '@&#8203;octocat: \\[x\\](https&#8203;://evil), open')
+
+
+body, ok = vi.build_verdict(
+    common.parse_issue_body(form(company='Beta', role='Security Engineer Intern',
+                                 location='Reston, VA', link='https://beta.example/jobs/2')),
+    EXISTING, frozenset(), ALIVE)
+check('build_verdict passes a submission that reopens a closed row', ok, True)
+check('build_verdict says approval reopens the closed row',
+      'Approving reopens it with this link' in body, True)
+
+
 for fn in (test_notify_after_push, test_notify_leaves_added_issue_open_when_push_failed,
-           test_notify_reports_api_failure, test_ingest_writes_run_events_for_added_rows):
+           test_notify_reports_api_failure, test_screen_edited_skips_an_issue_edited_after_approval,
+           test_notify_revived_and_held, test_ingest_writes_run_events_for_added_rows):
     fn()
 
 if failures:
