@@ -111,6 +111,9 @@ FUNCTION_REJECT = [
     'recruiter', 'recruiting', 'talent acquisition',
     'people technology', 'people operations', 'channel systems',
     'customer success', 'customer support', 'business development', 'partner manager',
+    # JPMorgan 'Finance & Business Management Associate - Cybersecurity &
+    # Technology Controls' runs the cyber org's budget, not its security work.
+    'business management',
     'accountant', 'accounting', 'financial analyst', 'fp&a',
     # Finance-audit work; "SOX/SOC" in an audit title is SOC 1/2 reporting, not
     # a security operations center.
@@ -1401,9 +1404,12 @@ YEARS_RE = re.compile(
 # consumed) before the single-count scan so "2-4 years" doesn't read as 4.
 YEARS_RANGE_RE = re.compile(
     r'\b(\d{1,2})\s{0,3}(?:[-–—]|to)\s{0,3}(\d{1,2})\s{0,3}(?:years?|yrs?)\b')
-# Spelled-out counts that matter for the low end of "N+ years".
-SPELLED_YEARS = ('three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten')
-SPELLED_VALUES = {word: n for n, word in enumerate(SPELLED_YEARS, start=3)}
+# Spelled-out counts that matter for the low end of "N+ years". 'one' and
+# 'two' only ever lower a floor: SEI's "or MS in the same with one (1) year"
+# is the cheapest route into 'Associate Security Researcher'.
+SPELLED_YEARS = ('one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight',
+                 'nine', 'ten')
+SPELLED_VALUES = {word: n for n, word in enumerate(SPELLED_YEARS, start=1)}
 SPELLED_YEARS_RE = re.compile(
     r'\b(' + '|'.join(SPELLED_YEARS) + r')\s{0,3}' + _COUNT_ECHO
     + r'(\+)?\s{0,3}(or more\s{1,3})?(?:years?|yrs?)\b')
@@ -1491,6 +1497,7 @@ CLAUSE_REQUIREMENT_RE = re.compile(
 # reads "a Bachelors of Science degree in a STEM field and at least 2 years".
 DEGREE_ALT_RE = re.compile(
     r"\b(bachelor'?s?|master'?s?|phd|ph\.d|doctorate|associate'?s degree|"
+    r"(?:bs|ms)(?= (?:degree|in)\b)|b\.s|m\.s|"
     r"hs diploma|high school|ged|undergraduate|graduate degree|"
     r"advanced degree|in lieu of|in place of|equivalent|additional)\b")
 # How far back from a count DEGREE_ALT_RE looks, never past the start of the

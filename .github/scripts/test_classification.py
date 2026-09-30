@@ -339,6 +339,9 @@ CASES = [
     ('Information Security Analyst I - Human Resources Systems', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
     ('Cyber Security Analyst I, Treasury Systems', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
     ('Supply Chain Cyber Risk Analyst I', 'Austin, TX', '', False, ('earlycareer', 'GRC & Risk')),
+    # ...but a business-management role inside the cyber org is still not cyber work.
+    ('Finance & Business Management Associate - Cybersecurity & Technology Controls',
+     'Plano, TX', '', False, None),
     ('Silicon Security Researcher - New Grad', 'Austin, TX', '', False, ('newgrad', 'Security Engineering')),
     # ...but sales, account and department-only titles stay out.
     ('Cyber Sales Intern', 'Austin, TX', '', True, None),
@@ -893,6 +896,12 @@ FLOOR = [
     ('Ideally you have 4+ years of experience.', 0),
     ('5+ years of experience required and CISSP preferred.', 5),
     ('3+ years of experience, preferably in a SOC.', 3),
+    # Degrees abbreviated BS/MS are routes too: SEI 'Associate Security
+    # Researcher' read 3 once the parenthesised counts parsed.
+    ('BS degree in Computer Science or related quantitative discipline, with three (3) '
+     'years of relevant professional experience, or MS in the same with one (1) year '
+     'of relevant professional experience, or PhD in the same.', 1),
+    ('B.S. in Computer Science and 4 years of experience, or M.S. and 2 years.', 2),
 ]
 for desc, want in FLOOR:
     got = s.required_years(desc)
