@@ -61,6 +61,23 @@ for name, body, want in PARSE:
     check(f'parse_issue_body {name}', {k: got.get(k) for k in want}, want)
 
 
+# --- normalize_url -------------------------------------------------------------
+# A submitter's link and the scraper's link for one req must compare equal, or
+# the approved issue lands as a second row.
+WORKDAY = 'https://nwis.wd12.myworkdayjobs.com/job/Springfield-VA/X_JR1'
+URLS = [
+    ('a Workday link with locale and site', 'https://nwis.wd12.myworkdayjobs.com/en-US/NW/job/Springfield-VA/X_JR1',
+     WORKDAY),
+    ('the scraper Workday link with a site and no locale',
+     'https://nwis.wd12.myworkdayjobs.com/NW/job/Springfield-VA/X_JR1', WORKDAY),
+    ('a Workday link with a lowercase locale',
+     'https://nwis.wd12.myworkdayjobs.com/en-us/NW/job/Springfield-VA/X_JR1/apply', WORKDAY),
+    ('a bare Workday link', WORKDAY, WORKDAY),
+]
+for name, url, want in URLS:
+    check(f'normalize_url {name}', common.normalize_url(url), want)
+
+
 # --- validate_location ---------------------------------------------------------
 # (submitted, stored form, valid). Every accepted spelling must also pass the
 # scraper's is_us_location, so the form never admits a row the scraper would

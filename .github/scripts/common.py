@@ -43,10 +43,11 @@ def normalize_url(url):
             query=urlencode(sorted(params.items()), doseq=True),
             fragment='',
         ))
-        # Collapse Workday locale + any board segment(s) before /job/ so
-        # ".../en-US/External/job/..." and ".../job/..." match. Case-insensitive
-        # locale (en-US, en-us) and one-or-more pre-/job/ segments.
-        return re.sub(r'(myworkdayjobs\.com)/[a-z]{2}-[a-z]{2}/(?:[^/]+/)*?job/',
+        # Collapse every segment before /job/, locale or not: a submitter pastes
+        # ".../en-US/NW/job/..." while the scraper builds ".../NW/job/...", and
+        # requiring the locale left the scraper's form uncollapsed, so the two
+        # never matched.
+        return re.sub(r'(myworkdayjobs\.com)/(?:[^/]+/)*?job/',
                       r'\1/job/', u, flags=re.IGNORECASE)
     except Exception:
         return url
