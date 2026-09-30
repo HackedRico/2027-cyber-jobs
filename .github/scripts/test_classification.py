@@ -777,6 +777,35 @@ FLOOR = [
      'intelligence community.</p><p><b>Basic Qualifications</b></p><ul><li>'
      '<p>Bachelor\u2019s degree in Computer Science or a related field</p>'
      '</li></ul>', 0),
+    # An inline "a plus" shadows its own clause onward, not the count before it.
+    ('<p>Requirements: 5+ years of experience in security engineering; '
+     'experience with Go is a plus.</p>', 5),
+    ('5+ years of Go is a plus.', 0),
+    # 'additional' does not mark a preference.
+    ('Minimum 6 years of experience, with additional experience in cloud security', 6),
+    # A count echoed in parentheses.
+    ('Requires seven (7) years of experience.', 7),
+    ('Five (5) years of experience required.', 5),
+    ('Requires 3 (three) years of experience.', 3),
+    # A preferred section that comes first ends at the next plain heading.
+    ('<h2>Preferred Qualifications</h2><li>x</li><h2>Requirements</h2>'
+     '<li>6+ years of experience</li>', 6),
+    ('<h2>Nice to Have</h2><li>CISSP</li><h2>What You Bring</h2>'
+     '<li>4+ years of experience</li>', 4),
+    # The employer's track record and an age bar are not floors...
+    ('Acme has more than 25 years of experience serving the DoD.', 0),
+    ('Leveraging our 50+ years of experience', 0),
+    ('We have over 30 years of experience in defense.', 0),
+    ('Applicants must be at least 21 years old.', 0),
+    # ...but the reader as subject still is.
+    ('The ideal candidate has 5+ years of experience.', 5),
+    ('- Have 3+ years of experience in SOC operations', 3),
+    ('You have 4+ years of experience.', 4),
+    # A trailing preference word softens only its own clause.
+    ("Bachelor's degree required. 3+ years of experience preferred.", 0),
+    ('Ideally you have 4+ years of experience.', 0),
+    ('5+ years of experience required and CISSP preferred.', 5),
+    ('3+ years of experience, preferably in a SOC.', 3),
 ]
 for desc, want in FLOOR:
     got = s.required_years(desc)
@@ -826,6 +855,17 @@ GATED = [
     # the floor parser would misread.
     ('Security Engineering Intern', 'Seattle, WA',
      'Open to PhD students with 6+ years of research experience.', 'intern'),
+    # Boilerplate about the employer or the applicant's age is not a floor.
+    ('Cyber Analyst I', 'Austin, TX',
+     'Acme has more than 25 years of experience serving the DoD.', 'earlycareer'),
+    ('Cyber Analyst I', 'Austin, TX', 'Leveraging our 50+ years of experience', 'earlycareer'),
+    ('Cyber Analyst I', 'Austin, TX', 'Applicants must be at least 21 years old.', 'earlycareer'),
+    ('Security Engineer I', 'Austin, TX',
+     "Bachelor's degree required. 3+ years of experience preferred.", 'earlycareer'),
+    # A count before an inline "a plus" still gates the title.
+    ('Security Engineer I', 'Austin, TX',
+     '<p>Requirements: 5+ years of experience in security engineering; '
+     'experience with Go is a plus.</p>', None),
 ]
 for title, loc, desc, want in GATED:
     verdict = s.evaluate_job(title, loc, desc)

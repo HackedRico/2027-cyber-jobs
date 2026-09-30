@@ -1253,9 +1253,12 @@ MAX_ALLOWED_YEARS = 2
 
 # "3+ years", "5 years of experience", "3 or more years", "3+ yrs". Whitespace
 # runs are bounded ({0,3}) so a digit followed by a huge space run can't drive
-# the two adjacent \s* quadratic.
+# the two adjacent \s* quadratic. Contract reqs write the count twice, "3
+# (three) years" and "seven (7) years", which skipped both scans.
+_COUNT_ECHO = r'(?:\(\s{0,3}(?:\d{1,2}|[a-z]+)\s{0,3}\+?\s{0,3}\)\s{0,3})?'
 YEARS_RE = re.compile(
-    r'\b(\d{1,2})\s{0,3}(\+)?\s{0,3}(or more\s{1,3})?(?:years?|yrs?)\b')
+    r'\b(\d{1,2})\s{0,3}' + _COUNT_ECHO
+    + r'(\+)?\s{0,3}(or more\s{1,3})?(?:years?|yrs?)\b')
 # An explicit band, "0-2 years" / "5 to 7 years". The low end is the real bar:
 # a posting open to 2-4 years is open to a 2-year candidate. Matched (and
 # consumed) before the single-count scan so "2-4 years" doesn't read as 4.
@@ -1265,7 +1268,8 @@ YEARS_RANGE_RE = re.compile(
 SPELLED_YEARS = ('three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten')
 SPELLED_VALUES = {word: n for n, word in enumerate(SPELLED_YEARS, start=3)}
 SPELLED_YEARS_RE = re.compile(
-    r'\b(' + '|'.join(SPELLED_YEARS) + r')\s{0,3}(\+)?\s{0,3}(or more\s{1,3})?(?:years?|yrs?)\b')
+    r'\b(' + '|'.join(SPELLED_YEARS) + r')\s{0,3}' + _COUNT_ECHO
+    + r'(\+)?\s{0,3}(or more\s{1,3})?(?:years?|yrs?)\b')
 # A requirement verb close before the count, e.g. "minimum 3 years".
 REQUIREMENT_VERB_RE = re.compile(
     r'\b(minimum|at least|require[sd]?|must have|need)\b', re.IGNORECASE)
@@ -1291,15 +1295,29 @@ NON_EXPERIENCE_OBJECT_RE = re.compile(
 # our 25+ year programs", "a 30-year history". Newline-preserving HTML stripping
 # exposed this cleared-defense boilerplate to the parser, which read it as a
 # 25-year floor.
+# "Applicants must be at least 21 years old" is an age bar, not a floor.
 YEAR_MODIFIER_RE = re.compile(
     r'\s*(?:programs?|contracts?|histor(?:y|ies)|legacy|heritage|'
-    r'partnerships?|relationships?|anniversary)\b')
+    r'partnerships?|relationships?|anniversary|old)\b')
+# The employer's own track record, not the candidate's: "Leveraging our 50+
+# years of experience", "Acme has more than 25 years of experience serving the
+# DoD". A 'has' or 'have' counts only with a subject that is not the reader,
+# since "The ideal candidate has 5+ years" and a bare "Have 3+ years" bullet
+# are real floors.
+EMPLOYER_COUNT_RE = re.compile(
+    r'\b(our|has|have)\s+(?:(?:more than|over|nearly|almost|close to|about)\s+)?$')
+READER_SUBJECT_RE = re.compile(
+    r'\b(?:you|your|candidates?|applicants?|individuals?|person|hire|who|must|'
+    r'should|will|shall|ideally)\b')
 
 # Markers that open text describing counts the candidate does NOT have to meet.
 # Every section noun is plural-tolerant — "Preferred Qualifications" is the
 # single most common heading in the corpus and `qualification\b` misses it.
+#
+# 'additional' is not a marker: "Minimum 6 years of experience, with additional
+# experience in cloud security" read as preferred and floored at 0.
 PREFERRED_MARKER_RE = re.compile(
-    r'\b(?:preferred|desired|optional|additional|bonus)\b[^.\n]{0,25}?'
+    r'\b(?:preferred|desired|optional|bonus)\b[^.\n]{0,25}?'
     r'\b(?:qualifications?|requirements?|skills?|experiences?)\b'
     r'|\bpreferred\s*:'
     r'|\bnice[- ]to[- ]haves?\b|\bbonus points\b|\beven better\b'
@@ -1312,6 +1330,20 @@ REQUIRED_MARKER_RE = re.compile(
     r'|\bqualifications you must have\b|\bwhat you\'?ll need\b'
     r'|\bwhat we\'?re looking for\b|\bwhat you\'?ll bring\b|\bwho you are\b'
     r'|\brequirements\s*:')
+# A line that is only a section heading ends a preferred section as well:
+# "<h2>Preferred Qualifications</h2>...<h2>Requirements</h2><li>6+ years"
+# never closed and read the 6 as preferred.
+SECTION_HEADING_RE = re.compile(
+    r"(?:requirements|qualifications|what you(?:'ll)? bring|you have|about you|"
+    r"(?:key )?responsibilities|what you(?:'ll)? need|what you(?:'ll)? do|"
+    r"the role|about the role|job requirements|skills)\s*:?")
+# Words that soften only their own clause: "3+ years of experience
+# preferred", "ideally you have 4 years". A clause that also says 'required'
+# or 'minimum' keeps its count, so "5+ years required and CISSP preferred"
+# still floors at 5.
+CLAUSE_PREFERENCE_RE = re.compile(r'\b(?:preferred|preferably|ideally|desired)\b')
+CLAUSE_REQUIREMENT_RE = re.compile(
+    r'\b(?:required|requires?|minimum|at least|must)\b')
 
 # An education alternative near the count: "Bachelor's with 2 years",
 # "Master's with 3 years". Counts in this shape are alternative routes into the
@@ -1349,27 +1381,54 @@ DEGREE_NOUN_RE = re.compile(
 _BULLET_CHARS = ' \t*-–—•·#>|>'
 
 
+def _clause_start(low, pos, marks='.;'):
+    return max(low.rfind(c, 0, pos) + 1 for c in marks + '\n')
+
+
+def _clause_end(low, pos, marks='.;'):
+    ends = [i for i in (low.find(c, pos) for c in marks + '\n') if i != -1]
+    return min(ends, default=len(low))
+
+
+def _heading_line_starts(low):
+    starts, pos = [], 0
+    for line in low.split('\n'):
+        if SECTION_HEADING_RE.fullmatch(line.strip(_BULLET_CHARS)):
+            starts.append(pos)
+        pos += len(line) + 1
+    return starts
+
+
 def _preferred_spans(low):
     """Character ranges of `low` that describe preferred, not required, quals.
 
     A marker that opens its own line ("Preferred Qualifications:") is a section
-    heading and shadows everything up to the next must-have heading. A marker
-    buried mid-line ("5+ years of Go is a plus") shadows only that line — its
-    own whole line, since the qualifier usually trails the count it softens —
-    so one inline "a plus" can't hide every requirement below it and hand the
-    posting a 0-year floor.
+    heading and shadows everything up to the next must-have heading or plain
+    section heading. A marker buried mid-line ("experience with Go is a plus")
+    shadows from the start of its own sentence or clause to the end of the
+    line, so "5+ years of security engineering; experience with Go is a plus"
+    keeps its 5. A clause word ("3+ years preferred") shadows its clause only.
     """
-    required_starts = [m.start() for m in REQUIRED_MARKER_RE.finditer(low)]
+    closers = sorted([m.start() for m in REQUIRED_MARKER_RE.finditer(low)]
+                     + _heading_line_starts(low))
     spans = []
     for m in PREFERRED_MARKER_RE.finditer(low):
         start = m.start()
         line_start = low.rfind('\n', 0, start) + 1
         if low[line_start:start].strip(_BULLET_CHARS):
             line_end = low.find('\n', m.end())
-            spans.append((line_start, len(low) if line_end == -1 else line_end))
+            spans.append((_clause_start(low, start),
+                          len(low) if line_end == -1 else line_end))
         else:
-            spans.append((start, next((r for r in required_starts if r > start),
-                                      len(low))))
+            spans.append((start, next((c for c in closers if c > start), len(low))))
+    for m in CLAUSE_PREFERENCE_RE.finditer(low):
+        # Commas split here too: "3+ years of experience, preferably in a
+        # SOC" softens the setting, not the count.
+        begin = _clause_start(low, m.start(), '.;,')
+        end = _clause_end(low, m.end(), '.;,')
+        clause = low[begin:end]
+        if not CLAUSE_REQUIREMENT_RE.search(clause):
+            spans.append((begin, end))
     return spans
 
 
@@ -1391,13 +1450,24 @@ def _is_requirement(low, start, end, emphatic):
     # Disqualifiers first, so neither the emphatic form nor a requirement verb
     # can promote a clearance-recency or coursework count into a floor.
     if (RECENCY_RE.search(before) or NON_EXPERIENCE_OBJECT_RE.match(low, end)
-            or YEAR_MODIFIER_RE.match(low, end)):
+            or YEAR_MODIFIER_RE.match(low, end) or _is_employer_count(low, start)):
         return False
     if emphatic:
         return True
     if 'experience' in low[end:end + 80] or 'experience' in before:
         return True
     return bool(REQUIREMENT_VERB_RE.search(before))
+
+
+def _is_employer_count(low, start):
+    before = low[max(0, start - 40, _clause_start(low, start)):start]
+    m = EMPLOYER_COUNT_RE.search(before)
+    if not m:
+        return False
+    if m.group(1) == 'our':
+        return True
+    subject = before[:m.start()]
+    return bool(subject.strip(_BULLET_CHARS + ',')) and not READER_SUBJECT_RE.search(subject)
 
 
 def _year_in_requirement_context(low, start, end):
