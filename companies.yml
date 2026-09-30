@@ -4,6 +4,8 @@ greenhouse:
   security_company: true
 - name: Affirm
   slug: affirm
+- name: Air
+  slug: air
 - name: Airbnb
   slug: airbnb
 - name: Airtable
@@ -129,8 +131,6 @@ greenhouse:
 - name: Goodfire
   slug: goodfire
   security_company: true
-- name: Govini
-  slug: air
 - name: Grafana Labs
   slug: grafanalabs
 - name: GreyNoise
