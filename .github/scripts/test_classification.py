@@ -902,6 +902,11 @@ FLOOR = [
      'years of relevant professional experience, or MS in the same with one (1) year '
      'of relevant professional experience, or PhD in the same.', 1),
     ('B.S. in Computer Science and 4 years of experience, or M.S. and 2 years.', 2),
+    # A PhD route is the floor only when no bachelor's or master's route is given.
+    ('You have BS in machine learning, cybersecurity, statistics, or related discipline '
+     'with eight (8) years of experience; OR MS in the same fields with five (5) years '
+     'of experience; OR PhD in the same fields with two (2) years of experience.', 5),
+    ('PhD in computer science with 2 years of research experience.', 2),
 ]
 for desc, want in FLOOR:
     got = s.required_years(desc)

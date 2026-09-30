@@ -1500,6 +1500,10 @@ DEGREE_ALT_RE = re.compile(
     r"(?:bs|ms)(?= (?:degree|in)\b)|b\.s|m\.s|"
     r"hs diploma|high school|ged|undergraduate|graduate degree|"
     r"advanced degree|in lieu of|in place of|equivalent|additional)\b")
+# A doctoral route sets the floor only when it is the sole route on offer. SEI
+# 'AI Security Researcher' asks BS + 8, MS + 5 or PhD + 2 years, and the PhD
+# route alone read as an early-career floor of 2.
+DOCTORAL_RE = re.compile(r'phd|ph\.d|doctorate')
 # How far back from a count DEGREE_ALT_RE looks, never past the start of the
 # count's own line. Degree routes run long ("a Bachelors of Science degree in
 # a STEM field and at least 5 years"), and the line bound keeps a degree named
@@ -1620,10 +1624,10 @@ def _year_in_requirement_context(low, start, end):
 
 
 def _experience_counts(description):
-    """Collect required year counts as (conjunctive, alternative) lists."""
-    conjunctive, alternative = [], []
+    """Collect required year counts as (conjunctive, alternative, doctoral) lists."""
+    conjunctive, alternative, doctoral = [], [], []
     if not description:
-        return conjunctive, alternative
+        return conjunctive, alternative, doctoral
     low = strip_html(description).lower()
     preferred = _preferred_spans(low)
     consumed = []
@@ -1636,11 +1640,16 @@ def _experience_counts(description):
         if ((DEGREE_SUB_BEFORE_RE.search(before) or DEGREE_SUB_AFTER_RE.search(after))
                 and DEGREE_NOUN_RE.search(low[max(0, start - 110):end + 60])):
             alternative.append(0)   # the degreed route needs no years
-        elif DEGREE_ALT_RE.search(low[max(0, start - DEGREE_ALT_WINDOW,
-                                          low.rfind('\n', 0, start) + 1):start]):
-            alternative.append(value)
         else:
-            conjunctive.append(value)
+            window = low[max(0, start - DEGREE_ALT_WINDOW,
+                              low.rfind('\n', 0, start) + 1):start]
+            routes = DEGREE_ALT_RE.findall(window)
+            if routes and DOCTORAL_RE.fullmatch(routes[-1]):
+                doctoral.append(value)
+            elif routes:
+                alternative.append(value)
+            else:
+                conjunctive.append(value)
 
     for m in YEARS_RANGE_RE.finditer(low):
         consumed.append((m.start(), m.end()))
@@ -1653,7 +1662,7 @@ def _experience_counts(description):
     for m in SPELLED_YEARS_RE.finditer(low):
         record(SPELLED_VALUES[m.group(1)], m.start(), m.end(),
                emphatic=bool(m.group(2) or m.group(3)))
-    return conjunctive, alternative
+    return conjunctive, alternative, doctoral
 
 
 def required_years(description):
@@ -1663,11 +1672,13 @@ def required_years(description):
     max(). Degree-paired bands are alternative routes, so they only set the
     floor when nothing conjunctive does, and then via min().
     """
-    conjunctive, alternative = _experience_counts(description)
+    conjunctive, alternative, doctoral = _experience_counts(description)
     if conjunctive:
         return max(conjunctive)
     if alternative:
         return min(alternative)
+    if doctoral:
+        return min(doctoral)
     return 0
 
 
