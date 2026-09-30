@@ -29,6 +29,7 @@ import requests
 import yaml
 from classify import (
     AI_CATEGORY_RE,
+    US_STATE_ABBRS,
     _is_foreign_part,
     classify_level,
     evaluate_job,
@@ -288,8 +289,10 @@ def scrape_ashby(company, slug):
     for job in data.get('jobs') or data.get('jobPostings') or []:
         if job.get('isListed') is False:
             continue
-        locations = [job.get('location', '') or job.get('locationName', '')]
-        locations += [s.get('location', '') for s in job.get('secondaryLocations') or []]
+        locations = [_ashby_place(job.get('location', '') or job.get('locationName', ''),
+                                  job.get('address'))]
+        locations += [_ashby_place(s.get('location', ''), s.get('address'))
+                      for s in job.get('secondaryLocations') or [] if isinstance(s, dict)]
         location = '; '.join(dict.fromkeys(x for x in locations if x))
         apply_url = (
             job.get('jobUrl', '')
@@ -307,6 +310,34 @@ def scrape_ashby(company, slug):
             'intern_hint': job.get('employmentType', '') == 'Intern',
         })
     return jobs
+
+
+US_COUNTRY_NAMES = {'us', 'usa', 'united states', 'united states of america'}
+
+
+def _ashby_place(label, address):
+    # Boards name a site however they like: bare 'San Mateo', 'Ann Arbor' or
+    # 'Oakland', or 'North America', all of which fail the US check, while
+    # the structured address beside them says United States. 105 postings
+    # across the Ashby boards read that way. The label wins whenever it
+    # already reads as US.
+    if label and is_us_location(label):
+        return label
+    postal = (address or {}).get('postalAddress') or {}
+    if (postal.get('addressCountry') or '').strip().lower() not in US_COUNTRY_NAMES:
+        return label
+    city = (postal.get('addressLocality') or '').strip()
+    region = (postal.get('addressRegion') or '').strip()
+    if label and label.strip().lower() != city.lower():
+        # A scope label is not the address, which is often the head office:
+        # WorkOS's 'United States & Canada' roles carry San Francisco, so
+        # the scope stays and only the country is added.
+        return f'{label}; United States'
+    if not region or region.lower() in US_COUNTRY_NAMES:
+        # 'San Mateo, United States' normalizes back to the bare city.
+        return 'United States'
+    region = US_STATE_ABBRS.get(region.lower(), region)
+    return ', '.join(p for p in (city, region) if p)
 
 
 def scrape_smartrecruiters(company, identifier):

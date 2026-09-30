@@ -134,6 +134,43 @@ def test_ashby_schema_drift_warns(capsys=None):
     check('ashby unknown schema -> empty list', jobs, [])
 
 
+def _ashby_address(city, region, country='United States'):
+    return {'postalAddress': {'addressLocality': city, 'addressRegion': region,
+                              'addressCountry': country}}
+
+
+@responses.activate
+def test_ashby_falls_back_to_the_postal_address():
+    """Bare 'San Mateo' and 'North America' failed the US check beside a US address."""
+    responses.get('https://api.ashbyhq.com/posting-api/job-board/acme', json={'jobs': [
+        {'id': 'a', 'title': 'Security Engineer', 'location': 'San Mateo',
+         'address': _ashby_address('San Mateo', 'California'),
+         'secondaryLocations': [
+             {'location': 'Ann Arbor', 'address': _ashby_address('Ann Arbor', 'Michigan')},
+             {'location': 'London', 'address': _ashby_address('London', 'Greater London',
+                                                              'United Kingdom')}]},
+        {'id': 'b', 'title': 'Security Analyst', 'location': 'North America',
+         'address': {'postalAddress': {'addressCountry': 'United States'}}},
+        {'id': 'c', 'title': 'Security Engineer', 'location': 'San Francisco',
+         'address': _ashby_address('San Francisco', 'California')},
+        {'id': 'd', 'title': 'Security Engineer', 'location': 'Toronto',
+         'address': _ashby_address('Toronto', 'Ontario', 'Canada')},
+        {'id': 'e', 'title': 'Product Security Engineer', 'location': 'United States & Canada',
+         'address': _ashby_address('San Francisco', 'California')},
+        {'id': 'f', 'title': 'Security Engineer', 'location': '',
+         'address': _ashby_address('Oakland', 'CA')},
+    ]})
+    jobs = sj.scrape_ashby('Acme', 'acme')
+    check('ashby builds City, ST from a US address when the label fails',
+          [j['location'] for j in jobs],
+          ['San Mateo, CA; Ann Arbor, MI; London', 'North America; United States',
+           'San Francisco', 'Toronto', 'United States & Canada; United States',
+           'Oakland, CA'])
+    check('only the US postings pass the US filter',
+          [sj.is_us_location(j['location']) for j in jobs],
+          [True, True, True, False, True, True])
+
+
 # --- scrape_smartrecruiters (pagination) --------------------------------------
 @responses.activate
 def test_smartrecruiters_pagination_short_page_stops():
@@ -1834,6 +1871,7 @@ def test_main_carries_seen_oracle_reqs_to_the_new_id():
 for fn in (test_greenhouse_location_reads_only_location_fields,
            test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_ashby, test_ashby_schema_drift_warns,
+           test_ashby_falls_back_to_the_postal_address,
            test_smartrecruiters_pagination_short_page_stops,
            test_check_slugs_flags_unknown_smartrecruiters_id, test_oracle,
            test_fetch_json_retries_transient, test_fetch_json_gives_up_on_404,
