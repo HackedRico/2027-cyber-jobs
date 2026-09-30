@@ -2,17 +2,23 @@ greenhouse:
 - name: Abnormal AI
   slug: abnormalsecurity
   security_company: true
+  apply_hosts:
+  - abnormal.ai
 - name: Affirm
   slug: affirm
 - name: Air
   slug: air
 - name: Airbnb
   slug: airbnb
+  apply_hosts:
+  - careers.airbnb.com
 - name: Airtable
   slug: airtable
 - name: Alloy
   slug: alloy
   security_company: true
+  apply_hosts:
+  - www.alloy.com
 - name: Anduril
   slug: andurilindustries
 - name: Anthropic
@@ -30,9 +36,13 @@ greenhouse:
   security_company: true
 - name: Asana
   slug: asana
+  apply_hosts:
+  - www.asana.com
 - name: Axonius
   slug: axonius
   security_company: true
+  apply_hosts:
+  - www.axonius.com
 - name: Beyond Identity
   slug: beyondidentity
   security_company: true
@@ -42,16 +52,26 @@ greenhouse:
 - name: BigID
   slug: bigid
   security_company: true
+  apply_hosts:
+  - bigid.com
 - name: Bishop Fox
   slug: bishopfox
   security_company: true
+  apply_hosts:
+  - www.bishopfox.com
 - name: Bitwarden
   slug: bitwarden
   security_company: true
+  apply_hosts:
+  - bitwarden.com
 - name: Block
   slug: block
+  apply_hosts:
+  - block.xyz
 - name: Brex
   slug: brex
+  apply_hosts:
+  - www.brex.com
 - name: Britive
   slug: britive
   security_company: true
@@ -61,6 +81,8 @@ greenhouse:
 - name: Cato Networks
   slug: catonetworks
   security_company: true
+  apply_hosts:
+  - www.catonetworks.com
 - name: Censys
   slug: censys
   security_company: true
@@ -78,8 +100,12 @@ greenhouse:
   security_company: true
 - name: Cockroach Labs
   slug: cockroachlabs
+  apply_hosts:
+  - www.cockroachlabs.com
 - name: Coinbase
   slug: coinbase
+  apply_hosts:
+  - www.coinbase.com
 - name: ConsenSys
   slug: consensys
 - name: Corelight
@@ -87,16 +113,26 @@ greenhouse:
   security_company: true
 - name: Cribl
   slug: cribl
+  apply_hosts:
+  - cribl.io
 - name: Cybereason
   slug: cybereason
   security_company: true
+  apply_hosts:
+  - jobs.cybereason.com
 - name: Databricks
   slug: databricks
+  apply_hosts:
+  - databricks.com
 - name: Datadog
   slug: datadog
+  apply_hosts:
+  - careers.datadoghq.com
 - name: Deepwatch
   slug: deepwatchinc
   security_company: true
+  apply_hosts:
+  - www.deepwatch.com
 - name: Descope
   slug: descope
   security_company: true
@@ -107,23 +143,35 @@ greenhouse:
   security_company: true
 - name: Dropbox
   slug: dropbox
+  apply_hosts:
+  - jobs.dropbox.com
 - name: Elastic
   slug: elastic
+  apply_hosts:
+  - jobs.elastic.co
 - name: Endor Labs
   slug: endorlabs
   security_company: true
 - name: Epirus
   slug: epirus
+  apply_hosts:
+  - www.epirusinc.com
 - name: Expel
   slug: expel
   security_company: true
+  apply_hosts:
+  - expel.com
 - name: Fastly
   slug: fastly
+  apply_hosts:
+  - www.fastly.com
 - name: Figma
   slug: figma
 - name: Fireblocks
   slug: fireblocks
   security_company: true
+  apply_hosts:
+  - www.fireblocks.com
 - name: Gemini
   slug: gemini
 - name: GitLab
@@ -154,6 +202,8 @@ greenhouse:
   security_company: true
 - name: Instacart
   slug: instacart
+  apply_hosts:
+  - instacart.careers
 - name: Keeper Security
   slug: keepersecurity
   security_company: true
@@ -166,9 +216,13 @@ greenhouse:
   slug: mercury
 - name: MongoDB
   slug: mongodb
+  apply_hosts:
+  - www.mongodb.com
 - name: Netskope
   slug: netskope
   security_company: true
+  apply_hosts:
+  - www.netskope.com
 - name: New Relic
   slug: newrelic
 - name: Nozomi Networks
@@ -180,12 +234,16 @@ greenhouse:
 - name: Okta
   slug: okta
   security_company: true
+  apply_hosts:
+  - www.okta.com
 - name: OneTrust
   slug: onetrust
   security_company: true
 - name: Orca Security
   slug: orcasecurity
   security_company: true
+  apply_hosts:
+  - orca.security
 - name: Osano
   slug: osano
   security_company: true
@@ -199,9 +257,13 @@ greenhouse:
   security_company: true
 - name: Pinterest
   slug: pinterest
+  apply_hosts:
+  - www.pinterestcareers.com
 - name: Praetorian
   slug: praetorian
   security_company: true
+  apply_hosts:
+  - www.praetorian.com
 - name: Primer
   slug: primerai
 - name: Recorded Future
@@ -211,20 +273,32 @@ greenhouse:
   slug: reddit
 - name: Ripple
   slug: ripple
+  apply_hosts:
+  - ripple.com
 - name: Robinhood
   slug: robinhood
 - name: Roblox
   slug: roblox
+  apply_hosts:
+  - careers.roblox.com
 - name: Rubrik
   slug: rubrik
+  apply_hosts:
+  - www.rubrik.com
 - name: runZero
   slug: runzero
   security_company: true
+  apply_hosts:
+  - www.runzero.com
 - name: Salt Security
   slug: saltsecurity
   security_company: true
+  apply_hosts:
+  - salt.security
 - name: Samsara
   slug: samsara
+  apply_hosts:
+  - www.samsara.com
 - name: Scale AI
   slug: scaleai
 - name: SecurityScorecard
@@ -233,6 +307,8 @@ greenhouse:
 - name: SentinelOne
   slug: sentinellabs
   security_company: true
+  apply_hosts:
+  - www.sentinelone.com
 - name: Shift5
   slug: shift5
   security_company: true
@@ -250,6 +326,8 @@ greenhouse:
   security_company: true
 - name: Stripe
   slug: stripe
+  apply_hosts:
+  - stripe.com
 - name: Sumo Logic
   slug: sumologic
 - name: Sweet Security
@@ -272,6 +350,8 @@ greenhouse:
   security_company: true
 - name: Toast
   slug: toast
+  apply_hosts:
+  - careers.toasttab.com
 - name: Together AI
   slug: togetherai
 - name: Torq
@@ -283,6 +363,8 @@ greenhouse:
 - name: Transmit Security
   slug: transmitsecurity
   security_company: true
+  apply_hosts:
+  - www.transmitsecurity.com
 - name: Twilio
   slug: twilio
 - name: Two Six Technologies
@@ -293,9 +375,13 @@ greenhouse:
 - name: Vectra AI
   slug: vectranetworks
   security_company: true
+  apply_hosts:
+  - www.vectra.ai
 - name: Veracode
   slug: veracode
   security_company: true
+  apply_hosts:
+  - www.veracode.com
 - name: Verkada
   slug: verkada
 - name: Webflow
@@ -303,6 +389,8 @@ greenhouse:
 - name: Wiz
   slug: wizinc
   security_company: true
+  apply_hosts:
+  - www.wiz.io
 - name: xAI
   slug: xai
 - name: Yubico
@@ -314,15 +402,21 @@ greenhouse:
 - name: DigiCert
   slug: digicert
   security_company: true
+  apply_hosts:
+  - www.digicert.com
 - name: OPSWAT
   slug: opswat
   security_company: true
+  apply_hosts:
+  - www.opswat.com
 - name: Automox
   slug: automox
   security_company: true
 - name: Veriff
   slug: veriff
   security_company: true
+  apply_hosts:
+  - www.veriff.com
 - name: Jumio
   slug: jumio
 - name: ID.me
@@ -331,6 +425,8 @@ greenhouse:
 - name: HYPR
   slug: hypr
   security_company: true
+  apply_hosts:
+  - www.hypr.com
 - name: Prove
   slug: prove
   security_company: true
@@ -375,6 +471,8 @@ greenhouse:
   security_company: true
 - name: JFrog
   slug: jfrog
+  apply_hosts:
+  - join.jfrog.com
 lever:
 - name: Anchorage Digital
   slug: anchorage
@@ -702,6 +800,8 @@ recruitee:
   security_company: true
 - name: Lansweeper
   slug: lansweeper
+  apply_hosts:
+  - careers.lansweeper.com
 pinpoint:
 - name: NCC Group
   slug: nccgroup

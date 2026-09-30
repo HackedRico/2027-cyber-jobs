@@ -2486,6 +2486,79 @@ def test_fetches_cap_the_response_size():
           sj.MAX_RESPONSE_BYTES > 42 * 1024 * 1024, True)
 
 
+@responses.activate
+def test_apply_links_stay_on_the_vendor_or_listed_hosts():
+    """A misfiled or hijacked tenant could point the Apply button at any domain."""
+    uuid = '6ed76ce8-4156-4b60-b120-403538bd66cd'
+    responses.get('https://boards-api.greenhouse.io/v1/boards/acme/jobs', json={'jobs': [
+        {'id': 11, 'title': 'Security Engineer', 'absolute_url':
+         'https://acme.com/careers/jobs/11?gh_jid=11'},
+        {'id': 12, 'title': 'Security Engineer', 'absolute_url': 'https://evil.test/12'},
+        {'id': 13, 'title': 'Security Engineer', 'absolute_url':
+         'https://acme.com@evil.test/careers?gh_jid=13'},
+        {'id': 14, 'title': 'Security Engineer', 'absolute_url':
+         'https://evil.test\\@acme.com/careers?gh_jid=14'},
+        {'id': 15, 'title': 'Security Engineer', 'absolute_url':
+         'https://job-boards.greenhouse.io/acme/jobs/15'},
+        {'id': 16, 'title': 'Security Engineer', 'absolute_url': 'javascript:alert(1)'},
+    ]})
+    jobs = sj.scrape_greenhouse('Acme', 'acme', ('acme.com',))
+    check('greenhouse keeps a listed employer host and the vendor host, and falls back '
+          'for the rest', [j['url'] for j in jobs],
+          ['https://acme.com/careers/jobs/11?gh_jid=11',
+           'https://job-boards.greenhouse.io/acme/jobs/12',
+           'https://job-boards.greenhouse.io/acme/jobs/13',
+           'https://job-boards.greenhouse.io/acme/jobs/14',
+           'https://job-boards.greenhouse.io/acme/jobs/15',
+           'https://job-boards.greenhouse.io/acme/jobs/16'])
+    check('the fallback fingerprints the same req as the employer link',
+          sj.job_fingerprint('Acme', 'Greenhouse', 'https://job-boards.greenhouse.io/acme/jobs/11'),
+          sj.job_fingerprint('Acme', 'Greenhouse', jobs[0]['url']))
+    check('without apply_hosts the employer host falls back too',
+          sj.scrape_greenhouse('Acme', 'acme')[0]['url'],
+          'https://job-boards.greenhouse.io/acme/jobs/11')
+
+    responses.get('https://api.lever.co/v0/postings/acme', json=[
+        {'id': uuid, 'text': 'Security Analyst', 'country': 'US',
+         'categories': {'location': 'Austin, TX'}, 'hostedUrl': f'https://evil.test/{uuid}'}])
+    check('lever falls back to jobs.lever.co', sj.scrape_lever('Acme', 'acme')[0]['url'],
+          f'https://jobs.lever.co/acme/{uuid}')
+
+    responses.get('https://api.ashbyhq.com/posting-api/job-board/acme', json={'jobs': [
+        {'id': uuid, 'title': 'Security Engineer', 'location': 'Austin, TX',
+         'jobUrl': f'https://evil.test/{uuid}'}]})
+    check('ashby falls back to jobs.ashbyhq.com', sj.scrape_ashby('Acme', 'acme')[0]['url'],
+          f'https://jobs.ashbyhq.com/acme/{uuid}')
+
+    responses.get(RECRUITEE_API, json={'offers': [
+        dict(_recruitee_offer(1, 'Security Engineer I',
+                              [('US', 'VA', 'Herndon', 'United States')]),
+             slug='security-engineer-i', careers_url='https://other.recruitee.com/o/x'),
+        dict(_recruitee_offer(2, 'Security Engineer II',
+                              [('US', 'VA', 'Herndon', 'United States')]),
+             slug='security-engineer-ii', careers_url='https://careers.aikido.dev/o/y')]})
+    check('recruitee pins the tenant subdomain and honours apply_hosts',
+          [j['url'] for j in sj.scrape_recruitee('Aikido Security', 'aikidosecurity',
+                                                 ('careers.aikido.dev',))],
+          ['https://aikidosecurity.recruitee.com/o/security-engineer-i',
+           'https://careers.aikido.dev/o/y'])
+
+    responses.get('https://acme.pinpointhq.com/postings.json', json={'data': [
+        {'id': '7', 'title': 'SOC Analyst', 'location': {'city': 'Austin', 'province': 'TX'},
+         'url': f'https://evil.test/en/postings/{uuid}', 'path': f'/en/postings/{uuid}'}]})
+    url = sj.scrape_pinpoint('Acme', 'acme')[0]['url']
+    check('pinpoint falls back to the tenant page path', url,
+          f'https://acme.pinpointhq.com/en/postings/{uuid}')
+    check('...which still fingerprints', sj.job_fingerprint('Acme', 'Pinpoint', url),
+          ('Acme', 'Pinpoint', uuid))
+
+    config = {'greenhouse': [{'name': 'A', 'slug': 'a', 'apply_hosts': ['a.com']},
+                             {'name': 'B', 'slug': 'b'}]}
+    check('build_tasks passes apply_hosts only when an entry lists them',
+          [t.args for t in sj.build_tasks(config, board='greenhouse')],
+          [('A', 'a', ('a.com',)), ('B', 'b')])
+
+
 def test_host_validation_pins_oracle_and_refuses_local_hosts():
     for host in ('127.0.0.1', '127.1', '10.0.0.8', 'localhost', 'jobs.localhost', 'intranet',
                  'careers..acme.com', ''):
@@ -2605,6 +2678,7 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_orphan_pass_covers_jibe_rows,
            test_fetches_refuse_a_redirect_to_another_host,
            test_fetches_cap_the_response_size,
+           test_apply_links_stay_on_the_vendor_or_listed_hosts,
            test_host_validation_pins_oracle_and_refuses_local_hosts,
            test_payload_paths_cannot_name_another_host):
     fn()
