@@ -1920,9 +1920,10 @@ def test_check_links_soft_404():
     page('https://acme.com/expired', ' This job has expired\n')
     page('https://acme.com/no-title', None)
     page('https://acme.com/pdf', '', content_type='application/pdf')
+    soft = check_links.SOFT_404
     check('a 200 with a not-found title or an empty title is a soft 404',
           [check_links.fetch_status(r.url, soft_404=True) for r in responses.registered()],
-          [404, 404, 200, 404, 200, 200])
+          [soft, soft, 200, soft, 200, 200])
     check('without soft_404 the raw status stands',
           check_links.fetch_status(bofa), 200)
 
@@ -1930,9 +1931,43 @@ def test_check_links_soft_404():
     check('a soft 404 starts the streak like a real one',
           check_links.record_result(row, check_links.fetch_status(bofa, soft_404=True),
                                     '2026-09-27'), False)
-    check('and closes the row on the next day',
-          check_links.record_result(row, check_links.fetch_status(bofa, soft_404=True),
-                                    '2026-09-28'), True)
+    check('a second soft day is not enough, since an app can load with no title',
+          check_links.record_result(row, soft, '2026-09-28'), False)
+    check('the third distinct day closes it',
+          (check_links.record_result(row, soft, '2026-09-29'), row['url']), (True, ''))
+
+
+# --- check_links: a redirect that drops the req id -----------------------------
+@responses.activate
+def test_check_links_redirect_that_drops_the_req():
+    gone = 'https://boards.greenhouse.io/acme/jobs/4412345'
+    responses.get(gone, status=302, headers={'Location': 'https://boards.greenhouse.io/acme?error=true'})
+    responses.get('https://boards.greenhouse.io/acme', status=200, body='<title>Jobs at Acme</title>',
+                  content_type='text/html')
+    search = 'https://careers.acme.com/job/SOC-Analyst/882211'
+    responses.get(search, status=301, headers={'Location': 'https://careers.acme.com/search'})
+    responses.get('https://careers.acme.com/search', status=200,
+                  body='<title>Search jobs</title>', content_type='text/html')
+    moved = 'https://careers.acme.com/job/882299'
+    responses.get(moved, status=301,
+                  headers={'Location': 'https://careers.acme.com/en/job/882299/soc-analyst'})
+    responses.get('https://careers.acme.com/en/job/882299/soc-analyst', status=200,
+                  body='<title>SOC Analyst</title>', content_type='text/html')
+    check('a redirect to an error page or a page without the req id is a soft 404',
+          [check_links.fetch_status(u, soft_404=True) for u in (gone, search, moved)],
+          [check_links.SOFT_404, check_links.SOFT_404, 200])
+    check('a scraped-row check does not read redirects',
+          check_links.fetch_status(search), 200)
+
+
+def test_check_links_ages_out_old_community_rows():
+    old = {'company': 'Acme', 'role': 'SOC Intern', 'source': 'Community',
+           'url': 'https://x/1', 'date_added': '2026-05-01'}
+    young = dict(old, date_added='2026-08-01')
+    scraped = dict(old, source='Greenhouse')
+    check('only a Community row past the age limit ages out',
+          [check_links.is_aged_out(e, '2026-09-30') for e in (old, young, scraped)],
+          [True, False, False])
 
 
 # --- a board that leaves the config leaves the baseline -----------------------
@@ -2459,6 +2494,8 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_workday_more_suffix_fetches_locations, test_amazon_restricts_to_us_reqs,
            test_smartrecruiters_and_amazon_flag_a_cut_short_sweep,
            test_retire_orphaned_listings, test_check_links_soft_404,
+           test_check_links_redirect_that_drops_the_req,
+           test_check_links_ages_out_old_community_rows,
            test_board_health_forgets_a_removed_board,
            test_compare_runs_reports_retirements,
            test_oracle_ids_and_labels_carry_host_and_site,
