@@ -426,6 +426,12 @@ CASES = [
     ('Cybersecurity Analyst 2/3', 'Linthicum, MD', NORTHROP_LEVELS, False, ('earlycareer', 'Security Engineering')),
     ('Cybersecurity Analyst 2/3', 'Linthicum, MD',
      "Level 3: Bachelor's + 5 years of related experience.", False, None),
+    # A description that states no count is no evidence either.
+    ('Cybersecurity Analyst 2/3', 'Linthicum, MD',
+     'Join our team protecting national security missions.', False, None),
+    ('Cybersecurity Analyst 2/3', 'Linthicum, MD',
+     'Open to candidates with 0-2 years of experience.', False,
+     ('earlycareer', 'Security Engineering')),
     # ...while a single level, or a span that stops at II, levels on the title.
     ('Cyber Analyst II', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
     ('Security Engineer 2', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),

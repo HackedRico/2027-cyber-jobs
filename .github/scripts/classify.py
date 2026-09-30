@@ -1799,9 +1799,12 @@ def judge_job(title, location, description='', security_company=False,
         return None, 'facility-security'
     level = classify_level(title, description, intern_hint)
     # The title levels a multi-level req, but only the description can say it
-    # is hired below level 3. A missing one is 'no-level', which the stored-row
-    # pass in scrape_jobs.py keeps rather than drops.
-    if level not in (None, 'intern') and not description and _spans_senior_level(title.lower()):
+    # is hired below level 3: a stated count the experience gate below then
+    # bounds, or a low ceiling. A missing or silent one is 'no-level', which
+    # the stored-row pass in scrape_jobs.py keeps when the body is missing.
+    if (level not in (None, 'intern') and _spans_senior_level(title.lower())
+            and not (permits_early_experience(description)
+                     or any(_experience_counts(description)))):
         return None, 'no-level'
     if level is None:
         # A flat "Security Engineer" title at a security company with a low
