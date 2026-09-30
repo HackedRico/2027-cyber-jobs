@@ -178,6 +178,16 @@ def check_container(data, key, label):
 WORKPLACE_LABELS = {'in-office', 'hybrid', 'distributed', 'remote', 'onsite',
                     'on-site', 'flexible', ''}
 
+# Metadata fields that hold a place. Matching any name containing "location"
+# read Dropbox's 'Career Page Allocation' ('Sales') and 'Location Cost Tier'
+# ('Mid'), Anthropic's 'Location Type' and Fastly's 'Work Location Type'
+# ('Hybrid') as locations.
+GREENHOUSE_LOCATION_FIELDS = {
+    'job posting location', 'job post location', 'primary location',
+    'additional locations', 'additional job post location', 'office location',
+    'careers page: location',
+}
+
 
 def greenhouse_location(job):
     loc = (job.get('location') or {}).get('name', '') or ''
@@ -186,7 +196,8 @@ def greenhouse_location(job):
         return loc
     parts = [o.get('name') for o in job.get('offices') or [] if o.get('name')]
     for m in job.get('metadata') or []:
-        if isinstance(m, dict) and 'location' in (m.get('name') or '').lower():
+        if (isinstance(m, dict)
+                and (m.get('name') or '').strip().lower() in GREENHOUSE_LOCATION_FIELDS):
             v = m.get('value')
             if isinstance(v, list):
                 parts.extend(str(x) for x in v)

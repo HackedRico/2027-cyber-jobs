@@ -49,6 +49,23 @@ check('greenhouse_location reads Job Posting Location metadata',
       'Reston, VA')
 
 
+def test_greenhouse_location_reads_only_location_fields():
+    """Dropbox 'Career Page Allocation' and Fastly 'Work Location Type' are not places."""
+    def loc(label, *metadata):
+        return sj.greenhouse_location({'location': {'name': label}, 'offices': [],
+                                       'metadata': [{'name': n, 'value': v}
+                                                    for n, v in metadata]})
+    check('a non-location field holding "location" is ignored',
+          loc('Hybrid', ('Career Page Allocation', 'Sales'), ('Location Cost Tier', 'Mid'),
+              ('Work Location Type', 'Hybrid'), ('Location Type', 'On-Site')),
+          'Hybrid')
+    check('the real location fields are read and joined',
+          loc('Hybrid', ('Location Type', 'Hybrid'), ('Primary Location', 'Austin, TX'),
+              ('Additional Locations', ['Boston, MA']),
+              ('Additional Job Post Location', ['Reston, VA'])),
+          'Austin, TX; Boston, MA; Reston, VA')
+
+
 # --- scrape_greenhouse ---------------------------------------------------------
 @responses.activate
 def test_greenhouse():
@@ -1743,7 +1760,8 @@ def test_main_carries_seen_oracle_reqs_to_the_new_id():
           f'oracle_{host}_CX_5' in seen, True)
 
 
-for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
+for fn in (test_greenhouse_location_reads_only_location_fields,
+           test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_ashby, test_ashby_schema_drift_warns,
            test_smartrecruiters_pagination_short_page_stops,
            test_check_slugs_flags_unknown_smartrecruiters_id, test_oracle,
