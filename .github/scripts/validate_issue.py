@@ -23,19 +23,13 @@ import requests
 sys.path.insert(0, str(Path(__file__).parent))
 from classify import (  # noqa: E402
     CATEGORY_ALLOWLIST,
-    FUNCTION_REJECT_RE,
-    INFOSEC_OFFICER_HINTS,
-    LEVELED_SENIOR_RE,
-    SECURITY_OFFICER_RE,
-    SENIORITY_REJECT,
     classify_level,
     evaluate_job,
     infer_category,
     is_cyber_title,
-    is_rejected_title,
-    is_senior_architect,
     is_us_location,
     listing_dedup_key,
+    rejected_title_rule,
 )
 from common import (  # noqa: E402
     gh_headers,
@@ -97,32 +91,13 @@ def form_errors(fields):
     return errors
 
 
-def rejected_title_reason(title):
-    """Name the is_rejected_title rule a title trips, or None."""
-    t = title.lower()
-    for pattern in SENIORITY_REJECT:
-        m = re.search(pattern, t)
-        if m:
-            return f'the title has the seniority term "{md_escape(m.group(0))}"'
-    if is_senior_architect(title):
-        return 'an architect title needs a new grad, intern or early-career signal'
-    m = LEVELED_SENIOR_RE.search(t)
-    if m:
-        return f'"{md_escape(m.group(0))}" is a senior level'
-    m = FUNCTION_REJECT_RE.search(t)
-    if m:
-        return f'"{md_escape(m.group(0))}" marks a non-cyber function'
-    if SECURITY_OFFICER_RE.search(t) and not any(h in t for h in INFOSEC_OFFICER_HINTS):
-        return '"security officer" without an infosec word is usually a guard role'
-    return None
-
-
 def charter_gate(title, location, security_company=False):
     """The first evaluate_job gate a title and location fail, or None."""
     if not title:
         return 'there is no job title'
-    if is_rejected_title(title):
-        return rejected_title_reason(title)
+    reason = rejected_title_rule(title)
+    if reason:
+        return md_escape(reason)
     if not is_cyber_title(title, security_company):
         return 'the title has no cybersecurity keyword'
     if evaluate_job(title, 'Remote (US)', '', security_company) is None:

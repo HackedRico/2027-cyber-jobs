@@ -1251,14 +1251,48 @@ def _is_stale_intern_title(title, today):
     return max(years) < first_open_season(today)
 
 
-def is_senior_architect(title, today=None):
-    """True for an architect title with no new-grad, intern or early-career word."""
+def rejected_title_rule(title, today=None):
+    """The rule that rules a title out, as a plain-text reason, or None if none does.
+
+    is_rejected_title is defined by this, so the submission verdict names the
+    same rule the scraper applies. `today` (a date) is injectable so the season
+    check can be tested.
+    """
     t = title.lower()
-    if not ARCHITECT_RE.search(t):
-        return False
-    if classify_level(title, today=today) in ('newgrad', 'intern'):
-        return False
-    return not EARLYCAREER_RE.search(t)
+    unexempt = SENIORITY_EXEMPT_RE.sub(' ', t)
+    for pattern in SENIORITY_REJECT:
+        m = re.search(pattern, unexempt)
+        if m:
+            return f'the title has the seniority term "{m.group(0)}"'
+    if (ARCHITECT_RE.search(t) and not EARLYCAREER_RE.search(t)
+            and classify_level(title, today=today) not in ('newgrad', 'intern')):
+        return 'an architect title needs a new grad, intern or early-career signal'
+    m = LEVELED_SENIOR_RE.search(t)
+    if m:
+        return f'"{m.group(0)}" is a senior level'
+    m = FUNCTION_REJECT_RE.search(t)
+    if m:
+        return f'"{m.group(0)}" marks a non-cyber function'
+    if (SECURITY_OFFICER_RE.search(t) and not ISSO_HINT_RE.search(t)
+            and not any(h in t for h in INFOSEC_OFFICER_HINTS)):
+        return '"security officer" without an infosec word is usually a guard role'
+    if PROGRAM_ANALYST_RE.search(t) and not _has_cyber_keyword(t):
+        return 'a program analyst with no cyber keyword runs budgets and schedules'
+    m = NON_CYBER_SECURITY_RE.search(t)
+    if m and not _has_cyber_keyword(t):
+        return f'"{m.group(0)}" is not information security'
+    m = DEPARTMENT_REJECT_RE.search(t)
+    if m and not _names_security_work(t):
+        return f'"{m.group(0)}" names a department and the title names no security work'
+    if re.search(r'\bsecurity\b', _strip_non_cyber_security(t)):
+        m = WEAK_SECURITY_ROLE_RE.search(t)
+        if m and not TECH_SECURITY_ROLE_RE.search(t) and not _has_second_cyber_term(t):
+            return (f'a security "{m.group(0)}" with no other cyber term is usually '
+                    'a facility, badging or guard role')
+    if _is_stale_intern_title(title, today):
+        return (f'the internship season in the title has passed; the earliest one '
+                f'still recruiting is {first_open_season(today)}')
+    return None
 
 
 def is_rejected_title(title, today=None):
@@ -1267,29 +1301,7 @@ def is_rejected_title(title, today=None):
 
     `today` (a date) is injectable so the season check can be tested.
     """
-    t = title.lower()
-    if any(re.search(p, SENIORITY_EXEMPT_RE.sub(' ', t)) for p in SENIORITY_REJECT):
-        return True
-    if is_senior_architect(title, today):
-        return True
-    if LEVELED_SENIOR_RE.search(t):
-        return True
-    if FUNCTION_REJECT_RE.search(t):
-        return True
-    if (SECURITY_OFFICER_RE.search(t) and not ISSO_HINT_RE.search(t)
-            and not any(h in t for h in INFOSEC_OFFICER_HINTS)):
-        return True
-    if PROGRAM_ANALYST_RE.search(t) and not _has_cyber_keyword(t):
-        return True
-    if NON_CYBER_SECURITY_RE.search(t) and not _has_cyber_keyword(t):
-        return True
-    if DEPARTMENT_REJECT_RE.search(t) and not _names_security_work(t):
-        return True
-    if (re.search(r'\bsecurity\b', _strip_non_cyber_security(t))
-            and WEAK_SECURITY_ROLE_RE.search(t) and not TECH_SECURITY_ROLE_RE.search(t)
-            and not _has_second_cyber_term(t)):
-        return True
-    return _is_stale_intern_title(title, today)
+    return rejected_title_rule(title, today) is not None
 
 
 def _is_cyber_keyword_hit(t):
