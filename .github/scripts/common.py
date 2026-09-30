@@ -53,6 +53,45 @@ def normalize_url(url):
         return url
 
 
+_AUTOLINK_RE = re.compile(r'\b(https?|ftp)(?=://)|\b(www)(?=\.)', re.IGNORECASE)
+
+
+def md_escape(text):
+    """Render untrusted text as inert inline markdown.
+
+    Scraped and submitted fields reach bot comments and releases. There they
+    must not open links, HTML or emphasis, ping a user, or autolink a bare URL:
+    a submitted Category once rendered a phishing link and @mentions in the
+    verdict comment, in the bot's voice. A zero-width space after @ and inside
+    a URL scheme breaks the mention and the autolink. & is left alone so the
+    plain-text email reads "Cloud & Infra", not "&amp;".
+    """
+    text = re.sub(r'\s+', ' ', text or '').strip()
+    text = text.replace('\\', '\\\\').replace('<', '&lt;').replace('>', '&gt;')
+    text = re.sub(r'([\[\]`*_~|])', r'\\\1', text)
+    text = _AUTOLINK_RE.sub(lambda m: (m.group(1) or m.group(2)) + '&#8203;', text)
+    return re.sub(r'@(?=\w)', '@&#8203;', text)
+
+
+def md_code(text):
+    """Render untrusted text as one inline code span it cannot close.
+
+    A code span shows its text literally, so no link, mention or HTML inside it
+    renders. The fence is one backtick longer than any run in the text, since a
+    single backtick in a submitted value closed the old fixed fence.
+    """
+    text = re.sub(r'\s+', ' ', text or '').strip()
+    if not text:
+        return '(empty)'
+    longest = max((len(run) for run in re.findall(r'`+', text)), default=0)
+    if not longest:
+        return f'`{text}`'
+    # The padding spaces keep a leading or trailing backtick off the fence;
+    # CommonMark strips one from each side.
+    fence = '`' * (longest + 1)
+    return f'{fence} {text} {fence}'
+
+
 def gh_headers(token):
     return {
         'Authorization': f'token {token}',
@@ -122,13 +161,15 @@ def validate_location(location):
             continue
         m = CITY_STATE_RE.match(part)
         if not m:
+            # These strings reach bot comments, so the submitted part is
+            # quoted in a code span it cannot close.
             errors.append(
-                f'`{part}`: use "City, ST" format (e.g. "Arlington, VA") '
+                f'{md_code(part)}: use "City, ST" format (e.g. "Arlington, VA") '
                 f'or "Remote (US)"'
             )
         elif m.group(1) not in US_STATES:
             errors.append(
-                f'`{part}`: `{m.group(1)}` is not a US state code. '
+                f'{md_code(part)}: {md_code(m.group(1))} is not a US state code. '
                 f'This board is US-only.'
             )
     return errors

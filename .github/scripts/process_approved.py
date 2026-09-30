@@ -26,6 +26,7 @@ import rebuild_readme  # noqa: E402
 from classify import CATEGORY_ALLOWLIST, infer_category, listing_dedup_key  # noqa: E402
 from common import (  # noqa: E402
     gh_headers,
+    md_escape,
     normalize_submitted_location,
     normalize_url,
     parse_issue_body,
@@ -123,9 +124,15 @@ def submission_problem(fields, listing):
     return None
 
 
+def _is_open(entry):
+    return not entry.get('closed') and bool(entry.get('url'))
+
+
 def _describe(entry):
-    state = 'closed' if entry.get('closed') or not entry.get('url') else 'open'
-    return f"{entry.get('company', '')}: {entry.get('role', '')}, {state}"
+    # Posted in the duplicate comment, and a row's company and role may be
+    # another submitter's text.
+    state = 'open' if _is_open(entry) else 'closed'
+    return f"{md_escape(entry.get('company', ''))}: {md_escape(entry.get('role', ''))}, {state}"
 
 
 def ingest(issues, listings, security_companies=frozenset(), today=None):
@@ -147,7 +154,8 @@ def ingest(issues, listings, security_companies=frozenset(), today=None):
         except Exception as e:
             # One malformed issue must not abort the whole approved batch.
             results.append({'number': number, 'outcome': 'skipped',
-                            'detail': f'the issue body could not be parsed ({e}).'})
+                            'detail': f'the issue body could not be parsed '
+                                      f'({md_escape(str(e))}).'})
             continue
 
         problem = submission_problem(fields, listing)

@@ -404,6 +404,41 @@ check('build_verdict body has no em or en dashes',
       '\u2014' in body or '\u2013' in body, False)
 
 
+# --- escaping echoed fields ----------------------------------------------------
+check('md_code wraps plain text in one backtick', common.md_code('Austin, TX'), '`Austin, TX`')
+check('md_code outruns a backtick in the text', common.md_code('a`b'), '`` a`b ``')
+check('md_code outruns a double backtick', common.md_code('``x'), '``` ``x ```')
+check('md_code shows an empty value', common.md_code('  '), '(empty)')
+check('md_escape breaks a bare url autolink',
+      common.md_escape('see https://evil.example or www.evil.example'),
+      'see https&#8203;://evil.example or www&#8203;.evil.example')
+
+# A submitted Category of this shape once closed the verdict's code span and
+# rendered a phishing link and @mentions in the bot's comment.
+EVIL = 'x` [Verify your account](https://evil.example/login) @octocat `'
+EVIL_LOCATION = 'Austin` [a](https://evil.example) @octocat, ZZ'
+body, ok = vi.build_verdict(
+    common.parse_issue_body(form(listing_type=EVIL, category=EVIL, location=EVIL_LOCATION)),
+    [{'company': 'Acme', 'role': 'Security Analyst Intern', 'location': EVIL_LOCATION,
+      'url': 'https://boards.greenhouse.io/acme/jobs/1'}], frozenset(),
+    vi.check_link('http://a`b.example/', get=never, resolves_public=lambda h: False))
+check('build_verdict echoes no free text from an allowlisted field',
+      'Verify your account' in body, False)
+check('build_verdict names an off-form Listing Type and Category',
+      body.count('submitted a value that is not a form option'), 2)
+check('build_verdict quotes a location part in a span it cannot close',
+      f'`` {EVIL_LOCATION} ``: `ZZ` is not a US state code' in body, True)
+check('build_verdict escapes a duplicate row',
+      'Austin\\` \\[a\\](https&#8203;://evil.example) @&#8203;octocat, ZZ' in body, True)
+check('build_verdict quotes a link host in a span it cannot close',
+      '`` a`b.example `` does not resolve' in body, True)
+outside_code = ''.join(body.split('``')[::2])
+check('build_verdict pings nobody outside a code span', '@octocat' in outside_code, False)
+check('_describe escapes a duplicate for the issue comment',
+      pa._describe({'company': '@octocat', 'role': '[x](https://evil)', 'url': 'u'}),
+      '@&#8203;octocat: \\[x\\](https&#8203;://evil), open')
+
+
 for fn in (test_notify_after_push, test_notify_leaves_added_issue_open_when_push_failed,
            test_notify_reports_api_failure, test_ingest_writes_run_events_for_added_rows):
     fn()

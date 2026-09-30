@@ -49,7 +49,7 @@ def _events(added):
 check('format_row neutralises mentions, links and HTML in scraped fields',
       notify.format_row(_row('Acme', 'Intern @octocat [x](https://evil) <b>',
                              url='https://x/a_(b)'), set()),
-      '- **Acme**: Intern @&#8203;octocat \\[x\\](https://evil) &lt;b&gt; · Austin, TX · '
+      '- **Acme**: Intern @&#8203;octocat \\[x\\](https&#8203;://evil) &lt;b&gt; · Austin, TX · '
       'Security Engineering · [Apply](https://x/a_%28b%29)')
 check('format_row caps a long site list',
       notify.format_row(_row('Acme', 'SOC Intern', location='A, TX; B, TX; C, TX; D, TX'),
@@ -255,13 +255,13 @@ def test_stream_selection():
 
 # --- escaping ------------------------------------------------------------------
 def test_markdown_escaping():
-    check('_md collapses whitespace and escapes markdown and table syntax',
-          notify._md('  a|b\n`c` *d* _e_ ~f~ \\g  '),
+    check('md_escape collapses whitespace and escapes markdown and table syntax',
+          notify.md_escape('  a|b\n`c` *d* _e_ ~f~ \\g  '),
           'a\\|b \\`c\\` \\*d\\* \\_e\\_ \\~f\\~ \\\\g')
-    check('_md leaves an ampersand for the plain-text email',
-          notify._md('Cloud & Infra'), 'Cloud & Infra')
-    check('_md breaks every @ that could ping a user',
-          notify._md('@team mail a@b'), '@&#8203;team mail a@&#8203;b')
+    check('md_escape leaves an ampersand for the plain-text email',
+          notify.md_escape('Cloud & Infra'), 'Cloud & Infra')
+    check('md_escape breaks every @ that could ping a user',
+          notify.md_escape('@team mail a@b'), '@&#8203;team mail a@&#8203;b')
     check('_apply_link drops a non-http url', notify._apply_link('javascript:alert(1)'), '')
     check('_apply_link drops a url with whitespace', notify._apply_link('https://x/a b'), '')
     check('_apply_link keeps an https url', notify._apply_link('https://x/a'),

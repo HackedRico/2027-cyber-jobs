@@ -22,7 +22,7 @@ import requests
 
 sys.path.insert(0, str(Path(__file__).parent))
 from classify import is_cyber_title  # noqa: E402
-from common import gh_headers  # noqa: E402
+from common import gh_headers, md_escape  # noqa: E402
 
 LISTINGS_FILE = Path('listings.json')
 API = 'https://api.github.com'
@@ -127,16 +127,6 @@ def find_openers(added, listings, run_at):
             and (r.get('company', '').casefold(), r.get('type')) not in recent}
 
 
-def _md(text):
-    # Scraped and community fields must not open links, HTML or emphasis, and a
-    # zero-width space after @ stops a title from pinging a GitHub user. & is
-    # left alone so the plain-text email reads "Cloud & Infra", not "&amp;".
-    text = re.sub(r'\s+', ' ', text or '').strip()
-    text = text.replace('\\', '\\\\').replace('<', '&lt;').replace('>', '&gt;')
-    text = re.sub(r'([\[\]`*_~|])', r'\\\1', text)
-    return re.sub(r'@(?=\w)', '@&#8203;', text)
-
-
 def _apply_link(url):
     if not url or not re.match(r'^https?://', url) or re.search(r'\s', url):
         return ''
@@ -152,17 +142,17 @@ def format_row(row, openers, with_type=False):
         flags += ' 🚨'
     if row.get('clearance'):
         flags += ' 🇺🇸'
-    parts = [_md(row.get('role', ''))]
+    parts = [md_escape(row.get('role', ''))]
     sites = [p.strip() for p in (row.get('location') or '').split(';') if p.strip()]
     if len(sites) > MAX_SITES:
         sites = sites[:MAX_SITES - 1] + [f'{len(sites) - MAX_SITES + 1} more']
     if sites:
-        parts.append(_md('; '.join(sites)))
+        parts.append(md_escape('; '.join(sites)))
     if with_type:
         parts.append(TYPE_WORDS.get(row.get('type'), row.get('type', '')))
     if row.get('category'):
-        parts.append(_md(row['category']))
-    return (f'- **{_md(row.get("company", ""))}**{flags}: ' + ' · '.join(parts)
+        parts.append(md_escape(row['category']))
+    return (f'- **{md_escape(row.get("company", ""))}**{flags}: ' + ' · '.join(parts)
             + _apply_link(row.get('url', '')))
 
 
