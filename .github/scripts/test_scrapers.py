@@ -1341,6 +1341,71 @@ def test_phenom_none_vs_empty():
           sj.scrape_phenom('Acme', 'careers.acme.org', 'en_us', 'us'), None)
 
 
+def _partial_flags(jobs):
+    return sorted({bool(j.get('partial_sweep')) for j in jobs or []})
+
+
+@responses.activate
+def test_eightfold_flags_a_cut_short_sweep():
+    """Microsoft 'security' matches 970 postings against a 500 cap."""
+    def run(max_pages):
+        original = sj.EIGHTFOLD_MAX_PAGES
+        try:
+            sj.EIGHTFOLD_MAX_PAGES = max_pages
+            return sj.scrape_eightfold('Acme', 'acme', 'acme.com')
+        finally:
+            sj.EIGHTFOLD_MAX_PAGES = original
+
+    def search(second_page, **kwargs):
+        responses.reset()
+        _ef_search('cyber', 0, json=_ef_page(
+            [_ef_pos(i, f'Mechanical Engineer {i}') for i in range(10)], 20))
+        _ef_search('cyber', 10, **(kwargs or {'json': _ef_page(second_page, 20)}))
+        for term in ('intern', 'early career'):
+            _ef_search(term, 0, json=_ef_page([], 0))
+
+    search([_ef_pos(i, f'Mechanical Engineer {i}') for i in range(10, 20)])
+    check('eightfold: a whole sweep is not partial', _partial_flags(run(2)), [False])
+    check('eightfold: a term that hits the page cap flags every posting',
+          _partial_flags(run(1)), [True])
+    search(None, status=500)
+    jobs = run(2)
+    check('eightfold: a failed page mid-term keeps what it read, flagged',
+          (len(jobs), _partial_flags(jobs)), (10, [True]))
+    responses.reset()
+    _ef_search('cyber', 0, status=500)
+    for term in ('intern', 'early career'):
+        _ef_search(term, 0, json=_ef_page([], 0))
+    check('eightfold: a sweep that lost pages and found nothing -> None', run(2), None)
+
+
+@responses.activate
+def test_phenom_flags_a_cut_short_sweep():
+    """BAE 'cyber' matches 1,837 postings against a 200 cap."""
+    size = sj.PHENOM_PAGE_SIZE
+    _ph_search('cyber', 0, [_ph_job(n) for n in range(size)], 5000)
+    _ph_search('intern', 0, [], 0)
+    responses.post(PH_API, status=500, match=[responses.matchers.json_params_matcher(
+        {'ddoKey': 'refineSearch', 'keywords': 'cyber', 'from': size}, strict_match=False)])
+    jobs = sj.scrape_phenom('Acme', 'careers.acme.org', 'en_us', 'us')
+    check('phenom: a failed page mid-term keeps what it read, flagged',
+          (len(jobs), _partial_flags(jobs)), (size, [True]))
+    original = sj.PHENOM_MAX_PAGES
+    try:
+        sj.PHENOM_MAX_PAGES = 1
+        jobs = sj.scrape_phenom('Acme', 'careers.acme.org', 'en_us', 'us')
+    finally:
+        sj.PHENOM_MAX_PAGES = original
+    check('phenom: a term that hits the page cap flags every posting',
+          _partial_flags(jobs), [True])
+    responses.reset()
+    _ph_search('cyber', 0, [_ph_job(1)], 1)
+    _ph_search('intern', 0, [], 0)
+    check('phenom: a whole sweep is not partial',
+          _partial_flags(sj.scrape_phenom('Acme', 'careers.acme.org', 'en_us', 'us')),
+          [False])
+
+
 # --- scrape_jibe ---------------------------------------------------------------
 JB_API = 'https://careers.acme.org/api/jobs'
 
@@ -1697,6 +1762,47 @@ def test_amazon_restricts_to_us_reqs():
     check('amazon search filters to US reqs', query.get('normalized_country_code[]'), ['USA'])
 
 
+@responses.activate
+def test_smartrecruiters_and_amazon_flag_a_cut_short_sweep():
+    """A failed page mid-sweep used to come back as a plain, unflagged list."""
+    sr = 'https://api.smartrecruiters.com/v1/companies/Acme/postings'
+    full = {'totalFound': 300, 'content': [
+        {'id': str(i), 'name': 'Accountant',
+         'location': {'country': 'us', 'city': 'Austin', 'region': 'TX'}} for i in range(100)]}
+    responses.get(sr, json=full)
+    responses.get(sr, status=404)
+    jobs = sj.scrape_smartrecruiters('Acme', 'Acme')
+    check('smartrecruiters: a failed second page keeps the first, flagged',
+          (len(jobs), _partial_flags(jobs)), (100, [True]))
+
+    amazon = 'https://www.amazon.jobs/en/search.json'
+    page = {'hits': 300, 'jobs': [{'id_icims': str(i), 'title': 'Accountant',
+                                   'location': 'US, WA, Seattle'} for i in range(100)]}
+    responses.get(amazon, json=page)
+    responses.get(amazon, status=404)
+    jobs = sj.scrape_amazon()
+    check('amazon: a failed second page keeps the first, flagged',
+          (len(jobs), _partial_flags(jobs)), (100, [True]))
+
+    responses.reset()
+    responses.get(sr, json=full)
+    responses.get(amazon, json=page)
+    original = sj.MAX_PAGES
+    try:
+        sj.MAX_PAGES = 1
+        capped = (sj.scrape_smartrecruiters('Acme', 'Acme'), sj.scrape_amazon())
+    finally:
+        sj.MAX_PAGES = original
+    check('smartrecruiters and amazon: the page cap flags every posting',
+          [_partial_flags(jobs) for jobs in capped], [[True], [True]])
+
+    responses.reset()
+    responses.get(sr, status=404)
+    responses.get(amazon, status=404)
+    check('a first page that fails is still None, not []',
+          (sj.scrape_smartrecruiters('Acme', 'Acme'), sj.scrape_amazon()), (None, None))
+
+
 # --- rows whose board left companies.yml --------------------------------------
 def test_retire_orphaned_listings():
     """Todyl's Ashby entry was dropped in 4e80f86 and its row stayed open."""
@@ -1933,6 +2039,7 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_eightfold_schema_drift_is_empty_not_crash,
            test_phenom_paginates_and_fetches_details,
            test_phenom_caps_pages_on_a_fuzzy_match, test_phenom_none_vs_empty,
+           test_eightfold_flags_a_cut_short_sweep, test_phenom_flags_a_cut_short_sweep,
            test_jibe_paginates_maps_fields_and_keeps_the_crawl_delay,
            test_jibe_none_vs_empty, test_jibe_retries_429_and_flags_a_cut_short_sweep,
            test_jibe_caps_pages, test_jibe_plumbs_through_config_and_retirement,
@@ -1942,6 +2049,7 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_lever_appends_lists_to_description,
            test_smartrecruiters_fetches_descriptions_for_candidates,
            test_workday_more_suffix_fetches_locations, test_amazon_restricts_to_us_reqs,
+           test_smartrecruiters_and_amazon_flag_a_cut_short_sweep,
            test_retire_orphaned_listings, test_check_links_soft_404,
            test_board_health_forgets_a_removed_board,
            test_compare_runs_reports_retirements,

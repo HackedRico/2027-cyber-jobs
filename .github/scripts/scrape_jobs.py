@@ -352,10 +352,15 @@ def scrape_smartrecruiters(company, identifier):
     limit = 100
     params = {'limit': limit, 'offset': 0}
     jobs = []
+    # Cleared when a page fails or MAX_PAGES runs out, as in scrape_workday:
+    # a sweep cut short used to come back as a plain list, so
+    # retire_vanished_listings read the reqs past the cut as closed.
+    complete = True
     for _page in range(MAX_PAGES):
         data = fetch_json(url, params=params, label=f'{company} SmartRecruiters')
         if data is None:
-            return jobs if jobs else None
+            complete = False
+            break
         content = data.get('content', [])
         if not content:
             break
@@ -392,6 +397,14 @@ def scrape_smartrecruiters(company, identifier):
         if len(content) < limit or (total is not None and params['offset'] >= total):
             break
         time.sleep(0.3)
+    else:
+        complete = False
+
+    if not complete and not jobs:
+        return None
+    if not complete:
+        for job in jobs:
+            job['partial_sweep'] = True
 
     # The postings list carries no description, so Kudelski 'Network Support
     # Engineer I/II' passed the experience gate on its title while the posting
@@ -934,6 +947,10 @@ def scrape_eightfold(company, tenant, domain, security_company=False,
     jobs = []
     seen_ids = set()
     any_ok = False
+    # Cleared when a term hits the page cap or a page fails. Microsoft's
+    # 'security' matches 970 postings against a 500 cap, and without the flag
+    # retire_vanished_listings read the reqs past the cut as closed.
+    complete = True
     for term in terms:
         start = 0
         for _page in range(EIGHTFOLD_MAX_PAGES):
@@ -943,6 +960,7 @@ def scrape_eightfold(company, tenant, domain, security_company=False,
                                        headers=headers,
                                        label=f'{company} Eightfold "{term}"')
             if data is None:
+                complete = False
                 break
             any_ok = True
             page = data.get('data') if isinstance(data, dict) else None
@@ -975,11 +993,15 @@ def scrape_eightfold(company, tenant, domain, security_company=False,
             if total is not None and start >= total:
                 break
             time.sleep(EIGHTFOLD_PAGE_DELAY)
+        else:
+            complete = False
 
-    if not any_ok:
+    if not any_ok or (not complete and not jobs):
         return None
 
     for job in jobs:
+        if not complete:
+            job['partial_sweep'] = True
         if not _needs_detail(job['title'], security_company):
             continue
         pid = job['id'].rsplit('_', 1)[-1]
@@ -1021,6 +1043,9 @@ def scrape_phenom(company, host, lang, country, security_company=False,
     jobs = []
     seen_ids = set()
     any_ok = False
+    # Cleared when a term hits the page cap or a page fails, as in
+    # scrape_eightfold. BAE's 'cyber' matches 1,837 postings against 200.
+    complete = True
     for term in terms:
         offset = 0
         for _page in range(PHENOM_MAX_PAGES):
@@ -1031,6 +1056,7 @@ def scrape_phenom(company, host, lang, country, security_company=False,
             data = _get_json_patiently(api, method='POST', json=body, headers=headers,
                                        label=f'{company} Phenom "{term}"')
             if data is None:
+                complete = False
                 break
             any_ok = True
             check_container(data, 'refineSearch', f'{company} Phenom')
@@ -1058,12 +1084,16 @@ def scrape_phenom(company, host, lang, country, security_company=False,
             if len(postings) < PHENOM_PAGE_SIZE or (total is not None and offset >= total):
                 break
             time.sleep(0.3)
+        else:
+            complete = False
 
-    if not any_ok:
+    if not any_ok or (not complete and not jobs):
         return None
 
     for job in jobs:
         seq = job.pop('_seq', '')
+        if not complete:
+            job['partial_sweep'] = True
         if not _needs_detail(job['title'], security_company):
             continue
         job_id = job['id'].rsplit('_', 1)[-1]
@@ -1643,10 +1673,13 @@ def scrape_amazon():
         'offset': 0,
     }
     jobs = []
+    # Cleared on a failed page or the page cap, as in scrape_smartrecruiters.
+    complete = True
     for _page in range(MAX_PAGES):
         data = fetch_json(base_url, params=params, label='Amazon')
         if data is None:
-            return jobs if jobs else None
+            complete = False
+            break
         postings = data.get('jobs', [])
         if not postings:
             break
@@ -1670,6 +1703,14 @@ def scrape_amazon():
                 or (total is not None and params['offset'] >= total)):
             break
         time.sleep(0.5)
+    else:
+        complete = False
+
+    if not complete and not jobs:
+        return None
+    if not complete:
+        for job in jobs:
+            job['partial_sweep'] = True
     return jobs
 
 
