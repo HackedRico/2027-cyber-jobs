@@ -202,6 +202,8 @@ greenhouse:
 - name: Praetorian
   slug: praetorian
   security_company: true
+- name: Primer
+  slug: primerai
 - name: Recorded Future
   slug: recordedfuture
   security_company: true
@@ -525,8 +527,6 @@ ashby:
   slug: persona
 - name: Plaid
   slug: plaid
-- name: Primer
-  slug: primer
 - name: Prophet Security
   slug: prophet-security
   security_company: true
