@@ -15,6 +15,10 @@ import rebuild_readme as rr
 # so the rows below name that season instead of a fixed year.
 SEASON = s.first_open_season()
 
+# Northrop lists each level's bar in one posting; the easiest route is level 2's.
+NORTHROP_LEVELS = ("Level 2: Bachelor's + 2 years of related experience. "
+                   "Level 3: Bachelor's + 5 years of related experience.")
+
 CASES = [
     # (title, location, description, security_company, expected)
     # -- should be accepted --
@@ -411,6 +415,21 @@ CASES = [
     ('L3 SOC Analyst', 'Austin, TX', '', False, None),
     ('Threat Hunter III', 'Austin, TX', '', False, None),
     ('Security Analyst - 4 days onsite', 'Austin, TX', '', False, None),
+    # A req posted at several levels up to III is early career only on a
+    # description whose floor passes the experience gate.
+    ('Cyber Analyst II / III', 'Austin, TX', '', False, None),
+    ('Cyber Analyst I/II/III', 'Austin, TX', '', False, None),
+    ('Security Analyst 2/3', 'Austin, TX', '', False, None),
+    ('SOC Analyst Tier 1-3', 'Austin, TX', '', False, None),
+    ('SOC Analyst II-III', 'Austin, TX', '', False, None),
+    ('Classified Cybersecurity Analyst 2/3 - Secret', 'Linthicum, MD', '', False, None),
+    ('Cybersecurity Analyst 2/3', 'Linthicum, MD', NORTHROP_LEVELS, False, ('earlycareer', 'Security Engineering')),
+    ('Cybersecurity Analyst 2/3', 'Linthicum, MD',
+     "Level 3: Bachelor's + 5 years of related experience.", False, None),
+    # ...while a single level, or a span that stops at II, levels on the title.
+    ('Cyber Analyst II', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Security Engineer 2', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Cyber Software Engineer - Level 1/2', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
 
     # -- keyword gaps --
     ('Identity & Access Management Intern', 'Austin, TX', '', False, ('intern', 'Identity & IAM')),
@@ -600,6 +619,12 @@ LEVEL = [
     ('Associated Bank Security Analyst', None),  # 'associate' not in 'associated'
     ('Cybersecurity Analyst II (Windows Server 2026)', 'earlycareer'),
     ('Tier 2 SOC Analyst', 'earlycareer'),    # 'tier 2' survives word-bounding
+    # Multi-level titles still level on the title, so the scraper fetches
+    # their Workday and Oracle descriptions for judge_job to read.
+    ('Classified Cybersecurity Analyst 2/3 - Secret', 'earlycareer'),
+    ('Cyber Analyst I/II/III', 'earlycareer'),
+    ('SOC Analyst Tier 1-3', 'earlycareer'),
+    ('Cyber Systems Engineer (Level 2 or 3)', 'earlycareer'),
 ]
 for title, want in LEVEL:
     got = s.classify_level(title)
@@ -954,6 +979,7 @@ FLOOR = [
     # Years in lieu of a degree do not undercut the degreed route's own count.
     ("Bachelor's degree and 5 years of related experience; an additional four (4) "
      'years of relevant experience may be accepted in lieu of a degree.', 5),
+    (NORTHROP_LEVELS, 2),
 ]
 for desc, want in FLOOR:
     got = s.required_years(desc)
@@ -1088,6 +1114,7 @@ JUDGED = [
      False, 'no-level'),
     ('Security Engineer II', 'Austin, TX', 'Requires 6+ years of experience.', False,
      'over-experienced'),
+    ('Classified Cybersecurity Analyst 2/3 - Secret', 'Linthicum, MD', '', False, 'no-level'),
     ('Support Engineer I - UK', 'Remote | United Kingdom', '', True, 'non-us-location'),
 ]
 for title, loc, desc, sec, want in JUDGED:

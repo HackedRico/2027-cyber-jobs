@@ -395,6 +395,25 @@ LEVELED_TITLE_RE = re.compile(
     r'|\b(?:' + _LEVEL_NOUNS + r')\s*[-–,(]\s*(?:level\s+)?(?:i|ii|1|2)' + _LEVEL_TAIL
 )
 
+# A req posted at several levels can be filled at the top one: Northrop
+# 'Classified Cybersecurity Analyst 2/3 - Secret', 'Cyber Systems Engineer
+# (Level 2 or 3)', 'SOC Analyst Tier 1-3', 'Cyber Analyst I/II/III'. The I/II
+# marker still levels the title, but judge_job accepts it only on a
+# description that passes the experience gate. A hyphen joins levels only
+# unspaced, so "Analyst II - 3 days onsite" is not a span, and V is no level,
+# so "Engineer - V&V" is not one either.
+_LEVEL_TOKEN = r'(?:iii|ii|iv|i|[1-9])'
+MULTI_LEVEL_RE = re.compile(
+    r'\b(?:(?:' + _LEVEL_NOUNS + r'|scientist|researcher|officer)\s*[-–(]?\s*'
+    r'(?:level\s+|tier\s+)?|(?:level|tier)\s+)'
+    r'(' + _LEVEL_TOKEN + r'(?:(?:\s*/\s*|[-–]|\s+(?:or|to|through|and)\s+|\s*&\s*)'
+    + _LEVEL_TOKEN + r')+)\b')
+_SENIOR_LEVEL_TOKEN_RE = re.compile(r'\b(?:iii|iv|[3-9])\b')
+
+
+def _spans_senior_level(t):
+    return any(_SENIOR_LEVEL_TOKEN_RE.search(m.group(1)) for m in MULTI_LEVEL_RE.finditer(t))
+
 # Strong phrases in a job description that mark a role as early career.
 # Deliberately tight — descriptions are noisy (boilerplate like "from early
 # career to executive" would false-positive on looser phrases).
@@ -1779,6 +1798,11 @@ def judge_job(title, location, description='', security_company=False,
     if description and _is_facility_security_role(title, description):
         return None, 'facility-security'
     level = classify_level(title, description, intern_hint)
+    # The title levels a multi-level req, but only the description can say it
+    # is hired below level 3. A missing one is 'no-level', which the stored-row
+    # pass in scrape_jobs.py keeps rather than drops.
+    if level not in (None, 'intern') and not description and _spans_senior_level(title.lower()):
+        return None, 'no-level'
     if level is None:
         # A flat "Security Engineer" title at a security company with a low
         # experience ceiling in its description is an early-career role.
