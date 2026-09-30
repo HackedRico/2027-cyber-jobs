@@ -4,7 +4,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **356 companies tracked.**
 
-## Hiring students now (78)
+## Hiring students now (79)
 
 Employers with open roles on the board today.
 
@@ -14,8 +14,8 @@ Employers with open roles on the board today.
 | Booz Allen Hamilton | 17 |  | 3 |
 | American Express | 8 | 4 |  |
 | Vanguard | 5 | 6 |  |
-| RTX | 4 |  | 9 |
-| Palo Alto Networks | 4 |  | 2 |
+| RTX | 5 |  | 9 |
+| Palo Alto Networks | 4 |  | 1 |
 | Tanium | 4 |  |  |
 | Microsoft | 3 |  | 2 |
 | MITRE | 2 | 1 | 2 |
@@ -28,7 +28,7 @@ Employers with open roles on the board today.
 | Robinhood | 2 |  |  |
 | The Cigna Group | 1 | 1 |  |
 | Walmart | 2 |  |  |
-| Nightwing | 1 |  | 13 |
+| Nightwing | 1 |  | 8 |
 | Software Engineering Institute | 1 |  | 5 |
 | Leidos | 1 |  | 4 |
 | The Home Depot | 1 |  | 3 |
@@ -54,13 +54,13 @@ Employers with open roles on the board today.
 | U.S. Bank | 1 |  |  |
 | Verkada | 1 |  |  |
 | Amazon |  |  | 11 |
-| CrowdStrike |  |  | 10 |
+| CrowdStrike |  |  | 9 |
 | KBR |  |  | 4 |
 | BAE Systems |  |  | 3 |
-| CACI |  |  | 3 |
 | Recorded Future |  |  | 3 |
 | Abnormal AI |  |  | 2 |
 | Amentum |  |  | 2 |
+| CACI |  |  | 2 |
 | Fireblocks |  |  | 2 |
 | JPMorgan Chase |  |  | 2 |
 | Pinterest |  |  | 2 |
@@ -77,6 +77,7 @@ Employers with open roles on the board today.
 | Duke Energy |  |  | 1 |
 | Expel |  |  | 1 |
 | ExtraHop |  |  | 1 |
+| Fortinet |  |  | 1 |
 | HII |  |  | 1 |
 | ID.me |  |  | 1 |
 | Illumio |  |  | 1 |
