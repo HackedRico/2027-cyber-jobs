@@ -14,14 +14,14 @@ Employers with open roles on the board today.
 | Booz Allen Hamilton | 17 |  | 3 |
 | American Express | 8 | 4 |  |
 | Vanguard | 5 | 6 |  |
-| RTX | 4 |  | 8 |
+| RTX | 4 |  | 9 |
 | Palo Alto Networks | 4 |  | 2 |
 | Tanium | 4 |  |  |
+| Microsoft | 3 |  | 2 |
+| MITRE | 2 | 1 | 2 |
 | Cisco | 3 |  | 1 |
-| MITRE | 2 | 1 | 1 |
 | Immuta | 3 |  |  |
-| Northrop Grumman |  | 2 | 11 |
-| Microsoft | 2 |  | 2 |
+| Northrop Grumman |  | 2 | 10 |
 | Lockheed Martin | 2 |  | 1 |
 | Honeywell | 2 |  |  |
 | Idaho National Laboratory | 2 |  |  |
@@ -56,11 +56,11 @@ Employers with open roles on the board today.
 | Amazon |  |  | 11 |
 | CrowdStrike |  |  | 10 |
 | KBR |  |  | 4 |
+| BAE Systems |  |  | 3 |
 | CACI |  |  | 3 |
 | Recorded Future |  |  | 3 |
 | Abnormal AI |  |  | 2 |
 | Amentum |  |  | 2 |
-| BAE Systems |  |  | 2 |
 | Fireblocks |  |  | 2 |
 | JPMorgan Chase |  |  | 2 |
 | Pinterest |  |  | 2 |
