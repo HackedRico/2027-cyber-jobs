@@ -343,6 +343,21 @@ CASES = [
     ('Finance & Business Management Associate - Cybersecurity & Technology Controls',
      'Plano, TX', '', False, None),
     ('Silicon Security Researcher - New Grad', 'Austin, TX', '', False, ('newgrad', 'Security Engineering')),
+    # Support, recruiting and workplace teams run their own security engineers.
+    ('Security Engineer I, Customer Support Tools', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Security Engineer, Recruiting Systems', 'Austin, TX',
+     'Open to candidates with 0-2 years of experience.', False, ('earlycareer', 'Security Engineering')),
+    ('Security Engineer I, Workplace Technology', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Corporate Security Engineer I - Workplace', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    # ...while the support, recruiting and workplace jobs themselves stay out.
+    ('Customer Support Engineer I', 'Austin, TX', '', True, None),
+    ('Customer Support Engineer I', 'Austin, TX', '', False, None),
+    ('Customer Support Specialist', 'Austin, TX', '', True, None),
+    ('Recruiting Coordinator', 'Austin, TX', '', True, None),
+    ('Technical Recruiter', 'Austin, TX', '', True, None),
+    ('Talent Acquisition Associate', 'Austin, TX', '', True, None),
+    ('Workplace Experience Associate', 'Austin, TX', '', True, None),
+    ('Workplace Services Intern', 'Austin, TX', '', True, None),
     # ...but sales, account and department-only titles stay out.
     ('Cyber Sales Intern', 'Austin, TX', '', True, None),
     ('Security Account Executive I', 'Austin, TX', '', True, None),

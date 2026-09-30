@@ -108,9 +108,9 @@ FUNCTION_REJECT = [
     'fire operation',
     'nuclear safeguards',  # 'safeguards' alone is an AI-safety signal
     'sales', 'account executive', 'account manager', 'marketing',
-    'recruiter', 'recruiting', 'talent acquisition',
+    'recruiter', 'talent acquisition',
     'people technology', 'people operations', 'channel systems',
-    'customer success', 'customer support', 'business development', 'partner manager',
+    'customer success', 'business development', 'partner manager',
     # JPMorgan 'Finance & Business Management Associate - Cybersecurity &
     # Technology Controls' runs the cyber org's budget, not its security work.
     'business management',
@@ -119,7 +119,7 @@ FUNCTION_REJECT = [
     # a security operations center.
     'internal audit', 'sox',
     'attorney', 'counsel', 'paralegal', 'executive assistant',
-    'administrative assistant', 'workplace', 'facilities',
+    'administrative assistant', 'facilities',
     'copywriter', 'community manager', 'social media',
     'hackathon', 'general interest', 'talent community', 'talent network',
     # Hardware/manufacturing — "SoC" (system-on-chip) titles are not SOC roles.
@@ -185,10 +185,17 @@ FUNCTION_REJECT_RE = re.compile(
 # Researcher'. They reject only a title that does not also name security work
 # (see _names_security_work), so 'Treasury Operations Analyst' and 'Supply
 # Chain Analyst I' at a security company stay out. Sales and marketing are
-# never security work and stay in FUNCTION_REJECT.
+# never security work and stay in FUNCTION_REJECT, as do 'recruiter' and
+# 'talent acquisition', which name the job rather than a team.
+#
+# Support, recruiting and workplace teams run their own security engineers:
+# 'Security Engineer I, Customer Support Tools', 'Security Engineer,
+# Recruiting Systems', 'Security Engineer I, Workplace Technology'. As hard
+# rejects these terms dropped them, while 'Customer Support Engineer I',
+# 'Recruiting Coordinator' and 'Workplace Services Intern' still fail here.
 DEPARTMENT_REJECT = [
     'finance', 'treasury', 'revenue', 'billing', 'human resources', 'payroll',
-    'procurement', 'silicon',
+    'procurement', 'silicon', 'customer support', 'recruiting', 'workplace',
 ]
 DEPARTMENT_REJECT_RE = re.compile(
     '|'.join([_term_regex(t) for t in DEPARTMENT_REJECT]
@@ -199,8 +206,11 @@ DEPARTMENT_REJECT_RE = re.compile(
 # Security Intern', 'Security Forces Intern', 'Security Badging Intern'.
 # Stripped before the cyber-keyword scan, as 'national security' is, so a
 # title needs its own cyber term ('Cybersecurity Intern, Homeland Security').
+# A corporate security engineer secures the company's own IT, and 'Corporate
+# Security Engineer I - Workplace' was rejected as a guard-force title.
 NON_CYBER_SECURITY_RE = re.compile(
-    r'\b(?:social|food|energy|border|homeland|campus|event|corporate)\s+security\b'
+    r'\b(?:social|food|energy|border|homeland|campus|event)\s+security\b'
+    r'|\bcorporate\s+security\b(?!\s+engineer)'
     r'|\bsecurity\s+(?:forces|badging)\b')
 
 # A bare 'security' before these role nouns is usually a facility, badging or
