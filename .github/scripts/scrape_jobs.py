@@ -29,6 +29,7 @@ import requests
 import yaml
 from classify import (
     AI_CATEGORY_RE,
+    US_STATE_ABBRS,
     _is_foreign_part,
     classify_level,
     evaluate_job,
@@ -109,10 +110,11 @@ def _sleep_backoff(attempt, retry_after=None):
 def fetch_json(url, *, method='GET', label='', **kwargs):
     """HTTP request returning parsed JSON, or None on unrecoverable failure.
 
-    Retries transient failures — timeouts, connection resets, 429/503 (honoring
-    Retry-After), and 200s with a non-JSON body — with exponential backoff plus
-    jitter, over the calling thread's pooled Session. Returning None (not [])
-    lets callers tell a broken fetch apart from a genuinely empty board.
+    Retries transient failures (timeouts, connection resets, 429 and any 5xx
+    honoring Retry-After, and 200s with a non-JSON body) with exponential
+    backoff plus jitter, over the calling thread's pooled Session. Returning
+    None (not []) lets callers tell a broken fetch apart from a genuinely
+    empty board.
     """
     kwargs.setdefault('timeout', REQUEST_TIMEOUT)
     for attempt in range(MAX_RETRIES):
@@ -125,9 +127,12 @@ def fetch_json(url, *, method='GET', label='', **kwargs):
                 return None
             _sleep_backoff(attempt)
             continue
-        if resp.status_code in (429, 503):
+        # A lone Workday 502 or 504 used to end the whole search term on its
+        # first try, and the term's postings with it.
+        if resp.status_code == 429 or resp.status_code >= 500:
             if last:
-                print(f'  [{label}] HTTP {resp.status_code} (rate limited)')
+                reason = ' (rate limited)' if resp.status_code in (429, 503) else ''
+                print(f'  [{label}] HTTP {resp.status_code}{reason}')
                 return None
             _sleep_backoff(attempt, resp.headers.get('Retry-After'))
             continue
@@ -174,6 +179,16 @@ def check_container(data, key, label):
 WORKPLACE_LABELS = {'in-office', 'hybrid', 'distributed', 'remote', 'onsite',
                     'on-site', 'flexible', ''}
 
+# Metadata fields that hold a place. Matching any name containing "location"
+# read Dropbox's 'Career Page Allocation' ('Sales') and 'Location Cost Tier'
+# ('Mid'), Anthropic's 'Location Type' and Fastly's 'Work Location Type'
+# ('Hybrid') as locations.
+GREENHOUSE_LOCATION_FIELDS = {
+    'job posting location', 'job post location', 'primary location',
+    'additional locations', 'additional job post location', 'office location',
+    'careers page: location',
+}
+
 
 def greenhouse_location(job):
     loc = (job.get('location') or {}).get('name', '') or ''
@@ -182,7 +197,8 @@ def greenhouse_location(job):
         return loc
     parts = [o.get('name') for o in job.get('offices') or [] if o.get('name')]
     for m in job.get('metadata') or []:
-        if isinstance(m, dict) and 'location' in (m.get('name') or '').lower():
+        if (isinstance(m, dict)
+                and (m.get('name') or '').strip().lower() in GREENHOUSE_LOCATION_FIELDS):
             v = m.get('value')
             if isinstance(v, list):
                 parts.extend(str(x) for x in v)
@@ -226,18 +242,25 @@ def scrape_lever(company, slug):
         return None
     jobs = []
     for job in data:
+        cats = job.get('categories') or {}
+        # `location` and `country` describe the primary site only. Saviynt
+        # files a Vancouver + Milpitas req under country CA, and Shield AI
+        # lists 'Wichita Metro Area' first with six US sites behind it in
+        # `allLocations`.
+        sites = [cats.get('location') or '']
+        sites += [x for x in cats.get('allLocations') or [] if isinstance(x, str)]
+        location = '; '.join(dict.fromkeys(x.strip() for x in sites if x and x.strip()))
         country = job.get('country', '')
-        if country and country.upper() != 'US':
+        if country and country.upper() != 'US' and not is_us_location(location):
             continue
         # Lever's commitment category ("Internship", "Intern") flags intern
         # reqs whose titles omit the word.
-        cats = job.get('categories') or {}
         commitment = (cats.get('commitment') or '').lower()
         jobs.append({
             'id': f'lever_{slug}_{job["id"]}',
             'company': company,
             'title': job.get('text', ''),
-            'location': cats.get('location', ''),
+            'location': location,
             'url': job.get('hostedUrl', ''),
             'board': 'Lever',
             'description': _lever_description(job),
@@ -273,8 +296,10 @@ def scrape_ashby(company, slug):
     for job in data.get('jobs') or data.get('jobPostings') or []:
         if job.get('isListed') is False:
             continue
-        locations = [job.get('location', '') or job.get('locationName', '')]
-        locations += [s.get('location', '') for s in job.get('secondaryLocations') or []]
+        locations = [_ashby_place(job.get('location', '') or job.get('locationName', ''),
+                                  job.get('address'))]
+        locations += [_ashby_place(s.get('location', ''), s.get('address'))
+                      for s in job.get('secondaryLocations') or [] if isinstance(s, dict)]
         location = '; '.join(dict.fromkeys(x for x in locations if x))
         apply_url = (
             job.get('jobUrl', '')
@@ -294,21 +319,58 @@ def scrape_ashby(company, slug):
     return jobs
 
 
-def scrape_smartrecruiters(company, identifier):
+US_COUNTRY_NAMES = {'us', 'usa', 'united states', 'united states of america'}
+
+
+def _ashby_place(label, address):
+    # Boards name a site however they like: bare 'San Mateo', 'Ann Arbor' or
+    # 'Oakland', or 'North America', all of which fail the US check, while
+    # the structured address beside them says United States. 105 postings
+    # across the Ashby boards read that way. The label wins whenever it
+    # already reads as US.
+    if label and is_us_location(label):
+        return label
+    postal = (address or {}).get('postalAddress') or {}
+    if (postal.get('addressCountry') or '').strip().lower() not in US_COUNTRY_NAMES:
+        return label
+    city = (postal.get('addressLocality') or '').strip()
+    region = (postal.get('addressRegion') or '').strip()
+    if label and label.strip().lower() != city.lower():
+        # A scope label is not the address, which is often the head office:
+        # WorkOS's 'United States & Canada' roles carry San Francisco, so
+        # the scope stays and only the country is added.
+        return f'{label}; United States'
+    if not region or region.lower() in US_COUNTRY_NAMES:
+        # 'San Mateo, United States' normalizes back to the bare city.
+        return 'United States'
+    region = US_STATE_ABBRS.get(region.lower(), region)
+    return ', '.join(p for p in (city, region) if p)
+
+
+def scrape_smartrecruiters(company, identifier, security_company=False):
     url = f'https://api.smartrecruiters.com/v1/companies/{identifier}/postings'
     limit = 100
     params = {'limit': limit, 'offset': 0}
     jobs = []
+    # Cleared when a page fails or MAX_PAGES runs out, as in scrape_workday:
+    # a sweep cut short used to come back as a plain list, so
+    # retire_vanished_listings read the reqs past the cut as closed.
+    complete = True
     for _page in range(MAX_PAGES):
         data = fetch_json(url, params=params, label=f'{company} SmartRecruiters')
         if data is None:
-            return jobs if jobs else None
+            complete = False
+            break
         content = data.get('content', [])
         if not content:
             break
         for job in content:
-            loc = job.get('location', {})
-            if loc.get('country', '').lower() != 'us' and not loc.get('remote'):
+            loc = job.get('location') or {}
+            # `remote` says nothing about the country: Sectigo's remote
+            # 'Software Engineer (Java)' is in Iasi, Romania and its remote
+            # 'Network Engineer' in Manchester, and both were stored as
+            # Remote (US).
+            if (loc.get('country') or '').lower() != 'us':
                 continue
             city = loc.get('city', '')
             region = loc.get('region', '')
@@ -335,15 +397,24 @@ def scrape_smartrecruiters(company, identifier):
         if len(content) < limit or (total is not None and params['offset'] >= total):
             break
         time.sleep(0.3)
+    else:
+        complete = False
+
+    if not complete and not jobs:
+        return None
+    if not complete:
+        for job in jobs:
+            job['partial_sweep'] = True
 
     # The postings list carries no description, so Kudelski 'Network Support
     # Engineer I/II' passed the experience gate on its title while the posting
-    # asks for 2 to 3 years. Every SmartRecruiters board here is a security
-    # company, and the scraper is not told the flag, so candidates are judged
-    # as one; the cap bounds the cost if a general employer is added.
+    # asks for 2 to 3 years. Candidates are judged under the company's own
+    # flag: judged as a security company, LLNL spent its cap on generic
+    # intern titles that evaluate_job rejects anyway.
     fetched = 0
     for job in jobs:
-        if fetched >= SMARTRECRUITERS_DETAIL_CAP or not _wants_detail(job['title'], True):
+        if (fetched >= SMARTRECRUITERS_DETAIL_CAP
+                or not _wants_detail(job['title'], security_company)):
             continue
         fetched += 1
         description = fetch_smartrecruiters_description(
@@ -441,18 +512,9 @@ def scrape_recruitee(company, slug):
     check_container(data, 'offers', f'{company} Recruitee')
     jobs = []
     for job in data.get('offers', []):
-        country = (job.get('country') or '').lower()
-        remote = job.get('remote', False)
-        if country not in ('us', 'united states') and not remote:
+        location = recruitee_location(job)
+        if not location:
             continue
-        city = job.get('city') or ''
-        region = job.get('province') or ''
-        if remote:
-            location = 'Remote (US)'
-        elif city and region:
-            location = f'{city}, {region}'
-        else:
-            location = city
         job_id = str(job.get('id', ''))
         jobs.append({
             'id': f'recruitee_{slug}_{job_id}',
@@ -462,8 +524,46 @@ def scrape_recruitee(company, slug):
             'url': job.get('careers_url',
                            f'https://{slug}.recruitee.com/o/{job.get("slug", job_id)}'),
             'board': 'Recruitee',
+            # The requirements block holds the years bar, so reading neither
+            # field kept every Recruitee posting out of the experience gate.
+            'description': '\n'.join(filter(None, (job.get('description'),
+                                                   job.get('requirements')))),
         })
     return jobs
+
+
+def _recruitee_country(site):
+    code = (site.get('country_code') or '').strip().upper()
+    if code:
+        return code
+    name = (site.get('country') or '').strip().lower()
+    return 'US' if name in ('us', 'usa', 'united states') else name
+
+
+def _recruitee_part(site):
+    city = (site.get('city') or '').strip()
+    if _recruitee_country(site) == 'US':
+        region = site.get('state_code') or site.get('state_name') or ''
+        return ', '.join(p for p in (city, region.strip()) if p) or 'United States'
+    # A foreign site keeps its country so the US filter can reject it.
+    country = site.get('country') or site.get('country_code') or ''
+    return ', '.join(p for p in (city, country.strip()) if p)
+
+
+def recruitee_location(job):
+    """Build a location from an offer's sites, or '' when none is in the US.
+
+    The offers API has `state_code`, not the `province` this once read, so a US
+    posting came out as a bare city ('Herndon') and failed the US check. And
+    `remote` names no country: Aikido's remote Customer Success Engineers in
+    Romania, Dubai and Sydney were stored as Remote (US).
+    """
+    if job.get('remote') and _recruitee_country(job) == 'US':
+        return 'Remote (US)'
+    sites = [s for s in job.get('locations') or [] if isinstance(s, dict)] or [job]
+    if not any(_recruitee_country(s) == 'US' for s in sites):
+        return ''
+    return '; '.join(dict.fromkeys(p for p in map(_recruitee_part, sites) if p))
 
 
 def scrape_pinpoint(company, slug):
@@ -691,7 +791,7 @@ def fetch_oracle_description(host, site, req_id, label=''):
     return '\n\n'.join(f for f in fields if f and f.strip())
 
 
-def scrape_oracle(company, host, site):
+def scrape_oracle(company, host, site, security_company=False):
     """Oracle Recruiting Cloud (Candidate Experience) public JSON API.
 
     `host` is the tenant host (e.g. 'company.fa.us2.oraclecloud.com'); `site`
@@ -751,13 +851,16 @@ def scrape_oracle(company, host, site):
     # clearance flag saw only the title: SAIC 'Tier II or III ... IAM
     # Administrator' wants 5 years and 'Cyber Engineer Associate' a TS/SCI
     # with polygraph. Newest reqs come first, so the cap spends its requests
-    # on the postings a student is most likely to still apply to.
+    # on the postings a student is most likely to still apply to. Judged as a
+    # general employer, Fortinet never fetched 'Software Engineer I' and its
+    # like, so they skipped the experience gate.
     fetched = 0
     for job in jobs:
         req = job.pop('_req')
         if not complete:
             job['partial_sweep'] = True
-        if fetched >= ORACLE_DETAIL_CAP or not req or not _wants_detail(job['title'], False):
+        if (fetched >= ORACLE_DETAIL_CAP or not req
+                or not _wants_detail(job['title'], security_company)):
             continue
         fetched += 1
         description = fetch_oracle_description(host, site, req, label=f'{company} Oracle')
@@ -828,6 +931,24 @@ def _needs_detail(title, security_company):
     return classify_level(title) is not None or bool(AI_CATEGORY_RE.search(title.lower()))
 
 
+_STATE_ONLY_RE = re.compile(r'^\s*[A-Z]{2}\s*,\s*[A-Z]{2}\s*$')
+
+
+def _eightfold_locations(pos):
+    # The standardized list is cleaner ('Orlando, FL, US' over Microsoft's
+    # 'United States, Washington, Redmond') but sometimes drops the city:
+    # Lockheed's Hanover and Annapolis Junction reqs read 'MD,US' there. The
+    # two lists run in parallel, so a state-only entry takes its raw twin.
+    std = pos.get('standardizedLocations') or []
+    raw = pos.get('locations') or []
+    if not std:
+        return raw
+    if len(std) == len(raw):
+        return [r if isinstance(s, str) and _STATE_ONLY_RE.match(s) and r else s
+                for s, r in zip(std, raw, strict=True)]
+    return std
+
+
 def scrape_eightfold(company, tenant, domain, security_company=False,
                      extra_terms=None):
     """Eightfold PCSX careers search (`<tenant>.eightfold.ai/careers`).
@@ -848,6 +969,10 @@ def scrape_eightfold(company, tenant, domain, security_company=False,
     jobs = []
     seen_ids = set()
     any_ok = False
+    # Cleared when a term hits the page cap or a page fails. Microsoft's
+    # 'security' matches 970 postings against a 500 cap, and without the flag
+    # retire_vanished_listings read the reqs past the cut as closed.
+    complete = True
     for term in terms:
         start = 0
         for _page in range(EIGHTFOLD_MAX_PAGES):
@@ -857,6 +982,7 @@ def scrape_eightfold(company, tenant, domain, security_company=False,
                                        headers=headers,
                                        label=f'{company} Eightfold "{term}"')
             if data is None:
+                complete = False
                 break
             any_ok = True
             page = data.get('data') if isinstance(data, dict) else None
@@ -875,7 +1001,7 @@ def scrape_eightfold(company, tenant, domain, security_company=False,
                 levels = {str(v).strip().lower() for v in pos.get(EIGHTFOLD_LEVEL_FIELD) or []}
                 if levels & EIGHTFOLD_EXPERIENCED_LEVELS:
                     continue
-                locations = pos.get('standardizedLocations') or pos.get('locations') or []
+                locations = _eightfold_locations(pos)
                 jobs.append({
                     'id': f'eightfold_{tenant}_{pid}',
                     'company': company,
@@ -889,11 +1015,15 @@ def scrape_eightfold(company, tenant, domain, security_company=False,
             if total is not None and start >= total:
                 break
             time.sleep(EIGHTFOLD_PAGE_DELAY)
+        else:
+            complete = False
 
-    if not any_ok:
+    if not any_ok or (not complete and not jobs):
         return None
 
     for job in jobs:
+        if not complete:
+            job['partial_sweep'] = True
         if not _needs_detail(job['title'], security_company):
             continue
         pid = job['id'].rsplit('_', 1)[-1]
@@ -935,6 +1065,9 @@ def scrape_phenom(company, host, lang, country, security_company=False,
     jobs = []
     seen_ids = set()
     any_ok = False
+    # Cleared when a term hits the page cap or a page fails, as in
+    # scrape_eightfold. BAE's 'cyber' matches 1,837 postings against 200.
+    complete = True
     for term in terms:
         offset = 0
         for _page in range(PHENOM_MAX_PAGES):
@@ -945,6 +1078,7 @@ def scrape_phenom(company, host, lang, country, security_company=False,
             data = _get_json_patiently(api, method='POST', json=body, headers=headers,
                                        label=f'{company} Phenom "{term}"')
             if data is None:
+                complete = False
                 break
             any_ok = True
             check_container(data, 'refineSearch', f'{company} Phenom')
@@ -972,12 +1106,16 @@ def scrape_phenom(company, host, lang, country, security_company=False,
             if len(postings) < PHENOM_PAGE_SIZE or (total is not None and offset >= total):
                 break
             time.sleep(0.3)
+        else:
+            complete = False
 
-    if not any_ok:
+    if not any_ok or (not complete and not jobs):
         return None
 
     for job in jobs:
         seq = job.pop('_seq', '')
+        if not complete:
+            job['partial_sweep'] = True
         if not _needs_detail(job['title'], security_company):
             continue
         job_id = job['id'].rsplit('_', 1)[-1]
@@ -1557,10 +1695,13 @@ def scrape_amazon():
         'offset': 0,
     }
     jobs = []
+    # Cleared on a failed page or the page cap, as in scrape_smartrecruiters.
+    complete = True
     for _page in range(MAX_PAGES):
         data = fetch_json(base_url, params=params, label='Amazon')
         if data is None:
-            return jobs if jobs else None
+            complete = False
+            break
         postings = data.get('jobs', [])
         if not postings:
             break
@@ -1584,6 +1725,14 @@ def scrape_amazon():
                 or (total is not None and params['offset'] >= total)):
             break
         time.sleep(0.5)
+    else:
+        complete = False
+
+    if not complete and not jobs:
+        return None
+    if not complete:
+        for job in jobs:
+            job['partial_sweep'] = True
     return jobs
 
 
@@ -1782,6 +1931,9 @@ SIMPLE_BOARDS = {
     'recruitee': scrape_recruitee,
     'pinpoint': scrape_pinpoint,
 }
+# Simple boards whose scraper fetches descriptions for title-level candidates,
+# which is_cyber_title judges under the company's security_company flag.
+FLAGGED_SIMPLE_BOARDS = {'smartrecruiters'}
 
 
 class BoardTask(NamedTuple):
@@ -1806,9 +1958,12 @@ def build_tasks(config, board=None, limit=None):
         if not want(name):
             continue
         for entry in limited(config.get(name)):
+            flag = entry.get('security_company', False)
+            args = (entry['name'], entry['slug'])
+            if name in FLAGGED_SIMPLE_BOARDS:
+                args += (flag,)
             tasks.append(BoardTask(
-                f'{entry["name"]} ({name}/{entry["slug"]})', scraper,
-                (entry['name'], entry['slug']), entry.get('security_company', False)))
+                f'{entry["name"]} ({name}/{entry["slug"]})', scraper, args, flag))
     if want('workday'):
         for entry in limited(config.get('workday')):
             tasks.append(BoardTask(
@@ -1820,7 +1975,8 @@ def build_tasks(config, board=None, limit=None):
         for entry in limited(config.get('oracle')):
             tasks.append(BoardTask(
                 f'{entry["name"]} (oracle/{entry["host"]}/{entry["site"]})', scrape_oracle,
-                (entry['name'], entry['host'], entry['site']),
+                (entry['name'], entry['host'], entry['site'],
+                 entry.get('security_company', False)),
                 entry.get('security_company', False)))
     if want('eightfold'):
         for entry in limited(config.get('eightfold')):

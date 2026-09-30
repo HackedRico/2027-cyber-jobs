@@ -49,6 +49,23 @@ check('greenhouse_location reads Job Posting Location metadata',
       'Reston, VA')
 
 
+def test_greenhouse_location_reads_only_location_fields():
+    """Dropbox 'Career Page Allocation' and Fastly 'Work Location Type' are not places."""
+    def loc(label, *metadata):
+        return sj.greenhouse_location({'location': {'name': label}, 'offices': [],
+                                       'metadata': [{'name': n, 'value': v}
+                                                    for n, v in metadata]})
+    check('a non-location field holding "location" is ignored',
+          loc('Hybrid', ('Career Page Allocation', 'Sales'), ('Location Cost Tier', 'Mid'),
+              ('Work Location Type', 'Hybrid'), ('Location Type', 'On-Site')),
+          'Hybrid')
+    check('the real location fields are read and joined',
+          loc('Hybrid', ('Location Type', 'Hybrid'), ('Primary Location', 'Austin, TX'),
+              ('Additional Locations', ['Boston, MA']),
+              ('Additional Job Post Location', ['Reston, VA'])),
+          'Austin, TX; Boston, MA; Reston, VA')
+
+
 # --- scrape_greenhouse ---------------------------------------------------------
 @responses.activate
 def test_greenhouse():
@@ -91,6 +108,31 @@ def test_lever():
           [j['intern_hint'] for j in jobs], [False, True])
 
 
+@responses.activate
+def test_lever_reads_all_locations():
+    """Saviynt files a Vancouver + Milpitas req under country CA."""
+    def posting(pid, country, primary, *others):
+        return {'id': pid, 'text': 'Security Engineer', 'country': country,
+                'categories': {'location': primary, 'allLocations': [primary, *others]},
+                'hostedUrl': f'https://jobs.lever.co/acme/{pid}'}
+    responses.get('https://api.lever.co/v0/postings/acme', json=[
+        posting('a', 'CA', 'Vancouver', 'Milpitas, California'),
+        posting('b', 'US', 'Wichita Metro Area', 'San Diego, California', 'Dallas, Texas'),
+        posting('c', 'CA', 'Vancouver'),
+        posting('d', 'DK', 'Remote Denmark', 'Remote Sweden'),
+        {'id': 'e', 'text': 'Security Analyst', 'country': 'US',
+         'categories': {'location': 'Austin, TX'}, 'hostedUrl': 'x'},
+    ])
+    jobs = sj.scrape_lever('Acme', 'acme')
+    check('lever joins allLocations and skips only a req with no US site',
+          [(j['id'], j['location']) for j in jobs],
+          [('lever_acme_a', 'Vancouver; Milpitas, California'),
+           ('lever_acme_b', 'Wichita Metro Area; San Diego, California; Dallas, Texas'),
+           ('lever_acme_e', 'Austin, TX')])
+    check('each kept req passes the US filter',
+          [sj.is_us_location(j['location']) for j in jobs], [True, True, True])
+
+
 # --- scrape_ashby --------------------------------------------------------------
 @responses.activate
 def test_ashby():
@@ -115,6 +157,43 @@ def test_ashby_schema_drift_warns(capsys=None):
                   json={'unexpected': []})
     jobs = sj.scrape_ashby('Acme', 'acme')  # missing both jobs/jobPostings keys
     check('ashby unknown schema -> empty list', jobs, [])
+
+
+def _ashby_address(city, region, country='United States'):
+    return {'postalAddress': {'addressLocality': city, 'addressRegion': region,
+                              'addressCountry': country}}
+
+
+@responses.activate
+def test_ashby_falls_back_to_the_postal_address():
+    """Bare 'San Mateo' and 'North America' failed the US check beside a US address."""
+    responses.get('https://api.ashbyhq.com/posting-api/job-board/acme', json={'jobs': [
+        {'id': 'a', 'title': 'Security Engineer', 'location': 'San Mateo',
+         'address': _ashby_address('San Mateo', 'California'),
+         'secondaryLocations': [
+             {'location': 'Ann Arbor', 'address': _ashby_address('Ann Arbor', 'Michigan')},
+             {'location': 'London', 'address': _ashby_address('London', 'Greater London',
+                                                              'United Kingdom')}]},
+        {'id': 'b', 'title': 'Security Analyst', 'location': 'North America',
+         'address': {'postalAddress': {'addressCountry': 'United States'}}},
+        {'id': 'c', 'title': 'Security Engineer', 'location': 'San Francisco',
+         'address': _ashby_address('San Francisco', 'California')},
+        {'id': 'd', 'title': 'Security Engineer', 'location': 'Toronto',
+         'address': _ashby_address('Toronto', 'Ontario', 'Canada')},
+        {'id': 'e', 'title': 'Product Security Engineer', 'location': 'United States & Canada',
+         'address': _ashby_address('San Francisco', 'California')},
+        {'id': 'f', 'title': 'Security Engineer', 'location': '',
+         'address': _ashby_address('Oakland', 'CA')},
+    ]})
+    jobs = sj.scrape_ashby('Acme', 'acme')
+    check('ashby builds City, ST from a US address when the label fails',
+          [j['location'] for j in jobs],
+          ['San Mateo, CA; Ann Arbor, MI; London', 'North America; United States',
+           'San Francisco', 'Toronto', 'United States & Canada; United States',
+           'Oakland, CA'])
+    check('only the US postings pass the US filter',
+          [sj.is_us_location(j['location']) for j in jobs],
+          [True, True, True, False, True, True])
 
 
 # --- scrape_smartrecruiters (pagination) --------------------------------------
@@ -178,6 +257,22 @@ def test_fetch_json_gives_up_on_404():
     check('fetch_json 404 -> None', sj.fetch_json('https://api.test/y', label='t'), None)
 
 
+@responses.activate
+def test_fetch_json_retries_5xx():
+    """One transient Workday 502 ended a whole search term."""
+    responses.post('https://api.test/wd', status=502)
+    responses.post('https://api.test/wd', json={'jobPostings': []})
+    check('fetch_json retries a 502 then succeeds',
+          sj.fetch_json('https://api.test/wd', method='POST', label='t'),
+          {'jobPostings': []})
+    responses.get('https://api.test/down', status=500)
+    check('fetch_json gives up on a 500 that persists',
+          sj.fetch_json('https://api.test/down', label='t'), None)
+    check('fetch_json tries a persistent 500 MAX_RETRIES times',
+          len([c for c in responses.calls if c.request.url.endswith('/down')]),
+          sj.MAX_RETRIES)
+
+
 # --- SSRF: config host components must be validated (no network call) ---------
 def test_slug_validation_blocks_host_reparenting():
     check('recruitee rejects a slug with /', sj.scrape_recruitee('X', 'evil.com/'), None)
@@ -200,11 +295,82 @@ def test_smartrecruiters_missing_total_keeps_paging():
                           'location': {'country': 'us', 'city': 'Austin', 'region': 'TX'}}
                          for i in range(100)]}  # full page, NO totalFound
     page2 = {'content': [{'id': 'x', 'name': 'Security Analyst',
-                          'location': {'remote': True}}]}  # short page -> stop
+                          'location': {'country': 'us', 'remote': True}}]}  # short page
     responses.get('https://api.smartrecruiters.com/v1/companies/Acme/postings', json=page1)
     responses.get('https://api.smartrecruiters.com/v1/companies/Acme/postings', json=page2)
     jobs = sj.scrape_smartrecruiters('Acme', 'Acme')
     check('smartrecruiters paged past a full first page with no total', len(jobs), 101)
+
+
+@responses.activate
+def test_smartrecruiters_remote_is_us_only_for_us_postings():
+    """Sectigo's remote 'Software Engineer (Java)' is in Iasi, Romania."""
+    def posting(pid, name, **loc):
+        return {'id': pid, 'name': name, 'location': loc}
+    responses.get('https://api.smartrecruiters.com/v1/companies/Sectigo/postings', json={
+        'totalFound': 4, 'content': [
+            posting('1', 'Software Engineer (Java)', city='Iași', region='IS', country='ro',
+                    remote=True, fullLocation='Iași, IS, Romania'),
+            posting('2', 'Network Engineer', city='Manchester', region='England',
+                    country='gb', remote=True),
+            posting('3', 'Channel Sales Engineer', city='Austin', region='TX', country='us',
+                    remote=True),
+            posting('4', 'Security Analyst', city='Roseland', region='NJ', country='us',
+                    remote=False)]})
+    jobs = sj.scrape_smartrecruiters('Sectigo', 'Sectigo')
+    check('smartrecruiters skips remote postings outside the US',
+          [(j['title'], j['location']) for j in jobs],
+          [('Channel Sales Engineer', 'Remote (US)'), ('Security Analyst', 'Roseland, NJ')])
+
+
+RECRUITEE_API = 'https://aikidosecurity.recruitee.com/api/offers/'
+
+
+def _recruitee_offer(oid, title, sites, remote=False, **extra):
+    """An offer in the live shape: flat fields from the first site plus `locations`."""
+    code, state, city, country = sites[0]
+    offer = {'id': oid, 'slug': f'offer-{oid}', 'title': title, 'remote': remote,
+             'city': city, 'country': country, 'country_code': code, 'state_code': state,
+             'state_name': state, 'careers_url': f'https://aikidosecurity.recruitee.com/o/{oid}',
+             'locations': [{'country_code': c, 'state_code': s, 'city': ci, 'country': co}
+                           for c, s, ci, co in sites],
+             'description': '<p>Join the team.</p>', 'requirements': ''}
+    offer.update(extra)
+    return offer
+
+
+@responses.activate
+def test_recruitee_reads_state_sites_and_description():
+    """Aikido's remote Customer Success Engineers in Romania and Dubai read as US."""
+    ro = ('RO', 'B', 'Bucharest', 'Romania')
+    responses.get(RECRUITEE_API, json={'offers': [
+        _recruitee_offer(1, 'Customer Success Engineer Romania', [ro], remote=True),
+        _recruitee_offer(2, 'Customer Success Engineer Dubai',
+                         [('AE', 'DU', 'Dubai', 'United Arab Emirates')], remote=True),
+        _recruitee_offer(3, 'Security Engineer I', [('US', 'VA', 'Herndon', 'United States')],
+                         requirements='<p>0 to 2 years of experience.</p>'),
+        _recruitee_offer(4, 'Channel Business Manager Austin',
+                         [('US', 'TX', 'Austin', 'United States')], remote=True),
+        _recruitee_offer(5, 'Analyst Relations Lead',
+                         [('BE', 'VOV', 'Ghent', 'Belgium'),
+                          ('US', 'IL', 'Chicago', 'United States')]),
+        _recruitee_offer(6, 'Site Reliability Engineer', [('BE', 'VOV', 'Ghent', 'Belgium')]),
+    ]})
+    jobs = sj.scrape_recruitee('Aikido Security', 'aikidosecurity')
+    check('recruitee keeps only offers with a US site, remote or not',
+          [(j['title'], j['location']) for j in jobs],
+          [('Security Engineer I', 'Herndon, VA'),
+           ('Channel Business Manager Austin', 'Remote (US)'),
+           ('Analyst Relations Lead', 'Ghent, Belgium; Chicago, IL')])
+    check('a US city with its state code passes the US filter',
+          [sj.is_us_location(j['location']) for j in jobs], [True, True, True])
+    check('recruitee joins description and requirements', jobs[0]['description'],
+          '<p>Join the team.</p>\n<p>0 to 2 years of experience.</p>')
+    check('an offer with no requirements keeps its description alone',
+          jobs[1]['description'], '<p>Join the team.</p>')
+    check('a flat-field offer with no locations[] still reads its state',
+          sj.recruitee_location({'city': 'Herndon', 'country': 'United States',
+                                 'state_code': 'VA'}), 'Herndon, VA')
 
 
 # --- amazon splits its experience bars out of `description` -------------------
@@ -1175,6 +1341,95 @@ def test_phenom_none_vs_empty():
           sj.scrape_phenom('Acme', 'careers.acme.org', 'en_us', 'us'), None)
 
 
+def _partial_flags(jobs):
+    return sorted({bool(j.get('partial_sweep')) for j in jobs or []})
+
+
+@responses.activate
+def test_eightfold_prefers_a_city_over_a_state_only_standardized_location():
+    """Lockheed 'Software Cyber Engineer - SWE 0' read 'MD,US' for Hanover, MD."""
+    def pos(pid, std, raw):
+        return {'id': pid, 'name': 'Software Cyber Engineer - SWE 0',
+                'standardizedLocations': std, 'locations': raw}
+    _ef_search('cyber', 0, json=_ef_page([
+        pos(1, ['MD,US'], ['Hanover, MD']),
+        pos(2, ['MD,US', 'Orlando, FL, US'], ['Annapolis Junction, MD', 'Orlando, FL']),
+        pos(3, ['Redmond, WA, US'], ['United States, Washington, Redmond']),
+        pos(4, ['US', 'Redmond, WA, US'],
+            ['United States, Multiple Locations, Multiple Locations',
+             'United States, Washington, Redmond']),
+        pos(5, [], ['Hanover, MD'])], 5))
+    for term in ('intern', 'early career'):
+        _ef_search(term, 0, json=_ef_page([], 0))
+    responses.get(EF_DETAIL, json={'data': {}})
+    jobs = sj.scrape_eightfold('Lockheed Martin', 'acme', 'acme.com')
+    check('eightfold takes the raw twin of a state-only standardized entry',
+          [j['location'] for j in jobs],
+          ['Hanover, MD', 'Annapolis Junction, MD; Orlando, FL, US', 'Redmond, WA, US',
+           'US; Redmond, WA, US', 'Hanover, MD'])
+
+
+@responses.activate
+def test_eightfold_flags_a_cut_short_sweep():
+    """Microsoft 'security' matches 970 postings against a 500 cap."""
+    def run(max_pages):
+        original = sj.EIGHTFOLD_MAX_PAGES
+        try:
+            sj.EIGHTFOLD_MAX_PAGES = max_pages
+            return sj.scrape_eightfold('Acme', 'acme', 'acme.com')
+        finally:
+            sj.EIGHTFOLD_MAX_PAGES = original
+
+    def search(second_page, **kwargs):
+        responses.reset()
+        _ef_search('cyber', 0, json=_ef_page(
+            [_ef_pos(i, f'Mechanical Engineer {i}') for i in range(10)], 20))
+        _ef_search('cyber', 10, **(kwargs or {'json': _ef_page(second_page, 20)}))
+        for term in ('intern', 'early career'):
+            _ef_search(term, 0, json=_ef_page([], 0))
+
+    search([_ef_pos(i, f'Mechanical Engineer {i}') for i in range(10, 20)])
+    check('eightfold: a whole sweep is not partial', _partial_flags(run(2)), [False])
+    check('eightfold: a term that hits the page cap flags every posting',
+          _partial_flags(run(1)), [True])
+    search(None, status=500)
+    jobs = run(2)
+    check('eightfold: a failed page mid-term keeps what it read, flagged',
+          (len(jobs), _partial_flags(jobs)), (10, [True]))
+    responses.reset()
+    _ef_search('cyber', 0, status=500)
+    for term in ('intern', 'early career'):
+        _ef_search(term, 0, json=_ef_page([], 0))
+    check('eightfold: a sweep that lost pages and found nothing -> None', run(2), None)
+
+
+@responses.activate
+def test_phenom_flags_a_cut_short_sweep():
+    """BAE 'cyber' matches 1,837 postings against a 200 cap."""
+    size = sj.PHENOM_PAGE_SIZE
+    _ph_search('cyber', 0, [_ph_job(n) for n in range(size)], 5000)
+    _ph_search('intern', 0, [], 0)
+    responses.post(PH_API, status=500, match=[responses.matchers.json_params_matcher(
+        {'ddoKey': 'refineSearch', 'keywords': 'cyber', 'from': size}, strict_match=False)])
+    jobs = sj.scrape_phenom('Acme', 'careers.acme.org', 'en_us', 'us')
+    check('phenom: a failed page mid-term keeps what it read, flagged',
+          (len(jobs), _partial_flags(jobs)), (size, [True]))
+    original = sj.PHENOM_MAX_PAGES
+    try:
+        sj.PHENOM_MAX_PAGES = 1
+        jobs = sj.scrape_phenom('Acme', 'careers.acme.org', 'en_us', 'us')
+    finally:
+        sj.PHENOM_MAX_PAGES = original
+    check('phenom: a term that hits the page cap flags every posting',
+          _partial_flags(jobs), [True])
+    responses.reset()
+    _ph_search('cyber', 0, [_ph_job(1)], 1)
+    _ph_search('intern', 0, [], 0)
+    check('phenom: a whole sweep is not partial',
+          _partial_flags(sj.scrape_phenom('Acme', 'careers.acme.org', 'en_us', 'us')),
+          [False])
+
+
 # --- scrape_jibe ---------------------------------------------------------------
 JB_API = 'https://careers.acme.org/api/jobs'
 
@@ -1484,7 +1739,7 @@ def test_smartrecruiters_fetches_descriptions_for_candidates():
     original = sj.SMARTRECRUITERS_DETAIL_CAP
     try:
         sj.SMARTRECRUITERS_DETAIL_CAP = 1
-        jobs = sj.scrape_smartrecruiters('Kudelski Security', 'KudelskiSecurityInc')
+        jobs = sj.scrape_smartrecruiters('Kudelski Security', 'KudelskiSecurityInc', True)
     finally:
         sj.SMARTRECRUITERS_DETAIL_CAP = original
     detail_calls = [c.request.url for c in responses.calls if '/postings/' in c.request.url]
@@ -1500,6 +1755,48 @@ def test_smartrecruiters_fetches_descriptions_for_candidates():
     check('the posting years now reach the experience gate',
           sj.evaluate_job(jobs[0]['title'], jobs[0]['location'], jobs[0]['description'],
                           True), None)
+
+
+@responses.activate
+def test_oracle_and_smartrecruiters_use_the_security_flag():
+    """Fortinet (Oracle) never fetched 'Software Engineer I'; LLNL spent its cap on interns."""
+    host = 'fortinet.fa.us2.oraclecloud.com'
+    base = f'https://{host}/hcmRestApi/resources/latest/'
+    responses.get(base + 'recruitingCEJobRequisitions', json={'items': [{
+        'TotalJobsCount': 1, 'requisitionList': [
+            {'Id': '1', 'Title': 'Software Engineer I', 'PrimaryLocation': 'Sunnyvale, CA'}]}]})
+    responses.get(base + 'recruitingCEJobRequisitionDetails', json={'items': [{
+        'ExternalDescriptionStr': '<p>3+ years of experience.</p>'}]})
+    responses.get(SR_POSTINGS, json={'totalFound': 1, 'content': [
+        _sr_posting('1', 'Software Engineering Intern')]})
+    responses.get(f'{SR_POSTINGS}/1', json={'jobAd': {'sections': {
+        'qualifications': {'title': 'Qualifications', 'text': '<p>Enrolled in a BS.</p>'}}}})
+
+    def details(fn, *args):
+        responses.calls.reset()
+        jobs = fn(*args)
+        return len([c for c in responses.calls
+                    if 'Details' in c.request.url or '/postings/' in c.request.url]), jobs
+
+    check('oracle at a general employer skips a generic leveled title',
+          details(sj.scrape_oracle, 'Acme', host, 'CX_1')[0], 0)
+    count, jobs = details(sj.scrape_oracle, 'Fortinet', host, 'CX_1', True)
+    check('oracle at a security company fetches it', count, 1)
+    check('...so the experience gate sees the years',
+          sj.evaluate_job(jobs[0]['title'], jobs[0]['location'], jobs[0]['description'],
+                          True), None)
+    check('smartrecruiters at a general employer skips a generic intern title',
+          details(sj.scrape_smartrecruiters, 'LLNL', 'KudelskiSecurityInc')[0], 0)
+    check('smartrecruiters at a security company fetches it',
+          details(sj.scrape_smartrecruiters, 'Acme', 'KudelskiSecurityInc', True)[0], 1)
+
+    config = {'smartrecruiters': [{'name': 'S', 'slug': 's', 'security_company': True}],
+              'oracle': [{'name': 'O', 'host': 'o.fa.us2.oraclecloud.com', 'site': 'CX_1',
+                          'security_company': True}],
+              'greenhouse': [{'name': 'G', 'slug': 'g', 'security_company': True}]}
+    check('build_tasks passes the flag to smartrecruiters and oracle only',
+          [t.args for t in sj.build_tasks(config)][:3],
+          [('G', 'g'), ('S', 's', True), ('O', 'o.fa.us2.oraclecloud.com', 'CX_1', True)])
 
 
 # --- Workday: Motorola writes "More..." where others write "N Locations" -----
@@ -1529,6 +1826,47 @@ def test_amazon_restricts_to_us_reqs():
     check('an empty amazon search is an empty board', sj.scrape_amazon(), [])
     query = parse_qs(urlparse(responses.calls[0].request.url).query)
     check('amazon search filters to US reqs', query.get('normalized_country_code[]'), ['USA'])
+
+
+@responses.activate
+def test_smartrecruiters_and_amazon_flag_a_cut_short_sweep():
+    """A failed page mid-sweep used to come back as a plain, unflagged list."""
+    sr = 'https://api.smartrecruiters.com/v1/companies/Acme/postings'
+    full = {'totalFound': 300, 'content': [
+        {'id': str(i), 'name': 'Accountant',
+         'location': {'country': 'us', 'city': 'Austin', 'region': 'TX'}} for i in range(100)]}
+    responses.get(sr, json=full)
+    responses.get(sr, status=404)
+    jobs = sj.scrape_smartrecruiters('Acme', 'Acme')
+    check('smartrecruiters: a failed second page keeps the first, flagged',
+          (len(jobs), _partial_flags(jobs)), (100, [True]))
+
+    amazon = 'https://www.amazon.jobs/en/search.json'
+    page = {'hits': 300, 'jobs': [{'id_icims': str(i), 'title': 'Accountant',
+                                   'location': 'US, WA, Seattle'} for i in range(100)]}
+    responses.get(amazon, json=page)
+    responses.get(amazon, status=404)
+    jobs = sj.scrape_amazon()
+    check('amazon: a failed second page keeps the first, flagged',
+          (len(jobs), _partial_flags(jobs)), (100, [True]))
+
+    responses.reset()
+    responses.get(sr, json=full)
+    responses.get(amazon, json=page)
+    original = sj.MAX_PAGES
+    try:
+        sj.MAX_PAGES = 1
+        capped = (sj.scrape_smartrecruiters('Acme', 'Acme'), sj.scrape_amazon())
+    finally:
+        sj.MAX_PAGES = original
+    check('smartrecruiters and amazon: the page cap flags every posting',
+          [_partial_flags(jobs) for jobs in capped], [[True], [True]])
+
+    responses.reset()
+    responses.get(sr, status=404)
+    responses.get(amazon, status=404)
+    check('a first page that fails is still None, not []',
+          (sj.scrape_smartrecruiters('Acme', 'Acme'), sj.scrape_amazon()), (None, None))
 
 
 # --- rows whose board left companies.yml --------------------------------------
@@ -1727,14 +2065,20 @@ def test_main_carries_seen_oracle_reqs_to_the_new_id():
           f'oracle_{host}_CX_5' in seen, True)
 
 
-for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
+for fn in (test_greenhouse_location_reads_only_location_fields,
+           test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
+           test_lever_reads_all_locations,
            test_ashby, test_ashby_schema_drift_warns,
+           test_ashby_falls_back_to_the_postal_address,
            test_smartrecruiters_pagination_short_page_stops,
            test_check_slugs_flags_unknown_smartrecruiters_id, test_oracle,
            test_fetch_json_retries_transient, test_fetch_json_gives_up_on_404,
+           test_fetch_json_retries_5xx,
            test_slug_validation_blocks_host_reparenting,
            test_workday_total_failure_returns_none,
            test_smartrecruiters_missing_total_keeps_paging,
+           test_smartrecruiters_remote_is_us_only_for_us_postings,
+           test_recruitee_reads_state_sites_and_description,
            test_amazon_description_includes_qualifications,
            test_reevaluate_drops_rows_the_pipeline_now_rejects,
            test_reevaluate_refreshes_category_type_and_clearance,
@@ -1761,6 +2105,8 @@ for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_eightfold_schema_drift_is_empty_not_crash,
            test_phenom_paginates_and_fetches_details,
            test_phenom_caps_pages_on_a_fuzzy_match, test_phenom_none_vs_empty,
+           test_eightfold_prefers_a_city_over_a_state_only_standardized_location,
+           test_eightfold_flags_a_cut_short_sweep, test_phenom_flags_a_cut_short_sweep,
            test_jibe_paginates_maps_fields_and_keeps_the_crawl_delay,
            test_jibe_none_vs_empty, test_jibe_retries_429_and_flags_a_cut_short_sweep,
            test_jibe_caps_pages, test_jibe_plumbs_through_config_and_retirement,
@@ -1769,7 +2115,9 @@ for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_workable_reads_locations_and_description,
            test_lever_appends_lists_to_description,
            test_smartrecruiters_fetches_descriptions_for_candidates,
+           test_oracle_and_smartrecruiters_use_the_security_flag,
            test_workday_more_suffix_fetches_locations, test_amazon_restricts_to_us_reqs,
+           test_smartrecruiters_and_amazon_flag_a_cut_short_sweep,
            test_retire_orphaned_listings, test_check_links_soft_404,
            test_board_health_forgets_a_removed_board,
            test_compare_runs_reports_retirements,
