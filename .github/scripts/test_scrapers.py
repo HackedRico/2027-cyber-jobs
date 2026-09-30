@@ -2486,6 +2486,50 @@ def test_fetches_cap_the_response_size():
           sj.MAX_RESPONSE_BYTES > 42 * 1024 * 1024, True)
 
 
+def test_host_validation_pins_oracle_and_refuses_local_hosts():
+    for host in ('127.0.0.1', '127.1', '10.0.0.8', 'localhost', 'jobs.localhost', 'intranet',
+                 'careers..acme.com', ''):
+        check(f'_valid_host refuses {host!r}', sj._valid_host(host), False)
+    for host in ('careers.mitre.org', 'jobs.baesystems.com', 'careers.pnnl.gov'):
+        check(f'_valid_host accepts {host!r}', sj._valid_host(host), True)
+    check('oracle refuses a host outside oraclecloud.com',
+          sj.scrape_oracle('X', 'careers.evil.test', 'CX_1'), None)
+    check('oracle refuses a look-alike suffix',
+          sj.scrape_oracle('X', 'evil-oraclecloud.com', 'CX_1'), None)
+    check('phenom refuses an IP literal',
+          sj.scrape_phenom('X', '169.254.169.254', 'en_us', 'us'), None)
+    check('jibe refuses localhost', sj.scrape_jibe('X', 'localhost'), None)
+
+
+@responses.activate
+def test_payload_paths_cannot_name_another_host():
+    """amazon.jobs and a boardless Workday tenant append a path from the payload."""
+    responses.get('https://www.amazon.jobs/en/search.json', json={'hits': 4, 'jobs': [
+        {'id_icims': '1', 'title': 'Security Engineer', 'location': 'US, WA, Seattle',
+         'job_path': '//evil.test/jobs/1'},
+        {'id_icims': '2', 'title': 'Security Engineer', 'location': 'US, WA, Seattle',
+         'job_path': '/@evil.test/jobs/2'},
+        {'id_icims': '3', 'title': 'Security Engineer', 'location': 'US, WA, Seattle',
+         'job_path': '/en\\@evil.test'},
+        {'id_icims': '4', 'title': 'Security Engineer', 'location': 'US, WA, Seattle',
+         'job_path': '/en/jobs/4/security-engineer'}]})
+    check('amazon uses the req id for an unsafe job_path',
+          [j['url'] for j in sj.scrape_amazon()],
+          ['https://www.amazon.jobs/en/jobs/1', 'https://www.amazon.jobs/en/jobs/2',
+           'https://www.amazon.jobs/en/jobs/3',
+           'https://www.amazon.jobs/en/jobs/4/security-engineer'])
+
+    responses.post('https://t.wd5.myworkdayjobs.com/wday/cxs/t/jobs', json={
+        'total': 2, 'jobPostings': [
+            {'title': 'Accountant', 'externalPath': '//evil.test/job/X_R1',
+             'locationsText': 'Reston, VA'},
+            {'title': 'Accountant', 'externalPath': '/job/Reston-VA/Accountant_R2',
+             'locationsText': 'Reston, VA'}]})
+    check('boardless workday drops a posting whose path names another host',
+          [j['url'] for j in sj.scrape_workday('T', 't', 'wd5', '')],
+          ['https://t.wd5.myworkdayjobs.com/job/Reston-VA/Accountant_R2'])
+
+
 for fn in (test_greenhouse_location_reads_only_location_fields,
            test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_lever_reads_all_locations,
@@ -2560,7 +2604,9 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_failed_boards_do_not_grow_the_silent_streak,
            test_orphan_pass_covers_jibe_rows,
            test_fetches_refuse_a_redirect_to_another_host,
-           test_fetches_cap_the_response_size):
+           test_fetches_cap_the_response_size,
+           test_host_validation_pins_oracle_and_refuses_local_hosts,
+           test_payload_paths_cannot_name_another_host):
     fn()
 
 if failures:

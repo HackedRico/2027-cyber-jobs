@@ -96,7 +96,30 @@ def _valid_slug(value):
 
 
 def _valid_host(value):
-    return bool(value) and bool(_HOST_RE.fullmatch(value)) and not value.startswith('.')
+    # Phenom and Jibe hosts are the employer's own domain, so no suffix can pin
+    # them, but a careers site is never an IP literal, localhost or a bare
+    # intranet name. An all-digit last label also covers the shorthand IPv4
+    # forms ('127.1') the resolver accepts.
+    if not value or not isinstance(value, str) or not _HOST_RE.fullmatch(value):
+        return False
+    labels = value.lower().split('.')
+    if len(labels) < 2 or '' in labels or labels[-1].isdigit():
+        return False
+    return labels[-1] != 'localhost'
+
+
+def _valid_oracle_host(value):
+    # Every Oracle Recruiting Cloud tenant lives under oraclecloud.com, so an
+    # entry naming any other host is a typo or a hijack, never a board.
+    return _valid_host(value) and value.lower().endswith('.oraclecloud.com')
+
+
+def _safe_path(value):
+    # A path from a payload is appended to a fixed host. '//evil.com' would be
+    # read as a new host, and '@' or '\' in it can move the host a browser
+    # sees ('https://www.amazon.jobs@evil.com/').
+    return (isinstance(value, str) and value.startswith('/') and not value.startswith('//')
+            and not re.search(r'[@\\\s]', value))
 
 
 def _sleep_backoff(attempt, retry_after=None):
@@ -807,6 +830,13 @@ def scrape_workday(company, tenant, instance, board, security_company=False,
                 path = job.get('externalPath', '')
                 if not path or path in seen_paths:
                     continue
+                # Appended to the tenant host for both the job page and the
+                # detail fetch, so a path that could name another host is
+                # dropped rather than linked.
+                if not _safe_path(path):
+                    print(f'  [{_oneline(company)}] unsafe workday path '
+                          f'{_oneline(repr(path))}, skipping')
+                    continue
                 seen_paths.add(path)
                 # Job pages 404 without the board segment in the URL.
                 public_root = f'{base_url}/{board}' if board else base_url
@@ -877,8 +907,8 @@ def scrape_oracle(company, host, site, security_company=False):
     is the CE site number (e.g. 'CX_1'). Unlocks large enterprises/banks that
     run cyber-analyst new-grad programs but aren't on the other ATSs.
     """
-    if not _valid_host(host) or not _valid_slug(site):
-        print(f'  [{company}] invalid oracle host/site — skipping')
+    if not _valid_oracle_host(host) or not _valid_slug(site):
+        print(f'  [{_oneline(company)}] invalid oracle host/site — skipping')
         return None
     api = f'https://{host}/hcmRestApi/resources/latest/recruitingCEJobRequisitions'
     limit = 200
@@ -1906,6 +1936,10 @@ def scrape_amazon():
         for job in postings:
             job_id = str(job.get('id_icims', job.get('id', '')))
             job_path = job.get('job_path', '')
+            if job_path and not _safe_path(job_path):
+                print(f'  [Amazon] unsafe job_path {_oneline(repr(job_path))}, '
+                      'using the req id')
+                job_path = ''
             url = (f'https://www.amazon.jobs{job_path}' if job_path
                    else f'https://www.amazon.jobs/en/jobs/{job_id}')
             jobs.append({
