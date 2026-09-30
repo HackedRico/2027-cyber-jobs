@@ -10,13 +10,15 @@ The scraper applies the rules below to every posting, and the bot runs the same 
 
 ### A cybersecurity role
 
-The title names security work: security, cyber, infosec, threat, forensics, vulnerability, penetration testing, red team, SOC, CSIRT, DFIR, GRC or "governance, risk and compliance", identity and access or IAM, DevSecOps, or AI security and safety terms such as AI safety, AI red team, alignment or safeguards.
+The title names security work: security, cyber, infosec, threat, forensics, vulnerability, penetration testing, red team, SOC, CSIRT, DFIR, GRC or "governance, risk and compliance", identity and access or IAM, DevSecOps, or AI security and safety terms such as AI safety, AI red team, AI alignment, adversarial ML or safeguards.
 
 A bare "security" before specialist, technician, associate, assistant, coordinator or officer needs a second term, such as cyber, information, IT or network: "IT Security Specialist I" is in, "Security Specialist II" is out. SOC 1 and SOC 2 are audit reports, so "SOC 1 Analyst" is out and "SOC 2 Compliance Analyst" counts as GRC.
 
 Each row gets one of these categories, and the form offers **Not sure** if none fits: AI Security & Safety, Offensive Security, SOC & Detection, Threat Intelligence, Forensics & IR, AppSec & ProdSec, Cloud & Infra Security, Identity & IAM, GRC & Risk, Security Engineering, and Engineering @ Security Co.
 
 At a company whose main business is security (🛡️ in [companies.md](companies.md)), a title does not need a security word. Any title with one of these words counts: engineer, developer, software, DevOps, SRE, researcher, scientist, analyst, infrastructure, platform, backend, frontend, full stack, machine learning, or detection.
+
+The charter covers engineering at these companies, so an analyst or researcher title with no other technical word is out when it names a business function: business, legal, pricing, operations, market or competitive intelligence, sales, revenue, finance, UX or user research, IT support, help desk, or a bare "IT Analyst". "Associate Pricing Analyst" and "Jr IT Analyst" are out. "Research Analyst I", "Data Analyst I" and "Fraud Analyst" stay, and a security word always wins, so "IT Security Analyst I" is in.
 
 ### An internship, new-grad or early-career role
 
@@ -25,6 +27,8 @@ The title has to say so:
 - **Internship:** intern, internship, co-op, summer analyst, student trainee, or a season with a cohort year such as "Summer 2027".
 - **New grad:** new grad, university or college grad, graduate, rotational, early talent, a development or pathways program, or a cohort year such as "2027".
 - **Early career:** junior or jr, associate, entry level, early career, apprentice, tier or level 1 and 2 (also "Level I" or "Level II"), L1 or L2, or a level I or II after the job noun ("SOC Analyst II", "Security Analyst - I", "Security Analyst (I)").
+
+A title posted at several levels that reach III or 3, such as "Cyber Analyst II / III", "SOC Analyst Tier 1-3" or "Cybersecurity Analyst (Level 2 or 3)", may be hired at the senior level. It gets in only when the posting's description is available and its easiest route passes the years rule below, as in "Level 2: Bachelor's + 2 years ... Level 3: Bachelor's + 5 years".
 
 Two kinds of title with no level word can still get in:
 
@@ -48,8 +52,8 @@ So an "Analyst II" posting that asks for 2 years is in, and a "Security Engineer
 
 - **Seniority:** senior, sr, staff, principal, lead, manager, director, VP, head of, chief, distinguished, fellow, executive, expert, SME, supervisor, leader, level III or IV (3 or 4), and L3 or L4. Architect titles are out unless they are a new-grad or intern cohort. "Member of Technical Staff", "Associate Staff" and "Office of the Chief Information Security Officer" name a level or a team, not a senior role.
 - **Physical and facility security:** security guard, physical security, industrial or personnel security, executive protection, transportation security, protective services, security forces, security badging, and "Security Officer" unless it names information security or cyber.
-- **Security that is not information security:** social, food, energy, border, homeland, national, campus, event or corporate security, unless the title also names cyber work ("Cybersecurity Intern, Homeland Security" is in).
-- **Business functions:** sales, account executive or manager, marketing, recruiting, customer success and support, business development, accounting, internal audit, SOX, legal, and administrative and facilities roles. Finance, treasury, revenue, billing, human resources, payroll, procurement and supply chain are out unless the title also names security work, as in "Security Engineer I, Payments & Billing".
+- **Security that is not information security:** social, food, energy, border, homeland, national, campus, event or corporate security, unless the title also names cyber work ("Cybersecurity Intern, Homeland Security" is in). A corporate security engineer secures the company's own IT and counts.
+- **Business functions:** sales, account executive or manager, marketing, recruiters and talent acquisition, customer success, business development, accounting, internal audit, SOX, legal, and administrative and facilities roles. Finance, treasury, revenue, billing, human resources, payroll, procurement, supply chain, customer support, recruiting and workplace are out unless the title also names security work, as in "Security Engineer I, Payments & Billing" or "Security Engineer I, Workplace Technology".
 - **Hardware and manufacturing:** ASIC, SoC design or verification, chip design, and mechanical, electrical, chemical, industrial, civil or process engineering. Silicon is out unless the title names security work, as in "Silicon Security Researcher".
 - **Placeholder postings:** talent communities, talent networks, general interest, and hackathons.
 - **Roles a student cannot apply to:** return offers for current interns (intern conversion, return intern), DoD SkillBridge slots for active-duty members, hiring events, and an internship whose season has already passed.
