@@ -4,6 +4,7 @@
     python .github/scripts/test_site.py
 """
 import json
+import re
 import sys
 import tempfile
 import xml.etree.ElementTree as ET
@@ -114,7 +115,8 @@ def build_twice():
             src.write_text(json.dumps(LISTINGS), encoding='utf-8')
             out = Path(tmp) / '_site'
             bs.build(out, listings_file=src, src=ROOT / 'site', today=TODAY)
-            outs.append({p.name: p.read_text(encoding='utf-8') for p in out.iterdir()})
+            outs.append({p.name: p.read_bytes() if p.suffix == '.png'
+                         else p.read_text(encoding='utf-8') for p in out.iterdir()})
     return outs
 
 
@@ -123,6 +125,15 @@ check('build is deterministic', first == second, True)
 check('build copies the page and writes data and feeds',
       {'index.html', 'app.js', 'styles.css', 'listings.json', 'feed.xml', 'feed-intern.xml',
        'feed-newgrad.xml', 'feed-earlycareer.xml'} <= set(first), True)
+
+# A link unfurler shows a blank card when og:image points at a file the build did not ship.
+og_images = re.findall(r'<meta property="og:image" content="https://hackedrico\.github\.io/'
+                       r'2027-cyber-jobs/([^"]+)"', first['index.html'])
+check('index.html names one og:image on the Pages site', len(og_images), 1)
+check('the og:image file ships with the build', og_images[0] in first, True)
+check('the og:image is a 1280x640 png', first[og_images[0]][:8] == b'\x89PNG\r\n\x1a\n'
+      and int.from_bytes(first[og_images[0]][16:20], 'big') == 1280
+      and int.from_bytes(first[og_images[0]][20:24], 'big') == 640, True)
 
 data = json.loads(first['listings.json'])
 check('site data holds open rows and recent closed rows',
