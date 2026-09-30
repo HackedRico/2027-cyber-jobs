@@ -24,6 +24,13 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 **When to apply.** Summer internships post from August to October of the year before, and the big programs fill early, so apply in the fall. New-grad programs post from September to November. Many defense contractors hire on their own cycles, so check back through the spring.
 
+**Programs this board cannot list.** Federal and intelligence roles post on their own sites and cycles, so check them directly:
+
+- [Federal Pathways internships and recent-graduate roles](https://www.usajobs.gov/help/working-in-government/unique-hiring-paths/students/) on USAJOBS, including [CISA's student program](https://www.cisa.gov/careers/students-recent-graduates-employment-opportunities)
+- [NSA student programs](https://www.nsa.gov/Careers/Opportunities-for-Students/) and the rest of the intelligence community on [IntelligenceCareers.gov](https://www.intelligencecareers.gov/)
+- [CyberCorps Scholarship for Service](https://sfs.opm.gov/), which pays tuition in exchange for government cyber service after graduation
+- The [DOE national labs](https://www.energy.gov/national-laboratories). Several are already scraped here, including Lawrence Livermore, Idaho, Argonne, PNNL and the National Laboratory of the Rockies
+
 **What 🇺🇸 means if you are on a visa.** The posting mentions a security clearance, a public trust investigation or U.S. citizenship. A clearance requires U.S. citizenship, so F-1, OPT and H-1B holders can usually skip these rows. A row without 🇺🇸 can still decline to sponsor a visa, so read the posting before you apply.
 
 **What the categories mean.** Each role shows its category under the title.
