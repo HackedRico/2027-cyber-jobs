@@ -637,17 +637,20 @@ _WORKDAY_JOB_URL_RE = re.compile(
     r'(?:[a-z]{2}-[A-Z]{2}/)?([A-Za-z0-9_-]+)(/job/[^?#]+)')
 
 
-def workday_posting_state(url):
-    """Ask Workday's detail endpoint whether one posting is still up.
+def workday_posting(url):
+    """Ask Workday's detail endpoint about one posting.
 
-    Returns 'live', 'gone', or None when the answer says nothing. The public
-    job page answers 200 even after a req closes, but the cxs detail endpoint
-    does not: a live req is 200 with canApply, a closed one 403 with errorCode
-    S22 (Nightwing JR102051, RTX 01870858), an unknown path 404 with S21.
+    Returns (state, info). `state` is 'live', 'gone', or None when the answer
+    says nothing. The public job page answers 200 even after a req closes, but
+    the cxs detail endpoint does not: a live req is 200 with canApply, a closed
+    one 403 with errorCode S22 (Nightwing JR102051, RTX 01870858), an unknown
+    path 404 with S21. `info` is the live posting's `jobPostingInfo` (title,
+    location, additionalLocations, jobDescription), else None, so a row past a
+    capped sweep can be re-judged off the same request.
     """
     m = _WORKDAY_JOB_URL_RE.match(url or '')
     if not m:
-        return None
+        return None, None
     tenant, instance, board, path = m.groups()
     api = f'https://{tenant}.{instance}.myworkdayjobs.com/wday/cxs/{tenant}/{board}{path}'
     try:
@@ -655,13 +658,25 @@ def workday_posting_state(url):
                               timeout=REQUEST_TIMEOUT)
         body = resp.json()
     except (requests.RequestException, ValueError):
-        return None
+        return None, None
+    # A JSON null or list body raised AttributeError out of the vanished pass
+    # and took the whole scrape down with it.
+    if not isinstance(body, dict):
+        return None, None
     if resp.status_code == 200:
-        info = body.get('jobPostingInfo') or {}
-        return 'gone' if info.get('canApply') is False else 'live'
+        info = body.get('jobPostingInfo')
+        info = info if isinstance(info, dict) else {}
+        if info.get('canApply') is False:
+            return 'gone', None
+        return 'live', info
     if resp.status_code in (403, 404) and body.get('errorCode') in ('S21', 'S22'):
-        return 'gone'
-    return None
+        return 'gone', None
+    return None, None
+
+
+def workday_posting_state(url):
+    """Return only the 'live', 'gone' or None state from `workday_posting`."""
+    return workday_posting(url)[0]
 
 
 def scrape_workday(company, tenant, instance, board, security_company=False,
@@ -1278,7 +1293,37 @@ def _index_live_postings(raw_jobs, companies):
     return by_fingerprint, by_url, by_key
 
 
-def reevaluate_stored_listings(listings, raw_jobs, sec_flags):
+def _partial_boards(raw_jobs):
+    return {(job.get('company', ''), job.get('board', ''))
+            for job in raw_jobs if job.get('partial_sweep')}
+
+
+def _needs_probe(entry, fingerprint, partial, failed_companies):
+    # Only an open Workday row the sweep could have missed: one behind a
+    # capped or broken sweep, which absence alone cannot judge.
+    company = entry.get('company', '')
+    return (fingerprint is not None and entry.get('source') == 'Workday'
+            and bool(entry.get('url')) and not entry.get('closed')
+            and ((company, 'Workday') in partial or company in failed_companies))
+
+
+def _probed_posting(answer):
+    state, info = answer
+    if state != 'live' or not isinstance(info, dict):
+        return None
+    title = info.get('title')
+    if not isinstance(title, str) or not title.strip():
+        return None
+    locations = [info.get('location')] + list(info.get('additionalLocations') or [])
+    description = info.get('jobDescription')
+    return {'title': title,
+            'location': '; '.join(dict.fromkeys(x for x in locations
+                                                if isinstance(x, str) and x)),
+            'description': description if isinstance(description, str) else ''}
+
+
+def reevaluate_stored_listings(listings, raw_jobs, sec_flags, probe=None,
+                               failed_companies=frozenset()):
     """Re-judge stored rows against this run's copy of their live posting.
 
     Returns (kept, dropped, refreshed). `dropped` holds (row, reason) pairs,
@@ -1292,8 +1337,18 @@ def reevaluate_stored_listings(listings, raw_jobs, sec_flags):
     Jumio kept a 'Research Engineer - Machine Learning & Robotics' new-grad row
     after losing the flag, ExtraHop 'Support Engineer I - UK' stayed Remote (US),
     and categories and 🇺🇸 flags froze at insert. A row is matched to its
-    posting by `job_fingerprint`, then normalized URL, then the
-    (company, role, location) dedup key for boards that reshuffle req URLs.
+    posting by `job_fingerprint`, then normalized URL. Only a row with no
+    fingerprint falls back to the (company, role, location) dedup key: the key
+    also fits a sibling req with the same title, and the capped RTX sweep that
+    missed R100 but reached R200, which asks for 5+ years, deleted R100 while
+    it was live.
+
+    `probe` is `workday_posting` or a cached copy of it. The capped RTX, CVS and
+    Northrop sweeps never reach some stored rows, so those rows were never
+    re-judged: RTX 'Security Specialist II' sat open with NISPOM duties in its
+    description. An open Workday row the sweep missed on a partial board, or
+    at a company in `failed_companies`, is judged on the detail endpoint's
+    answer instead, under the same guardrails.
 
     Guardrails, all in the keep direction:
       * only companies that returned postings this run are judged, and a row
@@ -1304,7 +1359,8 @@ def reevaluate_stored_listings(listings, raw_jobs, sec_flags):
         for candidate titles) is not evidence: a 'no-level' verdict, the one
         gate an empty body trips alone, keeps the row with its stored type, and
         `clearance` only turns on from the title;
-      * a blank live location never drops a row;
+      * a blank live location never drops a row, nor does Workday's list-view
+        placeholder ("2 Locations") left behind by a failed detail fetch;
       * intern rows stay interns: their level may come from an ATS hint, and
         the experience gate exempts them, as it does at insert.
     """
@@ -1315,15 +1371,20 @@ def reevaluate_stored_listings(listings, raw_jobs, sec_flags):
         return listings, [], []
     by_fingerprint, by_url, by_key = _index_live_postings(
         raw_jobs, {e.get('company', '') for e in candidates})
+    partial = _partial_boards(raw_jobs)
 
     dropped, refreshed = [], []
     for entry in candidates:
         company, url = entry.get('company', ''), entry.get('url', '')
         fingerprint = job_fingerprint(company, entry.get('source', ''), url)
         job = ((by_fingerprint.get(fingerprint) if fingerprint else None)
-               or (by_url.get(normalize_url(url)) if url else None)
-               or by_key.get(listing_dedup_key(company, entry.get('role', ''),
-                                               entry.get('location', ''))))
+               or (by_url.get(normalize_url(url)) if url else None))
+        if job is None and fingerprint is None:
+            job = by_key.get(listing_dedup_key(company, entry.get('role', ''),
+                                               entry.get('location', '')))
+        if (job is None and probe is not None
+                and _needs_probe(entry, fingerprint, partial, failed_companies)):
+            job = _probed_posting(probe(url))
         if job is None:
             continue
         described = _has_description(job)
@@ -1335,7 +1396,9 @@ def reevaluate_stored_listings(listings, raw_jobs, sec_flags):
         if verdict is None:
             if reason == 'no-level' and not described:
                 continue
-            if reason == 'non-us-location' and not (job.get('location') or '').strip():
+            live_location = (job.get('location') or '').strip()
+            if reason == 'non-us-location' and (
+                    not live_location or MULTI_LOCATION_RE.search(live_location)):
                 continue
             dropped.append((entry, reason))
             continue
@@ -1371,7 +1434,12 @@ _REQ_PATTERNS = {
     'Greenhouse': (r'/jobs/(\d+)',),
     'Lever': (r'/([0-9a-fA-F-]{36})',),
     'Ashby': (r'/([0-9a-fA-F-]{36})',),
-    'Workday': (r'(/job/.+)$',),
+    # Workday rewrites the location and title slugs of a live req
+    # (/job/Chantilly-VA/X_R123 -> /job/Reston-VA/X_R123), which made the row
+    # look vanished and let a duplicate in. The req id follows the first '_'
+    # of the last segment, since a title slug never holds one and Arctic
+    # Wolf's ids do ('Professional-Services-Engineer-1_R26_1068').
+    'Workday': (r'/job/(?:.*/)?[^/_]*_([^/]+)$', r'(/job/.+)$'),
     'Oracle': (r'/job/(\d+)',),
     'Amazon Jobs': (r'/jobs/(\d+)',),
     'SmartRecruiters': (r'/(\d+)/?$',),
@@ -1421,26 +1489,43 @@ def job_fingerprint(company, source, url):
 SILENT_BOARD_RUNS = 4 * VANISHED_DAYS
 
 
+def failed_board_companies(board_stats):
+    """Return the companies with at least one FAILED or CRASHED board this run."""
+    return {b['label'].rpartition(' (')[0] for b in board_stats
+            if b['status'] in ('FAILED', 'CRASHED')}
+
+
+def _empty_runs(entry):
+    # Entries written before `empty_runs` existed carry only `zero_runs`; every
+    # board on a zero streak when it landed was a real empty, none failed.
+    runs = entry.get('empty_runs')
+    return entry.get('zero_runs', 0) if runs is None else runs
+
+
 def long_silent_boards(board_stats, history):
     """Return the (company, ats) pairs silent for SILENT_BOARD_RUNS runs straight.
 
     `board_stats` is this run's per-board result and `history` the stored
     board baseline, so a `--board`/`--limit` run only judges what it fetched.
     A company with two boards on one ATS is silent only when both are.
+
+    The streak is `empty_runs`, which only a real empty answer grows. Counting
+    FAILED and CRASHED runs let a six-day IP ban or a scraper crash retire
+    every row of a board at once, while the board still held them.
     """
     silent = {}
     for b in board_stats:
         name, _, rest = b['label'].rpartition(' (')
         ats = rest.split('/', 1)[0].rstrip(')').lower()
-        streak = (history.get(b['label']) or history.get(_legacy_label(b['label']))
-                  or {}).get('zero_runs', 0)
+        streak = _empty_runs(history.get(b['label'])
+                             or history.get(_legacy_label(b['label'])) or {})
         quiet = b['count'] == 0 and streak >= SILENT_BOARD_RUNS
         silent[(name, ats)] = silent.get((name, ats), True) and quiet
     return {key for key, is_silent in silent.items() if is_silent}
 
 
 def retire_vanished_listings(listings, raw_jobs, today, silent_boards=frozenset(),
-                             probe=workday_posting_state):
+                             probe=workday_posting_state, failed_companies=frozenset()):
     """Close rows whose requisition has left its own board's feed.
 
     Mutates and returns the rows it retired. A posting that stops appearing
@@ -1462,6 +1547,10 @@ def retire_vanished_listings(listings, raw_jobs, today, silent_boards=frozenset(
         since the missing req may sit past the cut. A Workday row there is
         asked about directly through `probe`, and only a 'gone' answer counts
         as a miss; the big tenants (CVS, RTX, Northrop) cut short every run;
+      * a company in `failed_companies` had a board fail or crash this run, so
+        all its rows are treated as behind a partial sweep. Idaho National
+        Laboratory has two Oracle sites, and one failing while the other
+        answered used to stamp the failed site's rows missing;
       * a row must be missing for VANISHED_DAYS before it goes, so one partial
         fetch that went unnoticed costs a re-check rather than the listings;
       * Community rows carry a maintainer's judgment and never appear in
@@ -1471,15 +1560,14 @@ def retire_vanished_listings(listings, raw_jobs, today, silent_boards=frozenset(
     `closed`, so the existing revive path self-heals a false positive and
     `purge_stale_listings` does the eventual removal.
     """
-    live, healthy, partial = set(), set(), set()
+    live, healthy = set(), set()
     for job in raw_jobs:
         company = job.get('company', '')
         healthy.add(company)
-        if job.get('partial_sweep'):
-            partial.add((company, job.get('board', '')))
         fingerprint = job_fingerprint(company, job.get('board', ''), job.get('url', ''))
         if fingerprint:
             live.add(fingerprint)
+    partial = _partial_boards(raw_jobs)
 
     retired = []
     for entry in listings:
@@ -1501,7 +1589,7 @@ def retire_vanished_listings(listings, raw_jobs, today, silent_boards=frozenset(
             # out of one page never accumulates its way to retirement.
             entry.pop('missing_since', None)
             continue
-        if (company, source) in partial:
+        if (company, source) in partial or company in failed_companies:
             state = probe(entry['url']) if source == 'Workday' else None
             if state == 'live':
                 entry.pop('missing_since', None)
@@ -1521,17 +1609,37 @@ def retire_vanished_listings(listings, raw_jobs, today, silent_boards=frozenset(
 # Sources whose rows come from one companies.yml entry each. Amazon Jobs is a
 # hardcoded scraper with no entry, so its rows are never orphans.
 CONFIGURED_SOURCES = {'greenhouse', 'lever', 'ashby', 'smartrecruiters', 'workable',
-                      'recruitee', 'pinpoint', 'workday', 'oracle', 'eightfold', 'phenom'}
+                      'recruitee', 'pinpoint', 'workday', 'oracle', 'eightfold', 'phenom',
+                      'jibe'}
 
 
-def retire_orphaned_listings(listings, config, today):
+def _req_identity(source, url):
+    # A fingerprint without its company, plus the URL host so Workday req ids,
+    # which only count within one tenant, cannot match across employers.
+    fingerprint = job_fingerprint('', source, url)
+    if fingerprint is None:
+        return None
+    try:
+        host = urlparse(url).netloc.lower()
+    except ValueError:
+        return None
+    return (source, fingerprint[2], host)
+
+
+def retire_orphaned_listings(listings, config, today, raw_jobs=()):
     """Close open rows whose company no longer has a board for their source.
 
-    Mutates and returns the rows it retired. `retire_vanished_listings` only
-    judges boards this run scraped, and `long_silent_boards` only boards still
-    in the baseline, so a row outlives the removal of its board: Todyl 'Site
+    Mutates `listings` and returns (retired, renamed). `renamed` holds
+    (row, old_company) pairs. `retire_vanished_listings` only judges boards
+    this run scraped, and `long_silent_boards` only boards still in the
+    baseline, so a row outlives the removal of its board: Todyl 'Site
     Reliability Engineer II' stayed open after 4e80f86 dropped Todyl's Ashby
     entry, since the job page still answers 200.
+
+    A company renamed in companies.yml orphans its rows by name while their
+    reqs are still live. An open row whose req is in this run's `raw_jobs`
+    under another company takes that company's name instead of retiring, so
+    the insert pass does not add the same req again beside a closed copy.
 
     Guardrails, all in the keep direction:
       * Community rows and any source outside the config-driven ATSs (Amazon
@@ -1544,8 +1652,9 @@ def retire_orphaned_listings(listings, config, today):
                   for kind, entries in config.items() if isinstance(entries, list)
                   for entry in entries if isinstance(entry, dict)}
     if not configured:
-        return []
-    retired = []
+        return [], []
+    live_owner = None
+    retired, renamed = [], []
     for entry in listings:
         source = (entry.get('source') or '').lower()
         if (source not in sources or entry.get('source') == 'Community'
@@ -1553,9 +1662,21 @@ def retire_orphaned_listings(listings, config, today):
             continue
         if (entry.get('company', '').casefold(), source) in configured:
             continue
+        if live_owner is None:
+            live_owner = {}
+            for job in raw_jobs:
+                identity = _req_identity(job.get('board', ''), job.get('url', ''))
+                if identity and job.get('company'):
+                    live_owner.setdefault(identity, job['company'])
+        owner = live_owner.get(_req_identity(entry.get('source', ''), entry['url']))
+        if owner and owner != entry.get('company'):
+            renamed.append((entry, entry.get('company', '')))
+            entry['company'] = owner
+            entry.pop('missing_since', None)
+            continue
         _retire(entry, today)
         retired.append(entry)
-    return retired
+    return retired, renamed
 
 
 def _retire(entry, today):
@@ -1788,6 +1909,8 @@ def load_board_baseline():
                 'zero_runs': value.get('zero_runs') or 0,
                 'last_nonzero': value.get('last_nonzero'),
             }
+            if isinstance(value.get('empty_runs'), int):
+                history[label]['empty_runs'] = value['empty_runs']
         elif isinstance(value, int):
             history[label] = {'count': value, 'zero_runs': 0, 'last_nonzero': None}
     return history
@@ -1808,7 +1931,10 @@ def board_health(board_stats, baseline, today):
 
     Returns (history, regressed, dead): `regressed` boards produced postings
     last run and none this one; `dead` boards have been silent for
-    ZERO_RUN_ALERT consecutive runs.
+    ZERO_RUN_ALERT consecutive runs. `zero_runs` counts every run without
+    postings, failures included, since a board that keeps failing still needs
+    triage and health_check.py reads it; `empty_runs` counts only real empty
+    answers and drives `long_silent_boards`.
 
     The count-only baseline could report the first case but never the second.
     It overwrote the previous count with 0, so a board that broke warned on
@@ -1823,11 +1949,14 @@ def board_health(board_stats, baseline, today):
         label = b['label']
         prev = baseline.get(label) or baseline.get(_legacy_label(label)) or {}
         if b['count'] > 0:
-            history[label] = {'count': b['count'], 'zero_runs': 0,
+            history[label] = {'count': b['count'], 'zero_runs': 0, 'empty_runs': 0,
                               'last_nonzero': today}
             continue
         streak = prev.get('zero_runs', 0) + 1
-        history[label] = {'count': 0, 'zero_runs': streak,
+        # A failed fetch says nothing about whether the board is empty, so it
+        # holds the silent streak rather than growing or resetting it.
+        empty = _empty_runs(prev) + (b['status'] == 'zero')
+        history[label] = {'count': 0, 'zero_runs': streak, 'empty_runs': empty,
                           'last_nonzero': prev.get('last_nonzero')}
         if prev.get('count', 0) > 0:
             regressed.append((label, prev['count']))
@@ -2043,6 +2172,116 @@ def scrape_boards(tasks, workers=SCRAPE_WORKERS):
         yield from pool.map(run_board, tasks)
 
 
+def insert_new_listings(listings, raw_jobs, seen, sec_flags, today):
+    """Add each accepted posting that no row holds yet, and revive blanked rows.
+
+    Mutates `listings` and `seen` and returns (added_rows, revived_rows).
+    `sec_flags` maps a posting id to its board's `security_company` flag.
+
+    A seen posting is skipped only while a row already holds its normalized
+    URL, dedup key or fingerprint. Skipping every seen id, as this once did,
+    meant a row that the stored-row pass dropped or the orphan pass retired
+    never came back while its posting stayed live, since each run re-stamped
+    the id. Such a posting goes back through `evaluate_job` instead. That is
+    stable: a row the re-eval pass drops this run fails the same gates here,
+    since `evaluate_job` is `judge_job` without the intern and flag leniency
+    the re-eval pass adds, and a row the repair pass folded carries the key
+    of the row it folded into.
+    """
+    existing_urls = {normalize_url(e.get('url', '')) for e in listings if e.get('url')}
+    # Secondary key catches the same role reposted per-location under distinct
+    # req-ID URLs (e.g. one "Intern - Software Engineer" ×10) that URL dedup
+    # can't see. Location stays in the key so genuinely different sites remain
+    # separate rows.
+    existing_keys = {listing_dedup_key(e.get('company', ''), e.get('role', ''),
+                                       e.get('location', '')) for e in listings}
+    existing_fps = {job_fingerprint(e.get('company', ''), e.get('source', ''), e['url'])
+                    for e in listings if e.get('url')} - {None}
+    # Rows a dead-link sweep blanked; a still-live posting revives them so a
+    # 403/transient false positive self-heals instead of staying 🔒 forever.
+    blanked = {listing_dedup_key(e.get('company', ''), e.get('role', ''),
+                                 e.get('location', '')): e
+               for e in listings if not e.get('url')}
+    added_rows = []
+    revived_rows = []
+
+    for job in raw_jobs:
+        jid = job['id']
+        # seen_jobs.json holds Oracle reqs under their pre-host id; carrying
+        # the date over keeps a known req from a second trip through the gates.
+        legacy = job.get('legacy_id')
+        if jid not in seen and legacy in seen:
+            seen[jid] = seen[legacy]
+        url = job.get('url', '')
+        location = normalize_location(job.get('location', ''))
+        key = listing_dedup_key(job['company'], job.get('title', ''), location)
+        # The fingerprint catches a Workday req whose URL and location both
+        # moved, which neither the URL nor the key can see.
+        fingerprint = job_fingerprint(job['company'], job.get('board', ''), url)
+        on_board = ((url and normalize_url(url) in existing_urls) or key in existing_keys
+                    or (fingerprint and fingerprint in existing_fps))
+        if jid in seen and on_board and key not in blanked:
+            continue
+        verdict = evaluate_job(
+            job.get('title', ''), job.get('location', ''),
+            job.get('description', ''), sec_flags.get(jid, False),
+            job.get('intern_hint', False),
+        )
+        if verdict is None:
+            continue
+        level, category = verdict
+
+        if not url:
+            # Don't record a URL-less posting as seen — otherwise it's skipped
+            # forever even after the ATS later populates the URL.
+            continue
+        seen[jid] = today
+        if key in blanked:
+            row = blanked.pop(key)
+            row['url'] = url
+            # A company that moved ATS revives on its new board; a stale source
+            # left the row orphaned again on the next run, RETIRED then REVIVED
+            # every run. A Community row keeps the maintainer's provenance.
+            if row.get('source') != 'Community' and job.get('board'):
+                row['source'] = job['board']
+            row.pop('closed', None)
+            row.pop('closed_date', None)
+            # Clear the absence streak too: a revived row that later vanishes
+            # again must earn a fresh VANISHED_DAYS grace period, not inherit a
+            # months-old stamp and retire on the next run.
+            row.pop('missing_since', None)
+            existing_urls.add(normalize_url(url))
+            if fingerprint:
+                existing_fps.add(fingerprint)
+            revived_rows.append(row)
+            print(f'  REVIVED {_oneline(job["company"])} — {_oneline(job["title"])}')
+            continue
+        if on_board:
+            continue
+        existing_urls.add(normalize_url(url))
+        existing_keys.add(key)
+        if fingerprint:
+            existing_fps.add(fingerprint)
+
+        row = {
+            'company': job['company'],
+            'role': job['title'].strip(),
+            'location': location,
+            'type': level,
+            'category': category,
+            'clearance': requires_clearance(job.get('title', ''),
+                                            job.get('description', '')),
+            'url': url,
+            'source': job.get('board', ''),
+            'date_added': today,
+        }
+        listings.append(row)
+        added_rows.append(row)
+        print(f'  NEW [{level}] {_oneline(job["company"])} — {_oneline(job["title"])} '
+              f'@ {_oneline(job.get("location", ""))}')
+    return added_rows, revived_rows
+
+
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
@@ -2125,8 +2364,19 @@ def main():
     # description, location or flag rule reaches rows inserted before it: a
     # pre-gate "Engineer II @ 6 yrs" row would otherwise sit here forever
     # (issue #11), as would a category or 🇺🇸 flag set at insert.
+    # A company with any failed or crashed board is judged like a partial sweep.
+    failed_companies = failed_board_companies(board_stats)
+    # The re-eval and vanished passes both ask Workday about the same missed
+    # rows; one detail request per row per run serves both.
+    probed = {}
+
+    def probe(url):
+        if url not in probed:
+            probed[url] = workday_posting(url)
+        return probed[url]
+
     listings, reevaluated, refreshed = reevaluate_stored_listings(
-        listings, raw_jobs, company_flags)
+        listings, raw_jobs, company_flags, probe=probe, failed_companies=failed_companies)
     drops = rejected + reevaluated
     for entry, reason in drops:
         print(f'  DROP [{reason}] {_oneline(entry.get("company", ""))} — '
@@ -2158,91 +2408,20 @@ def main():
     # On a full run report_board_health has already rolled this run into the
     # baseline; a dry or partial run reads it one run behind, which only keeps.
     vanished = retire_vanished_listings(
-        listings, raw_jobs, today, long_silent_boards(board_stats, load_board_baseline()))
+        listings, raw_jobs, today, long_silent_boards(board_stats, load_board_baseline()),
+        probe=lambda url: probe(url)[0], failed_companies=failed_companies)
     for entry in vanished:
         print(f'  RETIRED [vanished] {_oneline(entry.get("company", ""))} — '
               f'{_oneline(entry.get("role", ""))}')
-    orphaned = retire_orphaned_listings(listings, config, today)
+    orphaned, renamed = retire_orphaned_listings(listings, config, today, raw_jobs)
     for entry in orphaned:
         print(f'  RETIRED [orphaned] {_oneline(entry.get("company", ""))} — '
               f'{_oneline(entry.get("role", ""))}')
+    for entry, old in renamed:
+        print(f'  RENAMED [company] {_oneline(old)} -> {_oneline(entry.get("company", ""))} — '
+              f'{_oneline(entry.get("role", ""))}')
 
-    existing_urls = {normalize_url(e.get('url', '')) for e in listings if e.get('url')}
-    # Secondary key catches the same role reposted per-location under distinct
-    # req-ID URLs (e.g. one "Intern - Software Engineer" ×10) that URL dedup
-    # can't see. Location stays in the key so genuinely different sites remain
-    # separate rows.
-    existing_keys = {listing_dedup_key(e.get('company', ''), e.get('role', ''),
-                                       e.get('location', '')) for e in listings}
-    # Rows a dead-link sweep blanked; a still-live posting revives them so a
-    # 403/transient false positive self-heals instead of staying 🔒 forever.
-    blanked = {listing_dedup_key(e.get('company', ''), e.get('role', ''),
-                                 e.get('location', '')): e
-               for e in listings if not e.get('url')}
-    added_rows = []
-    revived_rows = []
-
-    for job in raw_jobs:
-        jid = job['id']
-        # seen_jobs.json holds Oracle reqs under their pre-host id; carrying
-        # the date over keeps a known req from a second trip through the gates.
-        legacy = job.get('legacy_id')
-        if jid not in seen and legacy in seen:
-            seen[jid] = seen[legacy]
-        location = normalize_location(job.get('location', ''))
-        key = listing_dedup_key(job['company'], job.get('title', ''), location)
-        # Skip already-seen jobs unless they could revive a blanked row.
-        if jid in seen and key not in blanked:
-            continue
-        verdict = evaluate_job(
-            job.get('title', ''), job.get('location', ''),
-            job.get('description', ''), sec_flags.get(jid, False),
-            job.get('intern_hint', False),
-        )
-        if verdict is None:
-            continue
-        level, category = verdict
-
-        url = job.get('url', '')
-        if not url:
-            # Don't record a URL-less posting as seen — otherwise it's skipped
-            # forever even after the ATS later populates the URL.
-            continue
-        seen[jid] = today
-        if key in blanked:
-            row = blanked.pop(key)
-            row['url'] = url
-            row.pop('closed', None)
-            row.pop('closed_date', None)
-            # Clear the absence streak too: a revived row that later vanishes
-            # again must earn a fresh VANISHED_DAYS grace period, not inherit a
-            # months-old stamp and retire on the next run.
-            row.pop('missing_since', None)
-            existing_urls.add(normalize_url(url))
-            revived_rows.append(row)
-            print(f'  REVIVED {_oneline(job["company"])} — {_oneline(job["title"])}')
-            continue
-        if normalize_url(url) in existing_urls or key in existing_keys:
-            continue
-        existing_urls.add(normalize_url(url))
-        existing_keys.add(key)
-
-        row = {
-            'company': job['company'],
-            'role': job['title'].strip(),
-            'location': location,
-            'type': level,
-            'category': category,
-            'clearance': requires_clearance(job.get('title', ''),
-                                            job.get('description', '')),
-            'url': url,
-            'source': job.get('board', ''),
-            'date_added': today,
-        }
-        listings.append(row)
-        added_rows.append(row)
-        print(f'  NEW [{level}] {_oneline(job["company"])} — {_oneline(job["title"])} '
-              f'@ {_oneline(job.get("location", ""))}')
+    added_rows, revived_rows = insert_new_listings(listings, raw_jobs, seen, sec_flags, today)
 
     # Refresh last-seen for every still-live id, then expire the stale ones.
     for job in raw_jobs:
@@ -2256,7 +2435,8 @@ def main():
     # streak still has to save listings.json or the streak resets every run.
     pending = sum(1 for e in listings if e.get('missing_since'))
     changed = (added or reclassified or revived or purged or drops or refreshed
-               or renormalized or repaired or folded or vanished or orphaned or pending)
+               or renormalized or repaired or folded or vanished or orphaned or renamed
+               or pending)
     dropped_by = ', '.join(f'{n} {reason}' for reason, n in sorted(drop_counts.items()))
     print(f'\nAdded {added} new listing(s), revived {revived}, '
           f'reclassified {reclassified}, purged {purged}, '

@@ -522,7 +522,10 @@ def test_reevaluate_guardrails_keep_rows():
 
 
 def test_reevaluate_matches_a_moved_req_by_dedup_key():
-    listings = [_stored('Acme', 'Security Engineer II', 1)]
+    # Only a row with no fingerprint may be matched by key: a fingerprinted
+    # row missing from the feed is not judged by a sibling req.
+    listings = [_stored('Acme', 'Security Engineer II', 1,
+                        url='https://acme.example/careers/security-engineer-ii')]
     moved = [dict(_live('Acme', 'Security Engineer II', 1,
                         'Requires 6+ years of experience.'),
                   url='https://acme.example/careers?id=77', board='')]
@@ -545,7 +548,7 @@ def test_job_fingerprint_reads_every_ats_url_shape():
          'b9dee2a0-9bb3-447e-9bce-2b1bed784e5b'),
         ('Acme', 'Workday',
          'https://acme.wd1.myworkdayjobs.com/External/job/Austin-TX/Cyber-Eng_R123',
-         '/job/Austin-TX/Cyber-Eng_R123'),
+         'R123'),
         ('Acme', 'Oracle',
          'https://x.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2615114',
          '2615114'),
@@ -799,7 +802,7 @@ def test_board_health_streaks():
     history, regressed, dead = sj.board_health(
         [{'label': 'Acme', 'status': 'ok', 'count': 7}], history, '2026-09-20')
     check('a recovered board clears its streak', history['Acme'],
-          {'count': 7, 'zero_runs': 0, 'last_nonzero': '2026-09-20'})
+          {'count': 7, 'zero_runs': 0, 'empty_runs': 0, 'last_nonzero': '2026-09-20'})
     check('a recovered board is not reported dead', dead, [])
 
 
@@ -1887,7 +1890,8 @@ def test_retire_orphaned_listings():
         _listing('Todyl', 'Unknown Feed', 'https://todyl.com/jobs/1', source='Some Feed'),
         _listing('Todyl', 'Already Closed', '', source='Ashby', closed=True),
     ]
-    retired = sj.retire_orphaned_listings(listings, config, '2026-09-28')
+    retired, renamed = sj.retire_orphaned_listings(listings, config, '2026-09-28')
+    check('nothing is renamed without a live posting', renamed, [])
     check('rows whose company has no board for their source retire',
           [e['role'] for e in retired], ['Site Reliability Engineer II', 'Moved Off Workday'])
     check('an orphaned row is blanked the way the revive path expects',
@@ -1897,7 +1901,7 @@ def test_retire_orphaned_listings():
           [bool(e['url']) for e in listings[1:3] + listings[4:7]], [True] * 5)
     check('an empty config retires nothing',
           sj.retire_orphaned_listings([_listing('Todyl', 'X', ashby, source='Ashby')], {},
-                                      '2026-09-28'), [])
+                                      '2026-09-28'), ([], []))
 
 
 # --- check_links: a 200 whose title says the job is gone ----------------------
@@ -2036,9 +2040,12 @@ def test_main_carries_seen_oracle_reqs_to_the_new_id():
         tmp = Path(tmp)
         (tmp / 'companies.yml').write_text(
             f'oracle:\n  - name: SAIC\n    host: {host}\n    site: CX\n')
-        # Req 5 was judged under its old id and has left the board since; a
-        # new id alone must not bring it back.
-        (tmp / 'listings.json').write_text('[]')
+        # Req 5 was judged under its old id and its row is on the board; a new
+        # id alone must not announce it a second time.
+        (tmp / 'listings.json').write_text(json.dumps([{
+            'company': 'SAIC', 'role': 'Cybersecurity Analyst Intern', 'location': 'Reston, VA',
+            'type': 'intern', 'category': 'Security Engineering', 'clearance': False,
+            'url': url, 'source': 'Oracle', 'date_added': '2026-09-27'}]))
         (tmp / 'seen_jobs.json').write_text(json.dumps({'oracle_CX_5': '2026-09-27'}))
         events_file = tmp / 'run_events.json'
         os.environ['RUN_EVENTS_FILE'] = str(events_file)
@@ -2060,9 +2067,341 @@ def test_main_carries_seen_oracle_reqs_to_the_new_id():
             os.chdir(cwd)
     check('a req seen under its old id is not judged or announced again',
           ([r['role'] for r in events['added']], [r['url'] for r in rows]),
-          (['Security Operations Center Intern'], [url.replace('/job/5', '/job/6')]))
+          (['Security Operations Center Intern'], [url, url.replace('/job/5', '/job/6')]))
     check('seen_jobs.json carries the req under its new id',
           f'oracle_{host}_CX_5' in seen, True)
+
+
+# --- persistence passes: probes, matching, re-adds and renames -----------------
+@responses.activate
+def test_workday_posting_survives_a_non_dict_body():
+    api = 'https://acme.wd1.myworkdayjobs.com/wday/cxs/acme/Ext/job/Austin-TX/'
+    public = 'https://acme.wd1.myworkdayjobs.com/Ext/job/Austin-TX/'
+    responses.add(responses.GET, api + 'Null_R1', body='null',
+                  content_type='application/json')
+    responses.add(responses.GET, api + 'List_R2', status=403, json=[])
+    responses.add(responses.GET, api + 'Live_R3', json={'jobPostingInfo': {
+        'canApply': True, 'title': 'Security Specialist II', 'location': 'Cambridge, MA'}})
+    check('a JSON null body says nothing', sj.workday_posting(public + 'Null_R1'),
+          (None, None))
+    check('a JSON list body says nothing', sj.workday_posting_state(public + 'List_R2'), None)
+    state, info = sj.workday_posting(public + 'Live_R3')
+    check('a live answer carries the posting info',
+          (state, info.get('title')), ('live', 'Security Specialist II'))
+
+
+def test_workday_fingerprint_survives_a_location_move():
+    root = 'https://acme.wd1.myworkdayjobs.com/Ext'
+    cases = [
+        ('/job/Chantilly-VA/Cyber-Analyst-I_R123', 'R123'),
+        ('/job/Reston-VA/Cyber-Analyst-I-Updated_R123', 'R123'),
+        ('/job/Remote/Software-Engineer-2_JR102090', 'JR102090'),
+        ('/job/Remote/Intern---Threat-Intelligence_JR-013988-1', 'JR-013988-1'),
+        ('/job/Austin-TX/Security-Analyst_R-00123', 'R-00123'),
+        # Arctic Wolf ids carry their own underscore.
+        ('/job/Waterloo-ON-CAN/Professional-Services-Engineer-1_R26_1068', 'R26_1068'),
+        ('/job/Cyber-Analyst_R77', 'R77'),
+        # No '_<id>' suffix: the whole path is all there is to go on.
+        ('/job/Austin-TX/Cyber-Analyst', '/job/Austin-TX/Cyber-Analyst'),
+    ]
+    for path, want in cases:
+        check(f'workday fingerprint {path}', sj.job_fingerprint('Acme', 'Workday', root + path),
+              ('Acme', 'Workday', want))
+    moved = [_listing('Acme', 'Cyber Analyst I', root + '/job/Chantilly-VA/Cyber-Analyst-I_R123',
+                      source='Workday', missing_since='2026-09-01')]
+    raw = [{'company': 'Acme', 'board': 'Workday',
+            'url': root + '/job/Reston-VA/Cyber-Analyst-I_R123'}]
+    check('a req whose location slug moved is not vanished',
+          (sj.retire_vanished_listings(moved, raw, '2026-09-10'),
+           moved[0].get('missing_since')), ([], None))
+    seen = {}
+    added, _ = sj.insert_new_listings(
+        moved, [dict(raw[0], id='wd-moved', title='Cyber Analyst I', location='Reston, VA')],
+        seen, {}, '2026-09-10')
+    check('...and is not inserted again under its new location', added, [])
+
+
+RTX = 'https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/'
+
+
+def _wd_row(role, req, kind='earlycareer', location='Cambridge, MA', **extra):
+    row = {'company': 'RTX', 'role': role, 'location': location, 'type': kind,
+           'category': 'Security Engineering', 'clearance': False,
+           'url': f'{RTX}US-MA-CAMBRIDGE/{role.replace(" ", "-")}_{req}', 'source': 'Workday'}
+    row.update(extra)
+    return row
+
+
+def _wd_live(title, req, description='', location='Cambridge, MA', **extra):
+    job = {'id': f'workday_globalhr_{req}', 'company': 'RTX', 'title': title,
+           'location': location, 'url': f'{RTX}US-MA-CAMBRIDGE/{title.replace(" ", "-")}_{req}',
+           'board': 'Workday', 'description': description}
+    job.update(extra)
+    return job
+
+
+def test_reevaluate_keeps_a_row_behind_a_multi_location_placeholder():
+    """A failed Workday detail fetch leaves the list view's '2 Locations'."""
+    listings = [_wd_row('Cyber Analyst I', 'R1'), _wd_row('SOC Analyst I', 'R2')]
+    raw = [_wd_live('Cyber Analyst I', 'R1', 'Entry level.', location='2 Locations'),
+           _wd_live('SOC Analyst I', 'R2', 'Entry level.', location='Austin, TX, More...')]
+    kept, dropped, _ = _reevaluate(listings, raw)
+    check('a multi-location placeholder drops nothing', (dropped, len(kept)), ([], 2))
+
+
+def test_reevaluate_does_not_judge_a_fingerprinted_row_by_a_sibling():
+    """The capped RTX sweep missed R100 but reached sibling R200 (5+ years)."""
+    listings = [_wd_row('Systems Security Engineer I', 'R100')]
+    raw = [_wd_live('Systems Security Engineer I', 'R200',
+                    'Requires 5+ years of experience.', partial_sweep=True)]
+    kept, dropped, refreshed = _reevaluate(listings, raw)
+    check('a fingerprinted row missing from the feed is not judged by its sibling',
+          (dropped, refreshed, len(kept)), ([], [], 1))
+
+
+def _probe_from(answers, asked):
+    def probe(url):
+        asked.append(url)
+        return answers.get(url, (None, None))
+    return probe
+
+
+def test_reevaluate_rejudges_a_row_past_the_workday_cap():
+    """RTX 'Security Specialist II' sat open with NISPOM duties in its description.
+
+    The title rules now reject that title outright, so a title they still
+    accept stands in for it here.
+    """
+    facility = _wd_row('Security Analyst II', '01877097')
+    silent = _wd_row('Security Engineer', 'R3')
+    intern = _wd_row('Security Engineer', 'R4', kind='intern')
+    matched = _wd_row('Cyber Analyst I', 'R5')
+    listings = [facility, silent, intern, matched]
+    answers = {
+        facility['url']: ('live', {
+            'title': 'Security Analyst II', 'location': 'US-MA-CAMBRIDGE-BBN04',
+            'additionalLocations': [],
+            'jobDescription': '<p>Administer the NISPOM program and classified document '
+                              'control for the site.</p>'}),
+        # An empty body is not evidence against a flat title.
+        silent['url']: ('live', {'title': 'Security Engineer', 'location': 'Cambridge, MA',
+                                 'jobDescription': ''}),
+        # The experience gate exempts interns here as it does at insert.
+        intern['url']: ('live', {'title': 'Security Engineer', 'location': 'Cambridge, MA',
+                                 'jobDescription': 'Requires 6+ years of experience.'}),
+    }
+    raw = [_wd_live('Cyber Analyst I', 'R5', 'Entry level.', partial_sweep=True)]
+    asked = []
+    kept, dropped, refreshed = _reevaluate(listings, raw)
+    check('without a probe nothing past the cap is judged', dropped, [])
+    kept, dropped, refreshed = sj.reevaluate_stored_listings(
+        listings, raw, {}, probe=_probe_from(answers, asked))
+    check('the probed posting drops a facility-security row',
+          [(e['role'], reason) for e, reason in dropped],
+          [('Security Analyst II', 'facility-security')])
+    check('an empty probed body and an intern row are kept',
+          [(e['role'], e['type']) for e in kept],
+          [('Security Engineer', 'earlycareer'), ('Security Engineer', 'intern'),
+           ('Cyber Analyst I', 'earlycareer')])
+    check('only the unmatched rows are probed', sorted(asked),
+          sorted([facility['url'], silent['url'], intern['url']]))
+
+    asked.clear()
+    complete = [dict(raw[0], partial_sweep=False)]
+    sj.reevaluate_stored_listings(listings, complete, {}, probe=_probe_from(answers, asked))
+    check('a complete sweep probes nothing', asked, [])
+    sj.reevaluate_stored_listings(listings, complete, {}, probe=_probe_from(answers, asked),
+                                  failed_companies={'RTX'})
+    check('a company with a failed board is probed like a partial sweep', len(asked), 3)
+
+
+@responses.activate
+def test_main_probes_each_missed_workday_row_once():
+    base = 'https://t.wd5.myworkdayjobs.com'
+    facility = f'{base}/B/job/US-MA-CAMBRIDGE/Security-Analyst-II_01877097'
+    analyst = f'{base}/B/job/US-MA-CAMBRIDGE/Cyber-Analyst-I_JR555'
+    responses.add_callback(responses.POST, WD_API, callback=_workday_pages({
+        'cyber': [_wd_page(100, 0, 20)]}))
+    responses.get(facility.replace(f'{base}/B', f'{base}/wday/cxs/t/B'), json={
+        'jobPostingInfo': {'canApply': True, 'title': 'Security Analyst II',
+                           'location': 'Cambridge, MA',
+                           'jobDescription': 'Maintain NISPOM compliance.'}})
+    responses.get(analyst.replace(f'{base}/B', f'{base}/wday/cxs/t/B'), json={
+        'jobPostingInfo': {'canApply': True, 'title': 'Cyber Analyst I',
+                           'location': 'Cambridge, MA', 'jobDescription': 'Entry level.'}})
+    rows = [dict(_wd_row('Security Analyst II', '01877097'), company='X', url=facility),
+            dict(_wd_row('Cyber Analyst I', 'JR555'), company='X', url=analyst)]
+    original = sj.WORKDAY_MAX_PAGES
+    try:
+        sj.WORKDAY_MAX_PAGES = 1
+        out, after = _run_main(
+            'workday:\n  - name: X\n    tenant: t\n    instance: wd5\n    board: B\n',
+            rows, ['--dry-run', '--board', 'workday'])
+    finally:
+        sj.WORKDAY_MAX_PAGES = original
+    detail = [c.request.url for c in responses.calls if '/wday/cxs/t/B/job/' in c.request.url]
+    check('each missed row costs one detail request across both passes',
+          sorted(detail), sorted([facility.replace(f'{base}/B', f'{base}/wday/cxs/t/B'),
+                                  analyst.replace(f'{base}/B', f'{base}/wday/cxs/t/B')]))
+    check('the re-judged row logs a DROP line compare_runs reads',
+          compare_runs.parse_log(out).dropped,
+          {'X — Security Analyst II': 'facility-security'})
+    check('a dry run writes nothing', after, rows)
+
+
+def _run_main(companies, listings, argv, seen=None):
+    import contextlib
+    import io
+    saved = (sj.LISTINGS_FILE, sj.SEEN_JOBS_FILE, sj.BOARD_BASELINE_FILE,
+             sj.rebuild_readme.main, sys.argv, os.getcwd())
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        (tmp / 'companies.yml').write_text(companies)
+        (tmp / 'listings.json').write_text(json.dumps(listings))
+        (tmp / 'seen_jobs.json').write_text(json.dumps(seen or {}))
+        out = io.StringIO()
+        try:
+            os.chdir(tmp)
+            sj.LISTINGS_FILE = tmp / 'listings.json'
+            sj.SEEN_JOBS_FILE = tmp / 'seen_jobs.json'
+            sj.BOARD_BASELINE_FILE = tmp / 'board_baseline.json'
+            sj.rebuild_readme.main = lambda: None
+            sys.argv = ['scrape_jobs.py', *argv]
+            with contextlib.redirect_stdout(out):
+                sj.main()
+            after = json.loads((tmp / 'listings.json').read_text())
+        finally:
+            (sj.LISTINGS_FILE, sj.SEEN_JOBS_FILE, sj.BOARD_BASELINE_FILE,
+             sj.rebuild_readme.main, sys.argv, cwd) = saved
+            os.chdir(cwd)
+    return out.getvalue(), after
+
+
+def test_insert_readds_a_dropped_row_while_its_posting_is_live():
+    listings = [
+        _stored('Acme', 'SOC Analyst I', 1),
+        # Folded by the repair pass: its key is held by the row above.
+        _stored('Acme', 'Cyber Analyst I', 3, location='Austin, TX'),
+    ]
+    raw = [
+        _live('Acme', 'SOC Analyst I', 1, 'Monitor alerts.'),
+        # Dropped or orphan-retired on an earlier run, still live and passing.
+        _live('Acme', 'Cyber Analyst I', 2, 'Entry level.', location='Reston, VA'),
+        # Dropped by the re-eval pass this run: the same gates refuse it here.
+        _live('Acme', 'Security Engineer II', 4, 'Requires 6+ years of experience.'),
+        # A second copy of the folded row's req under its repaired location.
+        _live('Acme', 'Cyber Analyst I', 5, 'Entry level.'),
+    ]
+    seen = {job['id']: '2026-09-01' for job in raw}
+    added, revived = sj.insert_new_listings(listings, raw, seen, {}, '2026-09-10')
+    check('a seen posting whose row left the board comes back, nothing else does',
+          [(r['role'], r['location']) for r in added], [('Cyber Analyst I', 'Reston, VA')])
+    check('the re-added posting is stamped seen today', seen['gh-Acme-2'], '2026-09-10')
+    added, _ = sj.insert_new_listings(listings, raw, seen, {}, '2026-09-10')
+    check('a second pass adds nothing', added, [])
+
+
+def test_revive_takes_the_new_source():
+    """A company that moved ATS was RETIRED [orphaned] then REVIVED every run."""
+    listings = [_stored('Acme', 'SOC Analyst I', 1, url='', closed=True,
+                        closed_date='2026-09-09'),
+                _stored('Acme', 'Cyber Analyst I', 2, url='', closed=True, source='Community')]
+    ashby = 'https://jobs.ashbyhq.com/acme/b9dee2a0-9bb3-447e-9bce-2b1bed784e5b'
+    raw = [dict(_live('Acme', 'SOC Analyst I', 1, 'Monitor alerts.'), url=ashby, board='Ashby'),
+           _live('Acme', 'Cyber Analyst I', 2, 'Entry level.')]
+    _, revived = sj.insert_new_listings(listings, raw, {}, {}, '2026-09-10')
+    check('a revived row takes its new board as its source, a Community row keeps its own',
+          [(r['role'], r['url'], r['source']) for r in revived],
+          [('SOC Analyst I', ashby, 'Ashby'),
+           ('Cyber Analyst I', GH_JOBS.format('acme', 2), 'Community')])
+    check('the revived row is no orphan under the new config',
+          sj.retire_orphaned_listings(listings, {'ashby': [{'name': 'Acme', 'slug': 'acme'}]},
+                                      '2026-09-11', raw)[0], [])
+
+
+def test_orphan_pass_renames_a_renamed_company():
+    config = {'greenhouse': [{'name': 'Acme Corp', 'slug': 'acme'}]}
+    listings = [_stored('Acme', 'SOC Analyst I', 1, missing_since='2026-09-09'),
+                _stored('Acme', 'Cyber Analyst I', 2),
+                # Same req number on another tenant's board is not this req.
+                _stored('Acme', 'Security Analyst I', 7,
+                        url='https://acme.wd1.myworkdayjobs.com/Ext/job/Austin-TX/X_R1',
+                        source='Workday')]
+    raw = [_live('Acme Corp', 'SOC Analyst I', 1, 'Monitor alerts.'),
+           dict(_live('Other', 'Security Analyst I', 8),
+                url='https://other.wd1.myworkdayjobs.com/Ext/job/Austin-TX/X_R1', board='Workday')]
+    retired, renamed = sj.retire_orphaned_listings(
+        listings, dict(config, workday=[{'name': 'Other'}]), '2026-09-10', raw)
+    check('a live req takes the new company name instead of retiring',
+          [(e['role'], old, e['company']) for e, old in renamed],
+          [('SOC Analyst I', 'Acme', 'Acme Corp')])
+    check('the renamed row keeps its url and drops its absence streak',
+          (listings[0]['url'], 'missing_since' in listings[0]),
+          (GH_JOBS.format('acme', 1), False))
+    check('rows with no live req, or a req on another tenant, still retire',
+          [e['role'] for e in retired], ['Cyber Analyst I', 'Security Analyst I'])
+    added, _ = sj.insert_new_listings(listings, raw[:1], {'gh-Acme Corp-1': '2026-09-01'},
+                                      {}, '2026-09-10')
+    check('the insert pass does not add the renamed req again', added, [])
+
+
+def test_failed_board_holds_its_companys_rows():
+    """Idaho National Laboratory has two Oracle sites; one failed, one answered."""
+    host = 'https://inl.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/'
+    stats = [{'label': 'Idaho National Laboratory (oracle/inl.fa.us2.oraclecloud.com/CX_1001)',
+              'status': 'ok', 'count': 1},
+             {'label': 'Idaho National Laboratory (oracle/inl.fa.us2.oraclecloud.com/CX_1002)',
+              'status': 'FAILED', 'count': 0},
+             {'label': 'Acme (greenhouse/acme)', 'status': 'CRASHED', 'count': 0},
+             {'label': 'Fine (lever/fine)', 'status': 'zero', 'count': 0}]
+    failed = sj.failed_board_companies(stats)
+    check('companies with a failed or crashed board', sorted(failed),
+          ['Acme', 'Idaho National Laboratory'])
+    inl = 'Idaho National Laboratory'
+    listings = [_listing(inl, 'Cyber Intern', host + 'CX_1002/job/9', source='Oracle',
+                         missing_since='2026-09-01'),
+                _listing(inl, 'Fresh', host + 'CX_1002/job/10', source='Oracle')]
+    raw = [{'company': inl, 'board': 'Oracle', 'url': host + 'CX_1001/job/1'}]
+    check('a failed site retires nothing on absence',
+          sj.retire_vanished_listings(listings, raw, '2026-09-10', failed_companies=failed), [])
+    check('...and stamps no streak', [e.get('missing_since') for e in listings],
+          ['2026-09-01', None])
+    check('without the failed set the old behavior retired the row',
+          [e['role'] for e in sj.retire_vanished_listings(listings, raw, '2026-09-10')],
+          ['Cyber Intern'])
+
+
+def test_failed_boards_do_not_grow_the_silent_streak():
+    """A six-day IP ban retired every row of a board that still held them."""
+    label = 'Acme (greenhouse/acme)'
+    history = {label: {'count': 4, 'zero_runs': 0, 'last_nonzero': '2026-09-01'}}
+    for status in ['FAILED'] * sj.SILENT_BOARD_RUNS + ['CRASHED']:
+        history, _, _ = sj.board_health([{'label': label, 'status': status, 'count': 0}],
+                                        history, '2026-09-10')
+    check('failed runs still count toward the dead-board alert',
+          history[label]['zero_runs'], sj.SILENT_BOARD_RUNS + 1)
+    check('...but not toward the silent streak', history[label]['empty_runs'], 0)
+    failed = [{'label': label, 'status': 'FAILED', 'count': 0}]
+    check('a board that only failed is not silent', sj.long_silent_boards(failed, history),
+          set())
+    for _run in range(sj.SILENT_BOARD_RUNS - 1):
+        history, _, _ = sj.board_health([{'label': label, 'status': 'zero', 'count': 0}],
+                                        history, '2026-09-10')
+    history, _, _ = sj.board_health(failed, history, '2026-09-10')
+    check('a failure holds an empty streak without growing it',
+          history[label]['empty_runs'], sj.SILENT_BOARD_RUNS - 1)
+    history, _, _ = sj.board_health([{'label': label, 'status': 'zero', 'count': 0}],
+                                    history, '2026-09-10')
+    check('real empty runs make a board silent',
+          sj.long_silent_boards([{'label': label, 'status': 'zero', 'count': 0}], history),
+          {('Acme', 'greenhouse')})
+
+
+def test_orphan_pass_covers_jibe_rows():
+    row = _listing('Gone', 'Cyber Analyst', 'https://careers.gone.org/jobs/59772', source='Jibe')
+    retired, _ = sj.retire_orphaned_listings([row], {'jibe': [{'name': 'Other'}]}, '2026-09-10')
+    check('a Jibe row whose board left the config retires', [e['role'] for e in retired],
+          ['Cyber Analyst'])
 
 
 for fn in (test_greenhouse_location_reads_only_location_fields,
@@ -2124,7 +2463,18 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_oracle_ids_and_labels_carry_host_and_site,
            test_oracle_ids_differ_across_hosts_on_one_site,
            test_board_health_carries_an_oracle_board_across_the_label_change,
-           test_main_carries_seen_oracle_reqs_to_the_new_id):
+           test_main_carries_seen_oracle_reqs_to_the_new_id,
+           test_workday_posting_survives_a_non_dict_body,
+           test_workday_fingerprint_survives_a_location_move,
+           test_reevaluate_keeps_a_row_behind_a_multi_location_placeholder,
+           test_reevaluate_does_not_judge_a_fingerprinted_row_by_a_sibling,
+           test_reevaluate_rejudges_a_row_past_the_workday_cap,
+           test_main_probes_each_missed_workday_row_once,
+           test_insert_readds_a_dropped_row_while_its_posting_is_live,
+           test_revive_takes_the_new_source, test_orphan_pass_renames_a_renamed_company,
+           test_failed_board_holds_its_companys_rows,
+           test_failed_boards_do_not_grow_the_silent_streak,
+           test_orphan_pass_covers_jibe_rows):
     fn()
 
 if failures:
