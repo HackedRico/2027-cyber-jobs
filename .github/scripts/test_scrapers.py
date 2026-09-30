@@ -178,6 +178,22 @@ def test_fetch_json_gives_up_on_404():
     check('fetch_json 404 -> None', sj.fetch_json('https://api.test/y', label='t'), None)
 
 
+@responses.activate
+def test_fetch_json_retries_5xx():
+    """One transient Workday 502 ended a whole search term."""
+    responses.post('https://api.test/wd', status=502)
+    responses.post('https://api.test/wd', json={'jobPostings': []})
+    check('fetch_json retries a 502 then succeeds',
+          sj.fetch_json('https://api.test/wd', method='POST', label='t'),
+          {'jobPostings': []})
+    responses.get('https://api.test/down', status=500)
+    check('fetch_json gives up on a 500 that persists',
+          sj.fetch_json('https://api.test/down', label='t'), None)
+    check('fetch_json tries a persistent 500 MAX_RETRIES times',
+          len([c for c in responses.calls if c.request.url.endswith('/down')]),
+          sj.MAX_RETRIES)
+
+
 # --- SSRF: config host components must be validated (no network call) ---------
 def test_slug_validation_blocks_host_reparenting():
     check('recruitee rejects a slug with /', sj.scrape_recruitee('X', 'evil.com/'), None)
@@ -1732,6 +1748,7 @@ for fn in (test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_smartrecruiters_pagination_short_page_stops,
            test_check_slugs_flags_unknown_smartrecruiters_id, test_oracle,
            test_fetch_json_retries_transient, test_fetch_json_gives_up_on_404,
+           test_fetch_json_retries_5xx,
            test_slug_validation_blocks_host_reparenting,
            test_workday_total_failure_returns_none,
            test_smartrecruiters_missing_total_keeps_paging,

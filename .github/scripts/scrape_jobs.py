@@ -109,10 +109,11 @@ def _sleep_backoff(attempt, retry_after=None):
 def fetch_json(url, *, method='GET', label='', **kwargs):
     """HTTP request returning parsed JSON, or None on unrecoverable failure.
 
-    Retries transient failures — timeouts, connection resets, 429/503 (honoring
-    Retry-After), and 200s with a non-JSON body — with exponential backoff plus
-    jitter, over the calling thread's pooled Session. Returning None (not [])
-    lets callers tell a broken fetch apart from a genuinely empty board.
+    Retries transient failures (timeouts, connection resets, 429 and any 5xx
+    honoring Retry-After, and 200s with a non-JSON body) with exponential
+    backoff plus jitter, over the calling thread's pooled Session. Returning
+    None (not []) lets callers tell a broken fetch apart from a genuinely
+    empty board.
     """
     kwargs.setdefault('timeout', REQUEST_TIMEOUT)
     for attempt in range(MAX_RETRIES):
@@ -125,9 +126,12 @@ def fetch_json(url, *, method='GET', label='', **kwargs):
                 return None
             _sleep_backoff(attempt)
             continue
-        if resp.status_code in (429, 503):
+        # A lone Workday 502 or 504 used to end the whole search term on its
+        # first try, and the term's postings with it.
+        if resp.status_code == 429 or resp.status_code >= 500:
             if last:
-                print(f'  [{label}] HTTP {resp.status_code} (rate limited)')
+                reason = ' (rate limited)' if resp.status_code in (429, 503) else ''
+                print(f'  [{label}] HTTP {resp.status_code}{reason}')
                 return None
             _sleep_backoff(attempt, resp.headers.get('Retry-After'))
             continue
