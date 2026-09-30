@@ -218,6 +218,9 @@ CASES = [
     ('New Grad Security Engineer', 'Waterloo, ON', '', False, None),
     ('Graduate Cyber Analyst', 'Sydney, Australia', '', False, None),
     ('Junior Security Engineer', 'Remote (EMEA)', '', False, None),
+    ('Junior Security Engineer', 'Remote (Europe)', '', False, None),
+    ('SOC Analyst I', 'Pune, IN', '', False, None),
+    ('SOC Analyst I', 'Perth, WA', '', False, None),
 
     # -- bug fix: leveled numerals reject only in role-noun context --
     # "III/IV/3/4" no longer bare-match version/layer/standard numbers.
@@ -371,6 +374,7 @@ NORM = [
     ('London, UK; Ontario, CAN; Remote (US); San Francisco, CA', 'Remote (US); San Francisco, CA'),
     ('High Point, NC; International - Germany', 'High Point, NC'),
     ('Paris, TX; London, UK', 'Paris, TX'),
+    ('Perth Amboy, NJ; Perth, WA', 'Perth Amboy, NJ'),
     ('London, UK', 'London, UK'),  # nothing US to keep, so nothing is dropped
     # US territories resolve to their postal code like any state.
     ('San Juan, Puerto Rico', 'San Juan, PR'),
@@ -603,6 +607,36 @@ US_LOC = [
     ('Remote - US | Remote - Canada', True),
     ('New York City, Toronto, Chicago, or Remote', True),
     ('Remote', True),
+    # A remote parenthetical has to name the US, a state, or a workplace type.
+    ('Remote (Europe)', False),
+    ('Remote (EU)', False),
+    ('Remote (Latin America)', False),
+    ('Remote (Worldwide)', False),
+    ('Remote (Anywhere)', False),
+    ('Remote (Mexico)', False),
+    ('Remote (Asia)', False),
+    ('Remote | Europe', False),
+    ('Remote (US)', True),
+    ('Remote (United States)', True),
+    ('Remote (Virginia)', True),
+    ('Remote (Hybrid)', True),
+    ('Remote (Any State)', True),
+    ('Albuquerque, New Mexico', True),
+    # A foreign place's own code is not a US state code...
+    ('Bengaluru, Karnataka, IN', False),
+    ('Mysuru, Karnataka, IN', False),
+    ('Pune, IN', False),
+    ('Chennai, TN', False),
+    ('Goa, GA', False),
+    ('Perth, WA', False),
+    ('Toronto, Ontario, CA', False),
+    # ...but US towns with foreign names keep their state.
+    ('London, KY', True),
+    ('Athens, GA', True),
+    ('Perth Amboy, NJ', True),
+    ('Melbourne, FL', True),
+    ('Vancouver, WA', True),
+    ('Delhi, NY', True),
 ]
 for loc, want in US_LOC:
     got = s.is_us_location(loc)

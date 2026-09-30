@@ -471,11 +471,17 @@ NON_US_SUBSTRINGS = [
     # Named so the country Georgia is not read as the US state.
     'tbilisi',
     'india', 'bangalore', 'bengaluru', 'hyderabad', 'pune', 'mumbai',
-    'delhi', 'chennai', 'noida', 'gurgaon', 'gurugram',
+    'delhi', 'chennai', 'noida', 'gurgaon', 'gurugram', 'goa',
+    # State names, so 'Mysuru, Karnataka, IN' does not read as Indiana.
+    'karnataka', 'tamil nadu', 'maharashtra', 'telangana', 'kerala',
+    'haryana', 'uttar pradesh', 'west bengal', 'gujarat', 'andhra pradesh',
     'singapore', 'japan', 'tokyo', 'korea', 'seoul', 'china', 'beijing',
     'shanghai', 'hong kong', 'taiwan', 'taipei', 'philippines', 'manila',
     'vietnam', 'malaysia', 'indonesia', 'jakarta', 'thailand', 'bangkok',
-    'australia', 'sydney', 'melbourne', 'brisbane', 'new zealand', 'auckland',
+    'australia', 'sydney', 'melbourne', 'brisbane', 'perth', 'new zealand',
+    'auckland', 'western australia', 'new south wales', 'queensland',
+    # Continents a remote scope names: "Remote (Europe)", "Remote (Asia)".
+    'europe', 'asia', 'latin america',
     'mexico city', ', mexico', 'brazil', 'sao paulo', 'argentina',
     'buenos aires', 'colombia', 'bogota', 'chile', 'santiago', 'costa rica',
     'peru', 'uruguay',
@@ -491,10 +497,46 @@ NON_US_SUBSTRINGS = [
 # plain term also matched "US Remote (New England)" and rejected a domestic
 # role as British.
 ENGLAND_RE = r'(?<!new )\bengland\b'
+# The same lookbehind for "Remote (Mexico)", which ', mexico' missed, without
+# claiming "Albuquerque, New Mexico".
+MEXICO_RE = r'(?<!new )\bmexico\b'
 NON_US_RE = re.compile('|'.join([_term_regex(t) for t in NON_US_SUBSTRINGS]
-                                + [ENGLAND_RE]))
+                                + [ENGLAND_RE, MEXICO_RE]))
 
 REGION_CODE_RE = re.compile(r',\s*([A-Za-z]{2})\.?\s*$')
+
+# Foreign places whose own country or region code is also a US state code.
+# A trailing code rescues "Paris, TX" and "Perth Amboy, NJ", but "Pune, IN"
+# is India, "Chennai, TN" is Tamil Nadu, "Goa, GA" is Goa, "Perth, WA" is
+# Western Australia and "Toronto, Ontario, CA" is Canada. Each place pattern
+# lists only the codes that country uses, so "Athens, GA" and "Melbourne, FL"
+# stay US. Ladakh's LA is left out for Delhi, Louisiana.
+FOREIGN_CODE_COLLISIONS = [
+    (re.compile(r'\b(?:india|bangalore|bengaluru|hyderabad|pune|mumbai|delhi|'
+                r'chennai|noida|gurgaon|gurugram|goa|karnataka|tamil nadu|'
+                r'maharashtra|telangana|kerala|haryana|uttar pradesh|west bengal|'
+                r'gujarat|andhra pradesh)\b'),
+     {'IN', 'AR', 'AS', 'CT', 'GA', 'MN', 'MP', 'OR', 'TN', 'UT'}),
+    (re.compile(r'\b(?:australia|sydney|melbourne|brisbane|perth|'
+                r'western australia)\b(?! amboy)'),
+     {'WA'}),
+    (re.compile(r'\b(?:canada|toronto|montreal|calgary|ottawa|quebec|'
+                r'british columbia)\b'),
+     {'CA'}),
+]
+
+
+def _us_region_code(location):
+    """The trailing US state code of `location`, unless a foreign place uses it."""
+    m = REGION_CODE_RE.search(location)
+    if not m or m.group(1).upper() not in US_STATES:
+        return None
+    code = m.group(1).upper()
+    head = _strip_accents(location[:m.start()].lower())
+    for places, codes in FOREIGN_CODE_COLLISIONS:
+        if code in codes and places.search(head):
+            return None
+    return code
 # An embedded 2-letter US state token even without a trailing comma, e.g.
 # "Office - USA - VA - Reston", "US - CA - San Jose".
 EMBEDDED_STATE_RE = re.compile(r'\b([A-Z]{2})\b')
@@ -575,7 +617,30 @@ def _remote_state_scope(location):
 
 # "Remote (US/Canada)", "US or Remote", "Austin; Remote" split into parts.
 LOCATION_SPLIT_RE = re.compile(r'[;|•/]|\bor\b')
-REMOTE_FULL_RE = re.compile(r'remote(\s*\(.*\))?|work from home|nationwide')
+REMOTE_FULL_RE = re.compile(r'remote(?:\s*\((?P<scope>[^()]*)\))?|work from home|nationwide')
+# Words a remote parenthetical may hold and still mean US remote: "Remote
+# (Hybrid)", "Remote (Any State)". Any other scope has to name the US or a
+# state, since "Remote (Europe)", "Remote (Worldwide)" and "Remote (Anywhere)"
+# all read as US while the parenthetical was unchecked.
+REMOTE_WORKPLACE_WORDS = {
+    'hybrid', 'remote', 'on', 'site', 'onsite', 'office', 'in', 'flexible',
+    'optional', 'full', 'part', 'time', 'travel', 'required', 'any', 'state',
+    'home', 'based', 'telework', 'virtual', 'eligible', 'friendly', 'first',
+    'only', 'or', 'and', 'with', 'occasional', 'days', 'per', 'week',
+}
+
+
+def _is_us_remote(text):
+    """True for "Remote" alone or with a US, state or workplace parenthetical."""
+    m = REMOTE_FULL_RE.fullmatch(text)
+    if not m:
+        return False
+    scope = m.group('scope')
+    if scope is None or US_TOKEN_RE.search(scope) or _state_names(scope):
+        return True
+    if scope.strip().upper() in US_STATES:
+        return True
+    return all(w in REMOTE_WORKPLACE_WORDS for w in re.findall(r'[a-z]+', scope))
 
 
 def _strip_accents(text):
@@ -591,7 +656,7 @@ US_TOKEN_RE = re.compile(r'\b(us|usa|u\.s\.a?|united states)\b')
 def _is_bare_remote(part):
     # "Remote" or "Remote (Hybrid)", but not "Remote (US)" or "Remote (Texas)".
     low = part.strip().lower()
-    return (bool(REMOTE_FULL_RE.fullmatch(low)) and not US_TOKEN_RE.search(low)
+    return (_is_us_remote(low) and not US_TOKEN_RE.search(low)
             and not _state_names(part))
 
 
@@ -614,7 +679,7 @@ def _part_is_us(part):
     # "remote" ("Remote (EMEA)").
     if NON_US_RE.search(_strip_accents(low)):
         return False
-    if REMOTE_FULL_RE.fullmatch(low):
+    if _is_us_remote(low):
         return True
     m = REGION_CODE_RE.search(p)
     if m:
@@ -649,15 +714,14 @@ def _has_strong_us_token(location):
     splitter can't break it up) where "US" is its own segment, and a trailing
     ", ST" that rescues a US city whose name collides with a foreign one
     (Vienna VA, Paris TX). Rejects an 'us' embedded in prose ("India (US
-    hours)") and a mid-string state code followed by a country
-    ("Chennai, TN, India").
+    hours)"), a mid-string state code followed by a country ("Chennai, TN,
+    India"), and a code the named foreign place uses itself ("Pune, IN").
     """
     for seg in SEGMENT_SPLIT_RE.split(location):
         if re.sub(r'[^a-z]', '', seg.strip().lower()) in US_COUNTRY_SEGMENTS:
             return True
     # End-anchored: the state code must be the trailing token.
-    m = REGION_CODE_RE.search(location)
-    return bool(m and m.group(1).upper() in US_STATES)
+    return _us_region_code(location) is not None
 
 
 COUNTRY_CODE_PREFIX_RE = re.compile(r'^\(([A-Z]{3})\)\s')
@@ -699,7 +763,7 @@ def is_us_location(location):
     loc = location.lower()
     if NON_US_RE.search(_strip_accents(loc)):
         return False
-    if REMOTE_FULL_RE.fullmatch(loc.strip()):
+    if _is_us_remote(loc.strip()):
         return True
     return any(s in loc for s in US_SUBSTRINGS)
 
@@ -778,9 +842,8 @@ def _title_city(name):
 
 def _is_foreign_part(part):
     # A trailing US state code rescues a US city that shares a foreign name
-    # ("Paris, TX", "Vienna, VA").
-    m = REGION_CODE_RE.search(part)
-    if m and m.group(1).upper() in US_STATES:
+    # ("Paris, TX", "Vienna, VA"), but not a foreign place's own code.
+    if _us_region_code(part):
         return False
     return bool(NON_US_RE.search(_strip_accents(part.lower())))
 
