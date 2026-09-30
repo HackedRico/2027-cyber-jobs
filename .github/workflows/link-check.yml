@@ -5,6 +5,11 @@ on:
     # Off the hour: the 02:00 slot started a median 4.9 hours late.
     - cron: '43 9 * * *'
   workflow_dispatch:
+    inputs:
+      allow_mass_close:
+        description: Let check_outputs pass a run that closes more than a quarter of the open rows
+        type: boolean
+        default: false
 
 # Every writer commits to main, so they run one at a time. queue: max keeps
 # each pending run instead of cancelling the older one. add-listing joins the
@@ -41,6 +46,9 @@ jobs:
         run: python .github/scripts/check_links.py
 
       - name: Commit closed positions
+        env:
+          # A dispatch that ticked allow_mass_close; empty on a scheduled run.
+          ALLOW_MASS_CLOSE: ${{ inputs.allow_mass_close }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

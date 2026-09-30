@@ -1920,9 +1920,10 @@ def test_check_links_soft_404():
     page('https://acme.com/expired', ' This job has expired\n')
     page('https://acme.com/no-title', None)
     page('https://acme.com/pdf', '', content_type='application/pdf')
+    soft = check_links.SOFT_404
     check('a 200 with a not-found title or an empty title is a soft 404',
           [check_links.fetch_status(r.url, soft_404=True) for r in responses.registered()],
-          [404, 404, 200, 404, 200, 200])
+          [soft, soft, 200, soft, 200, 200])
     check('without soft_404 the raw status stands',
           check_links.fetch_status(bofa), 200)
 
@@ -1930,9 +1931,43 @@ def test_check_links_soft_404():
     check('a soft 404 starts the streak like a real one',
           check_links.record_result(row, check_links.fetch_status(bofa, soft_404=True),
                                     '2026-09-27'), False)
-    check('and closes the row on the next day',
-          check_links.record_result(row, check_links.fetch_status(bofa, soft_404=True),
-                                    '2026-09-28'), True)
+    check('a second soft day is not enough, since an app can load with no title',
+          check_links.record_result(row, soft, '2026-09-28'), False)
+    check('the third distinct day closes it',
+          (check_links.record_result(row, soft, '2026-09-29'), row['url']), (True, ''))
+
+
+# --- check_links: a redirect that drops the req id -----------------------------
+@responses.activate
+def test_check_links_redirect_that_drops_the_req():
+    gone = 'https://boards.greenhouse.io/acme/jobs/4412345'
+    responses.get(gone, status=302, headers={'Location': 'https://boards.greenhouse.io/acme?error=true'})
+    responses.get('https://boards.greenhouse.io/acme', status=200, body='<title>Jobs at Acme</title>',
+                  content_type='text/html')
+    search = 'https://careers.acme.com/job/SOC-Analyst/882211'
+    responses.get(search, status=301, headers={'Location': 'https://careers.acme.com/search'})
+    responses.get('https://careers.acme.com/search', status=200,
+                  body='<title>Search jobs</title>', content_type='text/html')
+    moved = 'https://careers.acme.com/job/882299'
+    responses.get(moved, status=301,
+                  headers={'Location': 'https://careers.acme.com/en/job/882299/soc-analyst'})
+    responses.get('https://careers.acme.com/en/job/882299/soc-analyst', status=200,
+                  body='<title>SOC Analyst</title>', content_type='text/html')
+    check('a redirect to an error page or a page without the req id is a soft 404',
+          [check_links.fetch_status(u, soft_404=True) for u in (gone, search, moved)],
+          [check_links.SOFT_404, check_links.SOFT_404, 200])
+    check('a scraped-row check does not read redirects',
+          check_links.fetch_status(search), 200)
+
+
+def test_check_links_ages_out_old_community_rows():
+    old = {'company': 'Acme', 'role': 'SOC Intern', 'source': 'Community',
+           'url': 'https://x/1', 'date_added': '2026-05-01'}
+    young = dict(old, date_added='2026-08-01')
+    scraped = dict(old, source='Greenhouse')
+    check('only a Community row past the age limit ages out',
+          [check_links.is_aged_out(e, '2026-09-30') for e in (old, young, scraped)],
+          [True, False, False])
 
 
 # --- a board that leaves the config leaves the baseline -----------------------
@@ -1995,8 +2030,6 @@ def test_oracle_ids_differ_across_hosts_on_one_site():
           (amex['id'], honeywell['id']),
           ('oracle_amex.fa.us2.oraclecloud.com_CX_1_77',
            'oracle_honeywell.fa.us2.oraclecloud.com_CX_1_77'))
-    check('each keeps its pre-host id for seen_jobs.json',
-          (amex['legacy_id'], honeywell['legacy_id']), ('oracle_CX_1_77', 'oracle_CX_1_77'))
 
 
 def test_board_health_carries_an_oracle_board_across_the_label_change():
@@ -2023,7 +2056,7 @@ def test_board_health_carries_an_oracle_board_across_the_label_change():
 
 
 @responses.activate
-def test_main_carries_seen_oracle_reqs_to_the_new_id():
+def test_main_does_not_re_announce_an_oracle_req_under_its_new_id():
     host = 'eihu.fa.us8.oraclecloud.com'
     url = f'https://{host}/hcmUI/CandidateExperience/en/sites/CX/job/5'
     responses.get(f'https://{host}/hcmRestApi/resources/latest/recruitingCEJobRequisitions',
@@ -2040,8 +2073,11 @@ def test_main_carries_seen_oracle_reqs_to_the_new_id():
         tmp = Path(tmp)
         (tmp / 'companies.yml').write_text(
             f'oracle:\n  - name: SAIC\n    host: {host}\n    site: CX\n')
-        # Req 5 was judged under its old id and its row is on the board; a new
-        # id alone must not announce it a second time.
+        # Req 5 was judged under its pre-host id and its row is on the board.
+        # A new id alone must not announce it a second time: the row's URL
+        # already holds it, with no carry-over of the old seen stamp needed.
+        # That carry-over let a new Honeywell req on site CX_1 inherit an Amex
+        # stamp for the same number.
         (tmp / 'listings.json').write_text(json.dumps([{
             'company': 'SAIC', 'role': 'Cybersecurity Analyst Intern', 'location': 'Reston, VA',
             'type': 'intern', 'category': 'Security Engineering', 'clearance': False,
@@ -2065,7 +2101,7 @@ def test_main_carries_seen_oracle_reqs_to_the_new_id():
             (sj.LISTINGS_FILE, sj.SEEN_JOBS_FILE, sj.BOARD_BASELINE_FILE,
              sj.rebuild_readme.main, sys.argv, cwd) = saved
             os.chdir(cwd)
-    check('a req seen under its old id is not judged or announced again',
+    check('a req on the board under its old id is not announced again',
           ([r['role'] for r in events['added']], [r['url'] for r in rows]),
           (['Security Operations Center Intern'], [url, url.replace('/job/5', '/job/6')]))
     check('seen_jobs.json carries the req under its new id',
@@ -2458,12 +2494,14 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_workday_more_suffix_fetches_locations, test_amazon_restricts_to_us_reqs,
            test_smartrecruiters_and_amazon_flag_a_cut_short_sweep,
            test_retire_orphaned_listings, test_check_links_soft_404,
+           test_check_links_redirect_that_drops_the_req,
+           test_check_links_ages_out_old_community_rows,
            test_board_health_forgets_a_removed_board,
            test_compare_runs_reports_retirements,
            test_oracle_ids_and_labels_carry_host_and_site,
            test_oracle_ids_differ_across_hosts_on_one_site,
            test_board_health_carries_an_oracle_board_across_the_label_change,
-           test_main_carries_seen_oracle_reqs_to_the_new_id,
+           test_main_does_not_re_announce_an_oracle_req_under_its_new_id,
            test_workday_posting_survives_a_non_dict_body,
            test_workday_fingerprint_survives_a_location_move,
            test_reevaluate_keeps_a_row_behind_a_multi_location_placeholder,

@@ -5,6 +5,11 @@ on:
     # Off the hour: runs at :00 started a median 2.6 to 5.2 hours late.
     - cron: '17 11,23 * * *'
   workflow_dispatch:
+    inputs:
+      allow_mass_close:
+        description: Let check_outputs pass a run that closes more than a quarter of the open rows
+        type: boolean
+        default: false
 
 # Every writer commits to main, so they run one at a time. queue: max keeps
 # each pending run instead of cancelling the older one. add-listing joins the
@@ -54,6 +59,9 @@ jobs:
         run: python .github/scripts/scrape_jobs.py
 
       - name: Commit changes
+        env:
+          # A dispatch that ticked allow_mass_close; empty on a scheduled run.
+          ALLOW_MASS_CLOSE: ${{ inputs.allow_mass_close }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
