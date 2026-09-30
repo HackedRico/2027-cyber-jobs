@@ -256,6 +256,18 @@ def stream_issue_body(stream, board_url):
     ])
 
 
+class ApiError(RuntimeError):
+    """A GitHub call answered with an unexpected status."""
+
+    def __init__(self, message, status):
+        super().__init__(message)
+        self.status = status
+
+
+class AnnounceError(RuntimeError):
+    """One or more announcements failed after every one was attempted."""
+
+
 class GitHub:
     """The few REST calls notify.py needs, failing loudly on any error."""
 
@@ -268,13 +280,28 @@ class GitHub:
         resp = self.session.request(method, f'{API}/repos/{self.repo}{path}',
                                     timeout=20, **kwargs)
         if resp.status_code != want:
-            raise RuntimeError(f'{method} {path}: HTTP {resp.status_code} {resp.text[:200]}')
+            raise ApiError(f'{method} {path}: HTTP {resp.status_code} {resp.text[:200]}',
+                           resp.status_code)
         return resp.json() if resp.content else None
 
     def create_release(self, tag, title, body):
-        return self.call('POST', '/releases', 201, json={
-            'tag_name': tag, 'target_commitish': 'main', 'name': title, 'body': body,
-            'make_latest': 'true'})
+        """Create the release; return (tag used, release).
+
+        422 means the tag exists: an add-listing run that finishes in the same
+        second as a scrape, or a rerun of this job. The retry takes the run id,
+        then a counter, instead of dropping the release.
+        """
+        run_id = os.environ.get('GITHUB_RUN_ID')
+        candidates = [tag] + ([f'{tag}-{run_id}'] if run_id else []) + [f'{tag}-2', f'{tag}-3']
+        for i, candidate in enumerate(candidates):
+            try:
+                return candidate, self.call('POST', '/releases', 201, json={
+                    'tag_name': candidate, 'target_commitish': 'main', 'name': title,
+                    'body': body, 'make_latest': 'true'})
+            except ApiError as e:
+                if e.status != 422 or i == len(candidates) - 1:
+                    raise
+                print(f'Release tag {candidate} is taken, retrying with a suffix')
 
     def stream_issues(self):
         found, page = {}, 1
@@ -324,7 +351,7 @@ def announce(events, listings, token, repo, dry_run=False):
     run_at = _run_time(events)
     board_url = f'https://github.com/{repo}#readme'
     openers = find_openers(added, listings, run_at)
-    tag = f'roles-{run_at:%Y%m%d-%H%M}'
+    tag = f'roles-{run_at:%Y%m%d-%H%M%S}'
     title = release_title(added, openers)
     body = release_body(added, openers, board_url)
     comments = [(s, stream_comment(s, rows, openers, run_at, board_url))
@@ -336,19 +363,39 @@ def announce(events, listings, token, repo, dry_run=False):
             print(f'[dry-run] comment on "{stream.title}":\n\n{text}\n')
         return [('release', tag)] + [('comment', s.key) for s, _ in comments]
 
+    # Each announcement gets its own try, so a failed release or one broken
+    # alert thread still lets the other streams hear about the run.
     gh = GitHub(token, repo)
-    release = gh.create_release(tag, title, body)
-    print(f'Published release {tag}: {release.get("html_url", "")}')
-    posted = [('release', tag)]
-    issues = gh.stream_issues()
+    posted, failed = [], []
+    try:
+        tag, release = gh.create_release(tag, title, body)
+        print(f'Published release {tag}: {(release or {}).get("html_url", "")}')
+        posted.append(('release', tag))
+    except (ApiError, requests.RequestException) as e:
+        print(f'ERROR: release {tag} failed: {e}')
+        failed.append(f'release {tag}')
+    try:
+        issues = gh.stream_issues()
+    except (ApiError, requests.RequestException) as e:
+        print(f'ERROR: could not list alert issues: {e}')
+        failed.extend(f'comment {s.key}' for s, _ in comments)
+        comments = []
     for stream, text in comments:
-        issue = issues.get(stream.key)
-        if issue is None:
-            issue = gh.create_stream_issue(stream, board_url)
-            print(f'Created alert issue #{issue["number"]}: {stream.title}')
-        gh.comment_locked(issue, text)
+        try:
+            issue = issues.get(stream.key)
+            if issue is None:
+                issue = gh.create_stream_issue(stream, board_url)
+                print(f'Created alert issue #{issue["number"]}: {stream.title}')
+            gh.comment_locked(issue, text)
+        except (ApiError, requests.RequestException) as e:
+            print(f'ERROR: {stream.key} alert failed: {e}')
+            failed.append(f'comment {stream.key}')
+            continue
         print(f'Commented on #{issue["number"]} ({stream.key})')
         posted.append(('comment', stream.key))
+    if failed:
+        # Raised only after every stream had its turn, so the step still shows red.
+        raise AnnounceError('failed: ' + ', '.join(failed))
     return posted
 
 
@@ -374,7 +421,11 @@ def main(argv=None):
     if events.get('added') and not args.dry_run and not token:
         print('ERROR: GITHUB_TOKEN not set')
         return 1
-    announce(events, listings, token, repo, dry_run=args.dry_run)
+    try:
+        announce(events, listings, token, repo, dry_run=args.dry_run)
+    except AnnounceError as e:
+        print(f'ERROR: {e}')
+        return 1
     return 0
 
 

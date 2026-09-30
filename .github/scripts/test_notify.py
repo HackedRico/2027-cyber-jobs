@@ -8,8 +8,10 @@ lands in, markdown escaping of scraped fields, and the unlock, comment, relock
 sequence against mocked GitHub HTTP.
 """
 import json
+import os
 import re
 import sys
+import tempfile
 from datetime import UTC, datetime
 from pathlib import Path
 
@@ -127,7 +129,7 @@ def test_notify_opener_leads_the_title():
           '- **Amazon** 🚨: Security Engineer Internship 2027 (US)' in payload['body'], True)
     check('a company with a recent intern row is not an opener',
           '**Northrop Grumman** 🚨' in payload['body'], False)
-    check('release tag is the run minute in UTC', payload['tag_name'], 'roles-20260923-1337')
+    check('release tag is the run second in UTC', payload['tag_name'], 'roles-20260923-133700')
     check('release becomes latest on main',
           (payload['make_latest'], payload['target_commitish']), ('true', 'main'))
 
@@ -321,9 +323,72 @@ def test_notify_dry_run_posts_nothing():
         _events([_row('Acme', 'SOC Intern', location='Remote (US)')]), [], None, 'o/r',
         dry_run=True)
     check('a dry run reports the release and each matching stream',
-          posted, [('release', 'roles-20260923-1337'), ('comment', 'intern'),
+          posted, [('release', 'roles-20260923-133700'), ('comment', 'intern'),
                    ('comment', 'student-no-flag'), ('comment', 'remote')])
     check('a dry run makes no HTTP call', len(responses.calls), 0)
+
+
+@responses.activate
+def test_notify_retries_a_taken_release_tag():
+    # An add-listing run that finishes in the same second as a scrape.
+    responses.post(f'{GH}/releases', status=422, json={'message': 'already_exists'})
+    responses.post(f'{GH}/releases', status=201, json={'html_url': 'https://rel'})
+    responses.get(f'{GH}/issues', json=[])
+    responses.post(f'{GH}/issues', status=201, json={'number': 99, 'locked': False})
+    responses.post(re.compile(rf'{GH}/issues/\d+/comments'), status=201, json={})
+    responses.put(re.compile(rf'{GH}/issues/\d+/lock'), status=204)
+    os.environ['GITHUB_RUN_ID'] = '4242'
+    try:
+        posted = notify.announce(_events([_row('Acme', 'Security Analyst I', 'earlycareer')]),
+                                 [], 'tok', 'o/r')
+    finally:
+        del os.environ['GITHUB_RUN_ID']
+    tags = [json.loads(c.request.body)['tag_name'] for c in responses.calls
+            if c.request.url.endswith('/releases')]
+    check('a taken tag is retried with the run id',
+          tags, ['roles-20260923-133700', 'roles-20260923-133700-4242'])
+    check('the retried release is reported', posted[0], ('release', 'roles-20260923-133700-4242'))
+
+
+@responses.activate
+def test_notify_one_failed_stream_does_not_stop_the_others():
+    broken = {'number': 5, 'locked': False, 'author_association': 'OWNER',
+              'body': '<!-- alert-stream: intern -->'}
+    working = {'number': 6, 'locked': False, 'author_association': 'OWNER',
+               'body': '<!-- alert-stream: student-no-flag -->'}
+    responses.post(f'{GH}/releases', status=500, json={})
+    responses.get(f'{GH}/issues', json=[broken, working])
+    responses.post(f'{GH}/issues/5/comments', status=500, json={})
+    responses.post(f'{GH}/issues/6/comments', status=201, json={})
+    responses.put(re.compile(rf'{GH}/issues/\d+/lock'), status=204)
+    try:
+        notify.announce(_events([_row('Acme', 'SOC Intern')]), [], 'tok', 'o/r')
+        error = None
+    except notify.AnnounceError as e:
+        error = str(e)
+    check('a failed release and stream still fail the step at the end',
+          error, 'failed: release roles-20260923-133700, comment intern')
+    check('the stream after a failed one still gets its comment',
+          any(c.request.url == f'{GH}/issues/6/comments' and c.response.status_code == 201
+              for c in responses.calls), True)
+
+
+def test_notify_main_returns_one_on_a_failed_announcement():
+    saved = notify.announce
+
+    def failing(*args, **kwargs):
+        raise notify.AnnounceError('failed: release x')
+    with tempfile.TemporaryDirectory() as tmp:
+        events = Path(tmp) / 'events.json'
+        events.write_text(json.dumps(_events([_row('Acme', 'SOC Intern')])))
+        os.environ['GITHUB_TOKEN'] = 't'
+        notify.announce = failing
+        try:
+            code = notify.main(['--events', str(events), '--listings', str(events)])
+        finally:
+            notify.announce = saved
+            del os.environ['GITHUB_TOKEN']
+    check('main exits 1 after a failed announcement', code, 1)
 
 
 for fn in (test_notify_skips_release_when_nothing_added,
@@ -334,7 +399,10 @@ for fn in (test_notify_skips_release_when_nothing_added,
            test_release_title, test_find_openers, test_stream_selection,
            test_markdown_escaping, test_notify_lists_every_row_up_to_the_burst_cap,
            test_notify_unlocked_issue_is_locked_after_the_comment,
-           test_notify_relocks_when_the_comment_fails, test_notify_dry_run_posts_nothing):
+           test_notify_relocks_when_the_comment_fails, test_notify_dry_run_posts_nothing,
+           test_notify_retries_a_taken_release_tag,
+           test_notify_one_failed_stream_does_not_stop_the_others,
+           test_notify_main_returns_one_on_a_failed_announcement):
     fn()
 
 if failures:
