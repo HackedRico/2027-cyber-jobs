@@ -823,19 +823,6 @@
     "closed_date": "2026-08-22"
   },
   {
-    "company": "Osano",
-    "role": "Jr IT Analyst (part-time)",
-    "location": "United States",
-    "type": "earlycareer",
-    "category": "Engineering @ Security Co",
-    "clearance": false,
-    "url": "",
-    "source": "Greenhouse",
-    "date_added": "2026-07-18",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
     "company": "Illumio",
     "role": "Site Reliability Engineer II",
     "location": "Sunnyvale, CA",

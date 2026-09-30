@@ -387,7 +387,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 <!-- CLOSED_START earlycareer -->
 
-<details><summary>🔒 135 closed in the last 60 days</summary>
+<details><summary>🔒 134 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
@@ -488,7 +488,6 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 | ↳ | Classified Cybersecurity Analyst 2/3 - Secret | Sep 19 |
 | OpenAI | Researcher, Alignment Science | Sep 19 |
 | Optiv | Associate SOC Engineer \| Remote, USA | Sep 19 |
-| Osano | Jr IT Analyst (part-time) | Sep 19 |
 | Pinterest | Security Software Engineer II, Corporate Security | Sep 19 |
 | Proofpoint | Associate Triage Analyst | Sep 19 |
 | ↳ | Systems Security Engineer I | Sep 19 |
