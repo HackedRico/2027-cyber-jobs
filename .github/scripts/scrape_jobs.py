@@ -1303,26 +1303,43 @@ def job_fingerprint(company, source, url):
 SILENT_BOARD_RUNS = 4 * VANISHED_DAYS
 
 
+def failed_board_companies(board_stats):
+    """Return the companies with at least one FAILED or CRASHED board this run."""
+    return {b['label'].rpartition(' (')[0] for b in board_stats
+            if b['status'] in ('FAILED', 'CRASHED')}
+
+
+def _empty_runs(entry):
+    # Entries written before `empty_runs` existed carry only `zero_runs`; every
+    # board on a zero streak when it landed was a real empty, none failed.
+    runs = entry.get('empty_runs')
+    return entry.get('zero_runs', 0) if runs is None else runs
+
+
 def long_silent_boards(board_stats, history):
     """Return the (company, ats) pairs silent for SILENT_BOARD_RUNS runs straight.
 
     `board_stats` is this run's per-board result and `history` the stored
     board baseline, so a `--board`/`--limit` run only judges what it fetched.
     A company with two boards on one ATS is silent only when both are.
+
+    The streak is `empty_runs`, which only a real empty answer grows. Counting
+    FAILED and CRASHED runs let a six-day IP ban or a scraper crash retire
+    every row of a board at once, while the board still held them.
     """
     silent = {}
     for b in board_stats:
         name, _, rest = b['label'].rpartition(' (')
         ats = rest.split('/', 1)[0].rstrip(')').lower()
-        streak = (history.get(b['label']) or history.get(_legacy_label(b['label']))
-                  or {}).get('zero_runs', 0)
+        streak = _empty_runs(history.get(b['label'])
+                             or history.get(_legacy_label(b['label'])) or {})
         quiet = b['count'] == 0 and streak >= SILENT_BOARD_RUNS
         silent[(name, ats)] = silent.get((name, ats), True) and quiet
     return {key for key, is_silent in silent.items() if is_silent}
 
 
 def retire_vanished_listings(listings, raw_jobs, today, silent_boards=frozenset(),
-                             probe=workday_posting_state):
+                             probe=workday_posting_state, failed_companies=frozenset()):
     """Close rows whose requisition has left its own board's feed.
 
     Mutates and returns the rows it retired. A posting that stops appearing
@@ -1659,6 +1676,8 @@ def load_board_baseline():
                 'zero_runs': value.get('zero_runs') or 0,
                 'last_nonzero': value.get('last_nonzero'),
             }
+            if isinstance(value.get('empty_runs'), int):
+                history[label]['empty_runs'] = value['empty_runs']
         elif isinstance(value, int):
             history[label] = {'count': value, 'zero_runs': 0, 'last_nonzero': None}
     return history
@@ -1679,7 +1698,10 @@ def board_health(board_stats, baseline, today):
 
     Returns (history, regressed, dead): `regressed` boards produced postings
     last run and none this one; `dead` boards have been silent for
-    ZERO_RUN_ALERT consecutive runs.
+    ZERO_RUN_ALERT consecutive runs. `zero_runs` counts every run without
+    postings, failures included, since a board that keeps failing still needs
+    triage and health_check.py reads it; `empty_runs` counts only real empty
+    answers and drives `long_silent_boards`.
 
     The count-only baseline could report the first case but never the second.
     It overwrote the previous count with 0, so a board that broke warned on
@@ -1694,11 +1716,14 @@ def board_health(board_stats, baseline, today):
         label = b['label']
         prev = baseline.get(label) or baseline.get(_legacy_label(label)) or {}
         if b['count'] > 0:
-            history[label] = {'count': b['count'], 'zero_runs': 0,
+            history[label] = {'count': b['count'], 'zero_runs': 0, 'empty_runs': 0,
                               'last_nonzero': today}
             continue
         streak = prev.get('zero_runs', 0) + 1
-        history[label] = {'count': 0, 'zero_runs': streak,
+        # A failed fetch says nothing about whether the board is empty, so it
+        # holds the silent streak rather than growing or resetting it.
+        empty = _empty_runs(prev) + (b['status'] == 'zero')
+        history[label] = {'count': 0, 'zero_runs': streak, 'empty_runs': empty,
                           'last_nonzero': prev.get('last_nonzero')}
         if prev.get('count', 0) > 0:
             regressed.append((label, prev['count']))

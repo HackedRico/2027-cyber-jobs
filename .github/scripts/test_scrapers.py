@@ -633,7 +633,7 @@ def test_board_health_streaks():
     history, regressed, dead = sj.board_health(
         [{'label': 'Acme', 'status': 'ok', 'count': 7}], history, '2026-09-20')
     check('a recovered board clears its streak', history['Acme'],
-          {'count': 7, 'zero_runs': 0, 'last_nonzero': '2026-09-20'})
+          {'count': 7, 'zero_runs': 0, 'empty_runs': 0, 'last_nonzero': '2026-09-20'})
     check('a recovered board is not reported dead', dead, [])
 
 
