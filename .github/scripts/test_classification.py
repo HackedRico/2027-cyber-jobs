@@ -168,6 +168,28 @@ CASES = [
     ('SIGINT Cyber Analyst I', 'Fort Meade, MD', '', True, ('earlycareer', 'Security Engineering')),
     ('Junior Geospatial Software Engineer', 'Herndon, VA', '', True, ('earlycareer', 'Engineering @ Security Co')),
     ('Junior Data Analyst', 'Herndon, VA', '', True, ('earlycareer', 'Engineering @ Security Co')),
+    # -- should be rejected: business analysts and researchers at security companies --
+    ('Business Analyst I', 'Austin, TX', '', True, None),
+    ('Associate Legal Analyst', 'Austin, TX', '', True, None),
+    ('Associate Pricing Analyst', 'Austin, TX', '', True, None),
+    ('Associate Operations Analyst', 'Austin, TX', '', True, None),
+    ('IT Support Analyst I', 'Austin, TX', '', True, None),
+    ('Analyst I, Market Intelligence', 'Austin, TX', '', True, None),
+    ('Associate UX Researcher', 'Austin, TX', '', True, None),
+    ('Jr IT Analyst (part-time)', 'Remote (US)', '', True, None),
+    # ...but a security, data or research analyst, or an engineer, stays.
+    ('Threat Intelligence Analyst I', 'Austin, TX', '', True, ('earlycareer', 'Threat Intelligence')),
+    ('Security Analyst I', 'Austin, TX', '', True, ('earlycareer', 'Security Engineering')),
+    ('SOC Analyst I', 'Austin, TX', '', True, ('earlycareer', 'SOC & Detection')),
+    ('Data Analyst I', 'Austin, TX', '', True, ('earlycareer', 'Engineering @ Security Co')),
+    ('Research Analyst I', 'Somerville, MA', '', True, ('earlycareer', 'Engineering @ Security Co')),
+    # 'Researcher I' is not a level marker yet, so the description levels it.
+    ('Malware Researcher I', 'Austin, TX', 'Open to candidates with 0-2 years of experience.', True,
+     ('earlycareer', 'Engineering @ Security Co')),
+    ('Fraud Analyst', 'Somerville, MA', 'Open to candidates with 0-2 years of experience.', True,
+     ('earlycareer', 'Threat Intelligence')),
+    ('Detection Engineer I', 'Austin, TX', '', True, ('earlycareer', 'SOC & Detection')),
+    ('IT Security Analyst I', 'Austin, TX', '', True, ('earlycareer', 'Security Engineering')),
 
     # -- should be rejected: "Security Clearance" is a requirement, not the work --
     ('Computer Scientist / Software Developer, Junior - Security Clearance Required', 'Adelphi, MD', '', False, None),

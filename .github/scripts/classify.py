@@ -1289,6 +1289,17 @@ INTEL_SUPPORT_RE = re.compile(
     r'\b(?:geospatial|full[- ]motion video|fmv|imagery|all[- ]source|targeting|'
     r'linguist|signals collection)\b')
 
+# The same allowance let in business analysts and researchers, which the
+# charter's "engineering role at a security company" does not cover: 'Business
+# Analyst I', 'Associate Pricing Analyst', 'Analyst I, Market Intelligence',
+# 'Associate UX Researcher', and Osano 'Jr IT Analyst (part-time)'. They reject
+# only when an analyst or researcher term is the title's one tech signal, so
+# 'Research Analyst I' and 'Fraud Analyst' stay, as does 'Detection Engineer I'.
+BUSINESS_ANALYST_RE = re.compile(
+    r'\b(?:business|legal|pricing|operations|(?:market|competitive) intelligence|'
+    r'sales|revenue|finance|ux|user research|it support|help ?desk|it analyst)\b')
+ANALYST_TECH_KEYWORDS = {'analyst', 'data analyst', 'researcher'}
+
 
 def is_cyber_title(title, security_company=False):
     t = title.lower()
@@ -1298,6 +1309,8 @@ def is_cyber_title(title, security_company=False):
         return False
     tech = [kw for kw in TECH_KEYWORDS if kw in t]
     if INTEL_SUPPORT_RE.search(t) and all('analyst' in kw for kw in tech):
+        return False
+    if BUSINESS_ANALYST_RE.search(t) and set(tech) <= ANALYST_TECH_KEYWORDS:
         return False
     return bool(tech)
 
