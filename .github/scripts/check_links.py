@@ -14,11 +14,14 @@ import re
 import time
 from datetime import date, datetime
 from pathlib import Path
-from urllib.parse import urlsplit
+from urllib.parse import urljoin, urlsplit
 
 import rebuild_readme
 import requests
+from common import fetch_target_problem, host_matches, oneline
 from scrape_jobs import job_fingerprint
+from urllib3.exceptions import HTTPError as Urllib3Error
+from validate_issue import BlockedAddress, public_session
 
 LISTINGS_FILE = Path('listings.json')
 
@@ -55,6 +58,19 @@ COMMUNITY_MAX_AGE_DAYS = 120
 REQ_TOKEN_RE = re.compile(r'\d{4,}')
 
 REQUEST_DELAY = 0.75
+REQUEST_TIMEOUT = 12
+MAX_REDIRECTS = 5
+REDIRECT_STATUSES = frozenset({301, 302, 303, 307, 308})
+
+# A host that is not public, or a port other than 80 and 443, on any hop. A
+# public careers site never sends a student there, so it counts as dead.
+BLOCKED = 'blocked'
+
+# A Community link points anywhere, and a page that streamed an unbounded
+# body stalled the whole check: 2 MB of unclosed <title tags ran past the
+# 30-minute job timeout. A <title> sits in the first few KB of a real page.
+MAX_BODY_BYTES = 256 * 1024
+BODY_SECONDS = 20
 
 # Some career sites answer 200 for a job id that does not exist: Bank of
 # America serves "404 Page not found" as the page title, and HII's
@@ -62,11 +78,19 @@ REQUEST_DELAY = 0.75
 SOFT_404_TITLE_RE = re.compile(
     r'\b404\b|not found|no longer available|job has expired|position has been filled',
     re.IGNORECASE)
-TITLE_RE = re.compile(r'<title\b[^>]*>(.*?)</title\s*>', re.IGNORECASE | re.DOTALL)
+# Every repeat is bounded, so a run of unclosed "<title" tags costs linear
+# time; the lazy DOTALL form was quadratic on them.
+TITLE_RE = re.compile(r'<title\b[^<>]{0,256}>([^<]{0,512})</title', re.IGNORECASE)
+
+_session = None
 
 
 def should_skip(url):
-    return any(domain in url for domain in SKIP_DOMAINS)
+    try:
+        host = urlsplit(url).hostname
+    except ValueError:
+        return False
+    return host_matches(host, SKIP_DOMAINS)
 
 
 def is_check_target(entry):
@@ -79,14 +103,44 @@ def is_check_target(entry):
     return job_fingerprint(entry.get('company', ''), entry.get('source', ''), url) is None
 
 
-def is_soft_404(resp):
+def _is_html_200(resp):
+    return resp.status_code == 200 and 'html' in resp.headers.get('Content-Type', '').lower()
+
+
+def read_body(resp, limit=MAX_BODY_BYTES, seconds=BODY_SECONDS):
+    """Up to `limit` decoded bytes of a streamed response, within `seconds`.
+
+    read1 returns whatever one socket read brings, so a server that drips a
+    byte at a time still meets the deadline.
+    """
+    started = time.monotonic()
+    read = getattr(resp.raw, 'read1', None) or resp.raw.read
+    chunks, size = [], 0
+    while size < limit and time.monotonic() - started < seconds:
+        chunk = read(min(16384, limit - size), decode_content=True)
+        if not chunk:
+            break
+        chunks.append(chunk)
+        size += len(chunk)
+    return b''.join(chunks)[:limit]
+
+
+def _decode(resp, body):
+    try:
+        return body.decode(resp.encoding or 'utf-8', errors='replace')
+    except LookupError:
+        return body.decode('utf-8', errors='replace')
+
+
+def is_soft_404(resp, text):
     """True for a 200 HTML page whose <title> says not found, or is empty.
 
-    A page with no <title> tag at all says nothing, so it is not counted.
+    `text` is the start of the page. A page with no <title> tag at all says
+    nothing, so it is not counted.
     """
-    if resp.status_code != 200 or 'html' not in resp.headers.get('Content-Type', '').lower():
+    if not _is_html_200(resp):
         return False
-    match = TITLE_RE.search(resp.text)
+    match = TITLE_RE.search(text)
     if match is None:
         return False
     title = ' '.join(html.unescape(match.group(1)).split())
@@ -107,25 +161,59 @@ def lost_req_on_redirect(url, final_url):
     return bool(tokens) and tokens[-1] not in final_url
 
 
-def fetch_status(url, soft_404=False):
+def _get_session():
+    global _session
+    if _session is None:
+        _session = public_session()
+    return _session
+
+
+def fetch_status(url, soft_404=False, session=None):
     """HTTP status for url, or None when the request itself failed.
 
-    With `soft_404`, a 200 page that `is_soft_404` reads as missing, or that a
+    Redirects are followed by hand, and every hop must pass the shared
+    public-address and port checks; one that fails returns BLOCKED. With
+    `soft_404`, a 200 page that `is_soft_404` reads as missing, or that a
     redirect reached without the req id, returns SOFT_404.
     """
-    try:
-        resp = requests.get(url, timeout=12, allow_redirects=True, headers=HEADERS)
-    except requests.RequestException as e:
-        print(f'  Request error: {e}')
-        return None
-    if soft_404 and is_soft_404(resp):
-        print(f'  Soft 404 (page title reads as missing): {url}')
-        return SOFT_404
-    if (soft_404 and resp.status_code == 200 and resp.history
-            and lost_req_on_redirect(url, resp.url)):
-        print(f'  Soft 404 (redirected to {resp.url}): {url}')
-        return SOFT_404
-    return resp.status_code
+    session = session or _get_session()
+    start = url
+    for _ in range(MAX_REDIRECTS + 1):
+        problem = fetch_target_problem(url)
+        if problem:
+            print(f'  Blocked ({problem}): {oneline(url)}')
+            return BLOCKED
+        try:
+            resp = session.get(url, timeout=REQUEST_TIMEOUT, allow_redirects=False,
+                               stream=True, headers=HEADERS)
+        except BlockedAddress as e:
+            print(f'  Blocked ({oneline(e)}): {oneline(start)}')
+            return BLOCKED
+        except requests.RequestException as e:
+            print(f'  Request error: {oneline(e)}')
+            return None
+        with resp:
+            location = resp.headers.get('Location')
+            if resp.status_code in REDIRECT_STATUSES and location:
+                url = urljoin(url, location)
+                continue
+            text = ''
+            if soft_404 and _is_html_200(resp):
+                try:
+                    text = _decode(resp, read_body(resp))
+                except (OSError, Urllib3Error) as e:
+                    # resp.raw raises urllib3's errors, not requests' wrappers.
+                    print(f'  Body read error ({type(e).__name__}): {oneline(start)}')
+        if soft_404 and is_soft_404(resp, text):
+            print(f'  Soft 404 (page title reads as missing): {oneline(start)}')
+            return SOFT_404
+        if (soft_404 and resp.status_code == 200 and url != start
+                and lost_req_on_redirect(start, url)):
+            print(f'  Soft 404 (redirected to {oneline(url)}): {oneline(start)}')
+            return SOFT_404
+        return resp.status_code
+    print(f'  More than {MAX_REDIRECTS} redirects: {oneline(start)}')
+    return None
 
 
 def record_result(entry, status, today):
@@ -133,10 +221,11 @@ def record_result(entry, status, today):
 
     A dead status must repeat on a later day before the row closes, so one bad
     deploy on an employer's careers site does not padlock a live posting. A
-    SOFT_404 must hold across SOFT_DEAD_DAYS distinct days. Any other answer,
-    a network error included, resets the streak.
+    SOFT_404 must hold across SOFT_DEAD_DAYS distinct days, and BLOCKED
+    counts as a dead status. Any other answer, a network error included,
+    resets the streak.
     """
-    if status not in DEAD_STATUSES and status != SOFT_404:
+    if status not in DEAD_STATUSES and status not in (SOFT_404, BLOCKED):
         entry.pop('dead_since', None)
         return False
     first_dead = entry.get('dead_since')
@@ -188,21 +277,21 @@ def main():
         if is_aged_out(entry, today):
             _close(entry, today)
             closed += 1
-            print(f'  AGED OUT (added {entry["date_added"]}): {url}')
+            print(f'  AGED OUT (added {oneline(entry["date_added"])}): {oneline(url)}')
             continue
         if should_skip(url):
-            print(f'  SKIP (bot-blocked domain): {url}')
+            print(f'  SKIP (bot-blocked domain): {oneline(url)}')
             continue
         # Only Community links point at arbitrary career sites; amazon.jobs
         # answers a real 404 for a closed req.
         status = fetch_status(url, soft_404=entry.get('source') == 'Community')
         if record_result(entry, status, today):
             closed += 1
-            print(f'  CLOSED {status}: {url}')
+            print(f'  CLOSED {status}: {oneline(url)}')
         elif entry.get('dead_since'):
-            print(f'  DEAD {status} since {entry["dead_since"]}: {url}')
+            print(f'  DEAD {status} since {oneline(entry["dead_since"])}: {oneline(url)}')
         else:
-            print(f'  OK   {status}: {url}')
+            print(f'  OK   {status}: {oneline(url)}')
         time.sleep(REQUEST_DELAY)
 
     if json.dumps(listings, sort_keys=True) == before:
