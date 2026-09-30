@@ -1,0 +1,5 @@
+# Runtime dependencies of the scrape and the issue flow. requirements.txt is
+# generated from this file with hashes; edit here, then run:
+#   uv pip compile requirements.in --python-version 3.12 --generate-hashes -o requirements.txt
+requests
+pyyaml

@@ -1,0 +1,6 @@
+# Lint and the mock-HTTP library the scraper tests run against, on top of the
+# runtime set. requirements-dev.txt is generated from this file with hashes:
+#   uv pip compile requirements-dev.in --python-version 3.12 --generate-hashes -o requirements-dev.txt
+-r requirements.in
+ruff==0.6.9
+responses
