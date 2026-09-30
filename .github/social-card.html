@@ -1,0 +1,69 @@
+<!doctype html>
+<!-- Source for site/social-preview.png, the 1280x640 card GitHub and chat apps show
+     for a shared link. Rebuild with:
+     "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless \
+       --hide-scrollbars --window-size=1280,640 --screenshot=site/social-preview.png \
+       .github/social-card.html
+     No counts on the card: they would go stale between rebuilds. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/bricolage-grotesque@5.3.0/index.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/ibm-plex-mono@5.3.0/latin-500.css">
+<style>
+  :root {
+    --bg: #101214; --grid: rgba(236, 232, 223, 0.06); --ink: #ece8df; --ink-2: #b9b5ab;
+    --accent: #ff7a33; --rule: #2c3136; --flag: #9db8ee;
+  }
+  html, body { margin: 0; width: 1280px; height: 640px; overflow: hidden; background: var(--bg); }
+  body {
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 40px 40px;
+    color: var(--ink);
+    font-family: 'Bricolage Grotesque Variable', 'Avenir Next', sans-serif;
+    box-sizing: border-box;
+    padding: 72px 88px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .kicker {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 22px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--ink-2); display: flex; align-items: center; gap: 14px;
+  }
+  .dot { width: 14px; height: 14px; border-radius: 50%; background: var(--accent); }
+  h1 { font-size: 132px; line-height: 0.95; margin: 28px 0 0; font-weight: 800; letter-spacing: -0.03em; }
+  h1 span { color: var(--accent); }
+  p { font-size: 38px; line-height: 1.25; margin: 26px 0 0; color: var(--ink-2); max-width: 1000px; }
+  .chips { display: flex; gap: 14px; flex-wrap: wrap; }
+  .chip {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 24px; padding: 10px 18px;
+    border: 2px solid var(--rule); border-radius: 999px; color: var(--ink);
+  }
+  .chip.accent { border-color: var(--accent); color: var(--accent); }
+  .foot {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 24px; color: var(--ink-2);
+  }
+  .shield { width: 96px; height: 96px; }
+</style>
+</head>
+<body>
+  <div>
+    <div class="kicker"><span class="dot"></span>US only · for students · updated twice a day</div>
+    <h1>2027 Cyber <span>Jobs</span></h1>
+    <p>Cybersecurity internships, new-grad programs and early-career roles, scraped from hundreds of employer job boards.</p>
+  </div>
+  <div class="foot">
+    <div class="chips">
+      <span class="chip accent">Search &amp; filter</span>
+      <span class="chip">Email alerts</span>
+      <span class="chip">Atom feeds</span>
+    </div>
+    <svg class="shield" viewBox="0 0 32 32" aria-hidden="true">
+      <path d="M16 2 4 7v8c0 7.5 5.1 13.4 12 15 6.9-1.6 12-7.5 12-15V7z" fill="#ff7a33"/>
+      <path d="m11 16 4 4 7-8" fill="none" stroke="#101214" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+</body>
+</html>
