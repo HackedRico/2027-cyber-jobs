@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>2027 Cyber Jobs board</title>
   <meta name="description" content="US cybersecurity internships, new-grad roles and early-career jobs for students. Search and filter by category, state, remote and clearance, updated twice a day.">
   <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" content="#f2efe6" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#101214" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e1115" media="(prefers-color-scheme: dark)">
   <meta property="og:title" content="2027 Cyber Jobs board">
   <meta property="og:description" content="Cybersecurity internships, new grad and early-career roles in the US, filterable and updated twice a day.">
   <meta property="og:type" content="website">
@@ -18,141 +18,252 @@
   <meta property="og:image:height" content="640">
   <meta property="og:image:alt" content="2027 Cyber Jobs: cybersecurity internships, new-grad programs and early-career roles for US students">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2 4 7v8c0 7.5 5.1 13.4 12 15 6.9-1.6 12-7.5 12-15V7z' fill='%23e8590c'/%3E%3Cpath d='m11 16 4 4 7-8' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2 4 7v8c0 7.5 5.1 13.4 12 15 6.9-1.6 12-7.5 12-15V7z' fill='%23c6f432' stroke='%230b0d10' stroke-width='1.5'/%3E%3Cpath d='m11 16 4 4 7-8' fill='none' stroke='%230b0d10' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
   <link rel="alternate" type="application/atom+xml" title="All new roles" href="feed.xml">
   <link rel="alternate" type="application/atom+xml" title="Internships" href="feed-intern.xml">
   <link rel="alternate" type="application/atom+xml" title="New grad" href="feed-newgrad.xml">
   <link rel="alternate" type="application/atom+xml" title="Early career" href="feed-earlycareer.xml">
+  <!-- Before the stylesheet, so a saved theme paints on the first frame. -->
+  <script>try { var t = localStorage.getItem('cj-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/bricolage-grotesque@5.3.0/index.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/ibm-plex-mono@5.3.0/latin-400.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/ibm-plex-mono@5.3.0/latin-500.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/instrument-sans@5.3.0/wdth.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/martian-mono@5.3.0/index.css">
   <link rel="stylesheet" href="styles.css">
   <script src="app.js" defer></script>
 </head>
 <body>
   <a class="skip" href="#results">Skip to the roles</a>
 
-  <header class="masthead">
-    <div class="wrap masthead-inner">
-      <p class="kicker"><span class="dot" aria-hidden="true"></span> US only · for students · <span id="updated">updated twice a day</span></p>
-      <h1>2027 Cyber Jobs</h1>
-      <p class="lede">Cybersecurity internships, new-grad programs and entry-level roles asking for 0 to 2 years, scraped from hundreds of employer job boards.</p>
-      <nav class="toplinks" aria-label="Project links">
-        <a href="#alerts">Get alerts</a>
-        <a href="https://github.com/HackedRico/2027-cyber-jobs/issues/new/choose">Submit a role</a>
-        <a href="https://github.com/HackedRico/2027-cyber-jobs">GitHub repo</a>
+  <header class="topbar">
+    <div class="frame topbar-inner">
+      <a class="brand" href="./">
+        <svg class="brand-mark" aria-hidden="true" viewBox="0 0 32 32" width="26" height="26"><path class="mark-shield" d="M16 2 4 7v8c0 7.5 5.1 13.4 12 15 6.9-1.6 12-7.5 12-15V7z"/><path class="mark-tick" d="m11 16 4 4 7-8" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="brand-name"><span class="brand-year">2027</span>Cyber Jobs</span>
+      </a>
+      <div class="searchrow">
+        <div class="search">
+          <label for="q" class="sr-only">Search roles, companies and places</label>
+          <svg aria-hidden="true" viewBox="0 0 20 20" width="16" height="16"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="m13 13 5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <input id="q" type="search" placeholder="Role, company or city" autocomplete="off" spellcheck="false" enterkeyhint="search">
+          <kbd class="kbd" aria-hidden="true">/</kbd>
+        </div>
+        <button type="button" class="filters-btn" id="filters-toggle" aria-haspopup="dialog" aria-controls="sheet">
+          <svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16"><path d="M2 4h12M4.5 8h7M7 12h2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          Filters<span class="badge" id="filter-badge" hidden></span>
+        </button>
+      </div>
+      <nav class="actions" aria-label="Project links">
+        <a class="nav-btn" href="#alerts" data-alerts>
+          <svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16"><path d="M4 11V7a4 4 0 1 1 8 0v4l1.2 1.5H2.8zM6.5 14h3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="nav-label">Get alerts</span>
+        </a>
+        <a class="nav-btn" href="https://github.com/HackedRico/2027-cyber-jobs/issues/new/choose">
+          <svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16"><path d="M8 3v10M3 8h10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <span class="nav-label">Submit a role</span>
+        </a>
+        <a class="nav-btn nav-icon" href="https://github.com/HackedRico/2027-cyber-jobs">
+          <svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>
+          <span class="nav-label nav-label-wide">GitHub</span>
+        </a>
+        <button type="button" class="nav-btn theme-btn" id="theme" aria-label="Switch to dark theme">
+          <svg class="i-moon" aria-hidden="true" viewBox="0 0 16 16" width="16" height="16"><path d="M13.5 9.6A5.8 5.8 0 0 1 6.4 2.5a5.8 5.8 0 1 0 7.1 7.1Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          <svg class="i-sun" aria-hidden="true" viewBox="0 0 16 16" width="16" height="16"><circle cx="8" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 1v1.6M8 13.4V15M1 8h1.6M13.4 8H15M3 3l1.1 1.1M11.9 11.9 13 13M3 13l1.1-1.1M11.9 4.1 13 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
       </nav>
     </div>
   </header>
 
-  <main class="wrap">
-    <div class="tabs" role="tablist" aria-label="Role type">
-      <button type="button" role="tab" id="tab-intern" data-type="intern" aria-controls="panel" aria-selected="true">
-        <span class="tab-emoji" aria-hidden="true">🎒</span><span class="tab-label">Internships</span><span class="tab-count" data-count="intern">0</span>
-      </button>
-      <button type="button" role="tab" id="tab-newgrad" data-type="newgrad" aria-controls="panel" aria-selected="false" tabindex="-1">
-        <span class="tab-emoji" aria-hidden="true">🎓</span><span class="tab-label">New grad</span><span class="tab-count" data-count="newgrad">0</span>
-      </button>
-      <button type="button" role="tab" id="tab-earlycareer" data-type="earlycareer" aria-controls="panel" aria-selected="false" tabindex="-1">
-        <span class="tab-emoji" aria-hidden="true">🌱</span><span class="tab-label">Early career</span><span class="tab-count" data-count="earlycareer">0</span>
-      </button>
-    </div>
-
-    <div class="layout">
-      <div class="toolbar">
-        <div class="search">
-          <label for="q" class="sr-only">Search company, role or location</label>
-          <svg aria-hidden="true" viewBox="0 0 20 20" width="18" height="18"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="m13 13 5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-          <input id="q" type="search" placeholder="Role, company, place" autocomplete="off" spellcheck="false" enterkeyhint="search">
-        </div>
-        <button type="button" class="filters-toggle" id="filters-toggle" aria-expanded="false" aria-controls="filters">
-          Filters<span class="badge" id="filter-badge" hidden></span>
-        </button>
+  <section class="intro" aria-labelledby="intro-title">
+    <div class="frame intro-inner">
+      <div class="intro-copy">
+        <p class="status"><span class="live" aria-hidden="true"></span><span><span id="updated">Updated twice a day</span><span class="status-more" id="status-more"></span></span></p>
+        <h1 id="intro-title">US cybersecurity internships, new-grad and early-career roles</h1>
+        <p class="lede">Roles asking for 0 to 2 years, in the US or remote. Scraped twice a day from hundreds of employer job boards, plus roles students submit.</p>
       </div>
+      <div class="glance">
+        <dl class="stats">
+          <div class="stat"><dt>Open roles</dt><dd id="stat-open">&nbsp;</dd></div>
+          <div class="stat"><dt>New in 7 days</dt><dd id="stat-new">&nbsp;</dd></div>
+          <div class="stat"><dt>Employers</dt><dd id="stat-cos">&nbsp;</dd></div>
+        </dl>
+        <figure class="pulse" id="pulse" hidden>
+          <figcaption>Open roles by day added</figcaption>
+          <div class="pulse-plot" id="pulse-plot"></div>
+          <div class="pulse-axis" aria-hidden="true"><span id="pulse-start"></span><span>Today</span></div>
+        </figure>
+      </div>
+    </div>
+  </section>
 
-      <aside class="filters" id="filters" aria-label="Filters">
+  <main class="frame shell" id="main">
+    <aside class="rail" id="rail" aria-labelledby="filters-title">
+      <div class="rail-head">
+        <h2 id="filters-title">Filters</h2>
+        <button type="button" class="text-btn" id="reset">Clear all</button>
+      </div>
+      <div class="filter-panel" id="filter-panel">
         <fieldset class="group">
-          <legend>Category</legend>
-          <div class="chips" id="cats"></div>
+          <legend class="group-label">Category</legend>
+          <div class="facets" id="cats"></div>
         </fieldset>
 
         <div class="group">
           <label for="state" class="group-label">Location</label>
-          <select id="state">
-            <option value="">Anywhere in the US</option>
-            <option value="remote">Remote (US)</option>
-          </select>
-        </div>
-
-        <div class="group">
-          <label for="days" class="group-label">Added</label>
-          <select id="days">
-            <option value="">Any time</option>
-            <option value="7">In the last 7 days</option>
-            <option value="30">In the last 30 days</option>
-          </select>
-        </div>
-
-        <div class="group checks">
-          <label class="check">
-            <input type="checkbox" id="noclear">
-            <span>Hide 🇺🇸 clearance or citizenship roles</span>
-          </label>
-          <p class="hint">For F-1, OPT and H-1B students. A row without 🇺🇸 can still decline to sponsor, so read the posting.</p>
-          <label class="check">
-            <input type="checkbox" id="hideclosed" checked>
-            <span>Hide closed roles</span>
-          </label>
-        </div>
-
-        <button type="button" class="reset" id="reset">Clear all filters</button>
-      </aside>
-
-      <section class="results" id="panel" role="tabpanel" aria-labelledby="tab-intern">
-        <h2 class="sr-only">Roles</h2>
-        <div class="results-head">
-          <p id="result-count" class="count" aria-live="polite">Loading roles…</p>
-          <div class="sort">
-            <label for="sort">Sort</label>
-            <select id="sort">
-              <option value="">Newest first</option>
-              <option value="company">Company A to Z</option>
+          <div class="select">
+            <select id="state">
+              <option value="">Anywhere in the US</option>
+              <option value="remote">Remote (US)</option>
             </select>
           </div>
         </div>
-        <ol id="results" class="rows" tabindex="-1"></ol>
-        <div id="empty" class="empty" hidden>
-          <p><strong>No roles match in this tab.</strong> <span id="empty-hint">Try fewer filters.</span></p>
-          <div class="empty-actions" id="empty-jump"></div>
-          <button type="button" class="reset" id="empty-reset">Clear all filters</button>
-        </div>
-        <noscript><p class="empty">This board needs JavaScript. The same roles are listed in the <a href="https://github.com/HackedRico/2027-cyber-jobs#readme">README tables</a>.</p></noscript>
-      </section>
-    </div>
 
-    <section class="alerts" id="alerts" aria-labelledby="alerts-title">
-      <h2 id="alerts-title">Get new roles as they land</h2>
-      <div class="alert-grid">
-        <div>
-          <h3>Email or push</h3>
-          <p>On the <a href="https://github.com/HackedRico/2027-cyber-jobs">repo</a>, click Watch, then Custom, then Releases. Each scrape that finds roles posts one release.</p>
-        </div>
-        <div>
-          <h3>One table only</h3>
-          <p>Click Subscribe on its <a href="https://github.com/HackedRico/2027-cyber-jobs/issues?q=is%3Aissue+is%3Aopen+label%3Aalerts">alert issue</a>. Pick one channel, or you get each role twice.</p>
-        </div>
-        <div>
-          <h3>Feed reader</h3>
-          <p><a href="feed.xml">All roles</a> · <a href="feed-intern.xml">Internships</a> · <a href="feed-newgrad.xml">New grad</a> · <a href="feed-earlycareer.xml">Early career</a> · <a href="https://github.com/HackedRico/2027-cyber-jobs/releases.atom">releases.atom</a></p>
+        <fieldset class="group">
+          <legend class="group-label">Added</legend>
+          <div class="seg">
+            <label><input type="radio" name="days" value="" checked><span>Any time</span></label>
+            <label><input type="radio" name="days" value="7"><span>7 days</span></label>
+            <label><input type="radio" name="days" value="30"><span>30 days</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="group">
+          <legend class="group-label">Show</legend>
+          <label class="switch">
+            <span>Hide <span aria-hidden="true">🇺🇸</span> clearance or citizenship roles</span>
+            <input type="checkbox" id="noclear" role="switch" aria-describedby="noclear-hint">
+            <span class="track" aria-hidden="true"></span>
+          </label>
+          <p class="hint" id="noclear-hint">For F-1, OPT and H-1B students. A row without 🇺🇸 can still decline to sponsor, so read the posting.</p>
+          <label class="switch">
+            <span>Hide closed roles</span>
+            <input type="checkbox" id="hideclosed" role="switch" checked>
+            <span class="track" aria-hidden="true"></span>
+          </label>
+          <label class="switch">
+            <span>Hide roles I applied to</span>
+            <input type="checkbox" id="hideapplied" role="switch" aria-describedby="applied-hint">
+            <span class="track" aria-hidden="true"></span>
+          </label>
+          <p class="hint" id="applied-hint">Tick <span class="hint-check" aria-hidden="true">✓</span> on a row to mark it. Marks stay in this browser only.</p>
+        </fieldset>
+      </div>
+    </aside>
+
+    <div class="board">
+      <div class="board-head">
+        <div class="tabs" role="tablist" aria-label="Role type">
+          <button type="button" role="tab" id="tab-intern" data-type="intern" aria-controls="panel" aria-selected="true">
+            <span class="tab-label">Internships</span><span class="tab-count" data-count="intern">0</span>
+          </button>
+          <button type="button" role="tab" id="tab-newgrad" data-type="newgrad" aria-controls="panel" aria-selected="false" tabindex="-1">
+            <span class="tab-label">New grad</span><span class="tab-count" data-count="newgrad">0</span>
+          </button>
+          <button type="button" role="tab" id="tab-earlycareer" data-type="earlycareer" aria-controls="panel" aria-selected="false" tabindex="-1">
+            <span class="tab-label">Early career</span><span class="tab-count" data-count="earlycareer">0</span>
+          </button>
         </div>
       </div>
-    </section>
 
-    <footer class="foot">
-      <p><strong>Key:</strong> 🆕 added in the last 7 days · 🇺🇸 the posting mentions a clearance, public trust or U.S. citizenship · Report flags a row that is closed, wrong or does not belong.</p>
-      <p>Missing a role? <a href="https://github.com/HackedRico/2027-cyber-jobs/issues/new/choose">Submit it</a>. What qualifies is in <a href="https://github.com/HackedRico/2027-cyber-jobs/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>.</p>
-    </footer>
+      <section class="panel" id="panel" role="tabpanel" aria-labelledby="tab-intern">
+        <h2 class="sr-only">Roles</h2>
+        <div class="panel-meta">
+          <p id="result-count" class="count" aria-live="polite">Loading roles…</p>
+          <div class="active" id="active"></div>
+          <div class="sort">
+            <label for="sort" class="sort-label">Sort</label>
+            <div class="select select-inline">
+              <select id="sort">
+                <option value="">Newest first</option>
+                <option value="company">Company A to Z</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="table">
+          <div class="colhead" aria-hidden="true">
+            <span>Company and role</span><span>Location</span><span>Added</span>
+          </div>
+          <ol id="results" class="rows" tabindex="-1">
+            <li class="skel" aria-hidden="true"><i></i><i></i><i></i></li>
+            <li class="skel" aria-hidden="true"><i></i><i></i><i></i></li>
+            <li class="skel" aria-hidden="true"><i></i><i></i><i></i></li>
+            <li class="skel" aria-hidden="true"><i></i><i></i><i></i></li>
+            <li class="skel" aria-hidden="true"><i></i><i></i><i></i></li>
+            <li class="skel" aria-hidden="true"><i></i><i></i><i></i></li>
+          </ol>
+          <div id="empty" class="empty" hidden>
+            <p class="empty-title">No roles match in this tab.</p>
+            <p class="empty-hint" id="empty-hint">Try fewer filters.</p>
+            <div class="empty-actions" id="empty-jump"></div>
+            <button type="button" class="btn" id="empty-reset">Clear all filters</button>
+          </div>
+          <noscript><p class="empty">This board needs JavaScript. The same roles are listed in the <a href="https://github.com/HackedRico/2027-cyber-jobs#readme">README tables</a>.</p></noscript>
+        </div>
+      </section>
+    </div>
   </main>
+
+  <footer class="foot">
+    <div class="frame foot-inner">
+      <dl class="key">
+        <div><dt><span class="age is-new">2d ago</span></dt><dd>Added in the last 7 days</dd></div>
+        <div><dt><span class="tag tag-flag"><span aria-hidden="true">🇺🇸</span> Clearance</span></dt><dd>The posting mentions a clearance, public trust or U.S. citizenship</dd></div>
+        <div><dt><span class="key-icon" aria-hidden="true">✓</span><span class="sr-only">Check mark</span></dt><dd>Marks a role you applied to, in this browser only</dd></div>
+        <div><dt><span class="key-icon" aria-hidden="true">⚑</span><span class="sr-only">Flag</span></dt><dd>Reports a row that is closed, wrong or does not belong</dd></div>
+      </dl>
+      <p class="foot-links">Missing a role? <a href="https://github.com/HackedRico/2027-cyber-jobs/issues/new/choose">Submit it</a>. What qualifies is in <a href="https://github.com/HackedRico/2027-cyber-jobs/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>. The same roles are in the <a href="https://github.com/HackedRico/2027-cyber-jobs#readme">README tables</a>.</p>
+    </div>
+  </footer>
+
+  <dialog class="sheet" id="sheet" aria-labelledby="sheet-title">
+    <div class="sheet-card">
+      <div class="sheet-head">
+        <h2 id="sheet-title">Filters</h2>
+        <button type="button" class="icon-btn" data-close aria-label="Close filters">
+          <svg aria-hidden="true" viewBox="0 0 16 16" width="14" height="14"><path d="m4 4 8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="sheet-body" id="sheet-body"></div>
+      <div class="sheet-foot">
+        <button type="button" class="btn" id="sheet-reset">Clear all</button>
+        <button type="button" class="btn btn-primary" data-close id="sheet-show">Show roles</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="modal" id="alerts" aria-labelledby="alerts-title">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h2 id="alerts-title">Get new roles as they land</h2>
+        <button type="button" class="icon-btn" data-close aria-label="Close">
+          <svg aria-hidden="true" viewBox="0 0 16 16" width="14" height="14"><path d="m4 4 8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <ol class="alert-list">
+        <li>
+          <h3>Every batch, by email or push</h3>
+          <p>On the repo, click Watch, then Custom, then Releases. Each scrape that finds roles posts one release.</p>
+          <a class="btn" href="https://github.com/HackedRico/2027-cyber-jobs" target="_blank" rel="noopener noreferrer">Open the repo</a>
+        </li>
+        <li>
+          <h3>One table only</h3>
+          <p>Click Subscribe on that table's alert issue. Pick one channel, or you get each role twice.</p>
+          <a class="btn" href="https://github.com/HackedRico/2027-cyber-jobs/issues?q=is%3Aissue+is%3Aopen+label%3Aalerts" target="_blank" rel="noopener noreferrer">Open the alert issues</a>
+        </li>
+        <li>
+          <h3>Feed reader</h3>
+          <p>Paste a feed into Feedly, Inoreader or any Atom reader.</p>
+          <ul class="feeds">
+            <li><a href="feed.xml">All roles</a><button type="button" class="copy" data-copy="feed.xml">Copy URL</button></li>
+            <li><a href="feed-intern.xml">Internships</a><button type="button" class="copy" data-copy="feed-intern.xml">Copy URL</button></li>
+            <li><a href="feed-newgrad.xml">New grad</a><button type="button" class="copy" data-copy="feed-newgrad.xml">Copy URL</button></li>
+            <li><a href="feed-earlycareer.xml">Early career</a><button type="button" class="copy" data-copy="feed-earlycareer.xml">Copy URL</button></li>
+            <li><a href="https://github.com/HackedRico/2027-cyber-jobs/releases.atom">Release batches</a><button type="button" class="copy" data-copy="https://github.com/HackedRico/2027-cyber-jobs/releases.atom">Copy URL</button></li>
+          </ul>
+        </li>
+      </ol>
+    </div>
+  </dialog>
 </body>
 </html>
