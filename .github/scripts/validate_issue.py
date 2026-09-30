@@ -46,6 +46,7 @@ from common import (  # noqa: E402
     validate_location,
 )
 from process_approved import fields_to_listing, load_security_companies  # noqa: E402
+from rebuild_readme import is_open  # noqa: E402
 
 API = 'https://api.github.com'
 MARKER = '<!-- validate-issue -->'
@@ -204,7 +205,9 @@ def build_verdict(fields, listings, security_companies=frozenset(), link=None):
     errors = form_errors(fields)
     gate = charter_gate(listing['role'], listing['location'], security_company)
     dupes = find_duplicates(listing, listings) if listing['company'] else []
-    ok = not errors and gate is None and not dupes and not (link and link['dead'])
+    # process_approved reopens a closed match rather than rejecting it.
+    open_dupes = [entry for entry, _ in dupes if is_open(entry)]
+    ok = not errors and gate is None and not open_dupes and not (link and link['dead'])
 
     lines = [MARKER,
              '### Submission check: ' + ('✅ no problems found' if ok else '⚠️ needs a look'),
@@ -240,10 +243,12 @@ def build_verdict(fields, listings, security_companies=frozenset(), link=None):
     lines += ['', '**Duplicates**']
     if dupes:
         for entry, why in dupes:
-            state = 'closed' if entry.get('closed') or not entry.get('url') else 'open'
-            lines.append(f'- ❌ Already listed ({why}, {state}): '
-                         + ', '.join(md_escape(entry.get(f, ''))
-                                     for f in ('company', 'role', 'location')))
+            row = ', '.join(md_escape(entry.get(f, '')) for f in ('company', 'role', 'location'))
+            if is_open(entry):
+                lines.append(f'- ❌ Already listed ({why}, open): {row}')
+            else:
+                lines.append(f'- ↩️ Matches a closed row ({why}): {row}. '
+                             'Approving reopens it with this link.')
     else:
         lines.append('- ✅ No row with the same link or company, role and location')
 
