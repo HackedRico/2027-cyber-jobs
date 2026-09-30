@@ -83,11 +83,15 @@
     const p = new URLSearchParams(location.search);
     const type = p.get('type');
     const slugs = new Set(categories.map(slug));
+    // A shared ?state=WY link outlives the last Wyoming row. Kept, it would
+    // filter to nothing while the dropdown reads "Anywhere in the US".
+    const places = new Set([...el.state.options].map((o) => o.value));
+    const place = p.get('state') || '';
     return {
       type: TYPES.includes(type) ? type : DEFAULTS.type,
       q: (p.get('q') || '').slice(0, 120),
       cat: (p.get('cat') || '').split(',').filter((c) => slugs.has(c)),
-      state: p.get('state') || '',
+      state: places.has(place) ? place : '',
       days: ['7', '30'].includes(p.get('days')) ? p.get('days') : '',
       noclear: p.get('noclear') === '1',
       closed: p.get('closed') === '1',
