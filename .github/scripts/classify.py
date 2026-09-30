@@ -108,9 +108,9 @@ FUNCTION_REJECT = [
     'fire operation',
     'nuclear safeguards',  # 'safeguards' alone is an AI-safety signal
     'sales', 'account executive', 'account manager', 'marketing',
-    'recruiter', 'recruiting', 'talent acquisition',
+    'recruiter', 'talent acquisition',
     'people technology', 'people operations', 'channel systems',
-    'customer success', 'customer support', 'business development', 'partner manager',
+    'customer success', 'business development', 'partner manager',
     # JPMorgan 'Finance & Business Management Associate - Cybersecurity &
     # Technology Controls' runs the cyber org's budget, not its security work.
     'business management',
@@ -119,7 +119,7 @@ FUNCTION_REJECT = [
     # a security operations center.
     'internal audit', 'sox',
     'attorney', 'counsel', 'paralegal', 'executive assistant',
-    'administrative assistant', 'workplace', 'facilities',
+    'administrative assistant', 'facilities',
     'copywriter', 'community manager', 'social media',
     'hackathon', 'general interest', 'talent community', 'talent network',
     # Hardware/manufacturing — "SoC" (system-on-chip) titles are not SOC roles.
@@ -185,10 +185,17 @@ FUNCTION_REJECT_RE = re.compile(
 # Researcher'. They reject only a title that does not also name security work
 # (see _names_security_work), so 'Treasury Operations Analyst' and 'Supply
 # Chain Analyst I' at a security company stay out. Sales and marketing are
-# never security work and stay in FUNCTION_REJECT.
+# never security work and stay in FUNCTION_REJECT, as do 'recruiter' and
+# 'talent acquisition', which name the job rather than a team.
+#
+# Support, recruiting and workplace teams run their own security engineers:
+# 'Security Engineer I, Customer Support Tools', 'Security Engineer,
+# Recruiting Systems', 'Security Engineer I, Workplace Technology'. As hard
+# rejects these terms dropped them, while 'Customer Support Engineer I',
+# 'Recruiting Coordinator' and 'Workplace Services Intern' still fail here.
 DEPARTMENT_REJECT = [
     'finance', 'treasury', 'revenue', 'billing', 'human resources', 'payroll',
-    'procurement', 'silicon',
+    'procurement', 'silicon', 'customer support', 'recruiting', 'workplace',
 ]
 DEPARTMENT_REJECT_RE = re.compile(
     '|'.join([_term_regex(t) for t in DEPARTMENT_REJECT]
@@ -199,8 +206,11 @@ DEPARTMENT_REJECT_RE = re.compile(
 # Security Intern', 'Security Forces Intern', 'Security Badging Intern'.
 # Stripped before the cyber-keyword scan, as 'national security' is, so a
 # title needs its own cyber term ('Cybersecurity Intern, Homeland Security').
+# A corporate security engineer secures the company's own IT, and 'Corporate
+# Security Engineer I - Workplace' was rejected as a guard-force title.
 NON_CYBER_SECURITY_RE = re.compile(
-    r'\b(?:social|food|energy|border|homeland|campus|event|corporate)\s+security\b'
+    r'\b(?:social|food|energy|border|homeland|campus|event)\s+security\b'
+    r'|\bcorporate\s+security\b(?!\s+engineer)'
     r'|\bsecurity\s+(?:forces|badging)\b')
 
 # A bare 'security' before these role nouns is usually a facility, badging or
@@ -385,6 +395,25 @@ LEVELED_TITLE_RE = re.compile(
     r'|\b(?:' + _LEVEL_NOUNS + r')\s*[-–,(]\s*(?:level\s+)?(?:i|ii|1|2)' + _LEVEL_TAIL
 )
 
+# A req posted at several levels can be filled at the top one: Northrop
+# 'Classified Cybersecurity Analyst 2/3 - Secret', 'Cyber Systems Engineer
+# (Level 2 or 3)', 'SOC Analyst Tier 1-3', 'Cyber Analyst I/II/III'. The I/II
+# marker still levels the title, but judge_job accepts it only on a
+# description that passes the experience gate. A hyphen joins levels only
+# unspaced, so "Analyst II - 3 days onsite" is not a span, and V is no level,
+# so "Engineer - V&V" is not one either.
+_LEVEL_TOKEN = r'(?:iii|ii|iv|i|[1-9])'
+MULTI_LEVEL_RE = re.compile(
+    r'\b(?:(?:' + _LEVEL_NOUNS + r'|scientist|researcher|officer)\s*[-–(]?\s*'
+    r'(?:level\s+|tier\s+)?|(?:level|tier)\s+)'
+    r'(' + _LEVEL_TOKEN + r'(?:(?:\s*/\s*|[-–]|\s+(?:or|to|through|and)\s+|\s*&\s*)'
+    + _LEVEL_TOKEN + r')+)\b')
+_SENIOR_LEVEL_TOKEN_RE = re.compile(r'\b(?:iii|iv|[3-9])\b')
+
+
+def _spans_senior_level(t):
+    return any(_SENIOR_LEVEL_TOKEN_RE.search(m.group(1)) for m in MULTI_LEVEL_RE.finditer(t))
+
 # Strong phrases in a job description that mark a role as early career.
 # Deliberately tight — descriptions are noisy (boilerplate like "from early
 # career to executive" would false-positive on looser phrases).
@@ -460,8 +489,15 @@ CATEGORY_RULES = [
     ('AI Security & Safety', r'ai security|ml security|llm security|'
                              r'model security|genai security|ai safety|'
                              r'ai risk|ai governance|responsible ai|'
-                             r'trustworthy ai|ai red team|adversarial|'
-                             r'alignment|safeguards'),
+                             r'trustworthy ai|ai red team|'
+                             # Bare 'adversarial' and 'alignment' put 'Security
+                             # Engineer, Adversary & Adversarial Emulation' and
+                             # 'Security Engineer, Alignment Tooling' on the
+                             # AI flat-title path, so each needs an ML object.
+                             r'adversarial (?:machine learning|ml|robustness|ai|'
+                             r'examples?|attacks? on (?:ai|ml|models?))\b|'
+                             r'ai alignment|alignment (?:science|research|team)|'
+                             r'model alignment|safeguards'),
     ('Offensive Security', r'penetration|pentest|red team|offensive|exploit|'
                            r'vulnerability research|purple team|'
                            # Computer network operations: Nightwing 'Junior
@@ -1272,6 +1308,17 @@ INTEL_SUPPORT_RE = re.compile(
     r'\b(?:geospatial|full[- ]motion video|fmv|imagery|all[- ]source|targeting|'
     r'linguist|signals collection)\b')
 
+# The same allowance let in business analysts and researchers, which the
+# charter's "engineering role at a security company" does not cover: 'Business
+# Analyst I', 'Associate Pricing Analyst', 'Analyst I, Market Intelligence',
+# 'Associate UX Researcher', and Osano 'Jr IT Analyst (part-time)'. They reject
+# only when an analyst or researcher term is the title's one tech signal, so
+# 'Research Analyst I' and 'Fraud Analyst' stay, as does 'Detection Engineer I'.
+BUSINESS_ANALYST_RE = re.compile(
+    r'\b(?:business|legal|pricing|operations|(?:market|competitive) intelligence|'
+    r'sales|revenue|finance|ux|user research|it support|help ?desk|it analyst)\b')
+ANALYST_TECH_KEYWORDS = {'analyst', 'data analyst', 'researcher'}
+
 
 def is_cyber_title(title, security_company=False):
     t = title.lower()
@@ -1281,6 +1328,8 @@ def is_cyber_title(title, security_company=False):
         return False
     tech = [kw for kw in TECH_KEYWORDS if kw in t]
     if INTEL_SUPPORT_RE.search(t) and all('analyst' in kw for kw in tech):
+        return False
+    if BUSINESS_ANALYST_RE.search(t) and set(tech) <= ANALYST_TECH_KEYWORDS:
         return False
     return bool(tech)
 
@@ -1749,6 +1798,11 @@ def judge_job(title, location, description='', security_company=False,
     if description and _is_facility_security_role(title, description):
         return None, 'facility-security'
     level = classify_level(title, description, intern_hint)
+    # The title levels a multi-level req, but only the description can say it
+    # is hired below level 3. A missing one is 'no-level', which the stored-row
+    # pass in scrape_jobs.py keeps rather than drops.
+    if level not in (None, 'intern') and not description and _spans_senior_level(title.lower()):
+        return None, 'no-level'
     if level is None:
         # A flat "Security Engineer" title at a security company with a low
         # experience ceiling in its description is an early-career role.

@@ -15,6 +15,10 @@ import rebuild_readme as rr
 # so the rows below name that season instead of a fixed year.
 SEASON = s.first_open_season()
 
+# Northrop lists each level's bar in one posting; the easiest route is level 2's.
+NORTHROP_LEVELS = ("Level 2: Bachelor's + 2 years of related experience. "
+                   "Level 3: Bachelor's + 5 years of related experience.")
+
 CASES = [
     # (title, location, description, security_company, expected)
     # -- should be accepted --
@@ -58,6 +62,13 @@ CASES = [
     ('Researcher, Alignment Science', 'San Francisco, CA', 'Open to candidates with 0-2 years of research experience.', False, ('earlycareer', 'AI Security & Safety')),
     ('AI Red Teamer', 'US, Remote', 'Requires 1+ years of red teaming experience.', True, ('earlycareer', 'AI Security & Safety')),
     ('Fellows Program, AI Safety', 'San Francisco, CA', '', False, ('earlycareer', 'AI Security & Safety')),
+    # 'Adversarial' and 'alignment' mark an AI title only with an ML object.
+    ('Adversarial ML Researcher', 'New York, NY', 'Requires 2+ years of experience.', False, ('earlycareer', 'AI Security & Safety')),
+    ('Research Engineer, Alignment Science', 'San Francisco, CA', 'Requires 2+ years of experience.', False, ('earlycareer', 'AI Security & Safety')),
+    ('AI Alignment Intern', 'San Francisco, CA', '', False, ('intern', 'AI Security & Safety')),
+    ('Adversarial Robustness Research Intern', 'San Francisco, CA', '', False, ('intern', 'AI Security & Safety')),
+    ('Security Engineer, Adversary & Adversarial Emulation', 'Austin, TX', 'Requires 2+ years of experience.', False, None),
+    ('Security Engineer, Alignment Tooling', 'Austin, TX', 'Requires 2+ years of experience.', False, None),
     ('Junior Security Analyst', 'Remote- US', '', False, ('earlycareer', 'Security Engineering')),
     # 'Architect' is a senior signal, but a named early-career cohort overrides
     # it (NVIDIA's "Security Architect - New College Grad" is a new-grad req).
@@ -161,6 +172,28 @@ CASES = [
     ('SIGINT Cyber Analyst I', 'Fort Meade, MD', '', True, ('earlycareer', 'Security Engineering')),
     ('Junior Geospatial Software Engineer', 'Herndon, VA', '', True, ('earlycareer', 'Engineering @ Security Co')),
     ('Junior Data Analyst', 'Herndon, VA', '', True, ('earlycareer', 'Engineering @ Security Co')),
+    # -- should be rejected: business analysts and researchers at security companies --
+    ('Business Analyst I', 'Austin, TX', '', True, None),
+    ('Associate Legal Analyst', 'Austin, TX', '', True, None),
+    ('Associate Pricing Analyst', 'Austin, TX', '', True, None),
+    ('Associate Operations Analyst', 'Austin, TX', '', True, None),
+    ('IT Support Analyst I', 'Austin, TX', '', True, None),
+    ('Analyst I, Market Intelligence', 'Austin, TX', '', True, None),
+    ('Associate UX Researcher', 'Austin, TX', '', True, None),
+    ('Jr IT Analyst (part-time)', 'Remote (US)', '', True, None),
+    # ...but a security, data or research analyst, or an engineer, stays.
+    ('Threat Intelligence Analyst I', 'Austin, TX', '', True, ('earlycareer', 'Threat Intelligence')),
+    ('Security Analyst I', 'Austin, TX', '', True, ('earlycareer', 'Security Engineering')),
+    ('SOC Analyst I', 'Austin, TX', '', True, ('earlycareer', 'SOC & Detection')),
+    ('Data Analyst I', 'Austin, TX', '', True, ('earlycareer', 'Engineering @ Security Co')),
+    ('Research Analyst I', 'Somerville, MA', '', True, ('earlycareer', 'Engineering @ Security Co')),
+    # 'Researcher I' is not a level marker yet, so the description levels it.
+    ('Malware Researcher I', 'Austin, TX', 'Open to candidates with 0-2 years of experience.', True,
+     ('earlycareer', 'Engineering @ Security Co')),
+    ('Fraud Analyst', 'Somerville, MA', 'Open to candidates with 0-2 years of experience.', True,
+     ('earlycareer', 'Threat Intelligence')),
+    ('Detection Engineer I', 'Austin, TX', '', True, ('earlycareer', 'SOC & Detection')),
+    ('IT Security Analyst I', 'Austin, TX', '', True, ('earlycareer', 'Security Engineering')),
 
     # -- should be rejected: "Security Clearance" is a requirement, not the work --
     ('Computer Scientist / Software Developer, Junior - Security Clearance Required', 'Adelphi, MD', '', False, None),
@@ -343,6 +376,21 @@ CASES = [
     ('Finance & Business Management Associate - Cybersecurity & Technology Controls',
      'Plano, TX', '', False, None),
     ('Silicon Security Researcher - New Grad', 'Austin, TX', '', False, ('newgrad', 'Security Engineering')),
+    # Support, recruiting and workplace teams run their own security engineers.
+    ('Security Engineer I, Customer Support Tools', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Security Engineer, Recruiting Systems', 'Austin, TX',
+     'Open to candidates with 0-2 years of experience.', False, ('earlycareer', 'Security Engineering')),
+    ('Security Engineer I, Workplace Technology', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Corporate Security Engineer I - Workplace', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    # ...while the support, recruiting and workplace jobs themselves stay out.
+    ('Customer Support Engineer I', 'Austin, TX', '', True, None),
+    ('Customer Support Engineer I', 'Austin, TX', '', False, None),
+    ('Customer Support Specialist', 'Austin, TX', '', True, None),
+    ('Recruiting Coordinator', 'Austin, TX', '', True, None),
+    ('Technical Recruiter', 'Austin, TX', '', True, None),
+    ('Talent Acquisition Associate', 'Austin, TX', '', True, None),
+    ('Workplace Experience Associate', 'Austin, TX', '', True, None),
+    ('Workplace Services Intern', 'Austin, TX', '', True, None),
     # ...but sales, account and department-only titles stay out.
     ('Cyber Sales Intern', 'Austin, TX', '', True, None),
     ('Security Account Executive I', 'Austin, TX', '', True, None),
@@ -367,6 +415,21 @@ CASES = [
     ('L3 SOC Analyst', 'Austin, TX', '', False, None),
     ('Threat Hunter III', 'Austin, TX', '', False, None),
     ('Security Analyst - 4 days onsite', 'Austin, TX', '', False, None),
+    # A req posted at several levels up to III is early career only on a
+    # description whose floor passes the experience gate.
+    ('Cyber Analyst II / III', 'Austin, TX', '', False, None),
+    ('Cyber Analyst I/II/III', 'Austin, TX', '', False, None),
+    ('Security Analyst 2/3', 'Austin, TX', '', False, None),
+    ('SOC Analyst Tier 1-3', 'Austin, TX', '', False, None),
+    ('SOC Analyst II-III', 'Austin, TX', '', False, None),
+    ('Classified Cybersecurity Analyst 2/3 - Secret', 'Linthicum, MD', '', False, None),
+    ('Cybersecurity Analyst 2/3', 'Linthicum, MD', NORTHROP_LEVELS, False, ('earlycareer', 'Security Engineering')),
+    ('Cybersecurity Analyst 2/3', 'Linthicum, MD',
+     "Level 3: Bachelor's + 5 years of related experience.", False, None),
+    # ...while a single level, or a span that stops at II, levels on the title.
+    ('Cyber Analyst II', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Security Engineer 2', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Cyber Software Engineer - Level 1/2', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
 
     # -- keyword gaps --
     ('Identity & Access Management Intern', 'Austin, TX', '', False, ('intern', 'Identity & IAM')),
@@ -556,6 +619,12 @@ LEVEL = [
     ('Associated Bank Security Analyst', None),  # 'associate' not in 'associated'
     ('Cybersecurity Analyst II (Windows Server 2026)', 'earlycareer'),
     ('Tier 2 SOC Analyst', 'earlycareer'),    # 'tier 2' survives word-bounding
+    # Multi-level titles still level on the title, so the scraper fetches
+    # their Workday and Oracle descriptions for judge_job to read.
+    ('Classified Cybersecurity Analyst 2/3 - Secret', 'earlycareer'),
+    ('Cyber Analyst I/II/III', 'earlycareer'),
+    ('SOC Analyst Tier 1-3', 'earlycareer'),
+    ('Cyber Systems Engineer (Level 2 or 3)', 'earlycareer'),
 ]
 for title, want in LEVEL:
     got = s.classify_level(title)
@@ -910,6 +979,7 @@ FLOOR = [
     # Years in lieu of a degree do not undercut the degreed route's own count.
     ("Bachelor's degree and 5 years of related experience; an additional four (4) "
      'years of relevant experience may be accepted in lieu of a degree.', 5),
+    (NORTHROP_LEVELS, 2),
 ]
 for desc, want in FLOOR:
     got = s.required_years(desc)
@@ -1044,6 +1114,7 @@ JUDGED = [
      False, 'no-level'),
     ('Security Engineer II', 'Austin, TX', 'Requires 6+ years of experience.', False,
      'over-experienced'),
+    ('Classified Cybersecurity Analyst 2/3 - Secret', 'Linthicum, MD', '', False, 'no-level'),
     ('Support Engineer I - UK', 'Remote | United Kingdom', '', True, 'non-us-location'),
 ]
 for title, loc, desc, sec, want in JUDGED:
