@@ -846,7 +846,6 @@ def scrape_oracle(company, host, site, security_company=False):
                 # Amex and Honeywell both post under site CX_1, so the site
                 # alone does not scope a req id.
                 'id': f'oracle_{host}_{site}_{job_id}',
-                'legacy_id': f'oracle_{site}_{job_id}',
                 'company': company,
                 'title': job.get('Title', ''),
                 'location': location,
@@ -2207,11 +2206,6 @@ def insert_new_listings(listings, raw_jobs, seen, sec_flags, today):
 
     for job in raw_jobs:
         jid = job['id']
-        # seen_jobs.json holds Oracle reqs under their pre-host id; carrying
-        # the date over keeps a known req from a second trip through the gates.
-        legacy = job.get('legacy_id')
-        if jid not in seen and legacy in seen:
-            seen[jid] = seen[legacy]
         url = job.get('url', '')
         location = normalize_location(job.get('location', ''))
         key = listing_dedup_key(job['company'], job.get('title', ''), location)
