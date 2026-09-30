@@ -58,6 +58,13 @@ CASES = [
     ('Researcher, Alignment Science', 'San Francisco, CA', 'Open to candidates with 0-2 years of research experience.', False, ('earlycareer', 'AI Security & Safety')),
     ('AI Red Teamer', 'US, Remote', 'Requires 1+ years of red teaming experience.', True, ('earlycareer', 'AI Security & Safety')),
     ('Fellows Program, AI Safety', 'San Francisco, CA', '', False, ('earlycareer', 'AI Security & Safety')),
+    # 'Adversarial' and 'alignment' mark an AI title only with an ML object.
+    ('Adversarial ML Researcher', 'New York, NY', 'Requires 2+ years of experience.', False, ('earlycareer', 'AI Security & Safety')),
+    ('Research Engineer, Alignment Science', 'San Francisco, CA', 'Requires 2+ years of experience.', False, ('earlycareer', 'AI Security & Safety')),
+    ('AI Alignment Intern', 'San Francisco, CA', '', False, ('intern', 'AI Security & Safety')),
+    ('Adversarial Robustness Research Intern', 'San Francisco, CA', '', False, ('intern', 'AI Security & Safety')),
+    ('Security Engineer, Adversary & Adversarial Emulation', 'Austin, TX', 'Requires 2+ years of experience.', False, None),
+    ('Security Engineer, Alignment Tooling', 'Austin, TX', 'Requires 2+ years of experience.', False, None),
     ('Junior Security Analyst', 'Remote- US', '', False, ('earlycareer', 'Security Engineering')),
     # 'Architect' is a senior signal, but a named early-career cohort overrides
     # it (NVIDIA's "Security Architect - New College Grad" is a new-grad req).

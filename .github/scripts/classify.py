@@ -470,8 +470,15 @@ CATEGORY_RULES = [
     ('AI Security & Safety', r'ai security|ml security|llm security|'
                              r'model security|genai security|ai safety|'
                              r'ai risk|ai governance|responsible ai|'
-                             r'trustworthy ai|ai red team|adversarial|'
-                             r'alignment|safeguards'),
+                             r'trustworthy ai|ai red team|'
+                             # Bare 'adversarial' and 'alignment' put 'Security
+                             # Engineer, Adversary & Adversarial Emulation' and
+                             # 'Security Engineer, Alignment Tooling' on the
+                             # AI flat-title path, so each needs an ML object.
+                             r'adversarial (?:machine learning|ml|robustness|ai|'
+                             r'examples?|attacks? on (?:ai|ml|models?))\b|'
+                             r'ai alignment|alignment (?:science|research|team)|'
+                             r'model alignment|safeguards'),
     ('Offensive Security', r'penetration|pentest|red team|offensive|exploit|'
                            r'vulnerability research|purple team|'
                            # Computer network operations: Nightwing 'Junior
