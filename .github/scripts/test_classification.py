@@ -907,6 +907,9 @@ FLOOR = [
      'with eight (8) years of experience; OR MS in the same fields with five (5) years '
      'of experience; OR PhD in the same fields with two (2) years of experience.', 5),
     ('PhD in computer science with 2 years of research experience.', 2),
+    # Years in lieu of a degree do not undercut the degreed route's own count.
+    ("Bachelor's degree and 5 years of related experience; an additional four (4) "
+     'years of relevant experience may be accepted in lieu of a degree.', 5),
 ]
 for desc, want in FLOOR:
     got = s.required_years(desc)

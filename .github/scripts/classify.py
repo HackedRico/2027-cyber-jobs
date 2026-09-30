@@ -1624,10 +1624,10 @@ def _year_in_requirement_context(low, start, end):
 
 
 def _experience_counts(description):
-    """Collect required year counts as (conjunctive, alternative, doctoral) lists."""
-    conjunctive, alternative, doctoral = [], [], []
+    """Collect year counts as (conjunctive, alternative, doctoral, substituted)."""
+    conjunctive, alternative, doctoral, substituted = [], [], [], []
     if not description:
-        return conjunctive, alternative, doctoral
+        return conjunctive, alternative, doctoral, substituted
     low = strip_html(description).lower()
     preferred = _preferred_spans(low)
     consumed = []
@@ -1639,7 +1639,7 @@ def _experience_counts(description):
         after = low[end:end + 60]
         if ((DEGREE_SUB_BEFORE_RE.search(before) or DEGREE_SUB_AFTER_RE.search(after))
                 and DEGREE_NOUN_RE.search(low[max(0, start - 110):end + 60])):
-            alternative.append(0)   # the degreed route needs no years
+            substituted.append(0)   # the degreed route needs no years
         else:
             window = low[max(0, start - DEGREE_ALT_WINDOW,
                               low.rfind('\n', 0, start) + 1):start]
@@ -1662,7 +1662,7 @@ def _experience_counts(description):
     for m in SPELLED_YEARS_RE.finditer(low):
         record(SPELLED_VALUES[m.group(1)], m.start(), m.end(),
                emphatic=bool(m.group(2) or m.group(3)))
-    return conjunctive, alternative, doctoral
+    return conjunctive, alternative, doctoral, substituted
 
 
 def required_years(description):
@@ -1672,11 +1672,17 @@ def required_years(description):
     max(). Degree-paired bands are alternative routes, so they only set the
     floor when nothing conjunctive does, and then via min().
     """
-    conjunctive, alternative, doctoral = _experience_counts(description)
+    conjunctive, alternative, doctoral, substituted = _experience_counts(description)
     if conjunctive:
         return max(conjunctive)
+    # Years offered in lieu of a degree say the degreed route needs none, but
+    # only when that route names no count of its own: SAIC 'Tier II or III ...
+    # IAM Administrator' reads "Bachelor's degree and 5 years; an additional
+    # four (4) years ... in lieu of a degree", and the degreed route is 5.
     if alternative:
         return min(alternative)
+    if substituted:
+        return 0
     if doctoral:
         return min(doctoral)
     return 0
