@@ -4,11 +4,6 @@ on:
   issues:
     types: [opened, edited]
 
-# A burst of edits posts one verdict: the newest run replaces the older ones.
-concurrency:
-  group: validate-issue-${{ github.event.issue.number }}
-  cancel-in-progress: true
-
 jobs:
   validate:
     # The title prefix catches a submission whose form labels did not apply,
@@ -17,6 +12,12 @@ jobs:
       github.event.issue.state == 'open' &&
       (contains(github.event.issue.labels.*.name, 'new listing') ||
        startsWith(github.event.issue.title, '[JOB]'))
+    # A burst of edits posts one verdict: the newest run replaces the older
+    # ones. Set on this job only, so a later edit never cancels the approval
+    # revoke below.
+    concurrency:
+      group: validate-issue-${{ github.event.issue.number }}
+      cancel-in-progress: true
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -41,3 +42,38 @@ jobs:
           ISSUE_NUMBER: ${{ github.event.issue.number }}
           ISSUE_BODY: ${{ github.event.issue.body }}
         run: python .github/scripts/validate_issue.py
+
+  # A maintainer approves the body they read. Without this, a submitter could
+  # swap the Direct Application Link while the add-listing run waits in the
+  # readme-updates queue, and the swapped link would be published.
+  # process_approved.py also skips a body edited after approval, in case this
+  # job loses the race.
+  revoke-approval:
+    if: >-
+      github.event.action == 'edited' &&
+      github.event.changes.body &&
+      contains(github.event.issue.labels.*.name, 'approved')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      issues: write
+
+    steps:
+      - name: Remove approved after an edit by someone without write access
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          EDITOR_LOGIN: ${{ github.event.sender.login }}
+        run: |
+          # A failed lookup reads as no access, so the label comes off.
+          permission=$(gh api "repos/$GH_REPO/collaborators/$EDITOR_LOGIN/permission" \
+            --jq .permission 2>/dev/null) || permission=none
+          case "$permission" in
+            admin|write)
+              echo "Edited by $EDITOR_LOGIN ($permission), keeping approved"
+              exit 0
+              ;;
+          esac
+          gh issue edit "$ISSUE_NUMBER" --remove-label approved
+          gh issue comment "$ISSUE_NUMBER" --body "The \`approved\` label came off because the issue changed after approval. A maintainer will review the edit and approve it again."

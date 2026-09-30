@@ -22,6 +22,7 @@ import requests
 
 sys.path.insert(0, str(Path(__file__).parent))
 from classify import (  # noqa: E402
+    CATEGORY_ALLOWLIST,
     FUNCTION_REJECT_RE,
     INFOSEC_OFFICER_HINTS,
     LEVELED_SENIOR_RE,
@@ -38,11 +39,14 @@ from classify import (  # noqa: E402
 )
 from common import (  # noqa: E402
     gh_headers,
+    md_code,
+    md_escape,
     normalize_url,
     parse_issue_body,
     validate_location,
 )
 from process_approved import fields_to_listing, load_security_companies  # noqa: E402
+from rebuild_readme import is_open  # noqa: E402
 
 API = 'https://api.github.com'
 MARKER = '<!-- validate-issue -->'
@@ -61,6 +65,10 @@ LEVEL_LABELS = {
     'newgrad': 'New Grad / University Program',
     'earlycareer': 'Early Career / Entry-Level',
 }
+# The verdict echoes a submitted Listing Type or Category only when it is one
+# of the form's options, since an edited issue body can put any markdown in
+# either field.
+CATEGORY_OPTIONS = CATEGORY_ALLOWLIST | {'Not sure'}
 LABEL_VALID = 'valid'
 LABEL_FIX = 'needs-fix'
 LABELS = {
@@ -95,15 +103,15 @@ def rejected_title_reason(title):
     for pattern in SENIORITY_REJECT:
         m = re.search(pattern, t)
         if m:
-            return f'the title has the seniority term "{m.group(0)}"'
+            return f'the title has the seniority term "{md_escape(m.group(0))}"'
     if is_senior_architect(title):
         return 'an architect title needs a new grad, intern or early-career signal'
     m = LEVELED_SENIOR_RE.search(t)
     if m:
-        return f'"{m.group(0)}" is a senior level'
+        return f'"{md_escape(m.group(0))}" is a senior level'
     m = FUNCTION_REJECT_RE.search(t)
     if m:
-        return f'"{m.group(0)}" marks a non-cyber function'
+        return f'"{md_escape(m.group(0))}" marks a non-cyber function'
     if SECURITY_OFFICER_RE.search(t) and not any(h in t for h in INFOSEC_OFFICER_HINTS):
         return '"security officer" without an infosec word is usually a guard role'
     return None
@@ -157,7 +165,7 @@ def check_link(url, get=requests.get, resolves_public=_public_host):
             return {'dead': False, 'summary': 'not checked: only http(s) links are fetched'}
         if not resolves_public(parsed.hostname):
             return {'dead': True,
-                    'summary': f'`{parsed.hostname}` does not resolve to a public address'}
+                    'summary': f'{md_code(parsed.hostname)} does not resolve to a public address'}
         try:
             resp = get(url, timeout=LINK_TIMEOUT, allow_redirects=False, stream=True,
                        headers={'User-Agent': 'Mozilla/5.0 (2027-cyber-jobs link check)'})
@@ -178,6 +186,13 @@ def check_link(url, get=requests.get, resolves_public=_public_host):
     return {'dead': False, 'summary': f'more than {MAX_REDIRECTS} redirects, not followed'}
 
 
+def _option(value, options):
+    value = value.strip()
+    if not value:
+        return 'none'
+    return value if value in options else 'a value that is not a form option'
+
+
 def build_verdict(fields, listings, security_companies=frozenset(), link=None):
     """Return (comment body, ok) for a parsed submission.
 
@@ -190,7 +205,9 @@ def build_verdict(fields, listings, security_companies=frozenset(), link=None):
     errors = form_errors(fields)
     gate = charter_gate(listing['role'], listing['location'], security_company)
     dupes = find_duplicates(listing, listings) if listing['company'] else []
-    ok = not errors and gate is None and not dupes and not (link and link['dead'])
+    # process_approved reopens a closed match rather than rejecting it.
+    open_dupes = [entry for entry, _ in dupes if is_open(entry)]
+    ok = not errors and gate is None and not open_dupes and not (link and link['dead'])
 
     lines = [MARKER,
              '### Submission check: ' + ('✅ no problems found' if ok else '⚠️ needs a look'),
@@ -201,7 +218,7 @@ def build_verdict(fields, listings, security_companies=frozenset(), link=None):
              '**Form**']
     lines += [f'- ❌ {e}' for e in errors] or ['- ✅ Required fields are filled in']
     if listing['location'] and not validate_location(fields.get('Location', '')):
-        lines.append(f"- Location will be stored as `{listing['location']}`")
+        lines.append(f"- Location will be stored as {md_code(listing['location'])}")
 
     lines += ['', '**Charter** (title and location only)']
     if gate:
@@ -211,24 +228,27 @@ def build_verdict(fields, listings, security_companies=frozenset(), link=None):
     lines.append('- The posting text is not read here, so the reviewer checks that it '
                  'asks for 2 years of experience or less.')
 
-    submitted_level = fields.get('Listing Type', '').strip() or 'none'
+    submitted_level = _option(fields.get('Listing Type', ''), LEVEL_LABELS.values())
     inferred_level = classify_level(listing['role']) if listing['role'] else None
-    submitted_category = fields.get('Category', '').strip() or 'none'
+    submitted_category = fields.get('Category', '').strip()
     inferred_category = infer_category(listing['role'], security_company)
     lines += ['', '**Level and category**',
               f'- Level: submitted {submitted_level}, title reads as '
               f'{LEVEL_LABELS.get(inferred_level, "no level signal")}',
-              f'- Category: submitted {submitted_category}, title reads as '
-              f'{inferred_category}']
+              f'- Category: submitted {_option(submitted_category, CATEGORY_OPTIONS)}, '
+              f'title reads as {inferred_category}']
     if submitted_category != listing['category']:
         lines.append(f"- The row will use `{listing['category']}`")
 
     lines += ['', '**Duplicates**']
     if dupes:
         for entry, why in dupes:
-            state = 'closed' if entry.get('closed') or not entry.get('url') else 'open'
-            lines.append(f"- ❌ Already listed ({why}, {state}): {entry.get('company', '')}, "
-                         f"{entry.get('role', '')}, {entry.get('location', '')}")
+            row = ', '.join(md_escape(entry.get(f, '')) for f in ('company', 'role', 'location'))
+            if is_open(entry):
+                lines.append(f'- ❌ Already listed ({why}, open): {row}')
+            else:
+                lines.append(f'- ↩️ Matches a closed row ({why}): {row}. '
+                             'Approving reopens it with this link.')
     else:
         lines.append('- ✅ No row with the same link or company, role and location')
 

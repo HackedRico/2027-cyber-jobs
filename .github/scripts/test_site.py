@@ -84,16 +84,31 @@ check('row_id is stable across calls', bs.row_id(OPEN), bs.row_id(dict(OPEN)))
 check('row_id ignores url and category',
       bs.row_id(OPEN), bs.row_id(row(role='Open role', url='https://x.example/2',
                                      category='GRC & Risk')))
-check('row_id changes with the location',
-      bs.row_id(OPEN) == bs.row_id(row(role='Open role', location='Plano, TX')), False)
+# The scraper's renormalize and repair passes rewrite stored locations; a feed
+# entry id that moved with them showed readers the same job twice.
+check('row_id ignores the location',
+      bs.row_id(OPEN), bs.row_id(row(role='Open role', location='Austin, TX; Remote (US)')))
 check('row_id changes with date_added',
       bs.row_id(OPEN) == bs.row_id(row(role='Open role', date_added='2026-09-21')), False)
 check('row_id is a short hex string', (len(bs.row_id(OPEN)), set(bs.row_id(OPEN)) <= set(
     '0123456789abcdef')), (12, True))
 
+TWINS = [row(role='Fraud Analyst', location='Washington, DC'),
+         row(role='Fraud Analyst', location='New York, NY'),
+         row(role='Fraud Analyst', location='Boston, MA')]
+twin_ids = bs.row_ids(TWINS)
+check('row_ids tells apart one role posted per site on the same day',
+      len(set(twin_ids)), 3)
+check('row_ids gives the first twin the plain row_id', twin_ids[0], bs.row_id(TWINS[0]))
+moved = [dict(t) for t in TWINS]
+moved[1]['location'] = 'New York City, NY'
+check('row_ids survives a twin location rewrite', bs.row_ids(moved), twin_ids)
+data = bs.page_data(TWINS, TODAY)
+check('page_data uses row_ids', sorted(r['id'] for r in data['rows']), sorted(twin_ids))
+
 real = json.loads((ROOT / 'listings.json').read_text(encoding='utf-8'))
-ids = [bs.row_id(r) for r in real]
-check('row_id is unique across listings.json', len(ids), len(set(ids)))
+ids = bs.row_ids(real)
+check('row_ids is unique across listings.json', len(ids), len(set(ids)))
 
 
 # --- build and feeds -------------------------------------------------------------

@@ -39,9 +39,10 @@ behind `main`. Rebase before opening a PR, and take `main` for any conflict in a
   (a row whose company has no board for its source in `companies.yml`) over existing rows
   before dedup and insert of new ones.
 - `check_links.py` is the daily link check. It only visits rows the scraper cannot retire:
-  Community rows, amazon.jobs rows and rows with no req id in the URL. A 404 or 410, or for a
-  Community row a 200 whose `<title>` reads as not found or is empty, closes the row on its
-  second day.
+  Community rows, amazon.jobs rows and rows with no req id in the URL. A 404 or 410 closes the
+  row on its second day. For a Community row, a 200 whose `<title>` reads as not found or is
+  empty, or a redirect that drops the req id, closes it on its third day, and a Community row
+  120 days old ages out.
 - `notify.py` turns the events file a scrape or add-listing run writes into a GitHub Release
   and one comment per matching alert issue, unlocking and relocking each thread.
   `test_notify.py` covers it.
@@ -51,7 +52,9 @@ behind `main`. Rebase before opening a PR, and take `main` for any conflict in a
   advisory verdict comment edited in place, `approved` label, row added, issue closed after
   the push lands. `test_community.py` covers them.
 - `check_outputs.py` and `health_check.py` are stdlib-only guards on the bot's output and runs;
-  `test_health.py` covers them.
+  `test_health.py` covers them. Against main's listings.json, `check_outputs.py` also fails a
+  new scraped row the charter rules reject and a run that closes more than a quarter of the
+  open rows. Rerun the writer by hand with `allow_mass_close` once the cause is understood.
 - `build_site.py` turns `site/` (plain HTML, CSS and JS, no build step) and `listings.json` into
   the untracked `_site/`: the Pages board, its trimmed data file and the Atom feeds.
   `pages.yml` deploys it after each writer finishes, because a push made with `GITHUB_TOKEN`

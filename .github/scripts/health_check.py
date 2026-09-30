@@ -84,24 +84,33 @@ def _parse_time(value):
     return datetime.fromisoformat(value.replace('Z', '+00:00')) if value else None
 
 
+def completed_runs(gh, workflow):
+    """A workflow's recent completed runs, newest first.
+
+    The runs endpoint's `status=` filter answers from a lagging index: on Sep
+    30 `status=success` still named a Sep 25 run as the latest, hours after a
+    success, and opened a false 'no successful scrape' issue (#44). The
+    unfiltered list is current, so the filtering happens here.
+    """
+    data = gh.call('GET', gh.repo_path(f'/actions/workflows/{workflow}/runs?per_page=30'))
+    return [r for r in (data or {}).get('workflow_runs', []) if r.get('status') == 'completed']
+
+
 def latest_writer_runs(gh):
     """{workflow file: latest completed run that did not skip, or None}."""
     runs = {}
     for workflow in WRITERS:
-        data = gh.call('GET', gh.repo_path(
-            f'/actions/workflows/{workflow}/runs?status=completed&per_page=30'))
         # add-listing fires on every label event and skips unless it is
         # 'approved', so the latest run is usually a skip that says nothing.
-        runs[workflow] = next((r for r in (data or {}).get('workflow_runs', [])
+        runs[workflow] = next((r for r in completed_runs(gh, workflow)
                                if r.get('conclusion') != 'skipped'), None)
     return runs
 
 
 def last_successful_scrape(gh):
-    data = gh.call('GET', gh.repo_path(
-        '/actions/workflows/scrape-jobs.yml/runs?status=success&per_page=1'))
-    runs = (data or {}).get('workflow_runs', [])
-    return _parse_time(runs[0].get('updated_at')) if runs else None
+    run = next((r for r in completed_runs(gh, 'scrape-jobs.yml')
+                if r.get('conclusion') == 'success'), None)
+    return _parse_time(run.get('updated_at')) if run else None
 
 
 def _read_json(path, default):

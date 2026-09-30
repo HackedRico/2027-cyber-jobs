@@ -10,13 +10,17 @@ The scraper applies the rules below to every posting, and the bot runs the same 
 
 ### A cybersecurity role
 
-The title names security work: security, cyber, infosec, threat, forensics, vulnerability, penetration testing, red team, SOC, DFIR, GRC, identity and access or identity management, DevSecOps, or AI security and safety terms such as AI safety, AI red team, alignment or safeguards.
+The title names security work: security, cyber, infosec, threat, forensics, vulnerability, penetration testing, red team, SOC, CSIRT, DFIR, GRC or "governance, risk and compliance", identity and access, identity management or IAM, DevSecOps, or AI security and safety terms such as AI safety, AI red team, AI alignment, adversarial ML or safeguards.
 
 An engineering title also counts when it names a security team: identity, authentication, privacy, trust and safety, anti-abuse, fraud protection or compromise, as in "Software Engineer II - Compromise & Fraud Protection". Cloud, network, systems administration and SRE titles need a security word like any other title. A plain "Network Engineer I" is out.
+
+A bare "security" before specialist, technician, associate, assistant, coordinator or officer needs a second term, such as cyber, information, IT or network: "IT Security Specialist I" is in, "Security Specialist II" is out. SOC 1 and SOC 2 are audit reports, so "SOC 1 Analyst" is out and "SOC 2 Compliance Analyst" counts as GRC.
 
 Each row gets one of these categories, and the form offers **Not sure** if none fits: AI Security & Safety, Offensive Security, SOC & Detection, Threat Intelligence, Forensics & IR, AppSec & ProdSec, Cloud & Infra Security, Identity & IAM, GRC & Risk, Security Engineering, and Engineering @ Security Co.
 
 At a company whose main business is security (🛡️ in [companies.md](companies.md)), a title does not need a security word. Any title with one of these words counts: engineer, developer, software, DevOps, SRE, researcher, scientist, analyst, infrastructure, platform, backend, frontend, full stack, machine learning, detection, architect, or a presales or services consultant (solutions, domain, services or technical consultant). A sales engineer counts there too.
+
+The charter covers engineering at these companies, so an analyst or researcher title with no other technical word is out when it names a business function: business, legal, pricing, operations, market or competitive intelligence, sales, revenue, finance, UX or user research, IT support, help desk, or a bare "IT Analyst". "Associate Pricing Analyst" and "Jr IT Analyst" are out. "Research Analyst I", "Data Analyst I" and "Fraud Analyst" stay, and a security word always wins, so "IT Security Analyst I" is in.
 
 ### An internship, new-grad or early-career role
 
@@ -24,13 +28,21 @@ The title has to say so:
 
 - **Internship:** intern, internship, co-op, summer analyst, student trainee, or a season with a cohort year such as "Summer 2027".
 - **New grad:** new grad, university or college grad, graduate, rotational, early talent, a development or pathways program, or a cohort year such as "2027".
-- **Early career:** junior, associate, entry level, early career, apprentice, tier or level 1 and 2, or a level I or II after the job noun ("SOC Analyst II").
+- **Early career:** junior or jr, associate, entry level, early career, apprentice, tier or level 1 and 2 (also "Level I" or "Level II"), L1 or L2, or a level I or II after the job noun ("SOC Analyst II", "Security Analyst - I", "Security Analyst (I)").
 
-Two kinds of title with no level word can still get in, and both need the posting to show an early-career level, such as "0 to 2 years", a stated floor of 2 years or less, or "no experience required": an AI security or safety role, and a role at a security company.
+A title posted at several levels that reach III or 3, such as "Cyber Analyst II / III", "SOC Analyst Tier 1-3" or "Cybersecurity Analyst (Level 2 or 3)", may be hired at the senior level. It gets in only when the posting's description is available and its easiest route passes the years rule below, as in "Level 2: Bachelor's + 2 years ... Level 3: Bachelor's + 5 years".
+
+Two kinds of title with no level word can still get in:
+
+- **An AI security or safety role** needs the posting to show an early-career level: a ceiling such as "0 to 2 years" or "no experience required", or a stated floor of 2 years or less.
+- **A role at a security company** needs a ceiling such as "0 to 2 years", "less than 2 years" or "no experience required". A stated floor of 2 years or less is not enough on its own.
+
+A description that mentions new graduates only in passing ("from recent graduates to industry veterans") does not level a title. It has to address the reader, as in "open to recent graduates" or "a new grad role".
 
 **Years of experience.** A full-time role gets in when the posting's required floor is 2 years or less. The floor is what the posting requires, not the most it mentions:
 
-- Preferred or nice-to-have qualifications do not count.
+- Preferred or nice-to-have qualifications do not count, including a count the posting marks "preferred" or "ideally".
+- Counts about the employer ("our 50+ years of experience") or an age bar ("at least 21 years old") do not count.
 - A range counts from its low end, so "2 to 4 years" passes.
 - When a posting offers routes by degree ("BS and 5 years, or MS and 3, or PhD and 0"), the easiest route counts.
 - A stated ceiling of 0 to 2 years, or "no experience required", wins over any other bullet.
@@ -40,10 +52,11 @@ So an "Analyst II" posting that asks for 2 years is in, and a "Security Engineer
 
 **Titles that are always out:**
 
-- **Seniority:** senior, sr, staff, principal, lead, manager, director, VP, head of, chief, distinguished, fellow, executive, expert, SME, supervisor, leader, and level III or IV (3 or 4). Architect titles are out unless the title also says new grad, intern, associate, junior, entry level or early career.
-- **Physical and facility security:** security guard, physical security, video security, industrial or personnel security, executive protection, transportation security, protective services, and "Security Officer" unless it names information security or cyber.
-- **Business functions:** sales (a sales engineer is not a sales role), account executive or manager, marketing, recruiting and HR, customer success and support, business development, finance, accounting, billing, procurement, internal audit, SOX, legal, and administrative and facilities roles.
-- **Hardware and manufacturing:** ASIC, SoC design or verification, silicon, chip design, and mechanical, electrical, chemical, industrial, civil or process engineering.
+- **Seniority:** senior, sr, staff, principal, lead, manager, director, VP, head of, chief, distinguished, fellow, executive, expert, SME, supervisor, leader, level III or IV (3 or 4), and L3 or L4. Architect titles are out unless the title also says new grad, intern, associate, junior, entry level or early career. "Member of Technical Staff", "Associate Staff" and "Office of the Chief Information Security Officer" name a level or a team, not a senior role.
+- **Physical and facility security:** security guard, physical security, video security, industrial or personnel security, executive protection, transportation security, protective services, security forces, security badging, and "Security Officer" unless it names information security or cyber.
+- **Security that is not information security:** social, food, energy, border, homeland, national, campus, event or corporate security, unless the title also names cyber work ("Cybersecurity Intern, Homeland Security" is in). A corporate security engineer secures the company's own IT and counts.
+- **Business functions:** sales (a sales engineer is not a sales role), account executive or manager, marketing, recruiters and talent acquisition, customer success, business development, accounting, internal audit, SOX, legal, and administrative and facilities roles. Finance, treasury, revenue, billing, human resources, payroll, procurement, supply chain, customer support, recruiting and workplace are out unless the title also names security work, as in "Security Engineer I, Payments & Billing" or "Security Engineer I, Workplace Technology".
+- **Hardware and manufacturing:** ASIC, SoC design or verification, chip design, and mechanical, electrical, chemical, industrial, civil or process engineering. Silicon is out unless the title names security work, as in "Silicon Security Researcher".
 - **Placeholder postings:** talent communities, talent networks, general interest, and hackathons.
 - **Roles a student cannot apply to:** return offers for current interns (intern conversion, return intern), DoD SkillBridge slots for active-duty members, hiring events, and an internship whose season has already passed.
 - **Retail and plant security:** asset protection, security licence postings, and hourly shift work with a pay rate in the title.
@@ -55,7 +68,7 @@ The role is in the US or remote within the US. The form accepts:
 - `City, ST`, for example `Arlington, VA`
 - a full state name, for example `Arlington, Virginia`
 - `Arlington VA` and `Washington, D.C.`
-- `Remote (US)` or `Remote`, and `United States`
+- `Remote (US)` or `Remote`, and `United States`. A remote scope that names another region, such as `Remote (Europe)` or `Remote (Worldwide)`, is out.
 
 Separate several locations with `;` or put one per line. The bot shows the form it will store, such as `Arlington, VA`. A foreign location next to a US one is dropped, and a role with no US location is out.
 

@@ -203,19 +203,6 @@
     "closed_date": "2026-09-19"
   },
   {
-    "company": "GDIT",
-    "role": "Security Specialist - Administrative (Junior)",
-    "location": "Dayton, OH",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
     "company": "Leidos",
     "role": "Junior Cyber Analyst",
     "location": "Fort Meade, MD",
@@ -489,39 +476,6 @@
   },
   {
     "company": "Nightwing",
-    "role": "Software Engineer 2",
-    "location": "Annapolis Junction, MD",
-    "type": "earlycareer",
-    "category": "Engineering @ Security Co",
-    "clearance": true,
-    "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/Software-Engineer-2_JR101119",
-    "source": "Workday",
-    "date_added": "2026-07-12"
-  },
-  {
-    "company": "Nightwing",
-    "role": "Software Engineer 1",
-    "location": "Annapolis Junction, MD",
-    "type": "earlycareer",
-    "category": "Engineering @ Security Co",
-    "clearance": true,
-    "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/Software-Engineer-1_JR100150",
-    "source": "Workday",
-    "date_added": "2026-07-12"
-  },
-  {
-    "company": "Nightwing",
-    "role": "Cloud Software Engineer 2",
-    "location": "Annapolis Junction, MD",
-    "type": "earlycareer",
-    "category": "Engineering @ Security Co",
-    "clearance": true,
-    "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/Cloud-Software-Engineer-2_01672571",
-    "source": "Workday",
-    "date_added": "2026-07-12"
-  },
-  {
-    "company": "Nightwing",
     "role": "Junior Software Engineer  (SWE0)",
     "location": "Annapolis Junction, MD",
     "type": "earlycareer",
@@ -606,17 +560,6 @@
     "closed_date": "2026-09-19"
   },
   {
-    "company": "CACI",
-    "role": "Networking Security Engineer II",
-    "location": "Columbia, MD",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "https://caci.wd1.myworkdayjobs.com/External/job/Columbia-MD-US/Networking-Security-Engineer-II_326776",
-    "source": "Workday",
-    "date_added": "2026-07-12"
-  },
-  {
     "company": "Amazon",
     "role": "Software Engineer, AI Security",
     "location": "New York, NY",
@@ -667,17 +610,6 @@
     "date_added": "2026-07-12",
     "closed": true,
     "closed_date": "2026-09-19"
-  },
-  {
-    "company": "Nightwing",
-    "role": "Systems Engineer 1",
-    "location": "Annapolis Junction, MD",
-    "type": "earlycareer",
-    "category": "Engineering @ Security Co",
-    "clearance": true,
-    "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/Systems-Engineer-1_JR100157",
-    "source": "Workday",
-    "date_added": "2026-07-12"
   },
   {
     "company": "Nightwing",
@@ -826,17 +758,6 @@
     "closed_date": "2026-09-19"
   },
   {
-    "company": "Nightwing",
-    "role": "Systems Engineer 2",
-    "location": "Annapolis Junction, MD",
-    "type": "earlycareer",
-    "category": "Engineering @ Security Co",
-    "clearance": true,
-    "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/Systems-Engineer-2_JR101496",
-    "source": "Workday",
-    "date_added": "2026-07-16"
-  },
-  {
     "company": "Northrop Grumman",
     "role": "Cybersecurity Analyst- Level 1 or 2",
     "location": "Schriever AFB, CO",
@@ -889,19 +810,6 @@
     "closed_date": "2026-09-19"
   },
   {
-    "company": "Palo Alto Networks",
-    "role": "AIRS Solutions Specialist - AI Security",
-    "location": "Remote (US)",
-    "type": "earlycareer",
-    "category": "AI Security & Safety",
-    "clearance": false,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-17",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
     "company": "Amazon",
     "role": "Data Engineer II, GTPC Tech, Compliance & Assurance, AWS Security",
     "location": "New York, NY",
@@ -918,7 +826,7 @@
     "company": "Osano",
     "role": "Jr IT Analyst (part-time)",
     "location": "United States",
-    "type": "newgrad",
+    "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
     "url": "",
@@ -955,19 +863,6 @@
     "location": "Plano, TX",
     "type": "earlycareer",
     "category": "AppSec & ProdSec",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-18",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "Sierra Nevada Corporation",
-    "role": "Security Specialist II",
-    "location": "Colorado Springs, CO",
-    "type": "earlycareer",
-    "category": "Security Engineering",
     "clearance": true,
     "url": "",
     "source": "Workday",
@@ -2223,17 +2118,6 @@
     "date_added": "2026-09-05"
   },
   {
-    "company": "Palo Alto Networks",
-    "role": "Professional Services Consultant, AI Security",
-    "location": "Seattle, WA; OK (US); TX (US); CA (US); VA (US); FL (US)",
-    "type": "earlycareer",
-    "category": "AI Security & Safety",
-    "clearance": false,
-    "url": "https://paloaltonetworks.wd5.myworkdayjobs.com/panwexternalcareers/job/Seattle-United-States-of-America/Professional-Service-Staff-Consultant_JR-016827",
-    "source": "Workday",
-    "date_added": "2026-09-05"
-  },
-  {
     "company": "PayPal",
     "role": "Cybersecurity Engineer - Recent Graduate",
     "location": "San Jose, CA; Austin, TX",
@@ -2760,19 +2644,6 @@
     "date_added": "2026-09-10"
   },
   {
-    "company": "KBR",
-    "role": "Associate Security Specialist",
-    "location": "Chantilly, VA",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-09-10",
-    "closed": true,
-    "closed_date": "2026-09-25"
-  },
-  {
     "company": "Northrop Grumman",
     "role": "2027 Spring Co-op Cyber Software Engineer\u00a0Intern - Cincinnati OH",
     "location": "Cincinnati, OH",
@@ -2795,19 +2666,6 @@
     "url": "",
     "source": "Oracle",
     "date_added": "2026-09-10",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "SAIC",
-    "role": "Security Associate",
-    "location": "Fairmont, WV",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "",
-    "source": "Oracle",
-    "date_added": "2026-09-11",
     "closed": true,
     "closed_date": "2026-09-19"
   },
@@ -3444,17 +3302,6 @@
     "closed_date": "2026-09-27"
   },
   {
-    "company": "RTX",
-    "role": "Security Specialist II",
-    "location": "Cambridge, MA",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MA-CAMBRIDGE-BBN04--10--50-Moulton-St--MOULTON-B4/Security-Specialist-II_01877097",
-    "source": "Workday",
-    "date_added": "2026-09-22"
-  },
-  {
     "company": "Duke Energy",
     "role": "Associate Cybersecurity Governance & Risk Analyst",
     "location": "Charlotte, NC",
@@ -3577,17 +3424,6 @@
     "clearance": false,
     "url": "https://jobs.ashbyhq.com/delinea/544e1b85-1961-4269-86dd-a4b011f34948",
     "source": "Ashby",
-    "date_added": "2026-09-23"
-  },
-  {
-    "company": "CrowdStrike",
-    "role": "Engineer II - Vulnerability Management (Hybrid)",
-    "location": "Sunnyvale, CA",
-    "type": "earlycareer",
-    "category": "Engineering @ Security Co",
-    "clearance": false,
-    "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Sunnyvale-CA/Sr-Vulnerability-Management-Engineer--Remote-_R25646",
-    "source": "Workday",
     "date_added": "2026-09-23"
   },
   {
@@ -3728,19 +3564,6 @@
     "source": "Ashby",
     "date_added": "2026-09-25",
     "missing_since": "2026-09-30"
-  },
-  {
-    "company": "JPMorgan Chase",
-    "role": "Security Operations Associate",
-    "location": "Seattle, WA",
-    "type": "earlycareer",
-    "category": "SOC & Detection",
-    "clearance": false,
-    "url": "",
-    "source": "Oracle",
-    "date_added": "2026-09-25",
-    "closed": true,
-    "closed_date": "2026-09-28"
   },
   {
     "company": "Arctic Wolf",
@@ -4920,6 +4743,39 @@
     "clearance": true,
     "url": "https://careers.mitre.org/us/en/job/R115645",
     "source": "Phenom",
+    "date_added": "2026-09-30"
+  },
+  {
+    "company": "RTX",
+    "role": "Internship \u2013 Raytheon Systems Security Engineer -Onsite",
+    "location": "Marlborough, MA",
+    "type": "intern",
+    "category": "Cloud & Infra Security",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MA-MARLBOROUGH-MA2--1001-Boston-Post-Rd--BLDG-2/Internship---Raytheon-Systems-Security-Engineer--Onsite_01874700",
+    "source": "Workday",
+    "date_added": "2026-09-30"
+  },
+  {
+    "company": "RTX",
+    "role": "Software Security Engineer - II, Onsite",
+    "location": "Goleta, CA",
+    "type": "earlycareer",
+    "category": "AppSec & ProdSec",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-GOLETA-H03--6380-Hollister-Ave--BLDG-H03/Software-Security-Engineer---II--Onsite_01876900",
+    "source": "Workday",
+    "date_added": "2026-09-30"
+  },
+  {
+    "company": "Fortinet",
+    "role": "Jr. QC Engineer",
+    "location": "Union City, CA",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://edel.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/21624",
+    "source": "Oracle",
     "date_added": "2026-09-30"
   }
 ]

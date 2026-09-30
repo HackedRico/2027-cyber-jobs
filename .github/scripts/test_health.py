@@ -119,6 +119,34 @@ check('check_outputs prints the known problem as a warning',
 code, out = run_check_outputs([row(), BAD, row(type='x')], baseline=[BAD])
 check('check_outputs still fails on a new problem beside a known one', code, 1)
 
+
+# --- check_outputs.check_against_baseline --------------------------------------
+def board(n):
+    return [row(role=f'SOC Analyst I {i}', url=f'https://boards.greenhouse.io/acme/jobs/{i}')
+            for i in range(n)]
+
+
+BASE = board(100)
+check('a clean run passes', co.check_against_baseline(BASE + [row()], BASE), [])
+senior = row(role='Senior Security Engineer', url='https://boards.greenhouse.io/acme/jobs/900')
+london = row(location='London, UK', url='https://boards.greenhouse.io/acme/jobs/901')
+check('a new scraped row the charter rejects is a problem',
+      len(co.check_against_baseline(BASE + [senior, london], BASE)), 2)
+check('a new Community row is not re-judged',
+      co.check_against_baseline(BASE + [dict(london, source='Community')], BASE), [])
+check('a row already open on main is not re-judged',
+      co.check_against_baseline(BASE + [senior], BASE + [senior]), [])
+closed = [dict(e, url='', closed=True) if i < 30 else e for i, e in enumerate(BASE)]
+check('closing 30 of 100 open rows in one run is a problem',
+      len(co.check_against_baseline(closed, BASE)), 1)
+check('unless the run allows a mass close',
+      co.check_against_baseline(closed, BASE, allow_mass_close=True), [])
+check('dropping 20 of 100 is ordinary churn', co.check_against_baseline(BASE[:80], BASE), [])
+check('a small board needs MASS_CLOSE_MIN closures before it trips',
+      co.check_against_baseline(board(40)[:20], board(40)), [])
+code, out = run_check_outputs(closed, baseline=BASE)
+check('check_outputs fails a mass close', (code, 'open rows closed or dropped' in out), (1, True))
+
 README = """# Board
 <!-- STATS -->
 **1** open roles tracked · updated January 1, 2026
@@ -270,6 +298,32 @@ check('plan reopens a closed issue when problems return',
       (calls[0][2]['state'], 'New' in calls[1][2]['body']), ('open', True))
 check('previous_state tolerates a hand-edited body',
       hc.previous_state({'body': '<!-- health-state: [broken -->'}), set())
+
+
+# --- run lookups read the unfiltered list (#44) --------------------------------
+class FakeRuns:
+    def __init__(self, runs):
+        self.runs, self.paths = runs, []
+
+    def repo_path(self, path):
+        return path
+
+    def call(self, method, path, body=None, ok=()):
+        self.paths.append(path)
+        return {'workflow_runs': self.runs}
+
+
+gh = FakeRuns([
+    {'status': 'in_progress', 'conclusion': None, 'updated_at': '2026-09-30T14:00:00Z'},
+    {'status': 'completed', 'conclusion': 'skipped', 'updated_at': '2026-09-30T13:50:00Z'},
+    {'status': 'completed', 'conclusion': 'success', 'updated_at': '2026-09-30T13:46:59Z'},
+    {'status': 'completed', 'conclusion': 'failure', 'updated_at': '2026-09-29T02:00:00Z'},
+])
+check('the last success skips runs still going', hc.last_successful_scrape(gh),
+      datetime(2026, 9, 30, 13, 46, 59, tzinfo=UTC))
+check('no request uses the lagging status filter', any('status=' in p for p in gh.paths), False)
+check('the latest writer run skips in-progress and skipped runs',
+      {r['conclusion'] for r in hc.latest_writer_runs(gh).values()}, {'success'})
 
 
 if failures:

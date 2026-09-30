@@ -12,8 +12,9 @@ import html
 import json
 import re
 import time
-from datetime import datetime
+from datetime import date, datetime
 from pathlib import Path
+from urllib.parse import urlsplit
 
 import rebuild_readme
 import requests
@@ -39,6 +40,19 @@ HEADERS = {
 # Only "not found" and "gone" mean the posting is dead. Across 9 runs the old
 # any-4xx rule found 7 dead links in 1,978; a 403 from a bot wall is not one.
 DEAD_STATUSES = frozenset({404, 410})
+
+# A 200 that only reads as missing: a not-found or empty <title>, or a redirect
+# that dropped the req id. It is weaker evidence than a real 404, since a
+# single-page app can serve an empty title while it loads, so it has to hold
+# for SOFT_DEAD_DAYS distinct days instead of two.
+SOFT_404 = 'soft-404'
+SOFT_DEAD_DAYS = 3
+
+# A Community row no scraper watches can sit open on a live-looking page long
+# after the cohort filled. Four months covers a fall recruiting season.
+COMMUNITY_MAX_AGE_DAYS = 120
+
+REQ_TOKEN_RE = re.compile(r'\d{4,}')
 
 REQUEST_DELAY = 0.75
 
@@ -79,10 +93,25 @@ def is_soft_404(resp):
     return not title or bool(SOFT_404_TITLE_RE.search(title))
 
 
+def lost_req_on_redirect(url, final_url):
+    """True when a redirect landed on a page without the posting's req id.
+
+    Greenhouse sends a closed req to the board root with ?error=true, and many
+    career sites send one to their search page, both answering 200. A URL with
+    no id of four or more digits says nothing either way.
+    """
+    if 'error=true' in urlsplit(final_url).query.lower():
+        return True
+    parts = urlsplit(url)
+    tokens = REQ_TOKEN_RE.findall(parts.path + '?' + parts.query)
+    return bool(tokens) and tokens[-1] not in final_url
+
+
 def fetch_status(url, soft_404=False):
     """HTTP status for url, or None when the request itself failed.
 
-    With `soft_404`, a 200 page that `is_soft_404` reads as missing counts as 404.
+    With `soft_404`, a 200 page that `is_soft_404` reads as missing, or that a
+    redirect reached without the req id, returns SOFT_404.
     """
     try:
         resp = requests.get(url, timeout=12, allow_redirects=True, headers=HEADERS)
@@ -91,7 +120,11 @@ def fetch_status(url, soft_404=False):
         return None
     if soft_404 and is_soft_404(resp):
         print(f'  Soft 404 (page title reads as missing): {url}')
-        return 404
+        return SOFT_404
+    if (soft_404 and resp.status_code == 200 and resp.history
+            and lost_req_on_redirect(url, resp.url)):
+        print(f'  Soft 404 (redirected to {resp.url}): {url}')
+        return SOFT_404
     return resp.status_code
 
 
@@ -99,16 +132,38 @@ def record_result(entry, status, today):
     """Update one row's dead streak; return True when this result closes it.
 
     A dead status must repeat on a later day before the row closes, so one bad
-    deploy on an employer's careers site does not padlock a live posting. Any
-    other answer, a network error included, resets the streak.
+    deploy on an employer's careers site does not padlock a live posting. A
+    SOFT_404 must hold across SOFT_DEAD_DAYS distinct days. Any other answer,
+    a network error included, resets the streak.
     """
-    if status not in DEAD_STATUSES:
+    if status not in DEAD_STATUSES and status != SOFT_404:
         entry.pop('dead_since', None)
         return False
     first_dead = entry.get('dead_since')
     if not first_dead or first_dead >= today:
         entry['dead_since'] = first_dead or today
         return False
+    if status == SOFT_404 and _days_between(first_dead, today) < SOFT_DEAD_DAYS - 1:
+        return False
+    _close(entry, today)
+    return True
+
+
+def is_aged_out(entry, today):
+    """True for an open Community row older than COMMUNITY_MAX_AGE_DAYS."""
+    if entry.get('source') != 'Community' or not entry.get('date_added'):
+        return False
+    return _days_between(entry['date_added'], today) >= COMMUNITY_MAX_AGE_DAYS
+
+
+def _days_between(start, end):
+    try:
+        return (date.fromisoformat(end) - date.fromisoformat(start)).days
+    except ValueError:
+        return 0
+
+
+def _close(entry, today):
     # Blanking the url renders 🔒 and lets the scraper's revive path match the
     # row by title; last_url keeps the link for anyone auditing the closure.
     entry['last_url'] = entry['url']
@@ -117,7 +172,6 @@ def record_result(entry, status, today):
     entry.setdefault('closed_date', today)
     entry.pop('dead_since', None)
     entry.pop('missing_since', None)
-    return True
 
 
 def main():
@@ -131,6 +185,11 @@ def main():
     closed = 0
     for entry in targets:
         url = entry['url'].strip()
+        if is_aged_out(entry, today):
+            _close(entry, today)
+            closed += 1
+            print(f'  AGED OUT (added {entry["date_added"]}): {url}')
+            continue
         if should_skip(url):
             print(f'  SKIP (bot-blocked domain): {url}')
             continue
