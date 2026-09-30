@@ -274,7 +274,7 @@ def check_container(data, key, label):
     an empty board unless surfaced.
     """
     if isinstance(data, dict) and key not in data:
-        print(f'::warning::[{label}] response missing expected key {key!r} '
+        print(f'::warning::[{_oneline(label)}] response missing expected key {key!r} '
               f'(schema drift?); got keys {sorted(data)[:8]}')
 
 
@@ -862,10 +862,10 @@ def workday_posting_state(url):
 def scrape_workday(company, tenant, instance, board, security_company=False,
                    extra_terms=None):
     if not _valid_slug(tenant) or not _valid_slug(instance):
-        print(f'  [{company}] invalid workday tenant/instance — skipping')
+        print(f'  [{_oneline(company)}] invalid workday tenant/instance — skipping')
         return None
     if board and not _valid_slug(board):
-        print(f'  [{company}] invalid workday board {board!r} — skipping')
+        print(f'  [{_oneline(company)}] invalid workday board {board!r} — skipping')
         return None
     if board:
         cxs_root = f'https://{tenant}.{instance}.myworkdayjobs.com/wday/cxs/{tenant}/{board}'
@@ -1173,7 +1173,7 @@ def scrape_eightfold(company, tenant, domain, security_company=False,
     candidates so the experience gate can run.
     """
     if not _valid_slug(tenant) or not _valid_host(domain):
-        print(f'  [{company}] invalid eightfold tenant/domain — skipping')
+        print(f'  [{_oneline(company)}] invalid eightfold tenant/domain — skipping')
         return None
     root = f'https://{tenant}.eightfold.ai'
     headers = {**HEADERS, 'Accept': 'application/json'}
@@ -1267,7 +1267,7 @@ def scrape_phenom(company, host, lang, country, security_company=False,
     the same endpoint's jobDetail call, for title-level candidates only.
     """
     if not _valid_host(host) or not _valid_slug(lang) or not _valid_slug(country):
-        print(f'  [{company}] invalid phenom host/lang/country — skipping')
+        print(f'  [{_oneline(company)}] invalid phenom host/lang/country — skipping')
         return None
     api = f'https://{host}/widgets'
     headers = {**HEADERS, 'Content-Type': 'application/json',
@@ -1400,7 +1400,7 @@ def scrape_jibe(company, host, extra_terms=None):
     iCIMS login wall.
     """
     if not _valid_host(host):
-        print(f'  [{company}] invalid jibe host {host!r}, skipping')
+        print(f'  [{_oneline(company)}] invalid jibe host {host!r}, skipping')
         return None
     api = f'https://{host}/api/jobs'
     headers = {**HEADERS, 'Accept': 'application/json'}
@@ -2187,7 +2187,7 @@ def report_board_health(board_stats, today=None, persist=True):
 
     history, regressed, dead = board_health(board_stats, load_board_baseline(), today)
     for label, was in regressed:
-        print(f'::warning::[{label}] returned 0 postings but had {was} last run '
+        print(f'::warning::[{_oneline(label)}] returned 0 postings but had {was} last run '
               f'(broken slug or ATS drift?)')
     if dead:
         # One aggregated annotation, not one per board: a long-neglected config
@@ -2203,14 +2203,14 @@ def report_board_health(board_stats, today=None, persist=True):
         f'- Raw postings fetched: **{total_raw}**',
     ]
     if broken:
-        lines.append('- ⚠️ Failed/crashed: ' + ', '.join(b['label'] for b in broken))
+        lines.append('- ⚠️ Failed/crashed: ' + ', '.join(_oneline(b['label']) for b in broken))
     if regressed:
         lines.append('- ⚠️ Regressed to zero: '
-                     + ', '.join(label for label, _ in regressed))
+                     + ', '.join(_oneline(label) for label, _ in regressed))
     if dead:
         lines += ['', f'<details><summary>💀 Silent for {ZERO_RUN_ALERT}+ runs '
                       f'({len(dead)})</summary>', '']
-        lines += [f'- `{label}` — {runs} runs, '
+        lines += [f'- `{_oneline(label)}` — {runs} runs, '
                   + (f'last postings {last}' if last else 'no postings on record')
                   for label, runs, last in dead]
         lines += ['', '</details>']
@@ -2351,7 +2351,7 @@ def run_board(task):
         # One misbehaving board must not take the rest of the run down with it;
         # the summary reports it as CRASHED and the baseline check flags a
         # board that stays broken.
-        print(f'  [{task.label}] Scraper crashed: {_oneline(e)}')
+        print(f'  [{_oneline(task.label)}] Scraper crashed: {_oneline(e)}')
         status = 'CRASHED'
     else:
         if found is None:
@@ -2530,7 +2530,7 @@ def main():
     tasks = build_tasks(config, board=args.board, limit=args.limit)
     started = time.monotonic()
     for result in scrape_boards(tasks):
-        print(f'Checking {result["label"]}... {result["status"]} '
+        print(f'Checking {_oneline(result["label"])}... {result["status"]} '
               f'({result["count"]} postings, {result["seconds"]:.1f}s)')
         for job in result['jobs']:
             sec_flags[job['id']] = result['security_company']
@@ -2566,7 +2566,7 @@ def main():
     # Let classifier improvements reach already-scraped listings (title-only).
     listings, reclass_changes, rejected = reclassify_listings(listings, company_flags)
     for company, role, old, new in reclass_changes:
-        print(f'  RECLASSIFY [{old} -> {new}] {company} — {role}')
+        print(f'  RECLASSIFY [{old} -> {new}] {_oneline(company)} — {_oneline(role)}')
     reclassified = len(reclass_changes)
 
     # Re-judge each row against its live posting with the full pipeline, so a

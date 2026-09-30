@@ -2623,6 +2623,18 @@ def test_control_characters_never_reach_a_row():
     check('a second pass has nothing to do', sj.scrub_control_characters(stored), 0)
 
 
+@responses.activate
+def test_log_lines_cannot_start_a_workflow_command():
+    """A stored role reaches the RECLASSIFY line, which printed it raw."""
+    responses.get('https://boards-api.greenhouse.io/v1/boards/acme/jobs', json={'jobs': []})
+    row = _listing('Acme', 'Security Analyst I\n::error::pwned', 'https://x/1', type='newgrad')
+    out, _ = _run_main('greenhouse:\n  - name: Acme\n    slug: acme\n', [row],
+                       ['--dry-run', '--board', 'greenhouse'])
+    check('the reclassify line is printed', 'RECLASSIFY [newgrad -> earlycareer]' in out, True)
+    check('no log line starts a workflow command',
+          [line for line in out.splitlines() if line.startswith('::error')], [])
+
+
 for fn in (test_greenhouse_location_reads_only_location_fields,
            test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_lever_reads_all_locations,
@@ -2701,7 +2713,8 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_apply_links_stay_on_the_vendor_or_listed_hosts,
            test_host_validation_pins_oracle_and_refuses_local_hosts,
            test_payload_paths_cannot_name_another_host,
-           test_control_characters_never_reach_a_row):
+           test_control_characters_never_reach_a_row,
+           test_log_lines_cannot_start_a_workflow_command):
     fn()
 
 if failures:
