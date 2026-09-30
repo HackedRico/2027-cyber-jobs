@@ -233,11 +233,82 @@ def test_smartrecruiters_missing_total_keeps_paging():
                           'location': {'country': 'us', 'city': 'Austin', 'region': 'TX'}}
                          for i in range(100)]}  # full page, NO totalFound
     page2 = {'content': [{'id': 'x', 'name': 'Security Analyst',
-                          'location': {'remote': True}}]}  # short page -> stop
+                          'location': {'country': 'us', 'remote': True}}]}  # short page
     responses.get('https://api.smartrecruiters.com/v1/companies/Acme/postings', json=page1)
     responses.get('https://api.smartrecruiters.com/v1/companies/Acme/postings', json=page2)
     jobs = sj.scrape_smartrecruiters('Acme', 'Acme')
     check('smartrecruiters paged past a full first page with no total', len(jobs), 101)
+
+
+@responses.activate
+def test_smartrecruiters_remote_is_us_only_for_us_postings():
+    """Sectigo's remote 'Software Engineer (Java)' is in Iasi, Romania."""
+    def posting(pid, name, **loc):
+        return {'id': pid, 'name': name, 'location': loc}
+    responses.get('https://api.smartrecruiters.com/v1/companies/Sectigo/postings', json={
+        'totalFound': 4, 'content': [
+            posting('1', 'Software Engineer (Java)', city='Iași', region='IS', country='ro',
+                    remote=True, fullLocation='Iași, IS, Romania'),
+            posting('2', 'Network Engineer', city='Manchester', region='England',
+                    country='gb', remote=True),
+            posting('3', 'Channel Sales Engineer', city='Austin', region='TX', country='us',
+                    remote=True),
+            posting('4', 'Security Analyst', city='Roseland', region='NJ', country='us',
+                    remote=False)]})
+    jobs = sj.scrape_smartrecruiters('Sectigo', 'Sectigo')
+    check('smartrecruiters skips remote postings outside the US',
+          [(j['title'], j['location']) for j in jobs],
+          [('Channel Sales Engineer', 'Remote (US)'), ('Security Analyst', 'Roseland, NJ')])
+
+
+RECRUITEE_API = 'https://aikidosecurity.recruitee.com/api/offers/'
+
+
+def _recruitee_offer(oid, title, sites, remote=False, **extra):
+    """An offer in the live shape: flat fields from the first site plus `locations`."""
+    code, state, city, country = sites[0]
+    offer = {'id': oid, 'slug': f'offer-{oid}', 'title': title, 'remote': remote,
+             'city': city, 'country': country, 'country_code': code, 'state_code': state,
+             'state_name': state, 'careers_url': f'https://aikidosecurity.recruitee.com/o/{oid}',
+             'locations': [{'country_code': c, 'state_code': s, 'city': ci, 'country': co}
+                           for c, s, ci, co in sites],
+             'description': '<p>Join the team.</p>', 'requirements': ''}
+    offer.update(extra)
+    return offer
+
+
+@responses.activate
+def test_recruitee_reads_state_sites_and_description():
+    """Aikido's remote Customer Success Engineers in Romania and Dubai read as US."""
+    ro = ('RO', 'B', 'Bucharest', 'Romania')
+    responses.get(RECRUITEE_API, json={'offers': [
+        _recruitee_offer(1, 'Customer Success Engineer Romania', [ro], remote=True),
+        _recruitee_offer(2, 'Customer Success Engineer Dubai',
+                         [('AE', 'DU', 'Dubai', 'United Arab Emirates')], remote=True),
+        _recruitee_offer(3, 'Security Engineer I', [('US', 'VA', 'Herndon', 'United States')],
+                         requirements='<p>0 to 2 years of experience.</p>'),
+        _recruitee_offer(4, 'Channel Business Manager Austin',
+                         [('US', 'TX', 'Austin', 'United States')], remote=True),
+        _recruitee_offer(5, 'Analyst Relations Lead',
+                         [('BE', 'VOV', 'Ghent', 'Belgium'),
+                          ('US', 'IL', 'Chicago', 'United States')]),
+        _recruitee_offer(6, 'Site Reliability Engineer', [('BE', 'VOV', 'Ghent', 'Belgium')]),
+    ]})
+    jobs = sj.scrape_recruitee('Aikido Security', 'aikidosecurity')
+    check('recruitee keeps only offers with a US site, remote or not',
+          [(j['title'], j['location']) for j in jobs],
+          [('Security Engineer I', 'Herndon, VA'),
+           ('Channel Business Manager Austin', 'Remote (US)'),
+           ('Analyst Relations Lead', 'Ghent, Belgium; Chicago, IL')])
+    check('a US city with its state code passes the US filter',
+          [sj.is_us_location(j['location']) for j in jobs], [True, True, True])
+    check('recruitee joins description and requirements', jobs[0]['description'],
+          '<p>Join the team.</p>\n<p>0 to 2 years of experience.</p>')
+    check('an offer with no requirements keeps its description alone',
+          jobs[1]['description'], '<p>Join the team.</p>')
+    check('a flat-field offer with no locations[] still reads its state',
+          sj.recruitee_location({'city': 'Herndon', 'country': 'United States',
+                                 'state_code': 'VA'}), 'Herndon, VA')
 
 
 # --- amazon splits its experience bars out of `description` -------------------
@@ -1770,6 +1841,8 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_slug_validation_blocks_host_reparenting,
            test_workday_total_failure_returns_none,
            test_smartrecruiters_missing_total_keeps_paging,
+           test_smartrecruiters_remote_is_us_only_for_us_postings,
+           test_recruitee_reads_state_sites_and_description,
            test_amazon_description_includes_qualifications,
            test_reevaluate_drops_rows_the_pipeline_now_rejects,
            test_reevaluate_refreshes_category_type_and_clearance,

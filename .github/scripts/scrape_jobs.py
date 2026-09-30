@@ -322,8 +322,12 @@ def scrape_smartrecruiters(company, identifier):
         if not content:
             break
         for job in content:
-            loc = job.get('location', {})
-            if loc.get('country', '').lower() != 'us' and not loc.get('remote'):
+            loc = job.get('location') or {}
+            # `remote` says nothing about the country: Sectigo's remote
+            # 'Software Engineer (Java)' is in Iasi, Romania and its remote
+            # 'Network Engineer' in Manchester, and both were stored as
+            # Remote (US).
+            if (loc.get('country') or '').lower() != 'us':
                 continue
             city = loc.get('city', '')
             region = loc.get('region', '')
@@ -456,18 +460,9 @@ def scrape_recruitee(company, slug):
     check_container(data, 'offers', f'{company} Recruitee')
     jobs = []
     for job in data.get('offers', []):
-        country = (job.get('country') or '').lower()
-        remote = job.get('remote', False)
-        if country not in ('us', 'united states') and not remote:
+        location = recruitee_location(job)
+        if not location:
             continue
-        city = job.get('city') or ''
-        region = job.get('province') or ''
-        if remote:
-            location = 'Remote (US)'
-        elif city and region:
-            location = f'{city}, {region}'
-        else:
-            location = city
         job_id = str(job.get('id', ''))
         jobs.append({
             'id': f'recruitee_{slug}_{job_id}',
@@ -477,8 +472,46 @@ def scrape_recruitee(company, slug):
             'url': job.get('careers_url',
                            f'https://{slug}.recruitee.com/o/{job.get("slug", job_id)}'),
             'board': 'Recruitee',
+            # The requirements block holds the years bar, so reading neither
+            # field kept every Recruitee posting out of the experience gate.
+            'description': '\n'.join(filter(None, (job.get('description'),
+                                                   job.get('requirements')))),
         })
     return jobs
+
+
+def _recruitee_country(site):
+    code = (site.get('country_code') or '').strip().upper()
+    if code:
+        return code
+    name = (site.get('country') or '').strip().lower()
+    return 'US' if name in ('us', 'usa', 'united states') else name
+
+
+def _recruitee_part(site):
+    city = (site.get('city') or '').strip()
+    if _recruitee_country(site) == 'US':
+        region = site.get('state_code') or site.get('state_name') or ''
+        return ', '.join(p for p in (city, region.strip()) if p) or 'United States'
+    # A foreign site keeps its country so the US filter can reject it.
+    country = site.get('country') or site.get('country_code') or ''
+    return ', '.join(p for p in (city, country.strip()) if p)
+
+
+def recruitee_location(job):
+    """Build a location from an offer's sites, or '' when none is in the US.
+
+    The offers API has `state_code`, not the `province` this once read, so a US
+    posting came out as a bare city ('Herndon') and failed the US check. And
+    `remote` names no country: Aikido's remote Customer Success Engineers in
+    Romania, Dubai and Sydney were stored as Remote (US).
+    """
+    if job.get('remote') and _recruitee_country(job) == 'US':
+        return 'Remote (US)'
+    sites = [s for s in job.get('locations') or [] if isinstance(s, dict)] or [job]
+    if not any(_recruitee_country(s) == 'US' for s in sites):
+        return ''
+    return '; '.join(dict.fromkeys(p for p in map(_recruitee_part, sites) if p))
 
 
 def scrape_pinpoint(company, slug):
