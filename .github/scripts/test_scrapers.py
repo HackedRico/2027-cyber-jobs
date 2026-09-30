@@ -1346,6 +1346,30 @@ def _partial_flags(jobs):
 
 
 @responses.activate
+def test_eightfold_prefers_a_city_over_a_state_only_standardized_location():
+    """Lockheed 'Software Cyber Engineer - SWE 0' read 'MD,US' for Hanover, MD."""
+    def pos(pid, std, raw):
+        return {'id': pid, 'name': 'Software Cyber Engineer - SWE 0',
+                'standardizedLocations': std, 'locations': raw}
+    _ef_search('cyber', 0, json=_ef_page([
+        pos(1, ['MD,US'], ['Hanover, MD']),
+        pos(2, ['MD,US', 'Orlando, FL, US'], ['Annapolis Junction, MD', 'Orlando, FL']),
+        pos(3, ['Redmond, WA, US'], ['United States, Washington, Redmond']),
+        pos(4, ['US', 'Redmond, WA, US'],
+            ['United States, Multiple Locations, Multiple Locations',
+             'United States, Washington, Redmond']),
+        pos(5, [], ['Hanover, MD'])], 5))
+    for term in ('intern', 'early career'):
+        _ef_search(term, 0, json=_ef_page([], 0))
+    responses.get(EF_DETAIL, json={'data': {}})
+    jobs = sj.scrape_eightfold('Lockheed Martin', 'acme', 'acme.com')
+    check('eightfold takes the raw twin of a state-only standardized entry',
+          [j['location'] for j in jobs],
+          ['Hanover, MD', 'Annapolis Junction, MD; Orlando, FL, US', 'Redmond, WA, US',
+           'US; Redmond, WA, US', 'Hanover, MD'])
+
+
+@responses.activate
 def test_eightfold_flags_a_cut_short_sweep():
     """Microsoft 'security' matches 970 postings against a 500 cap."""
     def run(max_pages):
@@ -2081,6 +2105,7 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_eightfold_schema_drift_is_empty_not_crash,
            test_phenom_paginates_and_fetches_details,
            test_phenom_caps_pages_on_a_fuzzy_match, test_phenom_none_vs_empty,
+           test_eightfold_prefers_a_city_over_a_state_only_standardized_location,
            test_eightfold_flags_a_cut_short_sweep, test_phenom_flags_a_cut_short_sweep,
            test_jibe_paginates_maps_fields_and_keeps_the_crawl_delay,
            test_jibe_none_vs_empty, test_jibe_retries_429_and_flags_a_cut_short_sweep,

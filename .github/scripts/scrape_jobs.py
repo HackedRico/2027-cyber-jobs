@@ -931,6 +931,24 @@ def _needs_detail(title, security_company):
     return classify_level(title) is not None or bool(AI_CATEGORY_RE.search(title.lower()))
 
 
+_STATE_ONLY_RE = re.compile(r'^\s*[A-Z]{2}\s*,\s*[A-Z]{2}\s*$')
+
+
+def _eightfold_locations(pos):
+    # The standardized list is cleaner ('Orlando, FL, US' over Microsoft's
+    # 'United States, Washington, Redmond') but sometimes drops the city:
+    # Lockheed's Hanover and Annapolis Junction reqs read 'MD,US' there. The
+    # two lists run in parallel, so a state-only entry takes its raw twin.
+    std = pos.get('standardizedLocations') or []
+    raw = pos.get('locations') or []
+    if not std:
+        return raw
+    if len(std) == len(raw):
+        return [r if isinstance(s, str) and _STATE_ONLY_RE.match(s) and r else s
+                for s, r in zip(std, raw, strict=True)]
+    return std
+
+
 def scrape_eightfold(company, tenant, domain, security_company=False,
                      extra_terms=None):
     """Eightfold PCSX careers search (`<tenant>.eightfold.ai/careers`).
@@ -983,7 +1001,7 @@ def scrape_eightfold(company, tenant, domain, security_company=False,
                 levels = {str(v).strip().lower() for v in pos.get(EIGHTFOLD_LEVEL_FIELD) or []}
                 if levels & EIGHTFOLD_EXPERIENCED_LEVELS:
                     continue
-                locations = pos.get('standardizedLocations') or pos.get('locations') or []
+                locations = _eightfold_locations(pos)
                 jobs.append({
                     'id': f'eightfold_{tenant}_{pid}',
                     'company': company,
