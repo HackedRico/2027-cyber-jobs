@@ -374,6 +374,8 @@ GATES = [
     ('Security Sales Associate', 'Austin, TX', False, '"sales" marks a non-cyber function'),
     ('Security Officer I', 'Austin, TX', False, 'guard role'),
     ('Security Architect', 'Austin, TX', False, 'architect'),
+    ('Associate Solutions Architect, Security', 'Austin, TX', False, None),
+    ('Security Sales Engineer I', 'Austin, TX', False, None),
     # Rules added to is_rejected_title after the verdict's own copy of them,
     # which passed these titles while the scraper rejected them.
     ('Food Security Analyst I', 'Austin, TX', True, '"food security" is not information'),

@@ -274,7 +274,7 @@ CASES = [
 
     # -- bug fix: FUNCTION_REJECT short terms are word-bounded --
     ('Salesforce Security Engineer, New Grad', 'Austin, TX', '', False, ('newgrad', 'Security Engineering')),
-    # ...but a genuine sales role is still rejected.
+    # ...but a flat sales engineer title still needs a level signal.
     ('Sales Engineer, Security Products', 'Austin, TX', '', True, None),
 
     # -- bug fix: a leveled I/II marker beats a bare cohort year --
@@ -330,6 +330,36 @@ CASES = [
     ('Jr. Security Specialist', 'Omaha, NE', '', False, None),
     ('Cybersecurity Technologist III', 'Hartford, CT', '', False, None),
     ('Emergency Responder I', 'Austin, TX', '', False, None),
+
+    # -- security work under titles with no security word --
+    # Spellings of known terms: Leidos, and BlackRock's non-breaking spaces.
+    ('Junior Cloud/SecDevOps Engineer', 'Clarksburg, WV', '', False, ('earlycareer', 'AppSec & ProdSec')),
+    ('Access\xa0& Identity\xa0Management Engineer, Associate', 'Wilmington, DE', '', False, ('earlycareer', 'Identity & IAM')),
+    # Engineers on a team named for security work.
+    ('Software Engineer II - Compromise & Fraud Protection', 'Redmond, WA', '', False, ('earlycareer', 'Security Engineering')),
+    ('Privacy & Civil Liberties Engineer - New Grad', 'New York, NY', '', False, ('newgrad', 'Security Engineering')),
+    ('Software Engineer I, Authentication', 'Seattle, WA', '', False, ('earlycareer', 'Identity & IAM')),
+    # Presales and services at a security vendor.
+    ('Solutions Consultant 1', 'Tallahassee, FL', '', True, ('earlycareer', 'Engineering @ Security Co')),
+    ('Domain Consultant 2 - NetSec', 'Reston, VA', '', True, ('earlycareer', 'Engineering @ Security Co')),
+    ('Sales Engineer I', 'San Diego, CA', '', True, ('earlycareer', 'Engineering @ Security Co')),
+    ('Sales Engineer - Intern', 'Austin, TX', '', True, ('intern', 'Engineering @ Security Co')),
+    ('Associate Services Architect', 'Boston, MA', '', True, ('earlycareer', 'Engineering @ Security Co')),
+    ('Associate Solutions Architect, Security', 'Seattle, WA', '', False, ('earlycareer', 'Security Engineering')),
+    # ...and the limits. Infra titles with no security word stay out, as do a
+    # team word with no engineering noun, sales engineers at a general
+    # employer, camera presales, a leveled architect and a seller.
+    ('Network Engineer I', 'Shiloh, IL', '', False, None),
+    ('Cloud Engineer II', 'San Diego, CA', '', False, None),
+    ('SYSTEMS ADMINISTRATOR 2 (LINUX)', 'Waimea, HI', '', False, None),
+    ('Site Reliability Engineer II', 'Chicago, IL', '', False, None),
+    ('Credit Card Fraud Specialist I', 'Heathrow, FL', '', False, None),
+    ('Trust & Safety New Associate', 'Austin, TX', '', False, None),
+    ('Signal and Power Integrity Engineer - New College Grad 2026', 'Santa Clara, CA', '', False, None),
+    ('Associate Sales Engineer, SE Desk - Northeast', 'Remote - US', '', False, None),
+    ('Pre-Sales Solutions Engineer I - Video Security & Access Control', 'San Juan, PR', '', False, None),
+    ('Cyber Security Architect/Engineer II', 'Minneapolis, MN', '', False, None),
+    ('Associate Sales Representative', 'Austin, TX', '', True, None),
 
     # -- bug fix: US territories are US locations, not foreign --
     ('Cyber Software Engineer I', 'Aguadilla, PR', '', False, ('earlycareer', 'Security Engineering')),
