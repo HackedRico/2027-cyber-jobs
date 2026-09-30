@@ -2603,6 +2603,26 @@ def test_payload_paths_cannot_name_another_host():
           ['https://t.wd5.myworkdayjobs.com/job/Reston-VA/Accountant_R2'])
 
 
+def test_control_characters_never_reach_a_row():
+    """One control character in a title breaks every Atom feed."""
+    raw = [{'id': 'greenhouse_acme_1', 'company': 'Ac\x07me',
+            'title': 'Security\x00 Engineering\x1b Intern\x7f', 'location': 'Austin,\x0b TX',
+            'url': 'https://job-boards.greenhouse.io/acme/jobs/1', 'board': 'Greenhouse',
+            'description': 'Summer 2027 internship'}]
+    listings = []
+    added, _ = sj.insert_new_listings(listings, raw, {}, {}, '2026-09-30')
+    check('insert strips controls from company, role and location',
+          [(r['company'], r['role'], r['location']) for r in added],
+          [('Acme', 'Security Engineering Intern', 'Austin, TX')])
+    stored = [_listing('Ac\x1fme', 'SOC\x0c Analyst I', 'https://x/1'),
+              _listing('Acme', 'SOC Analyst I\tRemote', 'https://x/2')]
+    check('stored rows are scrubbed once', sj.scrub_control_characters(stored), 1)
+    check('...keeping tab, which is legal XML',
+          [(r['company'], r['role']) for r in stored],
+          [('Acme', 'SOC Analyst I'), ('Acme', 'SOC Analyst I\tRemote')])
+    check('a second pass has nothing to do', sj.scrub_control_characters(stored), 0)
+
+
 for fn in (test_greenhouse_location_reads_only_location_fields,
            test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_lever_reads_all_locations,
@@ -2680,7 +2700,8 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_fetches_cap_the_response_size,
            test_apply_links_stay_on_the_vendor_or_listed_hosts,
            test_host_validation_pins_oracle_and_refuses_local_hosts,
-           test_payload_paths_cannot_name_another_host):
+           test_payload_paths_cannot_name_another_host,
+           test_control_characters_never_reach_a_row):
     fn()
 
 if failures:

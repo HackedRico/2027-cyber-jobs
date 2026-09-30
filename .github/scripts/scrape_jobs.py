@@ -238,6 +238,35 @@ def _oneline(text):
     return ' '.join(str(text).split())
 
 
+# C0 controls other than tab, newline and carriage return, plus DEL. XML 1.0
+# forbids them, so one in a stored title breaks every Atom feed build_site.py
+# writes, not just the row's own entry.
+_CONTROL_RE = re.compile(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]')
+
+
+def _strip_controls(text):
+    return _CONTROL_RE.sub('', text) if isinstance(text, str) else text
+
+
+def scrub_control_characters(listings):
+    """Strip control characters from each row's company, role and location.
+
+    Returns the number of rows changed. Rows stored before the insert pass
+    stripped them keep them otherwise, since nothing else rewrites those fields.
+    """
+    changed = 0
+    for entry in listings:
+        dirty = False
+        for field in ('company', 'role', 'location'):
+            value = entry.get(field)
+            clean = _strip_controls(value)
+            if clean != value:
+                entry[field] = clean
+                dirty = True
+        changed += dirty
+    return changed
+
+
 def check_container(data, key, label):
     """Warn (as a GitHub annotation) when an expected top-level key is missing.
 
@@ -1924,7 +1953,7 @@ def repair_broken_locations(listings, raw_jobs):
             for e in listings}
     repaired, folded = [], []
     for entry, fingerprint in candidates:
-        raw = live.get(fingerprint, '')
+        raw = _strip_controls(live.get(fingerprint, ''))
         after = normalize_location(raw)
         if not is_us_location(raw) or not is_us_location(after):
             continue
@@ -2388,6 +2417,8 @@ def insert_new_listings(listings, raw_jobs, seen, sec_flags, today):
     for job in raw_jobs:
         jid = job['id']
         url = job.get('url', '')
+        job = {**job, **{field: _strip_controls(job.get(field) or '')
+                         for field in ('company', 'title', 'location')}}
         location = normalize_location(job.get('location', ''))
         key = listing_dedup_key(job['company'], job.get('title', ''), location)
         # The fingerprint catches a Workday req whose URL and location both
@@ -2528,6 +2559,9 @@ def main():
     renormalized = renormalize_locations(listings)
     if renormalized:
         print(f'Renormalized {renormalized} location(s)')
+    scrubbed = scrub_control_characters(listings)
+    if scrubbed:
+        print(f'Stripped control characters from {scrubbed} row(s)')
 
     # Let classifier improvements reach already-scraped listings (title-only).
     listings, reclass_changes, rejected = reclassify_listings(listings, company_flags)
@@ -2610,8 +2644,8 @@ def main():
     # streak still has to save listings.json or the streak resets every run.
     pending = sum(1 for e in listings if e.get('missing_since'))
     changed = (added or reclassified or revived or purged or drops or refreshed
-               or renormalized or repaired or folded or vanished or orphaned or renamed
-               or pending)
+               or renormalized or scrubbed or repaired or folded or vanished or orphaned
+               or renamed or pending)
     dropped_by = ', '.join(f'{n} {reason}' for reason, n in sorted(drop_counts.items()))
     print(f'\nAdded {added} new listing(s), revived {revived}, '
           f'reclassified {reclassified}, purged {purged}, '
