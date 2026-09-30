@@ -10,11 +10,13 @@ The scraper applies the rules below to every posting, and the bot runs the same 
 
 ### A cybersecurity role
 
-The title names security work: security, cyber, infosec, threat, forensics, vulnerability, penetration testing, red team, SOC, DFIR, GRC, identity and access, DevSecOps, or AI security and safety terms such as AI safety, AI red team, alignment or safeguards.
+The title names security work: security, cyber, infosec, threat, forensics, vulnerability, penetration testing, red team, SOC, DFIR, GRC, identity and access or identity management, DevSecOps, or AI security and safety terms such as AI safety, AI red team, alignment or safeguards.
+
+An engineering title also counts when it names a security team: identity, authentication, privacy, trust and safety, anti-abuse, fraud protection or compromise, as in "Software Engineer II - Compromise & Fraud Protection". Cloud, network, systems administration and SRE titles need a security word like any other title. A plain "Network Engineer I" is out.
 
 Each row gets one of these categories, and the form offers **Not sure** if none fits: AI Security & Safety, Offensive Security, SOC & Detection, Threat Intelligence, Forensics & IR, AppSec & ProdSec, Cloud & Infra Security, Identity & IAM, GRC & Risk, Security Engineering, and Engineering @ Security Co.
 
-At a company whose main business is security (🛡️ in [companies.md](companies.md)), a title does not need a security word. Any title with one of these words counts: engineer, developer, software, DevOps, SRE, researcher, scientist, analyst, infrastructure, platform, backend, frontend, full stack, machine learning, or detection.
+At a company whose main business is security (🛡️ in [companies.md](companies.md)), a title does not need a security word. Any title with one of these words counts: engineer, developer, software, DevOps, SRE, researcher, scientist, analyst, infrastructure, platform, backend, frontend, full stack, machine learning, detection, architect, or a presales or services consultant (solutions, domain, services or technical consultant). A sales engineer counts there too.
 
 ### An internship, new-grad or early-career role
 
@@ -38,9 +40,9 @@ So an "Analyst II" posting that asks for 2 years is in, and a "Security Engineer
 
 **Titles that are always out:**
 
-- **Seniority:** senior, sr, staff, principal, lead, manager, director, VP, head of, chief, distinguished, fellow, executive, expert, SME, supervisor, leader, and level III or IV (3 or 4). Architect titles are out unless they are a new-grad or intern cohort.
-- **Physical and facility security:** security guard, physical security, industrial or personnel security, executive protection, transportation security, protective services, and "Security Officer" unless it names information security or cyber.
-- **Business functions:** sales, account executive or manager, marketing, recruiting and HR, customer success and support, business development, finance, accounting, billing, procurement, internal audit, SOX, legal, and administrative and facilities roles.
+- **Seniority:** senior, sr, staff, principal, lead, manager, director, VP, head of, chief, distinguished, fellow, executive, expert, SME, supervisor, leader, and level III or IV (3 or 4). Architect titles are out unless the title also says new grad, intern, associate, junior, entry level or early career.
+- **Physical and facility security:** security guard, physical security, video security, industrial or personnel security, executive protection, transportation security, protective services, and "Security Officer" unless it names information security or cyber.
+- **Business functions:** sales (a sales engineer is not a sales role), account executive or manager, marketing, recruiting and HR, customer success and support, business development, finance, accounting, billing, procurement, internal audit, SOX, legal, and administrative and facilities roles.
 - **Hardware and manufacturing:** ASIC, SoC design or verification, silicon, chip design, and mechanical, electrical, chemical, industrial, civil or process engineering.
 - **Placeholder postings:** talent communities, talent networks, general interest, and hackathons.
 - **Roles a student cannot apply to:** return offers for current interns (intern conversion, return intern), DoD SkillBridge slots for active-duty members, hiring events, and an internship whose season has already passed.
