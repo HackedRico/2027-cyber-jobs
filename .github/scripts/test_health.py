@@ -300,6 +300,32 @@ check('previous_state tolerates a hand-edited body',
       hc.previous_state({'body': '<!-- health-state: [broken -->'}), set())
 
 
+# --- run lookups read the unfiltered list (#44) --------------------------------
+class FakeRuns:
+    def __init__(self, runs):
+        self.runs, self.paths = runs, []
+
+    def repo_path(self, path):
+        return path
+
+    def call(self, method, path, body=None, ok=()):
+        self.paths.append(path)
+        return {'workflow_runs': self.runs}
+
+
+gh = FakeRuns([
+    {'status': 'in_progress', 'conclusion': None, 'updated_at': '2026-09-30T14:00:00Z'},
+    {'status': 'completed', 'conclusion': 'skipped', 'updated_at': '2026-09-30T13:50:00Z'},
+    {'status': 'completed', 'conclusion': 'success', 'updated_at': '2026-09-30T13:46:59Z'},
+    {'status': 'completed', 'conclusion': 'failure', 'updated_at': '2026-09-29T02:00:00Z'},
+])
+check('the last success skips runs still going', hc.last_successful_scrape(gh),
+      datetime(2026, 9, 30, 13, 46, 59, tzinfo=UTC))
+check('no request uses the lagging status filter', any('status=' in p for p in gh.paths), False)
+check('the latest writer run skips in-progress and skipped runs',
+      {r['conclusion'] for r in hc.latest_writer_runs(gh).values()}, {'success'})
+
+
 if failures:
     print(f'\n{failures} health test(s) failed')
     sys.exit(1)
