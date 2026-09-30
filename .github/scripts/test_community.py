@@ -423,33 +423,114 @@ def fake_get(chain):
     return get
 
 
-public = lambda host: True  # noqa: E731
 get = fake_get([FakeResponse(301, '/jobs/1b'), FakeResponse(200)])
-link = vi.check_link('https://x.example/jobs/1', get=get, resolves_public=public)
+link = vi.check_link('https://x.example/jobs/1', get=get)
 check('check_link follows a redirect to 200', (link['dead'], link['summary'][:8]),
       (False, 'HTTP 200'))
 check('check_link resolves a relative redirect', get.calls[1], 'https://x.example/jobs/1b')
 check('check_link calls a 404 dead',
-      vi.check_link('https://x.example/', get=fake_get([FakeResponse(404)]),
-                    resolves_public=public)['dead'], True)
+      vi.check_link('https://x.example/', get=fake_get([FakeResponse(404)]))['dead'], True)
 check('check_link does not hold a 403 against the posting',
-      vi.check_link('https://x.example/', get=fake_get([FakeResponse(403)]),
-                    resolves_public=public)['dead'], False)
+      vi.check_link('https://x.example/', get=fake_get([FakeResponse(403)]))['dead'], False)
 check('check_link survives a timeout',
-      vi.check_link('https://x.example/', get=fake_get([requests.Timeout()]),
-                    resolves_public=public)['summary'], 'could not connect (Timeout)')
+      vi.check_link('https://x.example/', get=fake_get([requests.Timeout()]))['summary'],
+      'could not connect (Timeout)')
 never = fake_get([])
 check('check_link refuses a redirect to a non-http scheme',
       vi.check_link('https://x.example/',
-                    get=fake_get([FakeResponse(302, 'file:///etc/passwd')]),
-                    resolves_public=public)['summary'],
+                    get=fake_get([FakeResponse(302, 'file:///etc/passwd')]))['summary'],
       'not checked: only http(s) links are fetched')
-check('check_link refuses a private address',
-      vi.check_link('http://169.254.169.254/', get=never,
-                    resolves_public=lambda h: False)['dead'], True)
-check('check_link never fetched the private address', never.calls, [])
-check('_public_host rejects link-local metadata', vi._public_host('169.254.169.254'), False)
-check('_public_host rejects loopback', vi._public_host('127.0.0.1'), False)
+redirect_to_port = fake_get([FakeResponse(302, 'https://x.example:8443/admin')])
+check('check_link refuses a redirect to a port other than 80 or 443',
+      vi.check_link('https://x.example/', get=redirect_to_port),
+      {'dead': True, 'summary': 'not checked: port 8443 is not fetched, only 80 and 443'})
+check('check_link fetched only the first hop', len(redirect_to_port.calls), 1)
+check('check_link refuses a link on another port before any request',
+      (vi.check_link('http://x.example:6379/', get=never)['dead'], never.calls), (True, []))
+blocked = fake_get([FakeResponse(302, 'http://rebind.example/'),
+                    vi.BlockedAddress('rebind.example does not resolve to a public address')])
+check('check_link calls a redirect to a private host dead',
+      vi.check_link('https://x.example/', get=blocked),
+      {'dead': True, 'summary': '`rebind.example` does not resolve to a public address'})
+
+# The real session: a literal address needs no DNS, so these run offline and
+# go through the same adapter a live check uses.
+for address in ('169.254.169.254', '168.63.129.16', '127.0.0.1', '10.0.0.1',
+                '[::1]', '[::ffff:127.0.0.1]', '[::127.0.0.1]', '[::ffff:a9fe:a9fe]',
+                '[64:ff9b::a9fe:a9fe]', '0.0.0.0'):
+    check(f'check_link refuses {address} through the real session',
+          vi.check_link(f'http://{address}/latest/meta-data/')['dead'], True)
+
+ADDRESSES = [
+    ('8.8.8.8', True), ('2001:4860:4860::8888', True), ('::ffff:8.8.8.8', True),
+    ('168.63.129.16', False), ('169.254.169.254', False), ('169.254.0.1', False),
+    ('127.0.0.1', False), ('10.1.2.3', False), ('100.64.0.1', False), ('0.0.0.0', False),
+    ('224.0.0.1', False), ('::1', False), ('::', False), ('::127.0.0.1', False),
+    ('::ffff:127.0.0.1', False), ('::ffff:168.63.129.16', False),
+    ('64:ff9b::7f00:1', False), ('2002:7f00:1::', False), ('fd00:ec2::254', False),
+    ('fe80::1%en0', False), ('not an ip', False),
+]
+for address, want in ADDRESSES:
+    check(f'is_public_ip {address}', common.is_public_ip(address), want)
+check('public_address refuses loopback', common.public_address('127.0.0.1', 80), None)
+check('public_address returns a checked literal', common.public_address('8.8.8.8', 443),
+      '8.8.8.8')
+
+
+class _Request:
+    def __init__(self, url):
+        self.url = url
+        self.headers = {}
+
+
+def test_adapter_connects_to_the_checked_address():
+    adapter = vi.PublicOnlyAdapter(resolve=lambda host, port: '93.184.215.14')
+    pool = adapter.get_connection_with_tls_context(
+        _Request('https://jobs.example.com/apply/1'), True)
+    check('adapter connects to the address it checked',
+          (pool.host, pool.port), ('93.184.215.14', 443))
+    check('adapter keeps SNI and certificate checks on the hostname',
+          (pool.conn_kw.get('server_hostname'), pool.assert_hostname),
+          ('jobs.example.com', 'jobs.example.com'))
+    request = _Request('https://jobs.example.com/apply/1')
+    adapter.add_headers(request)
+    check('adapter sends the hostname as Host', request.headers['Host'], 'jobs.example.com')
+    resolved = []
+    blocking = vi.PublicOnlyAdapter(resolve=lambda host, port: resolved.append(host))
+    try:
+        blocking.get_connection_with_tls_context(_Request('http://rebind.example/'), True)
+        check('adapter refuses a host that is not public', 'no error', 'BlockedAddress')
+    except vi.BlockedAddress:
+        pass
+    check('adapter resolves the name once per request', resolved, ['rebind.example'])
+
+
+def test_session_sends_the_hostname_to_the_pinned_address():
+    import http.server
+    import threading
+
+    hosts = []
+
+    class Handler(http.server.BaseHTTPRequestHandler):
+        def do_GET(self):
+            hosts.append(self.headers['Host'])
+            self.send_response(200)
+            self.end_headers()
+
+        def log_message(self, *args):
+            pass
+
+    server = http.server.HTTPServer(('127.0.0.1', 0), Handler)
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    port = server.server_address[1]
+    try:
+        session = vi.public_session(resolve=lambda host, port: '127.0.0.1')
+        resp = session.get(f'http://jobs.example:{port}/x', timeout=5)
+        check('pinned session reaches the resolved address with the hostname as Host',
+              (resp.status_code, hosts), (200, [f'jobs.example:{port}']))
+    finally:
+        server.shutdown()
+        server.server_close()
 
 
 # --- build_verdict -------------------------------------------------------------
@@ -519,7 +600,7 @@ body, ok = vi.build_verdict(
     common.parse_issue_body(form(listing_type=EVIL, category=EVIL, location=EVIL_LOCATION)),
     [{'company': 'Acme', 'role': 'Security Analyst Intern', 'location': EVIL_LOCATION,
       'url': 'https://boards.greenhouse.io/acme/jobs/1'}], frozenset(),
-    vi.check_link('http://a`b.example/', get=never, resolves_public=lambda h: False))
+    vi.check_link('http://a`b.example/', get=fake_get([vi.BlockedAddress('private')])))
 check('build_verdict echoes no free text from an allowlisted field',
       'Verify your account' in body, False)
 check('build_verdict names an off-form Listing Type and Category',
@@ -537,18 +618,164 @@ check('_describe escapes a duplicate for the issue comment',
       '@&#8203;octocat: \\[x\\](https&#8203;://evil), open')
 
 
+# Beta's closed row once linked to beta.example, so the host is Beta's own.
+BETA_USED_HOST = [dict(e, last_url='https://beta.example/jobs/1') if e['company'] == 'Beta'
+                  else e for e in EXISTING]
 body, ok = vi.build_verdict(
     common.parse_issue_body(form(company='Beta', role='Security Engineer Intern',
                                  location='Reston, VA', link='https://beta.example/jobs/2')),
-    EXISTING, frozenset(), ALIVE)
+    BETA_USED_HOST, frozenset(), ALIVE)
 check('build_verdict passes a submission that reopens a closed row', ok, True)
 check('build_verdict says approval reopens the closed row',
       'Approving reopens it with this link' in body, True)
 
 
+# --- the link's host in the verdict --------------------------------------------
+body, ok = vi.build_verdict(fields, EXISTING, frozenset(), ALIVE)
+check('build_verdict shows the link host', '- Host: `boards.greenhouse.io`' in body, True)
+check('build_verdict does not warn on an ATS host', 'check that this domain' in body, False)
+
+# "greenhоuse.io" with a Cyrillic o, the lookalike that read as no problems.
+LOOKALIKE = 'https://boards.greenhоuse.io/acme/jobs/1'
+body, ok = vi.build_verdict(common.parse_issue_body(form(link=LOOKALIKE)), EXISTING,
+                            frozenset(), ALIVE)
+check('build_verdict shows a lookalike host as punycode',
+      f"- Host: `{common.link_host(LOOKALIKE)}`" in body
+      and common.link_host(LOOKALIKE).startswith('boards.xn--'), True)
+check('build_verdict warns that the lookalike host needs checking',
+      'check that this domain belongs to Acme' in body, True)
+check('build_verdict does not pass a lookalike host', ok, False)
+
+body, ok = vi.build_verdict(
+    common.parse_issue_body(form(link='https://careers.acme-jobs.example/apply/4412345')),
+    EXISTING, frozenset(), ALIVE)
+check('build_verdict warns on a host no Acme row uses',
+      ('check that this domain belongs to Acme' in body, ok), (True, False))
+body, ok = vi.build_verdict(
+    common.parse_issue_body(form(company='Gamma', role='SOC Analyst II Intern',
+                                 link='https://gamma.example/jobs/7')),
+    EXISTING, frozenset(), ALIVE)
+check('build_verdict accepts a host a row of the same company uses',
+      'check that this domain' in body, False)
+body, ok = vi.build_verdict(
+    common.parse_issue_body(form(company='Acme', link='https://gamma.example/jobs/7')),
+    EXISTING, frozenset(), ALIVE)
+check('build_verdict warns on a host only another company uses',
+      'check that this domain belongs to Acme' in body, True)
+body, ok = vi.build_verdict(
+    common.parse_issue_body(form(company='@octocat [x](https://evil.example)',
+                                 link='https://evil.example/')),
+    EXISTING, frozenset(), ALIVE)
+check('build_verdict escapes the company in the domain warning',
+      'belongs to @&#8203;octocat \\[x\\](https&#8203;://evil.example)' in body, True)
+
+HOSTS = [
+    ('https://boards.greenhouse.io/acme/jobs/1', 'boards.greenhouse.io'),
+    ('https://Careers.ACME.com./x', 'careers.acme.com'),
+    ('https://bücher.example/x', 'xn--bcher-kva.example'),
+    ('https://user@jobs.example:443/x', 'jobs.example'),
+    ('javascript:alert(1)', ''),
+    ('', ''),
+]
+for url, want in HOSTS:
+    check(f'link_host {url!r}', common.link_host(url), want)
+check('host_matches takes a subdomain of an ATS',
+      [common.host_matches(h, vi.ATS_DOMAINS) for h in (
+          'acme.wd5.myworkdayjobs.com', 'greenhouse.io', 'greenhouse.io.evil.example',
+          'evilgreenhouse.io')],
+      [True, True, False, False])
+
+
+# --- one-line fields and control characters in a submission ---------------------
+body, ok = vi.build_verdict(common.parse_issue_body(
+    form(role='Security Analyst Intern\n::error::pwned')), EXISTING, frozenset(), ALIVE)
+check('build_verdict flags a role that spans lines',
+      ('**Role / Job Title** must be one line' in body, ok), (True, False))
+for name, body in (('role', form(role='Security Analyst Intern\nApply at evil.example')),
+                   ('company', form(company='Acme\r\nEvil'))):
+    result = pa.ingest([{'number': 1, 'body': body}], [], today='2026-09-27')[0]
+    check(f'ingest refuses a {name} that spans lines',
+          (result['outcome'], 'one line' in result['detail']), ('skipped', True))
+listings = []
+result = pa.ingest([{'number': 1, 'body': form(company='Ac\x00me',
+                                               role='Security\x1b[31m Analyst Intern')}],
+                   listings, today='2026-09-27')[0]
+check('ingest strips control characters from submitted fields',
+      (result['outcome'], listings[0]['company'], listings[0]['role']),
+      ('added', 'Acme', 'Security[31m Analyst Intern'))
+check('fields_to_listing strips control characters from every field',
+      pa.fields_to_listing({'Company Name': 'A\x7fcme', 'Location': 'Austin,\x0b TX',
+                            'Direct Application Link': 'https://x.example/\x01j'},
+                           today='2026-09-27')
+      | {'date_added': ''},
+      {'company': 'Acme', 'role': '', 'location': 'Austin, TX', 'type': 'earlycareer',
+       'category': 'Security Engineering', 'clearance': False,
+       'url': 'https://x.example/j', 'source': 'Community', 'date_added': ''})
+
+
+def test_revive_logs_the_old_and_new_hosts():
+    import contextlib
+    import io
+    row = {'company': 'Beta', 'role': 'Security Engineer Intern', 'url': '', 'closed': True,
+           'last_url': 'https://boards.greenhouse.io/beta/jobs/1', 'source': 'Greenhouse'}
+    out = io.StringIO()
+    with contextlib.redirect_stdout(out):
+        pa._revive(row, 'https://beta-careers.example/jobs/2')
+    check('revive logs the old and new hosts',
+          'boards.greenhouse.io -> beta-careers.example' in out.getvalue(), True)
+    row = {'company': 'Evil\n::error::x', 'role': 'R', 'url': '', 'closed': True}
+    out = io.StringIO()
+    with contextlib.redirect_stdout(out):
+        pa._revive(row, 'https://x.example/')
+    check('revive log is one line with no stored link',
+          (out.getvalue().count('\n'), '(none) -> x.example' in out.getvalue()), (1, True))
+
+
+def test_logs_flatten_untrusted_text():
+    import contextlib
+    import io
+    results = [{'number': 1, 'outcome': 'held', 'detail': 'x\n::error::injected'}]
+    out = io.StringIO()
+    with contextlib.redirect_stdout(out):
+        pa.run_notify('t', 'o/r', results, pushed=True)
+    check('run_notify log has no line that starts a workflow command',
+          any(line.startswith('::') for line in out.getvalue().splitlines()), False)
+    check('oneline flattens line breaks and escapes',
+          common.oneline('a\nb\r::c\x1b[0m d\x85e'), 'a b ::c [0m d e')
+
+
+def test_ingest_log_is_one_line_per_issue():
+    import contextlib
+    import io
+    saved = (pa.get_approved_issues, pa.screen_edited, pa.ingest, pa.LISTINGS_FILE,
+             pa.load_security_companies, pa.write_output)
+    with tempfile.TemporaryDirectory() as tmp:
+        try:
+            pa.get_approved_issues = lambda token, repo: [{'number': 1}]
+            pa.screen_edited = lambda token, repo, issues: (issues, [])
+            # The row's own role, as the added outcome's detail carries it.
+            pa.ingest = lambda issues, listings, security: [
+                {'number': 1, 'outcome': 'added', 'detail': 'Acme: Intern\n::error::injected'}]
+            pa.LISTINGS_FILE = Path(tmp) / 'listings.json'
+            pa.load_security_companies = lambda: set()
+            pa.write_output = lambda results: None
+            out = io.StringIO()
+            with contextlib.redirect_stdout(out):
+                pa.run_ingest('t', 'o/r')
+        finally:
+            (pa.get_approved_issues, pa.screen_edited, pa.ingest, pa.LISTINGS_FILE,
+             pa.load_security_companies, pa.write_output) = saved
+    check('run_ingest log has no line that starts a workflow command',
+          any(line.lstrip().startswith('::') for line in out.getvalue().splitlines()), False)
+
+
 for fn in (test_notify_after_push, test_notify_leaves_added_issue_open_when_push_failed,
            test_notify_reports_api_failure, test_screen_edited_skips_an_issue_edited_after_approval,
-           test_notify_revived_and_held, test_ingest_writes_run_events_for_added_rows):
+           test_notify_revived_and_held, test_ingest_writes_run_events_for_added_rows,
+           test_adapter_connects_to_the_checked_address,
+           test_session_sends_the_hostname_to_the_pinned_address,
+           test_revive_logs_the_old_and_new_hosts, test_logs_flatten_untrusted_text,
+           test_ingest_log_is_one_line_per_issue):
     fn()
 
 if failures:
