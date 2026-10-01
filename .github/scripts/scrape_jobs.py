@@ -2306,9 +2306,17 @@ def build_tasks(config, board=None, limit=None):
             tasks.append(BoardTask(
                 f'{entry["name"]} ({name}/{entry["slug"]})', scraper, args, flag))
     if want('workday'):
+        tenants = set()
         for entry in limited(config.get('workday')):
+            # GDIT posts its Summer 2027 cyber intern only on its early-talent
+            # board. A tenant's first board keeps the label its baseline
+            # history is stored under; a later board gets its own entry.
+            ident = entry['tenant']
+            if ident in tenants:
+                ident = f'{ident}/{entry.get("board", "")}'
+            tenants.add(entry['tenant'])
             tasks.append(BoardTask(
-                f'{entry["name"]} (workday/{entry["tenant"]})', scrape_workday,
+                f'{entry["name"]} (workday/{ident})', scrape_workday,
                 (entry['name'], entry['tenant'], entry['instance'], entry.get('board', ''),
                  entry.get('security_company', False), entry.get('search_terms')),
                 entry.get('security_company', False)))

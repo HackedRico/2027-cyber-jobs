@@ -226,7 +226,10 @@ def main(argv=None):
         for e in config.get('workday') or []:
             jobs = sj.scrape_workday(e['name'], e['tenant'], e['instance'],
                                      e.get('board', ''), e.get('security_company', False))
-            record('workday', e['name'], e['tenant'], jobs)
+            # GDIT and Boeing each run two boards on one tenant, so the tenant
+            # alone cannot say which one needs attention.
+            ident = f'{e["tenant"]}/{e["board"]}' if e.get('board') else e['tenant']
+            record('workday', e['name'], ident, jobs)
 
     if want('oracle'):
         for e in config.get('oracle') or []:

@@ -2183,6 +2183,38 @@ def test_oracle_ids_and_labels_carry_host_and_site():
           [None, None, None])
 
 
+def test_second_workday_board_gets_its_own_history():
+    """GDIT posts its Summer 2027 cyber intern only on GDIT_EarlyTalent, so one
+    tenant carries two boards, and both shared the label 'GDIT (workday/gdit)'."""
+    config = {'workday': [
+        {'name': 'GDIT', 'tenant': 'gdit', 'instance': 'wd5', 'board': 'External_Career_Site'},
+        {'name': 'Intel', 'tenant': 'intel', 'instance': 'wd1', 'board': 'External'},
+        {'name': 'GDIT', 'tenant': 'gdit', 'instance': 'wd5', 'board': 'GDIT_EarlyTalent'}]}
+    labels = [t.label for t in sj.build_tasks(config, board='workday')]
+    check('the first board on a tenant keeps its label, a later one adds its board',
+          labels, ['GDIT (workday/gdit)', 'Intel (workday/intel)',
+                   'GDIT (workday/gdit/GDIT_EarlyTalent)'])
+    check('a second workday board has no legacy key to inherit the first one\'s history',
+          sj._legacy_label(labels[2]), None)
+    baseline = {'GDIT (workday/gdit)': {'count': 300, 'zero_runs': 0,
+                                        'last_nonzero': '2026-09-29'}}
+    history, regressed, _ = sj.board_health(
+        [{'label': labels[0], 'status': 'ok', 'count': 310},
+         {'label': labels[2], 'status': 'zero', 'count': 0}], baseline, '2026-09-30')
+    check('the new board starts its own streak and the old one keeps its count',
+          (regressed, history[labels[0]]['count'], history[labels[2]]['zero_runs']),
+          ([], 310, 1))
+    quiet = {label: {'count': 0, 'zero_runs': sj.SILENT_BOARD_RUNS,
+                     'empty_runs': sj.SILENT_BOARD_RUNS} for label in labels}
+    stats = [{'label': labels[0], 'status': 'ok', 'count': 310},
+             {'label': labels[2], 'status': 'zero', 'count': 0}]
+    check('a silent student board does not make its company silent',
+          sj.long_silent_boards(stats, quiet), set())
+    check('a failed student board marks its company failed',
+          sj.failed_board_companies([{'label': labels[2], 'status': 'FAILED', 'count': 0}]),
+          {'GDIT'})
+
+
 @responses.activate
 def test_oracle_ids_differ_across_hosts_on_one_site():
     for host in ('amex.fa.us2.oraclecloud.com', 'honeywell.fa.us2.oraclecloud.com'):
@@ -2918,6 +2950,7 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_board_health_forgets_a_removed_board,
            test_compare_runs_reports_retirements,
            test_oracle_ids_and_labels_carry_host_and_site,
+           test_second_workday_board_gets_its_own_history,
            test_oracle_ids_differ_across_hosts_on_one_site,
            test_board_health_carries_an_oracle_board_across_the_label_change,
            test_main_does_not_re_announce_an_oracle_req_under_its_new_id,
