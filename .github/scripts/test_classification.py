@@ -1391,6 +1391,19 @@ if '<!-- CLOSED_START intern -->\n<!-- CLOSED_END intern -->' not in page:
     failures += 1
     print('FAIL a type with no closed rows should render an empty closed block')
 
+# companies.md lists and counts a company once however many boards it runs on a
+# platform: Idaho National Laboratory has two Oracle sites, GDIT two Workday boards.
+tracked, total = rr.tracked_board_lines({
+    'oracle': [{'name': 'Idaho National Laboratory'}, {'name': 'Idaho National Laboratory'}],
+    'workday': [{'name': 'GDIT'}, {'name': 'Boeing'}, {'name': 'GDIT'},
+                {'name': 'Palo Alto Networks', 'security_company': True}],
+})
+if (total != 4 or tracked.count('- GDIT') != 1 or '### Workday (3)' not in tracked
+        or tracked.count('- Idaho National Laboratory') != 1 or '### Oracle (1)' not in tracked
+        or '- Palo Alto Networks 🛡️' not in tracked):
+    failures += 1
+    print(f'FAIL tracked_board_lines should list each company once: {total} {tracked!r}')
+
 # The legend is generated from classify.CATEGORY_RULES; a new category must
 # show up there with a one-line explanation.
 legend = '\n'.join(rr.legend_lines())
