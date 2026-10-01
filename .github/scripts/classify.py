@@ -464,7 +464,12 @@ DESCRIPTION_NEWGRAD_RE = re.compile(
     r'\b(?:for|open to|aimed at|targeting|welcomes?)\s+(?:recent|new)\s+'
     r'(?:college\s+|university\s+)?grad(?:uate)?s?\b'
     r'|\bnew[- ]grad(?:uate)?\s+(?:role|position|program|opportunity|hire)s?\b'
-    r'|\b(?:recent|new)\s+grad(?:uate)?s?\s+(?:are\s+)?(?:encouraged|welcome)\b')
+    r'|\b(?:recent|new)\s+grad(?:uate)?s?\s+(?:are\s+)?(?:encouraged|welcome)\b'
+    # Palo Alto Networks titles its new-grad reqs a flat 'Software Engineer'
+    # (JR-011497 to JR-011544) and states the level only as a requirement:
+    # "Bachelor's degree earned recently or anticipated to be earned within
+    # the next 12 months".
+    r'|\bdegree\s+(?:earned|completed)\s+recently\b')
 
 # A description stating a low experience ceiling marks an early-career role
 # even when the title carries no level marker (used, gated, at security_company

@@ -495,6 +495,14 @@ CASES = [
      ('newgrad', 'Security Engineering')),
     ('Security Engineer', 'Austin, TX', 'A new grad role on our detection team.', False,
      ('newgrad', 'Security Engineering')),
+    # Palo Alto Networks' new-grad 'Software Engineer' reqs name the level only
+    # as a degree requirement; a flat title counts there as a security company.
+    ('Software Engineer', 'Santa Clara, CA',
+     "<li>Bachelor's degree earned recently or anticipated to be earned within the next "
+     '12 months</li>', True, ('newgrad', 'Engineering @ Security Co')),
+    ('Software Engineer', 'Santa Clara, CA',
+     "Bachelor's degree earned recently or anticipated within 12 months.", False, None),
+    ('Security Engineer', 'Austin, TX', "Bachelor's degree required.", True, None),
 ]
 
 failures = 0
