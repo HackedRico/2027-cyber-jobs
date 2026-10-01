@@ -965,7 +965,10 @@ def scrape_workday(company, tenant, instance, board, security_company=False,
             job['partial_sweep'] = True
         if not path or not _wants_detail(job['title'], security_company):
             continue
-        needs_locations = MULTI_LOCATION_RE.search(job['location'].strip())
+        # Parsons and Accenture leave locationsText out of the list view, and a
+        # blank location reads as non-US, so neither had ever had a row.
+        needs_locations = (not job['location'].strip()
+                           or MULTI_LOCATION_RE.search(job['location'].strip()))
         location, description = fetch_workday_detail(cxs_root, path, wd_headers,
                                                      label=f'{company} Workday')
         if needs_locations and location:
