@@ -3377,7 +3377,8 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Junior-DevSecOps-Engineer--EDS-Platform-Services-team--Hybrid-rol_01871462",
     "source": "Workday",
-    "date_added": "2026-09-23"
+    "date_added": "2026-09-23",
+    "missing_since": "2026-10-01"
   },
   {
     "company": "Amazon",
@@ -3489,19 +3490,6 @@
     "date_added": "2026-09-24"
   },
   {
-    "company": "CrowdStrike",
-    "role": "Engineer II, Full Stack (Remote)",
-    "location": "Remote (US)",
-    "type": "earlycareer",
-    "category": "Engineering @ Security Co",
-    "clearance": false,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-09-24",
-    "closed": true,
-    "closed_date": "2026-10-01"
-  },
-  {
     "company": "Northrop Grumman",
     "role": "2026 Associate Cybersecurity Analyst - Pathways Program - Rocket Center WV",
     "location": "Rocket Center, WV",
@@ -3510,7 +3498,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-West-Virginia-Rocket-Center/XMLNAME-2026-Associate-Cybersecurity-Analyst---Pathways-Program---Rocket-Center-WV_R10252865",
     "source": "Workday",
-    "date_added": "2026-09-24"
+    "date_added": "2026-09-24",
+    "missing_since": "2026-10-01"
   },
   {
     "company": "RTX",
@@ -4351,7 +4340,8 @@
     "clearance": false,
     "url": "https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26011878",
     "source": "Oracle",
-    "date_added": "2026-09-29"
+    "date_added": "2026-09-29",
+    "missing_since": "2026-10-01"
   },
   {
     "company": "American Express",
@@ -4373,7 +4363,8 @@
     "clearance": false,
     "url": "https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26011908",
     "source": "Oracle",
-    "date_added": "2026-09-29"
+    "date_added": "2026-09-29",
+    "missing_since": "2026-10-01"
   },
   {
     "company": "American Express",
@@ -4395,7 +4386,8 @@
     "clearance": false,
     "url": "https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26011914",
     "source": "Oracle",
-    "date_added": "2026-09-29"
+    "date_added": "2026-09-29",
+    "missing_since": "2026-10-01"
   },
   {
     "company": "American Express",
@@ -4417,7 +4409,8 @@
     "clearance": false,
     "url": "https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26012460",
     "source": "Oracle",
-    "date_added": "2026-09-29"
+    "date_added": "2026-09-29",
+    "missing_since": "2026-10-01"
   },
   {
     "company": "American Express",
@@ -4956,6 +4949,50 @@
     "clearance": false,
     "url": "https://microsoft.eightfold.ai/careers/job/1970393557007527",
     "source": "Eightfold",
+    "date_added": "2026-10-01"
+  },
+  {
+    "company": "Northrop Grumman",
+    "role": "2027  Associate Systems Security Engineer - Roy UT",
+    "location": "Roy, UT",
+    "type": "newgrad",
+    "category": "Cloud & Infra Security",
+    "clearance": true,
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Utah-Roy/XMLNAME-2027--Associate-Systems-Security-Engineer---Roy-UT_R10253951",
+    "source": "Workday",
+    "date_added": "2026-10-01"
+  },
+  {
+    "company": "Duke Energy",
+    "role": "PGO Cybersecurity Summer 2027 Internship",
+    "location": "Lake Mary, FL",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://dukeenergy.wd1.myworkdayjobs.com/Search/job/Lake-Mary-FL/PGO-Cybersecurity-Summer-2027-Internship_R41822",
+    "source": "Workday",
+    "date_added": "2026-10-01"
+  },
+  {
+    "company": "Microsoft",
+    "role": "Software Engineer: Security & Identity Intern Opportunities for University Students, Redmond",
+    "location": "Redmond, WA",
+    "type": "intern",
+    "category": "Identity & IAM",
+    "clearance": false,
+    "url": "https://microsoft.eightfold.ai/careers/job/1970393556922930",
+    "source": "Eightfold",
+    "date_added": "2026-10-01"
+  },
+  {
+    "company": "Johns Hopkins APL",
+    "role": "2027 Internship - Cyber Physical Systems",
+    "location": "Laurel, MD",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://careers.jhuapl.edu/jobs/60339",
+    "source": "Jibe",
     "date_added": "2026-10-01"
   }
 ]

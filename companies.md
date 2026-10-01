@@ -4,20 +4,20 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **355 companies tracked.**
 
-## Hiring students now (83)
+## Hiring students now (84)
 
 Employers with open roles on the board today.
 
 | Company | Internships | New grad | Early career |
 | ------- | ----------- | -------- | ------------ |
-| Johns Hopkins APL | 10 | 9 |  |
+| Johns Hopkins APL | 11 | 9 |  |
 | Booz Allen Hamilton | 17 |  | 3 |
 | American Express | 8 | 4 |  |
 | Vanguard | 5 | 6 |  |
 | Palo Alto Networks | 5 | 1 | 1 |
+| Northrop Grumman | 2 | 3 | 9 |
 | RTX | 5 |  | 8 |
-| Northrop Grumman | 2 | 2 | 9 |
-| Microsoft | 4 |  | 3 |
+| Microsoft | 5 |  | 3 |
 | Tanium | 4 |  |  |
 | MITRE | 2 | 1 | 2 |
 | Cisco | 3 |  | 1 |
@@ -44,6 +44,7 @@ Employers with open roles on the board today.
 | Applied Intuition |  | 1 |  |
 | Bank of America | 1 |  |  |
 | Deloitte |  | 1 |  |
+| Duke Energy | 1 |  |  |
 | Exelon | 1 |  |  |
 | HP Inc | 1 |  |  |
 | Northern Trust | 1 |  |  |

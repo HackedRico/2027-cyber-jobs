@@ -14,7 +14,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**102** internships · **31** new grad · **123** early career open · **134** added in the last 7 days · **132** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 1, 2026
+**105** internships · **32** new grad · **123** early career open · **138** added in the last 7 days · **134** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 1, 2026
 
 <!-- /STATS -->
 
@@ -69,8 +69,11 @@ Cybersecurity internships and co-ops for current students.
 
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
+| Duke Energy | 🆕 PGO Cybersecurity Summer 2027 Internship<br><sub>Security Engineering</sub> | <a href="https://dukeenergy.wd1.myworkdayjobs.com/Search/job/Lake-Mary-FL/PGO-Cybersecurity-Summer-2027-Internship_R41822"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Duke Energy PGO Cybersecurity Summer 2027 Internship"></a> | Lake Mary, FL | Oct 1 |
 | GDIT | 🆕 GDIT Summer Internship Program – Summer 2027 Cybersecurity Associate Internship 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://gdit.wd5.myworkdayjobs.com/GDIT_EarlyTalent/job/USA-LA-Bossier-City/GDIT-Summer-Internship-Program---Summer-2027-Cybersecurity-Associate-Internship_RQ228929-2"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: GDIT GDIT Summer Internship Program – Summer 2027 Cybersecurity Associate Internship"></a> | Bossier City, LA | Oct 1 |
+| Johns Hopkins APL | 🆕 2027 Internship - Cyber Physical Systems 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://careers.jhuapl.edu/jobs/60339"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Johns Hopkins APL 2027 Internship - Cyber Physical Systems"></a> | Laurel, MD | Oct 1 |
 | Microsoft | 🆕 Security Operations Engineering INTERN<br><sub>SOC &amp; Detection</sub> | <a href="https://microsoft.eightfold.ai/careers/job/1970393557019490"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Microsoft Security Operations Engineering INTERN"></a> | Redmond, WA | Oct 1 |
+| ↳ | 🆕 Software Engineer: Security &amp; Identity Intern Opportunities for University Students, Redmond<br><sub>Identity &amp; IAM</sub> | <a href="https://microsoft.eightfold.ai/careers/job/1970393556922930"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Microsoft Software Engineer: Security &amp; Identity Intern Opportunities for University Students, Redmond"></a> | Redmond, WA | Oct 1 |
 | Palantir | 🆕 Privacy and Civil Liberties Software Engineer, Internship<br><sub>Security Engineering</sub> | <a href="https://jobs.lever.co/palantir/09846827-b931-4a9f-bd64-c3bb8860187b"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Palantir Privacy and Civil Liberties Software Engineer, Internship"></a> | New York, NY | Oct 1 |
 | Palo Alto Networks | 🆕 Sales Engineer - Intern<br><sub>Engineering @ Security Co</sub> | <a href="https://paloaltonetworks.wd5.myworkdayjobs.com/panwexternalcareers/job/Office---USA---TX/Sales-Engineer---Intern_JR-011311"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Palo Alto Networks Sales Engineer - Intern"></a> | TX (US) | Oct 1 |
 | Parsons | 🆕 CNO Development Intern/Co-op<br><sub>Offensive Security</sub> | <a href="https://parsons.wd5.myworkdayjobs.com/Search/job/US---MD-Field-Location/CNO-Development-Intern-Co-op_R184352"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Parsons CNO Development Intern/Co-op"></a> | MD (Field Location) | Oct 1 |
@@ -205,6 +208,7 @@ Full-time roles and rotational programs for students in their final year or just
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
 | Boeing | 🆕 Information Digital Technology &amp; Security Career Foundation Program - 2027 Cohort 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://boeing.wd1.myworkdayjobs.com/INTERN/job/USA---Seattle-WA/Information-Digital-Technology---Security-Career-Foundation-Program---2027-Cohort_JR2026522914"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Boeing Information Digital Technology &amp; Security Career Foundation Program - 2027 Cohort"></a> | <details><summary>**3 locations**</summary>Seattle, WA<br>Hazelwood, MO<br>North Charleston, SC</details> | Oct 1 |
+| Northrop Grumman | 🆕 2027 Associate Systems Security Engineer - Roy UT 🇺🇸<br><sub>Cloud &amp; Infra Security</sub> | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Utah-Roy/XMLNAME-2027--Associate-Systems-Security-Engineer---Roy-UT_R10253951"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Northrop Grumman 2027 Associate Systems Security Engineer - Roy UT"></a> | Roy, UT | Oct 1 |
 | Palantir | 🆕 Privacy &amp; Civil Liberties Engineer - New Grad<br><sub>Security Engineering</sub> | <a href="https://jobs.lever.co/palantir/95e0d2b0-437a-4096-a5c6-0f247f426c90"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Palantir Privacy &amp; Civil Liberties Engineer - New Grad"></a> | New York, NY | Oct 1 |
 | Palo Alto Networks | 🆕 Software Engineer<br><sub>Engineering @ Security Co</sub> | <a href="https://paloaltonetworks.wd5.myworkdayjobs.com/panwexternalcareers/job/Office---USA---CA---Headquarters/Software-Engineer_JR-011497"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Palo Alto Networks Software Engineer"></a> | CA (US) | Oct 1 |
 | American Express | 🆕 Campus Undergraduate Full-Time Associate - 2027 Cybersecurity Analyst, Enterprise Technology Services- Atlanta, GA<br><sub>Security Engineering</sub> | <a href="https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26013319"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: American Express Campus Undergraduate Full-Time Associate - 2027 Cybersecurity Analyst, Enterprise Technology Services- Atlanta, GA"></a> | Atlanta, GA | Sep 29 |
@@ -401,11 +405,10 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 <!-- CLOSED_START earlycareer -->
 
-<details><summary>🔒 141 closed in the last 60 days</summary>
+<details><summary>🔒 140 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
-| CrowdStrike | Engineer II, Full Stack (Remote) | Oct 1 |
 | Duke Energy | Associate Cybersecurity Governance &amp; Risk Analyst | Oct 1 |
 | Fireblocks | Technical Support Engineer - West Coast | Oct 1 |
 | Northrop Grumman | Associate Classified Cybersecurity Analyst - Secret | Oct 1 |
