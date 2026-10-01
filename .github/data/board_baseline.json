@@ -120,7 +120,7 @@
     "zero_runs": 0
   },
   "Anduril (greenhouse/andurilindustries)": {
-    "count": 2403,
+    "count": 2408,
     "empty_runs": 0,
     "last_nonzero": "2026-10-01",
     "zero_runs": 0
@@ -132,7 +132,7 @@
     "zero_runs": 0
   },
   "Anthropic (greenhouse/anthropic)": {
-    "count": 636,
+    "count": 637,
     "empty_runs": 0,
     "last_nonzero": "2026-10-01",
     "zero_runs": 0
@@ -157,9 +157,9 @@
   },
   "AppOmni (greenhouse/appomni)": {
     "count": 0,
-    "empty_runs": 34,
+    "empty_runs": 35,
     "last_nonzero": null,
-    "zero_runs": 34
+    "zero_runs": 35
   },
   "Appian (greenhouse/appian)": {
     "count": 166,
@@ -217,9 +217,9 @@
   },
   "Beyond Identity (greenhouse/beyondidentity)": {
     "count": 0,
-    "empty_runs": 34,
+    "empty_runs": 35,
     "last_nonzero": null,
-    "zero_runs": 34
+    "zero_runs": 35
   },
   "BeyondTrust (greenhouse/beyondtrust)": {
     "count": 51,
@@ -402,7 +402,7 @@
     "zero_runs": 0
   },
   "Cloudflare (greenhouse/cloudflare)": {
-    "count": 396,
+    "count": 397,
     "empty_runs": 0,
     "last_nonzero": "2026-10-01",
     "zero_runs": 0
@@ -463,9 +463,9 @@
   },
   "Contrast Security (ashby/contrast-security)": {
     "count": 0,
-    "empty_runs": 34,
+    "empty_runs": 35,
     "last_nonzero": null,
-    "zero_runs": 34
+    "zero_runs": 35
   },
   "Corelight (greenhouse/corelight)": {
     "count": 10,
@@ -559,9 +559,9 @@
   },
   "Dispel (workable/dispel)": {
     "count": 0,
-    "empty_runs": 2,
+    "empty_runs": 3,
     "last_nonzero": "2026-09-30",
-    "zero_runs": 2
+    "zero_runs": 3
   },
   "DomainTools (workable/domain-tools)": {
     "count": 16,
@@ -823,9 +823,9 @@
   },
   "Graylog (lever/graylog)": {
     "count": 0,
-    "empty_runs": 34,
+    "empty_runs": 35,
     "last_nonzero": null,
-    "zero_runs": 34
+    "zero_runs": 35
   },
   "GreyNoise (greenhouse/greynoiseintelligence)": {
     "count": 1,
@@ -984,7 +984,7 @@
     "zero_runs": 0
   },
   "Intel (workday/intel)": {
-    "count": 407,
+    "count": 406,
     "empty_runs": 0,
     "last_nonzero": "2026-10-01",
     "zero_runs": 0
@@ -1027,9 +1027,9 @@
   },
   "Jscrambler (smartrecruiters/jscrambler)": {
     "count": 0,
-    "empty_runs": 34,
+    "empty_runs": 35,
     "last_nonzero": null,
-    "zero_runs": 34
+    "zero_runs": 35
   },
   "Jumio (greenhouse/jumio)": {
     "count": 28,
@@ -1039,12 +1039,12 @@
   },
   "JupiterOne (workable/jupiterone)": {
     "count": 0,
-    "empty_runs": 10,
+    "empty_runs": 11,
     "last_nonzero": "2026-09-27",
-    "zero_runs": 10
+    "zero_runs": 11
   },
   "KBR (workday/kbr)": {
-    "count": 520,
+    "count": 521,
     "empty_runs": 0,
     "last_nonzero": "2026-10-01",
     "zero_runs": 0
@@ -1087,9 +1087,9 @@
   },
   "Lakera (ashby/lakera.ai)": {
     "count": 0,
-    "empty_runs": 34,
+    "empty_runs": 35,
     "last_nonzero": null,
-    "zero_runs": 34
+    "zero_runs": 35
   },
   "Lansweeper (recruitee/lansweeper)": {
     "count": 13,
@@ -1165,12 +1165,12 @@
   },
   "Metomic (workable/metomic)": {
     "count": 0,
-    "empty_runs": 34,
+    "empty_runs": 35,
     "last_nonzero": null,
-    "zero_runs": 34
+    "zero_runs": 35
   },
   "Microsoft (eightfold/microsoft)": {
-    "count": 532,
+    "count": 531,
     "empty_runs": 0,
     "last_nonzero": "2026-10-01",
     "zero_runs": 0
@@ -1183,9 +1183,9 @@
   },
   "Mindgard (workable/mindgard)": {
     "count": 0,
-    "empty_runs": 34,
+    "empty_runs": 35,
     "last_nonzero": null,
-    "zero_runs": 34
+    "zero_runs": 35
   },
   "Miro (ashby/miro)": {
     "count": 25,
@@ -1405,9 +1405,9 @@
   },
   "Panther Labs (greenhouse/pantherlabs)": {
     "count": 0,
-    "empty_runs": 34,
+    "empty_runs": 35,
     "last_nonzero": null,
-    "zero_runs": 34
+    "zero_runs": 35
   },
   "Parsons (workday/parsons)": {
     "count": 581,
@@ -1591,9 +1591,9 @@
   },
   "Safety CLI (ashby/safety)": {
     "count": 0,
-    "empty_runs": 34,
+    "empty_runs": 35,
     "last_nonzero": null,
-    "zero_runs": 34
+    "zero_runs": 35
   },
   "SailPoint (workday/sailpoint)": {
     "count": 109,
@@ -1602,7 +1602,7 @@
     "zero_runs": 0
   },
   "Salesforce (workday/salesforce)": {
-    "count": 490,
+    "count": 489,
     "empty_runs": 0,
     "last_nonzero": "2026-10-01",
     "zero_runs": 0
@@ -1638,7 +1638,7 @@
     "zero_runs": 0
   },
   "Scale AI (greenhouse/scaleai)": {
-    "count": 192,
+    "count": 193,
     "empty_runs": 0,
     "last_nonzero": "2026-10-01",
     "zero_runs": 0
@@ -1704,7 +1704,7 @@
     "zero_runs": 0
   },
   "Shift5 (greenhouse/shift5)": {
-    "count": 15,
+    "count": 14,
     "empty_runs": 0,
     "last_nonzero": "2026-10-01",
     "zero_runs": 0
@@ -1812,16 +1812,16 @@
     "zero_runs": 0
   },
   "Stripe (greenhouse/stripe)": {
-    "count": 717,
+    "count": 716,
     "empty_runs": 0,
     "last_nonzero": "2026-10-01",
     "zero_runs": 0
   },
   "Sublime Security (ashby/sublime-security)": {
     "count": 0,
-    "empty_runs": 34,
+    "empty_runs": 35,
     "last_nonzero": null,
-    "zero_runs": 34
+    "zero_runs": 35
   },
   "Sumo Logic (greenhouse/sumologic)": {
     "count": 9,
@@ -2065,9 +2065,9 @@
   },
   "Wallarm (recruitee/wallarm)": {
     "count": 0,
-    "empty_runs": 34,
+    "empty_runs": 35,
     "last_nonzero": null,
-    "zero_runs": 34
+    "zero_runs": 35
   },
   "Walmart (workday/walmart)": {
     "count": 883,
