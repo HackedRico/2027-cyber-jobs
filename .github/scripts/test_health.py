@@ -55,6 +55,14 @@ ROWS = [
     ('an empty role', row(role=' '), ['`role` is empty']),
     ('a string closed flag', row(closed='true', url=''), ['`closed` is not a boolean']),
     ('a non-object row', 'oops', ['row is not an object']),
+    ('a NUL in the role', row(role='SOC\x00 Analyst I'), ['`role` has a control character']),
+    ('an escape in the company', row(company='Acme\x1b[2J'),
+     ['`company` has a control character']),
+    ('a DEL in an extra field', row(last_url='https://x.example/\x7f'),
+     ['`last_url` has a control character']),
+    ('a vertical tab and a form feed', row(location='Austin,\x0b TX', source='Greenhouse\x0c'),
+     ['`location` has a control character', '`source` has a control character']),
+    ('a tab is not a control character here', row(role='SOC\tAnalyst I'), []),
 ]
 for name, entry, wants in ROWS:
     got = co.check_row(entry)
@@ -118,6 +126,13 @@ check('check_outputs prints the known problem as a warning',
       '::warning::listings.json: Acme | SOC Analyst I | Austin, TX: url is empty' in out, True)
 code, out = run_check_outputs([row(), BAD, row(type='x')], baseline=[BAD])
 check('check_outputs still fails on a new problem beside a known one', code, 1)
+# A scraped title that opens its own workflow command once printed raw.
+INJECTED = row(role='SOC Analyst I\n::warning::all clear\r::stop-commands::x', url='')
+code, out = run_check_outputs([row(), INJECTED])
+check('check_outputs keeps a problem with a newline in the row on one log line',
+      [line for line in out.splitlines() if line.startswith('::error')],
+      ['::error::listings.json: Acme | SOC Analyst I ::warning::all clear ::stop-commands::x'
+       ' | Austin, TX: url is empty but the row is not closed'])
 
 
 # --- check_outputs.check_against_baseline --------------------------------------

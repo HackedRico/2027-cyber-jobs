@@ -96,7 +96,30 @@ def _valid_slug(value):
 
 
 def _valid_host(value):
-    return bool(value) and bool(_HOST_RE.fullmatch(value)) and not value.startswith('.')
+    # Phenom and Jibe hosts are the employer's own domain, so no suffix can pin
+    # them, but a careers site is never an IP literal, localhost or a bare
+    # intranet name. An all-digit last label also covers the shorthand IPv4
+    # forms ('127.1') the resolver accepts.
+    if not value or not isinstance(value, str) or not _HOST_RE.fullmatch(value):
+        return False
+    labels = value.lower().split('.')
+    if len(labels) < 2 or '' in labels or labels[-1].isdigit():
+        return False
+    return labels[-1] != 'localhost'
+
+
+def _valid_oracle_host(value):
+    # Every Oracle Recruiting Cloud tenant lives under oraclecloud.com, so an
+    # entry naming any other host is a typo or a hijack, never a board.
+    return _valid_host(value) and value.lower().endswith('.oraclecloud.com')
+
+
+def _safe_path(value):
+    # A path from a payload is appended to a fixed host. '//evil.com' would be
+    # read as a new host, and '@' or '\' in it can move the host a browser
+    # sees ('https://www.amazon.jobs@evil.com/').
+    return (isinstance(value, str) and value.startswith('/') and not value.startswith('//')
+            and not re.search(r'[@\\\s]', value))
 
 
 def _sleep_backoff(attempt, retry_after=None):
@@ -107,6 +130,51 @@ def _sleep_backoff(attempt, retry_after=None):
     time.sleep(min(delay, MAX_BACKOFF))
 
 
+# The largest board payload in September 2026 was Greenhouse andurilindustries
+# with content at 41.6 MB, then Ashby openai at 13.9 MB, so a 25 MB cap would
+# have failed Anduril every run. A body past this is a tenant misbehaving or
+# hostile, and reading it whole could exhaust the runner's memory mid-scrape.
+MAX_RESPONSE_BYTES = 64 * 1024 * 1024
+
+
+def _host_of(url):
+    try:
+        return (urlparse(url).hostname or '').lower()
+    except ValueError:
+        return ''
+
+
+def _left_host(url, resp, label):
+    # requests follows a redirect to any host. A board API that answers from a
+    # host other than the one companies.yml names is no longer that employer's
+    # board, so its postings must not reach the table under the employer's name.
+    final = _host_of(resp.url)
+    if final == _host_of(url):
+        return False
+    print(f'  [{_oneline(label)}] redirected from {_host_of(url)} to '
+          f'{_oneline(final) or "?"}, treating as a failed fetch')
+    return True
+
+
+def _read_capped(resp, label):
+    # Returns the body, or None once it passes MAX_RESPONSE_BYTES. The size is
+    # counted after decompression, which is what the JSON parse holds in memory.
+    declared = resp.headers.get('Content-Length', '')
+    if declared.isdigit() and int(declared) > MAX_RESPONSE_BYTES:
+        print(f'  [{_oneline(label)}] response of {declared} bytes is over the cap, '
+              'treating as a failed fetch')
+        return None
+    chunks, size = [], 0
+    for chunk in resp.iter_content(chunk_size=1 << 16):
+        size += len(chunk)
+        if size > MAX_RESPONSE_BYTES:
+            print(f'  [{_oneline(label)}] response over {MAX_RESPONSE_BYTES} bytes, '
+                  'treating as a failed fetch')
+            return None
+        chunks.append(chunk)
+    return b''.join(chunks)
+
+
 def fetch_json(url, *, method='GET', label='', **kwargs):
     """HTTP request returning parsed JSON, or None on unrecoverable failure.
 
@@ -114,38 +182,53 @@ def fetch_json(url, *, method='GET', label='', **kwargs):
     honoring Retry-After, and 200s with a non-JSON body) with exponential
     backoff plus jitter, over the calling thread's pooled Session. Returning
     None (not []) lets callers tell a broken fetch apart from a genuinely
-    empty board.
+    empty board. A redirect to another host or a body over
+    MAX_RESPONSE_BYTES is a failed fetch, not retried.
     """
     kwargs.setdefault('timeout', REQUEST_TIMEOUT)
+    kwargs['stream'] = True
     for attempt in range(MAX_RETRIES):
         last = attempt + 1 == MAX_RETRIES
         try:
             resp = _session().request(method, url, **kwargs)
         except requests.RequestException as e:
             if last:
-                print(f'  [{label}] request error: {e}')
+                print(f'  [{_oneline(label)}] request error: {_oneline(e)}')
                 return None
             _sleep_backoff(attempt)
             continue
-        # A lone Workday 502 or 504 used to end the whole search term on its
-        # first try, and the term's postings with it.
-        if resp.status_code == 429 or resp.status_code >= 500:
-            if last:
-                reason = ' (rate limited)' if resp.status_code in (429, 503) else ''
-                print(f'  [{label}] HTTP {resp.status_code}{reason}')
+        with resp:
+            if _left_host(url, resp, label):
                 return None
-            _sleep_backoff(attempt, resp.headers.get('Retry-After'))
-            continue
-        if resp.status_code != 200:
-            print(f'  [{label}] HTTP {resp.status_code}')
-            return None
-        try:
-            return resp.json()
-        except ValueError:
-            if last:
-                print(f'  [{label}] non-JSON 200 response')
+            # A lone Workday 502 or 504 used to end the whole search term on its
+            # first try, and the term's postings with it.
+            if resp.status_code == 429 or resp.status_code >= 500:
+                if last:
+                    reason = ' (rate limited)' if resp.status_code in (429, 503) else ''
+                    print(f'  [{_oneline(label)}] HTTP {resp.status_code}{reason}')
+                    return None
+                _sleep_backoff(attempt, resp.headers.get('Retry-After'))
+                continue
+            if resp.status_code != 200:
+                print(f'  [{_oneline(label)}] HTTP {resp.status_code}')
                 return None
-            _sleep_backoff(attempt)
+            try:
+                body = _read_capped(resp, label)
+            except requests.RequestException as e:
+                if last:
+                    print(f'  [{_oneline(label)}] request error: {_oneline(e)}')
+                    return None
+                _sleep_backoff(attempt)
+                continue
+            if body is None:
+                return None
+            try:
+                return json.loads(body)
+            except ValueError:
+                if last:
+                    print(f'  [{_oneline(label)}] non-JSON 200 response')
+                    return None
+                _sleep_backoff(attempt)
     return None
 
 
@@ -155,6 +238,35 @@ def _oneline(text):
     return ' '.join(str(text).split())
 
 
+# C0 controls other than tab, newline and carriage return, plus DEL. XML 1.0
+# forbids them, so one in a stored title breaks every Atom feed build_site.py
+# writes, not just the row's own entry.
+_CONTROL_RE = re.compile(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]')
+
+
+def _strip_controls(text):
+    return _CONTROL_RE.sub('', text) if isinstance(text, str) else text
+
+
+def scrub_control_characters(listings):
+    """Strip control characters from each row's company, role and location.
+
+    Returns the number of rows changed. Rows stored before the insert pass
+    stripped them keep them otherwise, since nothing else rewrites those fields.
+    """
+    changed = 0
+    for entry in listings:
+        dirty = False
+        for field in ('company', 'role', 'location'):
+            value = entry.get(field)
+            clean = _strip_controls(value)
+            if clean != value:
+                entry[field] = clean
+                dirty = True
+        changed += dirty
+    return changed
+
+
 def check_container(data, key, label):
     """Warn (as a GitHub annotation) when an expected top-level key is missing.
 
@@ -162,7 +274,7 @@ def check_container(data, key, label):
     an empty board unless surfaced.
     """
     if isinstance(data, dict) and key not in data:
-        print(f'::warning::[{label}] response missing expected key {key!r} '
+        print(f'::warning::[{_oneline(label)}] response missing expected key {key!r} '
               f'(schema drift?); got keys {sorted(data)[:8]}')
 
 
@@ -190,6 +302,53 @@ GREENHOUSE_LOCATION_FIELDS = {
 }
 
 
+# Greenhouse, Lever, Ashby, Recruitee and Pinpoint hand back whatever apply
+# link the tenant configured, and it becomes the row's Apply button. A board
+# filed under the wrong employer, or a hijacked tenant, could send students to
+# any domain, so the link must sit on the ATS's own host or on a host the
+# company's companies.yml entry lists in `apply_hosts`.
+VENDOR_APPLY_HOSTS = {
+    'Greenhouse': ('greenhouse.io',),
+    'Lever': ('lever.co',),
+    'Ashby': ('ashbyhq.com',),
+}
+
+
+class _ApplyLinks:
+    def __init__(self, label, vendor_hosts, apply_hosts=()):
+        self.label = label
+        self.vendor_hosts = tuple(vendor_hosts)
+        self.apply_hosts = {h.lower() for h in apply_hosts or () if _valid_host(h)}
+        self.refused = Counter()
+
+    def _allowed(self, url):
+        try:
+            parts = urlparse(url)
+        except ValueError:
+            return False
+        host = (parts.hostname or '').lower()
+        # A userinfo, port or backslash can make a browser land on a host
+        # other than the one urlparse reports.
+        if (parts.scheme not in ('http', 'https') or parts.netloc.lower() != host
+                or re.search(r'[\\\s]', url)):
+            return False
+        return host in self.apply_hosts or any(
+            host == v or host.endswith(f'.{v}') for v in self.vendor_hosts)
+
+    def pick(self, url, fallback):
+        if isinstance(url, str) and url and self._allowed(url):
+            return url
+        if url:
+            self.refused[_host_of(str(url)) or '?'] += 1
+        return fallback
+
+    def report(self):
+        if self.refused:
+            hosts = ', '.join(f'{_oneline(h)} x{n}' for h, n in sorted(self.refused.items()))
+            print(f'  [{_oneline(self.label)}] apply link off the allowed hosts '
+                  f'({hosts}), using the vendor URL')
+
+
 def greenhouse_location(job):
     loc = (job.get('location') or {}).get('name', '') or ''
     label = loc.strip().lower()
@@ -215,12 +374,13 @@ def greenhouse_location(job):
     return '; '.join(dict.fromkeys(parts)) if parts else loc
 
 
-def scrape_greenhouse(company, slug):
+def scrape_greenhouse(company, slug, apply_hosts=()):
     url = f'https://boards-api.greenhouse.io/v1/boards/{slug}/jobs?content=true'
     data = fetch_json(url, label=f'{company} Greenhouse')
     if data is None:
         return None
     check_container(data, 'jobs', f'{company} Greenhouse')
+    links = _ApplyLinks(f'{company} Greenhouse', VENDOR_APPLY_HOSTS['Greenhouse'], apply_hosts)
     jobs = []
     for job in data.get('jobs', []):
         jobs.append({
@@ -228,18 +388,23 @@ def scrape_greenhouse(company, slug):
             'company': company,
             'title': job.get('title', ''),
             'location': greenhouse_location(job),
-            'url': job.get('absolute_url', ''),
+            # The /jobs/<id> shape keeps job_fingerprint on the same req id
+            # that gh_jid carries in an employer-hosted link.
+            'url': links.pick(job.get('absolute_url', ''),
+                              f'https://job-boards.greenhouse.io/{slug}/jobs/{job["id"]}'),
             'board': 'Greenhouse',
             'description': job.get('content', ''),
         })
+    links.report()
     return jobs
 
 
-def scrape_lever(company, slug):
+def scrape_lever(company, slug, apply_hosts=()):
     url = f'https://api.lever.co/v0/postings/{slug}?mode=json'
     data = fetch_json(url, label=f'{company} Lever')
     if data is None:
         return None
+    links = _ApplyLinks(f'{company} Lever', VENDOR_APPLY_HOSTS['Lever'], apply_hosts)
     jobs = []
     for job in data:
         cats = job.get('categories') or {}
@@ -261,11 +426,13 @@ def scrape_lever(company, slug):
             'company': company,
             'title': job.get('text', ''),
             'location': location,
-            'url': job.get('hostedUrl', ''),
+            'url': links.pick(job.get('hostedUrl', ''),
+                              f'https://jobs.lever.co/{slug}/{job["id"]}'),
             'board': 'Lever',
             'description': _lever_description(job),
             'intern_hint': 'intern' in commitment,
         })
+    links.report()
     return jobs
 
 
@@ -285,13 +452,14 @@ def _lever_description(job):
     return '\n\n'.join(p for p in parts if p.strip())
 
 
-def scrape_ashby(company, slug):
+def scrape_ashby(company, slug, apply_hosts=()):
     url = f'https://api.ashbyhq.com/posting-api/job-board/{slug}'
     data = fetch_json(url, label=f'{company} Ashby')
     if data is None:
         return None
     if isinstance(data, dict) and 'jobs' not in data and 'jobPostings' not in data:
         check_container(data, 'jobs', f'{company} Ashby')
+    links = _ApplyLinks(f'{company} Ashby', VENDOR_APPLY_HOSTS['Ashby'], apply_hosts)
     jobs = []
     for job in data.get('jobs') or data.get('jobPostings') or []:
         if job.get('isListed') is False:
@@ -301,11 +469,8 @@ def scrape_ashby(company, slug):
         locations += [_ashby_place(s.get('location', ''), s.get('address'))
                       for s in job.get('secondaryLocations') or [] if isinstance(s, dict)]
         location = '; '.join(dict.fromkeys(x for x in locations if x))
-        apply_url = (
-            job.get('jobUrl', '')
-            or job.get('applyUrl', '')
-            or f'https://jobs.ashbyhq.com/{slug}/{job.get("id", "")}'
-        )
+        apply_url = links.pick(job.get('jobUrl', '') or job.get('applyUrl', ''),
+                               f'https://jobs.ashbyhq.com/{slug}/{job.get("id", "")}')
         jobs.append({
             'id': f'ashby_{slug}_{job["id"]}',
             'company': company,
@@ -316,6 +481,7 @@ def scrape_ashby(company, slug):
             'description': job.get('descriptionPlain', ''),
             'intern_hint': job.get('employmentType', '') == 'Intern',
         })
+    links.report()
     return jobs
 
 
@@ -501,34 +667,38 @@ def scrape_workable(company, slug):
     return jobs
 
 
-def scrape_recruitee(company, slug):
+def scrape_recruitee(company, slug, apply_hosts=()):
     if not _valid_slug(slug):
-        print(f'  [{company}] invalid recruitee slug {slug!r} — skipping')
+        print(f'  [{_oneline(company)}] invalid recruitee slug {slug!r} — skipping')
         return None
     url = f'https://{slug}.recruitee.com/api/offers/'
     data = fetch_json(url, label=f'{company} Recruitee')
     if data is None:
         return None
     check_container(data, 'offers', f'{company} Recruitee')
+    links = _ApplyLinks(f'{company} Recruitee', (f'{slug}.recruitee.com',), apply_hosts)
     jobs = []
     for job in data.get('offers', []):
         location = recruitee_location(job)
         if not location:
             continue
         job_id = str(job.get('id', ''))
+        offer = job.get('slug')
+        offer = offer if isinstance(offer, str) and _valid_slug(offer) else job_id
         jobs.append({
             'id': f'recruitee_{slug}_{job_id}',
             'company': company,
             'title': job.get('title', ''),
             'location': location,
-            'url': job.get('careers_url',
-                           f'https://{slug}.recruitee.com/o/{job.get("slug", job_id)}'),
+            'url': links.pick(job.get('careers_url', ''),
+                              f'https://{slug}.recruitee.com/o/{offer}'),
             'board': 'Recruitee',
             # The requirements block holds the years bar, so reading neither
             # field kept every Recruitee posting out of the experience gate.
             'description': '\n'.join(filter(None, (job.get('description'),
                                                    job.get('requirements')))),
         })
+    links.report()
     return jobs
 
 
@@ -566,15 +736,16 @@ def recruitee_location(job):
     return '; '.join(dict.fromkeys(p for p in map(_recruitee_part, sites) if p))
 
 
-def scrape_pinpoint(company, slug):
+def scrape_pinpoint(company, slug, apply_hosts=()):
     if not _valid_slug(slug):
-        print(f'  [{company}] invalid pinpoint slug {slug!r} — skipping')
+        print(f'  [{_oneline(company)}] invalid pinpoint slug {slug!r} — skipping')
         return None
     url = f'https://{slug}.pinpointhq.com/postings.json'
     data = fetch_json(url, label=f'{company} Pinpoint')
     if data is None:
         return None
     check_container(data, 'data', f'{company} Pinpoint')
+    links = _ApplyLinks(f'{company} Pinpoint', (f'{slug}.pinpointhq.com',), apply_hosts)
     jobs = []
     for job in data.get('data', []):
         loc = job.get('location') or {}
@@ -586,15 +757,20 @@ def scrape_pinpoint(company, slug):
         else:
             location = ', '.join(p for p in (loc.get('city'), loc.get('province')) if p)
         job_id = str(job.get('id', ''))
+        # The page path carries the posting's uuid, which job_fingerprint
+        # reads; /postings/<numeric id> is a 404.
+        path = job.get('path')
+        path = path if _safe_path(path) else f'/postings/{job_id}'
         jobs.append({
             'id': f'pinpoint_{slug}_{job_id}',
             'company': company,
             'title': job.get('title', ''),
             'location': location,
-            'url': job.get('url', f'https://{slug}.pinpointhq.com/postings/{job_id}'),
+            'url': links.pick(job.get('url', ''), f'https://{slug}.pinpointhq.com{path}'),
             'board': 'Pinpoint',
             'description': job.get('description', ''),
         })
+    links.report()
     return jobs
 
 
@@ -653,10 +829,14 @@ def workday_posting(url):
         return None, None
     tenant, instance, board, path = m.groups()
     api = f'https://{tenant}.{instance}.myworkdayjobs.com/wday/cxs/{tenant}/{board}{path}'
+    label = f'Workday detail {tenant}'
     try:
-        resp = _session().get(api, headers={'Accept': 'application/json'},
-                              timeout=REQUEST_TIMEOUT)
-        body = resp.json()
+        with _session().get(api, headers={'Accept': 'application/json'},
+                            timeout=REQUEST_TIMEOUT, stream=True) as resp:
+            if _left_host(api, resp, label):
+                return None, None
+            raw = _read_capped(resp, label)
+        body = json.loads(raw) if raw is not None else None
     except (requests.RequestException, ValueError):
         return None, None
     # A JSON null or list body raised AttributeError out of the vanished pass
@@ -682,10 +862,10 @@ def workday_posting_state(url):
 def scrape_workday(company, tenant, instance, board, security_company=False,
                    extra_terms=None):
     if not _valid_slug(tenant) or not _valid_slug(instance):
-        print(f'  [{company}] invalid workday tenant/instance — skipping')
+        print(f'  [{_oneline(company)}] invalid workday tenant/instance — skipping')
         return None
     if board and not _valid_slug(board):
-        print(f'  [{company}] invalid workday board {board!r} — skipping')
+        print(f'  [{_oneline(company)}] invalid workday board {board!r} — skipping')
         return None
     if board:
         cxs_root = f'https://{tenant}.{instance}.myworkdayjobs.com/wday/cxs/{tenant}/{board}'
@@ -742,6 +922,13 @@ def scrape_workday(company, tenant, instance, board, security_company=False,
             for job in postings:
                 path = job.get('externalPath', '')
                 if not path or path in seen_paths:
+                    continue
+                # Appended to the tenant host for both the job page and the
+                # detail fetch, so a path that could name another host is
+                # dropped rather than linked.
+                if not _safe_path(path):
+                    print(f'  [{_oneline(company)}] unsafe workday path '
+                          f'{_oneline(repr(path))}, skipping')
                     continue
                 seen_paths.add(path)
                 # Job pages 404 without the board segment in the URL.
@@ -813,8 +1000,8 @@ def scrape_oracle(company, host, site, security_company=False):
     is the CE site number (e.g. 'CX_1'). Unlocks large enterprises/banks that
     run cyber-analyst new-grad programs but aren't on the other ATSs.
     """
-    if not _valid_host(host) or not _valid_slug(site):
-        print(f'  [{company}] invalid oracle host/site — skipping')
+    if not _valid_oracle_host(host) or not _valid_slug(site):
+        print(f'  [{_oneline(company)}] invalid oracle host/site — skipping')
         return None
     api = f'https://{host}/hcmRestApi/resources/latest/recruitingCEJobRequisitions'
     limit = 200
@@ -910,29 +1097,43 @@ EIGHTFOLD_EXPERIENCED_LEVELS = {'experienced professional'}
 
 def _get_json_patiently(url, *, method='GET', label='', **kwargs):
     kwargs.setdefault('timeout', REQUEST_TIMEOUT)
+    kwargs['stream'] = True
     for delay in (*RATE_LIMIT_DELAYS, None):
         try:
             resp = _session().request(method, url, **kwargs)
         except requests.RequestException as e:
             if delay is None:
-                print(f'  [{label}] request error: {_oneline(e)}')
+                print(f'  [{_oneline(label)}] request error: {_oneline(e)}')
                 return None
             time.sleep(delay)
             continue
-        if resp.status_code in (429, 503):
-            if delay is None:
-                print(f'  [{label}] HTTP {resp.status_code} (rate limited)')
+        with resp:
+            if _left_host(url, resp, label):
                 return None
-            time.sleep(delay)
-            continue
-        if resp.status_code != 200:
-            print(f'  [{label}] HTTP {resp.status_code}')
-            return None
-        try:
-            return resp.json()
-        except ValueError:
-            print(f'  [{label}] non-JSON 200 response')
-            return None
+            if resp.status_code in (429, 503):
+                if delay is None:
+                    print(f'  [{_oneline(label)}] HTTP {resp.status_code} (rate limited)')
+                    return None
+                time.sleep(delay)
+                continue
+            if resp.status_code != 200:
+                print(f'  [{_oneline(label)}] HTTP {resp.status_code}')
+                return None
+            try:
+                body = _read_capped(resp, label)
+            except requests.RequestException as e:
+                if delay is None:
+                    print(f'  [{_oneline(label)}] request error: {_oneline(e)}')
+                    return None
+                time.sleep(delay)
+                continue
+            if body is None:
+                return None
+            try:
+                return json.loads(body)
+            except ValueError:
+                print(f'  [{_oneline(label)}] non-JSON 200 response')
+                return None
     return None
 
 
@@ -972,7 +1173,7 @@ def scrape_eightfold(company, tenant, domain, security_company=False,
     candidates so the experience gate can run.
     """
     if not _valid_slug(tenant) or not _valid_host(domain):
-        print(f'  [{company}] invalid eightfold tenant/domain — skipping')
+        print(f'  [{_oneline(company)}] invalid eightfold tenant/domain — skipping')
         return None
     root = f'https://{tenant}.eightfold.ai'
     headers = {**HEADERS, 'Accept': 'application/json'}
@@ -1066,7 +1267,7 @@ def scrape_phenom(company, host, lang, country, security_company=False,
     the same endpoint's jobDetail call, for title-level candidates only.
     """
     if not _valid_host(host) or not _valid_slug(lang) or not _valid_slug(country):
-        print(f'  [{company}] invalid phenom host/lang/country — skipping')
+        print(f'  [{_oneline(company)}] invalid phenom host/lang/country — skipping')
         return None
     api = f'https://{host}/widgets'
     headers = {**HEADERS, 'Content-Type': 'application/json',
@@ -1199,7 +1400,7 @@ def scrape_jibe(company, host, extra_terms=None):
     iCIMS login wall.
     """
     if not _valid_host(host):
-        print(f'  [{company}] invalid jibe host {host!r}, skipping')
+        print(f'  [{_oneline(company)}] invalid jibe host {host!r}, skipping')
         return None
     api = f'https://{host}/api/jobs'
     headers = {**HEADERS, 'Accept': 'application/json'}
@@ -1752,7 +1953,7 @@ def repair_broken_locations(listings, raw_jobs):
             for e in listings}
     repaired, folded = [], []
     for entry, fingerprint in candidates:
-        raw = live.get(fingerprint, '')
+        raw = _strip_controls(live.get(fingerprint, ''))
         after = normalize_location(raw)
         if not is_us_location(raw) or not is_us_location(after):
             continue
@@ -1828,6 +2029,10 @@ def scrape_amazon():
         for job in postings:
             job_id = str(job.get('id_icims', job.get('id', '')))
             job_path = job.get('job_path', '')
+            if job_path and not _safe_path(job_path):
+                print(f'  [Amazon] unsafe job_path {_oneline(repr(job_path))}, '
+                      'using the req id')
+                job_path = ''
             url = (f'https://www.amazon.jobs{job_path}' if job_path
                    else f'https://www.amazon.jobs/en/jobs/{job_id}')
             jobs.append({
@@ -1982,7 +2187,7 @@ def report_board_health(board_stats, today=None, persist=True):
 
     history, regressed, dead = board_health(board_stats, load_board_baseline(), today)
     for label, was in regressed:
-        print(f'::warning::[{label}] returned 0 postings but had {was} last run '
+        print(f'::warning::[{_oneline(label)}] returned 0 postings but had {was} last run '
               f'(broken slug or ATS drift?)')
     if dead:
         # One aggregated annotation, not one per board: a long-neglected config
@@ -1998,14 +2203,14 @@ def report_board_health(board_stats, today=None, persist=True):
         f'- Raw postings fetched: **{total_raw}**',
     ]
     if broken:
-        lines.append('- ⚠️ Failed/crashed: ' + ', '.join(b['label'] for b in broken))
+        lines.append('- ⚠️ Failed/crashed: ' + ', '.join(_oneline(b['label']) for b in broken))
     if regressed:
         lines.append('- ⚠️ Regressed to zero: '
-                     + ', '.join(label for label, _ in regressed))
+                     + ', '.join(_oneline(label) for label, _ in regressed))
     if dead:
         lines += ['', f'<details><summary>💀 Silent for {ZERO_RUN_ALERT}+ runs '
                       f'({len(dead)})</summary>', '']
-        lines += [f'- `{label}` — {runs} runs, '
+        lines += [f'- `{_oneline(label)}` — {runs} runs, '
                   + (f'last postings {last}' if last else 'no postings on record')
                   for label, runs, last in dead]
         lines += ['', '</details>']
@@ -2062,6 +2267,9 @@ SIMPLE_BOARDS = {
 # Simple boards whose scraper fetches descriptions for title-level candidates,
 # which is_cyber_title judges under the company's security_company flag.
 FLAGGED_SIMPLE_BOARDS = {'smartrecruiters'}
+# Simple boards whose scraper passes the API's own apply link through, checked
+# against the entry's optional `apply_hosts`.
+APPLY_LINK_BOARDS = {'greenhouse', 'lever', 'ashby', 'recruitee', 'pinpoint'}
 
 
 class BoardTask(NamedTuple):
@@ -2090,6 +2298,8 @@ def build_tasks(config, board=None, limit=None):
             args = (entry['name'], entry['slug'])
             if name in FLAGGED_SIMPLE_BOARDS:
                 args += (flag,)
+            if name in APPLY_LINK_BOARDS and entry.get('apply_hosts'):
+                args += (tuple(entry['apply_hosts']),)
             tasks.append(BoardTask(
                 f'{entry["name"]} ({name}/{entry["slug"]})', scraper, args, flag))
     if want('workday'):
@@ -2141,7 +2351,7 @@ def run_board(task):
         # One misbehaving board must not take the rest of the run down with it;
         # the summary reports it as CRASHED and the baseline check flags a
         # board that stays broken.
-        print(f'  [{task.label}] Scraper crashed: {_oneline(e)}')
+        print(f'  [{_oneline(task.label)}] Scraper crashed: {_oneline(e)}')
         status = 'CRASHED'
     else:
         if found is None:
@@ -2207,6 +2417,8 @@ def insert_new_listings(listings, raw_jobs, seen, sec_flags, today):
     for job in raw_jobs:
         jid = job['id']
         url = job.get('url', '')
+        job = {**job, **{field: _strip_controls(job.get(field) or '')
+                         for field in ('company', 'title', 'location')}}
         location = normalize_location(job.get('location', ''))
         key = listing_dedup_key(job['company'], job.get('title', ''), location)
         # The fingerprint catches a Workday req whose URL and location both
@@ -2318,7 +2530,7 @@ def main():
     tasks = build_tasks(config, board=args.board, limit=args.limit)
     started = time.monotonic()
     for result in scrape_boards(tasks):
-        print(f'Checking {result["label"]}... {result["status"]} '
+        print(f'Checking {_oneline(result["label"])}... {result["status"]} '
               f'({result["count"]} postings, {result["seconds"]:.1f}s)')
         for job in result['jobs']:
             sec_flags[job['id']] = result['security_company']
@@ -2347,11 +2559,14 @@ def main():
     renormalized = renormalize_locations(listings)
     if renormalized:
         print(f'Renormalized {renormalized} location(s)')
+    scrubbed = scrub_control_characters(listings)
+    if scrubbed:
+        print(f'Stripped control characters from {scrubbed} row(s)')
 
     # Let classifier improvements reach already-scraped listings (title-only).
     listings, reclass_changes, rejected = reclassify_listings(listings, company_flags)
     for company, role, old, new in reclass_changes:
-        print(f'  RECLASSIFY [{old} -> {new}] {company} — {role}')
+        print(f'  RECLASSIFY [{old} -> {new}] {_oneline(company)} — {_oneline(role)}')
     reclassified = len(reclass_changes)
 
     # Re-judge each row against its live posting with the full pipeline, so a
@@ -2429,8 +2644,8 @@ def main():
     # streak still has to save listings.json or the streak resets every run.
     pending = sum(1 for e in listings if e.get('missing_since'))
     changed = (added or reclassified or revived or purged or drops or refreshed
-               or renormalized or repaired or folded or vanished or orphaned or renamed
-               or pending)
+               or renormalized or scrubbed or repaired or folded or vanished or orphaned
+               or renamed or pending)
     dropped_by = ', '.join(f'{n} {reason}' for reason, n in sorted(drop_counts.items()))
     print(f'\nAdded {added} new listing(s), revived {revived}, '
           f'reclassified {reclassified}, purged {purged}, '

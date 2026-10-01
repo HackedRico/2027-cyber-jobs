@@ -1960,6 +1960,150 @@ def test_check_links_redirect_that_drops_the_req():
           check_links.fetch_status(search), 200)
 
 
+# --- check_links: a hostile Community page cannot stall the check ------------
+@responses.activate
+def test_check_links_reads_a_capped_body_in_linear_time():
+    """2 MB of unclosed <title tags ran past the 30-minute job timeout."""
+    import time
+    pages = {
+        'https://evil.example/job/1': '<html><head>' + '<title' * 350_000,
+        'https://evil.example/job/2': '<title>' + 'x' * 2_000_000,
+        'https://evil.example/job/3': '<title x' * 300_000 + '>',
+        'https://evil.example/job/4': '<title></title' * 150_000,
+        # A title past the cap is never read, so the page is not judged.
+        'https://evil.example/job/5': ' ' * (check_links.MAX_BODY_BYTES + 10)
+                                      + '<title>404 Not Found</title>',
+    }
+    for url, body in pages.items():
+        responses.get(url, status=200, body=body, content_type='text/html')
+    started = time.monotonic()
+    statuses = [check_links.fetch_status(url, soft_404=True) for url in pages]
+    elapsed = time.monotonic() - started
+    check('hostile pages read as live, not as soft 404s, except an empty title',
+          statuses, [200, 200, 200, check_links.SOFT_404, 200])
+    check(f'hostile pages are checked in well under a second each ({elapsed:.2f}s)',
+          elapsed < 5, True)
+
+    started = time.monotonic()
+    for text in ('<title' * 45_000, '<title x' * 33_000, '<title>' + 'a' * 262_144):
+        check_links.TITLE_RE.search(text)
+    check('TITLE_RE stays linear on 256 KB of unclosed tags',
+          time.monotonic() - started < 1, True)
+    check('TITLE_RE still reads an ordinary title',
+          check_links.TITLE_RE.search('<TITLE lang="en">SOC Analyst I</title >').group(1),
+          'SOC Analyst I')
+
+    responses.get('https://evil.example/big', status=200, body=b'a' * 3_000_000,
+                  content_type='text/html')
+    import requests
+    resp = requests.get('https://evil.example/big', stream=True)
+    check('read_body stops at MAX_BODY_BYTES',
+          len(check_links.read_body(resp)), check_links.MAX_BODY_BYTES)
+
+
+def test_check_links_body_read_has_a_deadline():
+    # time.sleep is stubbed out in this file, so a fake clock stands in for
+    # a server that brings one byte per second.
+    clock = {'now': 0.0}
+
+    class Clock:
+        @staticmethod
+        def monotonic():
+            return clock['now']
+
+    class Raw:
+        def read1(self, amt, decode_content=True):
+            clock['now'] += 1
+            return b'<'
+
+    class Resp:
+        raw = Raw()
+
+    saved = check_links.time
+    check_links.time = Clock
+    try:
+        body = check_links.read_body(Resp(), seconds=20)
+    finally:
+        check_links.time = saved
+    check('read_body gives up at its deadline on a drip-fed body', len(body), 20)
+
+
+@responses.activate
+def test_check_links_follows_redirects_through_the_guard():
+    start = 'https://careers.acme.com/job/4412345'
+    responses.get(start, status=302, headers={'Location': 'http://careers.acme.com:6379/'})
+    other = 'https://careers.acme.com/job/4412346'
+    responses.get(other, status=302, headers={'Location': 'file:///etc/passwd'})
+    check('a redirect to another port or scheme is blocked before it is fetched',
+          [check_links.fetch_status(u, soft_404=True) for u in (start, other)],
+          [check_links.BLOCKED, check_links.BLOCKED])
+    check('only the first hop of each was fetched', len(responses.calls), 2)
+    loop = 'https://careers.acme.com/job/loop'
+    responses.get(loop, status=302, headers={'Location': loop})
+    check('a redirect loop is a failed request, not a dead link',
+          check_links.fetch_status(loop), None)
+    check('a link on another port is blocked without a request',
+          (check_links.fetch_status('https://careers.acme.com:8443/job/1'),
+           len(responses.calls)), (check_links.BLOCKED, 2 + check_links.MAX_REDIRECTS + 1))
+
+    row = {'company': 'Acme', 'role': 'Analyst', 'source': 'Community', 'url': start}
+    check('a blocked link starts a dead streak',
+          check_links.record_result(row, check_links.BLOCKED, '2026-09-27'), False)
+    check('a blocked link closes on its second day',
+          check_links.record_result(row, check_links.BLOCKED, '2026-09-28'), True)
+
+
+def test_check_links_redirect_to_a_private_address_is_never_fetched():
+    """The real session: a public hop that redirects to cloud metadata."""
+    import http.server
+    import threading
+
+    import common
+    from validate_issue import public_session
+
+    hosts = []
+
+    class Handler(http.server.BaseHTTPRequestHandler):
+        def do_GET(self):
+            hosts.append(self.headers['Host'])
+            self.send_response(302)
+            self.send_header('Location', 'http://169.254.169.254/latest/meta-data/')
+            self.end_headers()
+
+        def log_message(self, *args):
+            pass
+
+    server = http.server.HTTPServer(('127.0.0.1', 0), Handler)
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    port = server.server_address[1]
+    saved = common.ALLOWED_PORTS
+    # The test server cannot listen on 80, and careers.acme.com stands in for
+    # a public host, so both are let through for this one check.
+    common.ALLOWED_PORTS = saved | {port}
+    session = public_session(resolve=lambda host, p: (
+        '127.0.0.1' if host == 'careers.acme.com' else common.public_address(host, p)))
+    try:
+        status = check_links.fetch_status(f'http://careers.acme.com:{port}/job/4412345',
+                                          soft_404=True, session=session)
+    finally:
+        common.ALLOWED_PORTS = saved
+        server.shutdown()
+        server.server_close()
+    check('a redirect to link-local metadata is blocked', status, check_links.BLOCKED)
+    check('the first hop went to the pinned address with the real Host header',
+          hosts, [f'careers.acme.com:{port}'])
+
+
+def test_check_links_skip_matches_the_parsed_host():
+    urls = ['https://careers.ibm.com/job/1', 'https://www.usajobs.gov/job/1',
+            'https://usajobs.gov/job/1', 'https://evil.example/careers.ibm.com/job/1',
+            'https://careers.ibm.com.evil.example/job/1', 'https://notusajobs.gov/job/1',
+            'https://evil.example/?next=lockheedmartinjobs.com']
+    check('should_skip matches a bot-blocked host or its subdomain only',
+          [check_links.should_skip(u) for u in urls],
+          [True, True, True, False, False, False, False])
+
+
 def test_check_links_ages_out_old_community_rows():
     old = {'company': 'Acme', 'role': 'SOC Intern', 'source': 'Community',
            'url': 'https://x/1', 'date_added': '2026-05-01'}
@@ -2440,6 +2584,254 @@ def test_orphan_pass_covers_jibe_rows():
           ['Cyber Analyst'])
 
 
+@responses.activate
+def test_fetches_refuse_a_redirect_to_another_host():
+    """A board API that answers from a host companies.yml does not name is not that board."""
+    responses.get('https://api.test/moved', status=302,
+                  headers={'Location': 'https://evil.test/jobs'})
+    responses.get('https://evil.test/jobs', json={'jobs': [{'id': 1}]})
+    responses.get('https://api.test/old', status=301,
+                  headers={'Location': 'https://api.test/new'})
+    responses.get('https://api.test/new', json={'ok': True})
+    check('fetch_json refuses a cross-host redirect',
+          sj.fetch_json('https://api.test/moved', label='t'), None)
+    check('...and does not retry it',
+          len([c for c in responses.calls if c.request.url == 'https://api.test/moved']), 1)
+    check('fetch_json follows a redirect on the same host',
+          sj.fetch_json('https://api.test/old', label='t'), {'ok': True})
+    check('_get_json_patiently refuses a cross-host redirect',
+          sj._get_json_patiently('https://api.test/moved', label='t'), None)
+    check('_get_json_patiently follows a redirect on the same host',
+          sj._get_json_patiently('https://api.test/old', label='t'), {'ok': True})
+    page = 'https://t.wd5.myworkdayjobs.com/B/job/Reston-VA/Analyst_R1'
+    responses.get('https://t.wd5.myworkdayjobs.com/wday/cxs/t/B/job/Reston-VA/Analyst_R1',
+                  status=302, headers={'Location': 'https://evil.test/jobs'})
+    check('workday_posting_state says nothing about a cross-host redirect',
+          sj.workday_posting_state(page), None)
+
+
+@responses.activate
+def test_fetches_cap_the_response_size():
+    body = json.dumps({'jobs': ['x' * 200]})
+    responses.get('https://api.test/big', body=body, content_type='application/json')
+    responses.get('https://api.test/small', json={'jobs': []})
+    original = sj.MAX_RESPONSE_BYTES
+    try:
+        sj.MAX_RESPONSE_BYTES = 100
+        check('fetch_json treats a body over the cap as a failed fetch',
+              sj.fetch_json('https://api.test/big', label='t'), None)
+        check('_get_json_patiently does too',
+              sj._get_json_patiently('https://api.test/big', label='t'), None)
+        check('a body under the cap still parses',
+              sj.fetch_json('https://api.test/small', label='t'), {'jobs': []})
+    finally:
+        sj.MAX_RESPONSE_BYTES = original
+    check('the real cap fits the largest board, Anduril at 41.6 MB',
+          sj.MAX_RESPONSE_BYTES > 42 * 1024 * 1024, True)
+
+
+@responses.activate
+def test_apply_links_stay_on_the_vendor_or_listed_hosts():
+    """A misfiled or hijacked tenant could point the Apply button at any domain."""
+    uuid = '6ed76ce8-4156-4b60-b120-403538bd66cd'
+    responses.get('https://boards-api.greenhouse.io/v1/boards/acme/jobs', json={'jobs': [
+        {'id': 11, 'title': 'Security Engineer', 'absolute_url':
+         'https://acme.com/careers/jobs/11?gh_jid=11'},
+        {'id': 12, 'title': 'Security Engineer', 'absolute_url': 'https://evil.test/12'},
+        {'id': 13, 'title': 'Security Engineer', 'absolute_url':
+         'https://acme.com@evil.test/careers?gh_jid=13'},
+        {'id': 14, 'title': 'Security Engineer', 'absolute_url':
+         'https://evil.test\\@acme.com/careers?gh_jid=14'},
+        {'id': 15, 'title': 'Security Engineer', 'absolute_url':
+         'https://job-boards.greenhouse.io/acme/jobs/15'},
+        {'id': 16, 'title': 'Security Engineer', 'absolute_url': 'javascript:alert(1)'},
+    ]})
+    jobs = sj.scrape_greenhouse('Acme', 'acme', ('acme.com',))
+    check('greenhouse keeps a listed employer host and the vendor host, and falls back '
+          'for the rest', [j['url'] for j in jobs],
+          ['https://acme.com/careers/jobs/11?gh_jid=11',
+           'https://job-boards.greenhouse.io/acme/jobs/12',
+           'https://job-boards.greenhouse.io/acme/jobs/13',
+           'https://job-boards.greenhouse.io/acme/jobs/14',
+           'https://job-boards.greenhouse.io/acme/jobs/15',
+           'https://job-boards.greenhouse.io/acme/jobs/16'])
+    check('the fallback fingerprints the same req as the employer link',
+          sj.job_fingerprint('Acme', 'Greenhouse', 'https://job-boards.greenhouse.io/acme/jobs/11'),
+          sj.job_fingerprint('Acme', 'Greenhouse', jobs[0]['url']))
+    check('without apply_hosts the employer host falls back too',
+          sj.scrape_greenhouse('Acme', 'acme')[0]['url'],
+          'https://job-boards.greenhouse.io/acme/jobs/11')
+
+    responses.get('https://api.lever.co/v0/postings/acme', json=[
+        {'id': uuid, 'text': 'Security Analyst', 'country': 'US',
+         'categories': {'location': 'Austin, TX'}, 'hostedUrl': f'https://evil.test/{uuid}'}])
+    check('lever falls back to jobs.lever.co', sj.scrape_lever('Acme', 'acme')[0]['url'],
+          f'https://jobs.lever.co/acme/{uuid}')
+
+    responses.get('https://api.ashbyhq.com/posting-api/job-board/acme', json={'jobs': [
+        {'id': uuid, 'title': 'Security Engineer', 'location': 'Austin, TX',
+         'jobUrl': f'https://evil.test/{uuid}'}]})
+    check('ashby falls back to jobs.ashbyhq.com', sj.scrape_ashby('Acme', 'acme')[0]['url'],
+          f'https://jobs.ashbyhq.com/acme/{uuid}')
+
+    responses.get(RECRUITEE_API, json={'offers': [
+        dict(_recruitee_offer(1, 'Security Engineer I',
+                              [('US', 'VA', 'Herndon', 'United States')]),
+             slug='security-engineer-i', careers_url='https://other.recruitee.com/o/x'),
+        dict(_recruitee_offer(2, 'Security Engineer II',
+                              [('US', 'VA', 'Herndon', 'United States')]),
+             slug='security-engineer-ii', careers_url='https://careers.aikido.dev/o/y')]})
+    check('recruitee pins the tenant subdomain and honours apply_hosts',
+          [j['url'] for j in sj.scrape_recruitee('Aikido Security', 'aikidosecurity',
+                                                 ('careers.aikido.dev',))],
+          ['https://aikidosecurity.recruitee.com/o/security-engineer-i',
+           'https://careers.aikido.dev/o/y'])
+
+    responses.get('https://acme.pinpointhq.com/postings.json', json={'data': [
+        {'id': '7', 'title': 'SOC Analyst', 'location': {'city': 'Austin', 'province': 'TX'},
+         'url': f'https://evil.test/en/postings/{uuid}', 'path': f'/en/postings/{uuid}'}]})
+    url = sj.scrape_pinpoint('Acme', 'acme')[0]['url']
+    check('pinpoint falls back to the tenant page path', url,
+          f'https://acme.pinpointhq.com/en/postings/{uuid}')
+    check('...which still fingerprints', sj.job_fingerprint('Acme', 'Pinpoint', url),
+          ('Acme', 'Pinpoint', uuid))
+
+    config = {'greenhouse': [{'name': 'A', 'slug': 'a', 'apply_hosts': ['a.com']},
+                             {'name': 'B', 'slug': 'b'}]}
+    check('build_tasks passes apply_hosts only when an entry lists them',
+          [t.args for t in sj.build_tasks(config, board='greenhouse')],
+          [('A', 'a', ('a.com',)), ('B', 'b')])
+
+
+def test_host_validation_pins_oracle_and_refuses_local_hosts():
+    for host in ('127.0.0.1', '127.1', '10.0.0.8', 'localhost', 'jobs.localhost', 'intranet',
+                 'careers..acme.com', ''):
+        check(f'_valid_host refuses {host!r}', sj._valid_host(host), False)
+    for host in ('careers.mitre.org', 'jobs.baesystems.com', 'careers.pnnl.gov'):
+        check(f'_valid_host accepts {host!r}', sj._valid_host(host), True)
+    check('oracle refuses a host outside oraclecloud.com',
+          sj.scrape_oracle('X', 'careers.evil.test', 'CX_1'), None)
+    check('oracle refuses a look-alike suffix',
+          sj.scrape_oracle('X', 'evil-oraclecloud.com', 'CX_1'), None)
+    check('phenom refuses an IP literal',
+          sj.scrape_phenom('X', '169.254.169.254', 'en_us', 'us'), None)
+    check('jibe refuses localhost', sj.scrape_jibe('X', 'localhost'), None)
+
+
+@responses.activate
+def test_payload_paths_cannot_name_another_host():
+    """amazon.jobs and a boardless Workday tenant append a path from the payload."""
+    responses.get('https://www.amazon.jobs/en/search.json', json={'hits': 4, 'jobs': [
+        {'id_icims': '1', 'title': 'Security Engineer', 'location': 'US, WA, Seattle',
+         'job_path': '//evil.test/jobs/1'},
+        {'id_icims': '2', 'title': 'Security Engineer', 'location': 'US, WA, Seattle',
+         'job_path': '/@evil.test/jobs/2'},
+        {'id_icims': '3', 'title': 'Security Engineer', 'location': 'US, WA, Seattle',
+         'job_path': '/en\\@evil.test'},
+        {'id_icims': '4', 'title': 'Security Engineer', 'location': 'US, WA, Seattle',
+         'job_path': '/en/jobs/4/security-engineer'}]})
+    check('amazon uses the req id for an unsafe job_path',
+          [j['url'] for j in sj.scrape_amazon()],
+          ['https://www.amazon.jobs/en/jobs/1', 'https://www.amazon.jobs/en/jobs/2',
+           'https://www.amazon.jobs/en/jobs/3',
+           'https://www.amazon.jobs/en/jobs/4/security-engineer'])
+
+    responses.post('https://t.wd5.myworkdayjobs.com/wday/cxs/t/jobs', json={
+        'total': 2, 'jobPostings': [
+            {'title': 'Accountant', 'externalPath': '//evil.test/job/X_R1',
+             'locationsText': 'Reston, VA'},
+            {'title': 'Accountant', 'externalPath': '/job/Reston-VA/Accountant_R2',
+             'locationsText': 'Reston, VA'}]})
+    check('boardless workday drops a posting whose path names another host',
+          [j['url'] for j in sj.scrape_workday('T', 't', 'wd5', '')],
+          ['https://t.wd5.myworkdayjobs.com/job/Reston-VA/Accountant_R2'])
+
+
+def test_control_characters_never_reach_a_row():
+    """One control character in a title breaks every Atom feed."""
+    raw = [{'id': 'greenhouse_acme_1', 'company': 'Ac\x07me',
+            'title': 'Security\x00 Engineering\x1b Intern\x7f', 'location': 'Austin,\x0b TX',
+            'url': 'https://job-boards.greenhouse.io/acme/jobs/1', 'board': 'Greenhouse',
+            'description': 'Summer 2027 internship'}]
+    listings = []
+    added, _ = sj.insert_new_listings(listings, raw, {}, {}, '2026-09-30')
+    check('insert strips controls from company, role and location',
+          [(r['company'], r['role'], r['location']) for r in added],
+          [('Acme', 'Security Engineering Intern', 'Austin, TX')])
+    stored = [_listing('Ac\x1fme', 'SOC\x0c Analyst I', 'https://x/1'),
+              _listing('Acme', 'SOC Analyst I\tRemote', 'https://x/2')]
+    check('stored rows are scrubbed once', sj.scrub_control_characters(stored), 1)
+    check('...keeping tab, which is legal XML',
+          [(r['company'], r['role']) for r in stored],
+          [('Acme', 'SOC Analyst I'), ('Acme', 'SOC Analyst I\tRemote')])
+    check('a second pass has nothing to do', sj.scrub_control_characters(stored), 0)
+
+
+@responses.activate
+def test_log_lines_cannot_start_a_workflow_command():
+    """A stored role reaches the RECLASSIFY line, which printed it raw."""
+    responses.get('https://boards-api.greenhouse.io/v1/boards/acme/jobs', json={'jobs': []})
+    row = _listing('Acme', 'Security Analyst I\n::error::pwned', 'https://x/1', type='newgrad')
+    out, _ = _run_main('greenhouse:\n  - name: Acme\n    slug: acme\n', [row],
+                       ['--dry-run', '--board', 'greenhouse'])
+    check('the reclassify line is printed', 'RECLASSIFY [newgrad -> earlycareer]' in out, True)
+    check('no log line starts a workflow command',
+          [line for line in out.splitlines() if line.startswith('::error')], [])
+
+
+@responses.activate
+def test_check_slugs_reports_who_owns_each_board():
+    """Ashby `menlo` served Menlo Research as Menlo Security; `primer` a K-8 school."""
+    for configured, reported, want in (
+            ('Abnormal AI', 'Abnormal Security', True), ('Ping Identity', 'PingIdentity', True),
+            ('Primer', 'primer.ai', True), ('Check Point', 'Check Point Software Technologies',
+                                            True),
+            ('Lawrence Livermore National Laboratory', 'LLNL', True),
+            ('Corelight', 'Job Board', False), ('Govini', 'Air', False),
+            ('Acme Security', 'Other Security', False)):
+        check(f'names_match({configured!r}, {reported!r})',
+              check_slugs.names_match(configured, reported), want)
+    responses.get('https://boards-api.greenhouse.io/v1/boards/air', json={'name': 'Air'})
+    responses.post('https://jobs.ashbyhq.com/api/non-user-graphql', json={'data': {
+        'organization': {'name': 'Menlo', 'publicWebsite': 'https://menlo.ai/'}}})
+    responses.get('https://api.smartrecruiters.com/v1/companies/Acme/postings', json={
+        'content': [{'company': {'identifier': 'Acme', 'name': 'Acme Inc'}}]})
+    responses.get('https://apply.workable.com/api/v1/widget/accounts/tob',
+                  json={'name': 'Trail of Bits', 'jobs': []})
+    responses.get('https://acme.recruitee.com/api/offers/', json={'offers': []})
+    check('greenhouse board name is compared',
+          check_slugs.ownership_line('greenhouse', {'name': 'Govini', 'slug': 'air'}, []),
+          ('greenhouse/Govini (air): board name "Air"', True))
+    check('ashby shows the org name and website',
+          check_slugs.ownership_line('ashby', {'name': 'Menlo Security', 'slug': 'menlo'}, []),
+          ('ashby/Menlo Security (menlo): board name "Menlo", website https://menlo.ai/',
+           False))
+    check('smartrecruiters reads company.name',
+          check_slugs.ownership_line('smartrecruiters', {'name': 'Acme', 'slug': 'Acme'}, [])[1],
+          False)
+    check('workable reads the account name',
+          check_slugs.ownership_line('workable', {'name': 'Trail of Bits', 'slug': 'tob'}, [])[1],
+          False)
+    check('an empty recruitee board reports no name',
+          check_slugs.ownership_line('recruitee', {'name': 'Acme', 'slug': 'acme'}, []),
+          ('recruitee/Acme (acme): board reports no name', False))
+    lever = {'name': 'Shield AI', 'slug': 'shieldai'}
+    check('lever falls back to the posting text',
+          check_slugs.ownership_line('lever', lever,
+                                     [{'description': '<p>At Shield&nbsp;AI we build</p>'}]),
+          ('lever/Shield AI (shieldai): named in posting text', False))
+    check('...and flags a board whose postings never name the company',
+          check_slugs.ownership_line('lever', lever, [{'description': 'Menlo Research'}])[1],
+          True)
+    check('an acronym in the posting text counts',
+          [check_slugs.named_in_text(name, [text]) for name, text in (
+              ('Very Good Security', 'About VGS'), ('SANS Institute', 'the SANS portfolio'),
+              ('Menlo Security', 'About Menlo Research'))],
+          [True, True, False])
+    check('workday has no owner check',
+          check_slugs.ownership_line('workday', {'name': 'X', 'slug': 'x'}, []), (None, False))
+
+
 for fn in (test_greenhouse_location_reads_only_location_fields,
            test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_lever_reads_all_locations,
@@ -2496,6 +2888,11 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_retire_orphaned_listings, test_check_links_soft_404,
            test_check_links_redirect_that_drops_the_req,
            test_check_links_ages_out_old_community_rows,
+           test_check_links_reads_a_capped_body_in_linear_time,
+           test_check_links_body_read_has_a_deadline,
+           test_check_links_follows_redirects_through_the_guard,
+           test_check_links_redirect_to_a_private_address_is_never_fetched,
+           test_check_links_skip_matches_the_parsed_host,
            test_board_health_forgets_a_removed_board,
            test_compare_runs_reports_retirements,
            test_oracle_ids_and_labels_carry_host_and_site,
@@ -2512,7 +2909,15 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_revive_takes_the_new_source, test_orphan_pass_renames_a_renamed_company,
            test_failed_board_holds_its_companys_rows,
            test_failed_boards_do_not_grow_the_silent_streak,
-           test_orphan_pass_covers_jibe_rows):
+           test_orphan_pass_covers_jibe_rows,
+           test_fetches_refuse_a_redirect_to_another_host,
+           test_fetches_cap_the_response_size,
+           test_apply_links_stay_on_the_vendor_or_listed_hosts,
+           test_host_validation_pins_oracle_and_refuses_local_hosts,
+           test_payload_paths_cannot_name_another_host,
+           test_control_characters_never_reach_a_row,
+           test_log_lines_cannot_start_a_workflow_command,
+           test_check_slugs_reports_who_owns_each_board):
     fn()
 
 if failures:

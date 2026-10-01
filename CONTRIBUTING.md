@@ -103,6 +103,8 @@ Find the identifier from the company's careers page URL:
 
 Set `security_company: true` for companies whose main business is security, such as vendors and consultancies. It lets the technical titles listed under section 1 through without a security word.
 
+Add the board only if the employer's own website links to it. Greenhouse, Lever, Ashby, Recruitee and Pinpoint hand back the apply link, and the scraper keeps it only on the vendor's domain or a host listed under the company's `apply_hosts` (for example `careers.airbnb.com`). Any other link falls back to the vendor's page for that job.
+
 Please verify the endpoint returns JSON before opening the PR, e.g.:
 
 ```bash
@@ -116,7 +118,7 @@ The filtering logic lives in [`classify.py`](.github/scripts/classify.py): the k
 ## Testing locally
 
 ```bash
-pip install -r requirements-dev.txt
+pip install --require-hashes -r requirements-dev.txt
 ruff check .github/scripts                            # lint
 python .github/scripts/test_classification.py         # classification spot checks (run after keyword changes)
 python .github/scripts/test_scrapers.py               # offline ATS-parser tests

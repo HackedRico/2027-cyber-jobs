@@ -27,6 +27,9 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: main
+          # No token left in .git/config while pip installs and the scripts
+          # run. Only the push below is handed one.
+          persist-credentials: false
 
       - name: Set up Python
         uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
@@ -34,7 +37,7 @@ jobs:
           python-version: '3.12'
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install --require-hashes -r requirements.txt
 
       - name: Process all approved issues
         id: process
@@ -49,6 +52,8 @@ jobs:
 
       - name: Commit changes
         id: commit
+        env:
+          PUSH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -64,7 +69,10 @@ jobs:
           # drop a row another writer pushed meanwhile. When main moved
           # listings.json, rebuild the README from the merged file and check it
           # again before pushing.
-          git pull --rebase -X theirs
+          # The token lives only in this step, passed per command, the way
+          # actions/checkout would have stored it for the whole job.
+          auth="AUTHORIZATION: basic $(printf 'x-access-token:%s' "$PUSH_TOKEN" | base64 -w0)"
+          git -c http.https://github.com/.extraheader="$auth" pull --rebase -X theirs
           if ! git diff --quiet "$before" HEAD -- listings.json; then
             python .github/scripts/rebuild_readme.py
             git show HEAD~1:listings.json > "$RUNNER_TEMP/listings.base.json"
@@ -72,7 +80,7 @@ jobs:
             git add listings.json README.md companies.md
             git diff --staged --quiet || git commit --amend --no-edit
           fi
-          git push
+          git -c http.https://github.com/.extraheader="$auth" push
 
       # Default if: success() means this fires only when the push above landed,
       # so no release or alert links to a row that is not on main. A community

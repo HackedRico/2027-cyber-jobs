@@ -205,6 +205,10 @@ def test_release_title():
     check('more than two opener companies collapse to a count',
           notify.release_title(many, {notify._row_key(r) for r in many}),
           '🚨 Co0, Co1 + 2 more opened intern hiring · 4 new roles')
+    odd = [_row('Acme\nInc\x00', 'SOC Intern'), _row('Beta\r\x1b[2J  Corp', 'SOC Intern')]
+    check('a release title flattens newlines and control characters in company names',
+          notify.release_title(odd, {notify._row_key(r) for r in odd}),
+          '🚨 Acme Inc, Beta [2J Corp opened intern hiring · 2 new roles')
 
 
 # --- find_openers --------------------------------------------------------------
@@ -264,6 +268,23 @@ def test_markdown_escaping():
           notify.md_escape('Cloud & Infra'), 'Cloud & Infra')
     check('md_escape breaks every @ that could ping a user',
           notify.md_escape('@team mail a@b'), '@&#8203;team mail a@&#8203;b')
+    # "&#64;octocat" rendered as a live @octocat in a release.
+    ENTITIES = [
+        ('&#64;octocat', '&amp;#&#8203;64;octocat'),
+        ('&#x40;octocat', '&amp;#x40;octocat'),
+        ('&commat;octocat', '&amp;commat;octocat'),
+        ('&lt;script&gt;', '&amp;lt;script&amp;gt;'),
+        ('R&D Intern', 'R&D Intern'),
+        # Reads as a named entity, so it is escaped; it renders as typed.
+        ('AT&T; Security', 'AT&amp;T; Security'),
+        ('Cloud & Infra', 'Cloud & Infra'),
+    ]
+    for text, want in ENTITIES:
+        check(f'md_escape escapes an & only where it starts an entity: {text!r}',
+              notify.md_escape(text), want)
+    check('md_escape breaks issue references',
+          notify.md_escape('see #12 and HackedRico/2027-cyber-jobs#3, not C# or #tag'),
+          'see #&#8203;12 and HackedRico/2027-cyber-jobs#&#8203;3, not C# or #tag')
     check('_apply_link drops a non-http url', notify._apply_link('javascript:alert(1)'), '')
     check('_apply_link drops a url with whitespace', notify._apply_link('https://x/a b'), '')
     check('_apply_link keeps an https url', notify._apply_link('https://x/a'),

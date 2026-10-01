@@ -1,0 +1,16 @@
+# Weekly update PRs for the hash-locked Python requirements and the SHA-pinned
+# actions. Each PR runs tests.yml like any other.
+version: 2
+updates:
+  - package-ecosystem: pip
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: ci
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: ci
