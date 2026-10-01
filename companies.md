@@ -4,7 +4,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **356 companies tracked.**
 
-## Hiring students now (79)
+## Hiring students now (81)
 
 Employers with open roles on the board today.
 
@@ -14,14 +14,15 @@ Employers with open roles on the board today.
 | Booz Allen Hamilton | 17 |  | 3 |
 | American Express | 8 | 4 |  |
 | Vanguard | 5 | 6 |  |
-| RTX | 5 |  | 9 |
-| Palo Alto Networks | 4 |  | 1 |
+| RTX | 5 |  | 8 |
+| Palo Alto Networks | 5 |  | 1 |
+| Northrop Grumman | 2 | 2 | 9 |
+| Microsoft | 4 |  | 2 |
 | Tanium | 4 |  |  |
-| Microsoft | 3 |  | 2 |
 | MITRE | 2 | 1 | 2 |
 | Cisco | 3 |  | 1 |
 | Immuta | 3 |  |  |
-| Northrop Grumman |  | 2 | 10 |
+| Palantir | 2 | 1 |  |
 | Lockheed Martin | 2 |  | 1 |
 | Honeywell | 2 |  |  |
 | Idaho National Laboratory | 2 |  |  |
@@ -29,12 +30,13 @@ Employers with open roles on the board today.
 | The Cigna Group | 1 | 1 |  |
 | Walmart | 2 |  |  |
 | Nightwing | 1 |  | 8 |
+| Leidos | 1 |  | 5 |
 | Software Engineering Institute | 1 |  | 5 |
-| Leidos | 1 |  | 4 |
-| The Home Depot | 1 |  | 3 |
+| The Home Depot | 1 |  | 2 |
 | Appian | 1 |  | 1 |
 | GuidePoint Security | 1 |  | 1 |
 | Motorola Solutions | 1 |  | 1 |
+| Sierra Nevada Corporation | 1 |  | 1 |
 | Anduril |  | 1 |  |
 | Applied Intuition |  | 1 |  |
 | Bank of America | 1 |  |  |
@@ -44,26 +46,22 @@ Employers with open roles on the board today.
 | HP Inc | 1 |  |  |
 | Northern Trust | 1 |  |  |
 | NVIDIA |  | 1 |  |
-| Palantir | 1 |  |  |
 | Prophet Security | 1 |  |  |
 | Qualcomm | 1 |  |  |
 | Semgrep | 1 |  |  |
-| Sierra Nevada Corporation | 1 |  |  |
 | Snowflake | 1 |  |  |
 | TRM Labs |  | 1 |  |
 | U.S. Bank | 1 |  |  |
 | Verkada | 1 |  |  |
 | Amazon |  |  | 11 |
-| CrowdStrike |  |  | 9 |
+| CrowdStrike |  |  | 8 |
 | KBR |  |  | 4 |
 | BAE Systems |  |  | 3 |
+| JPMorgan Chase |  |  | 3 |
 | Recorded Future |  |  | 3 |
 | Abnormal AI |  |  | 2 |
 | Amentum |  |  | 2 |
 | CACI |  |  | 2 |
-| Fireblocks |  |  | 2 |
-| JPMorgan Chase |  |  | 2 |
-| Pinterest |  |  | 2 |
 | SAIC |  |  | 2 |
 | Trail of Bits |  |  | 2 |
 | Action1 |  |  | 1 |
@@ -74,25 +72,29 @@ Employers with open roles on the board today.
 | Delinea |  |  | 1 |
 | Dragos |  |  | 1 |
 | Draper |  |  | 1 |
-| Duke Energy |  |  | 1 |
+| ESET |  |  | 1 |
 | Expel |  |  | 1 |
 | ExtraHop |  |  | 1 |
+| Fireblocks |  |  | 1 |
 | Fortinet |  |  | 1 |
 | HII |  |  | 1 |
 | ID.me |  |  | 1 |
 | Illumio |  |  | 1 |
 | MIT Lincoln Laboratory |  |  | 1 |
 | Obsidian Security |  |  | 1 |
+| Pinterest |  |  | 1 |
 | Praetorian |  |  | 1 |
 | ReliaQuest |  |  | 1 |
 | SailPoint |  |  | 1 |
 | STR |  |  | 1 |
+| Tenable |  |  | 1 |
+| Trellix |  |  | 1 |
 | Two Six Technologies |  |  | 1 |
 | Verizon |  |  | 1 |
 
 ## Every tracked board (356)
 
-### Ashby (71)
+### Ashby (70)
 
 - 1Password 🛡️
 - Airbyte
@@ -141,7 +143,6 @@ Employers with open roles on the board today.
 - Oso 🛡️
 - Persona
 - Plaid
-- Primer
 - Prophet Security 🛡️
 - Ramp
 - Redis
@@ -172,10 +173,11 @@ Employers with open roles on the board today.
 - Microsoft
 - Qualcomm
 
-### Greenhouse (143)
+### Greenhouse (144)
 
 - Abnormal AI 🛡️
 - Affirm
+- Air
 - Airbnb
 - Airtable
 - Alloy 🛡️
@@ -234,7 +236,6 @@ Employers with open roles on the board today.
 - Gemini
 - GitLab
 - Goodfire 🛡️
-- Govini
 - Grafana Labs
 - GreyNoise 🛡️
 - GuidePoint Security 🛡️
@@ -272,6 +273,7 @@ Employers with open roles on the board today.
 - Ping Identity 🛡️
 - Pinterest
 - Praetorian 🛡️
+- Primer
 - Prove 🛡️
 - Recorded Future 🛡️
 - Reddit
