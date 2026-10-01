@@ -635,7 +635,7 @@ body, ok = vi.build_verdict(fields, EXISTING, frozenset(), ALIVE)
 check('build_verdict shows the link host', '- Host: `boards.greenhouse.io`' in body, True)
 check('build_verdict does not warn on an ATS host', 'check that this domain' in body, False)
 
-# "greenhоuse.io" with a Cyrillic o, the lookalike that read as no problems.
+# greenhouse.io spelled with a Cyrillic o, the lookalike that read as no problems.
 LOOKALIKE = 'https://boards.greenhоuse.io/acme/jobs/1'
 body, ok = vi.build_verdict(common.parse_issue_body(form(link=LOOKALIKE)), EXISTING,
                             frozenset(), ALIVE)

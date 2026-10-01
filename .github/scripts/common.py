@@ -208,8 +208,8 @@ def fetch_target_problem(url):
 def link_host(url):
     """The link's hostname in ASCII, with IDNA labels as punycode.
 
-    Punycode shows a lookalike: "greenhоuse.io" with a Cyrillic o reads as
-    xn--greenhuse-...
+    Punycode shows a lookalike: greenhouse.io spelled with a Cyrillic o reads
+    as xn--greenhuse-52h.io.
     """
     try:
         host = urlsplit(url or '').hostname or ''
