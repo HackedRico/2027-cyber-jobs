@@ -606,6 +606,12 @@ NORM = [
     ('IL, Haifa', 'IL, Haifa'),  # IL is Israel here; an unknown city is left alone
     ('STORE SUPPORT CENTER, ATLANTA - 9090', 'Atlanta, GA'),
     ('OH, United States', 'OH'),
+    # Parsons leads with an ISO country code; Melbourne alone reads as
+    # Australia, and a Canadian site is left for the US filter to drop.
+    ('US - FL, Melbourne', 'Melbourne, FL'),
+    ('US, WV - Summit Point', 'Summit Point, WV'),
+    ('US - Remote (Any Location)', 'Remote (US)'),
+    ('CA - YT, Faro', 'CA - YT, Faro'),
 ]
 for raw, want in NORM:
     got = s.normalize_location(raw)
@@ -779,6 +785,23 @@ US_LOC = [
     # word inside an all-caps site string, and BVI is not a US territory.
     ('WORK REMOTE AS NEEDED', False),
     ('Tortola, British Virgin Islands', False),
+    # Parsons' ISO prefix: CA is Canada there, so its Yukon mine's 'Security
+    # and Mine Rescue Technician I' sat in California. The US prefix keeps a
+    # US site, and Tenable's state-first 'MA - Boston' is not a country code.
+    ('US - FL, Melbourne', True),
+    ('US - VA (Field Location)', True),
+    ('US, WV - Summit Point', True),
+    ('US - Remote (Any Location)', True),
+    ('CA - YT, Faro', False),
+    ('CA - BC (Field Location)', False),
+    ('CA, NS - Halifax', False),
+    ('CA - Remote (Any Location)', False),
+    ('IN - Remote (Any Location)', False),
+    ('DE - Ramstein Air Force Base', False),
+    ('CA - ON, Ottawa; US - VA, Centreville', True),
+    ('CA - YT, Faro; SA - Riyadh', False),
+    ('MA - Boston - Office, US - Headquarters - Maryland - Columbia', True),
+    ('CA - San Francisco', True),
     # A spelled-out state anywhere in the string, not only as the trailing
     # comma segment, is a US signal.
     ('Remote - California', True),

@@ -640,6 +640,8 @@ NON_US_SUBSTRINGS = [
     'london', 'united kingdom', ' uk', '(uk)', 'u.k.', 'scotland',
     'ireland', 'dublin', 'belfast',
     'germany', 'berlin', 'munich', 'frankfurt',
+    # Parsons' 'DE - Ramstein Air Force Base' read DE as Delaware.
+    'ramstein',
     'france', 'paris', 'netherlands', 'amsterdam', 'belgium', 'brussels',
     'spain', 'madrid', 'barcelona', 'portugal', 'lisbon', 'italy', 'milan',
     'poland', 'warsaw', 'krakow', 'czech', 'prague', 'romania', 'bucharest',
@@ -853,6 +855,10 @@ def _part_is_us(part):
     p = part.strip()
     if not p:
         return False
+    # A Parsons site code decides its own part in a mixed list too.
+    country = _iso_site_country(p)
+    if country:
+        return country == 'US'
     low = p.lower()
     # A part that names a foreign place is not a US part, even if it also says
     # "remote" ("Remote (EMEA)").
@@ -911,6 +917,24 @@ def _has_strong_us_token(location):
 
 
 COUNTRY_CODE_PREFIX_RE = re.compile(r'^\(([A-Z]{3})\)\s')
+# Parsons leads each site with an ISO country code: 'US - FL, Melbourne',
+# 'US - VA (Field Location)', 'US, WV - Summit Point', 'CA - YT, Faro', 'CA,
+# NS - Halifax' and 'IN - Remote (Any Location)'. The CA there is Canada, and
+# the embedded-state scan put a Yukon mine's 'CA - YT, Faro' in California.
+# Only a country code paired with one of its own region codes counts, since
+# Tenable's 'MA - Boston - Office' leads with a state.
+ISO_SITE_RE = re.compile(r'^(US|CA)(?: - ([A-Z]{2})(?=[ ,(])|, ([A-Z]{2}) - )')
+ISO_REMOTE_RE = re.compile(r'^([A-Z]{2}) - Remote \(Any Location\)$')
+ISO_SITE_REGIONS = {'US': US_STATES, 'CA': CA_PROVINCES}
+
+
+def _iso_site_country(part):
+    p = part.strip()
+    m = ISO_SITE_RE.match(p)
+    if m and (m.group(2) or m.group(3)) in ISO_SITE_REGIONS[m.group(1)]:
+        return m.group(1)
+    m = ISO_REMOTE_RE.match(p)
+    return m.group(1) if m else None
 
 
 def is_us_location(location):
@@ -930,6 +954,9 @@ def is_us_location(location):
     codes = [COUNTRY_CODE_PREFIX_RE.match(p.strip()) for p in parts]
     if codes and all(codes):
         return any(m.group(1) == 'USA' for m in codes)
+    sites = [_iso_site_country(p) for p in parts]
+    if sites and all(sites):
+        return 'US' in sites
     us_parts = [p for p in parts if _part_is_us(p)]
     # A bare "Remote" is US only when nothing else places the role. ExtraHop's
     # 'Support Engineer I - UK' is 'Remote | United Kingdom', and its lone
@@ -1063,6 +1090,17 @@ def _normalize_single_location(location):
         abbr = region if region in US_STATES else US_STATE_ABBRS.get(region.lower())
         if abbr:
             return f'{m.group(2).strip()}, {abbr}'
+    # Parsons: "US - FL, Melbourne", "US, WV - Summit Point" -> "Melbourne, FL".
+    # The generic prefix strip below left "FL, Melbourne", and Melbourne alone
+    # reads as Australia.
+    m = re.fullmatch(r'US(?: - ([A-Z]{2}), |, ([A-Z]{2}) - )(.+)', location)
+    if m and (m.group(1) or m.group(2)) in US_STATES:
+        return f'{m.group(3).strip()}, {m.group(1) or m.group(2)}'
+    # Stripped of its "US - ", Parsons' 'US - Remote (Any Location)' no longer
+    # read as US, and check_outputs fails a new row whose stored location
+    # does not.
+    if location == 'US - Remote (Any Location)':
+        return 'Remote (US)'
     # Northrop-style Workday: "United States-California-Palmdale"
     m = re.fullmatch(r'(?:USA?|United States)-([A-Za-z .]+)-(.+)', location)
     if m:
