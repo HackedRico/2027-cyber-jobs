@@ -3,3 +3,6 @@
 #   uv pip compile requirements.in --python-version 3.12 --generate-hashes -o requirements.txt
 requests
 pyyaml
+# check_links streams with read1 (2.3+) and relies on the per-read
+# decompression bound added in 2.6.
+urllib3>=2.6
