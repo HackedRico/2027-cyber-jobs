@@ -131,6 +131,8 @@ CASES = [
     ('Hardware (CPU, GPU, SoC, Digital Design, DV) Engineering Internship - Summer 2027', 'San Diego, CA', '', False, None),
     ('Hardware (CPU, GPU, SoC) Engineering Internship - Summer 2027', 'San Diego, CA', '', False, None),
     ('SoC Performance Architect (Server CPU) - PhD New Grads Welcome!', 'Santa Clara, CA', '', False, None),
+    # The SoC lookahead missed physical design (Micron, Simplify intern list).
+    ('HBM SoC Physical Design Engineer Intern', 'Boise, ID', '', False, None),
     ('Security (Product, Systems, Cyber) Engineering Internship - Summer 2027', 'San Diego, CA', '', False, ('intern', 'Security Engineering')),
     # ...but a technical support engineer at a security company still counts.
     ('Support Engineer I', 'Dallas, TX', '', True, ('earlycareer', 'Engineering @ Security Co')),

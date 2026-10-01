@@ -133,6 +133,9 @@ FUNCTION_REJECT = [
     'process engineer', 'mechanical engineer', 'electrical engineer',
     'chemical engineer', 'industrial engineer', 'civil engineer',
     'photolithography', 'metrology',
+    # The SoC lookahead in CYBER_REGEXES has no 'physical', so Micron's 'HBM
+    # SoC Physical Design Engineer Intern' read as a SOC analyst intern.
+    'physical design',
     # Reqs a student cannot apply to: return offers for current interns
     # (Walmart '2026 Intern Conversion: 2027 Return Intern Cybersecurity'),
     # DoD SkillBridge slots for active-duty members (Blackpoint Cyber), and
