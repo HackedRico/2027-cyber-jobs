@@ -900,6 +900,8 @@ workday:
   instance: wd5
   board: panwexternalcareers
   security_company: true
+  search_terms:
+  - earned recently
 - name: Parsons
   tenant: parsons
   instance: wd5
