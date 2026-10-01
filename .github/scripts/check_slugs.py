@@ -71,24 +71,41 @@ def _distinctive(name):
     return {w for w in words if w not in GENERIC_NAME_WORDS} or set(words)
 
 
+def _acronyms(name):
+    # Boards and postings often use the short form: SmartRecruiters names
+    # Lawrence Livermore National Laboratory 'LLNL', Very Good Security's
+    # postings say 'VGS' and SANS Institute's say 'SANS'.
+    words = str(name).split()
+    found = {w.lower() for w in words if len(w) >= 3 and w.isupper() and w.isalpha()}
+    if len(words) >= 3:
+        found.add(''.join(w[0] for w in words).lower())
+    return found
+
+
 def names_match(configured, reported):
     """Return whether two company names plausibly name the same employer.
 
     True on any shared distinctive word ('Abnormal AI' and 'Abnormal
-    Security'), or when one name run together contains the other ('Ping
-    Identity' and 'PingIdentity').
+    Security'), when one name run together contains the other ('Ping
+    Identity' and 'PingIdentity'), or when one is the other's acronym.
     """
     if _distinctive(configured) & _distinctive(reported):
         return True
     a, b = ''.join(_words(configured)), ''.join(_words(reported))
-    return bool(a and b) and (a in b or b in a)
+    if a and b and (a in b or b in a):
+        return True
+    return bool((_acronyms(configured) & {b}) or (_acronyms(reported) & {a}))
 
 
 def named_in_text(name, texts):
-    """Return whether any of `texts` mentions `name`, ignoring case and spacing."""
+    """Return whether any of `texts` mentions `name` or its acronym, ignoring case."""
     wanted = ''.join(_words(name))
-    return bool(wanted) and any(wanted in ''.join(_words(sj.strip_html(t or '')))
-                                for t in texts)
+    acronyms = _acronyms(name)
+    for text in texts:
+        words = _words(sj.strip_html(text or ''))
+        if (wanted and wanted in ''.join(words)) or acronyms & set(words):
+            return True
+    return False
 
 
 def _greenhouse_owner(slug, label):

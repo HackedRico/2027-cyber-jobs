@@ -2642,6 +2642,7 @@ def test_check_slugs_reports_who_owns_each_board():
             ('Abnormal AI', 'Abnormal Security', True), ('Ping Identity', 'PingIdentity', True),
             ('Primer', 'primer.ai', True), ('Check Point', 'Check Point Software Technologies',
                                             True),
+            ('Lawrence Livermore National Laboratory', 'LLNL', True),
             ('Corelight', 'Job Board', False), ('Govini', 'Air', False),
             ('Acme Security', 'Other Security', False)):
         check(f'names_match({configured!r}, {reported!r})',
@@ -2678,6 +2679,11 @@ def test_check_slugs_reports_who_owns_each_board():
     check('...and flags a board whose postings never name the company',
           check_slugs.ownership_line('lever', lever, [{'description': 'Menlo Research'}])[1],
           True)
+    check('an acronym in the posting text counts',
+          [check_slugs.named_in_text(name, [text]) for name, text in (
+              ('Very Good Security', 'About VGS'), ('SANS Institute', 'the SANS portfolio'),
+              ('Menlo Security', 'About Menlo Research'))],
+          [True, True, False])
     check('workday has no owner check',
           check_slugs.ownership_line('workday', {'name': 'X', 'slug': 'x'}, []), (None, False))
 
