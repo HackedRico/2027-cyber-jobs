@@ -853,6 +853,10 @@ workday:
   tenant: gdit
   instance: wd5
   board: External_Career_Site
+- name: GDIT
+  tenant: gdit
+  instance: wd5
+  board: GDIT_EarlyTalent
 - name: Intel
   tenant: intel
   instance: wd1
@@ -1005,6 +1009,10 @@ workday:
   tenant: boeing
   instance: wd1
   board: EXTERNAL_CAREERS
+- name: Boeing
+  tenant: boeing
+  instance: wd1
+  board: INTERN
 - name: Amentum
   tenant: pae
   instance: wd1
