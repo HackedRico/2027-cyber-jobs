@@ -884,6 +884,7 @@ def _part_is_us(part):
 # token is tested as its own segment, not as an 'us' buried in prose.
 SEGMENT_SPLIT_RE = re.compile(r'[,/;|•\-–]|\bor\b')
 US_COUNTRY_SEGMENTS = {'us', 'usa', 'unitedstates'}
+COUNTRY_STATE_PREFIX_RE = re.compile(r'USA?\s+([A-Z]{2})\s')
 
 
 def _has_strong_us_token(location):
@@ -898,6 +899,12 @@ def _has_strong_us_token(location):
     """
     for seg in SEGMENT_SPLIT_RE.split(location):
         if re.sub(r'[^a-z]', '', seg.strip().lower()) in US_COUNTRY_SEGMENTS:
+            return True
+    # GDIT leads with country and state, "USA VA Vienna", which names the
+    # state as plainly as a trailing ", VA" and read as Vienna, Austria.
+    for part in LOCATION_SPLIT_RE.split(location):
+        m = COUNTRY_STATE_PREFIX_RE.match(part.strip())
+        if m and m.group(1) in US_STATES:
             return True
     # End-anchored: the state code must be the trailing token.
     return _us_region_code(location) is not None

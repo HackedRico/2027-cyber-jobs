@@ -756,6 +756,11 @@ US_LOC = [
     # A US city whose name collides with a foreign one is rescued by ", ST".
     ('Vienna, VA', True),
     ('Paris, TX', True),
+    # GDIT leads with country and state: 'Junior Tactical All Source Threat
+    # Intelligence Analyst' in Vienna, Virginia read as Austria.
+    ('USA VA Vienna', True),
+    ('USA VA Vienna; USA MD Fort Meade', True),
+    ('London, UK; USA VA Vienna', True),
     # ...but an 'us' buried in prose or a mid-string state before a country
     # must NOT leak a foreign role onto this US-only board.
     ('Bangalore, India (US hours)', False),
