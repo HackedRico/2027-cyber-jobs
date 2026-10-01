@@ -131,6 +131,8 @@ CASES = [
     ('Hardware (CPU, GPU, SoC, Digital Design, DV) Engineering Internship - Summer 2027', 'San Diego, CA', '', False, None),
     ('Hardware (CPU, GPU, SoC) Engineering Internship - Summer 2027', 'San Diego, CA', '', False, None),
     ('SoC Performance Architect (Server CPU) - PhD New Grads Welcome!', 'Santa Clara, CA', '', False, None),
+    # The SoC lookahead missed physical design (Micron, Simplify intern list).
+    ('HBM SoC Physical Design Engineer Intern', 'Boise, ID', '', False, None),
     ('Security (Product, Systems, Cyber) Engineering Internship - Summer 2027', 'San Diego, CA', '', False, ('intern', 'Security Engineering')),
     # ...but a technical support engineer at a security company still counts.
     ('Support Engineer I', 'Dallas, TX', '', True, ('earlycareer', 'Engineering @ Security Co')),
@@ -604,6 +606,12 @@ NORM = [
     ('IL, Haifa', 'IL, Haifa'),  # IL is Israel here; an unknown city is left alone
     ('STORE SUPPORT CENTER, ATLANTA - 9090', 'Atlanta, GA'),
     ('OH, United States', 'OH'),
+    # Parsons leads with an ISO country code; Melbourne alone reads as
+    # Australia, and a Canadian site is left for the US filter to drop.
+    ('US - FL, Melbourne', 'Melbourne, FL'),
+    ('US, WV - Summit Point', 'Summit Point, WV'),
+    ('US - Remote (Any Location)', 'Remote (US)'),
+    ('CA - YT, Faro', 'CA - YT, Faro'),
 ]
 for raw, want in NORM:
     got = s.normalize_location(raw)
@@ -754,6 +762,11 @@ US_LOC = [
     # A US city whose name collides with a foreign one is rescued by ", ST".
     ('Vienna, VA', True),
     ('Paris, TX', True),
+    # GDIT leads with country and state: 'Junior Tactical All Source Threat
+    # Intelligence Analyst' in Vienna, Virginia read as Austria.
+    ('USA VA Vienna', True),
+    ('USA VA Vienna; USA MD Fort Meade', True),
+    ('London, UK; USA VA Vienna', True),
     # ...but an 'us' buried in prose or a mid-string state before a country
     # must NOT leak a foreign role onto this US-only board.
     ('Bangalore, India (US hours)', False),
@@ -772,6 +785,23 @@ US_LOC = [
     # word inside an all-caps site string, and BVI is not a US territory.
     ('WORK REMOTE AS NEEDED', False),
     ('Tortola, British Virgin Islands', False),
+    # Parsons' ISO prefix: CA is Canada there, so its Yukon mine's 'Security
+    # and Mine Rescue Technician I' sat in California. The US prefix keeps a
+    # US site, and Tenable's state-first 'MA - Boston' is not a country code.
+    ('US - FL, Melbourne', True),
+    ('US - VA (Field Location)', True),
+    ('US, WV - Summit Point', True),
+    ('US - Remote (Any Location)', True),
+    ('CA - YT, Faro', False),
+    ('CA - BC (Field Location)', False),
+    ('CA, NS - Halifax', False),
+    ('CA - Remote (Any Location)', False),
+    ('IN - Remote (Any Location)', False),
+    ('DE - Ramstein Air Force Base', False),
+    ('CA - ON, Ottawa; US - VA, Centreville', True),
+    ('CA - YT, Faro; SA - Riyadh', False),
+    ('MA - Boston - Office, US - Headquarters - Maryland - Columbia', True),
+    ('CA - San Francisco', True),
     # A spelled-out state anywhere in the string, not only as the trailing
     # comma segment, is a US signal.
     ('Remote - California', True),

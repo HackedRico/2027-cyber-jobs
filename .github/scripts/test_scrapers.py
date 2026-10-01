@@ -1822,6 +1822,27 @@ def test_workday_more_suffix_fetches_locations():
           jobs[0]['location'], 'Chicago, IL; Plantation, FL; Allen, TX')
 
 
+# --- Workday: Parsons and Accenture list views carry no locationsText -------
+@responses.activate
+def test_workday_blank_list_location_fetches_detail():
+    """Parsons puts its site in bulletFields and Accenture behind its req id,
+    never in locationsText, so every candidate read as non-US."""
+    path = '/job/US---FL-Melbourne/Associate-Vulnerability-Researcher-Engineer_R186346'
+    responses.add_callback(responses.POST, WD_API, callback=_workday_pages({'cyber': [{
+        'total': 1, 'jobPostings': [{
+            'title': 'Associate Vulnerability Researcher Engineer', 'externalPath': path,
+            'bulletFields': ['US - FL, Melbourne', 'R186346']}]}]}))
+    responses.get(f'https://t.wd5.myworkdayjobs.com/wday/cxs/t/B{path}', json={
+        'jobPostingInfo': {'location': 'US - FL, Melbourne',
+                           'jobDescription': '<p>Reverse engineer embedded systems.</p>'}})
+    jobs = sj.scrape_workday('Parsons', 't', 'wd5', 'B')
+    check('a blank list location takes the detail endpoint\'s site',
+          jobs[0]['location'], 'US - FL, Melbourne')
+    check('the detail site reaches the board as a US row',
+          sj.evaluate_job(jobs[0]['title'], jobs[0]['location'],
+                          jobs[0].get('description', '')) is not None, True)
+
+
 # --- amazon.jobs: loc_query ranks, the country filter restricts --------------
 @responses.activate
 def test_amazon_restricts_to_us_reqs():
@@ -2883,7 +2904,8 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_lever_appends_lists_to_description,
            test_smartrecruiters_fetches_descriptions_for_candidates,
            test_oracle_and_smartrecruiters_use_the_security_flag,
-           test_workday_more_suffix_fetches_locations, test_amazon_restricts_to_us_reqs,
+           test_workday_more_suffix_fetches_locations,
+           test_workday_blank_list_location_fetches_detail, test_amazon_restricts_to_us_reqs,
            test_smartrecruiters_and_amazon_flag_a_cut_short_sweep,
            test_retire_orphaned_listings, test_check_links_soft_404,
            test_check_links_redirect_that_drops_the_req,
