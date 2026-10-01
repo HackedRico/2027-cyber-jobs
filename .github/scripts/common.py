@@ -56,6 +56,21 @@ def normalize_url(url):
 
 
 _AUTOLINK_RE = re.compile(r'\b(https?|ftp)(?=://)|\b(www)(?=\.)', re.IGNORECASE)
+# Only an & that opens a character reference: "&#64;octocat" rendered as a
+# live @octocat in a release, while "Cloud & Infra" should stay as typed.
+_ENTITY_START_RE = re.compile(r'&(?=#|[A-Za-z][A-Za-z0-9]*;)')
+
+
+def defang_autolinks(text):
+    """Put a zero-width space where GitHub would autolink or mention.
+
+    Breaks a bare URL scheme, `www.`, an @mention or email address, and an
+    issue reference like #12 or owner/repo#12. Takes text that is already
+    escaped, since the zero-width space goes in as an entity.
+    """
+    text = re.sub(r'#(?=\d)', '#&#8203;', text)
+    text = _AUTOLINK_RE.sub(lambda m: (m.group(1) or m.group(2)) + '&#8203;', text)
+    return re.sub(r'@(?=\w)', '@&#8203;', text)
 
 
 def md_escape(text):
@@ -64,15 +79,15 @@ def md_escape(text):
     Scraped and submitted fields reach bot comments and releases. There they
     must not open links, HTML or emphasis, ping a user, or autolink a bare URL:
     a submitted Category once rendered a phishing link and @mentions in the
-    verdict comment, in the bot's voice. A zero-width space after @ and inside
-    a URL scheme breaks the mention and the autolink. & is left alone so the
-    plain-text email reads "Cloud & Infra", not "&amp;".
+    verdict comment, in the bot's voice. A bare & is left alone so the
+    plain-text email reads "Cloud & Infra", not "&amp;"; one that starts an
+    entity is escaped.
     """
     text = re.sub(r'\s+', ' ', text or '').strip()
+    text = _ENTITY_START_RE.sub('&amp;', text)
     text = text.replace('\\', '\\\\').replace('<', '&lt;').replace('>', '&gt;')
     text = re.sub(r'([\[\]`*_~|])', r'\\\1', text)
-    text = _AUTOLINK_RE.sub(lambda m: (m.group(1) or m.group(2)) + '&#8203;', text)
-    return re.sub(r'@(?=\w)', '@&#8203;', text)
+    return defang_autolinks(text)
 
 
 def md_code(text):

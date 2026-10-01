@@ -22,7 +22,7 @@ import requests
 
 sys.path.insert(0, str(Path(__file__).parent))
 from classify import is_cyber_title  # noqa: E402
-from common import gh_headers, md_escape  # noqa: E402
+from common import gh_headers, md_escape, oneline  # noqa: E402
 
 LISTINGS_FILE = Path('listings.json')
 API = 'https://api.github.com'
@@ -149,7 +149,7 @@ def format_row(row, openers, with_type=False):
     if sites:
         parts.append(md_escape('; '.join(sites)))
     if with_type:
-        parts.append(TYPE_WORDS.get(row.get('type'), row.get('type', '')))
+        parts.append(md_escape(TYPE_WORDS.get(row.get('type'), row.get('type', ''))))
     if row.get('category'):
         parts.append(md_escape(row['category']))
     return (f'- **{md_escape(row.get("company", ""))}**{flags}: ' + ' · '.join(parts)
@@ -175,7 +175,9 @@ def release_title(added, openers):
     opened = [r for r in added if _row_key(r) in openers]
     if not opened:
         return f'{total}: {_type_counts(added)}'
-    companies = list(dict.fromkeys(r['company'] for r in opened))
+    # A release title is plain text, so markdown escaping does not apply, but
+    # a newline or control character in a company name still broke it.
+    companies = list(dict.fromkeys(' '.join(oneline(r['company']).split()) for r in opened))
     names = ', '.join(companies[:2])
     if len(companies) > 2:
         names += f' + {len(companies) - 2} more'
@@ -358,9 +360,11 @@ def announce(events, listings, token, repo, dry_run=False):
                 for s in STREAMS if (rows := [r for r in added if s.matches(r)])]
 
     if dry_run:
-        print(f'[dry-run] release {tag}: {title}\n\n{body}\n')
-        for stream, text in comments:
-            print(f'[dry-run] comment on "{stream.title}":\n\n{text}\n')
+        blocks = [(f'release {tag}: {title}', body)]
+        blocks += [(f'comment on "{s.title}"', text) for s, text in comments]
+        for heading, text in blocks:
+            lines = [f'[dry-run] {heading}', '', *text.splitlines(), '']
+            print('\n'.join(oneline(line) for line in lines))
         return [('release', tag)] + [('comment', s.key) for s, _ in comments]
 
     # Each announcement gets its own try, so a failed release or one broken
@@ -372,12 +376,12 @@ def announce(events, listings, token, repo, dry_run=False):
         print(f'Published release {tag}: {(release or {}).get("html_url", "")}')
         posted.append(('release', tag))
     except (ApiError, requests.RequestException) as e:
-        print(f'ERROR: release {tag} failed: {e}')
+        print(f'ERROR: release {tag} failed: {oneline(e)}')
         failed.append(f'release {tag}')
     try:
         issues = gh.stream_issues()
     except (ApiError, requests.RequestException) as e:
-        print(f'ERROR: could not list alert issues: {e}')
+        print(f'ERROR: could not list alert issues: {oneline(e)}')
         failed.extend(f'comment {s.key}' for s, _ in comments)
         comments = []
     for stream, text in comments:
@@ -388,7 +392,7 @@ def announce(events, listings, token, repo, dry_run=False):
                 print(f'Created alert issue #{issue["number"]}: {stream.title}')
             gh.comment_locked(issue, text)
         except (ApiError, requests.RequestException) as e:
-            print(f'ERROR: {stream.key} alert failed: {e}')
+            print(f'ERROR: {stream.key} alert failed: {oneline(e)}')
             failed.append(f'comment {stream.key}')
             continue
         print(f'Commented on #{issue["number"]} ({stream.key})')
