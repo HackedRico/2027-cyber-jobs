@@ -312,6 +312,32 @@ def hiring_now_lines(listings):
     return lines
 
 
+def tracked_board_lines(config):
+    """Return the per-platform company lists for companies.md and the company count.
+
+    A company with two boards on one platform is listed and counted once:
+    Idaho National Laboratory runs two Oracle sites, and GDIT and Boeing each
+    post student roles on a second Workday board.
+    """
+    tracked = []
+    names = set()
+    for platform in sorted(config):
+        shields = {}
+        for entry in config[platform] or []:
+            name = entry['name']
+            shields[name] = shields.get(name, False) or bool(entry.get('security_company'))
+        if not shields:
+            continue
+        label = PLATFORM_LABELS.get(platform, platform.title())
+        tracked.append(f'### {label} ({len(shields)})')
+        tracked.append('')
+        for name in sorted(shields, key=str.lower):
+            tracked.append(f'- {name}{" 🛡️" if shields[name] else ""}')
+        tracked.append('')
+        names.update(shields)
+    return tracked, len(names)
+
+
 def rebuild_companies_md(listings=()):
     """Regenerate companies.md from companies.yml and the open listings (best effort)."""
     try:
@@ -324,21 +350,7 @@ def rebuild_companies_md(listings=()):
     with open(COMPANIES_YML) as f:
         config = yaml.safe_load(f) or {}
 
-    tracked = []
-    total = 0
-    for platform in sorted(config):
-        entries = config[platform] or []
-        if not entries:
-            continue
-        label = PLATFORM_LABELS.get(platform, platform.title())
-        tracked.append(f'### {label} ({len(entries)})')
-        tracked.append('')
-        for entry in sorted(entries, key=lambda e: e['name'].lower()):
-            shield = ' 🛡️' if entry.get('security_company') else ''
-            tracked.append(f'- {entry["name"]}{shield}')
-            total += 1
-        tracked.append('')
-
+    tracked, total = tracked_board_lines(config)
     lines = [
         '# Tracked Companies',
         '',

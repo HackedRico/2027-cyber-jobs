@@ -888,8 +888,15 @@ def scrape_workday(company, tenant, instance, board, security_company=False,
     # Opt-in per-company terms (companies.yml `search_terms:`) for cohort-heavy
     # tenants whose GRC/identity/privacy roles avoid the 'cyber'/'security'
     # tokens; each term is a full paginated sweep, so only add where it pays.
+    default_count = len(search_terms)
     if extra_terms:
         search_terms += [t for t in extra_terms if t not in search_terms]
+    # cxs search matches description text too, so an opt-in term can find a
+    # flat title whose level only the description states: Palo Alto Networks'
+    # new-grad 'Software Engineer' reqs under 'earned recently'. Those hits
+    # need the detail fetch that _wants_detail saves for leveled titles.
+    opt_in_terms = set(search_terms[default_count:])
+    opt_in_paths = set()
 
     limit = 20
     jobs = []
@@ -921,6 +928,10 @@ def scrape_workday(company, tenant, instance, board, security_company=False,
                 total = data.get('total')
             for job in postings:
                 path = job.get('externalPath', '')
+                # Marked before the dedup, since an earlier term may have
+                # listed the same req.
+                if path and term in opt_in_terms:
+                    opt_in_paths.add(path)
                 if not path or path in seen_paths:
                     continue
                 # Appended to the tenant host for both the job page and the
@@ -963,7 +974,10 @@ def scrape_workday(company, tenant, instance, board, security_company=False,
         path = job.pop('_path', None)
         if not complete:
             job['partial_sweep'] = True
-        if not path or not _wants_detail(job['title'], security_company):
+        if not path or not (_wants_detail(job['title'], security_company)
+                            or (path in opt_in_paths
+                                and is_cyber_title(job['title'], security_company)
+                                and not is_rejected_title(job['title']))):
             continue
         # Parsons and Accenture leave locationsText out of the list view, and a
         # blank location reads as non-US, so neither had ever had a row.
@@ -2306,9 +2320,17 @@ def build_tasks(config, board=None, limit=None):
             tasks.append(BoardTask(
                 f'{entry["name"]} ({name}/{entry["slug"]})', scraper, args, flag))
     if want('workday'):
+        tenants = set()
         for entry in limited(config.get('workday')):
+            # GDIT posts its Summer 2027 cyber intern only on its early-talent
+            # board. A tenant's first board keeps the label its baseline
+            # history is stored under; a later board gets its own entry.
+            ident = entry['tenant']
+            if ident in tenants:
+                ident = f'{ident}/{entry.get("board", "")}'
+            tenants.add(entry['tenant'])
             tasks.append(BoardTask(
-                f'{entry["name"]} (workday/{entry["tenant"]})', scrape_workday,
+                f'{entry["name"]} (workday/{ident})', scrape_workday,
                 (entry['name'], entry['tenant'], entry['instance'], entry.get('board', ''),
                  entry.get('security_company', False), entry.get('search_terms')),
                 entry.get('security_company', False)))
