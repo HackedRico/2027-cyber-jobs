@@ -8,17 +8,16 @@ evaluate_job rejects real student roles a maintainer has vetted (#13).
 """
 
 import argparse
-import ipaddress
 import json
 import os
 import re
-import socket
 import sys
 import time
 from pathlib import Path
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urljoin, urlsplit
 
 import requests
+from requests.adapters import HTTPAdapter
 
 sys.path.insert(0, str(Path(__file__).parent))
 from classify import (  # noqa: E402
@@ -32,11 +31,16 @@ from classify import (  # noqa: E402
     rejected_title_rule,
 )
 from common import (  # noqa: E402
+    fetch_target_problem,
     gh_headers,
+    host_matches,
+    link_host,
     md_code,
     md_escape,
     normalize_url,
+    oneline,
     parse_issue_body,
+    public_address,
     validate_location,
 )
 from process_approved import fields_to_listing, load_security_companies  # noqa: E402
@@ -76,11 +80,30 @@ MAX_REDIRECTS = 5
 # while the posting is live, so those are reported but not held against it.
 DEAD_STATUSES = {404, 410}
 
+# Applicant tracking systems that host postings for many employers. A link on
+# any other host gets a warning unless a row of the same company already uses
+# it, since a lookalike domain otherwise read as "no problems found".
+ATS_DOMAINS = frozenset({
+    'adp.com', 'applytojob.com', 'ashbyhq.com', 'avature.net', 'bamboohr.com',
+    'brassring.com', 'breezy.hr', 'careers-page.com', 'csod.com', 'dayforcehcm.com',
+    'eightfold.ai', 'gem.com', 'greenhouse.io', 'icims.com', 'jazzhr.com',
+    'jibeapply.com', 'jobvite.com', 'lever.co', 'myworkdayjobs.com',
+    'myworkdaysite.com', 'oraclecloud.com', 'paycomonline.net', 'paylocity.com',
+    'personio.com', 'phenompeople.com', 'pinpointhq.com', 'recruitee.com',
+    'sapsf.com', 'smartrecruiters.com', 'successfactors.com', 'successfactors.eu',
+    'taleo.net', 'teamtailor.com', 'ultipro.com', 'usajobs.gov', 'workable.com',
+})
+# parse_issue_body joins a field's lines, and a row's role, company and
+# location each render on one line of the board.
+ONE_LINE_FIELDS = ('Company Name', 'Role / Job Title')
+
 
 def form_errors(fields):
     """Problems in the form itself, each a markdown bullet body."""
     errors = [f'**{f}** is missing or empty' for f in REQUIRED_FIELDS
               if not fields.get(f, '').strip()]
+    errors += [f'**{f}** must be one line' for f in ONE_LINE_FIELDS
+               if re.search(r'[\r\n]', fields.get(f, '').strip())]
     link = fields.get('Direct Application Link', '').strip()
     if link and not re.match(r'^https?://\S+$', link):
         errors.append('**Direct Application Link** must be a single-line URL '
@@ -121,29 +144,86 @@ def find_duplicates(listing, listings):
     return matches
 
 
-def _public_host(host):
-    # The runner can reach link-local metadata endpoints; a submitted link must
-    # not turn the check into a request against them.
-    try:
-        infos = socket.getaddrinfo(host, None)
-    except (socket.gaierror, UnicodeError):
-        return False
-    return all(ipaddress.ip_address(info[4][0]).is_global for info in infos)
+class BlockedAddress(requests.ConnectionError):
+    """The link's host resolves to an address that is not public."""
 
 
-def check_link(url, get=requests.get, resolves_public=_public_host):
-    """GET an http(s) link with a timeout. Returns {'dead': bool, 'summary': str}."""
+class PublicOnlyAdapter(HTTPAdapter):
+    """Connect only to a public address, and to the one that was checked.
+
+    Resolving the name for the check and letting urllib3 resolve it again to
+    connect leaves a DNS rebinding gap: the second answer can be a metadata
+    address. This resolves once, connects to that IP, and keeps the hostname
+    for the Host header, SNI and certificate verification. `resolve` takes
+    (host, port) and returns an IP string or None, like
+    common.public_address.
+    """
+
+    def __init__(self, resolve=public_address, **kwargs):
+        self._resolve = resolve
+        super().__init__(**kwargs)
+
+    def get_connection_with_tls_context(self, request, verify, proxies=None, cert=None):
+        parts = urlsplit(request.url)
+        host = parts.hostname or ''
+        port = parts.port or (443 if parts.scheme == 'https' else 80)
+        try:
+            address = self._resolve(host, port)
+        except (OSError, UnicodeError) as e:
+            raise requests.ConnectionError(f'{host} does not resolve: {e}',
+                                           request=request) from e
+        if address is None:
+            raise BlockedAddress(f'{host} does not resolve to a public address',
+                                 request=request)
+        host_params, pool_kwargs = self.build_connection_pool_key_attributes(
+            request, verify, cert)
+        host_params['host'] = address
+        if host_params['scheme'] == 'https':
+            # urllib3 keys its pools on both, so two names on one IP never
+            # share a TLS connection.
+            pool_kwargs['server_hostname'] = host
+            pool_kwargs['assert_hostname'] = host
+        return self.poolmanager.connection_from_host(**host_params, pool_kwargs=pool_kwargs)
+
+    def add_headers(self, request, **kwargs):
+        # The pool's host is now the IP, which http.client would otherwise
+        # send as the Host header.
+        request.headers['Host'] = urlsplit(request.url).netloc.rsplit('@', 1)[-1]
+
+
+def public_session(resolve=public_address):
+    """A requests session that only reaches public addresses.
+
+    It ignores proxy settings from the environment, since a proxy would
+    resolve the name itself. Callers follow redirects by hand and check each
+    hop with common.fetch_target_problem.
+    """
+    session = requests.Session()
+    session.trust_env = False
+    adapter = PublicOnlyAdapter(resolve)
+    session.mount('http://', adapter)
+    session.mount('https://', adapter)
+    return session
+
+
+def check_link(url, get=None):
+    """GET an http(s) link with a timeout. Returns {'dead': bool, 'summary': str}.
+
+    Redirects are followed by hand so every hop gets the scheme, port and
+    public-address checks.
+    """
+    get = get or public_session().get
     started = time.monotonic()
     for _ in range(MAX_REDIRECTS + 1):
-        parsed = urlparse(url)
-        if parsed.scheme not in ('http', 'https') or not parsed.hostname:
-            return {'dead': False, 'summary': 'not checked: only http(s) links are fetched'}
-        if not resolves_public(parsed.hostname):
-            return {'dead': True,
-                    'summary': f'{md_code(parsed.hostname)} does not resolve to a public address'}
+        problem = fetch_target_problem(url)
+        if problem:
+            return {'dead': True, 'summary': f'not checked: {problem}'}
         try:
             resp = get(url, timeout=LINK_TIMEOUT, allow_redirects=False, stream=True,
                        headers={'User-Agent': 'Mozilla/5.0 (2027-cyber-jobs link check)'})
+        except BlockedAddress:
+            return {'dead': True, 'summary': f'{md_code(link_host(url))} does not resolve '
+                                             'to a public address'}
         except requests.RequestException as e:
             return {'dead': False, 'summary': f'could not connect ({type(e).__name__})'}
         resp.close()
@@ -161,6 +241,23 @@ def check_link(url, get=requests.get, resolves_public=_public_host):
     return {'dead': False, 'summary': f'more than {MAX_REDIRECTS} redirects, not followed'}
 
 
+def company_hosts(company, listings):
+    """Hosts the rows of `company` link to, open or closed, as link_host gives them."""
+    key = company.strip().casefold()
+    return {link_host(entry.get(field)) for entry in listings
+            if str(entry.get('company', '')).strip().casefold() == key
+            for field in ('url', 'last_url') if entry.get(field)} - {''}
+
+
+def domain_warning(url, company, listings):
+    """A warning when the link's host is neither an ATS nor one the company uses."""
+    host = link_host(url)
+    if not host or host_matches(host, ATS_DOMAINS) or host in company_hosts(company, listings):
+        return None
+    return (f"{md_code(host)} is not a known job-board host or one this company's rows "
+            f'use, so check that this domain belongs to {md_escape(company) or "the company"}')
+
+
 def _option(value, options):
     value = value.strip()
     if not value:
@@ -173,7 +270,8 @@ def build_verdict(fields, listings, security_companies=frozenset(), link=None):
 
     `link` is check_link's result, or None when the link was not fetched.
     `ok` is False when the form has errors, the row is a duplicate, the link
-    is dead, or evaluate_job rejects the title and location.
+    is dead or on a host `domain_warning` flags, or evaluate_job rejects the
+    title and location.
     """
     listing = fields_to_listing(fields, security_companies)
     security_company = listing['company'].lower() in security_companies
@@ -182,7 +280,10 @@ def build_verdict(fields, listings, security_companies=frozenset(), link=None):
     dupes = find_duplicates(listing, listings) if listing['company'] else []
     # process_approved reopens a closed match rather than rejecting it.
     open_dupes = [entry for entry, _ in dupes if is_open(entry)]
-    ok = not errors and gate is None and not open_dupes and not (link and link['dead'])
+    host = link_host(listing['url'])
+    warning = domain_warning(listing['url'], listing['company'], listings)
+    ok = (not errors and gate is None and not open_dupes and not warning
+          and not (link and link['dead']))
 
     lines = [MARKER,
              '### Submission check: ' + ('✅ no problems found' if ok else '⚠️ needs a look'),
@@ -228,6 +329,10 @@ def build_verdict(fields, listings, security_companies=frozenset(), link=None):
         lines.append('- ✅ No row with the same link or company, role and location')
 
     lines += ['', '**Link**']
+    if host:
+        lines.append(f'- Host: {md_code(host)}')
+    if warning:
+        lines.append(f'- ⚠️ {warning}')
     if link is None:
         lines.append('- Not checked')
     else:
@@ -304,7 +409,7 @@ def main():
         link = check_link(link_url)
     verdict, ok = build_verdict(fields, listings, load_security_companies(), link)
 
-    print(verdict)
+    print('\n'.join(oneline(line) for line in verdict.splitlines()))
     print(f'Verdict: {"valid" if ok else "needs-fix"}')
     if args.dry_run:
         return

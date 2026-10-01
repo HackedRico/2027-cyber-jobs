@@ -34,7 +34,7 @@ from classify import (  # noqa: E402
     is_us_location,
     listing_dedup_key,
 )
-from common import normalize_url  # noqa: E402
+from common import CONTROL_RE, normalize_url, oneline  # noqa: E402
 
 LISTINGS_FILE = Path('listings.json')
 README_FILE = Path('README.md')
@@ -93,6 +93,11 @@ def check_row(entry):
             datetime.strptime(value, '%Y-%m-%d')
         except (TypeError, ValueError):
             problems.append(f'{label}: `{field}` {value!r} is not YYYY-MM-DD')
+    for field, value in entry.items():
+        # Invalid in the Atom feeds and invisible on the board, and a log
+        # line or the README can carry them further.
+        if isinstance(value, str) and CONTROL_RE.search(value):
+            problems.append(f'{label}: `{field}` has a control character')
     if 'closed' in entry and not isinstance(entry['closed'], bool):
         problems.append(f'{label}: `closed` is not a boolean')
     url = entry.get('url')
@@ -219,7 +224,7 @@ def main():
     if args.baseline:
         base, base_err = _load(args.baseline)
         if base_err:
-            print(f'::warning::{base_err}; checking without a baseline')
+            print(f'::warning::{oneline(base_err)}; checking without a baseline')
         else:
             known = set(check_listings(base))
             if not err:
@@ -229,10 +234,10 @@ def main():
     fatal = [p for p in errors if p not in known]
     for p in errors:
         level = 'error' if p in fatal else 'warning'
-        print(f'::{level}::listings.json: {p}')
+        print(f'::{level}::listings.json: {oneline(p)}')
     if not err:
         for w in readme_drift():
-            print(f'::warning::{w}')
+            print(f'::warning::{oneline(w)}')
 
     rows = len(listings) if isinstance(listings, list) else 0
     print(f'Checked {rows} rows: {len(fatal)} new problem(s), '

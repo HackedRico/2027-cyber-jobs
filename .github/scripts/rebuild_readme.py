@@ -10,6 +10,7 @@ from datetime import date, datetime
 from pathlib import Path
 
 from classify import CATEGORY_NAMES, FALLBACK_CATEGORIES
+from common import defang_autolinks
 
 LISTINGS_FILE = Path('listings.json')
 README_FILE = Path('README.md')
@@ -68,14 +69,16 @@ def escape_cell(text):
 
     Collapses whitespace first: an embedded newline in a scraped or hand-edited
     field would otherwise split one table row across physical lines and corrupt
-    the rendered README.
+    the rendered README. A bare URL, `www.` or user@host is defanged the way
+    md_escape does it: "Intern apply at https://evil.example/login" rendered as
+    a live link on the board.
     """
     text = re.sub(r'\s+', ' ', text).strip()
     text = text.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
     # Escape backslash first so it can't pair with the escapes added next and
     # render as a literal '\' that leaves the following '|' as a live delimiter.
     text = text.replace('\\', '\\\\')
-    return re.sub(r'([|\[\]`])', r'\\\1', text)
+    return defang_autolinks(re.sub(r'([|\[\]`])', r'\\\1', text))
 
 
 def _escape_attr(text):

@@ -28,11 +28,14 @@ import rebuild_readme  # noqa: E402
 from classify import CATEGORY_ALLOWLIST, infer_category, listing_dedup_key  # noqa: E402
 from common import (  # noqa: E402
     gh_headers,
+    link_host,
     md_escape,
     normalize_submitted_location,
     normalize_url,
+    oneline,
     parse_issue_body,
     security_company_names,
+    strip_controls,
     validate_location,
     write_run_events,
 )
@@ -122,7 +125,7 @@ def body_edited_at(token, repo, number):
     data = resp.json() if resp.status_code == 200 else {}
     issue = ((data.get('data') or {}).get('repository') or {}).get('issue')
     if data.get('errors') or issue is None:
-        print(f'  Issue #{number}: GraphQL error {resp.status_code} {resp.text[:200]}')
+        print(f'  Issue #{number}: GraphQL error {resp.status_code} {oneline(resp.text[:200])}')
         return False, None
     return True, _stamp(issue.get('lastEditedAt'))
 
@@ -171,7 +174,12 @@ def load_security_companies(path=COMPANIES_FILE):
 
 
 def fields_to_listing(fields, security_companies=frozenset(), today=None):
-    """Build a listings.json row from parsed issue-form fields."""
+    """Build a listings.json row from parsed issue-form fields.
+
+    Control characters are stripped: a rendered issue hides them, so the
+    maintainer approved the text without them.
+    """
+    fields = {k: strip_controls(v) for k, v in fields.items()}
     listing_type = fields.get('Listing Type', '')
     if 'Intern' in listing_type:
         level = 'intern'
@@ -205,6 +213,11 @@ def submission_problem(fields, listing):
     """Why a parsed submission cannot become a row, or None when it can."""
     if not listing['url'] or not listing['company'] or not listing['role']:
         return 'the company, role or application link is missing.'
+    # parse_issue_body joins a field's lines, and each of these renders on one
+    # line of the board and the logs. A multi-line Location is split into
+    # places before it gets here.
+    if any(re.search(r'[\r\n]', listing[f]) for f in ('company', 'role', 'location')):
+        return 'the company, role and location must each be one line.'
     if not re.match(r'^https?://', listing['url']) or re.search(r'\s', listing['url']):
         return 'the application link must be a single-line http(s) URL.'
     # Re-validated at ingestion: an edit after validate_issue.py ran could
@@ -284,6 +297,10 @@ def ingest(issues, listings, security_companies=frozenset(), today=None):
 
 
 def _revive(row, url):
+    # A submission can point a scraped row at a new domain; the log keeps the
+    # switch visible to anyone auditing the run.
+    old_host = link_host(row.get('url') or row.get('last_url')) or '(none)'
+    print(f"  Reviving {oneline(row.get('company', ''))}: {old_host} -> {link_host(url)}")
     row['url'] = url
     # A maintainer vetted this link, and a scraped row whose board no longer
     # lists the req would be retired again on the next scrape by the vanished
@@ -313,7 +330,7 @@ def run_ingest(token, repo):
     closed_before = [e for e in listings if not rebuild_readme.is_open(e)]
     results += ingest(current, listings, load_security_companies())
     for r in results:
-        print(f"  Issue #{r['number']}: {r['outcome']}, {r['detail']}")
+        print(f"  Issue #{r['number']}: {r['outcome']}, {oneline(r['detail'])}")
     write_output(results)
 
     # ingest appends new rows and reopens closed ones in place. Written even
@@ -337,7 +354,7 @@ def _api(method, token, url, **kwargs):
     resp = requests.request(method, url, headers=gh_headers(token), timeout=10, **kwargs)
     # 404 on a label delete means the label is already off the issue.
     if resp.status_code >= 400 and not (method == 'DELETE' and resp.status_code == 404):
-        print(f'  {method} {url} failed: {resp.status_code} {resp.text[:200]}')
+        print(f'  {method} {url} failed: {resp.status_code} {oneline(resp.text[:200])}')
         return False
     return True
 
@@ -350,7 +367,8 @@ def run_notify(token, repo, results, pushed):
         issue_url = f'{API}/repos/{repo}/issues/{number}'
         calls = []
         if outcome == 'held':
-            print(f'  Issue #{number}: {r["detail"]}, leaving it approved for the next run')
+            print(f'  Issue #{number}: {oneline(r["detail"])}, '
+                  'leaving it approved for the next run')
             continue
         if outcome in ROW_OUTCOMES and not pushed:
             # Left open and approved, so the next approved label event retries.

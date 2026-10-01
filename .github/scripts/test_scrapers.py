@@ -1960,6 +1960,150 @@ def test_check_links_redirect_that_drops_the_req():
           check_links.fetch_status(search), 200)
 
 
+# --- check_links: a hostile Community page cannot stall the check ------------
+@responses.activate
+def test_check_links_reads_a_capped_body_in_linear_time():
+    """2 MB of unclosed <title tags ran past the 30-minute job timeout."""
+    import time
+    pages = {
+        'https://evil.example/job/1': '<html><head>' + '<title' * 350_000,
+        'https://evil.example/job/2': '<title>' + 'x' * 2_000_000,
+        'https://evil.example/job/3': '<title x' * 300_000 + '>',
+        'https://evil.example/job/4': '<title></title' * 150_000,
+        # A title past the cap is never read, so the page is not judged.
+        'https://evil.example/job/5': ' ' * (check_links.MAX_BODY_BYTES + 10)
+                                      + '<title>404 Not Found</title>',
+    }
+    for url, body in pages.items():
+        responses.get(url, status=200, body=body, content_type='text/html')
+    started = time.monotonic()
+    statuses = [check_links.fetch_status(url, soft_404=True) for url in pages]
+    elapsed = time.monotonic() - started
+    check('hostile pages read as live, not as soft 404s, except an empty title',
+          statuses, [200, 200, 200, check_links.SOFT_404, 200])
+    check(f'hostile pages are checked in well under a second each ({elapsed:.2f}s)',
+          elapsed < 5, True)
+
+    started = time.monotonic()
+    for text in ('<title' * 45_000, '<title x' * 33_000, '<title>' + 'a' * 262_144):
+        check_links.TITLE_RE.search(text)
+    check('TITLE_RE stays linear on 256 KB of unclosed tags',
+          time.monotonic() - started < 1, True)
+    check('TITLE_RE still reads an ordinary title',
+          check_links.TITLE_RE.search('<TITLE lang="en">SOC Analyst I</title >').group(1),
+          'SOC Analyst I')
+
+    responses.get('https://evil.example/big', status=200, body=b'a' * 3_000_000,
+                  content_type='text/html')
+    import requests
+    resp = requests.get('https://evil.example/big', stream=True)
+    check('read_body stops at MAX_BODY_BYTES',
+          len(check_links.read_body(resp)), check_links.MAX_BODY_BYTES)
+
+
+def test_check_links_body_read_has_a_deadline():
+    # time.sleep is stubbed out in this file, so a fake clock stands in for
+    # a server that brings one byte per second.
+    clock = {'now': 0.0}
+
+    class Clock:
+        @staticmethod
+        def monotonic():
+            return clock['now']
+
+    class Raw:
+        def read1(self, amt, decode_content=True):
+            clock['now'] += 1
+            return b'<'
+
+    class Resp:
+        raw = Raw()
+
+    saved = check_links.time
+    check_links.time = Clock
+    try:
+        body = check_links.read_body(Resp(), seconds=20)
+    finally:
+        check_links.time = saved
+    check('read_body gives up at its deadline on a drip-fed body', len(body), 20)
+
+
+@responses.activate
+def test_check_links_follows_redirects_through_the_guard():
+    start = 'https://careers.acme.com/job/4412345'
+    responses.get(start, status=302, headers={'Location': 'http://careers.acme.com:6379/'})
+    other = 'https://careers.acme.com/job/4412346'
+    responses.get(other, status=302, headers={'Location': 'file:///etc/passwd'})
+    check('a redirect to another port or scheme is blocked before it is fetched',
+          [check_links.fetch_status(u, soft_404=True) for u in (start, other)],
+          [check_links.BLOCKED, check_links.BLOCKED])
+    check('only the first hop of each was fetched', len(responses.calls), 2)
+    loop = 'https://careers.acme.com/job/loop'
+    responses.get(loop, status=302, headers={'Location': loop})
+    check('a redirect loop is a failed request, not a dead link',
+          check_links.fetch_status(loop), None)
+    check('a link on another port is blocked without a request',
+          (check_links.fetch_status('https://careers.acme.com:8443/job/1'),
+           len(responses.calls)), (check_links.BLOCKED, 2 + check_links.MAX_REDIRECTS + 1))
+
+    row = {'company': 'Acme', 'role': 'Analyst', 'source': 'Community', 'url': start}
+    check('a blocked link starts a dead streak',
+          check_links.record_result(row, check_links.BLOCKED, '2026-09-27'), False)
+    check('a blocked link closes on its second day',
+          check_links.record_result(row, check_links.BLOCKED, '2026-09-28'), True)
+
+
+def test_check_links_redirect_to_a_private_address_is_never_fetched():
+    """The real session: a public hop that redirects to cloud metadata."""
+    import http.server
+    import threading
+
+    import common
+    from validate_issue import public_session
+
+    hosts = []
+
+    class Handler(http.server.BaseHTTPRequestHandler):
+        def do_GET(self):
+            hosts.append(self.headers['Host'])
+            self.send_response(302)
+            self.send_header('Location', 'http://169.254.169.254/latest/meta-data/')
+            self.end_headers()
+
+        def log_message(self, *args):
+            pass
+
+    server = http.server.HTTPServer(('127.0.0.1', 0), Handler)
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    port = server.server_address[1]
+    saved = common.ALLOWED_PORTS
+    # The test server cannot listen on 80, and careers.acme.com stands in for
+    # a public host, so both are let through for this one check.
+    common.ALLOWED_PORTS = saved | {port}
+    session = public_session(resolve=lambda host, p: (
+        '127.0.0.1' if host == 'careers.acme.com' else common.public_address(host, p)))
+    try:
+        status = check_links.fetch_status(f'http://careers.acme.com:{port}/job/4412345',
+                                          soft_404=True, session=session)
+    finally:
+        common.ALLOWED_PORTS = saved
+        server.shutdown()
+        server.server_close()
+    check('a redirect to link-local metadata is blocked', status, check_links.BLOCKED)
+    check('the first hop went to the pinned address with the real Host header',
+          hosts, [f'careers.acme.com:{port}'])
+
+
+def test_check_links_skip_matches_the_parsed_host():
+    urls = ['https://careers.ibm.com/job/1', 'https://www.usajobs.gov/job/1',
+            'https://usajobs.gov/job/1', 'https://evil.example/careers.ibm.com/job/1',
+            'https://careers.ibm.com.evil.example/job/1', 'https://notusajobs.gov/job/1',
+            'https://evil.example/?next=lockheedmartinjobs.com']
+    check('should_skip matches a bot-blocked host or its subdomain only',
+          [check_links.should_skip(u) for u in urls],
+          [True, True, True, False, False, False, False])
+
+
 def test_check_links_ages_out_old_community_rows():
     old = {'company': 'Acme', 'role': 'SOC Intern', 'source': 'Community',
            'url': 'https://x/1', 'date_added': '2026-05-01'}
@@ -2496,6 +2640,11 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_retire_orphaned_listings, test_check_links_soft_404,
            test_check_links_redirect_that_drops_the_req,
            test_check_links_ages_out_old_community_rows,
+           test_check_links_reads_a_capped_body_in_linear_time,
+           test_check_links_body_read_has_a_deadline,
+           test_check_links_follows_redirects_through_the_guard,
+           test_check_links_redirect_to_a_private_address_is_never_fetched,
+           test_check_links_skip_matches_the_parsed_host,
            test_board_health_forgets_a_removed_board,
            test_compare_runs_reports_retirements,
            test_oracle_ids_and_labels_carry_host_and_site,
