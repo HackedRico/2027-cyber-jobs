@@ -1261,6 +1261,24 @@ RENDER = [
     ('apply_btn rejects javascript:', rr.apply_btn('javascript:alert(1)') == '🔒'),
     ('apply_btn escapes pipe in url', '|' not in rr.apply_btn('https://x/a|b')),
     ('apply_btn renders a clean https url', rr.apply_btn('https://x/job').startswith('<a href="https://x/job"')),
+    # GFM autolinks a bare URL, www. and user@host inside a table cell.
+    ('escape_cell defangs a bare url',
+     rr.escape_cell('Intern apply at https://evil.example/login')
+     == 'Intern apply at https&#8203;://evil.example/login'),
+    ('escape_cell defangs www. and an email address',
+     rr.escape_cell('See www.evil.example or jobs@evil.example')
+     == 'See www&#8203;.evil.example or jobs@&#8203;evil.example'),
+    ('escape_cell leaves a spaced @ and a bare & readable',
+     rr.escape_cell('Engineering @ Security Co, R&D') == 'Engineering @ Security Co, R&amp;D'),
+    ('apply_btn keeps a url escape_cell would defang',
+     rr.apply_btn('https://www.acme.com/jobs/1', 'Acme https://x @y').startswith(
+         '<a href="https://www.acme.com/jobs/1"><img')),
+    ('a README row defangs the role but keeps the apply link',
+     (lambda r: 'https&#8203;://evil.example' in r and 'href="https://boards.greenhouse.io/a/jobs/1"'
+      in r)(rr.format_row({'company': 'Acme', 'role': 'Intern https://evil.example', 'url':
+                           'https://boards.greenhouse.io/a/jobs/1', 'location': 'Austin, TX',
+                           'date_added': '2026-09-01', 'category': 'SOC & Detection'},
+                          'Acme', '2026-09-30'))),
 ]
 for name, ok in RENDER:
     if not ok:
