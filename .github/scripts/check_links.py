@@ -59,7 +59,8 @@ REQ_TOKEN_RE = re.compile(r'\d{4,}')
 
 REQUEST_DELAY = 0.75
 REQUEST_TIMEOUT = 12
-MAX_REDIRECTS = 5
+# requests allowed 30; career sites chain a few for SSO and locale.
+MAX_REDIRECTS = 10
 REDIRECT_STATUSES = frozenset({301, 302, 303, 307, 308})
 
 # A host that is not public, or a port other than 80 and 443, on any hop. A
