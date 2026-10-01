@@ -1843,6 +1843,43 @@ def test_workday_blank_list_location_fetches_detail():
                           jobs[0].get('description', '')) is not None, True)
 
 
+@responses.activate
+def test_workday_opt_in_term_hits_fetch_details():
+    """Palo Alto Networks' new-grad reqs are titled a flat 'Software Engineer' and
+    only the description says "Bachelor's degree earned recently". cxs search
+    reads descriptions, so the opt-in term finds them, and only the detail
+    can prove the level."""
+    hit = '/job/Office---USA---CA---Headquarters/Software-Engineer_JR-011497'
+    flat = '/job/Office---USA---CA---Headquarters/Software-Engineer_JR-009999'
+    sales = '/job/Office---USA---CA---Headquarters/Account-Manager_JR-011500'
+    loc = 'Office - USA - CA - Headquarters'
+
+    def posting(path, title='Software Engineer'):
+        return {'title': title, 'externalPath': path, 'locationsText': loc}
+
+    # The 'graduate' sweep lists the hit first, so it must still count as an
+    # opt-in hit after the dedup.
+    responses.add_callback(responses.POST, WD_API, callback=_workday_pages({
+        'graduate': [{'total': 2, 'jobPostings': [posting(hit), posting(flat)]}],
+        'earned recently': [{'total': 2, 'jobPostings': [posting(hit),
+                                                         posting(sales, 'Account Manager')]}]}))
+    detail = responses.get(f'https://t.wd5.myworkdayjobs.com/wday/cxs/t/B{hit}', json={
+        'jobPostingInfo': {'location': loc,
+                           'jobDescription': "<p>Bachelor's degree earned recently or anticipated "
+                                             'to be earned within the next 12 months.</p>'}})
+    jobs = sj.scrape_workday('Palo Alto Networks', 't', 'wd5', 'B', True, ['earned recently'])
+    by_path = {j['url'].rsplit('/', 1)[-1]: j for j in jobs}
+    found = by_path['Software-Engineer_JR-011497']
+    check('only the cyber-eligible opt-in hit gets a detail fetch',
+          (detail.call_count, len([c for c in responses.calls if c.request.method == 'GET'])),
+          (1, 1))
+    check('the detail marks the opt-in hit new grad',
+          sj.evaluate_job(found['title'], found['location'], found['description'], True),
+          ('newgrad', 'Engineering @ Security Co'))
+    check('a flat title from a default term still skips the detail',
+          'description' in by_path['Software-Engineer_JR-009999'], False)
+
+
 # --- amazon.jobs: loc_query ranks, the country filter restricts --------------
 @responses.activate
 def test_amazon_restricts_to_us_reqs():
@@ -2937,7 +2974,8 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_smartrecruiters_fetches_descriptions_for_candidates,
            test_oracle_and_smartrecruiters_use_the_security_flag,
            test_workday_more_suffix_fetches_locations,
-           test_workday_blank_list_location_fetches_detail, test_amazon_restricts_to_us_reqs,
+           test_workday_blank_list_location_fetches_detail,
+           test_workday_opt_in_term_hits_fetch_details, test_amazon_restricts_to_us_reqs,
            test_smartrecruiters_and_amazon_flag_a_cut_short_sweep,
            test_retire_orphaned_listings, test_check_links_soft_404,
            test_check_links_redirect_that_drops_the_req,
