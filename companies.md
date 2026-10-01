@@ -2,9 +2,9 @@
 
 Employers whose job boards are scraped automatically (see [companies.yml](companies.yml)). 🛡️ marks pure-play security companies, where every engineering role is a security-industry job.
 
-**356 companies tracked.**
+**355 companies tracked.**
 
-## Hiring students now (81)
+## Hiring students now (83)
 
 Employers with open roles on the board today.
 
@@ -14,16 +14,17 @@ Employers with open roles on the board today.
 | Booz Allen Hamilton | 17 |  | 3 |
 | American Express | 8 | 4 |  |
 | Vanguard | 5 | 6 |  |
+| Palo Alto Networks | 5 | 1 | 1 |
 | RTX | 5 |  | 8 |
-| Palo Alto Networks | 5 |  | 1 |
 | Northrop Grumman | 2 | 2 | 9 |
-| Microsoft | 4 |  | 2 |
+| Microsoft | 4 |  | 3 |
 | Tanium | 4 |  |  |
 | MITRE | 2 | 1 | 2 |
 | Cisco | 3 |  | 1 |
 | Immuta | 3 |  |  |
 | Palantir | 2 | 1 |  |
 | Lockheed Martin | 2 |  | 1 |
+| Boeing | 1 | 1 |  |
 | Honeywell | 2 |  |  |
 | Idaho National Laboratory | 2 |  |  |
 | Robinhood | 2 |  |  |
@@ -34,13 +35,14 @@ Employers with open roles on the board today.
 | Software Engineering Institute | 1 |  | 5 |
 | The Home Depot | 1 |  | 2 |
 | Appian | 1 |  | 1 |
+| GDIT | 1 |  | 1 |
 | GuidePoint Security | 1 |  | 1 |
 | Motorola Solutions | 1 |  | 1 |
+| Parsons | 1 |  | 1 |
 | Sierra Nevada Corporation | 1 |  | 1 |
 | Anduril |  | 1 |  |
 | Applied Intuition |  | 1 |  |
 | Bank of America | 1 |  |  |
-| Boeing | 1 |  |  |
 | Deloitte |  | 1 |  |
 | Exelon | 1 |  |  |
 | HP Inc | 1 |  |  |
@@ -92,7 +94,7 @@ Employers with open roles on the board today.
 | Two Six Technologies |  |  | 1 |
 | Verizon |  |  | 1 |
 
-## Every tracked board (356)
+## Every tracked board (355)
 
 ### Ashby (70)
 
@@ -351,12 +353,11 @@ Employers with open roles on the board today.
 - WatchGuard 🛡️
 - Xage Security 🛡️
 
-### Oracle (8)
+### Oracle (7)
 
 - American Express
 - Fortinet 🛡️
 - Honeywell
-- Idaho National Laboratory
 - Idaho National Laboratory
 - JPMorgan Chase
 - SAIC

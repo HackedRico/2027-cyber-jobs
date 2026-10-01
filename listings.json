@@ -4880,5 +4880,82 @@
     "url": "https://microsoft.eightfold.ai/careers/job/1970393557019490",
     "source": "Eightfold",
     "date_added": "2026-10-01"
+  },
+  {
+    "company": "GDIT",
+    "role": "Junior Tactical All Source Threat Intelligence Analyst - Overnight Shift  (Top Secret Clearance)",
+    "location": "Vienna, VA",
+    "type": "earlycareer",
+    "category": "Threat Intelligence",
+    "clearance": true,
+    "url": "https://gdit.wd5.myworkdayjobs.com/External_Career_Site/job/USA-VA-Vienna/Junior-Tactical-All-Source-Threat-Intelligence-Analyst---Overnight-Shift---Top-Secret-Clearance-_RQ228754",
+    "source": "Workday",
+    "date_added": "2026-10-01"
+  },
+  {
+    "company": "GDIT",
+    "role": "GDIT Summer Internship Program \u2013 Summer 2027 Cybersecurity Associate Internship",
+    "location": "Bossier City, LA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://gdit.wd5.myworkdayjobs.com/GDIT_EarlyTalent/job/USA-LA-Bossier-City/GDIT-Summer-Internship-Program---Summer-2027-Cybersecurity-Associate-Internship_RQ228929-2",
+    "source": "Workday",
+    "date_added": "2026-10-01"
+  },
+  {
+    "company": "Palo Alto Networks",
+    "role": "Software Engineer",
+    "location": "CA (US)",
+    "type": "newgrad",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://paloaltonetworks.wd5.myworkdayjobs.com/panwexternalcareers/job/Office---USA---CA---Headquarters/Software-Engineer_JR-011497",
+    "source": "Workday",
+    "date_added": "2026-10-01"
+  },
+  {
+    "company": "Parsons",
+    "role": "Associate Vulnerability Researcher Engineer",
+    "location": "Melbourne, FL",
+    "type": "earlycareer",
+    "category": "Offensive Security",
+    "clearance": true,
+    "url": "https://parsons.wd5.myworkdayjobs.com/Search/job/US---FL-Melbourne/Associate-Vulnerability-Researcher-Engineer_R186346",
+    "source": "Workday",
+    "date_added": "2026-10-01"
+  },
+  {
+    "company": "Parsons",
+    "role": "CNO Development Intern/Co-op",
+    "location": "MD (Field Location)",
+    "type": "intern",
+    "category": "Offensive Security",
+    "clearance": false,
+    "url": "https://parsons.wd5.myworkdayjobs.com/Search/job/US---MD-Field-Location/CNO-Development-Intern-Co-op_R184352",
+    "source": "Workday",
+    "date_added": "2026-10-01"
+  },
+  {
+    "company": "Boeing",
+    "role": "Information Digital Technology & Security Career Foundation Program - 2027 Cohort",
+    "location": "Seattle, WA; Hazelwood, MO; North Charleston, SC",
+    "type": "newgrad",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://boeing.wd1.myworkdayjobs.com/INTERN/job/USA---Seattle-WA/Information-Digital-Technology---Security-Career-Foundation-Program---2027-Cohort_JR2026522914",
+    "source": "Workday",
+    "date_added": "2026-10-01"
+  },
+  {
+    "company": "Microsoft",
+    "role": "Security Engineer II (Services)",
+    "location": "US",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://microsoft.eightfold.ai/careers/job/1970393557007527",
+    "source": "Eightfold",
+    "date_added": "2026-10-01"
   }
 ]

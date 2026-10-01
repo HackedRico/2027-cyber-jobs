@@ -1,14 +1,9 @@
 {
   "date": "2026-10-01",
-  "boards": 357,
-  "ok": 343,
+  "boards": 359,
+  "ok": 345,
   "empty": 14,
   "failed": [],
-  "regressed": [
-    {
-      "board": "Dispel (workable/dispel)",
-      "had": 1
-    }
-  ],
+  "regressed": [],
   "silent": 13
 }
