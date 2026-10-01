@@ -2635,6 +2635,53 @@ def test_log_lines_cannot_start_a_workflow_command():
           [line for line in out.splitlines() if line.startswith('::error')], [])
 
 
+@responses.activate
+def test_check_slugs_reports_who_owns_each_board():
+    """Ashby `menlo` served Menlo Research as Menlo Security; `primer` a K-8 school."""
+    for configured, reported, want in (
+            ('Abnormal AI', 'Abnormal Security', True), ('Ping Identity', 'PingIdentity', True),
+            ('Primer', 'primer.ai', True), ('Check Point', 'Check Point Software Technologies',
+                                            True),
+            ('Corelight', 'Job Board', False), ('Govini', 'Air', False),
+            ('Acme Security', 'Other Security', False)):
+        check(f'names_match({configured!r}, {reported!r})',
+              check_slugs.names_match(configured, reported), want)
+    responses.get('https://boards-api.greenhouse.io/v1/boards/air', json={'name': 'Air'})
+    responses.post('https://jobs.ashbyhq.com/api/non-user-graphql', json={'data': {
+        'organization': {'name': 'Menlo', 'publicWebsite': 'https://menlo.ai/'}}})
+    responses.get('https://api.smartrecruiters.com/v1/companies/Acme/postings', json={
+        'content': [{'company': {'identifier': 'Acme', 'name': 'Acme Inc'}}]})
+    responses.get('https://apply.workable.com/api/v1/widget/accounts/tob',
+                  json={'name': 'Trail of Bits', 'jobs': []})
+    responses.get('https://acme.recruitee.com/api/offers/', json={'offers': []})
+    check('greenhouse board name is compared',
+          check_slugs.ownership_line('greenhouse', {'name': 'Govini', 'slug': 'air'}, []),
+          ('greenhouse/Govini (air): board name "Air"', True))
+    check('ashby shows the org name and website',
+          check_slugs.ownership_line('ashby', {'name': 'Menlo Security', 'slug': 'menlo'}, []),
+          ('ashby/Menlo Security (menlo): board name "Menlo", website https://menlo.ai/',
+           False))
+    check('smartrecruiters reads company.name',
+          check_slugs.ownership_line('smartrecruiters', {'name': 'Acme', 'slug': 'Acme'}, [])[1],
+          False)
+    check('workable reads the account name',
+          check_slugs.ownership_line('workable', {'name': 'Trail of Bits', 'slug': 'tob'}, [])[1],
+          False)
+    check('an empty recruitee board reports no name',
+          check_slugs.ownership_line('recruitee', {'name': 'Acme', 'slug': 'acme'}, []),
+          ('recruitee/Acme (acme): board reports no name', False))
+    lever = {'name': 'Shield AI', 'slug': 'shieldai'}
+    check('lever falls back to the posting text',
+          check_slugs.ownership_line('lever', lever,
+                                     [{'description': '<p>At Shield&nbsp;AI we build</p>'}]),
+          ('lever/Shield AI (shieldai): named in posting text', False))
+    check('...and flags a board whose postings never name the company',
+          check_slugs.ownership_line('lever', lever, [{'description': 'Menlo Research'}])[1],
+          True)
+    check('workday has no owner check',
+          check_slugs.ownership_line('workday', {'name': 'X', 'slug': 'x'}, []), (None, False))
+
+
 for fn in (test_greenhouse_location_reads_only_location_fields,
            test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
            test_lever_reads_all_locations,
@@ -2714,7 +2761,8 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_host_validation_pins_oracle_and_refuses_local_hosts,
            test_payload_paths_cannot_name_another_host,
            test_control_characters_never_reach_a_row,
-           test_log_lines_cannot_start_a_workflow_command):
+           test_log_lines_cannot_start_a_workflow_command,
+           test_check_slugs_reports_who_owns_each_board):
     fn()
 
 if failures:
