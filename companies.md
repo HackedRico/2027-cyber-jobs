@@ -14,17 +14,18 @@ Employers with open roles on the board today.
 | Booz Allen Hamilton | 17 |  | 3 |
 | American Express | 8 | 4 |  |
 | Vanguard | 5 | 6 |  |
+| Microsoft | 7 |  | 3 |
+| RTX | 6 |  | 8 |
 | Palo Alto Networks | 5 | 1 | 1 |
-| Northrop Grumman | 2 | 3 | 9 |
-| RTX | 5 |  | 8 |
-| Microsoft | 5 |  | 3 |
+| Northrop Grumman | 2 | 3 | 8 |
+| MITRE | 3 | 1 | 2 |
 | Tanium | 4 |  |  |
-| MITRE | 2 | 1 | 2 |
 | Cisco | 3 |  | 1 |
 | Immuta | 3 |  |  |
 | Palantir | 2 | 1 |  |
 | Lockheed Martin | 2 |  | 1 |
 | Boeing | 1 | 1 |  |
+| Duke Energy | 2 |  |  |
 | Honeywell | 2 |  |  |
 | Idaho National Laboratory | 2 |  |  |
 | Robinhood | 2 |  |  |
@@ -44,7 +45,6 @@ Employers with open roles on the board today.
 | Applied Intuition |  | 1 |  |
 | Bank of America | 1 |  |  |
 | Deloitte |  | 1 |  |
-| Duke Energy | 1 |  |  |
 | Exelon | 1 |  |  |
 | HP Inc | 1 |  |  |
 | Northern Trust | 1 |  |  |
@@ -57,7 +57,7 @@ Employers with open roles on the board today.
 | U.S. Bank | 1 |  |  |
 | Verkada | 1 |  |  |
 | Amazon |  |  | 11 |
-| CrowdStrike |  |  | 8 |
+| CrowdStrike |  |  | 7 |
 | KBR |  |  | 4 |
 | BAE Systems |  |  | 3 |
 | JPMorgan Chase |  |  | 3 |
@@ -67,7 +67,6 @@ Employers with open roles on the board today.
 | CACI |  |  | 2 |
 | SAIC |  |  | 2 |
 | Trail of Bits |  |  | 2 |
-| Action1 |  |  | 1 |
 | AeroVironment |  |  | 1 |
 | Anthropic |  |  | 1 |
 | Arctic Wolf |  |  | 1 |
@@ -80,6 +79,7 @@ Employers with open roles on the board today.
 | ExtraHop |  |  | 1 |
 | Fireblocks |  |  | 1 |
 | Fortinet |  |  | 1 |
+| Fortra |  |  | 1 |
 | HII |  |  | 1 |
 | ID.me |  |  | 1 |
 | Illumio |  |  | 1 |
