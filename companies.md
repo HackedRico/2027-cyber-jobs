@@ -11,9 +11,9 @@ Employers with open roles on the board today.
 | Company | Internships | New grad | Early career |
 | ------- | ----------- | -------- | ------------ |
 | Johns Hopkins APL | 11 | 9 |  |
-| Booz Allen Hamilton | 17 |  | 3 |
+| Booz Allen Hamilton | 17 |  | 5 |
+| Vanguard | 7 | 6 |  |
 | American Express | 8 | 4 |  |
-| Vanguard | 5 | 6 |  |
 | Microsoft | 7 |  | 3 |
 | RTX | 6 |  | 8 |
 | Palo Alto Networks | 5 | 1 | 1 |
@@ -23,6 +23,7 @@ Employers with open roles on the board today.
 | Cisco | 3 |  | 1 |
 | Immuta | 3 |  |  |
 | Palantir | 2 | 1 |  |
+| CACI | 2 |  | 2 |
 | Lockheed Martin | 2 |  | 1 |
 | Boeing | 1 | 1 |  |
 | Duke Energy | 2 |  |  |
@@ -64,7 +65,6 @@ Employers with open roles on the board today.
 | Recorded Future |  |  | 3 |
 | Abnormal AI |  |  | 2 |
 | Amentum |  |  | 2 |
-| CACI |  |  | 2 |
 | SAIC |  |  | 2 |
 | Trail of Bits |  |  | 2 |
 | AeroVironment |  |  | 1 |

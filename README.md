@@ -14,7 +14,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**110** internships · **32** new grad · **121** early career open · **137** added in the last 7 days · **135** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 2, 2026
+**114** internships · **32** new grad · **123** early career open · **142** added in the last 7 days · **139** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 2, 2026
 
 <!-- /STATS -->
 
@@ -69,11 +69,15 @@ Cybersecurity internships and co-ops for current students.
 
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
+| CACI | 🆕 Cyber Security Intern - Summer 2027 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://caci.wd1.myworkdayjobs.com/External/job/Springfield-VA-US/Cyber-Security-Intern---Summer-2027_333046"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: CACI Cyber Security Intern - Summer 2027"></a> | Springfield, VA | Oct 2 |
+| ↳ | 🆕 Network / Cybersecurity Intern - Summer 2027 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://caci.wd1.myworkdayjobs.com/External/job/High-Point-NC-US/Network---Cybersecurity-Intern---Summer-2027_333034-1"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: CACI Network / Cybersecurity Intern - Summer 2027"></a> | High Point, NC | Oct 2 |
 | Duke Energy | 🆕 PGO Cybersecurity Spring 2027 Co-op<br><sub>Security Engineering</sub> | <a href="https://dukeenergy.wd1.myworkdayjobs.com/Search/job/Lake-Mary-FL/PGO-Cybersecurity-Spring-2027-Co-op_R41837"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Duke Energy PGO Cybersecurity Spring 2027 Co-op"></a> | Lake Mary, FL | Oct 2 |
 | Microsoft | 🆕 Research Intern - Security Research Group, Microsoft Research Redmond<br><sub>Security Engineering</sub> | <a href="https://microsoft.eightfold.ai/careers/job/1970393557022480"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Microsoft Research Intern - Security Research Group, Microsoft Research Redmond"></a> | Redmond, WA | Oct 2 |
 | ↳ | 🆕 Penetration Tester: Internship Opportunities<br><sub>Offensive Security</sub> | <a href="https://microsoft.eightfold.ai/careers/job/1970393556999327"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Microsoft Penetration Tester: Internship Opportunities"></a> | Redmond, WA | Oct 2 |
 | MITRE | 🆕 Cyber Defense Intern 🇺🇸<br><sub>SOC &amp; Detection</sub> | <a href="https://careers.mitre.org/us/en/job/R117094"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: MITRE Cyber Defense Intern"></a> | Honolulu, HI | Oct 2 |
 | RTX | 🆕 Software Engineer, DevSecOps Co-Op (Summer/Fall 2027) (Hybrid) 🇺🇸<br><sub>AppSec &amp; ProdSec</sub> | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-PR-AGUADILLA-110--Rd-110-N-Km-288--RD110/Software-Engineer--DevSecOps-Co-Op--Summer-Fall-2027---Hybrid-_01873555"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: RTX Software Engineer, DevSecOps Co-Op (Summer/Fall 2027) (Hybrid)"></a> | Aguadilla, PR | Oct 2 |
+| Vanguard | 🆕 College to Corporate IT Internship-Risk &amp; Security Engineer (PA)<br><sub>GRC &amp; Risk</sub> | <a href="https://vanguard.wd5.myworkdayjobs.com/vanguard_external/job/Malvern-PA/College-to-Corporate-IT-Internship-Risk---Security-Engineer--PA-_182784"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Vanguard College to Corporate IT Internship-Risk &amp; Security Engineer (PA)"></a> | Malvern, PA | Oct 2 |
+| ↳ | 🆕 College to Corporate IT Internship-Risk &amp; Security-Engineer (NC)<br><sub>GRC &amp; Risk</sub> | <a href="https://vanguard.wd5.myworkdayjobs.com/vanguard_external/job/Charlotte-NC/College-to-Corporate-IT-Internship-Risk---Security-Engineer--NC-_182785"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Vanguard College to Corporate IT Internship-Risk &amp; Security-Engineer (NC)"></a> | Charlotte, NC | Oct 2 |
 | Duke Energy | 🆕 PGO Cybersecurity Summer 2027 Internship<br><sub>Security Engineering</sub> | <a href="https://dukeenergy.wd1.myworkdayjobs.com/Search/job/Lake-Mary-FL/PGO-Cybersecurity-Summer-2027-Internship_R41822"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Duke Energy PGO Cybersecurity Summer 2027 Internship"></a> | Lake Mary, FL | Oct 1 |
 | GDIT | 🆕 GDIT Summer Internship Program – Summer 2027 Cybersecurity Associate Internship 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://gdit.wd5.myworkdayjobs.com/GDIT_EarlyTalent/job/USA-LA-Bossier-City/GDIT-Summer-Internship-Program---Summer-2027-Cybersecurity-Associate-Internship_RQ228929-2"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: GDIT GDIT Summer Internship Program – Summer 2027 Cybersecurity Associate Internship"></a> | Bossier City, LA | Oct 1 |
 | Johns Hopkins APL | 🆕 2027 Internship - Cyber Physical Systems 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://careers.jhuapl.edu/jobs/60339"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Johns Hopkins APL 2027 Internship - Cyber Physical Systems"></a> | Laurel, MD | Oct 1 |
@@ -282,6 +286,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
+| Booz Allen Hamilton | 🆕 Cybersecurity Test Engineer, Junior 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Rome-NY/Cybersecurity-Test-Engineer--Junior_R0241650"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Booz Allen Hamilton Cybersecurity Test Engineer, Junior"></a> | Rome, NY | Oct 2 |
 | Fortra | 🆕 Professional Services Consultant I<br><sub>Engineering @ Security Co</sub> | <a href="https://fortra.wd12.myworkdayjobs.com/FortraCareers/job/United-States/Professional-Services-Consultant-I_R26-0334"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Fortra Professional Services Consultant I"></a> | United States | Oct 2 |
 | ESET | 🆕 Sales Engineer I<br><sub>Engineering @ Security Co</sub> | <a href="https://eset.wd3.myworkdayjobs.com/ESET_External/job/San-Diego/Sales-Engineer-I_JR-05896"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: ESET Sales Engineer I"></a> | San Diego, CA | Oct 1 |
 | GDIT | 🆕 Junior Tactical All Source Threat Intelligence Analyst - Overnight Shift (Top Secret Clearance) 🇺🇸<br><sub>Threat Intelligence</sub> | <a href="https://gdit.wd5.myworkdayjobs.com/External_Career_Site/job/USA-VA-Vienna/Junior-Tactical-All-Source-Threat-Intelligence-Analyst---Overnight-Shift---Top-Secret-Clearance-_RQ228754"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: GDIT Junior Tactical All Source Threat Intelligence Analyst - Overnight Shift (Top Secret Clearance)"></a> | Vienna, VA | Oct 1 |
@@ -390,6 +395,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 | CrowdStrike | Engineer II, Software Assurance, Product Security (Remote)<br><sub>AppSec &amp; ProdSec</sub> | <a href="https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Engineer-II--Software-Assurance--Product-Security--Remote-_R29328"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: CrowdStrike Engineer II, Software Assurance, Product Security (Remote)"></a> | Remote (US) | Jul 20 |
 | Illumio | Site Reliability Engineer II<br><sub>Engineering @ Security Co</sub> | <a href="https://jobs.ashbyhq.com/illumio/c03fae33-a169-429e-81f0-15b9bcc1df56"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Illumio Site Reliability Engineer II"></a> | Sunnyvale, CA | Jul 18 |
 | ReliaQuest | Associate Software Engineer<br><sub>Engineering @ Security Co</sub> | <a href="https://reliaquest.wd5.myworkdayjobs.com/ReliaQuest_Careers/job/Tampa-FL/Associate-Software-Engineer_R15047"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: ReliaQuest Associate Software Engineer"></a> | Tampa, FL | Jul 18 |
+| Booz Allen Hamilton | Cybersecurity Analyst, Junior 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Rome-NY/Cybersecurity-Analyst--Junior_R0227512"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Booz Allen Hamilton Cybersecurity Analyst, Junior"></a> | Rome, NY | Jul 17 |
 | Abnormal AI | Software Engineer II - Full Stack<br><sub>Engineering @ Security Co</sub> | <a href="https://abnormal.ai/careers/jobs/7786309003?gh_jid=7786309003"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Abnormal AI Software Engineer II - Full Stack"></a> | Remote (US) | Jul 12 |
 | Amazon | Security Engineer II - AMZ27587.1<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10464931/security-engineer-ii-amz27587-1"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer II - AMZ27587.1"></a> | Minneapolis, MN | Jul 12 |
 | ↳ | Security Engineer II, Security Incident Response Team (SIRT)<br><sub>SOC &amp; Detection</sub> | <a href="https://www.amazon.jobs/en/jobs/10471418/security-engineer-ii-security-incident-response-team-sirt"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer II, Security Incident Response Team (SIRT)"></a> | Arlington, VA | Jul 12 |
@@ -408,7 +414,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 <!-- CLOSED_START earlycareer -->
 
-<details><summary>🔒 141 closed in the last 60 days</summary>
+<details><summary>🔒 140 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
@@ -461,7 +467,6 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 | ↳ | Safeguards Enforcement Analyst, Ban Evasion &amp; Recidivism | Sep 19 |
 | ↳ | Safeguards Enforcement Analyst, Fraud &amp; Scams | Sep 19 |
 | ↳ | Anthropic Fellows Program, AI Security | Sep 19 |
-| Booz Allen Hamilton | Cybersecurity Analyst, Junior | Sep 19 |
 | CACI | Space Systems Cyber Security Engineer - Junior | Sep 19 |
 | ↳ | Information Security Analyst II | Sep 19 |
 | ↳ | Cybersecurity Engineer- Junior level | Sep 19 |

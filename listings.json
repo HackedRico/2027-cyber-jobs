@@ -779,11 +779,9 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "",
+    "url": "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Rome-NY/Cybersecurity-Analyst--Junior_R0227512",
     "source": "Workday",
-    "date_added": "2026-07-17",
-    "closed": true,
-    "closed_date": "2026-09-19"
+    "date_added": "2026-07-17"
   },
   {
     "company": "CrowdStrike",
@@ -2241,7 +2239,8 @@
     "clearance": false,
     "url": "https://vanguard.wd5.myworkdayjobs.com/vanguard_external/job/Charlotte-NC/College-to-Corporate-IT-Internship---Risk---Security---Engineer---NC-_177688-1",
     "source": "Workday",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "missing_since": "2026-10-02"
   },
   {
     "company": "Northern Trust",
@@ -2682,7 +2681,8 @@
     "clearance": false,
     "url": "https://vanguard.wd5.myworkdayjobs.com/vanguard_external/job/Malvern-PA/College-to-Corporate-IT-Internship---Risk---Security---Engineer---PA-_177687-1",
     "source": "Workday",
-    "date_added": "2026-09-11"
+    "date_added": "2026-09-11",
+    "missing_since": "2026-10-02"
   },
   {
     "company": "JPMorgan Chase",
@@ -3907,7 +3907,8 @@
     "clearance": true,
     "url": "https://usbank.wd1.myworkdayjobs.com/US_Bank_Careers/job/Cincinnati-OH/XMLNAME-2027-Information-Security-Summer-Intern_2026-0025770",
     "source": "Workday",
-    "date_added": "2026-09-28"
+    "date_added": "2026-09-28",
+    "missing_since": "2026-10-02"
   },
   {
     "company": "AeroVironment",
@@ -3995,7 +3996,8 @@
     "clearance": false,
     "url": "https://lockheedmartin.eightfold.ai/careers/job/996476474225",
     "source": "Eightfold",
-    "date_added": "2026-09-28"
+    "date_added": "2026-09-28",
+    "missing_since": "2026-10-02"
   },
   {
     "company": "Lockheed Martin",
@@ -5037,6 +5039,61 @@
     "clearance": true,
     "url": "https://careers.mitre.org/us/en/job/R117094",
     "source": "Phenom",
+    "date_added": "2026-10-02"
+  },
+  {
+    "company": "Booz Allen Hamilton",
+    "role": "Cybersecurity Test Engineer, Junior",
+    "location": "Rome, NY",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Rome-NY/Cybersecurity-Test-Engineer--Junior_R0241650",
+    "source": "Workday",
+    "date_added": "2026-10-02"
+  },
+  {
+    "company": "CACI",
+    "role": "Cyber Security Intern - Summer 2027",
+    "location": "Springfield, VA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://caci.wd1.myworkdayjobs.com/External/job/Springfield-VA-US/Cyber-Security-Intern---Summer-2027_333046",
+    "source": "Workday",
+    "date_added": "2026-10-02"
+  },
+  {
+    "company": "CACI",
+    "role": "Network / Cybersecurity Intern - Summer 2027",
+    "location": "High Point, NC",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://caci.wd1.myworkdayjobs.com/External/job/High-Point-NC-US/Network---Cybersecurity-Intern---Summer-2027_333034-1",
+    "source": "Workday",
+    "date_added": "2026-10-02"
+  },
+  {
+    "company": "Vanguard",
+    "role": "College to Corporate IT Internship-Risk & Security Engineer (PA)",
+    "location": "Malvern, PA",
+    "type": "intern",
+    "category": "GRC & Risk",
+    "clearance": false,
+    "url": "https://vanguard.wd5.myworkdayjobs.com/vanguard_external/job/Malvern-PA/College-to-Corporate-IT-Internship-Risk---Security-Engineer--PA-_182784",
+    "source": "Workday",
+    "date_added": "2026-10-02"
+  },
+  {
+    "company": "Vanguard",
+    "role": "College to Corporate IT Internship-Risk & Security-Engineer (NC)",
+    "location": "Charlotte, NC",
+    "type": "intern",
+    "category": "GRC & Risk",
+    "clearance": false,
+    "url": "https://vanguard.wd5.myworkdayjobs.com/vanguard_external/job/Charlotte-NC/College-to-Corporate-IT-Internship-Risk---Security-Engineer--NC-_182785",
+    "source": "Workday",
     "date_added": "2026-10-02"
   }
 ]
