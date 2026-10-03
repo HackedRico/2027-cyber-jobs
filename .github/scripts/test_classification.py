@@ -363,6 +363,17 @@ CASES = [
     ('Cyber Security Architect/Engineer II', 'Minneapolis, MN', '', False, None),
     ('Associate Sales Representative', 'Austin, TX', '', True, None),
 
+    # -- rows the new bank, pharma and Big 4 boards would have added --
+    ('Associate, Equity Research - Cybersecurity & Data', 'New York, NY', '', False, None),
+    ('2027 Future Talent Program- Forensic Services Laboratory Intern', 'West Point, PA', '', False, None),
+    (f'Strategic Assurance and SOC Services Associate - Summer {SEASON}', 'Fort Lauderdale, FL', '', False, None),
+    ('Digital Forensics Lab Intern', 'Austin, TX', '', False, ('intern', 'Forensics & IR')),
+    # A Big 4 'Associate - Summer <year>' is a full-time start, but an intern
+    # title and a bank's 'Summer Associate' are internships.
+    (f'Cybersecurity and Privacy Associate - Summer {SEASON}', 'Los Angeles, CA', '', False, ('newgrad', 'Security Engineering')),
+    (f'Advisory Intern, Cyber, Compliance & Assessment - Summer {SEASON}', 'McLean, VA', '', False, ('intern', 'GRC & Risk')),
+    (f'Cybersecurity Summer Associate {SEASON}', 'New York, NY', '', False, ('intern', 'Security Engineering')),
+
     # -- bug fix: US territories are US locations, not foreign --
     ('Cyber Software Engineer I', 'Aguadilla, PR', '', False, ('earlycareer', 'Security Engineering')),
     ('Student Trainee (Cybersecurity)', 'Hagatna, GU', '', False, ('intern', 'Security Engineering')),
