@@ -2,99 +2,118 @@
 
 Employers whose job boards are scraped automatically (see [companies.yml](companies.yml)). 🛡️ marks pure-play security companies, where every engineering role is a security-industry job.
 
-**355 companies tracked.**
+**408 companies tracked.**
 
-## Hiring students now (83)
+## Hiring students now (102)
 
 Employers with open roles on the board today.
 
 | Company | Internships | New grad | Early career |
 | ------- | ----------- | -------- | ------------ |
-| Johns Hopkins APL | 11 | 9 |  |
+| Johns Hopkins APL | 11 | 10 |  |
 | Booz Allen Hamilton | 17 |  | 4 |
 | Vanguard | 7 | 6 |  |
 | American Express | 8 | 4 |  |
 | RTX | 7 |  | 9 |
-| Microsoft | 7 |  | 3 |
+| Microsoft | 7 |  | 4 |
 | Palo Alto Networks | 5 | 1 | 2 |
-| Northrop Grumman | 2 | 3 | 8 |
+| Northrop Grumman | 2 | 3 | 10 |
+| BDO | 4 | 1 | 1 |
 | MITRE | 3 | 1 | 2 |
+| HPE | 2 | 2 | 1 |
 | Tanium | 4 |  |  |
-| Cisco | 3 |  | 1 |
+| Cisco | 3 |  | 2 |
+| Goldman Sachs | 3 |  | 1 |
+| Federal Reserve System | 3 |  |  |
+| Fifth Third | 3 |  |  |
 | Immuta | 3 |  |  |
 | Palantir | 2 | 1 |  |
+| The Cigna Group | 2 | 1 |  |
+| Walmart | 3 |  |  |
+| Amazon | 1 | 1 | 12 |
+| Battelle | 2 |  | 3 |
 | CACI | 2 |  | 2 |
+| Appian | 1 | 1 | 1 |
 | Lockheed Martin | 2 |  | 1 |
+| Applied Intuition |  | 2 |  |
 | Boeing | 1 | 1 |  |
 | Duke Energy | 2 |  |  |
 | Honeywell | 2 |  |  |
 | Idaho National Laboratory | 2 |  |  |
+| Qualcomm | 2 |  |  |
 | Robinhood | 2 |  |  |
-| The Cigna Group | 1 | 1 |  |
-| Walmart | 2 |  |  |
+| TD Bank | 2 |  |  |
 | Nightwing | 1 |  | 8 |
+| Software Engineering Institute | 1 |  | 6 |
 | Leidos | 1 |  | 5 |
-| Software Engineering Institute | 1 |  | 5 |
+| GDIT | 1 |  | 2 |
 | The Home Depot | 1 |  | 2 |
-| Appian | 1 |  | 1 |
-| GDIT | 1 |  | 1 |
 | GuidePoint Security | 1 |  | 1 |
 | Motorola Solutions | 1 |  | 1 |
 | Parsons | 1 |  | 1 |
 | Sierra Nevada Corporation | 1 |  | 1 |
+| U.S. Bank | 1 |  | 1 |
+| Verkada | 1 |  | 1 |
 | Anduril |  | 1 |  |
-| Applied Intuition |  | 1 |  |
 | Bank of America | 1 |  |  |
 | Deloitte |  | 1 |  |
+| Elevance Health | 1 |  |  |
 | Exelon | 1 |  |  |
+| Grant Thornton |  | 1 |  |
 | HP Inc | 1 |  |  |
+| Johnson &amp; Johnson | 1 |  |  |
 | NVIDIA |  | 1 |  |
 | Prophet Security | 1 |  |  |
-| Qualcomm | 1 |  |  |
 | Semgrep | 1 |  |  |
+| State Farm | 1 |  |  |
 | TRM Labs |  | 1 |  |
-| U.S. Bank | 1 |  |  |
-| Verkada | 1 |  |  |
-| Amazon |  |  | 11 |
 | CrowdStrike |  |  | 6 |
-| KBR |  |  | 4 |
+| KBR |  |  | 5 |
 | BAE Systems |  |  | 3 |
 | JPMorgan Chase |  |  | 3 |
+| Kyndryl |  |  | 3 |
 | Recorded Future |  |  | 3 |
 | Abnormal AI |  |  | 2 |
 | Amentum |  |  | 2 |
 | ExtraHop |  |  | 2 |
 | SAIC |  |  | 2 |
 | Trail of Bits |  |  | 2 |
+| Accenture Federal Services |  |  | 1 |
 | AeroVironment |  |  | 1 |
 | Anthropic |  |  | 1 |
 | Arctic Wolf |  |  | 1 |
 | Chainalysis |  |  | 1 |
+| Citi |  |  | 1 |
 | Delinea |  |  | 1 |
 | Dragos |  |  | 1 |
 | Draper |  |  | 1 |
+| DXC Technology |  |  | 1 |
 | ESET |  |  | 1 |
 | Expel |  |  | 1 |
 | Fireblocks |  |  | 1 |
 | Fortinet |  |  | 1 |
 | Fortra |  |  | 1 |
+| Freddie Mac |  |  | 1 |
 | HII |  |  | 1 |
 | ID.me |  |  | 1 |
 | Illumio |  |  | 1 |
+| Lumen |  |  | 1 |
 | MIT Lincoln Laboratory |  |  | 1 |
 | Obsidian Security |  |  | 1 |
 | Pinterest |  |  | 1 |
 | PNNL |  |  | 1 |
 | Praetorian |  |  | 1 |
+| PwC |  |  | 1 |
 | ReliaQuest |  |  | 1 |
 | SailPoint |  |  | 1 |
+| Snowflake |  |  | 1 |
 | STR |  |  | 1 |
 | Tenable |  |  | 1 |
 | Trellix |  |  | 1 |
 | Two Six Technologies |  |  | 1 |
 | Verizon |  |  | 1 |
 
-## Every tracked board (355)
+## Every tracked board (408)
 
 ### Ashby (70)
 
@@ -169,15 +188,17 @@ Employers with open roles on the board today.
 - WorkOS 🛡️
 - Zapier
 
-### Eightfold (3)
+### Eightfold (4)
 
 - Lockheed Martin
+- Lumen
 - Microsoft
 - Qualcomm
 
-### Greenhouse (144)
+### Greenhouse (147)
 
 - Abnormal AI 🛡️
+- Accenture Federal Services
 - Affirm
 - Air
 - Airbnb
@@ -209,6 +230,7 @@ Employers with open roles on the board today.
 - Chainguard 🛡️
 - Chime
 - Cloudflare
+- Coalition
 - Cobalt 🛡️
 - Cockroach Labs
 - Coinbase
@@ -307,6 +329,7 @@ Employers with open roles on the board today.
 - Toast
 - Together AI
 - Torq 🛡️
+- Trace3
 - Transcend 🛡️
 - Transmit Security 🛡️
 - Twilio
@@ -322,17 +345,19 @@ Employers with open roles on the board today.
 - Yubico 🛡️
 - Zscaler 🛡️
 
-### Jibe (3)
+### Jibe (4)
 
 - Exelon
 - Johns Hopkins APL
 - PNNL
+- State Farm
 
-### Lever (22)
+### Lever (23)
 
 - Anchorage Digital
 - Anomali 🛡️
 - Apollo Research 🛡️
+- Avertium 🛡️
 - BlueCat
 - Coalfire 🛡️
 - Epoch AI 🛡️
@@ -353,19 +378,27 @@ Employers with open roles on the board today.
 - WatchGuard 🛡️
 - Xage Security 🛡️
 
-### Oracle (7)
+### Oracle (14)
 
 - American Express
+- BDO
+- BNY
+- Chubb
+- Citizens
 - Fortinet 🛡️
+- Goldman Sachs
+- Grant Thornton
 - Honeywell
 - Idaho National Laboratory
 - JPMorgan Chase
+- Oracle
 - SAIC
 - Southern Company
 
-### Phenom (2)
+### Phenom (3)
 
 - BAE Systems
+- Battelle
 - MITRE
 
 ### Pinpoint (2)
@@ -379,7 +412,7 @@ Employers with open roles on the board today.
 - Lansweeper
 - Wallarm 🛡️
 
-### SmartRecruiters (6)
+### SmartRecruiters (7)
 
 - Check Point 🛡️
 - Jscrambler 🛡️
@@ -387,6 +420,7 @@ Employers with open roles on the board today.
 - Lawrence Livermore National Laboratory
 - Sectigo 🛡️
 - Securiti 🛡️
+- ServiceNow
 
 ### Workable (16)
 
@@ -407,49 +441,74 @@ Employers with open roles on the board today.
 - Stellar Cyber 🛡️
 - Trail of Bits 🛡️
 
-### Workday (77)
+### Workday (115)
 
 - Accenture
 - Adobe
 - Aerospace Corporation
 - AeroVironment
 - Allstate
+- Ally
 - Amentum
 - Arctic Wolf 🛡️
+- Arete 🛡️
 - Argonne National Laboratory
 - AT&T
+- Autodesk
+- Bank of America
 - Bitsight 🛡️
 - BlackRock
 - Boeing
 - Booz Allen Hamilton
+- Broadcom
 - CACI
 - Capital One
+- Cardinal Health
+- CDW
 - Cisco
+- Citi
 - Comcast
 - CrowdStrike 🛡️
 - CVS Health
 - Draper
 - Duke Energy
+- DXC Technology
+- Elevance Health
 - Entrust 🛡️
+- Equinix
 - ESET 🛡️
 - Everfox 🛡️
 - F5
+- Fannie Mae
+- Federal Reserve System
 - Fidelity Investments
+- Fifth Third
 - Flexera
 - Forcepoint 🛡️
 - Fortra 🛡️
+- Freddie Mac
 - GDIT
 - Guidehouse
 - HP Inc
+- HPE
+- Humana
+- Huntington Bank
 - ICF
 - Intel
 - Jamf
+- Johnson & Johnson
 - KBR
+- KeyBank
+- Kyndryl
 - Leidos
 - Mastercard
+- McKesson
+- Medtronic
+- Merck
 - Morgan Stanley
 - Motorola Solutions
 - National Laboratory of the Rockies
+- Nationwide
 - Nightwing 🛡️
 - Nike
 - Northern Trust
@@ -459,10 +518,17 @@ Employers with open roles on the board today.
 - Palo Alto Networks 🛡️
 - Parsons
 - PayPal
+- Pfizer
 - PNC
 - Proofpoint 🛡️
+- Protiviti
+- Prudential
+- PwC
 - Qualys 🛡️
+- Rackspace
 - Rapid7 🛡️
+- Red Hat
+- Regions Bank
 - ReliaQuest 🛡️
 - RTX
 - SailPoint 🛡️
@@ -471,18 +537,24 @@ Employers with open roles on the board today.
 - Snyk 🛡️
 - Software Engineering Institute
 - State Street
+- Synchrony
 - T-Mobile
 - Target
+- TD Bank
 - The Cigna Group
+- The Hartford
 - The Home Depot
 - Travelers
 - Trellix 🛡️
 - Trend Micro 🛡️
 - Truist
 - U.S. Bank
+- Unisys
+- USAA
 - Vanguard
 - Verizon
 - Visa
 - Walmart
 - Wells Fargo
+- Workday
 - Zoom
