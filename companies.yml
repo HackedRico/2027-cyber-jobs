@@ -477,6 +477,10 @@ greenhouse:
   slug: accenturefederalservices
 - name: Trace3
   slug: trace3
+- name: Coalition
+  slug: coalition
+  apply_hosts:
+  - www.coalitioninc.com
 lever:
 - name: Anchorage Digital
   slug: anchorage
@@ -1218,6 +1222,50 @@ workday:
   tenant: cdw
   instance: wd5
   board: Careers
+- name: Ally
+  tenant: ally
+  instance: wd1
+  board: Ally
+- name: Fannie Mae
+  tenant: fanniemae
+  instance: wd1
+  board: FannieMaeCareers
+- name: Fifth Third
+  tenant: fifththird
+  instance: wd5
+  board: 53careers
+- name: Freddie Mac
+  tenant: freddiemac
+  instance: wd5
+  board: External
+- name: Huntington Bank
+  tenant: huntington
+  instance: wd12
+  board: HNBcareers
+- name: KeyBank
+  tenant: keybank
+  instance: wd5
+  board: External_Career_Site
+- name: Nationwide
+  tenant: nationwide
+  instance: wd1
+  board: Nationwide_Career
+- name: Prudential
+  tenant: pru
+  instance: wd5
+  board: Careers
+- name: Synchrony
+  tenant: synchronyfinancial
+  instance: wd5
+  board: careers
+- name: The Hartford
+  tenant: thehartford
+  instance: wd5
+  board: Careers_External
+- name: USAA
+  tenant: usaa
+  instance: wd1
+  board: USAAJOBSWD
 oracle:
 - name: SAIC
   host: eihu.fa.us8.oraclecloud.com
@@ -1253,6 +1301,15 @@ oracle:
 - name: Chubb
   host: fa-ewgu-saasfaprod1.fa.ocs.oraclecloud.com
   site: CX_2001
+- name: BDO
+  host: ebqb.fa.us2.oraclecloud.com
+  site: BDOEntryLevelCareers
+- name: Citizens
+  host: hcgn.fa.us2.oraclecloud.com
+  site: CX_5001
+- name: Grant Thornton
+  host: ehzq.fa.us2.oraclecloud.com
+  site: CX_1
 eightfold:
 - name: Lockheed Martin
   tenant: lockheedmartin
