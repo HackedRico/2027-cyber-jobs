@@ -6,8 +6,11 @@
 Each check guards a promise no other test sees break: a new test script that
 CI never runs, a suite that reads the real clock, an action pinned to a tag, a
 writer that commits without check_outputs.py, a category the issue form does
-not offer, a script AGENTS.md never mentions.
+not offer, a script AGENTS.md never mentions. Workflows and the issue form are
+read as YAML and the test scripts as Python syntax trees, so a comment can
+neither satisfy a check nor trip one.
 """
+import ast
 import re
 import sys
 from pathlib import Path
@@ -18,10 +21,13 @@ SCRIPTS = Path(__file__).parent
 ROOT = SCRIPTS.parent.parent
 sys.path.insert(0, str(SCRIPTS))
 import classify  # noqa: E402
+import yaml  # noqa: E402
 
-WORKFLOWS = {p.name: p.read_text() for p in sorted((ROOT / '.github/workflows').glob('*.yml'))}
+WORKFLOWS = {p.name: yaml.safe_load(p.read_text())
+             for p in sorted((ROOT / '.github/workflows').glob('*.yml'))}
 AGENTS = (ROOT / 'AGENTS.md').read_text()
-TESTS = sorted(p.name for p in SCRIPTS.glob('test_*.py'))
+TESTS = sorted(SCRIPTS.glob('test_*.py'))
+LOCAL_MODULES = {p.stem for p in SCRIPTS.glob('*.py')}
 
 failures = 0
 
@@ -33,44 +39,102 @@ def check(name, ok):
         print(f'FAIL {name}')
 
 
-# Every test script runs in CI, is named where AGENTS.md lists the suite, and
-# pins the clock before it imports what it tests.
-for name in TESTS:
-    check(f'tests.yml runs {name}', f'python .github/scripts/{name}' in WORKFLOWS['tests.yml'])
-    check(f'AGENTS.md names {name}', name in AGENTS)
-    source = (SCRIPTS / name).read_text()
-    first_local = source.find('sys.path.insert')
-    check(f'{name} imports testkit before the modules it tests',
-          'import testkit' in source and source.find('import testkit') < first_local)
+def jobs(workflow):
+    return (workflow.get('jobs') or {}).items()
+
+
+def code_lines(step):
+    """The shell lines a step runs: comments dropped, continuations joined."""
+    lines, pending = [], ''
+    for raw in str(step.get('run') or '').splitlines():
+        # A '#' at the start or after whitespace opens a shell comment.
+        line = re.sub(r'(^|\s)#.*$', '', raw).strip()
+        if not line:
+            continue
+        if line.endswith('\\'):
+            pending += line[:-1] + ' '
+            continue
+        lines.append(pending + line)
+        pending = ''
+    return lines + ([pending] if pending else [])
+
+
+# Every test script runs unconditionally in CI and is named where AGENTS.md
+# lists the suite.
+ci_steps = [step for _, job in jobs(WORKFLOWS['tests.yml']) if 'if' not in job
+            for step in job.get('steps') or [] if 'if' not in step]
+ci_runs = {line for step in ci_steps for line in code_lines(step)}
+for path in TESTS:
+    check(f'tests.yml runs {path.name} in an unconditional step',
+          f'python .github/scripts/{path.name}' in ci_runs)
+    check(f'AGENTS.md names {path.name}', path.name in AGENTS)
+
+# Every test script imports testkit before any module it tests, and reads no
+# clock itself: a test file binds the real datetime classes before testkit
+# loads, so its own now() would read the real date.
+CLOCK_READS = {'now', 'today', 'utcnow', 'fromtimestamp', 'utcfromtimestamp'}
+for path in TESTS:
+    tree = ast.parse(path.read_text())
+    imports = [(node.lineno, alias.name.split('.')[0])
+               for node in tree.body if isinstance(node, ast.Import)
+               for alias in node.names]
+    imports += [(node.lineno, (node.module or '').split('.')[0])
+                for node in tree.body if isinstance(node, ast.ImportFrom)]
+    pinned = [line for line, name in imports if name == 'testkit']
+    local = [line for line, name in imports if name in LOCAL_MODULES - {'testkit'}]
+    check(f'{path.name} imports testkit before the modules it tests',
+          bool(pinned) and all(line > pinned[0] for line in local))
+    for node in ast.walk(tree):
+        if not (isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute)):
+            continue
+        attr, owner = node.func.attr, node.func.value
+        if attr in CLOCK_READS or (attr == 'time' and isinstance(owner, ast.Name)
+                                   and owner.id == 'time'):
+            check(f'{path.name}:{node.lineno} reads the clock with .{attr}(); use testkit.TODAY',
+                  False)
 
 # Third-party actions run at a reviewed commit, and installs check hashes.
-for name, text in WORKFLOWS.items():
-    for ref in re.findall(r'uses:\s*([^\s#]+)', text):
-        check(f'{name}: {ref} is pinned to a full commit SHA',
-              ref.startswith('./') or re.fullmatch(r'[^@]+@[0-9a-f]{40}', ref) is not None)
-    for line in text.splitlines():
-        if 'pip install' in line and not line.lstrip().startswith('#'):
-            check(f'{name}: {line.strip()!r} uses --require-hashes', '--require-hashes' in line)
+PINNED = re.compile(r'[\w.-]+/[\w./-]+@[0-9a-f]{40}|docker://[^@\s]+@sha256:[0-9a-f]{64}')
+for name, workflow in WORKFLOWS.items():
+    for job_name, job in jobs(workflow):
+        refs = [job['uses']] if 'uses' in job else []
+        refs += [step['uses'] for step in job.get('steps') or [] if 'uses' in step]
+        for ref in refs:
+            check(f'{name}: {job_name} uses {ref}, which is not pinned to a commit SHA',
+                  ref.startswith('./') or PINNED.fullmatch(ref) is not None)
+        for step in job.get('steps') or []:
+            for line in code_lines(step):
+                if re.search(r'\bpip3? install\b', line):
+                    check(f'{name}: {line!r} uses --require-hashes', '--require-hashes' in line)
 
-# A writer shares the readme-updates queue and checks its output before every
-# commit, so no run can push a charter-breaking row or a mass close.
-for name, text in WORKFLOWS.items():
-    if 'group: readme-updates' not in text:
-        continue
-    commits = [m.start() for m in re.finditer(r'git commit', text)]
-    checks = [m.start() for m in re.finditer(r'check_outputs\.py', text)]
-    check(f'{name} commits', bool(commits))
-    for at in commits:
-        check(f'{name}: check_outputs.py runs before the commit at offset {at}',
-              any(c < at for c in checks))
+# A writer is any job that can push. It queues in readme-updates and runs
+# check_outputs.py before every commit, so no run pushes a charter-breaking
+# row or a mass close.
+for name, workflow in WORKFLOWS.items():
+    for job_name, job in jobs(workflow):
+        permissions = job.get('permissions', workflow.get('permissions')) or {}
+        lines = [line for step in job.get('steps') or [] for line in code_lines(step)]
+        writes = (isinstance(permissions, dict) and permissions.get('contents') == 'write'
+                  or any('git push' in line for line in lines))
+        if not writes:
+            continue
+        concurrency = job.get('concurrency') or workflow.get('concurrency') or {}
+        group = concurrency.get('group') if isinstance(concurrency, dict) else concurrency
+        check(f'{name}: writer job {job_name} queues in readme-updates', group == 'readme-updates')
+        checked = False
+        for line in lines:
+            if 'python .github/scripts/check_outputs.py' in line:
+                checked = True
+            if re.search(r'\bgit commit\b', line):
+                check(f'{name}: {job_name} runs check_outputs.py before {line!r}', checked)
 
 # The issue form offers exactly the categories the classifier can give, and
 # CONTRIBUTING.md names each one.
 categories = set(classify.CATEGORY_NAMES) | set(classify.FALLBACK_CATEGORIES)
-form = (ROOT / '.github/ISSUE_TEMPLATE/add-job.yml').read_text()
-block = form[form.index('label: Category'):]
-block = block[block.index('options:'):block.index('validations:')]
-offered = set(re.findall(r'^\s*-\s*(.+?)\s*$', block, re.M))
+form = yaml.safe_load((ROOT / '.github/ISSUE_TEMPLATE/add-job.yml').read_text())
+offered = {str(option) for field in form.get('body') or []
+           if (field.get('attributes') or {}).get('label') == 'Category'
+           for option in field['attributes'].get('options') or []}
 check(f'issue form categories match the classifier: '
       f'missing {sorted(categories - offered)}, extra {sorted(offered - categories - {"Not sure"})}',
       offered == categories | {'Not sure'})
@@ -81,7 +145,8 @@ for name in sorted(categories):
 # Every script is named in AGENTS.md, a workflow or a skill, so none goes
 # unexplained.
 skills = ' '.join(p.read_text() for p in (ROOT / '.claude/skills').rglob('*.md'))
-mentioned = AGENTS + ' '.join(WORKFLOWS.values()) + skills
+workflow_text = ' '.join(p.read_text() for p in (ROOT / '.github/workflows').glob('*.yml'))
+mentioned = AGENTS + workflow_text + skills
 for path in sorted(SCRIPTS.glob('*.py')):
     check(f'{path.name} is named in AGENTS.md, a workflow or a skill', path.name in mentioned)
 
