@@ -352,14 +352,35 @@ ENGINEERING_ROLE_RE = re.compile(r'\b(?:engineer|engineering|developer)\b')
 # 'Associate AWS DevOps Engineer' and Qualcomm 'IT Infrastructure & Cloud
 # Engineering Internship', so a product engineer whose team ships into a cloud
 # (Microsoft 'Software Engineer II - Windows in Cloud') stays out.
+# Support, operations and administration roles count too: AWS 'Cloud Support
+# Associate', Caterpillar 'Cloud Operations Analyst', 'Azure Administrator I'.
+# So does an infrastructure engineer whose title names the cloud after the
+# role: 'DevOps Engineer I - AWS', 'Platform Engineer I, Azure'.
 CLOUD_ENGINEERING_RE = re.compile(
-    r'\b(?:cloud|aws|azure|gcp)\b(?:\W+\w+){0,2}?\W+(?:engineer|engineering|developer)s?\b')
+    r'\b(?:cloud|aws|azure|gcp)\b(?:\W+\w+){0,2}?\W+(?:engineer|engineering|developer|'
+    r'administrator|admin|support|operations|architect|consultant|technician|'
+    r'specialist|analyst)s?\b'
+    r'|\b(?:devops|platform|infrastructure|site reliability|sre|systems)\s+'
+    r'engineer(?:ing)?s?\b.{0,40}\b(?:aws|azure|gcp|cloud)\b')
 # Product suites named 'Cloud' are CRM and ERP configuration work, not cloud
 # infrastructure: 'Salesforce Service Cloud Developer', 'Oracle Cloud HCM
-# Developer'.
+# Developer'. Cost and data-centre work is facilities and finance: 'Cloud
+# FinOps Analyst', 'DCO Technician I, AWS Data Center Operations', and Saint
+# Cloud, MN is a town.
 CLOUD_PRODUCT_RE = re.compile(
     r'\bsalesforce\b|\b(?:data|service|sales|marketing|commerce|experience|health|'
-    r'industries) cloud\b|\b(?:hcm|erp|epm|scm|fusion|financials|netsuite)\b')
+    r'industries) cloud\b|\b(?:hcm|erp|epm|scm|fusion|financials|netsuite)\b'
+    r'|\bfinops\b|\bcost\b|\bkitchen\b|\bcontact cent(?:er|re)\b'
+    r'|\bdata cent(?:er|re)\b|\b(?:saint|st\.?) cloud\b')
+
+# Solutions architecture and presales count at any employer, but only with an
+# intern, new-grad or early-career word in the title itself, since a flat
+# 'Solutions Architect' is a senior hire: AWS 'Associate Solutions Architect,
+# AGS-Tech, Early Career - 2027', Snowflake 'Associate Solution Engineer',
+# Samsara 'Associate Sales Engineer'. 'Customer engineer' is left out because
+# field-service firms use it for repair technicians.
+SOLUTIONS_ROLE_RE = re.compile(
+    r'\b(?:solutions?|sales|pre-?sales)\s+(?:architect|engineer|consultant)s?\b')
 
 NEWGRAD_SIGNALS = [
     'new grad', 'new-grad', 'university grad', 'college grad', 'campus hire',
@@ -583,8 +604,10 @@ CATEGORY_RULES = [
     ('GRC & Risk', r'\bgrc\b|governance|risk|compliance|audit|policy|'
                    r'information assurance'),
     ('Security Engineering', r'security|cyber|infosec|cryptograph|privacy'),
-    # Last, so a cloud title with a security word keeps its security category.
+    # Last, so a cloud or presales title with a security word keeps its
+    # security category, and a cloud presales title files as cloud.
     ('Cloud Engineering', CLOUD_ENGINEERING_RE.pattern),
+    ('Solutions Architecture', SOLUTIONS_ROLE_RE.pattern),
 ]
 CATEGORY_RULES = [(name, re.compile(pattern)) for name, pattern in CATEGORY_RULES]
 
@@ -1455,13 +1478,19 @@ def is_cloud_engineering_title(title):
     return bool(CLOUD_ENGINEERING_RE.search(t)) and not CLOUD_PRODUCT_RE.search(t)
 
 
+def is_solutions_title(title):
+    """True for an early-career solutions architecture or presales title."""
+    t = _fold(title)
+    return bool(SOLUTIONS_ROLE_RE.search(t)) and classify_level(title) is not None
+
+
 def is_cyber_title(title, security_company=False):
     t = _fold(title)
     if _has_cyber_keyword(t):
         return True
     if SECURITY_TEAM_RE.search(t) and ENGINEERING_ROLE_RE.search(t):
         return True
-    if is_cloud_engineering_title(t):
+    if is_cloud_engineering_title(t) or is_solutions_title(title):
         return True
     if not security_company:
         return False
