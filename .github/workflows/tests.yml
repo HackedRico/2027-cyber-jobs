@@ -32,6 +32,9 @@ jobs:
       - name: Classification tests
         run: python .github/scripts/test_classification.py
 
+      - name: Title corpus snapshot and invariants
+        run: python .github/scripts/test_corpus.py
+
       - name: Scraper parser tests
         run: python .github/scripts/test_scrapers.py
 
@@ -46,3 +49,6 @@ jobs:
 
       - name: Release and alert notification tests
         run: python .github/scripts/test_notify.py
+
+      - name: Repo wiring tests
+        run: python .github/scripts/test_wiring.py
