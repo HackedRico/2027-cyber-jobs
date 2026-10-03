@@ -1482,7 +1482,7 @@ def rejected_title_rule(title, today=None):
     same rule the scraper applies. `today` (a date) is injectable so the season
     check can be tested.
     """
-    t = title.lower()
+    t = _fold(title)
     unexempt = SENIORITY_EXEMPT_RE.sub(' ', t)
     for pattern in SENIORITY_REJECT:
         m = re.search(pattern, unexempt)
@@ -1598,7 +1598,9 @@ ANALYST_TECH_KEYWORDS = {'analyst', 'data analyst', 'researcher'}
 
 def _fold(title):
     # ATS titles carry non-breaking spaces ("Access\xa0& Identity\xa0Management")
-    # that break the multi-word keywords.
+    # and doubled spaces (Northrop "2026 -  Associate ...") that break every
+    # multi-word signal ('tier i', 'new grad', 'entry level'), so each title
+    # rule reads the folded form.
     return ' '.join(title.lower().split())
 
 
@@ -1654,7 +1656,7 @@ INFOSEC_TITLE_RE = re.compile(
 
 
 def _is_facility_security_role(title, description):
-    t = SECURITY_CLEARANCE_RE.sub(' ', title.lower())
+    t = SECURITY_CLEARANCE_RE.sub(' ', _fold(title))
     if not re.search(r'\bsecurity\b', t) or INFOSEC_TITLE_RE.search(t):
         return False
     if _has_cyber_keyword(re.sub(r'\bsecurity\b', ' ', t)):
@@ -1668,7 +1670,7 @@ def classify_level(title, description='', intern_hint=False, today=None):
     `today` (a date) moves the cohort-year window for tests; by default the
     window is the one computed at import.
     """
-    t = title.lower()
+    t = _fold(title)
     if today is None:
         cohort_year_re, newgrad_year_signals = COHORT_YEAR_RE, NEWGRAD_YEAR_SIGNALS
     else:
@@ -2131,7 +2133,7 @@ def judge_job(title, location, description='', security_company=False,
     # is hired below level 3: a stated count the experience gate below then
     # bounds, or a low ceiling. A missing or silent one is 'no-level', which
     # the stored-row pass in scrape_jobs.py keeps when the body is missing.
-    if (level not in (None, 'intern') and _spans_senior_level(title.lower())
+    if (level not in (None, 'intern') and _spans_senior_level(_fold(title))
             and not (permits_early_experience(description)
                      or any(_experience_counts(description)))):
         return None, 'no-level'
@@ -2146,7 +2148,7 @@ def judge_job(title, location, description='', security_company=False,
         # at most two years. A silent description is not evidence: Anthropic
         # says only that years "will correlate with the internal job level",
         # and that put its flat Safeguards titles on the early-career table.
-        elif AI_CATEGORY_RE.search(title.lower()) and (
+        elif AI_CATEGORY_RE.search(_fold(title)) and (
                 permits_early_experience(description)
                 or 0 < required_years(description) <= MAX_ALLOWED_YEARS):
             level = 'earlycareer'

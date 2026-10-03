@@ -527,6 +527,14 @@ CASES = [
     (f'Advisory Intern, Cyber, Compliance & Assessment - Summer {SEASON}', 'McLean, VA', '', False, ('intern', 'GRC & Risk')),
     (f'Cybersecurity Summer Associate {SEASON}', 'New York, NY', '', False, ('intern', 'Security Engineering')),
 
+    # -- bug fix: a non-breaking or doubled space no longer hides a level --
+    # 23 of 431 stored titles changed verdict when their spaces were not plain.
+    ('Cybersecurity SOC Analyst Tier\xa0I', 'Austin, TX', '', False, ('earlycareer', 'SOC & Detection')),
+    ('Cybersecurity Engineer-  Entry Level', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Engineer I, Data Scientist - New\xa0Grad (Hybrid)', 'Austin, TX', '', True, ('newgrad', 'Engineering @ Security Co')),
+    ('Senior\xa0Security Engineer', 'Austin, TX', '', False, None),
+    ('Physical\xa0Security Analyst I', 'Austin, TX', '', False, None),
+
     # -- bug fix: US territories are US locations, not foreign --
     ('Cyber Software Engineer I', 'Aguadilla, PR', '', False, ('earlycareer', 'Security Engineering')),
     ('Student Trainee (Cybersecurity)', 'Hagatna, GU', '', False, ('intern', 'Security Engineering')),
