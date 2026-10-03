@@ -3252,7 +3252,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Florida-Tampa/XMLNAME-2027-Cyber-Software-Engineer-Intern---Tampa-FL_R10249530",
     "source": "Workday",
-    "date_added": "2026-09-22"
+    "date_added": "2026-09-22",
+    "missing_since": "2026-10-03"
   },
   {
     "company": "Northrop Grumman",
@@ -3263,7 +3264,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Florida-Tampa/XMLNAME-2027-Cyber-Systems-Engineer-Intern-Tampa-FL_R10249196",
     "source": "Workday",
-    "date_added": "2026-09-22"
+    "date_added": "2026-09-22",
+    "missing_since": "2026-10-03"
   },
   {
     "company": "Duke Energy",
