@@ -13,11 +13,17 @@ SEASONS tables do.
 
 The network is cut so a test that forgot a `responses` mock or reached for DNS
 fails at once instead of passing on whatever the internet said that day.
-Loopback stays open for the tests that run a local HTTP server.
+Loopback stays open for the tests that run a local HTTP server, and the proxy
+variables are cleared so no loopback proxy can relay a request out.
+
+Test files read neither clock directly; test_wiring.py checks that, since a
+test file binds the real datetime classes before it imports this module.
 """
 import datetime as _dt
 import ipaddress
+import os
 import socket
+import time
 
 # The date the fixture rows were written against. Move it only together with
 # the rows whose years it decides, then rerun every suite.
@@ -31,10 +37,16 @@ class _DateType(type):
     def __instancecheck__(cls, obj):
         return isinstance(obj, _RealDate)
 
+    def __subclasscheck__(cls, sub):
+        return issubclass(sub, _RealDate)
+
 
 class _DatetimeType(type):
     def __instancecheck__(cls, obj):
         return isinstance(obj, _RealDatetime)
+
+    def __subclasscheck__(cls, sub):
+        return issubclass(sub, _RealDatetime)
 
 
 class _PinnedDate(_RealDate, metaclass=_DateType):
@@ -46,8 +58,9 @@ class _PinnedDate(_RealDate, metaclass=_DateType):
 class _PinnedDatetime(_RealDatetime, metaclass=_DatetimeType):
     @classmethod
     def now(cls, tz=None):
-        noon = _RealDatetime(TODAY.year, TODAY.month, TODAY.day, 12)
-        return noon.replace(tzinfo=tz) if tz else noon
+        # Noon UTC, converted, so every zone sees the same instant and date.
+        noon = _RealDatetime(TODAY.year, TODAY.month, TODAY.day, 12, tzinfo=_dt.UTC)
+        return noon.astimezone(tz) if tz else noon.replace(tzinfo=None)
 
     @classmethod
     def today(cls):
@@ -60,6 +73,10 @@ class _PinnedDatetime(_RealDatetime, metaclass=_DatetimeType):
 
 _dt.date = _PinnedDate
 _dt.datetime = _PinnedDatetime
+# Naive local times then read as UTC on every machine.
+os.environ['TZ'] = 'UTC'
+if hasattr(time, 'tzset'):
+    time.tzset()
 
 
 class NetworkAccess(BaseException):
@@ -87,9 +104,16 @@ def _literal(host):
         return host == 'localhost'
 
 
+for _name in ('HTTP_PROXY', 'HTTPS_PROXY', 'ALL_PROXY', 'http_proxy', 'https_proxy',
+              'all_proxy'):
+    os.environ.pop(_name, None)
+os.environ['NO_PROXY'] = os.environ['no_proxy'] = '*'
+
 _real_connect = socket.socket.connect
 _real_connect_ex = socket.socket.connect_ex
 _real_getaddrinfo = socket.getaddrinfo
+_real_gethostbyname = socket.gethostbyname
+_real_gethostbyname_ex = socket.gethostbyname_ex
 
 
 def _connect(self, address):
@@ -112,6 +136,20 @@ def _getaddrinfo(host, *args, **kwargs):
     return _real_getaddrinfo(host, *args, **kwargs)
 
 
+def _gethostbyname(host):
+    if not _literal(str(host)):
+        raise NetworkAccess(f'tests run offline: a test looked up {host}')
+    return _real_gethostbyname(host)
+
+
+def _gethostbyname_ex(host):
+    if not _literal(str(host)):
+        raise NetworkAccess(f'tests run offline: a test looked up {host}')
+    return _real_gethostbyname_ex(host)
+
+
 socket.socket.connect = _connect
 socket.socket.connect_ex = _connect_ex
 socket.getaddrinfo = _getaddrinfo
+socket.gethostbyname = _gethostbyname
+socket.gethostbyname_ex = _gethostbyname_ex
