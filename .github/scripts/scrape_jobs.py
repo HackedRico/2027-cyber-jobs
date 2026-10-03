@@ -876,7 +876,9 @@ def scrape_workday(company, tenant, instance, board, security_company=False,
     wd_headers = {**HEADERS, 'Content-Type': 'application/json',
                   'Accept': 'application/json'}
 
-    search_terms = ['cyber', 'security', 'new grad', 'early career']
+    # 'cloud engineer' finds the cloud roles the charter admits at any employer;
+    # relevance ranking puts the titles carrying both words first.
+    search_terms = ['cyber', 'security', 'cloud engineer', 'new grad', 'early career']
     if security_company:
         # A bare 'intern' sweep at a general employer pages through hundreds
         # of non-cyber intern reqs that is_cyber_title rejects anyway (cyber
