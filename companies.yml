@@ -473,6 +473,8 @@ greenhouse:
   slug: jfrog
   apply_hosts:
   - join.jfrog.com
+- name: Accenture Federal Services
+  slug: accenturefederalservices
 lever:
 - name: Anchorage Digital
   slug: anchorage
@@ -742,6 +744,8 @@ smartrecruiters:
   security_company: true
 - name: Lawrence Livermore National Laboratory
   slug: LLNL
+- name: ServiceNow
+  slug: ServiceNow
 workable:
 - name: Galois
   slug: galois
@@ -1148,6 +1152,22 @@ workday:
   tenant: verizon
   instance: wd12
   board: verizon-careers
+- name: Bank of America
+  tenant: ghr
+  instance: wd1
+  board: Lateral-US
+- name: Citi
+  tenant: citi
+  instance: wd5
+  board: '2'
+- name: PwC
+  tenant: pwc
+  instance: wd3
+  board: US_Entry_Level_Careers
+- name: PwC
+  tenant: pwc
+  instance: wd3
+  board: US_Experienced_Careers
 oracle:
 - name: SAIC
   host: eihu.fa.us8.oraclecloud.com
@@ -1174,6 +1194,9 @@ oracle:
 - name: Idaho National Laboratory
   host: elhe.fa.us8.oraclecloud.com
   site: CX_1002
+- name: Goldman Sachs
+  host: hdpc.fa.us2.oraclecloud.com
+  site: LateralHiring
 eightfold:
 - name: Lockheed Martin
   tenant: lockheedmartin
