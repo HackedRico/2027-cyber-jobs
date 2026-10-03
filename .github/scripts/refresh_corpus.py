@@ -25,12 +25,17 @@ import scrape_jobs as sj  # noqa: E402
 
 
 def scrape(config):
-    postings = []
+    postings, broken = [], []
     for result in sj.scrape_boards(sj.build_tasks(config)):
         print(f'Checking {result["label"]}... {result["status"]} ({result["count"]} postings)')
+        if result['status'] in ('FAILED', 'CRASHED'):
+            broken.append(result['label'])
         postings += [{'company': j.get('company', ''), 'title': j.get('title', ''),
                       'security_company': result['security_company']}
                      for j in result['jobs']]
+    if broken:
+        # Their titles are missing from this refresh; rerun once they recover.
+        print(f'\nWARNING: {len(broken)} board(s) returned nothing: {", ".join(broken)}')
     return postings
 
 
@@ -45,9 +50,11 @@ def main():
     with tempfile.NamedTemporaryFile('w', suffix='.json', delete=False) as f:
         json.dump(postings + stored, f)
     test_corpus = str(HERE / 'test_corpus.py')
-    subprocess.run([sys.executable, test_corpus, '--rebuild', f.name], check=True)
-    Path(f.name).unlink()
-    subprocess.run([sys.executable, test_corpus], check=False)
+    try:
+        subprocess.run([sys.executable, test_corpus, '--rebuild', f.name], check=True)
+    finally:
+        Path(f.name).unlink()
+    sys.exit(subprocess.run([sys.executable, test_corpus], check=False).returncode)
 
 
 if __name__ == '__main__':

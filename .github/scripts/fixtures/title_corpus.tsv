@@ -26,6 +26,7 @@ title	company	security_company	verdict
 (New Grad) Account Development Representative II - Atlanta	Samsara	0	out|not-cyber
 (New Grad) Account Development Representative II - Phoenix	Samsara	0	out|not-cyber
 (Pipeline) Structural Analyst, Space Emerging Talent	Anduril	0	out|not-cyber
+(Senior) Principal Solutions Engineer-AI and Data Governance	OneTrust	1	out|rejected-title
 (Skillbridge) Calibration Technician 2	Northrop Grumman	0	out|rejected-title
 (Skillbridge) Production Test Technician - Level 1 or Level 2	Northrop Grumman	0	out|rejected-title
 (SkillBridge) Program Cost Control Analyst - Finance - Level 2 or 3	Northrop Grumman	0	out|rejected-title
@@ -57,8 +58,7 @@ title	company	security_company	verdict
 1019804: Loan Origination Associate I (LSLO06)	JPMorgan Chase	0	out|not-cyber
 1554177: Loan Origination Operations Associate I (LSLO12)	JPMorgan Chase	0	out|not-cyber
 1902510: Collections Litigations Vendor Management Analyst I (OPVM08)	JPMorgan Chase	0	out|not-cyber
-2026  | EMEA | Birmingham | Asset Management, Controls Governance & Testing | New Analyst	Goldman Sachs	0	out|not-cyber
-2026 -  Associate Cyber Software Engineer - Annapolis Junction MD	Northrop Grumman	0	newgrad|Security Engineering
+2026 - Associate Cyber Software Engineer - Annapolis Junction MD	Northrop Grumman	0	newgrad|Security Engineering
 2026 Aerodynamic Environments Engineer	Aerospace Corporation	0	out|not-cyber
 2026 Associate Classified Cybersecurity Analyst - Pathways Program - El Segundo CA	Northrop Grumman	0	newgrad|Security Engineering
 2026 Associate Classified Cybersecurity Analyst Pathways Program - Palmdale CA	Northrop Grumman	0	newgrad|Security Engineering
@@ -82,7 +82,7 @@ title	company	security_company	verdict
 2026 Guidance, Navigation & Control Engineer Intern	Anduril	0	out|rejected-title
 2026 Human Space Mission Architech	Aerospace Corporation	0	out|not-cyber
 2026 Inside the Industry Investment Banking Event - Sydney	JPMorgan Chase	0	out|not-cyber
-2026 Internship –  Autonomous Systems Design Engineer: Controls, Navigation, Sensors, and Simulation	Johns Hopkins APL	0	out|rejected-title
+2026 Internship – Autonomous Systems Design Engineer: Controls, Navigation, Sensors, and Simulation	Johns Hopkins APL	0	out|rejected-title
 2026 Junior Analyst, Threat Intelligence	Anduril	0	newgrad|Threat Intelligence
 2026 Materials Physicist – Non-Destructive Evaluation (NDE)	Aerospace Corporation	0	out|not-cyber
 2026 Particle Induced Radiation Effects Scientist	Aerospace Corporation	0	out|not-cyber
@@ -100,8 +100,9 @@ title	company	security_company	verdict
 2026 | Americas | Sao Paulo | Engineering | New Analyst	Goldman Sachs	0	out|not-cyber
 2026 | Americas | Sao Paulo | Global Investment Research | Seasonal/Off Cycle Internship	Goldman Sachs	0	out|rejected-title
 2026 | Americas | Sao Paulo | Operations | Seasonal/Off Cycle Internship	Goldman Sachs	0	out|rejected-title
-2026 | APEJ | Hong Kong | Global Investment Research,  Macro, Portfolio Strategy | Seasonal / Off-cycle Internship	Goldman Sachs	0	out|rejected-title
+2026 | APEJ | Hong Kong | Global Investment Research, Macro, Portfolio Strategy | Seasonal / Off-cycle Internship	Goldman Sachs	0	out|rejected-title
 2026 | APEJ | Seoul | Investment Banking | Off Cycle Internship	Goldman Sachs	0	out|rejected-title
+2026 | EMEA | Birmingham | Asset Management, Controls Governance & Testing | New Analyst	Goldman Sachs	0	out|not-cyber
 2026 | EMEA | Copenhagen | FICC & Equities (Sales & Trading) | Seasonal/Off Cycle Internship	Goldman Sachs	0	out|rejected-title
 2026 | EMEA | Dubai | FICC & Equities (Sales & Trading) | Seasonal/Off Cycle Internship	Goldman Sachs	0	out|rejected-title
 2026 | EMEA | Frankfurt | Asset Management, Client Solutions Group / Sales | New Analyst	Goldman Sachs	0	out|rejected-title
@@ -113,7 +114,6 @@ title	company	security_company	verdict
 2026 | EMEA | Paris | Investment Banking, Capital Solutions Group | Seasonal/Off Cycle Internship	Goldman Sachs	0	out|rejected-title
 2026 | India | Bengaluru/Hyderabad | Industrial Trainee	Goldman Sachs	0	out|not-cyber
 2026 | Japan | Tokyo | Global Investment Research | Seasonal / Off-cycle	Goldman Sachs	0	out|not-cyber
-2027  Associate Systems Security Engineer - Roy UT	Northrop Grumman	0	newgrad|Cloud & Infra Security
 2027 - Associate Software Engineer - McClellan CA	Northrop Grumman	0	out|not-cyber
 2027 - Athletes Programme - London	Goldman Sachs	0	out|not-cyber
 2027 - Athletes Programme – Birmingham	Goldman Sachs	0	out|not-cyber
@@ -156,10 +156,11 @@ title	company	security_company	verdict
 2027 Associate Hardware Electronics Engineer - Rolling Meadows IL	Northrop Grumman	0	out|not-cyber
 2027 Associate Hardware Mechanical Engineer - Rolling Meadows IL	Northrop Grumman	0	out|rejected-title
 2027 Associate Systems Engineer - Rolling Meadows IL	Northrop Grumman	0	out|not-cyber
+2027 Associate Systems Security Engineer - Roy UT	Northrop Grumman	0	newgrad|Cloud & Infra Security
 2027 Associate Technical Editor and Writer/Technical Editor and Writer	Northrop Grumman	0	out|not-cyber
-2027 BNY Analyst Program - Audit  (London)	BNY	0	out|not-cyber
 2027 BNY Analyst Program - Audit (Dublin)	BNY	0	out|not-cyber
 2027 BNY Analyst Program - Audit (Lake Mary, FL)	BNY	0	out|not-cyber
+2027 BNY Analyst Program - Audit (London)	BNY	0	out|not-cyber
 2027 BNY Analyst Program - Audit (Manchester)	BNY	0	out|not-cyber
 2027 BNY Analyst Program - Audit (New York, NY)	BNY	0	out|not-cyber
 2027 BNY Analyst Program - Audit (Pittsburgh, PA)	BNY	0	out|not-cyber
@@ -200,7 +201,7 @@ title	company	security_company	verdict
 2027 BNY Analyst Program - Risk and Compliance (Manchester)	BNY	0	out|not-cyber
 2027 BNY Analyst Program - Risk and Compliance (New York, NY)	BNY	0	out|not-cyber
 2027 BNY Analyst Program - Risk and Compliance (Pittsburgh, PA)	BNY	0	out|not-cyber
-2027 BNY Analyst Program – Client Coverage  (Manchester)	BNY	0	out|not-cyber
+2027 BNY Analyst Program – Client Coverage (Manchester)	BNY	0	out|not-cyber
 2027 BNY Analyst Program – Client Coverage - (London)	BNY	0	out|not-cyber
 2027 BNY Analyst Program – Client Service - (Houston, TX)	BNY	0	out|not-cyber
 2027 BNY Analyst Program – Client Service - (Lake Mary, FL)	BNY	0	out|not-cyber
@@ -220,7 +221,6 @@ title	company	security_company	verdict
 2027 BNY Internship Program - Risk and Compliance (Manchester)	BNY	0	out|not-cyber
 2027 BNY Internship Program -Engineering (Data Science) (Manchester)	BNY	0	out|not-cyber
 2027 BNY Internship Program -Engineering (Developer) (Manchester)	BNY	0	out|not-cyber
-2027 BNY Summer Internship Program -  Delivery (Manchester)	BNY	0	out|not-cyber
 2027 BNY Summer Internship Program - Audit (Dublin)	BNY	0	out|not-cyber
 2027 BNY Summer Internship Program - Audit (Lake Mary, FL)	BNY	0	out|not-cyber
 2027 BNY Summer Internship Program - Audit (London)	BNY	0	out|not-cyber
@@ -228,6 +228,7 @@ title	company	security_company	verdict
 2027 BNY Summer Internship Program - Audit (New York, NY)	BNY	0	out|not-cyber
 2027 BNY Summer Internship Program - Audit (Pittsburgh, PA)	BNY	0	out|not-cyber
 2027 BNY Summer Internship Program - Client Service (Dublin)	BNY	0	out|not-cyber
+2027 BNY Summer Internship Program - Delivery (Manchester)	BNY	0	out|not-cyber
 2027 BNY Summer Internship Program - Delivery (Pittsburgh, PA)	BNY	0	out|not-cyber
 2027 BNY Summer Internship Program - Engineering (Data Science) - Jersey City, NJ	BNY	0	out|not-cyber
 2027 BNY Summer Internship Program - Engineering (Data Science) - Lake Mary, FL	BNY	0	out|not-cyber
@@ -348,9 +349,9 @@ title	company	security_company	verdict
 2027 Communications and Architecture Analyst	Aerospace Corporation	0	out|not-cyber
 2027 Consumer Banking and Lending Summer Internship – Early Careers	Wells Fargo	0	out|not-cyber
 2027 Controllership Winter/Spring Co-op	Nationwide	0	out|not-cyber
-2027 Corporate & Investment Bank - Global Investment Banking Analyst Program - Off-Cycle Internship  - CEE Coverage Warsaw	JPMorgan Chase	0	out|not-cyber
 2027 Corporate & Investment Bank - Global Investment Banking Analyst Program - Off-Cycle Internship - Brussels	JPMorgan Chase	0	out|not-cyber
 2027 Corporate & Investment Bank - Global Investment Banking Analyst Program - Off-Cycle Internship - CEE Coverage Frankfurt	JPMorgan Chase	0	out|not-cyber
+2027 Corporate & Investment Bank - Global Investment Banking Analyst Program - Off-Cycle Internship - CEE Coverage Warsaw	JPMorgan Chase	0	out|not-cyber
 2027 Corporate & Investment Bank - Global Investment Banking Analyst Program - Off-Cycle Internship - Frankfurt	JPMorgan Chase	0	out|not-cyber
 2027 Corporate & Investment Bank - Global Investment Banking Analyst Program - Off-Cycle Internship - Zurich	JPMorgan Chase	0	out|not-cyber
 2027 Corporate & Investment Bank - Global Investment Banking Analyst Program - Off-Cycle Internship- Paris	JPMorgan Chase	0	out|not-cyber
@@ -360,12 +361,12 @@ title	company	security_company	verdict
 2027 Corporate Analyst Development Program - Summer Analyst - Philippines	JPMorgan Chase	0	out|not-cyber
 2027 Corporate Analyst Development Program - Summer Analyst - Singapore	JPMorgan Chase	0	out|not-cyber
 2027 Corporate Tax Winter-Spring Internship	Nationwide	0	out|not-cyber
+2027 Cyber Software Engineer Intern - Cincinnati OH	Northrop Grumman	0	intern|Security Engineering
 2027 Cyber Software Engineer Intern - Tampa FL	Northrop Grumman	0	intern|Security Engineering
-2027 Cyber Software Engineer Intern - Cincinnati OH	Northrop Grumman	0	intern|Security Engineering
 2027 Cyber Systems Engineer Intern - Roy UT	Northrop Grumman	0	intern|Security Engineering
 2027 Cyber Systems Engineer Intern-Tampa FL	Northrop Grumman	0	intern|Security Engineering
 2027 Data & AI - Full Time Analyst - London, Glasgow	JPMorgan Chase	0	out|not-cyber
-2027 Data & AI - Summer Internship -  Glasgow, London	JPMorgan Chase	0	out|not-cyber
+2027 Data & AI - Summer Internship - Glasgow, London	JPMorgan Chase	0	out|not-cyber
 2027 Data & AI Program - Full Time - Analyst - United States	JPMorgan Chase	0	out|not-cyber
 2027 Data & AI Program - Summer Internship - Analyst - United States	JPMorgan Chase	0	out|not-cyber
 2027 Data & AI Program - Summer Internship - Singapore	JPMorgan Chase	0	out|not-cyber
@@ -405,7 +406,7 @@ title	company	security_company	verdict
 2027 Experienced Human Resources Leadership Development Program Internship	Johnson & Johnson	0	out|rejected-title
 2027 Explosives Systems and Devices Engineer	Aerospace Corporation	0	out|not-cyber
 2027 Finance Leadership Development Program (FLDP) - Full Time – El Paso, TX / Juarez, MX	Johnson & Johnson	0	out|rejected-title
-2027 Finance, Treasury, & Accounting Full-time Rotational Program - Accounting  Track	U.S. Bank	0	out|rejected-title
+2027 Finance, Treasury, & Accounting Full-time Rotational Program - Accounting Track	U.S. Bank	0	out|rejected-title
 2027 Finance, Treasury, & Accounting Full-time Rotational Program - Finance Track	U.S. Bank	0	out|rejected-title
 2027 Finance, Treasury, & Accounting Summer Intern - Accounting Track	U.S. Bank	0	out|rejected-title
 2027 Finance, Treasury, & Accounting Summer Intern - Finance Track	U.S. Bank	0	out|rejected-title
@@ -478,9 +479,9 @@ title	company	security_company	verdict
 2027 Global Corporate Banking Program - Large Cap - Off-Cycle Internship (Sept-Dec) - Zurich	JPMorgan Chase	0	out|not-cyber
 2027 Global Corporate Banking Program - Large-Cap - Off-Cycle Internship (April-September) - Milan	JPMorgan Chase	0	out|not-cyber
 2027 Global Corporate Banking Program - Mid Cap - Summer Internship - Stockholm	JPMorgan Chase	0	out|not-cyber
-2027 Global Finance & Business Management - Summer Analyst  (New York Metro)	JPMorgan Chase	0	out|rejected-title
-2027 Global Finance & Business Management - Summer Analyst  (OH, IL, DE, TX)	JPMorgan Chase	0	out|rejected-title
-2027 Global Finance & Business Management- Corporate Controllers Track (DE)  - Summer Analyst	JPMorgan Chase	0	out|rejected-title
+2027 Global Finance & Business Management - Summer Analyst (New York Metro)	JPMorgan Chase	0	out|rejected-title
+2027 Global Finance & Business Management - Summer Analyst (OH, IL, DE, TX)	JPMorgan Chase	0	out|rejected-title
+2027 Global Finance & Business Management- Corporate Controllers Track (DE) - Summer Analyst	JPMorgan Chase	0	out|rejected-title
 2027 Global Investment Banking Analyst Program - Summer Internship - London	JPMorgan Chase	0	out|not-cyber
 2027 Global Payments Analyst Program - Full time - Dublin	JPMorgan Chase	0	out|not-cyber
 2027 Global Payments Analyst Program - Full time - London	JPMorgan Chase	0	out|not-cyber
@@ -509,9 +510,9 @@ title	company	security_company	verdict
 2027 Global Private Bank - Advisor Summer Internship Program- Dubai	JPMorgan Chase	0	out|not-cyber
 2027 Global Private Bank - Investment Solutions Analyst Training Program - London	JPMorgan Chase	0	out|not-cyber
 2027 Global Private Bank - Investment Solutions Summer Internship Program - London	JPMorgan Chase	0	out|not-cyber
-2027 Global Private Bank Advisor Program  - Global Families Group Asia - Full Time Analyst	JPMorgan Chase	0	out|not-cyber
 2027 Global Private Bank Advisor Program (Full-time Analyst) - US Private Bank	JPMorgan Chase	0	out|not-cyber
 2027 Global Private Bank Advisor Program (Full-time Associate) - US Private Bank	JPMorgan Chase	0	out|not-cyber
+2027 Global Private Bank Advisor Program - Global Families Group Asia - Full Time Analyst	JPMorgan Chase	0	out|not-cyber
 2027 Global Private Bank Advisor Program - LatAm Private Bank - Full-time Analyst	JPMorgan Chase	0	out|not-cyber
 2027 Global Private Bank Investment Solutions Program (Full-Time Analyst)	JPMorgan Chase	0	out|not-cyber
 2027 Global Supply Chain Specialist internship - VIRTUAL/REMOTE	Northrop Grumman	0	out|rejected-title
@@ -520,7 +521,7 @@ title	company	security_company	verdict
 2027 Graduate - Developer - Cyber-Physical Systems	Johns Hopkins APL	0	newgrad|Security Engineering
 2027 Graduate - Engineer/Scientist - Resilient Military Systems	Johns Hopkins APL	0	out|not-cyber
 2027 Graduate - Human Factors Engineer - Health/Human Machine Systems	Johns Hopkins APL	0	out|not-cyber
-2027 Graduate - Hypersonics Engineer -  Vehicle Design and Technologies	Johns Hopkins APL	0	out|not-cyber
+2027 Graduate - Hypersonics Engineer - Vehicle Design and Technologies	Johns Hopkins APL	0	out|not-cyber
 2027 Graduate - Intelligent Autonomous Systems Development, Test and Artificial Intelligence (AI)	Johns Hopkins APL	0	out|not-cyber
 2027 Graduate - Reverse Engineer - Systems Exploitation	Johns Hopkins APL	0	newgrad|Offensive Security
 2027 Graduate - Sensor Systems/Data Analytics	Johns Hopkins APL	0	out|not-cyber
@@ -563,7 +564,7 @@ title	company	security_company	verdict
 2027 Intern Software Engineer	Northrop Grumman	0	out|not-cyber
 2027 Internal Audit Analyst Program - Full Time Analyst Opportunity	JPMorgan Chase	0	out|rejected-title
 2027 Internal Audit Analyst Program - Summer Intern Opportunity	JPMorgan Chase	0	out|rejected-title
-2027 Internship -  Acoustic Algorithm Development Engineer	Johns Hopkins APL	0	out|not-cyber
+2027 Internship - Acoustic Algorithm Development Engineer	Johns Hopkins APL	0	out|not-cyber
 2027 Internship - Advanced Networking Technologies	Johns Hopkins APL	0	out|not-cyber
 2027 Internship - Advanced Sensor Technologies	Johns Hopkins APL	0	out|not-cyber
 2027 Internship - Aerospace and Thermal Engineering	Johns Hopkins APL	0	out|not-cyber
@@ -612,7 +613,6 @@ title	company	security_company	verdict
 2027 Internship - Weapon System Engineer (Analyst)	Johns Hopkins APL	0	out|not-cyber
 2027 Internship -Cyber Software Engineer - Capabilities Development	Johns Hopkins APL	0	intern|Security Engineering
 2027 Internship -Electrical/Computer Engineer - Intelligence Surveillance & Reconnaissance	Johns Hopkins APL	0	out|not-cyber
-2027 Internship –  Inertial Navigation and Geophysics	Johns Hopkins APL	0	out|not-cyber
 2027 Internship – Algorithm, Software, or RF Systems Engineering	Johns Hopkins APL	0	out|not-cyber
 2027 Internship – Data Science – System Performance Evaluation	Johns Hopkins APL	0	out|not-cyber
 2027 Internship – Electrical & Computer Engineer - Miniature Device Technologies	Johns Hopkins APL	0	out|not-cyber
@@ -621,6 +621,7 @@ title	company	security_company	verdict
 2027 Internship – Engineering/Science – Tailored Autonomous Systems	Johns Hopkins APL	0	out|not-cyber
 2027 Internship – Human-Centered Design & Engineering	Johns Hopkins APL	0	out|not-cyber
 2027 Internship – Hypersonic and Reentry System Development and Prototyping	Johns Hopkins APL	0	out|not-cyber
+2027 Internship – Inertial Navigation and Geophysics	Johns Hopkins APL	0	out|not-cyber
 2027 Internship – Mechanical Engineer, Electrical Engineer - Engineering & Test	Johns Hopkins APL	0	out|rejected-title
 2027 Internship – Reverse Engineer – Offensive Cyber Capabilities	Johns Hopkins APL	0	intern|Offensive Security
 2027 Internship – Reverse Engineer – Systems Exploitation	Johns Hopkins APL	0	intern|Offensive Security
@@ -678,6 +679,7 @@ title	company	security_company	verdict
 2027 PhD Graduate - Systems Engineer/Analyst - Multi-Mission Planning Development	Johns Hopkins APL	0	out|not-cyber
 2027 PhD Graduate – Intelligent Autonomous Systems and Artificial Intelligence Engineer	Johns Hopkins APL	0	out|not-cyber
 2027 PhD Graduate – Vulnerability Researcher – Offensive Cyber Capabilities	Johns Hopkins APL	0	newgrad|Offensive Security
+2027 Portfolio and Relationship Management Development Program	U.S. Bank	0	out|not-cyber
 2027 Portfolio and Relationship Management Summer Internship	U.S. Bank	0	out|not-cyber
 2027 Power and Analog Circuit Engineering Graduate Intern	Aerospace Corporation	0	out|not-cyber
 2027 Power and Analog Circuit Engineering Undergraduate Intern	Aerospace Corporation	0	out|not-cyber
@@ -764,7 +766,7 @@ title	company	security_company	verdict
 2027 Spring Co-op - Global Technology & Solutions - Data Analyst	TD Bank	0	out|not-cyber
 2027 Spring Co-op - Global Technology & Solutions - Data Engineer	TD Bank	0	out|not-cyber
 2027 Spring Co-op - Global Technology & Solutions - Software Engineer (SWE)	TD Bank	0	out|not-cyber
-2027 Spring Co-op Cyber Software Engineer Intern - Cincinnati OH	Northrop Grumman	0	intern|Security Engineering
+2027 Spring Co-op Cyber Software Engineer Intern - Cincinnati OH	Northrop Grumman	0	intern|Security Engineering
 2027 Spring Insights: Advise & Invest at JPMorganChase – London	JPMorgan Chase	0	out|not-cyber
 2027 Spring Insights: Analyse & Trade at JPMorganChase – London	JPMorgan Chase	0	out|not-cyber
 2027 Spring Insights: Engineer & Innovate at JPMorganChase – Glasgow	JPMorgan Chase	0	out|not-cyber
@@ -777,18 +779,18 @@ title	company	security_company	verdict
 2027 Structural Mechanics Undergraduate Intern	Aerospace Corporation	0	out|not-cyber
 2027 Summer Analyst Program - Investment Banking, Healthcare (San Francisco)	TD Bank	0	out|not-cyber
 2027 Summer Commercial Bank Internship - New York City (Credit)	KeyBank	0	out|not-cyber
-2027 Summer Intern -  Audit Group - Junior Intern	Federal Reserve System	0	out|not-cyber
-2027 Summer Intern -  Markets Group - Chicago - Junior Intern	Federal Reserve System	0	out|not-cyber
-2027 Summer Intern -  Markets Group - Chicago -Graduate Intern	Federal Reserve System	0	out|not-cyber
-2027 Summer Intern -  Markets Group - New York - Junior Intern	Federal Reserve System	0	out|not-cyber
-2027 Summer Intern -  Markets Group - New York Innovation Center - Graduate Intern	Federal Reserve System	0	out|not-cyber
-2027 Summer Intern -  Research Group - Junior Intern	Federal Reserve System	0	out|not-cyber
+2027 Summer Intern - Audit Group - Junior Intern	Federal Reserve System	0	out|not-cyber
 2027 Summer Intern - Communications & Engagement	Federal Reserve System	0	out|not-cyber
 2027 Summer Intern - Executive Office - Strategy & Operating Services- Junior	Federal Reserve System	0	out|rejected-title
+2027 Summer Intern - Markets Group - Chicago - Junior Intern	Federal Reserve System	0	out|not-cyber
+2027 Summer Intern - Markets Group - Chicago -Graduate Intern	Federal Reserve System	0	out|not-cyber
 2027 Summer Intern - Markets Group - New York - Graduate Intern	Federal Reserve System	0	out|not-cyber
+2027 Summer Intern - Markets Group - New York - Junior Intern	Federal Reserve System	0	out|not-cyber
+2027 Summer Intern - Markets Group - New York Innovation Center - Graduate Intern	Federal Reserve System	0	out|not-cyber
 2027 Summer Intern - MBA Finance Leadership Development Program	Johnson & Johnson	0	out|rejected-title
 2027 Summer Intern - People & Engagement Group - Graduate	Federal Reserve System	0	out|not-cyber
 2027 Summer Intern - People & Engagement Group - Junior	Federal Reserve System	0	out|not-cyber
+2027 Summer Intern - Research Group - Junior Intern	Federal Reserve System	0	out|not-cyber
 2027 Summer Intern - Supervision Group - Graduate	Federal Reserve System	0	out|not-cyber
 2027 Summer Intern - Supervision Group - Junior	Federal Reserve System	0	out|not-cyber
 2027 Summer Intern - Technology Group - Junior	Federal Reserve System	0	out|not-cyber
@@ -917,7 +919,7 @@ title	company	security_company	verdict
 2027 | Americas | Los Angeles | Wealth Management, Private Wealth Management | New Associate	Goldman Sachs	0	out|not-cyber
 2027 | Americas | Miami | Wealth Management, Private Wealth Management | New Associate	Goldman Sachs	0	out|not-cyber
 2027 | Americas | Minneapolis | Wealth Management, Private Wealth Management | New Associate	Goldman Sachs	0	out|not-cyber
-2027 | Americas | Nashville |  Wealth Management, Private Wealth Management | New Associate	Goldman Sachs	0	out|not-cyber
+2027 | Americas | Nashville | Wealth Management, Private Wealth Management | New Associate	Goldman Sachs	0	out|not-cyber
 2027 | Americas | New York City Area | Asset and Wealth Management Quantitative Strats | Summer Analyst	Goldman Sachs	0	out|not-cyber
 2027 | Americas | New York City Area | Asset and Wealth Management Quantitative Strats | Summer Associate	Goldman Sachs	0	out|not-cyber
 2027 | Americas | New York City Area | Controllers | Summer Analyst	Goldman Sachs	0	out|not-cyber
@@ -937,7 +939,7 @@ title	company	security_company	verdict
 2027 | Americas | New York City Area | Wealth Management, Private Wealth Management | New Associate	Goldman Sachs	0	out|not-cyber
 2027 | Americas | New York City Area| AWM User Experience Design | Summer Analyst	Goldman Sachs	0	out|not-cyber
 2027 | Americas | New York City | Asset Management, Private Investing | Summer Associate	Goldman Sachs	0	out|not-cyber
-2027 | Americas | New York City | Investment Banking |  Summer Associate	Goldman Sachs	0	out|not-cyber
+2027 | Americas | New York City | Investment Banking | Summer Associate	Goldman Sachs	0	out|not-cyber
 2027 | Americas | Philadelphia | Wealth Management, Private Wealth Management | New Associate	Goldman Sachs	0	out|not-cyber
 2027 | Americas | Pittsburgh | Wealth Management, Private Wealth Management | New Associate	Goldman Sachs	0	out|not-cyber
 2027 | Americas | Salt Lake City | Asset and Wealth Management Quantitative Strats | Summer Analyst	Goldman Sachs	0	out|not-cyber
@@ -1004,7 +1006,7 @@ title	company	security_company	verdict
 2027 | APEJ | Shanghai | Global Investment Research | Summer Analyst	Goldman Sachs	0	out|not-cyber
 2027 | APEJ | Shanghai | Operations | Summer Analyst	Goldman Sachs	0	out|not-cyber
 2027 | APEJ | Shenzhen | Engineering | Summer Analyst	Goldman Sachs	0	out|not-cyber
-2027 | APEJ | Singapore | Asset Management,  Alternatives / Private Investing | Summer Analyst	Goldman Sachs	0	out|not-cyber
+2027 | APEJ | Singapore | Asset Management, Alternatives / Private Investing | Summer Analyst	Goldman Sachs	0	out|not-cyber
 2027 | APEJ | Singapore | Asset Management, Alternatives / Private Investing | Summer Associate	Goldman Sachs	0	out|not-cyber
 2027 | APEJ | Singapore | Asset Management, Client Solutions | New Analyst	Goldman Sachs	0	out|not-cyber
 2027 | APEJ | Singapore | Asset Management, Client Solutions | Summer Analyst	Goldman Sachs	0	out|not-cyber
@@ -1040,7 +1042,7 @@ title	company	security_company	verdict
 2027 | EMEA | Birmingham | Internal Audit | One Year Work Placement	Goldman Sachs	0	out|rejected-title
 2027 | EMEA | Birmingham | Internal Audit | Summer Analyst	Goldman Sachs	0	out|rejected-title
 2027 | EMEA | Birmingham | Legal | New Analyst	Goldman Sachs	0	out|not-cyber
-2027 | EMEA | Doha | Asset Management,  Alternatives Capital Formation, Client Solutions Group | Seasonal/Off-Cycle	Goldman Sachs	0	out|not-cyber
+2027 | EMEA | Doha | Asset Management, Alternatives Capital Formation, Client Solutions Group | Seasonal/Off-Cycle	Goldman Sachs	0	out|not-cyber
 2027 | EMEA | Doha | Operations | Seasonal/Off Cycle Internship	Goldman Sachs	0	out|not-cyber
 2027 | EMEA | Dubai | Asset Management, Client Solutions Group - Third Party Wealth | Seasonal/Off-Cycle	Goldman Sachs	0	out|not-cyber
 2027 | EMEA | Dubai | Investment Banking, Capital Solutions Group | Seasonal/Off Cycle Internship	Goldman Sachs	0	out|not-cyber
@@ -1148,7 +1150,6 @@ title	company	security_company	verdict
 2027 – Sales – Summer Internship - Paris	JPMorgan Chase	0	out|rejected-title
 2027-2028 Intern - Enterprise Research - Industrial-Organizational Psychologist	State Farm	0	out|not-cyber
 2027| EMEA | Stockholm | Investment Banking, Classic | Seasonal/Off Cycle Internship	Goldman Sachs	0	out|not-cyber
-2027 Portfolio and Relationship Management Development Program	U.S. Bank	0	out|not-cyber
 2028 Asset Management Client Program - Full Time Analyst - Tokyo	JPMorgan Chase	0	out|not-cyber
 2028 Commercial & Investment Bank - Global Corporate Banking Program - Full Time Analyst - Tokyo	JPMorgan Chase	0	out|not-cyber
 2028 Commercial & Investment Bank - Global Investment Banking Program - Full-time Analyst - Tokyo	JPMorgan Chase	0	out|not-cyber
@@ -1260,7 +1261,7 @@ Agility Associate - Digital Product Portfolio Management Scrum & Kanban Practice
 Agility Lead Senior Associate - Digital Portfolio Management	JPMorgan Chase	0	out|rejected-title
 Agility Senior Associate - Consumer & Community Banking Finance	JPMorgan Chase	0	out|rejected-title
 AHT - Software Engineer: Automation/AI - Level 2 or 3 (Chandler)	Northrop Grumman	0	out|not-cyber
-AI & Data Analytics Intern -  Supply Resilience 2027 internship	Motorola Solutions	0	out|not-cyber
+AI & Data Analytics Intern - Supply Resilience 2027 internship	Motorola Solutions	0	out|not-cyber
 AI - Cybersecurity Forward Deployed Engineer - FDE Senior Manager	Accenture	0	out|rejected-title
 AI / ML Associate Manager	Accenture Federal Services	0	out|rejected-title
 AI Analytics Enablement - Sr. Associate (Chase Card)	JPMorgan Chase	0	out|rejected-title
@@ -1306,7 +1307,7 @@ AI Security Engineer Contract	Intel	0	out|no-level
 AI Security Engineer, AWS Security, AWS Security - AISec	Amazon	0	out|no-level
 AI Security Research Engineer	Cisco	0	out|no-level
 AI Security Research Engineer II (Full Time) - (United States)	Cisco	0	earlycareer|AI Security & Safety
-AI Security Research Intern  (Sept 2026 - May 2027)	Software Engineering Institute	0	intern|AI Security & Safety
+AI Security Research Intern (Sept 2026 - May 2027)	Software Engineering Institute	0	intern|AI Security & Safety
 AI SOC Power Delivery Pathfinding PhD Intern	Intel	0	out|not-cyber
 AI Software Engineering Undergraduate Intern	Intel	0	out|not-cyber
 AI Strategy Associate Director - State Health	Guidehouse	0	out|rejected-title
@@ -1422,7 +1423,7 @@ Applied Machine Learning Engineer Senior Consultant II (Software Engineering Foc
 Applied Machine Learning Engineer, AI for VLSI Design - New College Grad 2026	NVIDIA	0	out|not-cyber
 Applied Multiphysics - Engineer II	Amentum	0	out|not-cyber
 Applied Multiphysics Engineer I	Amentum	0	out|not-cyber
-Applied Research - Artificial Intelligence -  London - Associate	Goldman Sachs	0	out|not-cyber
+Applied Research - Artificial Intelligence - London - Associate	Goldman Sachs	0	out|not-cyber
 Applied Research Intern, Proactive Intelligence & Customer World Models (PhD / Graduate Co-op)	Block	0	out|not-cyber
 Applied Science Intern	Datadog	0	out|not-cyber
 Applied Science: PhD Internship Opportunities - Multiple Locations	Microsoft	0	out|not-cyber
@@ -1453,7 +1454,7 @@ ASIC Design Verification Engineer - New College Grad 2026	NVIDIA	0	out|rejected-
 ASIC DFT Engineer II Full Time - United States	Cisco	0	out|rejected-title
 ASIC Floorplan Design Engineer - New College Grad 2026	NVIDIA	0	out|rejected-title
 ASIC Physical Design and Timing Engineer - New College Grad 2026	NVIDIA	0	out|rejected-title
-ASIC Physical Design Engineer II (Full Time)  - United States	Cisco	0	out|rejected-title
+ASIC Physical Design Engineer II (Full Time) - United States	Cisco	0	out|rejected-title
 ASIC Physical Design Engineer, Netlisting - New College Grad 2026	NVIDIA	0	out|rejected-title
 ASIC Verification Engineer - New College Grad 2026	NVIDIA	0	out|rejected-title
 ASIC Verification Engineer - New College Grad 2027	NVIDIA	0	out|rejected-title
@@ -1511,7 +1512,7 @@ Asset & Wealth Management, Private Wealth Management, Private Wealth Advisor, As
 Asset & Wealth Management, Private Wealth Management, Private Wealth Advisor, Associate/ Vice President, Atlanta	Goldman Sachs	0	out|rejected-title
 Asset & Wealth Management, Private Wealth Management, Wealth Management Professional, Associate - San Francisco	Goldman Sachs	0	out|not-cyber
 Asset & Wealth Management, Public Investing, Performance Strategy, Associate - New York	Goldman Sachs	0	out|not-cyber
-Asset & Wealth Management, PWM, Brand Marketing and Creative Strategy, Vice President  - New York - 2027	Goldman Sachs	0	out|rejected-title
+Asset & Wealth Management, PWM, Brand Marketing and Creative Strategy, Vice President - New York - 2027	Goldman Sachs	0	out|rejected-title
 Asset & Wealth Management, Quantitative Equity Solutions, Client Portfolio Manager, Associate	Goldman Sachs	0	out|rejected-title
 Asset & Wealth Management, Risk & Regulatory Solutions, Associate, Singapore	Goldman Sachs	0	out|not-cyber
 Asset & Wealth Management, Urban Investing Group, Real Estate Associate - Dallas	Goldman Sachs	0	out|not-cyber
@@ -1549,7 +1550,7 @@ Asset Management - Fee Operations Associate	JPMorgan Chase	0	out|not-cyber
 Asset Management - FOF Research Analyst - Associate/VP	JPMorgan Chase	0	out|rejected-title
 Asset Management - Global Alts Corporate Legal Entity - Associate	JPMorgan Chase	0	out|not-cyber
 Asset Management - Guidelines Associate	JPMorgan Chase	0	out|not-cyber
-Asset Management - Infrastructure Investment Specialist  - Associate	JPMorgan Chase	0	out|not-cyber
+Asset Management - Infrastructure Investment Specialist - Associate	JPMorgan Chase	0	out|not-cyber
 Asset Management - Internal Client Advisor - Associate	JPMorgan Chase	0	out|not-cyber
 Asset Management - Internal Client Advisor - Retirement Plan Specialist - Associate	JPMorgan Chase	0	out|not-cyber
 Asset Management - Investment Grade Trader - Associate	JPMorgan Chase	0	out|not-cyber
@@ -1563,7 +1564,7 @@ Asset Management - Operations – Transfer Agent Analyst - Associate/VP	JPMorgan
 Asset Management - Portfolio Analysis Group - Associate	JPMorgan Chase	0	out|not-cyber
 Asset Management - Portfolio Manager - Global Core Equities - Associate/Vice President	JPMorgan Chase	0	out|rejected-title
 Asset Management - Private Equity Group - Associate Product Owner	JPMorgan Chase	0	out|not-cyber
-Asset Management - Private Equity Group Information Management and  Financial Reporting- Associate	JPMorgan Chase	0	out|not-cyber
+Asset Management - Private Equity Group Information Management and Financial Reporting- Associate	JPMorgan Chase	0	out|not-cyber
 Asset Management - Taiwan Sales Support - Associate	JPMorgan Chase	0	out|rejected-title
 Asset Management - Trading Services Associate	JPMorgan Chase	0	out|not-cyber
 Asset Management - Trading Services Senior Associate	JPMorgan Chase	0	out|rejected-title
@@ -1585,9 +1586,9 @@ Asset Management, Internal Client Advisor (Internal Wholesaler), Associate	JPMor
 Asset Management, Multi-Asset Solutions, Models Investment Specialist, Associate	JPMorgan Chase	0	out|not-cyber
 Asset Management, Platform Management, Analyst / Associate, London	Goldman Sachs	0	out|not-cyber
 Asset Management, Securitized Private Credit Analyst – Associate/Vice President	JPMorgan Chase	0	out|rejected-title
-Asset Management-  Equities Quantitative Developer - Vice President/Associate	JPMorgan Chase	0	out|rejected-title
+Asset Management- Equities Quantitative Developer - Vice President/Associate	JPMorgan Chase	0	out|rejected-title
 Asset Management: J.P. Morgan Natural Capital Forest Biometrics Associate/VP	JPMorgan Chase	0	out|rejected-title
-Asset Management: Opening Market Insights Research Analyst  - Associate	JPMorgan Chase	0	out|not-cyber
+Asset Management: Opening Market Insights Research Analyst - Associate	JPMorgan Chase	0	out|not-cyber
 Asset Protection / Security Associate, Manufacturing (Tuesday-Friday, 11:00am-9:30pm) - $21.30/hr.	Walmart	0	out|rejected-title
 Asset Protection Associate	Walmart	0	out|rejected-title
 Asset Protection Associate (NEED SECURITY LICENSE)	Walmart	0	out|rejected-title
@@ -1601,7 +1602,6 @@ Asset Servicing – Announcement Capture Utility – Associate	JPMorgan Chase	0	
 Asset Serving Associate	JPMorgan Chase	0	out|not-cyber
 Asset-Backed Securitization & Financing (“ABS&F”) - Associate - NEW YORK	Citi	0	out|not-cyber
 Asset-Backed Securitization and Financing - Associate	Citi	0	out|not-cyber
-Associate  - Fraud Analytics Consultant (Senior Consultant)	Guidehouse	0	out|rejected-title
 Associate & Counsel – Consumer Banking Legal	JPMorgan Chase	0	out|rejected-title
 Associate - AI Governance & Reporting - Model Risk	Morgan Stanley	0	earlycareer|AI Security & Safety
 Associate - Asset & Wealth Management - Audit	JPMorgan Chase	0	out|not-cyber
@@ -1614,6 +1614,7 @@ Associate - Dining Manager	JPMorgan Chase	0	out|rejected-title
 Associate - Equity and Special Solutions Operations	Morgan Stanley	0	out|not-cyber
 Associate - Equity Research, SMid/ Large Cap Biotech	Bank of America	0	out|rejected-title
 Associate - Fixed Income Operations	Morgan Stanley	0	out|not-cyber
+Associate - Fraud Analytics Consultant (Senior Consultant)	Guidehouse	0	out|rejected-title
 Associate - Healthcare Commercial Banking	Citi	0	out|not-cyber
 Associate - Infrastructure Engineer III	JPMorgan Chase	0	out|rejected-title
 Associate - Infrastructure Engineer III - Privilege & Access Management	JPMorgan Chase	0	out|rejected-title
@@ -1624,7 +1625,7 @@ Associate - Portfolio Credit Risk Modeling	Nationwide	0	out|not-cyber
 Associate - Prime Brokerage Operations	Morgan Stanley	0	out|not-cyber
 Associate - Process Manager	JPMorgan Chase	0	out|rejected-title
 Associate - Product Analysis (Fixed Income)	JPMorgan Chase	0	out|not-cyber
-Associate - Risk Management & Compliance  Business Management	JPMorgan Chase	0	out|rejected-title
+Associate - Risk Management & Compliance Business Management	JPMorgan Chase	0	out|rejected-title
 Associate - Technology Risk and Controls Test Sr Specialist	JPMorgan Chase	0	out|rejected-title
 Associate - Technology Vendor Management	American Express	0	out|not-cyber
 Associate -Program Operations - S&G	Capital One	0	out|not-cyber
@@ -1733,7 +1734,7 @@ Associate Banker, 30 Hours, Aventura/North Miami Beach, FL Area - Multiple Locat
 Associate Banker, 30 Hours, Banker Chicago North Suburbs Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Baton Rouge, LA Area - Multiple Locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Bend/Redmond, OR Area - Multiple Locations	JPMorgan Chase	0	out|not-cyber
-Associate Banker, 30 Hours, Bergen East  Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
+Associate Banker, 30 Hours, Bergen East Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Boca Raton, FL North Area - Multiple Locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Boerne, TX - Lemon Creek Branch	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Bonita Springs, FL - US 41 and Bonita Beach Branch	JPMorgan Chase	0	out|not-cyber
@@ -1757,8 +1758,8 @@ Associate Banker, 30 Hours, Chicago Cook County NW Area - Multiple locations	JPM
 Associate Banker, 30 Hours, Chicago Dupage County Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Chicago Far North Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Chicago Far South Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
-Associate Banker, 30 Hours, Chicago Northshore  Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
-Associate Banker, 30 Hours, Chicago Northwest City Area, Bilingual Spanish Required  - Multiple locations	JPMorgan Chase	0	out|not-cyber
+Associate Banker, 30 Hours, Chicago Northshore Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
+Associate Banker, 30 Hours, Chicago Northwest City Area, Bilingual Spanish Required - Multiple locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Chicago Will County Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Cincinnati North Area - Multiple Locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Clearwater/Palm Harbor, FL - Multiple Locations	JPMorgan Chase	0	out|not-cyber
@@ -1770,8 +1771,8 @@ Associate Banker, 30 Hours, Columbus Central East Area - Multiple Locations	JPMo
 Associate Banker, 30 Hours, Columbus Central West Area - Multiple Locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Columbus West Area - Multiple Locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Colville, WA - Colville Branch	JPMorgan Chase	0	out|not-cyber
-Associate Banker, 30 Hours, Connecticut East  Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
-Associate Banker, 30 Hours, Connecticut South  Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
+Associate Banker, 30 Hours, Connecticut East Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
+Associate Banker, 30 Hours, Connecticut South Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Contra Costa South Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Corona Chino Valley Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Covington, LA - Flower Estates Branch	JPMorgan Chase	0	out|not-cyber
@@ -1786,7 +1787,7 @@ Associate Banker, 30 Hours, Detroit Metro Southwest Area - Multiple Locations	JP
 Associate Banker, 30 Hours, Detroit Metro West Area - Multiple Locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Diablo Hills Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Downtown Boston, MA Area - Multiple Locations	JPMorgan Chase	0	out|not-cyber
-Associate Banker, 30 Hours, Downtown West  Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
+Associate Banker, 30 Hours, Downtown West Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Duluth/Dunwoody, GA Area - Multiple Locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, East Bay Valley East Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, East Bay Valley West Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
@@ -1828,28 +1829,28 @@ Associate Banker, 30 Hours, Lees Summit, MO - Lees Summit Hwy 291 Branch	JPMorga
 Associate Banker, 30 Hours, Lexington Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Little Rock, AR - Chenal and Markham Branch	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Livonia, MI Area - Multiple Locations	JPMorgan Chase	0	out|not-cyber
-Associate Banker, 30 Hours, Long Island East  Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
-Associate Banker, 30 Hours, Long Island North  Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
-Associate Banker, 30 Hours, Long Island North Central  Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
-Associate Banker, 30 Hours, Long Island Northeast  Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
-Associate Banker, 30 Hours, Long Island South  Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
+Associate Banker, 30 Hours, Long Island East Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
+Associate Banker, 30 Hours, Long Island North Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
+Associate Banker, 30 Hours, Long Island North Central Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
+Associate Banker, 30 Hours, Long Island Northeast Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
+Associate Banker, 30 Hours, Long Island South Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Longview, TX - Gilmer Rd Branch	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Longview, TX - Judson Branch	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Louisville Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Manhattan Beach Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
-Associate Banker, 30 Hours, Manhattan Financial District  Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
+Associate Banker, 30 Hours, Manhattan Financial District Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, McAllen/Edinburg, TX Area - Multiple Locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Melbourne, FL Area - Multiple Locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Meridian/Boise, ID Area - Multiple Locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Metairie, LA Area - Multiple Locations	JPMorgan Chase	0	out|not-cyber
-Associate Banker, 30 Hours, Middlesex Somerset  Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
+Associate Banker, 30 Hours, Middlesex Somerset Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Midland, TX - Midland Wall St Branch	JPMorgan Chase	0	out|not-cyber
-Associate Banker, 30 Hours, Midtown East  Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
-Associate Banker, 30 Hours, Midtown West  Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
-Associate Banker, 30 Hours, Milwaukee Southwest Milwaukee County  Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
+Associate Banker, 30 Hours, Midtown East Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
+Associate Banker, 30 Hours, Midtown West Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
+Associate Banker, 30 Hours, Milwaukee Southwest Milwaukee County Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Milwaukee Southwest Waukesha County Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
-Associate Banker, 30 Hours, Monmouth County  Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
-Associate Banker, 30 Hours, Monmouth Ocean Market  Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
+Associate Banker, 30 Hours, Monmouth County Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
+Associate Banker, 30 Hours, Monmouth Ocean Market Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Monroe, LA Area - Multiple Locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Monterey Bay Salinas Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Monterey Bay Santa Cruz Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
@@ -1877,10 +1878,10 @@ Associate Banker, 30 Hours, Ogden, UT - Ogden Branch	JPMorgan Chase	0	out|not-cy
 Associate Banker, 30 Hours, Omaha, NE - Lakeside Omaha Branch	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Opelousas, LA, United St - North Court Branch	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Palm Springs Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
-Associate Banker, 30 Hours, Paramus  Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
+Associate Banker, 30 Hours, Paramus Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Parker/Castle Rock, CO Area - Multiple Locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Pasadena, TX - Pasadena East Southmore Branch	JPMorgan Chase	0	out|not-cyber
-Associate Banker, 30 Hours, Passaic Essex Market  Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
+Associate Banker, 30 Hours, Passaic Essex Market Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Peninsula North Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Peninsula South Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Phoenix, AZ - Ahwatukee Branch	JPMorgan Chase	0	out|not-cyber
@@ -1892,9 +1893,9 @@ Associate Banker, 30 Hours, Port St Lucie/Stuart, FL Area - Multiple Locations	J
 Associate Banker, 30 Hours, Providence, UT - Providence Town Center Branch	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Reno Tahoe - Reno, Sparks Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Richmond Heights, MO - Richmond Heights Branch	JPMorgan Chase	0	out|not-cyber
-Associate Banker, 30 Hours, Rochester  Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
+Associate Banker, 30 Hours, Rochester Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Rockford Madison Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
-Associate Banker, 30 Hours, Rockland  Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
+Associate Banker, 30 Hours, Rockland Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Round Rock/Georgetown, TX Area - Multiple Locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Saint Cloud, MN - Downtown St Cloud Branch	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Saint Petersburg/Largo, FL Area - Multiple Locations	JPMorgan Chase	0	out|not-cyber
@@ -1936,27 +1937,27 @@ Associate Banker, 30 Hours, Southwest Valley, AZ Area - Multiple Locations	JPMor
 Associate Banker, 30 Hours, Spokane, WA Area - Multiple Locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Springfield, TN - Shops at Mooreland Branch	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Sugar Land/Missouri City, TX Area - Multiple Locations	JPMorgan Chase	0	out|not-cyber
-Associate Banker, 30 Hours, Syracuse  Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
+Associate Banker, 30 Hours, Syracuse Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Tallahassee, FL - Tallahassee Thomasville North Branch	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Tampa, FL - Hillsborough and Sheldon Branch	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Tarpon Springs/Port Richey, FL Area - Multiple Locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, The Woodlands, TX Area - Multiple Locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Thornton, CO Area - Multiple Locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Tyler/Lindale, TX Area - Multiple Locations	JPMorgan Chase	0	out|not-cyber
-Associate Banker, 30 Hours, Union Essex  Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
+Associate Banker, 30 Hours, Union Essex Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Venice, FL Area - Multiple Locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Ventura Valley East Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Ventura, CA Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Villa Rica, GA - Mirror Lake and Shoreline Branch	JPMorgan Chase	0	out|not-cyber
-Associate Banker, 30 Hours, Waterfront  Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
+Associate Banker, 30 Hours, Waterfront Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Webster Groves, MO - Webster Groves Branch	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, West Hollywood Hills Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, West Miami/Doral, FL Area - Multiple Locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, West Nashville, TN Area - Multiple Locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, West Palm Beach/Palm Beach Gardens, FL Area - Multiple Locations	JPMorgan Chase	0	out|not-cyber
-Associate Banker, 30 Hours, Westchester East  Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
-Associate Banker, 30 Hours, Westchester N Putnam  Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
-Associate Banker, 30 Hours, Westchester Southeast  Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
+Associate Banker, 30 Hours, Westchester East Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
+Associate Banker, 30 Hours, Westchester N Putnam Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
+Associate Banker, 30 Hours, Westchester Southeast Area - Multiple locations	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Weston, FL - Weston Town Center Branch (Bilingual English and Spanish Required)	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Wickenburg, AZ - Wickenburg Branch	JPMorgan Chase	0	out|not-cyber
 Associate Banker, 30 Hours, Zephyrhills, FL - Zephyr Commons Branch	JPMorgan Chase	0	out|not-cyber
@@ -2006,9 +2007,9 @@ Associate Consultant Intern, Winter 2027 – Morocco	Mastercard	0	out|not-cyber
 Associate Consultant, Launch Graduate Program 2027 – Hungary	Mastercard	0	out|not-cyber
 Associate Consultant, Launch Graduate Program – 2027, Istanbul, Türkiye	Mastercard	0	out|not-cyber
 Associate Consultant, Launch Graduate Program – 2027, Johannesburg, South Africa	Mastercard	0	out|not-cyber
-Associate Consultant, Launch Program 2027 –  Milan/Rome, Italy	Mastercard	0	out|not-cyber
-Associate Consultant, Launch Program 2027 –  Warsaw, Poland	Mastercard	0	out|not-cyber
 Associate Consultant, Launch Program 2027 – Egypt	Mastercard	0	out|not-cyber
+Associate Consultant, Launch Program 2027 – Milan/Rome, Italy	Mastercard	0	out|not-cyber
+Associate Consultant, Launch Program 2027 – Warsaw, Poland	Mastercard	0	out|not-cyber
 Associate Consultant, Workday Data Conversion	Workday	0	out|not-cyber
 Associate Corporate Counsel - Legal Product, IP, and Marketing	Elastic	0	out|rejected-title
 Associate Corporate Counsel, AWS Legal	Amazon	0	out|rejected-title
@@ -2162,18 +2163,18 @@ Associate General Counsel - Digital Assets & Money Movement	U.S. Bank	0	out|reje
 Associate General Counsel, Commercial – Infrastructure	OpenAI	0	out|rejected-title
 Associate General Counsel, Privacy	Coinbase	0	out|rejected-title
 Associate General Counsel, Privacy Compliance	Cloudflare	0	out|rejected-title
-Associate General Counsel-  Multifamily Law- Targeted Affordable Housing	Freddie Mac	0	out|rejected-title
 Associate General Counsel- Multifamily Law	Freddie Mac	0	out|rejected-title
+Associate General Counsel- Multifamily Law- Targeted Affordable Housing	Freddie Mac	0	out|rejected-title
 Associate GTM Recruiter	Ramp	0	out|rejected-title
 Associate HR Business Partner	Fortinet	1	out|not-cyber
 Associate HRBP	New Relic	0	out|not-cyber
 Associate I - Global Fund Services Operations Service Delivery	JPMorgan Chase	0	out|not-cyber
 Associate I - Global Fund Services Valuation Services	JPMorgan Chase	0	out|not-cyber
-Associate I,  Asset Securitization Group	Truist	0	out|not-cyber
+Associate I, Asset Securitization Group	Truist	0	out|not-cyber
 Associate I, Business Operations	Databricks	0	out|not-cyber
-Associate II   Reg Strategy, GRS Oncology	Pfizer	0	out|not-cyber
 Associate II - Advisory (Digital Infrastructure)	Citizens	0	out|not-cyber
 Associate II - Fraud Analytics Consultant (Senior Consultant)	Guidehouse	0	out|rejected-title
+Associate II Reg Strategy, GRS Oncology	Pfizer	0	out|not-cyber
 Associate Industrial Engineering Technician (Methods Process Analyst)	Boeing	0	out|not-cyber
 Associate Industrial Security Coordinator	Leidos	0	out|rejected-title
 Associate Infrastructure Engineer - Network Automation (On-site)	Truist	0	out|not-cyber
@@ -2185,7 +2186,6 @@ Associate Laboratory Director – Materials, Chemical and Computational Sciences
 Associate Legal Counsel	MongoDB	0	out|rejected-title
 Associate Legal Counsel, Japan	Airbnb	0	out|rejected-title
 Associate Loads and Dynamics Engineer	Boeing	0	out|not-cyber
-Associate Manager  – Software Engineering /RR-0311128	DXC Technology	0	out|rejected-title
 Associate Manager - Automation	Pfizer	0	out|rejected-title
 Associate Manager ERP Package Applications	DXC Technology	0	out|rejected-title
 Associate Manager Health Services - Work at Home in Miami-Dade County, FL	CVS Health	0	out|rejected-title
@@ -2197,6 +2197,7 @@ Associate Manager Program Management	DXC Technology	0	out|rejected-title
 Associate Manager Software Engineering	DXC Technology	0	out|rejected-title
 Associate Manager Software Engineering (AWS Infa)	DXC Technology	0	out|rejected-title
 Associate Manager Software Engineering - Bath, ME	DXC Technology	0	out|rejected-title
+Associate Manager – Software Engineering /RR-0311128	DXC Technology	0	out|rejected-title
 Associate Manager, Clinical Health Services	CVS Health	0	out|rejected-title
 Associate Manager, Clinical Health Services (Remote, Illinois License - RN, LCSW or LCPC)	CVS Health	0	out|rejected-title
 Associate Manager, Internal Audit	Coinbase	0	out|rejected-title
@@ -2273,13 +2274,12 @@ Associate Recruiting Coordinator	SentinelOne	1	out|rejected-title
 Associate Regulatory Affairs Specialist	Medtronic	0	out|not-cyber
 Associate Regulatory Affairs Systems Specialist	Medtronic	0	out|not-cyber
 Associate Relatiobship Manager	Fifth Third	0	out|rejected-title
-Associate Relationship  Banker - Austin Central Market - Austin ,TX	JPMorgan Chase	0	out|not-cyber
-Associate Relationship  Banker - Steiner Ranch - Austin ,TX	JPMorgan Chase	0	out|not-cyber
-Associate Relationship Banker -  Blackstock and Hwy 29 Park Branch - Spartanburg, SC	JPMorgan Chase	0	out|not-cyber
 Associate Relationship Banker - (New Build) - Ocean City West, NJ	JPMorgan Chase	0	out|not-cyber
 Associate Relationship Banker - Amherst and Bridgeman - Amherst, NY	JPMorgan Chase	0	out|not-cyber
+Associate Relationship Banker - Austin Central Market - Austin ,TX	JPMorgan Chase	0	out|not-cyber
 Associate Relationship Banker - Austin Central Market - Austin, TX	JPMorgan Chase	0	out|not-cyber
 Associate Relationship Banker - Avon West Main - Avon, CT	JPMorgan Chase	0	out|not-cyber
+Associate Relationship Banker - Blackstock and Hwy 29 Park Branch - Spartanburg, SC	JPMorgan Chase	0	out|not-cyber
 Associate Relationship Banker - Cherryland - Traverse City, MI	JPMorgan Chase	0	out|not-cyber
 Associate Relationship Banker - Chesterfield Branch - Chesterfield, MO	JPMorgan Chase	0	out|not-cyber
 Associate Relationship Banker - Colorado Springs, CO	JPMorgan Chase	0	out|not-cyber
@@ -2296,6 +2296,7 @@ Associate Relationship Banker - Rochester, NY	JPMorgan Chase	0	out|not-cyber
 Associate Relationship Banker - Sheridan and Alberta - Buffalo, NY	JPMorgan Chase	0	out|not-cyber
 Associate Relationship Banker - South Ogden - South Ogden, UT	JPMorgan Chase	0	out|not-cyber
 Associate Relationship Banker - Staten Island Market - Staten Island, NY	JPMorgan Chase	0	out|not-cyber
+Associate Relationship Banker - Steiner Ranch - Austin ,TX	JPMorgan Chase	0	out|not-cyber
 Associate Relationship Banker - West Hollywood Hills Market - Beverly Hills, CA	JPMorgan Chase	0	out|not-cyber
 Associate Relationship Banker - Youngstown Market - Northfield, OH	JPMorgan Chase	0	out|not-cyber
 Associate Relationship Banker, Andorra Branch - Philadelphia, PA	JPMorgan Chase	0	out|not-cyber
@@ -2762,12 +2763,12 @@ Business Operations Associate, Factory Systems	Anduril	0	out|not-cyber
 Business Operations Associate, Production	Anduril	0	out|not-cyber
 Business Operations Senior Associate, Institutional	Coinbase	0	out|rejected-title
 Business Performance Improvement – FPM - Financial Planning and Analytics Associate Director	Protiviti	0	out|rejected-title
-Business Process  Risk Senior Associate - Insurance	Grant Thornton	0	out|rejected-title
 Business Process Engineer 2	CACI	0	out|rejected-title
 Business Process Management Senior Associate	JPMorgan Chase	0	out|rejected-title
 Business Process Red Team Operator	JPMorgan Chase	0	out|no-level
 Business Process Risk Experienced Associate	Grant Thornton	0	out|not-cyber
 Business Process Risk Senior Associate	Grant Thornton	0	out|rejected-title
+Business Process Risk Senior Associate - Insurance	Grant Thornton	0	out|rejected-title
 Business Process Senior Associate	Grant Thornton	0	out|rejected-title
 Business Procurement Analyst Associate	SAIC	0	out|rejected-title
 Business Program Management INTERN	Microsoft	0	out|not-cyber
@@ -2829,7 +2830,6 @@ Campus - Internship Programme - Undergraduate - Staff Auditor - 2027 (UK - Londo
 Campus - Internship Programme - Undergraduate - Strategic Sourcing & Business Enablement Analyst - 2027 (UK - Brighton)	American Express	0	out|not-cyber
 Campus - Risk Analyst Program Intern	Fannie Mae	0	out|not-cyber
 Campus - Technology Program Intern	Fannie Mae	0	out|not-cyber
-Campus Graduate  Summer Internship Program - 2027 Human Resources Leadership Development Program, Colleague Experience Group - New York, NY	American Express	0	out|rejected-title
 Campus Graduate Full-Time Senior Associate - 2027 Digital Product Management, Enterprise Technology Services- New York, NY	American Express	0	out|rejected-title
 Campus Graduate I Summer Internship Program - 2027 Data Science, Finance - New York, NY	American Express	0	out|rejected-title
 Campus Graduate I Summer Internship Program - 2027 Global Decision Science, Credit & Fraud Risk - New York, NY	American Express	0	out|not-cyber
@@ -2896,6 +2896,7 @@ Campus Graduate Masters Summer Internship Program - 2027 Transformation Strategy
 Campus Graduate Masters Summer Internship Program - 2027, American Express National Bank HQ- New York, NY	American Express	0	out|not-cyber
 Campus Graduate Masters Summer Internship Program - 2027, Global Risk & Compliance - New York, NY	American Express	0	out|not-cyber
 Campus Graduate MBA Summer Internship Program - 2027 Finance, Finance - New York, NY	American Express	0	out|rejected-title
+Campus Graduate Summer Internship Program - 2027 Human Resources Leadership Development Program, Colleague Experience Group - New York, NY	American Express	0	out|rejected-title
 Campus Recruiter, Associate	JPMorgan Chase	0	out|rejected-title
 Campus Undergraduate Full-Time Analyst - 2027 Data & Analytics , Enterprise Technology Services- Charlotte, NC	American Express	0	out|not-cyber
 Campus Undergraduate Full-Time Analyst - 2027 Data & Analytics, Enterprise Technology Services- New York, NY	American Express	0	out|not-cyber
@@ -2947,7 +2948,7 @@ Card Portfolio Risk Strategy Associate	JPMorgan Chase	0	out|not-cyber
 Cash & Collateral Management Analyst 2	Citi	0	out|not-cyber
 Cash and Controls Associate I	JPMorgan Chase	0	out|not-cyber
 Cash and Trade Proc Analyst 1	Citi	0	out|not-cyber
-Cash and Trade Processing  Intermediate Associate Analyst	Citi	0	out|not-cyber
+Cash and Trade Processing Intermediate Associate Analyst	Citi	0	out|not-cyber
 Casualty/Homeowner Liability, Bodily Injury Litigation/Complex -SR. Consultant I Adjuster – Remote	Allstate	0	out|rejected-title
 CCB Risk Modeling Senior Associate - Fraud Prevention	JPMorgan Chase	0	out|rejected-title
 CCB Risk Program Associate	JPMorgan Chase	0	out|not-cyber
@@ -3084,7 +3085,6 @@ Cloud DevSecOps Systems Engineer	SAIC	0	out|no-level
 Cloud Engineer (AWS / DevOps)- AU Citizen with Security Clearance	Accenture	0	out|no-level
 Cloud Engineer (AWS)	Kyndryl	0	out|no-level
 Cloud Engineer 3 - AI Agents	Adobe	0	out|rejected-title
-Cloud Engineer 4  (Cloud Security for Multi Cloud) (Cloud Operations Resilience Engineering)	Capital One	0	out|rejected-title
 Cloud Engineer 4 (Cloud Operations Resilience Engineering)	Capital One	0	out|rejected-title
 Cloud Engineer Graduate	HPE	0	newgrad|Cloud Engineering
 Cloud Engineer II (Full Time) - United States	Cisco	0	earlycareer|Cloud Engineering
@@ -3158,11 +3158,11 @@ Collections, Fraud & Accounts Entry-Level Specialist	JPMorgan Chase	0	out|not-cy
 College Intern	HPE	0	out|not-cyber
 College Intern - New Product Introduction Engineering (NPI IT Control Systems)	HP Inc	0	out|not-cyber
 College Student - Systems Engineering Intern	Lockheed Martin	0	out|not-cyber
-College to Corporate IT Internship - Risk & Security - Analyst  (NC)	Vanguard	0	intern|GRC & Risk
-College to Corporate IT Internship - Risk & Security - Analyst  (PA)	Vanguard	0	intern|GRC & Risk
+College to Corporate IT Internship - Risk & Security - Analyst (NC)	Vanguard	0	intern|GRC & Risk
+College to Corporate IT Internship - Risk & Security - Analyst (PA)	Vanguard	0	intern|GRC & Risk
 College to Corporate IT Internship - Risk & Security - Engineer	Vanguard	0	intern|GRC & Risk
-College to Corporate IT Internship - Risk & Security - Engineer  (NC)	Vanguard	0	intern|GRC & Risk
-College to Corporate IT Internship - Risk & Security - Engineer  (PA)	Vanguard	0	intern|GRC & Risk
+College to Corporate IT Internship - Risk & Security - Engineer (NC)	Vanguard	0	intern|GRC & Risk
+College to Corporate IT Internship - Risk & Security - Engineer (PA)	Vanguard	0	intern|GRC & Risk
 College to Corporate IT Internship-Risk & Security Engineer (PA)	Vanguard	0	intern|GRC & Risk
 College to Corporate IT Internship-Risk & Security-Engineer (NC)	Vanguard	0	intern|GRC & Risk
 Combat Systems Cyber Engineer - Submarine Warfare	Johns Hopkins APL	0	out|no-level
@@ -3178,11 +3178,11 @@ Commercial and Investment Bank Credit Risk Control Management – Associate	JPMo
 Commercial Banking Relationship Manager Associate	U.S. Bank	0	out|rejected-title
 Commercial Card Customer Success Associate	JPMorgan Chase	0	out|rejected-title
 Commercial Card Senior Customer Success Associate	JPMorgan Chase	0	out|rejected-title
-Commercial Engines Safety Management System (SMS) -  Associate Director (Onsite)	RTX	0	out|rejected-title
+Commercial Engines Safety Management System (SMS) - Associate Director (Onsite)	RTX	0	out|rejected-title
 Commercial Graduate Rotation Program - Commercial Path - Arabic Speaking Market	Salesforce	0	out|not-cyber
 Commercial Graduate Rotation Program - Solution Engineer Path - Arabic Speaking Markets	Salesforce	0	newgrad|Solutions Architecture
 Commercial Graduate Rotation Program - Solution Engineering Path - Hebrew Speaking Market	Salesforce	0	out|not-cyber
-Commercial Graduate Solution Engineering Path  - Spanish Market	Salesforce	0	out|not-cyber
+Commercial Graduate Solution Engineering Path - Spanish Market	Salesforce	0	out|not-cyber
 Commercial Intern- 12 Months Placement	Boeing	0	out|not-cyber
 Commercial Lending Management Associate, Healthcare	Citi	0	out|not-cyber
 Commercial Real Estate Early Career Program	Wells Fargo	0	out|not-cyber
@@ -3224,7 +3224,7 @@ Compliance, Asset Management Compliance, Associate, London	Goldman Sachs	0	out|n
 Compliance, Compliance Testing Group, Associate, Singapore	Goldman Sachs	0	out|not-cyber
 Compliance, Custody & Client Assets, Associate, Frankfurt / Luxembourg	Goldman Sachs	0	out|not-cyber
 Compliance, FCC - Data, Systems and Innovation (DS&I), Associate, Richardson TX	Goldman Sachs	0	out|not-cyber
-Compliance, Financial Crime Compliance, BIG,  Associate / Vice President, Dallas	Goldman Sachs	0	out|rejected-title
+Compliance, Financial Crime Compliance, BIG, Associate / Vice President, Dallas	Goldman Sachs	0	out|rejected-title
 Compliance, GBM Public Compliance -Equities, Custody Solutions, Associate	Goldman Sachs	0	out|not-cyber
 Compliance, Global Banking & Markets-Public Compliance – Digital Assets, Senior Analyst/Associate, London	Goldman Sachs	0	out|rejected-title
 Compliance, International Investigations Associate	Coinbase	0	out|not-cyber
@@ -3277,7 +3277,7 @@ Consult Cloud Architect	Kyndryl	0	out|rejected-title
 Consultant - Energy Providers - Campus 2027	Guidehouse	0	out|not-cyber
 Consultant - Federal Civilian Agencies – Campus 2027	Guidehouse	0	out|not-cyber
 Consultant II	F5	0	out|not-cyber
-Consultant – State and Local Government  - Campus 2027	Guidehouse	0	out|not-cyber
+Consultant – State and Local Government - Campus 2027	Guidehouse	0	out|not-cyber
 Consultative Offerings - Analyst - Cyber	Deloitte	0	out|no-level
 Consulting Analyst - Energy Providers - Campus 2027	Guidehouse	0	out|not-cyber
 Consulting Analyst - Federal Civilian Agencies – Campus 2027	Guidehouse	0	out|not-cyber
@@ -3292,7 +3292,7 @@ Consulting Systems Engineer - APAC	Fortinet	1	out|no-level
 Consulting Systems Engineer -Application security (AppSec)	Fortinet	1	out|no-level
 Consumer & Community Bank - Strategy, Associate	JPMorgan Chase	0	out|not-cyber
 Consumer & Community Bank Digital Assets and Blockchain Solutions, Strategy & Partnerships Associate	JPMorgan Chase	0	out|not-cyber
-Consumer & Community Banking - Planning and Analysis -  Senior Associate	JPMorgan Chase	0	out|rejected-title
+Consumer & Community Banking - Planning and Analysis - Senior Associate	JPMorgan Chase	0	out|rejected-title
 Consumer & Community Banking - Treasury Deposit Analyst Senior Associate	JPMorgan Chase	0	out|rejected-title
 Consumer and Community Bank Treasury Analytics - Associate	JPMorgan Chase	0	out|rejected-title
 Consumer Bank Channel Marketing - Product, Senior Associate	JPMorgan Chase	0	out|rejected-title
@@ -3327,11 +3327,11 @@ Contracts Intern (Summer)	Lockheed Martin	0	out|not-cyber
 Contracts Summer Intern	Lockheed Martin	0	out|not-cyber
 Control Diagnostic System Co-Op (January 2027) (Hybrid)	RTX	0	out|not-cyber
 Control Group Manager - Compliance, Associate / Director (AVP equivalent)	Morgan Stanley	0	out|rejected-title
-Control Manager -  Trust & Security Product - Senior Associate	JPMorgan Chase	0	out|rejected-title
 Control Manager - AML/KYC - Senior Associate	JPMorgan Chase	0	out|rejected-title
 Control Manager - Associate	JPMorgan Chase	0	out|rejected-title
 Control Manager - Senior Associate	JPMorgan Chase	0	out|rejected-title
 Control Manager - Sr Associate	JPMorgan Chase	0	out|rejected-title
+Control Manager - Trust & Security Product - Senior Associate	JPMorgan Chase	0	out|rejected-title
 Control Manager – Associate, Treasury and Chief Investment Office	JPMorgan Chase	0	out|rejected-title
 Controllers - CA Freshers May 2026 - Analyst - Bengaluru/Hyderabad	Goldman Sachs	0	out|not-cyber
 Controllers Operations-Dallas-Associate-Regulatory Reporting - Portfolio Level	Goldman Sachs	0	out|not-cyber
@@ -3592,7 +3592,6 @@ Cyber Systems Engineer – Level 2 or Level 3 (AHT)	Northrop Grumman	0	out|rejec
 Cyber Systems Security Engineering Asc - E1	Lockheed Martin	0	out|no-level
 Cyber Systems Security Engineering Associate - Early Career	Lockheed Martin	0	earlycareer|Cloud & Infra Security
 Cyber Targeting Analyst	Accenture Federal Services	0	out|no-level
-Cyber Technical Delivery Manager  , Assistant Vice President	State Street	0	out|rejected-title
 Cyber Technical Specialist, Junior	Booz Allen Hamilton	0	earlycareer|Security Engineering
 Cyber Threat Hunt Analyst	Accenture Federal Services	0	out|no-level
 Cyber Threat Intelligence (Fusion) Analyst - TS/SCI with Polygraph	GDIT	0	out|no-level
@@ -3611,7 +3610,7 @@ Cybersecurity & IT Specialist	Booz Allen Hamilton	0	out|no-level
 Cybersecurity Advisor - Secure Networking | Remote, TX, MO, MN	Optiv	1	out|no-level
 Cybersecurity AI Forward Deployed Engineer - FDE - Manager	Accenture	0	out|rejected-title
 Cybersecurity Analyst	Accenture	0	out|no-level
-Cybersecurity Analyst   (Level 2 or 3) TS SCI CI Poly	Northrop Grumman	0	out|no-level
+Cybersecurity Analyst (Level 2 or 3) TS SCI CI Poly	Northrop Grumman	0	out|no-level
 Cybersecurity Analyst - Tier 2	DXC Technology	0	earlycareer|Security Engineering
 Cybersecurity Analyst I - Artificial Intelligence	Sierra Nevada Corporation	0	earlycareer|Security Engineering
 Cybersecurity Analyst II | Fraud (Remote)	The Home Depot	0	earlycareer|Security Engineering
@@ -3718,11 +3717,11 @@ Data Engineer I (AWS, Python, GenAI)	Travelers	0	out|not-cyber
 Data Engineer I (AWS, Python, SQL)	Travelers	0	out|not-cyber
 Data Engineer I (Databricks, AWS, Python)	Travelers	0	out|not-cyber
 Data Engineer II	Mastercard	0	out|not-cyber
-Data Engineer II  - CPB Data Curation	TD Bank	0	out|not-cyber
 Data Engineer II (Databricks, AWS)	Travelers	0	out|not-cyber
 Data Engineer II (dbt, AWS)	Travelers	0	out|not-cyber
 Data Engineer II (Production Support)	TD Bank	0	out|not-cyber
 Data Engineer II (Python, SQL, Data Bricks, AWS)	Travelers	0	out|not-cyber
+Data Engineer II - CPB Data Curation	TD Bank	0	out|not-cyber
 Data Engineer II - Databricks Platform	Travelers	0	out|not-cyber
 Data Engineer II - Snowflake, dbt, AWS	Travelers	0	out|not-cyber
 Data Engineer II - SRE	JPMorgan Chase	0	out|not-cyber
@@ -3786,7 +3785,7 @@ Data Scientist Senior Associate	JPMorgan Chase	0	out|rejected-title
 Data Scientist Senior Associate — Business Observability & AI Platform	JPMorgan Chase	0	out|rejected-title
 Data Scientist — Global Services Insights & Analytics, Commercial Banking - Sr. Associate	JPMorgan Chase	0	out|rejected-title
 Data Scientist, Applied AI/ML	CrowdStrike	1	out|no-level
-Data Scientist, Core Data -  PhD (2026)	Figma	0	out|not-cyber
+Data Scientist, Core Data - PhD (2026)	Figma	0	out|not-cyber
 Data Scientist, Cybersecurity	OpenAI	0	out|no-level
 Data Scientist, Safeguards	Anthropic	0	out|no-level
 Data Security (SecuPi) Administrator	KeyBank	0	out|no-level
@@ -3884,8 +3883,8 @@ Diagnostic Network Software Engineer (RDSS Intern)	NVIDIA	0	out|not-cyber
 Digital Assurance & Transparency - IT Audit Senior Associate	PwC	0	out|rejected-title
 Digital Business Technology Infrastructure (DBT) Intern	AeroVironment	0	out|not-cyber
 Digital Client Experience and Platforms Business Analyst – Associate	Morgan Stanley	0	out|not-cyber
-Digital Engineering – Requirements Engineering Co-Op (Spring 2027)	Draper	0	out|not-cyber
-Digital Engineering – Requirements Engineering Intern (Summer 2027)	Draper	0	out|not-cyber
+Digital Engineering – Requirements Engineering Co-Op (Spring 2027)	Draper	0	out|not-cyber
+Digital Engineering – Requirements Engineering Intern (Summer 2027)	Draper	0	out|not-cyber
 Digital Environment / Integrations Engineer 2/3	Northrop Grumman	0	out|not-cyber
 Digital Forensic Examiner, Mid	Booz Allen Hamilton	0	out|no-level
 Digital Forensics Summer Intern - 2027	Duke Energy	0	intern|Forensics & IR
@@ -3947,8 +3946,8 @@ Diversified Industries Payments Sales Manager - Senior Associate	JPMorgan Chase	
 DLP Cloud Lead	Bank of America	0	out|rejected-title
 DOD SkillBridge - Electronics Engineer 2/3 - Comms/Networks	Northrop Grumman	0	out|rejected-title
 DoD SkillBridge Composite Bonder Technician 2/3	Northrop Grumman	0	out|rejected-title
-Domain Consultant  1	Palo Alto Networks	1	earlycareer|Engineering @ Security Co
 Domain Consultant - Enterprise Browser	Palo Alto Networks	1	out|no-level
+Domain Consultant 1	Palo Alto Networks	1	earlycareer|Engineering @ Security Co
 Domain Consultant 1 / Solution Engineer	Palo Alto Networks	1	earlycareer|Engineering @ Security Co
 Domain Consultant 2	Palo Alto Networks	1	earlycareer|Engineering @ Security Co
 Domain Consultant 2 - NetSec	Palo Alto Networks	1	earlycareer|Engineering @ Security Co
@@ -4042,10 +4041,10 @@ Electrical Subsystem Wiring Design Engineer - (Level 2/3)	Northrop Grumman	0	out
 Electrical Test Engineer I	RTX	0	out|not-cyber
 Electrician - Level 1	Honeywell	0	out|not-cyber
 Electrician Apprentice	Parsons	0	out|not-cyber
-Electronic  Systems Finance Intern III, Summer 2027 (Hybrid)	BAE Systems	0	out|rejected-title
 Electronic & Electrical System Design Engineer (Associate or Mid-Level)	Boeing	0	out|not-cyber
 Electronic Systems Finance Intern III - Summer 2027 (Hybrid)	BAE Systems	0	out|rejected-title
 Electronic Systems Finance Intern III, Summer 2027	BAE Systems	0	out|rejected-title
+Electronic Systems Finance Intern III, Summer 2027 (Hybrid)	BAE Systems	0	out|rejected-title
 Electronic Technician 2	Northrop Grumman	0	out|not-cyber
 Electronic Technician 2 (2nd Shift)	Northrop Grumman	0	out|not-cyber
 Electronics Engineer - Intern	Lockheed Martin	0	out|not-cyber
@@ -4078,7 +4077,7 @@ Embedded Software Engineer I (Onsite)	RTX	0	out|not-cyber
 Embedded Software Engineer II (Onsite)	RTX	0	out|not-cyber
 Embedded Software Engineer Internship	HPE	0	out|not-cyber
 Embedded Software Engineer – Level 2	Northrop Grumman	0	out|not-cyber
-Embedded Software Engineer – Level 2  (Secret)	Northrop Grumman	0	out|not-cyber
+Embedded Software Engineer – Level 2 (Secret)	Northrop Grumman	0	out|not-cyber
 Embedded Software Engineering Co-Op II (Summer/Fall 2027) , Navigation and Sensor Systems	BAE Systems	0	out|not-cyber
 Embedded Software Engineering Co-Op III (Summer/Fall 2027) , Navigation and Sensor Systems	BAE Systems	0	out|not-cyber
 Embedded Software Engineering Intern 2027	Verkada	0	out|not-cyber
@@ -4155,6 +4154,7 @@ Engineer II, Structural Analysis (R5166)	Shield AI	0	out|not-cyber
 Engineer II, Systems Test (R5038)	Shield AI	0	out|not-cyber
 Engineer II, Thermal Design and Analysis (R4934)	Shield AI	0	out|not-cyber
 Engineer II, Threat Detection - Windows (Hybrid)	CrowdStrike	1	earlycareer|SOC & Detection
+Engineer III - Linux Sensor (Hybrid)	CrowdStrike	1	out|rejected-title
 Engineer III - SaaS Security Research	CrowdStrike	1	out|rejected-title
 Engineer III – Cybersecurity R&D	HPE	0	out|rejected-title
 Engineer, I, II or III	Southern Company	0	out|not-cyber
@@ -4192,7 +4192,7 @@ Engineering Manager, Product Engineering	TRM Labs	1	out|rejected-title
 Engineering Manager, Safeguards Review Tooling	Anthropic	0	out|rejected-title
 Engineering Product Management Specialist I (Intern) – United States	Cisco	0	out|not-cyber
 Engineering Product Management Specialist II (Intern) – United States	Cisco	0	out|not-cyber
-Engineering Support to Operations  - Project Engineer Co-Op (January 2027) (Hybrid)	RTX	0	out|not-cyber
+Engineering Support to Operations - Project Engineer Co-Op (January 2027) (Hybrid)	RTX	0	out|not-cyber
 Engineering Support to Operations - Project Engineering Co-Op (January 2027) (Hybrid)	RTX	0	out|not-cyber
 Engineering Team Lead	Transmit Security	1	out|rejected-title
 Engineering Technician (Entry level)	Johnson & Johnson	0	out|not-cyber
@@ -4200,7 +4200,7 @@ Engineering Technician - Level 2 or Level 3	Northrop Grumman	0	out|rejected-titl
 Engineering Technician 2	Parsons	0	out|not-cyber
 Engineering Technician I	GDIT	0	out|not-cyber
 Engineering Technician II	GDIT	0	out|not-cyber
-Engineering Technician  – Level 2 or Level 3	Northrop Grumman	0	out|rejected-title
+Engineering Technician – Level 2 or Level 3	Northrop Grumman	0	out|rejected-title
 Engineering Technologist II (Shipboard Radio Communication Systems)	BAE Systems	0	out|not-cyber
 Engineering Trainee	Fortinet	1	earlycareer|Engineering @ Security Co
 Engineering-L2-Bengaluru- Vice president-Software Engineering	Goldman Sachs	0	out|rejected-title
@@ -4221,7 +4221,7 @@ Enterprise Cybersecurity Education and Execution Intern	Booz Allen Hamilton	0	in
 Enterprise Development Representative (December 2026 Grads)	Verkada	0	out|not-cyber
 Enterprise Endpoint Security Architect	Salesforce	0	out|rejected-title
 Enterprise Operational Risk - Risk Management - Lead Associate	Fannie Mae	0	out|rejected-title
-Enterprise Operations & Technology  Summer Analyst (Internship), Philippines	Citi	0	out|not-cyber
+Enterprise Operations & Technology Summer Analyst (Internship), Philippines	Citi	0	out|not-cyber
 Enterprise Operations Engineer II	Mastercard	0	out|not-cyber
 Enterprise Operations Software Internship	HP Inc	0	out|not-cyber
 Enterprise Resilience Officer I	Truist	0	out|not-cyber
@@ -4234,7 +4234,7 @@ Enterprise Software Engineer II	Medtronic	0	out|not-cyber
 Enterprise Software Test Development Engineer (RDSS Intern)	NVIDIA	0	out|not-cyber
 Enterprise Technology Intern (Summer 2027)	Saronic	0	out|not-cyber
 Enterprise Technology Payments Sales Associate	JPMorgan Chase	0	out|rejected-title
-Entry Level Application Engineer  - 2027 Start Date	Vanguard	0	out|not-cyber
+Entry Level Application Engineer - 2027 Start Date	Vanguard	0	out|not-cyber
 Entry Level Application Engineer - 2027 Start Date - Malvern	Vanguard	0	out|not-cyber
 Entry Level Application Engineer - Dallas - 2027 Start Date	Vanguard	0	out|not-cyber
 Entry Level Background Investigator - Midwest	CACI	0	out|not-cyber
@@ -4283,11 +4283,11 @@ ESIS Claims Associate	Chubb	0	out|not-cyber
 ETF Basket Associate/Senior Associate, Fund/Client Accounting (Multiple Openings)	BNY	0	out|rejected-title
 ETF Basket Operations, Senior Associate	State Street	0	out|rejected-title
 Event Management Senior Associate	JPMorgan Chase	0	out|rejected-title
-Event Manager, EMEA Events and Sponsorships -  Senior Associate	JPMorgan Chase	0	out|rejected-title
+Event Manager, EMEA Events and Sponsorships - Senior Associate	JPMorgan Chase	0	out|rejected-title
 Event Manager, Senior Associate – SRI Client Engagement and Events	JPMorgan Chase	0	out|rejected-title
 Event Marketing Sr Associate	Unisys	0	out|rejected-title
 Event Planner Data Specialist - Associate	JPMorgan Chase	0	out|not-cyber
-Event Planner, LatAm Events -  - Associate	JPMorgan Chase	0	out|not-cyber
+Event Planner, LatAm Events - - Associate	JPMorgan Chase	0	out|not-cyber
 Events Management - Senior Associate	JPMorgan Chase	0	out|rejected-title
 Events Management Associate	JPMorgan Chase	0	out|not-cyber
 Exchange & Security Administrator, AVP	State Street	0	out|no-level
@@ -4295,7 +4295,7 @@ Executive & Internal Communications Senior Associate	JPMorgan Chase	0	out|reject
 Executive Ambassador Program Operations Associate	JPMorgan Chase	0	out|rejected-title
 Executive Assistant, Senior Associate	State Street	0	out|rejected-title
 Executive Office, Divisional Management, Associate, New York	Goldman Sachs	0	out|rejected-title
-Executive Office, Global Marketing  Corporate Reputation Marketing, Associate, New York	Goldman Sachs	0	out|rejected-title
+Executive Office, Global Marketing Corporate Reputation Marketing, Associate, New York	Goldman Sachs	0	out|rejected-title
 Executive Office, Government Affairs, Associate, San Francisco/Los Angeles/Salt Lake City	Goldman Sachs	0	out|rejected-title
 Executive Office, Government Affairs, Associate, Washington DC	Goldman Sachs	0	out|rejected-title
 Executive Office, Marketing Analytics and Effectiveness, Associate, New York	Goldman Sachs	0	out|rejected-title
@@ -4421,7 +4421,6 @@ Finance Manager: MBA Internship Opportunities	Microsoft	0	out|rejected-title
 Finance Reporting Analyst 2 (Officer / C10)	Citi	0	out|rejected-title
 Finance Reporting Analyst 2 - C10 - TAGUIG	Citi	0	out|rejected-title
 Finance Rotation Program - LIFT (Full Time) - United States	Cisco	0	out|rejected-title
-Finance Rptg  Analyst 2	Citi	0	out|rejected-title
 Finance Rptg Analyst 2	Citi	0	out|rejected-title
 Finance Rptg Analyst I	Citi	0	out|rejected-title
 Finance Rptg Analyst I - C09 - TAGUIG	Citi	0	out|rejected-title
@@ -4566,12 +4565,12 @@ Full Stack Software Engineer II - Java, React	JPMorgan Chase	0	out|not-cyber
 Full Stack Software Engineer Senior Consultant II	Allstate	0	out|rejected-title
 Full Stack Software Engineer, Associate – Preqin Engineering	BlackRock	0	out|not-cyber
 Full Stack Software Engineer, Charles River Development, Senior Associate	State Street	0	out|rejected-title
-Full Time (40 Hours)  Associate Banker, Michigan Rd and 106th Branch, Carmel, IN	JPMorgan Chase	0	out|not-cyber
 Full Time (40 Hours) Associate Banker, Ashwaubenon Branch, Green Bay, WI	JPMorgan Chase	0	out|not-cyber
 Full Time (40 Hours) Associate Banker, Cherry Hill Merriman Branch, Westland, MI	JPMorgan Chase	0	out|not-cyber
 Full Time (40 Hours) Associate Banker, Gloucester Branch, Gloucester, MA	JPMorgan Chase	0	out|not-cyber
 Full Time (40 Hours) Associate Banker, Hyannis Branch, Hyannis, MA	JPMorgan Chase	0	out|not-cyber
 Full Time (40 Hours) Associate Banker, Manassas Branch, Manassas, VA	JPMorgan Chase	0	out|not-cyber
+Full Time (40 Hours) Associate Banker, Michigan Rd and 106th Branch, Carmel, IN	JPMorgan Chase	0	out|not-cyber
 Full Time (40 Hours) Associate Banker, Tillotson Square Branch, Muncie, IN	JPMorgan Chase	0	out|not-cyber
 Full Time Associate Banker, Lakewood Madison Branch, Lakewood, NJ	JPMorgan Chase	0	out|not-cyber
 Full-Stack Cloud Developer	Guidehouse	0	out|no-level
@@ -4823,7 +4822,7 @@ Global Research - Private Company Research, Space & Defense Tech - Associate	JPM
 Global Sales Director - Cybersecurity	Honeywell	0	out|rejected-title
 Global Security - Business Analysis & Reporting Specialist	JPMorgan Chase	0	out|rejected-title
 Global Security - Technical Security Project Manager- Senior Associate	JPMorgan Chase	0	out|rejected-title
-Global Sourcing Specialist (Winter  C0-Op 2027)	Verkada	0	out|not-cyber
+Global Sourcing Specialist (Winter C0-Op 2027)	Verkada	0	out|not-cyber
 Global Tax, Alternative Investments Tax Advisor, Associate, London	Goldman Sachs	0	out|not-cyber
 Global Technology Summer Analyst 2027 - Cybersecurity Analyst	Bank of America	0	intern|Security Engineering
 Global Tier 1 Print GAM	HP Inc	0	out|not-cyber
@@ -4962,7 +4961,7 @@ Healthcare Process Risk Senior Associate	Grant Thornton	0	out|rejected-title
 Healthcare Technology Consulting - Associate Director - Cloud Solution Architect	Guidehouse	0	out|rejected-title
 Heavy Equipment Technician II	Amentum	0	out|not-cyber
 Hedge Fund Services - Financial Reporting - Associate	JPMorgan Chase	0	out|not-cyber
-Hedging Product Control,  Senior Associate	JPMorgan Chase	0	out|rejected-title
+Hedging Product Control, Senior Associate	JPMorgan Chase	0	out|rejected-title
 Help Desk Specialist (Level 1) (Government)	AT&T	0	out|not-cyber
 Help Desk Technician II - TS/SCI W/ poly	GDIT	0	out|not-cyber
 Helpdesk Specialist II	Guidehouse	0	out|not-cyber
@@ -4977,7 +4976,7 @@ Hiring Event - Part Time Associate Banker DC NOVA, Alexandria Area (30 Hours)	JP
 Hiring Event - Part Time Associate Banker Flint Saginaw (30 Hours)	JPMorgan Chase	0	out|rejected-title
 Hiring Event - Part Time Associate Banker Fort Myers (30 Hours)	JPMorgan Chase	0	out|rejected-title
 Hiring Event - Part Time Associate Banker Fresno (30 Hours)	JPMorgan Chase	0	out|rejected-title
-Hiring Event - Part Time Associate Banker Golden Gate  (30 Hours)	JPMorgan Chase	0	out|rejected-title
+Hiring Event - Part Time Associate Banker Golden Gate (30 Hours)	JPMorgan Chase	0	out|rejected-title
 Hiring Event - Part Time Associate Banker Huntington Beach and Surrounding Areas (30 Hours)	JPMorgan Chase	0	out|rejected-title
 Hiring Event - Part Time Associate Banker Long Island South (30 Hours)	JPMorgan Chase	0	out|rejected-title
 Hiring Event - Part Time Associate Banker Monmouth County (30 Hours)	JPMorgan Chase	0	out|rejected-title
@@ -5042,13 +5041,11 @@ Human Resources Rotational Leadership Development Program	RTX	0	out|rejected-tit
 Human-Centric Design Intern (Summer 2027)	Battelle	0	out|not-cyber
 Humana Technology Internship – Summer 2027	Humana	0	out|not-cyber
 HVAC Apprentice- Union- Albuquerque, NM	Honeywell	0	out|not-cyber
-HVAC Fitter Apprentice (Union) 2nd Year	Honeywell	0	out|not-cyber
+HVAC Fitter Apprentice (Union) 2nd Year	Honeywell	0	out|not-cyber
 Hybrid Cloud & Migration Services Intern	DXC Technology	0	out|not-cyber
 Hybrid Cloud Innovation AI Internship	HPE	0	out|not-cyber
 Hybrid Cloud Platform Engineer	GDIT	0	out|no-level
 IAM Lead	ICF	0	out|rejected-title
-IAM Risk  Audit (CIAM) - Lead	Northern Trust	0	out|rejected-title
-IAM Risk  Audit - Lead	Northern Trust	0	out|rejected-title
 IC 2027 Space Vehicle Concept Design Engineer	Aerospace Corporation	0	out|not-cyber
 IC 2027 Systems Architect	Aerospace Corporation	0	out|not-cyber
 ICB Financial Crime Risk Control Manager - Senior Associate	JPMorgan Chase	0	out|rejected-title
@@ -5178,7 +5175,7 @@ Institutional Operations Intern	Coinbase	0	out|not-cyber
 Institutional Sales - Americas and Marketing - Associate	JPMorgan Chase	0	out|rejected-title
 Instrument Reference Data – Service Delivery Manager - Senior Associate	JPMorgan Chase	0	out|rejected-title
 Insurance Sales & Service Representative Licensed and Entry-Level Opportunities Available | Up to $2,000 Signing Bonus for Qualified Licensed Candidates	USAA	0	out|rejected-title
-Insurance Sales & Service Representatives | Licensed and Entry-Level Opportunities Available  | Up to $2,000 Signing Bonus for Qualified Licensed Candidates	USAA	0	out|rejected-title
+Insurance Sales & Service Representatives | Licensed and Entry-Level Opportunities Available | Up to $2,000 Signing Bonus for Qualified Licensed Candidates	USAA	0	out|rejected-title
 Integrated Circuit Design Engineering Co-Op (Spring-Summer 2027)	Battelle	0	out|not-cyber
 Integrated Circuits Intern	Draper	0	out|not-cyber
 Integrated Media-Senior Associate – Firmwide Impact Marketing	JPMorgan Chase	0	out|rejected-title
@@ -5213,7 +5210,7 @@ Intern Software Developer, Stagiaire en Développement Logiciel	Autodesk	0	out|n
 Intern System Software Development Engineer	Intel	0	out|not-cyber
 Intern Systems Software Development Engineer	Intel	0	out|not-cyber
 Intern to Entry Level Conversion - Engineering (Summer 2026 Intern Program)	Boeing	0	out|rejected-title
-Intern – Software Development  - 8 months - Hybrid Ottawa	Entrust	1	intern|Engineering @ Security Co
+Intern – Software Development - 8 months - Hybrid Ottawa	Entrust	1	intern|Engineering @ Security Co
 Intern – State and Local Government – Campus 2027	Guidehouse	0	out|not-cyber
 Intern, AI Data Developer (Winter)	Autodesk	0	out|not-cyber
 Intern, AI Developer/ Stagiaire en développement IA	Autodesk	0	out|not-cyber
@@ -5237,7 +5234,7 @@ Intern, Product Management (Winter 2027)	Autodesk	0	out|not-cyber
 Intern, Product Management, Cairo - Egypt	Mastercard	0	out|not-cyber
 Intern, Product Manager [PSET-Access-PM]	Autodesk	0	out|rejected-title
 Intern, Software Development - Hybrid in Ottawa	Entrust	1	intern|Engineering @ Security Co
-Intern, Software Development Engineer [PSET - Product Data -  Document Management]	Autodesk	0	out|not-cyber
+Intern, Software Development Engineer [PSET - Product Data - Document Management]	Autodesk	0	out|not-cyber
 Intern, Software Development Engineer [PSET-Access-ENG]	Autodesk	0	out|not-cyber
 Intern, Software Development Engineer [PSET-Connected Delivery]	Autodesk	0	out|not-cyber
 Intern, Software Development Engineer [PSET-Localization]	Autodesk	0	out|not-cyber
@@ -5265,7 +5262,7 @@ Internal Audit Technology Senior Auditor Associate - Infrastructure Platforms	JP
 Internal Audit, Asset Management Audit, Associate, Hong Kong	Goldman Sachs	0	out|rejected-title
 Internal Audit, Asset Wealth Management - Senior Associate - Data Scientist	JPMorgan Chase	0	out|rejected-title
 Internal Audit, GBM Public Equities – Tech Audit, Analyst/Associate, Tokyo	Goldman Sachs	0	out|rejected-title
-Internal Audit, Global Banking  & Markets - Equities, Associate, Birmingham	Goldman Sachs	0	out|rejected-title
+Internal Audit, Global Banking & Markets - Equities, Associate, Birmingham	Goldman Sachs	0	out|rejected-title
 Internal Audit, Global Banking and Markets Operations Engineering, Associate, Warsaw	Goldman Sachs	0	out|rejected-title
 Internal Audit-Hyderabad-Associate-Data Analytics & Reporting	Goldman Sachs	0	out|rejected-title
 Internal Auditor – Associate – Asset & Wealth Management	JPMorgan Chase	0	out|not-cyber
@@ -5349,7 +5346,7 @@ Investment Banking - Media & Communications – Associate	JPMorgan Chase	0	out|n
 Investment Banking - Mergers & Acquisitions - Associate	JPMorgan Chase	0	out|not-cyber
 Investment Banking - Mid Cap Business Services - Associate	JPMorgan Chase	0	out|not-cyber
 Investment Banking - Mid-Cap Investment Banking - Associate	JPMorgan Chase	0	out|not-cyber
-Investment Banking - Mid-Cap Investment Banking, Media & Communications  - Associate	JPMorgan Chase	0	out|not-cyber
+Investment Banking - Mid-Cap Investment Banking, Media & Communications - Associate	JPMorgan Chase	0	out|not-cyber
 Investment Banking - Power & Renewables- Associate	JPMorgan Chase	0	out|not-cyber
 Investment Banking - Private Capital Advisory, GP-Led Secondaries - Associate	JPMorgan Chase	0	out|not-cyber
 Investment Banking - Private Capital Solutions - Associate	JPMorgan Chase	0	out|not-cyber
@@ -5421,17 +5418,16 @@ IT System Administrator – SOC/NOC Support	Accenture Federal Services	0	out|no-
 IT Systems Engineer	Teleport	1	out|no-level
 IT Undergrad Technical Intern - AI and Data Analytics	Intel	0	out|not-cyber
 Items Analyst Asc - Early Career	Lockheed Martin	0	out|not-cyber
-J&J IM North America Operations Intern	Johnson & Johnson	0	out|not-cyber
+J&J IM North America Operations Intern	Johnson & Johnson	0	out|not-cyber
 J. P. Morgan Advisor- Investment Associate - Dallas, TX	JPMorgan Chase	0	out|not-cyber
 J. P. Morgan Wealth Management - Suitability Product Team Associate	JPMorgan Chase	0	out|not-cyber
 J.P. Morgan Advisors - Senior Client Associate - Boca Raton	JPMorgan Chase	0	out|rejected-title
 J.P. Morgan Advisors - Senior Client Associate - Seattle, WA	JPMorgan Chase	0	out|rejected-title
-J.P. Morgan Advisors -Senior Client Associate -Bilingual Spanish/ English required  Miami, FL	JPMorgan Chase	0	out|rejected-title
+J.P. Morgan Advisors -Senior Client Associate -Bilingual Spanish/ English required Miami, FL	JPMorgan Chase	0	out|rejected-title
 J.P. Morgan Advisors -Senior Client Associate -Dallas, TX	JPMorgan Chase	0	out|rejected-title
 J.P. Morgan Mansart Management – Product Development / Fund Structuring – Associate or Vice President	JPMorgan Chase	0	out|rejected-title
 J.P. Morgan Wealth Management - CAO Artificial Intelligence Lead, Senior Associate	JPMorgan Chase	0	out|rejected-title
 J.P. Morgan Wealth Management - Private Client Investment Associate	JPMorgan Chase	0	out|not-cyber
-J.P. Morgan Wealth Management - Private Client Investment Associate  - Oak Park, IL	JPMorgan Chase	0	out|not-cyber
 J.P. Morgan Wealth Management - Private Client Investment Associate - Arlington Heights, IL	JPMorgan Chase	0	out|not-cyber
 J.P. Morgan Wealth Management - Private Client Investment Associate - Bethesda Financial Center	JPMorgan Chase	0	out|not-cyber
 J.P. Morgan Wealth Management - Private Client Investment Associate - Brookfield, WI	JPMorgan Chase	0	out|not-cyber
@@ -5452,6 +5448,7 @@ J.P. Morgan Wealth Management - Private Client Investment Associate - Jacksonvil
 J.P. Morgan Wealth Management - Private Client Investment Associate - Lafayette, LA	JPMorgan Chase	0	out|not-cyber
 J.P. Morgan Wealth Management - Private Client Investment Associate - Mandarin Speaking Preferred (Not Required)- Bellevue, WA	JPMorgan Chase	0	out|not-cyber
 J.P. Morgan Wealth Management - Private Client Investment Associate - Marietta, OH	JPMorgan Chase	0	out|not-cyber
+J.P. Morgan Wealth Management - Private Client Investment Associate - Oak Park, IL	JPMorgan Chase	0	out|not-cyber
 J.P. Morgan Wealth Management - Private Client Investment Associate - Oklahoma City, OK	JPMorgan Chase	0	out|not-cyber
 J.P. Morgan Wealth Management - Private Client Investment Associate - Orlando, FL	JPMorgan Chase	0	out|not-cyber
 J.P. Morgan Wealth Management - Private Client Investment Associate - Plymouth, MI	JPMorgan Chase	0	out|not-cyber
@@ -5484,7 +5481,7 @@ JJT Intern	Johnson & Johnson	0	out|not-cyber
 Job Posting Title Junior Naval Systems Security Engineer	Amentum	0	earlycareer|Cloud & Infra Security
 Job Posting Title L2 Digital Workplace Specialist with French	Kyndryl	0	out|rejected-title
 Job Title Software Engineer II	Mastercard	0	out|not-cyber
-JPM Wealth Management-Advisor Performance  Specialist-Senior Associate	JPMorgan Chase	0	out|rejected-title
+JPM Wealth Management-Advisor Performance Specialist-Senior Associate	JPMorgan Chase	0	out|rejected-title
 JPMorgan Wealth Management - Senior Product Associate - Wealth Plan	JPMorgan Chase	0	out|rejected-title
 JPMSE Data Governance Officer - Associate (all genders)	JPMorgan Chase	0	out|not-cyber
 JR Electrical & Computer Engineer	KBR	0	out|not-cyber
@@ -5623,7 +5620,7 @@ Junior Software Developer	Nightwing	1	earlycareer|Engineering @ Security Co
 Junior Software Developer (Active TS/SCI with Poly Required)	GDIT	0	out|not-cyber
 Junior Software Developer - TS/SCI	Parsons	0	out|not-cyber
 Junior Software Engineer	AeroVironment	0	out|not-cyber
-Junior Software Engineer  (SWE0)	Nightwing	1	earlycareer|Engineering @ Security Co
+Junior Software Engineer (SWE0)	Nightwing	1	earlycareer|Engineering @ Security Co
 Junior Software Engineer, AI Agent Platform	Motorola Solutions	0	out|not-cyber
 Junior Software Engineer, Emergency Call Handling	Motorola Solutions	0	out|not-cyber
 Junior Solution Architect	Citi	0	earlycareer|Solutions Architecture
@@ -5631,7 +5628,7 @@ Junior Solutions Engineer	Trellix	1	earlycareer|Solutions Architecture
 Junior Support Specialist - Fraud Analytics Junior (Consultant)	Guidehouse	0	out|not-cyber
 Junior Systems Administrator	CACI	0	out|not-cyber
 Junior Systems Engineer	Accenture Federal Services	0	out|not-cyber
-Junior Tactical All Source Threat Intelligence Analyst - Overnight Shift  (Top Secret Clearance)	GDIT	0	earlycareer|Threat Intelligence
+Junior Tactical All Source Threat Intelligence Analyst - Overnight Shift (Top Secret Clearance)	GDIT	0	earlycareer|Threat Intelligence
 Junior Technical Project Manager	Mastercard	0	out|rejected-title
 Junior Telecommunications Technician - Secret Clearance Required	GDIT	0	out|not-cyber
 Junior Territory Sales Executive	Red Hat	0	out|rejected-title
@@ -5666,7 +5663,7 @@ L2 - Collaboration & Tenant Platform Specialist	Kyndryl	0	out|not-cyber
 L2 - Device Management Specialist	Kyndryl	0	out|not-cyber
 L2 Application Support Engineer (Integration & Middleware)	DXC Technology	0	out|not-cyber
 L2 Digital Workplace Specialist with French	Kyndryl	0	out|rejected-title
-L2 Support  Engineers	Kyndryl	0	out|not-cyber
+L2 Support Engineers	Kyndryl	0	out|not-cyber
 L2 Systems Analyst, SaaS Operations, Officer	State Street	0	out|not-cyber
 L2 Technical Support Engineer (remote)	OPSWAT	1	earlycareer|Engineering @ Security Co
 L2 Technical Support Leader (Integration & Middleware)	DXC Technology	0	out|rejected-title
@@ -5738,10 +5735,10 @@ Lead Principal Security Engineer	Oracle	0	out|rejected-title
 Lead Python Software Engineer for AI Security, Vice President	Morgan Stanley	0	out|rejected-title
 Lead Retail Associate/Lead - Full Time - Nike Store Eastpoint	Nike	0	out|rejected-title
 Lead Sales Engineer	Nightfall AI	1	out|rejected-title
+Lead Security Engineer - Python	JPMorgan Chase	0	out|rejected-title
 Lead Software Engineer - Cloud Platform Engineer/Azure	JPMorgan Chase	0	out|rejected-title
 Lead Software Engineer - Go / Kubernetes / Python - Public Cloud Engineering	JPMorgan Chase	0	out|rejected-title
 Lead Software Engineer - IAM/AI Transformation Catalyst	JPMorgan Chase	0	out|rejected-title
-Lead Software Engineer - Java, Spring, Springboot, Kafka, Cryptography, Session Key Derivation,  HSM	Mastercard	0	out|rejected-title
 Lead Software Engineer - L2/L3 Protocol testing	HPE	0	out|rejected-title
 Lead Software Engineer, Data & DevSecOps	Leidos	0	out|rejected-title
 Lead Software Engineer-1	Mastercard	0	out|rejected-title
@@ -5766,8 +5763,8 @@ Legal Entity Controller - Associate (all genders)	JPMorgan Chase	0	out|not-cyber
 Legal Entity Controller-Associate-Asset Management	JPMorgan Chase	0	out|not-cyber
 Legal Entity Risk Management, APAC – Associate	JPMorgan Chase	0	out|not-cyber
 Legal Operations Associate	Forcepoint	1	out|not-cyber
-Legal Rising 3L  (Intern) - United States	Cisco	0	out|not-cyber
-Legal Summer Intern Rising 2L  (Intern) - United States	Cisco	0	out|not-cyber
+Legal Rising 3L (Intern) - United States	Cisco	0	out|not-cyber
+Legal Summer Intern Rising 2L (Intern) - United States	Cisco	0	out|not-cyber
 Legal/ Corporate Compliance Operations Associate	Stripe	0	out|not-cyber
 Lending Product & Pricing - Senior Associate	JPMorgan Chase	0	out|rejected-title
 Lending Transaction Associate Sr (Syndicated - Commercial Lending)	PNC	0	out|rejected-title
@@ -5842,9 +5839,9 @@ Machine Learning Infrastructure Engineer, Safeguards Research	Anthropic	0	out|no
 Machine Learning Intelligent Operations Team - Quant Analytics Senior Associate	JPMorgan Chase	0	out|rejected-title
 Machine Learning Intern 2027 (Toronto)	Pinterest	0	out|not-cyber
 Machine Learning Intern 2027 (Zurich)	Pinterest	0	out|not-cyber
-Machine Learning Intern/Co-op  (Winter 2027)	Cohere	0	out|not-cyber
+Machine Learning Intern/Co-op (Winter 2027)	Cohere	0	out|not-cyber
 Machine Learning Scientist - Natural Language Processing (NLP) - Senior Associate - Machine Learning Center of Excellence	JPMorgan Chase	0	out|rejected-title
-Machine Perception (MP) Engineer  – Level 2 or 3	Northrop Grumman	0	out|not-cyber
+Machine Perception (MP) Engineer – Level 2 or 3	Northrop Grumman	0	out|not-cyber
 Machine Setup Operator-Level 1	Honeywell	0	out|not-cyber
 Machinist - Level 1	Honeywell	0	out|not-cyber
 Machinist - Level 2	Honeywell	0	out|not-cyber
@@ -5905,7 +5902,7 @@ Manufacturing Engineering Ops Co-Op (Spring/Summer 2027)	RTX	0	out|not-cyber
 Manufacturing Planner Asc - Early Career	Lockheed Martin	0	out|not-cyber
 Manufacturing Technician II	Medtronic	0	out|not-cyber
 Manufacturing Technology Analyst (Associate or Experienced)	Boeing	0	out|not-cyber
-Marcus by Goldman Sachs,  Lead Instructional Designer Associate - Richardson, TX	Goldman Sachs	0	out|rejected-title
+Marcus by Goldman Sachs, Lead Instructional Designer Associate - Richardson, TX	Goldman Sachs	0	out|rejected-title
 Marcus by Goldman Sachs, Research Manager, Associate - London	Goldman Sachs	0	out|rejected-title
 Marcus by Goldman Sachs, Tier II Specialist | Richardson, TX	Goldman Sachs	0	out|not-cyber
 Marcus by Goldman Sachs, Tier II Specialist| Draper, UT	Goldman Sachs	0	out|not-cyber
@@ -6000,7 +5997,6 @@ Mechanical Engineer I	AeroVironment	0	out|rejected-title
 Mechanical Engineer I (Intern) - United States	Cisco	0	out|rejected-title
 Mechanical Engineer I (Onsite)	RTX	0	out|rejected-title
 Mechanical Engineer II	BAE Systems	0	out|rejected-title
-Mechanical Engineer II  (Onsite)	RTX	0	out|rejected-title
 Mechanical Engineer II (Onsite)	RTX	0	out|rejected-title
 Mechanical Engineer II - ARFF Program	Battelle	0	out|rejected-title
 Mechanical Engineer II - Structural Analysis Engineer	RTX	0	out|rejected-title
@@ -6051,7 +6047,6 @@ Metrology Operations Intern II, Summer 2027 (Onsite)	BAE Systems	0	out|rejected-
 Metrology Technician I, Dimensional	KBR	0	out|rejected-title
 Mexico Client Service - Associate	JPMorgan Chase	0	out|not-cyber
 MF Risk - Asset Management - Lead Associate	Fannie Mae	0	out|rejected-title
-Mgr,  Customer Success Engineering	Palo Alto Networks	1	out|rejected-title
 Miami Internal Audit and Financial Advisory Intern - 2027	Protiviti	0	out|rejected-title
 Microbiology Intern	Medtronic	0	out|not-cyber
 Microsoft Entra ID Identity and Access Management - Manager	PwC	0	out|rejected-title
@@ -6111,7 +6106,7 @@ Montpelier - Audit - Associate - Summer/Fall 2027	PwC	0	out|not-cyber
 Morgan Health - Data Science & Research - Senior Associate	JPMorgan Chase	0	out|rejected-title
 MRGR Treasury- Associate	JPMorgan Chase	0	out|rejected-title
 MSIM - Private Credit - Finance & Liability - Associate/Senior Associate	Morgan Stanley	0	out|rejected-title
-MSIM Growth & Innovation  - Associate/Vice President	Morgan Stanley	0	out|rejected-title
+MSIM Growth & Innovation - Associate/Vice President	Morgan Stanley	0	out|rejected-title
 MSIM Tactical Value, Acquisitions Associate (2027 Program)	Morgan Stanley	0	out|not-cyber
 MSIM — Associate, Data Operations — Private Markets	Morgan Stanley	0	out|not-cyber
 MSIM- Pricing & Valuation - Operations Associate	Morgan Stanley	0	out|not-cyber
@@ -6123,7 +6118,7 @@ Multidisciplinary Engineer II	Nightwing	1	earlycareer|Engineering @ Security Co
 Multidisciplinary Engineer Intern	Nightwing	1	intern|Engineering @ Security Co
 Multifactor Authentication (MFA) Engineer (Puerto Rico)	RTX	0	out|no-level
 Multifamily Business Intern - Summer 2027	Freddie Mac	0	out|not-cyber
-Multifamily Capital Markets Analytics & Engineering Intern -  Summer 2027	Freddie Mac	0	out|not-cyber
+Multifamily Capital Markets Analytics & Engineering Intern - Summer 2027	Freddie Mac	0	out|not-cyber
 Multifamily Capital Markets Loan Pricing Associate	Freddie Mac	0	out|not-cyber
 Multifamily Digital Product Analysis Intern – Summer 2027	Freddie Mac	0	out|not-cyber
 Multifamily Graduate Intern - Quantitative - Summer 2027	Freddie Mac	0	out|not-cyber
@@ -6172,7 +6167,7 @@ Network Support Engineer I/II	Kudelski Security	1	earlycareer|Engineering @ Secu
 Network Systems Engineering Intern- Onsite	RTX	0	out|not-cyber
 Network/Cyber Security Analyst Associate	GDIT	0	earlycareer|Security Engineering
 Network/Security Analyst II (Onsite)	RTX	0	earlycareer|Security Engineering
-Networking FPyA Analyst -  Internship	HPE	0	out|not-cyber
+Networking FPyA Analyst - Internship	HPE	0	out|not-cyber
 Networking Presales Graduate - Belgium	HPE	0	out|not-cyber
 Networking Qualification Engineer II	HPE	0	out|not-cyber
 Networking Sales Graduate	HPE	0	out|rejected-title
@@ -6251,12 +6246,11 @@ Officer - Finance Acctg Analyst I - C09	Citi	0	out|rejected-title
 Officer - Finance Reporting Analyst 2 (Hybrid) ROHQ Finance and Risk Shared Services	Citi	0	out|rejected-title
 Officer - Finance Solutions Analyst 2 (ROHQ - Finance & Risk Shared Services)	Citi	0	out|rejected-title
 Officer - HR Benefits Analyst 1, Philippines (Hybrid)	Citi	0	out|not-cyber
-Officer - HR Benefits Analyst 2, Philippines  (Hybrid)	Citi	0	out|not-cyber
 Officer - HR Benefits Analyst 2, Philippines (Hybrid)	Citi	0	out|not-cyber
 Officer, Balance Sheet Control Analyst 2 - TAGUIG (Hybrid)	Citi	0	out|not-cyber
 Officer, Data Quality Analyst 1 - TAGUIG (Hybrid)	Citi	0	out|not-cyber
 Officer, KYC Due Diligence Analyst 2 - Hybrid	Citi	0	out|not-cyber
-Officer-  Finance Accounting Analyst II (ROHQ - Finance & Risk Shared Services)	Citi	0	out|rejected-title
+Officer- Finance Accounting Analyst II (ROHQ - Finance & Risk Shared Services)	Citi	0	out|rejected-title
 OH Product Manager Intern - OVIP	Oracle	0	out|rejected-title
 ONA AI Agent Intern (Logistics Focus) - OVIP	Oracle	0	out|not-cyber
 Onboarding Associate	Grant Thornton	0	out|not-cyber
@@ -6317,7 +6311,7 @@ Optical Engineering Intern - Summer 2027	CACI	0	out|not-cyber
 Oracle Application Security & Controls Sr Associate	PwC	0	out|rejected-title
 Oracle EPM - Senior Associate	PwC	0	out|rejected-title
 Oracle Finance Technology Analyst - Early Careers	Accenture	0	out|rejected-title
-Oracle HCM Functional Consultant with ORC Module  (Infrastructure Engineer II)	JPMorgan Chase	0	out|not-cyber
+Oracle HCM Functional Consultant with ORC Module (Infrastructure Engineer II)	JPMorgan Chase	0	out|not-cyber
 Oracle SCM - Senior Associate	PwC	0	out|rejected-title
 OT Cyber Eng Support LV2	Honeywell	0	out|no-level
 OT Cybersecurity Consultant	Accenture	0	out|no-level
@@ -6338,7 +6332,6 @@ Parametric - Operations Analyst Cohort, Summer 2027 Grads	Morgan Stanley	0	out|n
 Parametric - Operations Analyst Cohort, Winter, 2027 (Recent Grads)	Morgan Stanley	0	out|not-cyber
 Parametric Investment Analyst Winter Cohort 2027	Morgan Stanley	0	out|not-cyber
 Parametric Test Module Intern	Intel	0	out|not-cyber
-Part Time  (20 Hours) Associate Banker, Waynedale Branch, Fort Wayne, IN	JPMorgan Chase	0	out|not-cyber
 Part Time (20 Hour) - Associate Banker - (New Build) Calabash Commons - Calabash, NC	JPMorgan Chase	0	out|not-cyber
 Part Time (20 Hour) - Associate Banker - (New Build) Hilton Head - Hilton Head Island, SC	JPMorgan Chase	0	out|not-cyber
 Part Time (20 Hour) Associate Banker - (New Build) Flowers Branch - Clayton, NC	JPMorgan Chase	0	out|not-cyber
@@ -6346,7 +6339,6 @@ Part Time (20 Hour) Associate Banker - (New Build) Meadowmont Village Branch - C
 Part Time (20 Hour) Associate Banker - Scott Rd and Commerce Dr Branch (New Build) - Rochester, MN	JPMorgan Chase	0	out|not-cyber
 Part Time (20 Hour) Associate Banker - Tesson Ferry Branch (New Build) - St Louis, MO	JPMorgan Chase	0	out|not-cyber
 Part Time (20 hour) New Build Associate Banker - Taylor Rd - Montgomery, AL	JPMorgan Chase	0	out|not-cyber
-Part Time (20 Hours)  Associate Banker, Glendale Town Center Branch, Indianapolis, IN	JPMorgan Chase	0	out|not-cyber
 Part Time (20 Hours) Associate Banker - Elyson Square (New Build) - Cypress, TX	JPMorgan Chase	0	out|not-cyber
 Part Time (20 Hours) Associate Banker - New Build Loxahatchee Westlake, Westlake FL	JPMorgan Chase	0	out|not-cyber
 Part Time (20 Hours) Associate Banker Branch, Skyland Town Center Branch, Washington, DC	JPMorgan Chase	0	out|not-cyber
@@ -6374,6 +6366,7 @@ Part Time (20 Hours) Associate Banker, Edina Branch, Edina, MN	JPMorgan Chase	0	
 Part Time (20 Hours) Associate Banker, Exton Square Branch, Exton, PA	JPMorgan Chase	0	out|not-cyber
 Part Time (20 Hours) Associate Banker, Georgetown Branch, Fort Wayne, IN	JPMorgan Chase	0	out|not-cyber
 Part Time (20 Hours) Associate Banker, Girard Branch, Girard, OH	JPMorgan Chase	0	out|not-cyber
+Part Time (20 Hours) Associate Banker, Glendale Town Center Branch, Indianapolis, IN	JPMorgan Chase	0	out|not-cyber
 Part Time (20 Hours) Associate Banker, Grand Ave Branch, Fort Thomas, KY	JPMorgan Chase	0	out|not-cyber
 Part Time (20 Hours) Associate Banker, Gratiot and 23 Mile Branch, Chesterfield, MI	JPMorgan Chase	0	out|not-cyber
 Part Time (20 hours) Associate Banker, Greentree Branch, Clarksville, IN	JPMorgan Chase	0	out|not-cyber
@@ -6417,18 +6410,16 @@ Part Time (20 Hours) Associate Banker, Sunbury Branch, Sunbury, OH	JPMorgan Chas
 Part Time (20 Hours) Associate Banker, Trumbull Quality St Branch, Trumbull, CT	JPMorgan Chase	0	out|not-cyber
 Part Time (20 Hours) Associate Banker, US 42 Branch, Florence, KY	JPMorgan Chase	0	out|not-cyber
 Part Time (20 Hours) Associate Banker, Villa Point Branch, Owensboro, KY	JPMorgan Chase	0	out|not-cyber
+Part Time (20 Hours) Associate Banker, Waynedale Branch, Fort Wayne, IN	JPMorgan Chase	0	out|not-cyber
 Part Time (20 Hours) Associate Banker, White Oak Shopping Center Branch, Silver Spring, Maryland	JPMorgan Chase	0	out|not-cyber
 Part Time (20 Hours) Associate Banker, Willowcreek Branch, Portage, IN	JPMorgan Chase	0	out|not-cyber
 Part Time (20 Hours) Associate Banker, Winfield Branch, Winfield, IL	JPMorgan Chase	0	out|not-cyber
 Part Time (20 Hours) Associate Banker, Winnetka Branch, Winnetka, IL	JPMorgan Chase	0	out|not-cyber
 Part Time (20 Hours) Associate Banker, Youngstown Main Branch, Youngstown, OH	JPMorgan Chase	0	out|not-cyber
 Part Time (20-Hour) Associate Banker, Southwest Teal Blvd. Branch, Beaverton, OR	JPMorgan Chase	0	out|not-cyber
-Part Time (30  Hours) Associate Banker, Greenbrier Market Center Branch, Chesapeake, VA	JPMorgan Chase	0	out|not-cyber
-Part Time (30 Hour)  Associate Banker - (New Build) Flowers Branch - Clayton, NC	JPMorgan Chase	0	out|not-cyber
 Part Time (30 Hour) - Associate Banker - (New Build) Calabash Commons - Calabash, NC	JPMorgan Chase	0	out|not-cyber
 Part Time (30 Hour) - Associate Banker - (New Build) Hilton Head - Hilton Head Island, SC	JPMorgan Chase	0	out|not-cyber
 Part Time (30 Hour) - Associate Banker - (New Build) Landfall Branch - Wilmington, NC	JPMorgan Chase	0	out|not-cyber
-Part Time (30 Hour) - Associate Banker - (New Build) South Strand  - Myrtle Beach, SC	JPMorgan Chase	0	out|not-cyber
 Part Time (30 Hour) - Associate Banker - (New Build) South Strand - Myrtle Beach, SC	JPMorgan Chase	0	out|not-cyber
 Part Time (30 hour) Associate Banker - (New Build) Asheboro Branch - Asheboro, NC	JPMorgan Chase	0	out|not-cyber
 Part Time (30 Hour) Associate Banker - (New Build) Flowers Branch - Clayton, NC	JPMorgan Chase	0	out|not-cyber
@@ -6495,6 +6486,7 @@ Part Time (30 Hours) Associate Banker, Geary and 21st Branch, San Francisco, CA 
 Part Time (30 Hours) Associate Banker, Glassboro Delsea Dr Branch, Glassboro, NJ	JPMorgan Chase	0	out|not-cyber
 Part Time (30 Hours) Associate Banker, Glasshouse Branch, New York, NY	JPMorgan Chase	0	out|not-cyber
 Part Time (30 Hours) Associate Banker, Gratiot Warren Branch, Detroit, MI	JPMorgan Chase	0	out|not-cyber
+Part Time (30 Hours) Associate Banker, Greenbrier Market Center Branch, Chesapeake, VA	JPMorgan Chase	0	out|not-cyber
 Part Time (30 Hours) Associate Banker, Greenleaf Branch, Elkhart, IN	JPMorgan Chase	0	out|not-cyber
 Part Time (30 Hours) Associate Banker, Groton CT Branch, Groton, CT	JPMorgan Chase	0	out|not-cyber
 Part Time (30 hours) Associate Banker, Hampton Rt 206 Branch, Newton, NJ	JPMorgan Chase	0	out|not-cyber
@@ -6592,16 +6584,15 @@ Partner Solutions Engineer, Israel	Wiz	1	out|no-level
 Partnership Taxation Sr Associate - Asset Management/REIT	Grant Thornton	0	out|rejected-title
 Payment Partner Operations, Associate	Brex	0	out|not-cyber
 Payment Risk Intern	Coinbase	0	out|not-cyber
-Payments  Sales Senior Associate	JPMorgan Chase	0	out|rejected-title
 Payments - APAC Marketing Portfolio Associate – Singapore	JPMorgan Chase	0	out|rejected-title
 Payments - Business Management - Associate	JPMorgan Chase	0	out|rejected-title
 Payments - Client Service Account Manager - Associate	JPMorgan Chase	0	out|rejected-title
 Payments - EMEA Account Solutions Product Manager - Senior Associate/Vice President	JPMorgan Chase	0	out|rejected-title
 Payments - FX Payments Partnership - Associate/Senior Associate - London	JPMorgan Chase	0	out|rejected-title
-Payments - Kinexys Networks (Liink Confirm) – Client Engagement -  Associate/Senior Associate - London	JPMorgan Chase	0	out|rejected-title
+Payments - Kinexys Networks (Liink Confirm) – Client Engagement - Associate/Senior Associate - London	JPMorgan Chase	0	out|rejected-title
 Payments - Product Proposals - Senior Associate	JPMorgan Chase	0	out|rejected-title
 Payments - Product Solutioning, Receivables - Senior Associate	JPMorgan Chase	0	out|rejected-title
-Payments - Trade & Working Capital - Trade Finance Relationship Manager - Associate  (All genders) - Frankfurt	JPMorgan Chase	0	out|rejected-title
+Payments - Trade & Working Capital - Trade Finance Relationship Manager - Associate (All genders) - Frankfurt	JPMorgan Chase	0	out|rejected-title
 Payments - Trade & Working Capital - Trade Finance Relationship Manager - Associate - Madrid	JPMorgan Chase	0	out|rejected-title
 Payments Change & Transformation Senior Associate	JPMorgan Chase	0	out|rejected-title
 Payments Client Service Account Officer - Associate	JPMorgan Chase	0	out|not-cyber
@@ -6616,10 +6607,11 @@ Payments Operational Risk Management – Senior Associate – Argentina and Chil
 Payments Operations – Market Expansion Operational Readiness - Senior Associate	JPMorgan Chase	0	out|rejected-title
 Payments P&A, Associate	JPMorgan Chase	0	out|not-cyber
 Payments Planning and Analysis - Associate	JPMorgan Chase	0	out|not-cyber
-Payments Product Client Sale Solutioning Specialist –Senior  Associate	JPMorgan Chase	0	out|rejected-title
+Payments Product Client Sale Solutioning Specialist –Senior Associate	JPMorgan Chase	0	out|rejected-title
 Payments Risk Analyst I	Coinbase	0	out|not-cyber
 Payments Risk Analyst II	Coinbase	0	out|not-cyber
 Payments Sales Associate	JPMorgan Chase	0	out|rejected-title
+Payments Sales Senior Associate	JPMorgan Chase	0	out|rejected-title
 Payments Strategic Client Engagement Associate	JPMorgan Chase	0	out|not-cyber
 Payments – Cash Product Management - Associate	JPMorgan Chase	0	out|not-cyber
 Payments- Business Transformation- Kinexys Execution Associate	JPMorgan Chase	0	out|not-cyber
@@ -6650,10 +6642,8 @@ PeopleX Insights & Analytics Intern (Summer 2027)	Robinhood	0	out|not-cyber
 Performance Analyst, Sr Associate	Pfizer	0	out|rejected-title
 Performance Risk Associate (12 Months Fixed Term Contract)	JPMorgan Chase	0	out|not-cyber
 Personal Banker Associate	Fifth Third	0	out|not-cyber
-Personal Banker Associate  - Carthage (Monday - Friday)	Fifth Third	0	out|not-cyber
-Personal Banker Associate  I - Lecanto, FL	Fifth Third	0	out|not-cyber
-Personal Banker Associate  I- Coleman Boulevard	Fifth Third	0	out|not-cyber
 Personal Banker Associate - Burkhardt	Fifth Third	0	out|not-cyber
+Personal Banker Associate - Carthage (Monday - Friday)	Fifth Third	0	out|not-cyber
 Personal Banker Associate - Greenville	Fifth Third	0	out|not-cyber
 Personal Banker Associate - Lansing	Fifth Third	0	out|not-cyber
 Personal Banker Associate - Norwood	Fifth Third	0	out|not-cyber
@@ -6700,6 +6690,7 @@ Personal Banker Associate I - Kalamazoo	Fifth Third	0	out|not-cyber
 Personal Banker Associate I - Katy Mason	Fifth Third	0	out|not-cyber
 Personal Banker Associate I - Lake Orion	Fifth Third	0	out|not-cyber
 Personal Banker Associate I - Lantana	Fifth Third	0	out|not-cyber
+Personal Banker Associate I - Lecanto, FL	Fifth Third	0	out|not-cyber
 Personal Banker Associate I - Liberty Park (Vestavia Hills, AL)	Fifth Third	0	out|not-cyber
 Personal Banker Associate I - Lincoln Park	Fifth Third	0	out|not-cyber
 Personal Banker Associate I - Louisville, KY	Fifth Third	0	out|not-cyber
@@ -6737,6 +6728,7 @@ Personal Banker Associate I - Zionsville	Fifth Third	0	out|not-cyber
 Personal Banker Associate I -Preston-Mapleshade	Fifth Third	0	out|not-cyber
 Personal Banker Associate I Clearlake	Fifth Third	0	out|not-cyber
 Personal Banker Associate I- Beck Rd	Fifth Third	0	out|not-cyber
+Personal Banker Associate I- Coleman Boulevard	Fifth Third	0	out|not-cyber
 Personal Banker Associate I- Cureton Financial Center	Fifth Third	0	out|not-cyber
 Personal Banker Associate I- Escondido	Fifth Third	0	out|not-cyber
 Personal Banker Associate I- Franklin/Eastern	Fifth Third	0	out|not-cyber
@@ -6772,8 +6764,8 @@ Personal Banking Associate Trainee	TD Bank	0	out|not-cyber
 Personal Banking Associate- Fixed Term Contract Ends May 16, 2027	TD Bank	0	out|not-cyber
 Personal Property Tax-Associate	JPMorgan Chase	0	out|not-cyber
 Personnel Security Specialist I Adjudicator	Amentum	0	out|rejected-title
-PGIM Credit,  Sr Associate, Asset Based Securities Research	Prudential	0	out|rejected-title
 PGIM Credit, Sr Associate RMBS Research	Prudential	0	out|rejected-title
+PGIM Credit, Sr Associate, Asset Based Securities Research	Prudential	0	out|rejected-title
 PGIM Private Credit | Investment Senior Analyst/Associate	Prudential	0	out|rejected-title
 PGIM | Intern, Real Estate Private Equity Portfolio Management (all genders) as of Q1 2027, Based in Frankfurt	Prudential	0	out|not-cyber
 PGIM: 2027 Public and Private Credit, Sophomore Externship Program	Prudential	0	out|not-cyber
@@ -6869,7 +6861,7 @@ Power Electronics - Electrical Engineer I	Shield AI	0	out|rejected-title
 Power Electronics - Electrical Engineer II	Shield AI	0	out|rejected-title
 Power Electronics - Thermal Engineer I (R4842)	Shield AI	0	out|not-cyber
 Power Methodology and Modeling Engineer - New College Grad 2026	NVIDIA	0	out|not-cyber
-Power System – High-Voltage Test Engineer II – Electric Powertrain & Battery Systems  (R4728)	Shield AI	0	out|not-cyber
+Power System – High-Voltage Test Engineer II – Electric Powertrain & Battery Systems (R4728)	Shield AI	0	out|not-cyber
 Practice Architect - Data Security	Zscaler	1	out|rejected-title
 Practice Architect, Delivery Architecture (COE)	Palo Alto Networks	1	out|rejected-title
 Practice Management Accounting Intern - Summer 2027	McKesson	0	out|rejected-title
@@ -6882,7 +6874,7 @@ Presales Solution Cybersecurity Expert	DXC Technology	0	out|rejected-title
 Pricing & Monetization Associate	MongoDB	0	out|not-cyber
 Pricing Analytics Solutions Associate	JPMorgan Chase	0	out|not-cyber
 Prime Brokerage Client Service - Associate II	JPMorgan Chase	0	out|not-cyber
-Prime Brokerage Client Service Manager - Associate  II	JPMorgan Chase	0	out|rejected-title
+Prime Brokerage Client Service Manager - Associate II	JPMorgan Chase	0	out|rejected-title
 Principal 5G/ nextG Cybersecurity Architect	MITRE	0	out|rejected-title
 Principal AI Cybersecurity Advisor | Remote, USA	Optiv	1	out|rejected-title
 Principal AI Engineer - Enterprise AI Solutions	Palo Alto Networks	1	out|rejected-title
@@ -6969,6 +6961,7 @@ Principal Software Engineer I - Snowhouse Foundation	Snowflake	0	out|rejected-ti
 Principal Software Engineer II - Interoperable Foundations	Snowflake	0	out|rejected-title
 Principal Software Engineer II - Next-Gen Data Transformations	Snowflake	0	out|rejected-title
 Principal Software Engineer II - Product Security	Snowflake	0	out|rejected-title
+Principal Software Engineer | Data Science	ExtraHop	1	out|rejected-title
 Principal Software Engineer, AI Onboarding	Saviynt	1	out|rejected-title
 Principal Software Engineer, AI SIEM	SentinelOne	1	out|rejected-title
 Principal Software Engineer, SecureAI	Okta	1	out|rejected-title
@@ -6999,7 +6992,7 @@ Private Bank, Client Service Associate - emerging market, Geneva	JPMorgan Chase	
 Private Bank, Real Estate Underwriter, Associate, Frankfurt	Goldman Sachs	0	out|not-cyber
 Private Banking: Marketing Business Intelligence Associate	JPMorgan Chase	0	out|rejected-title
 Private Client Project Manager, Senior Associate	JPMorgan Chase	0	out|rejected-title
-Private Equity  - Fund Administration - Associate	JPMorgan Chase	0	out|not-cyber
+Private Equity - Fund Administration - Associate	JPMorgan Chase	0	out|not-cyber
 Private Equity Fund Accounting - Associate	JPMorgan Chase	0	out|rejected-title
 Private Equity Fund Administration - Associate	JPMorgan Chase	0	out|not-cyber
 Private Equity Fund Administration Senior Associate	JPMorgan Chase	0	out|rejected-title
@@ -7024,7 +7017,7 @@ Procurement Practice Associate Manager	Accenture	0	out|rejected-title
 Procurement Practice New Associate	Accenture	0	out|rejected-title
 Procurement Support Specialist 2	Amentum	0	out|rejected-title
 Produce Associate	Walmart	0	out|not-cyber
-Produce Associate  New Location - Tomball, TX	Walmart	0	out|not-cyber
+Produce Associate New Location - Tomball, TX	Walmart	0	out|not-cyber
 Product Analytics Summer Intern - Start Date: May 24, 2027	The Cigna Group	0	out|not-cyber
 Product Associate - Brokerage	JPMorgan Chase	0	out|not-cyber
 Product Associate - MRGR	JPMorgan Chase	0	out|not-cyber
@@ -7102,7 +7095,7 @@ Product Security Governance Principal	Fifth Third	0	out|rejected-title
 Product Security Senior Manager	Booz Allen Hamilton	0	out|rejected-title
 Product Solutions Associate - Healthcare Payments	JPMorgan Chase	0	out|not-cyber
 Product Specialist/Manager, Early in Career - Norway	Cisco	0	out|rejected-title
-Product Strategy Associate  - Client 360	JPMorgan Chase	0	out|not-cyber
+Product Strategy Associate - Client 360	JPMorgan Chase	0	out|not-cyber
 Product Support Engineer - Level 2	Kyndryl	0	out|not-cyber
 Product Support Engineer II (Customer Support)	Sierra Nevada Corporation	0	out|rejected-title
 Product Support Engineer T2, Japan	Cato Networks	1	out|no-level
@@ -7202,7 +7195,6 @@ Python Backend Developer with AWS and SQL (Software Engineer II)	JPMorgan Chase	
 Python Full Stack Developer (Treasury Transformation) - Associate/ Senior Associate	JPMorgan Chase	0	out|rejected-title
 Python Full Stack Developer (Treasury Transformation) - Senior Associate/ Vice President	JPMorgan Chase	0	out|rejected-title
 Python Full Stack Software Engineer II	JPMorgan Chase	0	out|not-cyber
-Python Software Engineer -  AI Security Platform (m/f/n)	ESET	1	out|no-level
 Python Software Engineer Level 2 or 3 (AHT)	Northrop Grumman	0	out|not-cyber
 Python Software Engineer – Malware Automation (m/f/n)	ESET	1	out|no-level
 QA Automation Engineer II, Officer	State Street	0	out|not-cyber
@@ -7217,7 +7209,6 @@ Quality Assurance, Monitoring & Testing Analyst 1, Officer	Citi	0	out|not-cyber
 Quality Control Analyst I (1st Shift)	Honeywell	0	out|not-cyber
 Quality Control Analyst II	Honeywell	0	out|not-cyber
 Quality Control Lead (IT IA IM Program/Project Management Level II) - Government	AT&T	0	out|rejected-title
-Quality Engineer  II	Medtronic	0	out|not-cyber
 Quality Engineer I	BAE Systems	0	out|not-cyber
 Quality Engineer I - Mobile Automation Engineer	TD Bank	0	out|not-cyber
 Quality Engineer I-2	TD Bank	0	out|not-cyber
@@ -7278,9 +7269,9 @@ Quantitative Trading & Research - Quantitative Developer - Associate or Vice Pre
 Quantitative Trading & Research - Quantitative Developer Systematic Trading - Associate	JPMorgan Chase	0	out|not-cyber
 Quantitative Trading & Research - Quantitative Researcher for Systematic Volatility Trading – Associate/ Vice President	JPMorgan Chase	0	out|rejected-title
 Quantitative Trading & Research - Systematic Trading - Associate	JPMorgan Chase	0	out|not-cyber
-Quantitative Trading & Research –  Fixed Income – Associate	JPMorgan Chase	0	out|not-cyber
-Quantitative Trading & Research – Credit Portfolio – Quantitative Developer –  Associate or Vice President	JPMorgan Chase	0	out|rejected-title
+Quantitative Trading & Research – Credit Portfolio – Quantitative Developer – Associate or Vice President	JPMorgan Chase	0	out|rejected-title
 Quantitative Trading & Research – Equity Derivatives Exotics - Associate	JPMorgan Chase	0	out|not-cyber
+Quantitative Trading & Research – Fixed Income – Associate	JPMorgan Chase	0	out|not-cyber
 Quantitative Trading & Research – Rates Quantitative Trader – Analyst or Associate	JPMorgan Chase	0	out|not-cyber
 Quantitative Trading & Research – Securities Services, Payments and CIB Treasury – Associate or Vice President	JPMorgan Chase	0	out|rejected-title
 Quantitative Trading & Research, Cross-Asset – Associate	JPMorgan Chase	0	out|not-cyber
@@ -7392,11 +7383,10 @@ Research Scientist, Circuits - PhD New College Grad 2026	NVIDIA	0	out|not-cyber
 Research Scientist, Deep Learning and Computer Vision - New College Graduate	NVIDIA	0	out|not-cyber
 Research Scientist, Electronic Design Automation - New College Grad 2026	NVIDIA	0	out|not-cyber
 Research Scientist, Fundamental Generative AI - New College Grad 2026	NVIDIA	0	out|not-cyber
-Research Scientist, Fundamental Generative AI - New College Grad 2026	NVIDIA	0	out|not-cyber
 Research Scientist, ML Systems - PhD New College Grad 2026	NVIDIA	0	out|not-cyber
 Research Scientist, Networking Research - PhD New College Grad 2026	NVIDIA	0	out|not-cyber
 Research Scientist, Physical AI - Foundation Models - PhD New College Grad 2026	NVIDIA	0	out|not-cyber
-Research Scientist, Robotics Research -  PhD New College Grad 2026	NVIDIA	0	out|not-cyber
+Research Scientist, Robotics Research - PhD New College Grad 2026	NVIDIA	0	out|not-cyber
 Research Scientist, Security and Privacy - PhD New College Grad 2026	NVIDIA	0	newgrad|Security Engineering
 Research Software Engineer I - Onsite	RTX	0	out|not-cyber
 Research Technology & Cloud Solutions Architect	Oracle	0	out|rejected-title
@@ -7405,7 +7395,6 @@ Resolution & Recovery Model Development - Senior Associate	JPMorgan Chase	0	out|
 Responsible AI Senior Associate	PwC	0	out|rejected-title
 Responsible Content Analyst 2	Microsoft	0	out|not-cyber
 Restricted Securities Associate	Morgan Stanley	0	out|not-cyber
-Retail Associate  Manager	T-Mobile	0	out|rejected-title
 Retail Associate Manager	T-Mobile	0	out|rejected-title
 Retail Banking Development Program - Financial Wellness Solutions	PNC	0	out|not-cyber
 Retail Banking Summer Intern Program - Financial Wellness Solutions	PNC	0	out|not-cyber
@@ -7502,7 +7491,7 @@ RPA Mx Avionics Technician I/Battle Creek ANG	Amentum	0	out|not-cyber
 RPA Mx Avionics Technician I/Ellsworth AFB	Amentum	0	out|not-cyber
 RR-0392553_Senior Analyst II infrastructure services	DXC Technology	0	out|not-cyber
 RR-0393497 Service Desk Intern-19	DXC Technology	0	out|not-cyber
-RR-0421351  Sr Analyst II Infrastructure Services	DXC Technology	0	out|rejected-title
+RR-0421351 Sr Analyst II Infrastructure Services	DXC Technology	0	out|rejected-title
 RRE Engineering Internship & Co-op Program - Summer 2027	Duke Energy	0	out|not-cyber
 RTL Power Optimization Engineer – New College Grad 2026	NVIDIA	0	out|not-cyber
 Safeguards Enforcement Analyst, Ban Evasion & Recidivism	Anthropic	0	out|no-level
@@ -7539,7 +7528,7 @@ Sales Development Representative - Burlington - June 2027	Oracle	0	out|rejected-
 Sales Development Representative - Denver - June 2027	Oracle	0	out|rejected-title
 Sales Development Representative - Nashville - June 2027	Oracle	0	out|rejected-title
 Sales Development Representative - Santa Monica - June 2027	Oracle	0	out|rejected-title
-Sales Development Representative I  (Full Time) United States -Security	Cisco	0	out|rejected-title
+Sales Development Representative I (Full Time) United States -Security	Cisco	0	out|rejected-title
 Sales Development Representative Intern, Splunk - Singapore	Cisco	0	out|rejected-title
 Sales Development Specialist II - Mexico City, MX	Rackspace	0	out|rejected-title
 Sales Engineer (EMEA)	Keeper Security	1	out|no-level
@@ -7563,7 +7552,7 @@ Sales Graduate	HPE	0	out|rejected-title
 Sales Intern	Coinbase	0	out|rejected-title
 Sales Intern	Palo Alto Networks	1	out|rejected-title
 Sales Intern (North)	Salesforce	0	out|rejected-title
-Sales Intern – Summer 2027	Tanium	1	out|rejected-title
+Sales Intern – Summer 2027	Tanium	1	out|rejected-title
 Sales Manager, Enterprise Platforms, Grower (Tier 1)	Stripe	0	out|rejected-title
 Sales Operations Intern	Medtronic	0	out|rejected-title
 Sales Operations Specialist II	F5	0	out|rejected-title
@@ -7573,7 +7562,6 @@ Sales Specialist - Security	Microsoft	0	out|rejected-title
 Sales Strategy & Operations Renewals Associate (Sr)	Verkada	0	out|rejected-title
 Sales Strategy and Operations Associate	Verkada	0	out|rejected-title
 Sales Support Associate	MongoDB	0	out|rejected-title
-Salesforce  Architect - IN	Arctic Wolf	1	out|rejected-title
 Salesforce Data Cloud & AI Associate Architect	Accenture	0	out|not-cyber
 Salesforce Developer (US-Remote)	Tenable	1	out|no-level
 Salesforce Internships - Amsterdam (September Start date)	Salesforce	0	out|not-cyber
@@ -7606,6 +7594,7 @@ SCS - Credit Risk Management Intern - 2027	Federal Reserve System	0	out|not-cybe
 SCS - Shared Services Intern - 2027	Federal Reserve System	0	out|not-cyber
 SCS - Statistics and Analysis Intern - 2027	Federal Reserve System	0	out|not-cyber
 SDA Software Systems Engineer - Level 2/3	Northrop Grumman	0	out|not-cyber
+SDET (TESTER ) .Net Developer	Delinea	1	out|no-level
 SDET Engineer	Fortanix	1	out|no-level
 SDR Intern - London	Snowflake	0	out|not-cyber
 SDR Intern - Munich	Snowflake	0	out|not-cyber
@@ -7731,7 +7720,7 @@ Security Research INTERN	Microsoft	0	intern|Security Engineering
 Security Researcher	Cato Networks	1	out|no-level
 Security Researcher	Microsoft	0	out|no-level
 Security Researcher Manager - Cloud & Kubernetes (Cortex)	Palo Alto Networks	1	out|rejected-title
-Security Risk & Engineering- Cloud Security-  Manager	PwC	0	out|rejected-title
+Security Risk & Engineering- Cloud Security- Manager	PwC	0	out|rejected-title
 Security Risk Management Intern (Summer 2027)	Robinhood	0	intern|GRC & Risk
 Security Sales Engineer - SLED/Public Sector	Tenable	1	out|no-level
 Security Sales Specialist	HPE	0	out|rejected-title
@@ -7755,7 +7744,6 @@ Security Testing Engineer, US Amazon Dedicated Cloud Security	Amazon	0	out|no-le
 Security Valuations, Assistant Vice President	State Street	0	out|rejected-title
 Security(L3 Threat Hunter)	Kyndryl	0	out|rejected-title
 Semiconductor Manufacturing Engineer II	Honeywell	0	out|rejected-title
-Senior  Associate, Chase Travel Lodging	JPMorgan Chase	0	out|rejected-title
 Senior .Net Developer Ai	Delinea	1	out|rejected-title
 Senior .NET Developer, SaaS Manager	1Password	1	out|rejected-title
 Senior .NET Development Engineer	Delinea	1	out|rejected-title
@@ -7818,6 +7806,7 @@ Senior Associate, Business Development	Coinbase	0	out|rejected-title
 Senior Associate, Business Incentives Group	BDO	0	out|rejected-title
 Senior Associate, Capital Markets & Risk Analyst	Capital One	0	out|rejected-title
 Senior Associate, Card & Commerce Marketing Business Management	JPMorgan Chase	0	out|rejected-title
+Senior Associate, Chase Travel Lodging	JPMorgan Chase	0	out|rejected-title
 Senior Associate, Client Coverage, Global Client Management (Tokyo)	BNY	0	out|rejected-title
 Senior Associate, Client Operations	BNY	0	out|rejected-title
 Senior Associate, Client Service Onboarding	Capital One	0	out|rejected-title
@@ -7860,7 +7849,7 @@ Senior Associate, Pricing & Commercial Operations	Verkada	0	out|rejected-title
 Senior Associate, Process Manager (Hybrid)	Capital One	0	out|rejected-title
 Senior Associate, Product Management - Applied AI	Capital One	0	out|rejected-title
 Senior Associate, Product Management-Home Lending Transformation	JPMorgan Chase	0	out|rejected-title
-Senior Associate, Product Manager  - Delegated Experiences and Agentic AI - Trust & Security	JPMorgan Chase	0	out|rejected-title
+Senior Associate, Product Manager - Delegated Experiences and Agentic AI - Trust & Security	JPMorgan Chase	0	out|rejected-title
 Senior Associate, Product Manager – Open Banking	JPMorgan Chase	0	out|rejected-title
 Senior Associate, Product Manager, Small Business Bank Fraud Decisioning	Capital One	0	out|rejected-title
 Senior Associate, Product Manager-Small Business Bank	Capital One	0	out|rejected-title
@@ -7972,7 +7961,6 @@ Senior Engineer II	Menlo Security	1	out|rejected-title
 Senior Engineer – Workload Identity Platform (SPIFFE/SPIRE)	Target	0	out|rejected-title
 Senior Engineer, Offensive Security	Humana	0	out|rejected-title
 Senior Engineering Manager, Core Product	Prophet Security	1	out|rejected-title
-Senior Engineering Manager, SDET  - Okta Identity Governance (OIG)	Okta	1	out|rejected-title
 Senior Finance Associate - Finance Transformation (12-month fixed-term contract)	Capital One	0	out|rejected-title
 Senior Finance Associate, Engineering	Anduril	0	out|rejected-title
 Senior Financial Reporting Associate	Everfox	1	out|rejected-title
@@ -8020,7 +8008,6 @@ Senior Manager, Identity & Access Management (IAM)	Databricks	0	out|rejected-tit
 Senior Manager, Launch Program Management	ServiceNow	0	out|rejected-title
 Senior Manager, Partner Solutions Engineering (GSI)	Wiz	1	out|rejected-title
 Senior Manager, Security Operations	Verizon	0	out|rejected-title
-Senior Manager, Site Reliability Engineering -  Infrastructure Platform	Okta	1	out|rejected-title
 Senior Manager, Software Development Engineering	Zscaler	1	out|rejected-title
 Senior Manager, Solution Engineering - DocV	Socure	1	out|rejected-title
 Senior Manager, Solutions Engineering, Okta	Okta	1	out|rejected-title
@@ -8095,8 +8082,8 @@ Senior Product Manager - Okta Identity Governance	Okta	1	out|rejected-title
 Senior Product Manager - Platform	Arctic Wolf	1	out|rejected-title
 Senior Product Manager - UI Platform	Okta	1	out|rejected-title
 Senior Product Manager — Sophos Endpoint Detection and Response	Sophos	1	out|rejected-title
-Senior Product Manager-  Application Security (Cortex Cloud)	Palo Alto Networks	1	out|rejected-title
 Senior Product Manager- Agentic Security	Microsoft	0	out|rejected-title
+Senior Product Manager- Application Security (Cortex Cloud)	Palo Alto Networks	1	out|rejected-title
 Senior Product Marketing Manager - Cybersecurity	Stellar Cyber	1	out|rejected-title
 Senior Product Marketing Manager, Agentic Identity Security (Apono)	1Password	1	out|rejected-title
 Senior Product Marketing Strategy Associate	JPMorgan Chase	0	out|rejected-title
@@ -8129,6 +8116,7 @@ Senior SAP GRC Consultant	DXC Technology	0	out|rejected-title
 Senior Security Analyst	Appian	0	out|rejected-title
 Senior Security Architect - Northeast region	GuidePoint Security	1	out|rejected-title
 Senior Security Assurance Analyst	Lyft	0	out|rejected-title
+Senior Security Assurance Program Manager and Principal Security Assurance Program Manager	Microsoft	0	out|rejected-title
 Senior Security Consultant	Tenable	1	out|rejected-title
 Senior Security Consultant - Okta (Remote in the US)	GuidePoint Security	1	out|rejected-title
 Senior Security Engineer – Cyber Hunting & Incident Response	Truist	0	out|rejected-title
@@ -8142,7 +8130,6 @@ Senior Security Operations Engineer	Invicti	1	out|rejected-title
 Senior Security Operations Engineer I	Samsara	0	out|rejected-title
 Senior Security Sales Engineer	Datadog	0	out|rejected-title
 Senior Security Technical Program Manager	Asana	0	out|rejected-title
-Senior Security Assurance Program Manager and Principal Security Assurance Program Manager	Microsoft	0	out|rejected-title
 Senior ServiceNow Software Development Engineer (Risk & Security)	CACI	0	out|rejected-title
 Senior SIEM Data Engineer, Vice President	State Street	0	out|rejected-title
 Senior Site Reliability Engineer (FedRAMP)	Nozomi Networks	1	out|rejected-title
@@ -8248,7 +8235,6 @@ Senior Technical Account Manager - SIEM/Security Analytics (US Remote)	Anomali	1
 Senior Technical Architect (GRC)	OneTrust	1	out|rejected-title
 Senior Technical Architect (Privacy)	OneTrust	1	out|rejected-title
 Senior Technical Program Manager - Security	OpenAI	0	out|rejected-title
-Senior Technical Security Consultant  - H&PS	Accenture	0	out|rejected-title
 Senior Technical Support Engineer - Platinum Support (EMEA)	Palo Alto Networks	1	out|rejected-title
 Senior Technical Support Engineer, EMEA	Horizon3.ai	1	out|rejected-title
 Senior Technology Strategy Analyst - Senior Associate	JPMorgan Chase	0	out|rejected-title
@@ -8316,7 +8302,6 @@ Site Reliability Engineer II - CTJ - Secret	Microsoft	0	out|not-cyber
 Site Reliability Engineer II - Java/Python, Kubernetes, AWS, Terraform	JPMorgan Chase	0	earlycareer|Cloud Engineering
 Site Reliability Engineer II, Payments Technology	JPMorgan Chase	0	out|not-cyber
 Site Reliability Engineer II, tvScientific	Pinterest	0	out|not-cyber
-SkillBridge -  Sr Principal Cyber Systems Engineer	Northrop Grumman	0	out|rejected-title
 SkillBridge - Data Center Technician - Trainee - Cohort Q1' 2027	Equinix	0	out|rejected-title
 SkillBridge - Manufacturing Technician 2	Northrop Grumman	0	out|rejected-title
 SkillBridge NetSuite Military Fellowship: September - November 2026	Oracle	0	out|rejected-title
@@ -8370,13 +8355,13 @@ Software Development Engineer (GUI)	Fortinet	1	out|no-level
 Software Development Engineer - macOS Endpoint	BeyondTrust	1	out|no-level
 Software Development Engineer 2	Adobe	0	out|not-cyber
 Software Development Engineer II	F5	0	out|not-cyber
-Software Development Engineer II,  Intelligent Cloud Hosting (ICON)	Amazon	0	out|not-cyber
 Software Development Engineer II, AGI Security	Amazon	0	earlycareer|Security Engineering
 Software Development Engineer II, Amazon Security	Amazon	0	earlycareer|Security Engineering
 Software Development Engineer II, AWS Security	Amazon	0	earlycareer|Security Engineering
 Software Development Engineer II, AWS Security Hub	Amazon	0	earlycareer|Security Engineering
 Software Development Engineer II, Defensive Security - Security Findings Management	Amazon	0	earlycareer|Security Engineering
 Software Development Engineer II, Infrastructure Security-HLS	Amazon	0	earlycareer|Cloud & Infra Security
+Software Development Engineer II, Intelligent Cloud Hosting (ICON)	Amazon	0	out|not-cyber
 Software Development Engineer II, Payments Security	Amazon	0	earlycareer|Security Engineering
 Software Development Engineer – Agentic AI	Trellix	1	out|no-level
 Software Development Engineer, Amazon Dedicated Cloud, Early Career - 2026, Amazon Dedicated Cloud (ADC)	Amazon	0	out|not-cyber
@@ -8477,7 +8462,6 @@ Software Engineer I, Frontend (Upfunnel)	Affirm	0	out|not-cyber
 Software Engineer I, IQ Grow	Toast	0	out|not-cyber
 Software Engineer II	Affirm	0	out|not-cyber
 Software Engineer II	Entrust	1	earlycareer|Engineering @ Security Co
-Software Engineer II  Packet forwarding team	HPE	0	out|not-cyber
 Software Engineer II (.NET, Java, AWS)	Travelers	0	out|not-cyber
 Software Engineer II (AI, Python, Typescript)	Travelers	0	out|not-cyber
 Software Engineer II (AWS Infrastructure)	JPMorgan Chase	0	out|not-cyber
@@ -8496,8 +8480,6 @@ Software Engineer II (Salesforce Loyalty Management Developer)	TD Bank	0	out|not
 Software Engineer II (SDET)	TD Bank	0	out|not-cyber
 Software Engineer II (Software Engineer in Test )	Mastercard	0	out|not-cyber
 Software Engineer II , Backend, (Furnishing Platform)	Affirm	0	out|not-cyber
-Software Engineer II -  Behavioral Identity Security (Singapore)	Abnormal AI	1	earlycareer|Identity & IAM
-Software Engineer II -  Data Integration Platform (DIP) Ingestion	Abnormal AI	1	earlycareer|Engineering @ Security Co
 Software Engineer II - Adobe Experience Manager, Full Stack	JPMorgan Chase	0	out|rejected-title
 Software Engineer II - AEM	TD Bank	0	out|not-cyber
 Software Engineer II - Agentic AI, Java , AWS , Springboot , Kafka	JPMorgan Chase	0	out|not-cyber
@@ -8505,6 +8487,7 @@ Software Engineer II - AI Infrastructure	Microsoft	0	out|not-cyber
 Software Engineer II - Asset & Wealth Management Technology	JPMorgan Chase	0	out|not-cyber
 Software Engineer II - Automation Tester	JPMorgan Chase	0	out|not-cyber
 Software Engineer II - Backend	Microsoft	0	out|not-cyber
+Software Engineer II - Behavioral Identity Security (Singapore)	Abnormal AI	1	earlycareer|Identity & IAM
 Software Engineer II - Blockchain	Mastercard	0	out|not-cyber
 Software Engineer II - C# .Net	JPMorgan Chase	0	out|not-cyber
 Software Engineer II - C#/.Net - Neovest	JPMorgan Chase	0	out|not-cyber
@@ -8516,6 +8499,7 @@ Software Engineer II - CTJ - POLY	Microsoft	0	out|not-cyber
 Software Engineer II - CTJ - Poly	Microsoft	0	out|not-cyber
 Software Engineer II - CTJ- POLY	Microsoft	0	out|not-cyber
 Software Engineer II - Data Engineer	BAE Systems	0	out|not-cyber
+Software Engineer II - Data Integration Platform (DIP) Ingestion	Abnormal AI	1	earlycareer|Engineering @ Security Co
 Software Engineer II - Data Security	Abnormal AI	1	earlycareer|Security Engineering
 Software Engineer II - Decision Management Program	Mastercard	0	out|not-cyber
 Software Engineer II - DevOps	Rapid7	1	earlycareer|Engineering @ Security Co
@@ -8561,6 +8545,7 @@ Software Engineer II and Sr.Software Engineer(multiple roles) Windows Engineerin
 Software Engineer II and/or Senior Software Engineer - AI Compilers	Microsoft	0	out|rejected-title
 Software Engineer II and/or Senior Software Engineer - Backend	Microsoft	0	out|rejected-title
 Software Engineer II Associate - React/UI/Python	JPMorgan Chase	0	out|not-cyber
+Software Engineer II Packet forwarding team	HPE	0	out|not-cyber
 Software Engineer II | ML & AI (REMOTE)	The Home Depot	0	out|not-cyber
 Software Engineer II – 12-Month Fixed-Term Contract	Medtronic	0	out|not-cyber
 Software Engineer II – AI Agents & Harnesses	Travelers	0	out|not-cyber
@@ -8614,7 +8599,7 @@ Software Engineer II- Linux C/C++ systems programming	JPMorgan Chase	0	out|not-c
 Software Engineer II- Test Automation	JPMorgan Chase	0	out|not-cyber
 Software Engineer II-Team Lead (AWS, Typescript)	Travelers	0	out|rejected-title
 Software Engineer III - Backend & Cloud Engineering (Python/Golang/Java, AWS, Terraform)	JPMorgan Chase	0	out|rejected-title
-Software Engineer III - LLM Suite Engineering -  Senior Associate	JPMorgan Chase	0	out|rejected-title
+Software Engineer III - LLM Suite Engineering - Senior Associate	JPMorgan Chase	0	out|rejected-title
 Software Engineer III | AI/ML	ExtraHop	1	out|rejected-title
 Software Engineer Intern	Coinbase	0	out|not-cyber
 Software Engineer Intern	OPSWAT	1	intern|Engineering @ Security Co
@@ -8692,9 +8677,10 @@ Software Engineer-2	Mastercard	0	out|not-cyber
 Software Engineer: AI/ML & LLM Intern Opportunities for University Students, Redmond	Microsoft	0	out|not-cyber
 Software Engineer: Cloud & Distributed Backend Intern Opportunities for University Students, Redmond	Microsoft	0	out|not-cyber
 Software Engineer: Data Platform/Analytics Intern Opportunities for University Students, Redmond	Microsoft	0	out|not-cyber
-Software Engineer: Fullstack Product (Web + Services)  Intern Opportunities for University Students,	Microsoft	0	out|not-cyber
+Software Engineer: Fullstack Product (Web + Services) Intern Opportunities for University Students,	Microsoft	0	out|not-cyber
 Software Engineer: Intern Opportunities for University Students - CoreAI - Redmond, WA	Microsoft	0	out|not-cyber
 Software Engineer: Security & Identity Intern Opportunities for University Students, Redmond	Microsoft	0	intern|Identity & IAM
+Software Engineering & ML/Data Engineer, Senior Associate	State Street	0	out|rejected-title
 Software Engineering - Intern, Bachelor’s	Intel	0	out|not-cyber
 Software Engineering - Intern, Graduate	Intel	0	out|not-cyber
 Software Engineering - PhD Intern	Intel	0	out|not-cyber
@@ -8702,7 +8688,7 @@ Software Engineering - SRE Data - Software Engineer - Associate - Dallas	Goldman
 Software Engineering AMTS (College Grad)	Salesforce	0	out|not-cyber
 Software Engineering Associate - Early Career	Lockheed Martin	0	out|not-cyber
 Software Engineering Associate Advisor - HIH - Evernorth	The Cigna Group	0	out|not-cyber
-Software Engineering Associate Advisor-  HIH - Evernorth	The Cigna Group	0	out|not-cyber
+Software Engineering Associate Advisor- HIH - Evernorth	The Cigna Group	0	out|not-cyber
 Software Engineering Co-op (Fall/Spring 2027)	RTX	0	out|not-cyber
 Software Engineering Co-op (Spring and Summer 2027)	Battelle	0	out|not-cyber
 Software Engineering Co-Op (Spring-Summer 2027)	Battelle	0	out|not-cyber
@@ -8728,7 +8714,7 @@ Software Engineering Intern II, Summer 2027 (Onsite)	BAE Systems	0	out|not-cyber
 Software Engineering Intern III, Summer 2027 (Onsite)	BAE Systems	0	out|not-cyber
 Software Engineering Intern Summer 2027	Autodesk	0	out|not-cyber
 Software Engineering Intern – Summer 2027	Medtronic	0	out|not-cyber
-Software Engineering Intern – Summer 2027	Tanium	1	intern|Engineering @ Security Co
+Software Engineering Intern – Summer 2027	Tanium	1	intern|Engineering @ Security Co
 Software Engineering Intern, Android	Ramp	0	out|not-cyber
 Software Engineering Intern, Android (Summer 2027)	Robinhood	0	out|not-cyber
 Software Engineering Intern, Backend	Ramp	0	out|not-cyber
@@ -8749,7 +8735,6 @@ Software Engineering Manager, Performance and Quality Frameworks	SailPoint	1	out
 Software Engineering New Associate (Fresh Diploma Graduate Program)	Accenture	0	out|not-cyber
 Software Engineering Technical Leader - Customer Experience / SDK - L2/L3, MPLS	Cisco	0	out|rejected-title
 Software Engineering Winter Internship	Rubrik	0	out|not-cyber
-Software Engineering & ML/Data Engineer, Senior Associate	State Street	0	out|rejected-title
 Software Engineer–Developer, Phantom Works Weapons (Associate or Experienced)	Boeing	0	out|not-cyber
 Software Integration Engineer - New Grad (2027)	Applied Intuition	0	out|not-cyber
 Software Integration Engineer 2	GDIT	0	out|not-cyber
@@ -8759,7 +8744,7 @@ Software Product Security Engineer Intern	HP Inc	0	intern|AppSec & ProdSec
 Software Programmer Intern	Amentum	0	out|not-cyber
 Software QA Automation Engineer, II	AeroVironment	0	out|not-cyber
 Software QA Engineer - 2	Fortinet	1	earlycareer|Engineering @ Security Co
-Software QA Intern, Spark Rapids  - 2027	NVIDIA	0	out|not-cyber
+Software QA Intern, Spark Rapids - 2027	NVIDIA	0	out|not-cyber
 Software QA Specialist	Fortinet	1	out|no-level
 Software R&D Engineer, VLSI Physical Design - New College Grad 2026	NVIDIA	0	out|rejected-title
 Software Release QA Specialist	Fortinet	1	out|no-level
@@ -8790,7 +8775,7 @@ Solution Enabling Engineer (1 Year Internship)	Intel	0	out|not-cyber
 Solution Engineer, APAC	Hoxhunt	1	out|no-level
 Solution Engineer, Identity - Central	Palo Alto Networks	1	out|no-level
 Solution Engineer, Post-Sales	Blumira	1	out|rejected-title
-Solutions Analyst II - TII  Payment Testing - USRTP	JPMorgan Chase	0	out|not-cyber
+Solutions Analyst II - TII Payment Testing - USRTP	JPMorgan Chase	0	out|not-cyber
 Solutions Architect - Service Creation	Palo Alto Networks	1	out|rejected-title
 Solutions Architect - Sydney	Netskope	1	out|rejected-title
 Solutions Architect Intern Cohort, AGS-Tech - 2027	Amazon	0	intern|Solutions Architecture
@@ -8810,7 +8795,6 @@ Solutions Consultant II	Palo Alto Networks	1	earlycareer|Engineering @ Security 
 Solutions Consultant Manager	Palo Alto Networks	1	out|rejected-title
 Solutions Consultant SLED	Palo Alto Networks	1	out|no-level
 Solutions Engineer (Pre-Sales) US	Aikido Security	1	out|rejected-title
-Solutions Engineer - Chennai  (Pre-Sales experience is a must)	SonicWall	1	out|rejected-title
 Solutions Engineer - Commercial (Expansion Sales)	Tailscale	1	out|rejected-title
 Solutions Engineer - Commercial (New Business)	Tailscale	1	out|no-level
 Solutions Engineer - Frankfurt	Netskope	1	out|no-level
@@ -8839,7 +8823,7 @@ Special Security Officer (SSO)	Leidos	0	out|rejected-title
 Special Security Representative (SSR)	KBR	0	out|no-level
 Specialist 2 - Workday Security Consultant	Comcast	0	earlycareer|Security Engineering
 Specialist 2, SEC	CrowdStrike	1	out|not-cyber
-Specialist 2/ Vice President  – Securities Finance Market Operations	BNY	0	out|rejected-title
+Specialist 2/ Vice President – Securities Finance Market Operations	BNY	0	out|rejected-title
 Specialist App/Prod Support- Tier 2 Kafka Administrator, AKS, cloud	AT&T	0	out|not-cyber
 Specialist I/II, Operations Quality Assurance	Southern Company	0	out|not-cyber
 Specialist II - Fund Operations, Private Equity	BNY	0	out|not-cyber
@@ -8915,11 +8899,9 @@ Sr Lead Infrastructure Engineer- Devops/AWS	JPMorgan Chase	0	out|rejected-title
 Sr Lead Security Engineer - Role Core	JPMorgan Chase	0	out|rejected-title
 Sr Manager, Software Engineering - Logging (Chronosphere)	Palo Alto Networks	1	out|rejected-title
 Sr NPI Reliability Engineer	Palo Alto Networks	1	out|rejected-title
-Sr Principal / Architect Engineer Software -  Backend, Alerting (Chronosphere)	Palo Alto Networks	1	out|rejected-title
 Sr Principal Cyber Software Engineer - Top Secret	Northrop Grumman	0	out|rejected-title
 Sr Principal Cybersecurity Analyst - 18957 - Roy Utah	Northrop Grumman	0	out|rejected-title
 Sr Principal Engineer Software	Palo Alto Networks	1	out|rejected-title
-Sr Principal Software Architect (Idira,  Secrets Manager)	Palo Alto Networks	1	out|rejected-title
 Sr Principal Software Engineer, AI Security Platform	Northern Trust	0	out|rejected-title
 Sr Principal, Tech Program Manager - Cybersecurity Portfolio Lead	Northern Trust	0	out|rejected-title
 Sr Principal/Principal Windows Malware Security Researcher (Cortex)	Palo Alto Networks	1	out|rejected-title
@@ -8936,7 +8918,6 @@ Sr Staff IT AI Software Engineer	Palo Alto Networks	1	out|rejected-title
 Sr Systems Engineer (SSE)	Palo Alto Networks	1	out|rejected-title
 Sr Systems Technologist I	Motorola Solutions	0	out|rejected-title
 Sr Technical Service Desk Analyst -Level 2	Unisys	0	out|rejected-title
-Sr.  Infrastructure Engineer (AWS, Azure, Terraform & Automation)	U.S. Bank	0	out|rejected-title
 Sr. AI Ops/HR Tech Engineer	Trend Micro	1	out|rejected-title
 Sr. Analyst, AMP (Rotational Leadership Program)	The Home Depot	0	out|rejected-title
 Sr. Analytics Engineer-Product Insights (Hybrid)	CrowdStrike	1	out|rejected-title
@@ -8978,11 +8959,13 @@ Sr. Escalations Engineer	Corelight	1	out|rejected-title
 Sr. Governance, Risk, and Compliance Specialist (Remote)	CrowdStrike	1	out|rejected-title
 Sr. IAM Engineer – SAP Security HANA	McKesson	0	out|rejected-title
 Sr. II Full Stack Engineer, Cloud Native - AI Detection and Response (AIDR) (Hybrid, Sunnyvale)	CrowdStrike	1	out|rejected-title
+Sr. Infrastructure Engineer (AWS, Azure, Terraform & Automation)	U.S. Bank	0	out|rejected-title
 Sr. ISSE TS/SCI Polygraph	Leidos	0	out|rejected-title
 Sr. Manager, HRIS Data Strategy & Security	Salesforce	0	out|rejected-title
 Sr. Manager, Risk and Security Intelligence Solutions (RAS) Specialist Seller, KSA, Bahrain and Oman	Visa	0	out|rejected-title
 Sr. Manager, Security Engineering	Wiz	1	out|rejected-title
 Sr. Manager, Security Operations	Vanta	1	out|rejected-title
+Sr. Mgr, Systems Security Engineering (Onsite - Cedar Rapids, IA)	RTX	0	out|rejected-title
 Sr. Network Expert/ Engineer	Trend Micro	1	out|rejected-title
 Sr. Physical Security Engineer, Data Center Design Engineering	Amazon	0	out|rejected-title
 Sr. Product Manager - Next-Gen SIEM (Hybrid)	CrowdStrike	1	out|rejected-title
@@ -9000,7 +8983,6 @@ Sr. Software Development Engineer	Zscaler	1	out|rejected-title
 Sr. Software Development Engineer - Python Automation / Kubernetes / Networking	Zscaler	1	out|rejected-title
 Sr. Software Engineer (XDR for Networks)	Trend Micro	1	out|rejected-title
 Sr. Software Engineer - Cloud - Asset Platform (Hybrid)	CrowdStrike	1	out|rejected-title
-Sr. Software Engineer - Data Query Platform - London  (Hybrid)	CrowdStrike	1	out|rejected-title
 Sr. Software Engineer - Surface Engineering (Hybrid)	CrowdStrike	1	out|rejected-title
 Sr. Software Engineer II	Material Security	1	out|rejected-title
 Sr. Software Engineer II - Java, AVP	State Street	0	out|rejected-title
@@ -9037,7 +9019,6 @@ Staff Attack Engineer, AI/LLM	Horizon3.ai	1	out|rejected-title
 Staff Backend Engineer (Go, Java) - Detection & Response	SentinelOne	1	out|rejected-title
 Staff Backend Engineer, Passwordless	Okta	1	out|rejected-title
 Staff Backend Software Engineer - Agent Platform (Go/Python)	SentinelOne	1	out|rejected-title
-Staff Cloud Security Engineer-  Vulnerability Management	CVS Health	0	out|rejected-title
 Staff Cloud Security Researcher	SentinelOne	1	out|rejected-title
 Staff Cyber Systems Engineer (S)	Northrop Grumman	0	out|rejected-title
 Staff Cybersecurity Threat Analyst	PayPal	0	out|rejected-title
@@ -9051,7 +9032,7 @@ Staff Data Scientist, Watchlist	Socure	1	out|rejected-title
 Staff Detection Engineer	Asana	0	out|rejected-title
 Staff Developer - Endpoint - Cloud	Arctic Wolf	1	out|rejected-title
 Staff DevOps Engineer	Palo Alto Networks	1	out|rejected-title
-Staff DevSecOps Engineer  (Health 100)	CVS Health	0	out|rejected-title
+Staff DevSecOps Engineer (Health 100)	CVS Health	0	out|rejected-title
 Staff DevSecOps Engineer (R5824)	Shield AI	0	out|rejected-title
 Staff Endpoint Software Engineer, (Python, Windows/Mac/OS Internals)	SentinelOne	1	out|rejected-title
 Staff Engineer (Credit Team)	Trend Micro	1	out|rejected-title
@@ -9064,6 +9045,7 @@ Staff Facility Security Officer (R5220)	Shield AI	0	out|rejected-title
 Staff FE/Full-stack Engineer (React/TS, Python) - SOC Automation	SentinelOne	1	out|rejected-title
 Staff FPGA Engineer	Entrust	1	out|rejected-title
 Staff Fullstack Engineer, SecureAI	Okta	1	out|rejected-title
+Staff Product Manager - Prompt Security	SentinelOne	1	out|rejected-title
 Staff Product Manager, SIEM	Huntress	1	out|rejected-title
 Staff Product Marketing Manager – Security	Fastly	0	out|rejected-title
 Staff Research Scientist, Intern - PhD Agentic AI	Visa	0	out|rejected-title
@@ -9078,8 +9060,6 @@ Staff Site Reliability Engineer, Government	SentinelOne	1	out|rejected-title
 Staff Software Developer - Endpoint Security	Arctic Wolf	1	out|rejected-title
 Staff Software Development Engineer (Microservices)	Zscaler	1	out|rejected-title
 Staff Software Engineer	Nozomi Networks	1	out|rejected-title
-Staff Software Engineer  - Core Platform (Ruby/Rails)	Huntress	1	out|rejected-title
-Staff Software Engineer  – AI Enablement	ID.me	1	out|rejected-title
 Staff Software Engineer (Platform - Identity IDV)	Coinbase	0	out|rejected-title
 Staff Software Engineer - AI/Security Platform	Cisco	0	out|rejected-title
 Staff Software Engineer - Android(Java/Kotlin)	Ivanti	1	out|rejected-title
@@ -9088,6 +9068,7 @@ Staff Software Engineer - PAM	Okta	1	out|rejected-title
 Staff Software Engineer - Security Infrastructure	Databricks	0	out|rejected-title
 Staff Software Engineer I	Confluent	0	out|rejected-title
 Staff Software Engineer I - SRE	Confluent	0	out|rejected-title
+Staff Software Engineer – AI Enablement	ID.me	1	out|rejected-title
 Staff Software Engineer(Cloudops)	Palo Alto Networks	1	out|rejected-title
 Staff Software Engineer, Autonomous Defense	Horizon3.ai	1	out|rejected-title
 Staff Software Engineer, Backend (Trust and Safety)	Affirm	0	out|rejected-title
@@ -9265,7 +9246,7 @@ Summer 2027 MBA Internship – Strategy and Operations	Humana	0	out|not-cyber
 Summer 2027 MBA Internship- MedTech Marketing Leadership Development Program (MLDP)	Johnson & Johnson	0	out|rejected-title
 Summer 2027 MLS Underwriting Intern	Nationwide	0	out|not-cyber
 Summer 2027 Personal Lines Business Insights Intern	Nationwide	0	out|not-cyber
-Summer 2027 Project Management/Business Analyst  Internship	GDIT	0	out|not-cyber
+Summer 2027 Project Management/Business Analyst Internship	GDIT	0	out|not-cyber
 Summer 2027 Social Media Internship	Huntington Bank	0	out|rejected-title
 Summer 2027 Software Development Internship	GDIT	0	out|not-cyber
 Summer 2027 Software Engineering Intern	AeroVironment	0	out|not-cyber
@@ -9592,6 +9573,7 @@ Technical Support Engineer I - Mexico	Samsara	0	out|not-cyber
 Technical Support Engineer II	Datadog	0	out|not-cyber
 Technical Support Engineer II	Delinea	1	earlycareer|Engineering @ Security Co
 Technical Support Engineer II, Triage & Discovery	Alloy	1	earlycareer|SOC & Detection
+Technical Support Engineer in Japan (Network, Cybersecurity)	OPSWAT	1	out|no-level
 Technical Support Engineer Intern – Wireless Technologies	HPE	0	out|not-cyber
 Technical Support Engineer Tier 1 - Europe	Action1	1	earlycareer|Engineering @ Security Co
 Technical Support Engineer Tier 1 - USA	Action1	1	earlycareer|Engineering @ Security Co
@@ -9626,7 +9608,7 @@ Technology Development Program (TECDP) - Data & Analytics Engineering Track - St
 Technology Development Program (TECDP) - Software Engineering Track - Start Date: July 12, 2027	The Cigna Group	0	out|not-cyber
 Technology Development Program Analyst/Associate	PNC	0	out|rejected-title
 Technology Development Program Associate - Mexico - 2027	Capital One	0	out|not-cyber
-Technology Engineer I  VDI (Citrix)	Travelers	0	out|not-cyber
+Technology Engineer I VDI (Citrix)	Travelers	0	out|not-cyber
 Technology Graduate Programme - All engineering degrees (Braga)	Accenture	0	out|not-cyber
 Technology Graduate Programme - All engineering degrees (Coimbra)	Accenture	0	out|not-cyber
 Technology Graduate Programme - All engineering degrees (Lisboa)	Accenture	0	out|not-cyber
@@ -9683,10 +9665,10 @@ Test Solutions Electrical Engineer II	RTX	0	out|rejected-title
 Test Systems Engineer II (onsite Tucson, AZ)	RTX	0	out|not-cyber
 Test Technician I	Sierra Nevada Corporation	0	out|not-cyber
 Testing Senior Associate - SQL & Data Analysis	JPMorgan Chase	0	out|rejected-title
-The Cigna Group's Technology Development Program  -  Infrastructure & Cloud Engineering Track Summer Internship	The Cigna Group	0	intern|Cloud Engineering
-The Cigna Group's Technology Development Program  - Software Engineering Track Summer Internship	The Cigna Group	0	out|not-cyber
 The Cigna Group's Technology Development Program - Cybersecurity Track Summer Internship	The Cigna Group	0	intern|Security Engineering
 The Cigna Group's Technology Development Program - Data & Analytics Engineering Track Summer Internship	The Cigna Group	0	out|not-cyber
+The Cigna Group's Technology Development Program - Infrastructure & Cloud Engineering Track Summer Internship	The Cigna Group	0	intern|Cloud Engineering
+The Cigna Group's Technology Development Program - Software Engineering Track Summer Internship	The Cigna Group	0	out|not-cyber
 The Core Engineering - NFR & Controls Data Eng - Associate - Hyderabad	Goldman Sachs	0	out|not-cyber
 The Core Engineering - NFR & Controls Prod Mgmt - Associate - Bengaluru	Goldman Sachs	0	out|not-cyber
 The Core Engineering - Payments Tech - Associate - Hyderabad	Goldman Sachs	0	out|not-cyber
@@ -9717,11 +9699,11 @@ Threat Research Engineer	HP Inc	0	out|no-level
 Threat Research Engineer	Qualys	1	out|no-level
 Tier 1 NOC Analyst Overnight Shift	Motorola Solutions	0	out|not-cyber
 Tier 1 Systems Administrator - Tuesday-Saturday & Holidays	Parsons	0	out|not-cyber
-Tier 2  Technician	Leidos	0	out|not-cyber
 Tier 2 Cyber Incident Response Analyst	Leidos	0	earlycareer|SOC & Detection
 Tier 2 DLB Partner - Channel Account Manager	Fortinet	1	out|rejected-title
 Tier 2 IT Technician	CACI	0	out|not-cyber
 Tier 2 Operations Support Specialist	Booz Allen Hamilton	0	out|not-cyber
+Tier 2 Technician	Leidos	0	out|not-cyber
 Tier 3 Cyber Threat Intelligence Analyst	Leidos	0	out|rejected-title
 Tier II Network Engineer - Senior (Government)	AT&T	0	out|rejected-title
 Tier II or III Microsoft Azure Identity and Access Management (IAM) Administrator	SAIC	0	out|no-level
@@ -9783,13 +9765,13 @@ Transformation Architect - Mexico	Zscaler	1	out|rejected-title
 Transport Network Engineer II	Leidos	0	out|not-cyber
 Travelers EDGE® Year-Round and Summer 2027 Internship	Travelers	0	out|not-cyber
 Treasury Analyst II	Fifth Third	0	out|rejected-title
-Treasury and Balance Sheet Strategies Graduate Internship 2027	Citizens	0	out|rejected-title
+Treasury and Balance Sheet Strategies Graduate Internship 2027	Citizens	0	out|rejected-title
 Treasury and Chief Investment Office — Trade Support, Associate	JPMorgan Chase	0	out|rejected-title
 Treasury Finance Manager: MBA Internship Opportunities	Microsoft	0	out|rejected-title
 Treasury Financial Analyst I	Forcepoint	1	out|rejected-title
 Treasury Regional Analytics - Associate	JPMorgan Chase	0	out|rejected-title
 Treasury Regional Analytics - Senior Associate	JPMorgan Chase	0	out|rejected-title
-Treasury Resolution Stress Testing Model Developer-  Senior Associate	JPMorgan Chase	0	out|rejected-title
+Treasury Resolution Stress Testing Model Developer- Senior Associate	JPMorgan Chase	0	out|rejected-title
 Treasury Resolution Wind Down Analysis - Associate	JPMorgan Chase	0	out|rejected-title
 Treasury Resolution Wind Down Analysis - Senior Associate	JPMorgan Chase	0	out|rejected-title
 Treasury Sales Associate - Healthcare Services	JPMorgan Chase	0	out|rejected-title
@@ -9904,7 +9886,7 @@ Veteran & Community Engagement Associate	Anduril	0	out|not-cyber
 Veteran Transition Program-Aladdin Client Business Development Associate	BlackRock	0	out|rejected-title
 Veterans Transition Program -Associate, Financial Planning & Analysis	BlackRock	0	out|not-cyber
 Veterans Transition Program Associate, Cyber Operations Engineer	BlackRock	0	earlycareer|Security Engineering
-Veterans Transition Program- Associate, Access & Identity Management Engineer	BlackRock	0	earlycareer|Identity & IAM
+Veterans Transition Program- Associate, Access & Identity Management Engineer	BlackRock	0	earlycareer|Identity & IAM
 Veterans Transition Program- Associate, Cyber Security Regulatory Support	BlackRock	0	earlycareer|Security Engineering
 Veterans Transition Program-Associate, Corporate Actions	BlackRock	0	out|not-cyber
 Veterans Transition Program-Associate, Platform Enablement Application Engineer	BlackRock	0	out|not-cyber
@@ -9923,7 +9905,7 @@ VLSI Engineer I Graduate	HPE	0	out|not-cyber
 VLSI Engineer II Graduate	HPE	0	out|not-cyber
 VLSI Engineer Internship	HPE	0	out|not-cyber
 VMware - Technical Customer Support Engineer L2 (Zerto)	HPE	0	out|rejected-title
-Voice Product Analytics - Associate	JPMorgan Chase	0	out|not-cyber
+Voice Product Analytics - Associate	JPMorgan Chase	0	out|not-cyber
 Voice Support Operations Associate	Stripe	0	out|not-cyber
 VP, Architecture - Security	Fidelity Investments	0	out|rejected-title
 VP, eGRC Solution Architect (L12)	Synchrony	0	out|rejected-title
@@ -9955,8 +9937,8 @@ WCR Portfolio Analytics - Associate	JPMorgan Chase	0	out|not-cyber
 Wealth - Citigold, Summer Analyst, Hong Kong, 2027	Citi	0	out|not-cyber
 Wealth - Citigold, Summer Analyst, Singapore, 2027	Citi	0	out|not-cyber
 Wealth - LATAM, Summer Analyst, New York - USA, 2027	Citi	0	out|not-cyber
-Wealth - Private Bank, Summer Analyst,  Singapore, 2027	Citi	0	out|not-cyber
 Wealth - Private Bank, Summer Analyst, Hong Kong, 2027	Citi	0	out|not-cyber
+Wealth - Private Bank, Summer Analyst, Singapore, 2027	Citi	0	out|not-cyber
 Wealth Connect Client Associate	U.S. Bank	0	out|not-cyber
 Wealth Management - International Trust Services, Trust Administrator - Associate	JPMorgan Chase	0	out|not-cyber
 Wealth Management Affluent Associate	U.S. Bank	0	out|not-cyber
@@ -9988,7 +9970,7 @@ Wholesale Credit Risk - Associate	JPMorgan Chase	0	out|not-cyber
 Wholesale Credit Risk - EMEA Banks and Insurance team - Associate	JPMorgan Chase	0	out|not-cyber
 Wholesale Credit Risk Associate - Quantitative Research	JPMorgan Chase	0	out|not-cyber
 Wholesale Credit Risk Associate - Stress Testing	JPMorgan Chase	0	out|not-cyber
-Wholesale Credit Risk EMEA Associate -  Technology, Media & Telecoms	JPMorgan Chase	0	out|not-cyber
+Wholesale Credit Risk EMEA Associate - Technology, Media & Telecoms	JPMorgan Chase	0	out|not-cyber
 Wholesale Credit Risk Forecasting Associate	JPMorgan Chase	0	out|not-cyber
 Wholesale Credit Risk Loan Loss Forecasting Risk Associate	JPMorgan Chase	0	out|not-cyber
 Wholesale Credit Risk – Associate	JPMorgan Chase	0	out|not-cyber
