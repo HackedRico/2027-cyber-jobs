@@ -475,6 +475,8 @@ greenhouse:
   - join.jfrog.com
 - name: Accenture Federal Services
   slug: accenturefederalservices
+- name: Trace3
+  slug: trace3
 lever:
 - name: Anchorage Digital
   slug: anchorage
@@ -538,6 +540,9 @@ lever:
   security_company: true
 - name: BlueCat
   slug: bluecatnetworks
+- name: Avertium
+  slug: avertium
+  security_company: true
 ashby:
 - name: 1Password
   slug: 1password
@@ -1204,6 +1209,15 @@ workday:
   tenant: unisys
   instance: wd5
   board: External
+- name: Arete
+  tenant: areteir
+  instance: wd1
+  board: Arete-Careers
+  security_company: true
+- name: CDW
+  tenant: cdw
+  instance: wd5
+  board: Careers
 oracle:
 - name: SAIC
   host: eihu.fa.us8.oraclecloud.com
@@ -1233,10 +1247,19 @@ oracle:
 - name: Goldman Sachs
   host: hdpc.fa.us2.oraclecloud.com
   site: LateralHiring
+- name: BNY
+  host: eofe.fa.us2.oraclecloud.com
+  site: BNY-Careers
+- name: Chubb
+  host: fa-ewgu-saasfaprod1.fa.ocs.oraclecloud.com
+  site: CX_2001
 eightfold:
 - name: Lockheed Martin
   tenant: lockheedmartin
   domain: lockheedmartin.com
+- name: Lumen
+  tenant: lumen
+  domain: lumen.com
 - name: Microsoft
   tenant: microsoft
   domain: microsoft.com
@@ -1250,6 +1273,10 @@ phenom:
   host: jobs.baesystems.com
   lang: en_global
   country: global
+- name: Battelle
+  host: jobs.battelle.org
+  lang: en_us
+  country: us
 - name: MITRE
   host: careers.mitre.org
   lang: en_us
