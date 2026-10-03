@@ -1220,6 +1220,7 @@ def test_eightfold_paginates_backs_off_and_gates_levels():
     _ef_search('early career', 0, json=_ef_page(
         [_ef_pos(9, 'Cybersecurity Intern', 'Co-op/Summer Intern'),
          _ef_pos(13, 'Cyber Analyst I - Early Career', '4 yr and up College')], 2))
+    _ef_search('cloud engineer', 0, json=_ef_page([], 0))
     responses.get(EF_DETAIL, json={'data': {'jobDescription': '<p>Pursuing a BS.</p>'}})
 
     jobs = sj.scrape_eightfold('Acme', 'acme', 'acme.com')
@@ -1296,6 +1297,7 @@ def test_phenom_paginates_and_fetches_details():
     _ph_search('cyber', 0, full, size + 1)
     _ph_search('cyber', size, [_ph_job(901, 'Cyber Analyst I')], size + 1)
     _ph_search('intern', 0, [_ph_job(900, 'Embedded Security Intern - Electronics Prototype')], 1)
+    _ph_search('cloud engineer', 0, [], 0)
     responses.post(PH_API, match=[responses.matchers.json_params_matcher(
         {'ddoKey': 'jobDetail'}, strict_match=False)],
         json={'jobDetail': {'data': {'job': {'description': 'Requires 1 year.'}}}})
@@ -1328,6 +1330,7 @@ def test_phenom_caps_pages_on_a_fuzzy_match():
         _ph_search('cyber', page * size, [_ph_job(page * size + n) for n in range(size)],
                    5000)
     _ph_search('intern', 0, [], 0)
+    _ph_search('cloud engineer', 0, [], 0)
     jobs = sj.scrape_phenom('Acme', 'careers.acme.org', 'en_us', 'us')
     check('phenom stops at PHENOM_MAX_PAGES', len(jobs), sj.PHENOM_MAX_PAGES * size)
 
@@ -1336,6 +1339,7 @@ def test_phenom_caps_pages_on_a_fuzzy_match():
 def test_phenom_none_vs_empty():
     _ph_search('cyber', 0, [], 0)
     _ph_search('intern', 0, [], 0)
+    _ph_search('cloud engineer', 0, [], 0)
     check('phenom empty board -> []',
           sj.scrape_phenom('Acme', 'careers.acme.org', 'en_us', 'us'), [])
     responses.reset()
@@ -1362,7 +1366,7 @@ def test_eightfold_prefers_a_city_over_a_state_only_standardized_location():
             ['United States, Multiple Locations, Multiple Locations',
              'United States, Washington, Redmond']),
         pos(5, [], ['Hanover, MD'])], 5))
-    for term in ('intern', 'early career'):
+    for term in sj.EIGHTFOLD_TERMS[1:]:
         _ef_search(term, 0, json=_ef_page([], 0))
     responses.get(EF_DETAIL, json={'data': {}})
     jobs = sj.scrape_eightfold('Lockheed Martin', 'acme', 'acme.com')
@@ -1388,7 +1392,7 @@ def test_eightfold_flags_a_cut_short_sweep():
         _ef_search('cyber', 0, json=_ef_page(
             [_ef_pos(i, f'Mechanical Engineer {i}') for i in range(10)], 20))
         _ef_search('cyber', 10, **(kwargs or {'json': _ef_page(second_page, 20)}))
-        for term in ('intern', 'early career'):
+        for term in sj.EIGHTFOLD_TERMS[1:]:
             _ef_search(term, 0, json=_ef_page([], 0))
 
     search([_ef_pos(i, f'Mechanical Engineer {i}') for i in range(10, 20)])
@@ -1401,7 +1405,7 @@ def test_eightfold_flags_a_cut_short_sweep():
           (len(jobs), _partial_flags(jobs)), (10, [True]))
     responses.reset()
     _ef_search('cyber', 0, status=500)
-    for term in ('intern', 'early career'):
+    for term in sj.EIGHTFOLD_TERMS[1:]:
         _ef_search(term, 0, json=_ef_page([], 0))
     check('eightfold: a sweep that lost pages and found nothing -> None', run(2), None)
 
@@ -1412,6 +1416,7 @@ def test_phenom_flags_a_cut_short_sweep():
     size = sj.PHENOM_PAGE_SIZE
     _ph_search('cyber', 0, [_ph_job(n) for n in range(size)], 5000)
     _ph_search('intern', 0, [], 0)
+    _ph_search('cloud engineer', 0, [], 0)
     responses.post(PH_API, status=500, match=[responses.matchers.json_params_matcher(
         {'ddoKey': 'refineSearch', 'keywords': 'cyber', 'from': size}, strict_match=False)])
     jobs = sj.scrape_phenom('Acme', 'careers.acme.org', 'en_us', 'us')
@@ -1428,6 +1433,7 @@ def test_phenom_flags_a_cut_short_sweep():
     responses.reset()
     _ph_search('cyber', 0, [_ph_job(1)], 1)
     _ph_search('intern', 0, [], 0)
+    _ph_search('cloud engineer', 0, [], 0)
     check('phenom: a whole sweep is not partial',
           _partial_flags(sj.scrape_phenom('Acme', 'careers.acme.org', 'en_us', 'us')),
           [False])
@@ -1472,6 +1478,7 @@ def test_jibe_paginates_maps_fields_and_keeps_the_crawl_delay():
                 tags2=['International Programs'])], 3)
     _jb_search('intern', 1, [_jb_job(903, 'Security Intern', city='London', state='England',
                                      country='GB')], 1)
+    _jb_search('cloud', 1, [], 0)
     delays = []
     sj.time.sleep = delays.append
     try:
@@ -1495,7 +1502,7 @@ def test_jibe_paginates_maps_fields_and_keeps_the_crawl_delay():
           'United States')
     check('jibe does not read International as intern', bare['intern_hint'], False)
     check('jibe waits the crawl delay between requests', delays,
-          [sj.JIBE_REQUEST_DELAY] * 3)
+          [sj.JIBE_REQUEST_DELAY] * len(sj.JIBE_TERMS))
     check('jibe sweep that finished is not partial',
           any(j.get('partial_sweep') for j in jobs), False)
 
@@ -1519,6 +1526,7 @@ def test_jibe_retries_429_and_flags_a_cut_short_sweep():
     # A term that fails outright leaves postings unseen, so the sweep is partial
     # and retire_vanished_listings must not read the gap as closures.
     _jb_search('intern', 1, status=500)
+    _jb_search('cloud', 1, [], 0)
     jobs = sj.scrape_jibe('Acme', 'careers.acme.org')
     check('jibe retries a 429 page', [j['title'] for j in jobs], ['Cyber Analyst I'])
     check('jibe flags a sweep with a failed term', jobs[0].get('partial_sweep'), True)
@@ -1536,6 +1544,7 @@ def test_jibe_caps_pages():
         _jb_search('cyber', page, [_jb_job(page * size + n) for n in range(size)], 5000)
     _jb_search('cybersecurity', 1, [], 0)
     _jb_search('intern', 1, [], 0)
+    _jb_search('cloud', 1, [], 0)
     jobs = sj.scrape_jibe('Acme', 'careers.acme.org')
     check('jibe stops at JIBE_MAX_PAGES', len(jobs), sj.JIBE_MAX_PAGES * size)
     check('jibe flags a capped sweep', all(j.get('partial_sweep') for j in jobs), True)
