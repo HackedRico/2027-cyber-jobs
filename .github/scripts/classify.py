@@ -116,6 +116,9 @@ FUNCTION_REJECT = [
     'workplace violence', 'protective intelligence',
     'fire operation',
     'nuclear safeguards',  # 'safeguards' alone is an AI-safety signal
+    # A stock analyst covering the sector: KeyBank 'Associate, Equity Research -
+    # Cybersecurity & Data'.
+    'equity research',
     # Camera and door-badge presales: Motorola Solutions 'Pre-Sales Solutions
     # Engineer - Video Security & Access Control'.
     'video security',
@@ -197,6 +200,10 @@ GUARDED_FUNCTION_REJECTS = [
     # banks post 'Internal Audit - IT Audit Analyst' to the same board.
     r'^(?!.*\b(?:(?:it|technology) audit(?:or)?|cyber\w*|information security)\b)'
     r'.*\binternal audit\b',
+    # A crime or pharma lab, not digital forensics: Merck '2027 Future Talent
+    # Program- Forensic Services Laboratory Intern'.
+    r'^(?!.*\b(?:digital|computer|cyber\w*|mobile|network|malware)\b)'
+    r'.*\bforensic\w*\b.*\b(?:lab|laboratory|chemist\w*|toxicolog\w*|dna|biolog\w*)\b',
     r'\bsales\b(?!\s+(?:solutions?\s+)?engineer)',
     r'(?<!data )\bloss prevention\b',
     # Hourly shift posts: Walmart 'Asset Protection / Security Associate,
@@ -242,9 +249,13 @@ DEPARTMENT_REJECT_RE = re.compile(
 # A corporate security engineer secures the company's own IT, and 'Corporate
 # Security Engineer I - Workplace' was rejected as a guard-force title.
 # Electronic security is cameras and badge readers: 'Electronic Security
-# Systems Engineer I'.
+# Systems Engineer I'. A regional security team and a security resiliency
+# center are corporate security too: Merck '2027 Future Talent Program - North
+# America Regional Security Team - Intern' and '... Global Security Resiliency
+# Center - Intern'.
 NON_CYBER_SECURITY_RE = re.compile(
-    r'\b(?:social|food|energy|border|homeland|campus|event|electronic)\s+security\b'
+    r'\b(?:social|food|energy|border|homeland|campus|event|electronic|regional)\s+security\b'
+    r'|\bsecurity\s+resilien\w*'
     r'|\bcorporate\s+security\b(?!\s+engineer)'
     r'|\bsecurity\s+(?:forces|badging)\b')
 
@@ -321,6 +332,9 @@ CYBER_KEYWORDS = [
 # 'SOC 1', 'SOC 2' and 'SOC Reporting' are audit reports, not a security
 # operations center: 'SOC 1 Analyst I', 'SOC 1 Audit Associate'.
 SOC_AUDIT_GUARD = r'(?![\s-]*[12]\b)(?!\s+reporting\b)'
+# 'SOC Services' beside audit 'Assurance' is the same report work: Grant
+# Thornton 'Strategic Assurance and SOC Services Associate'.
+SOC_ASSURANCE_GUARD = r'^(?!.*(?<!information )\bassurance\b.*\bsoc services\b).*'
 
 # Short acronyms need word boundaries ('soc' is inside 'associate'), and
 # 'SoC' must not match system-on-chip hardware titles. Qualcomm lists SoC among
@@ -328,7 +342,8 @@ SOC_AUDIT_GUARD = r'(?![\s-]*[12]\b)(?!\s+reporting\b)'
 # Internship") and as a prefix ("SoC Performance Architect"), so a comma-listed
 # neighbour counts as well as a following word.
 CYBER_REGEXES = [re.compile(p) for p in
-                 (r'(?<!pu, )\bsoc\b(?![\s,/-]+(asic|design|digital design|verification|'
+                 (SOC_ASSURANCE_GUARD
+                  + r'(?<!pu, )\bsoc\b(?![\s,/-]+(asic|design|digital design|verification|'
                   r'rtl|silicon|power|performance|hardware))' + SOC_AUDIT_GUARD,
                   # SOC 2 is the security audit report, so its compliance work
                   # is GRC; SOC 1 covers financial controls and stays out.
@@ -1675,6 +1690,13 @@ def classify_level(title, description='', intern_hint=False, today=None):
         return 'earlycareer'
     # Season + cohort year with no new-grad wording is an internship req;
     # checked before the bare cohort-year rule, which would claim it.
+    # Big 4 firms name a full-time start by its season: BDO 'Advisory Associate,
+    # Cyber, Compliance & Assessment - Summer 2027', Grant Thornton
+    # 'Cybersecurity and Privacy Associate - Summer 2027'. A bank's 'Summer
+    # Associate' is still an MBA internship.
+    if (SUMMER_RE.search(t) and cohort_year_re.search(t) and re.search(r'\bassociate\b', t)
+            and not re.search(r'\bsummer associate\b', t)):
+        return 'newgrad'
     if SUMMER_RE.search(t) and cohort_year_re.search(t):
         return 'intern'
     if cohort_year_re.search(t):
