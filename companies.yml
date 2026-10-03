@@ -1168,6 +1168,42 @@ workday:
   tenant: pwc
   instance: wd3
   board: US_Experienced_Careers
+- name: DXC Technology
+  tenant: dxctechnology
+  instance: wd1
+  board: DXCJobs
+- name: Federal Reserve System
+  tenant: rb
+  instance: wd5
+  board: FRS
+- name: HPE
+  tenant: hpe
+  instance: wd5
+  board: Jobsathpe
+- name: Kyndryl
+  tenant: kyndryl
+  instance: wd5
+  board: KyndrylEarlyCareers
+- name: Kyndryl
+  tenant: kyndryl
+  instance: wd5
+  board: KyndrylProfessionalCareers
+- name: Protiviti
+  tenant: roberthalf
+  instance: wd1
+  board: ProtivitiNA
+- name: Regions Bank
+  tenant: regions
+  instance: wd5
+  board: Regions_Careers
+- name: TD Bank
+  tenant: td
+  instance: wd3
+  board: TD_Bank_Careers
+- name: Unisys
+  tenant: unisys
+  instance: wd5
+  board: External
 oracle:
 - name: SAIC
   host: eihu.fa.us8.oraclecloud.com
@@ -1225,3 +1261,7 @@ jibe:
   host: careers.jhuapl.edu
 - name: PNNL
   host: careers.pnnl.gov
+- name: State Farm
+  host: jobs.statefarm.com
+  search_terms:
+  - security
