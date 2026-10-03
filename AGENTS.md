@@ -8,7 +8,7 @@ change is judged by what a student sees. A wrong row on the board costs more tha
 ## Charter
 
 A row belongs only if it is all three: a cybersecurity role (or any engineering role at a
-`security_company: true` employer), internship or new grad or 0 to 2 years, and in the US or
+`security_company: true` employer, or a cloud engineering role at any employer), internship or new grad or 0 to 2 years, and in the US or
 Remote (US). CONTRIBUTING.md states the rules for humans; `classify.evaluate_job` is the
 executable version, and the two must agree.
 
