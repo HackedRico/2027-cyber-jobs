@@ -11,6 +11,8 @@ import xml.etree.ElementTree as ET
 from datetime import date
 from pathlib import Path
 
+import testkit  # noqa: F401
+
 sys.path.insert(0, str(Path(__file__).parent))
 import build_site as bs  # noqa: E402
 

@@ -6,6 +6,8 @@ Run from anywhere: python .github/scripts/test_classification.py
 import sys
 from datetime import date
 
+import testkit
+
 sys.path.insert(0, str(__import__('pathlib').Path(__file__).parent))
 import classify as s
 import common
@@ -850,7 +852,7 @@ for title, want in LEVEL:
 # recruited is a finished cohort. From September that season is next year.
 SEPT_27 = date(2026, 9, 27)
 JUNE_1 = date(2026, 6, 1)
-THIS_YEAR = date.today().year
+THIS_YEAR = testkit.TODAY.year
 STALE_INTERN = [
     # (title, today, rejected)
     ('Vulnerability Researcher Intern - 2026', SEPT_27, True),
@@ -859,7 +861,7 @@ STALE_INTERN = [
     ('PhD Research Intern, Security and Privacy - Fall 2026', SEPT_27, True),
     ('2026 Part-Time Cyber Security Engineering Intern - Aurora CO', SEPT_27, True),
     # The season form with no "intern" only reads as an internship while its
-    # year is inside COHORT_YEAR_RE's window, which moves with the real date.
+    # year is inside COHORT_YEAR_RE's window, which moves with the date.
     (f'Security Engineer - Summer {THIS_YEAR}', date(THIS_YEAR, 9, 27), True),
     ('Security Engineer Intern - Summer 2019', SEPT_27, True),
     # The coming season, or any title that also names it, stays.

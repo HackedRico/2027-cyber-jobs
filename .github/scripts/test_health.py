@@ -11,6 +11,8 @@ import tempfile
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
+import testkit  # noqa: F401
+
 sys.path.insert(0, str(Path(__file__).parent))
 import check_outputs as co  # noqa: E402
 import health_check as hc  # noqa: E402
