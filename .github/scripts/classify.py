@@ -347,40 +347,62 @@ ENGINEERING_ROLE_RE = re.compile(r'\b(?:engineer|engineering|developer)\b')
 
 # Cloud engineering is in the charter at any employer, with or without a
 # security word: the same students apply for both, and the work (IAM, VPCs,
-# hardening, logging) overlaps. The cloud word has to lead the role noun, as in
-# Cisco 'Cloud Engineer II', Microsoft 'Cloud Network Engineer II', KBR
-# 'Associate AWS DevOps Engineer' and Qualcomm 'IT Infrastructure & Cloud
-# Engineering Internship', so a product engineer whose team ships into a cloud
-# (Microsoft 'Software Engineer II - Windows in Cloud') stays out.
-# Support, operations and administration roles count too: AWS 'Cloud Support
-# Associate', Caterpillar 'Cloud Operations Analyst', 'Azure Administrator I'.
-# So does an infrastructure engineer whose title names the cloud after the
-# role: 'DevOps Engineer I - AWS', 'Platform Engineer I, Azure'.
+# hardening, logging) overlaps. The cloud word has to lead a technical role
+# noun, as in Cisco 'Cloud Engineer II', Microsoft 'Cloud Network Engineer II',
+# KBR 'Associate AWS DevOps Engineer', 'Azure Administrator I' and Qualcomm 'IT
+# Infrastructure & Cloud Engineering Internship', so a product engineer whose
+# team ships into a cloud (Microsoft 'Software Engineer II - Windows in Cloud')
+# stays out. Support and operations count only before a role noun (AWS 'Cloud
+# Support Associate', Caterpillar 'Cloud Operations Analyst'), since alone they
+# are often a team name. An infrastructure engineer may name the cloud after
+# the role: 'DevOps Engineer I - AWS', 'SRE I, Azure'.
 CLOUD_ENGINEERING_RE = re.compile(
     r'\b(?:cloud|aws|azure|gcp)\b(?:\W+\w+){0,2}?\W+(?:engineer|engineering|developer|'
-    r'administrator|admin|support|operations|architect|consultant|technician|'
-    r'specialist|analyst)s?\b'
-    r'|\b(?:devops|platform|infrastructure|site reliability|sre|systems)\s+'
-    r'engineer(?:ing)?s?\b.{0,40}\b(?:aws|azure|gcp|cloud)\b')
-# Product suites named 'Cloud' are CRM and ERP configuration work, not cloud
-# infrastructure: 'Salesforce Service Cloud Developer', 'Oracle Cloud HCM
-# Developer'. Cost and data-centre work is facilities and finance: 'Cloud
-# FinOps Analyst', 'DCO Technician I, AWS Data Center Operations', and Saint
-# Cloud, MN is a town.
+    r'administrator|admin|architect|technician)s?\b'
+    r'|\bcloud\s+(?:support|operations)\s+(?:associate|engineer|analyst|technician|'
+    r'specialist)s?\b'
+    r'|\bcloud\s+consultants?\b'
+    r'|\b(?:(?:devops|platform|infrastructure|site reliability|systems)\s+'
+    r'engineer(?:ing)?s?|sre)\b.{0,40}\b(?:aws|azure|gcp|cloud)\b')
+# Product suites named 'Cloud' are CRM, ERP and SaaS configuration work, not
+# cloud infrastructure: 'Salesforce Service Cloud Developer', 'Oracle Cloud HCM
+# Developer', 'Associate SAP Cloud Developer', 'Workday Cloud Administrator I'.
+# Cost and data-centre work is facilities and finance ('Cloud FinOps Analyst',
+# 'DCO Technician I, AWS Data Center Operations'), and point clouds, cloud
+# physics and Saint Cloud, MN are other senses.
 CLOUD_PRODUCT_RE = re.compile(
     r'\bsalesforce\b|\b(?:data|service|sales|marketing|commerce|experience|health|'
-    r'industries) cloud\b|\b(?:hcm|erp|epm|scm|fusion|financials|netsuite)\b'
+    r'industries|financial services|nonprofit|education|analytics|public sector|'
+    r'manufacturing) cloud\b'
+    r'|\b(?:hcm|erp|epm|scm|fusion|financials|netsuite|sap|workday|servicenow|tableau|'
+    r'dynamics|guidewire|veeva|cpq)\b|\boracle cloud\b(?!\s+infrastructure)'
     r'|\bfinops\b|\bcost\b|\bkitchen\b|\bcontact cent(?:er|re)\b'
-    r'|\bdata cent(?:er|re)\b|\b(?:saint|st\.?) cloud\b')
+    r'|\bdata cent(?:er|re)\b|\b(?:saint|st\.?) cloud\b'
+    r'|\b(?:point|word) clouds?\b|\bcloud (?:physics|seeding|9|nine)\b')
 
-# Solutions architecture and presales count at any employer, but only with an
-# intern, new-grad or early-career word in the title itself, since a flat
-# 'Solutions Architect' is a senior hire: AWS 'Associate Solutions Architect,
-# AGS-Tech, Early Career - 2027', Snowflake 'Associate Solution Engineer',
-# Samsara 'Associate Sales Engineer'. 'Customer engineer' is left out because
-# field-service firms use it for repair technicians.
+# Solutions architecture counts at any employer, but only with an intern,
+# new-grad or early-career word in the title itself, since a flat or leveled
+# 'Solutions Architect' is an experienced hire: AWS 'Associate Solutions
+# Architect, AGS-Tech, Early Career - 2027', Snowflake 'Associate Solution
+# Engineer'. A sales engineer also needs a technology word, because industrial
+# firms post 'Field Sales Engineer I - HVAC' and 'Sales Engineer I, Pumps and
+# Valves'. Customer engineers and customer solutions engineers are left out,
+# since field-service firms use both for repair technicians.
 SOLUTIONS_ROLE_RE = re.compile(
-    r'\b(?:solutions?|sales|pre-?sales)\s+(?:architect|engineer|consultant)s?\b')
+    r'(?<!customer )\bsolutions?\s+(?:architect|engineer|consultant)s?\b')
+SALES_ENGINEER_RE = re.compile(r'\b(?:pre-?sales|sales)\s+engineers?\b')
+TECH_ANCHOR_RE = re.compile(
+    r'\b(?:cloud|software|saas|security|cyber\w*|it|network\w*|data|ai|aws|azure|'
+    r'gcp|platform)\b')
+
+# A cloud or solutions title whose head is a non-technical job is that job on a
+# cloud team: 'Junior Scrum Master, Cloud Engineering', 'Associate Technical
+# Writer, AWS Developer Documentation', 'Associate Cloud Business Analyst',
+# 'Cloud Partner Specialist I'.
+NON_TECH_ROLE_RE = re.compile(
+    r'\b(?:coordinator|writer|designer|scrum|owner|recruiter|recruiting|marketing|'
+    r'pricing|contracts?|legal|partner|business|learning|hr|project|sourcing|'
+    r'procurement|instructor|trainer|editor|counsel)\b')
 
 NEWGRAD_SIGNALS = [
     'new grad', 'new-grad', 'university grad', 'college grad', 'campus hire',
@@ -604,10 +626,11 @@ CATEGORY_RULES = [
     ('GRC & Risk', r'\bgrc\b|governance|risk|compliance|audit|policy|'
                    r'information assurance'),
     ('Security Engineering', r'security|cyber|infosec|cryptograph|privacy'),
-    # Last, so a cloud or presales title with a security word keeps its
-    # security category, and a cloud presales title files as cloud.
+    # Last, and gated in infer_category, so a cloud or presales title with a
+    # security word keeps its security category and a cloud presales title
+    # files as cloud.
     ('Cloud Engineering', CLOUD_ENGINEERING_RE.pattern),
-    ('Solutions Architecture', SOLUTIONS_ROLE_RE.pattern),
+    ('Solutions Architecture', SOLUTIONS_ROLE_RE.pattern + '|' + SALES_ENGINEER_RE.pattern),
 ]
 CATEGORY_RULES = [(name, re.compile(pattern)) for name, pattern in CATEGORY_RULES]
 
@@ -1475,13 +1498,20 @@ def _fold(title):
 def is_cloud_engineering_title(title):
     """True for a cloud engineering role, which the charter admits at any employer."""
     t = _fold(title)
-    return bool(CLOUD_ENGINEERING_RE.search(t)) and not CLOUD_PRODUCT_RE.search(t)
+    return (bool(CLOUD_ENGINEERING_RE.search(t)) and not CLOUD_PRODUCT_RE.search(t)
+            and not NON_TECH_ROLE_RE.search(t))
 
 
 def is_solutions_title(title):
     """True for an early-career solutions architecture or presales title."""
     t = _fold(title)
-    return bool(SOLUTIONS_ROLE_RE.search(t)) and classify_level(title) is not None
+    if NON_TECH_ROLE_RE.search(t):
+        return False
+    if not (SOLUTIONS_ROLE_RE.search(t)
+            or (SALES_ENGINEER_RE.search(t) and TECH_ANCHOR_RE.search(t))):
+        return False
+    return (classify_level(title) in ('intern', 'newgrad')
+            or bool(EARLYCAREER_RE.search(t)))
 
 
 def is_cyber_title(title, security_company=False):
@@ -1932,7 +1962,14 @@ def requires_experience(description):
 def infer_category(title, security_company=False):
     t = _fold(title)
     for category, pattern in CATEGORY_RULES:
-        if category == 'Cloud Engineering' and not is_cloud_engineering_title(t):
+        # The two last rules file only the titles they admit, and never one
+        # that names security work: 'Cloud Vulnerability Analyst I' keeps a
+        # security category.
+        if category == 'Cloud Engineering' and (
+                _has_cyber_keyword(t) or not is_cloud_engineering_title(t)):
+            continue
+        if category == 'Solutions Architecture' and (
+                _has_cyber_keyword(t) or not is_solutions_title(t)):
             continue
         if pattern.search(t):
             return category

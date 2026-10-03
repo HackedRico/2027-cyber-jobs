@@ -876,8 +876,10 @@ def scrape_workday(company, tenant, instance, board, security_company=False,
     wd_headers = {**HEADERS, 'Content-Type': 'application/json',
                   'Accept': 'application/json'}
 
-    # 'cloud engineer' finds the cloud roles the charter admits at any employer;
-    # relevance ranking puts the titles carrying both words first.
+    # 'cloud engineer' finds the cloud roles the charter admits at any employer:
+    # Cisco 'Cloud Engineer II', Northrop 'Associate Cloud Engineer'. cxs sorts
+    # by date, so at Adobe and Capital One it passes the page cap and marks the
+    # sweep partial, which sends retirement there to the detail endpoint.
     search_terms = ['cyber', 'security', 'cloud engineer', 'new grad', 'early career']
     if security_company:
         # A bare 'intern' sweep at a general employer pages through hundreds
@@ -2029,10 +2031,11 @@ def _amazon_description(job):
 def scrape_amazon():
     base_url = 'https://www.amazon.jobs/en/search.json'
     params = {
-        # The cloud and solutions terms reach AWS early-career roles: 'Cloud
-        # Support Associate', 'Associate Solutions Architect'.
+        # Exact phrases reach AWS early-career cloud roles ('Associate Solutions
+        # Architect, AGS-Tech, Early Career - 2027') for about 80 more hits; a
+        # bare "solutions architect" added 3,400, nearly all senior.
         'base_query': ('security engineer OR "security analyst" OR cybersecurity OR '
-                       '"cloud engineer" OR "cloud support" OR "solutions architect"'),
+                       '"cloud engineer" OR "associate solutions architect"'),
         'loc_query': 'united states',
         # loc_query only ranks: without this filter a page held GBR, AUS, IND
         # and SGP reqs next to the US ones.

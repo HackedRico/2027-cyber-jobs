@@ -342,10 +342,10 @@ CASES = [
     ('Privacy & Civil Liberties Engineer - New Grad', 'New York, NY', '', False, ('newgrad', 'Security Engineering')),
     ('Software Engineer I, Authentication', 'Seattle, WA', '', False, ('earlycareer', 'Identity & IAM')),
     # Presales and services at a security vendor.
-    ('Solutions Consultant 1', 'Tallahassee, FL', '', True, ('earlycareer', 'Solutions Architecture')),
+    ('Solutions Consultant 1', 'Tallahassee, FL', '', True, ('earlycareer', 'Engineering @ Security Co')),
     ('Domain Consultant 2 - NetSec', 'Reston, VA', '', True, ('earlycareer', 'Engineering @ Security Co')),
-    ('Sales Engineer I', 'San Diego, CA', '', True, ('earlycareer', 'Solutions Architecture')),
-    ('Sales Engineer - Intern', 'Austin, TX', '', True, ('intern', 'Solutions Architecture')),
+    ('Sales Engineer I', 'San Diego, CA', '', True, ('earlycareer', 'Engineering @ Security Co')),
+    ('Sales Engineer - Intern', 'Austin, TX', '', True, ('intern', 'Engineering @ Security Co')),
     ('Associate Services Architect', 'Boston, MA', '', True, ('earlycareer', 'Engineering @ Security Co')),
     ('Associate Solutions Architect, Security', 'Seattle, WA', '', False, ('earlycareer', 'Security Engineering')),
     # ...and the limits. Network, sysadmin and SRE titles with no security word
@@ -397,11 +397,25 @@ CASES = [
     ('DCO Technician I, AWS Data Center Operations', 'Ashburn, VA', '', False, None),
     ('Saint Cloud Operations Associate', 'Saint Cloud, MN', '', False, None),
     ('DevOps Engineer I', 'Austin, TX', '', False, None),
+    # Found in review: a non-technical job on a cloud team, other senses of
+    # cloud, and SaaS suites named Cloud.
+    ('Junior Scrum Master, Cloud Engineering', 'Austin, TX', '', False, None),
+    ('Associate Technical Writer, AWS Developer Documentation', 'Seattle, WA', '', False, None),
+    ('Associate Learning Specialist, AWS Support', 'Seattle, WA', '', False, None),
+    ('Associate Cloud Business Analyst', 'Austin, TX', '', False, None),
+    ('Cloud Partner Specialist I', 'Austin, TX', '', False, None),
+    ('Point Cloud Engineer I', 'Austin, TX', '', False, None),
+    ('Cloud Seeding Technician I', 'Boulder, CO', '', False, None),
+    ('Associate SAP Cloud Developer', 'Austin, TX', '', False, None),
+    ('Workday Cloud Administrator I', 'Austin, TX', '', False, None),
+    ('Oracle Cloud Developer I', 'Austin, TX', '', False, None),
+    ('Oracle Cloud Infrastructure Engineer I', 'Austin, TX', '', False, ('earlycareer', 'Cloud Engineering')),
 
     # -- solutions architecture and presales at any employer, early career only --
     ('Associate Solutions Architect, AGS-Tech, Early Career - 2027', 'Seattle, WA', '', False, ('newgrad', 'Solutions Architecture')),
     ('Associate Solution Engineer', 'San Mateo, CA', '', False, ('earlycareer', 'Solutions Architecture')),
-    ('Associate Sales Engineer, SE Desk - Northeast', 'Remote - US', '', False, ('earlycareer', 'Solutions Architecture')),
+    ('Associate Cloud Sales Engineer', 'Remote - US', '', False, ('earlycareer', 'Cloud Engineering')),
+    ('Associate Software Sales Engineer', 'Remote - US', '', False, ('earlycareer', 'Solutions Architecture')),
     (f'Solutions Architect Intern - Summer {SEASON}', 'Austin, TX', '', False, ('intern', 'Solutions Architecture')),
     ('Cloud Solution Architect, New Grad', 'Redmond, WA', '', False, ('newgrad', 'Cloud Engineering')),
     ('Associate Solutions Architect, Security', 'Seattle, WA', '', False, ('earlycareer', 'Security Engineering')),
@@ -411,6 +425,16 @@ CASES = [
     ('Senior Sales Engineer', 'Austin, TX', '', False, None),
     ('Customer Engineer I', 'Dayton, OH', '', False, None),
     ('Associate Solutions Manager', 'Austin, TX', '', False, None),
+    # Found in review: a leveled II is not an early-career word, and a sales
+    # engineer with no technology word is industrial sales.
+    ('Solutions Engineer II', 'Austin, TX', '', False, None),
+    ('Associate Sales Engineer, SE Desk - Northeast', 'Remote - US', '', False, None),
+    ('Field Sales Engineer I - HVAC', 'Austin, TX', '', False, None),
+    ('Sales Engineer (Field) Intern', 'Austin, TX', '', False, None),
+    ('Customer Solutions Engineer I', 'Austin, TX', '', False, None),
+    # A security title on a cloud or presales team keeps its security category.
+    ('Cloud Vulnerability Analyst I', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Vulnerability Solutions Engineer, Associate', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
 
     # -- bug fix: US territories are US locations, not foreign --
     ('Cyber Software Engineer I', 'Aguadilla, PR', '', False, ('earlycareer', 'Security Engineering')),
