@@ -8,17 +8,19 @@ Open a [new issue](../../issues/new/choose) with the **Add Job Listing** form. W
 
 The scraper applies the rules below to every posting, and the bot runs the same rules on your title and location. A row has to meet all three.
 
-### A cybersecurity or cloud engineering role
+### A cybersecurity, cloud engineering or solutions architecture role
 
 The title names security work: security, cyber, infosec, threat, forensics, vulnerability, penetration testing, red team, SOC, CSIRT, DFIR, GRC or "governance, risk and compliance", identity and access, identity management or IAM, DevSecOps, or AI security and safety terms such as AI safety, AI red team, AI alignment, adversarial ML or safeguards.
 
 An engineering title also counts when it names a security team: identity, authentication, privacy, trust and safety, anti-abuse, fraud protection or compromise, as in "Software Engineer II - Compromise & Fraud Protection". Network, systems administration and SRE titles need a security word like any other title. A plain "Network Engineer I" is out.
 
-Cloud engineering counts at any employer, with or without a security word, because the skills overlap: a title where cloud, AWS, Azure or GCP leads engineer, engineering or developer, as in "Cloud Engineer II", "Cloud Network Engineer II", "Associate AWS DevOps Engineer" or "Cloud Engineering Intern". A product engineer on a cloud team ("Software Engineer II - Windows in Cloud") and CRM or ERP suites named Cloud ("Salesforce Service Cloud Developer", "Oracle Cloud HCM Developer") are out.
+Cloud engineering counts at any employer, with or without a security word, because the skills overlap: a title where cloud, AWS, Azure or GCP leads an engineer, developer, administrator, support, operations, architect, consultant, technician, specialist or analyst role, as in "Cloud Engineer II", "Cloud Support Associate", "Azure Administrator I" or "Cloud Engineering Intern", or a DevOps, platform, infrastructure, SRE or systems engineer title that names the cloud after the role ("DevOps Engineer I - AWS"). Cloud cost and FinOps, data center operations and Saint Cloud, MN are out. A product engineer on a cloud team ("Software Engineer II - Windows in Cloud") and CRM or ERP suites named Cloud ("Salesforce Service Cloud Developer", "Oracle Cloud HCM Developer") are out.
+
+Solutions architecture counts at any employer when the title also says intern, new grad, associate, junior, entry level or early career: solutions architect, solutions or solution engineer, solutions consultant, sales engineer and presales engineer, as in "Associate Solutions Architect, Early Career - 2027" or "Associate Solution Engineer". A flat "Solutions Architect" is a senior hire and stays out, and so does "Customer Engineer", which field-service companies use for repair technicians.
 
 A bare "security" before specialist, technician, associate, assistant, coordinator or officer needs a second term, such as cyber, information, IT or network: "IT Security Specialist I" is in, "Security Specialist II" is out. SOC 1 and SOC 2 are audit reports, so "SOC 1 Analyst" is out and "SOC 2 Compliance Analyst" counts as GRC.
 
-Each row gets one of these categories, and the form offers **Not sure** if none fits: AI Security & Safety, Offensive Security, SOC & Detection, Threat Intelligence, Forensics & IR, AppSec & ProdSec, Cloud & Infra Security, Identity & IAM, GRC & Risk, Security Engineering, Cloud Engineering, and Engineering @ Security Co.
+Each row gets one of these categories, and the form offers **Not sure** if none fits: AI Security & Safety, Offensive Security, SOC & Detection, Threat Intelligence, Forensics & IR, AppSec & ProdSec, Cloud & Infra Security, Identity & IAM, GRC & Risk, Security Engineering, Cloud Engineering, Solutions Architecture, and Engineering @ Security Co.
 
 At a company whose main business is security (🛡️ in [companies.md](companies.md)), a title does not need a security word. Any title with one of these words counts: engineer, developer, software, DevOps, SRE, researcher, scientist, analyst, infrastructure, platform, backend, frontend, full stack, machine learning, detection, architect, or a presales or services consultant (solutions, domain, services or technical consultant). A sales engineer counts there too.
 

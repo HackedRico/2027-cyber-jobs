@@ -24,7 +24,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <details><summary><b>New to cyber recruiting? Start here</b></summary>
 
-**What belongs here.** US or Remote (US) cybersecurity and cloud engineering roles open to students: internships and co-ops, new-grad programs, and entry-level jobs asking for 0 to 2 years. No senior roles and no roles outside the US.
+**What belongs here.** US or Remote (US) cybersecurity, cloud engineering and solutions architecture roles open to students: internships and co-ops, new-grad programs, and entry-level jobs asking for 0 to 2 years. No senior roles and no roles outside the US.
 
 **When to apply.** Summer internships post from August to October of the year before, and the big programs fill early, so apply in the fall. New-grad programs post from September to November. Many defense contractors hire on their own cycles, so check back through the spring.
 
