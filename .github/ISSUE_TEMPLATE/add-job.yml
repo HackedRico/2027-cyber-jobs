@@ -44,7 +44,7 @@ body:
     id: category
     attributes:
       label: Category
-      description: Which security domain fits this role best? Pick "Not sure" and the title decides.
+      description: Which domain fits this role best? Pick "Not sure" and the title decides.
       options:
         - Security Engineering
         - SOC & Detection
@@ -56,6 +56,8 @@ body:
         - Cloud & Infra Security
         - Identity & IAM
         - GRC & Risk
+        - Cloud Engineering
+        - Solutions Architecture
         - Engineering @ Security Co
         - Not sure
     validations:

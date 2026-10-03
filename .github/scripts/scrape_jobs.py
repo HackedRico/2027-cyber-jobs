@@ -876,7 +876,11 @@ def scrape_workday(company, tenant, instance, board, security_company=False,
     wd_headers = {**HEADERS, 'Content-Type': 'application/json',
                   'Accept': 'application/json'}
 
-    search_terms = ['cyber', 'security', 'new grad', 'early career']
+    # 'cloud engineer' finds the cloud roles the charter admits at any employer:
+    # Cisco 'Cloud Engineer II', Northrop 'Associate Cloud Engineer'. cxs sorts
+    # by date, so at Adobe and Capital One it passes the page cap and marks the
+    # sweep partial, which sends retirement there to the detail endpoint.
+    search_terms = ['cyber', 'security', 'cloud engineer', 'new grad', 'early career']
     if security_company:
         # A bare 'intern' sweep at a general employer pages through hundreds
         # of non-cyber intern reqs that is_cyber_title rejects anyway (cyber
@@ -1093,9 +1097,12 @@ def scrape_oracle(company, host, site, security_company=False):
 # reps, and BAE's 'cyber' matches nearly its whole board. Cyber, intern and
 # early-career titles rank near the top, so each term reads a bounded prefix
 # instead of the whole feed.
-EIGHTFOLD_TERMS = ('cyber', 'intern', 'early career')
+# 'cloud engineer' reaches the cloud roles the charter admits at any employer:
+# Microsoft 'Azure Advanced Cloud Engineer 2' and 'Cloud Network Engineer II'
+# were in no other term's results.
+EIGHTFOLD_TERMS = ('cyber', 'intern', 'early career', 'cloud engineer')
 EIGHTFOLD_MAX_PAGES = 50
-PHENOM_TERMS = ('cyber', 'intern')
+PHENOM_TERMS = ('cyber', 'intern', 'cloud engineer')
 PHENOM_PAGE_SIZE = 50
 PHENOM_MAX_PAGES = 4
 
@@ -1367,7 +1374,7 @@ def scrape_phenom(company, host, lang, country, security_company=False,
 # JHU APL answers 58 for 'cyber', 71 for 'cybersecurity' and 73 for 'intern',
 # against 503 for 'security'. 'cyber' alone misses APL's '2027 Internship -
 # Cybersecurity - Mission Engineering', which only the whole word matches.
-JIBE_TERMS = ('cyber', 'cybersecurity', 'intern')
+JIBE_TERMS = ('cyber', 'cybersecurity', 'intern', 'cloud')
 JIBE_PAGE_SIZE = 100
 JIBE_MAX_PAGES = 5
 # careers.jhuapl.edu, careers.pnnl.gov and jobs.exeloncorp.com all set
@@ -2024,7 +2031,11 @@ def _amazon_description(job):
 def scrape_amazon():
     base_url = 'https://www.amazon.jobs/en/search.json'
     params = {
-        'base_query': 'security engineer OR "security analyst" OR cybersecurity',
+        # Exact phrases reach AWS early-career cloud roles ('Associate Solutions
+        # Architect, AGS-Tech, Early Career - 2027') for about 80 more hits; a
+        # bare "solutions architect" added 3,400, nearly all senior.
+        'base_query': ('security engineer OR "security analyst" OR cybersecurity OR '
+                       '"cloud engineer" OR "associate solutions architect"'),
         'loc_query': 'united states',
         # loc_query only ranks: without this filter a page held GBR, AUS, IND
         # and SGP reqs next to the US ones.

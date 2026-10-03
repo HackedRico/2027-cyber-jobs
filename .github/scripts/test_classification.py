@@ -259,7 +259,7 @@ CASES = [
 
     # -- bug fix: leveled numerals reject only in role-noun context --
     # "III/IV/3/4" no longer bare-match version/layer/standard numbers.
-    ('Cybersecurity Analyst I (PCI DSS 4.0)', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Cybersecurity Analyst I (PCI DSS 4.0)', 'Austin, TX', '', False, ('earlycareer', 'GRC & Risk')),
     ('Layer 3 Network Security Analyst I', 'Reston, VA', '', False, ('earlycareer', 'Cloud & Infra Security')),
     ('Cyber IV&V Engineer I', 'Huntsville, AL', '', False, ('earlycareer', 'Security Engineering')),
     # ...but a real leveled-senior marker is still rejected.
@@ -348,20 +348,169 @@ CASES = [
     ('Sales Engineer - Intern', 'Austin, TX', '', True, ('intern', 'Engineering @ Security Co')),
     ('Associate Services Architect', 'Boston, MA', '', True, ('earlycareer', 'Engineering @ Security Co')),
     ('Associate Solutions Architect, Security', 'Seattle, WA', '', False, ('earlycareer', 'Security Engineering')),
-    # ...and the limits. Infra titles with no security word stay out, as do a
-    # team word with no engineering noun, sales engineers at a general
-    # employer, camera presales, a leveled architect and a seller.
+    # ...and the limits. Network, sysadmin and SRE titles with no security word
+    # stay out, as do a team word with no engineering noun, camera presales, a
+    # leveled architect and a seller.
     ('Network Engineer I', 'Shiloh, IL', '', False, None),
-    ('Cloud Engineer II', 'San Diego, CA', '', False, None),
     ('SYSTEMS ADMINISTRATOR 2 (LINUX)', 'Waimea, HI', '', False, None),
     ('Site Reliability Engineer II', 'Chicago, IL', '', False, None),
     ('Credit Card Fraud Specialist I', 'Heathrow, FL', '', False, None),
     ('Trust & Safety New Associate', 'Austin, TX', '', False, None),
     ('Signal and Power Integrity Engineer - New College Grad 2026', 'Santa Clara, CA', '', False, None),
-    ('Associate Sales Engineer, SE Desk - Northeast', 'Remote - US', '', False, None),
     ('Pre-Sales Solutions Engineer I - Video Security & Access Control', 'San Juan, PR', '', False, None),
     ('Cyber Security Architect/Engineer II', 'Minneapolis, MN', '', False, None),
     ('Associate Sales Representative', 'Austin, TX', '', True, None),
+
+    # -- cloud engineering is in the charter at any employer --
+    ('Cloud Engineer II', 'San Francisco, CA', '', False, ('earlycareer', 'Cloud Engineering')),
+    ('Cloud Network Engineer II', 'Redmond, WA', '', False, ('earlycareer', 'Cloud Engineering')),
+    ('Associate AWS DevOps Engineer', 'Sioux Falls, SD', '', False, ('earlycareer', 'Cloud Engineering')),
+    (f'IT Infrastructure & Cloud Engineering Internship - Summer {SEASON}', 'San Diego, CA', '', False, ('intern', 'Cloud Engineering')),
+    ('Cloud Engineer, New Grad', 'Austin, TX', '', False, ('newgrad', 'Cloud Engineering')),
+    ('Junior Azure Cloud Engineer', 'Remote (US)', '', False, ('earlycareer', 'Cloud Engineering')),
+    # A security word keeps the security category, and a cloud engineer at a
+    # security company is filed as cloud engineering.
+    ('Cloud Security Engineer Intern', 'Seattle, WA', '', False, ('intern', 'Cloud & Infra Security')),
+    ('Cloud Engineer I', 'Austin, TX', '', True, ('earlycareer', 'Cloud Engineering')),
+    # ...and the limits: a level is still required, the cloud word has to lead
+    # the role noun, CRM and ERP suites named Cloud are out, and so are cloud
+    # sales and support roles.
+    ('Cloud Engineer', 'Austin, TX', '', False, None),
+    ('Software Engineer II - Windows in Cloud', 'Redmond, WA', '', False, None),
+    ('Salesforce Service Cloud Developer, Associate', 'Austin, TX', '', False, None),
+    ('Oracle Cloud HCM Developer I', 'Austin, TX', '', False, None),
+    ('Cloud Sales Associate', 'Austin, TX', '', False, None),
+    ('Associate Banker, Saint Cloud, MN', 'Saint Cloud, MN', '', False, None),
+    ('Senior Cloud Engineer', 'Austin, TX', '', False, None),
+    ('Cloud Engineer II', 'Austin, TX', 'Requires 5+ years of AWS experience.', False, None),
+    # Support, operations, administration and consulting roles, and an
+    # infrastructure engineer that names the cloud after the role.
+    ('Cloud Support Associate', 'Seattle, WA', '', False, ('earlycareer', 'Cloud Engineering')),
+    ('Associate Cloud Consultant', 'Austin, TX', '', False, ('earlycareer', 'Cloud Engineering')),
+    ('Cloud Operations Analyst I', 'Peoria, IL', '', False, ('earlycareer', 'Cloud Engineering')),
+    ('Azure Administrator I', 'Austin, TX', '', False, ('earlycareer', 'Cloud Engineering')),
+    ('DevOps Engineer I - AWS', 'Austin, TX', '', False, ('earlycareer', 'Cloud Engineering')),
+    ('Platform Engineer I, Azure', 'Austin, TX', '', False, ('earlycareer', 'Cloud Engineering')),
+    # ...but not cost, data-centre or town names.
+    ('Cloud FinOps Analyst I', 'Austin, TX', '', False, None),
+    ('Associate Cloud Cost Analyst', 'Austin, TX', '', False, None),
+    ('DCO Technician I, AWS Data Center Operations', 'Ashburn, VA', '', False, None),
+    ('Saint Cloud Operations Associate', 'Saint Cloud, MN', '', False, None),
+    ('DevOps Engineer I', 'Austin, TX', '', False, None),
+    # Found in review: a non-technical job on a cloud team, other senses of
+    # cloud, and SaaS suites named Cloud.
+    ('Junior Scrum Master, Cloud Engineering', 'Austin, TX', '', False, None),
+    ('Associate Technical Writer, AWS Developer Documentation', 'Seattle, WA', '', False, None),
+    ('Associate Learning Specialist, AWS Support', 'Seattle, WA', '', False, None),
+    ('Associate Cloud Business Analyst', 'Austin, TX', '', False, None),
+    ('Cloud Partner Specialist I', 'Austin, TX', '', False, None),
+    ('Point Cloud Engineer I', 'Austin, TX', '', False, None),
+    ('Cloud Seeding Technician I', 'Boulder, CO', '', False, None),
+    ('Associate SAP Cloud Developer', 'Austin, TX', '', False, None),
+    ('Workday Cloud Administrator I', 'Austin, TX', '', False, None),
+    ('Oracle Cloud Developer I', 'Austin, TX', '', False, None),
+    ('Cloud Hardware Development Engineer I, Annapurna Labs, Early Career - 2027', 'Austin, TX', '', False, None),
+    ('Oracle Cloud Infrastructure Engineer I', 'Austin, TX', '', False, ('earlycareer', 'Cloud Engineering')),
+
+    # -- solutions architecture and presales at any employer, early career only --
+    ('Associate Solutions Architect, AGS-Tech, Early Career - 2027', 'Seattle, WA', '', False, ('newgrad', 'Solutions Architecture')),
+    ('Associate Solution Engineer', 'San Mateo, CA', '', False, ('earlycareer', 'Solutions Architecture')),
+    ('Associate Cloud Sales Engineer', 'Remote - US', '', False, ('earlycareer', 'Cloud Engineering')),
+    ('Associate Software Sales Engineer', 'Remote - US', '', False, ('earlycareer', 'Solutions Architecture')),
+    (f'Solutions Architect Intern - Summer {SEASON}', 'Austin, TX', '', False, ('intern', 'Solutions Architecture')),
+    ('Cloud Solution Architect, New Grad', 'Redmond, WA', '', False, ('newgrad', 'Cloud Engineering')),
+    ('Associate Solutions Architect, Security', 'Seattle, WA', '', False, ('earlycareer', 'Security Engineering')),
+    # ...but a flat or senior title, a customer engineer and a seller stay out.
+    ('Solutions Architect', 'Austin, TX', '', False, None),
+    ('Solutions Engineer', 'Austin, TX', '', False, None),
+    ('Senior Sales Engineer', 'Austin, TX', '', False, None),
+    ('Customer Engineer I', 'Dayton, OH', '', False, None),
+    ('Associate Solutions Manager', 'Austin, TX', '', False, None),
+    # Found in review: a leveled II is not an early-career word, and a sales
+    # engineer with no technology word is industrial sales.
+    ('Solutions Engineer II', 'Austin, TX', '', False, None),
+    ('Associate Sales Engineer, SE Desk - Northeast', 'Remote - US', '', False, None),
+    ('Field Sales Engineer I - HVAC', 'Austin, TX', '', False, None),
+    ('Sales Engineer (Field) Intern', 'Austin, TX', '', False, None),
+    ('Customer Solutions Engineer I', 'Austin, TX', '', False, None),
+    # A security title on a cloud or presales team keeps its security category.
+    ('Cloud Vulnerability Analyst I', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Vulnerability Solutions Engineer, Associate', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+
+    # -- SOC, blue team and DoD acronyms --
+    ('MDR Analyst I', 'Austin, TX', '', False, ('earlycareer', 'SOC & Detection')),
+    ('CSOC Analyst I', 'Huntsville, AL', '', False, ('earlycareer', 'SOC & Detection')),
+    ('Junior CSSP Analyst', 'Norfolk, VA', '', False, ('earlycareer', 'SOC & Detection')),
+    ('SecOps Analyst I', 'Austin, TX', '', False, ('earlycareer', 'SOC & Detection')),
+    ('Junior EDR Analyst', 'Austin, TX', '', False, ('earlycareer', 'SOC & Detection')),
+    ('Junior RMF Analyst', 'Arlington, VA', '', False, ('earlycareer', 'GRC & Risk')),
+    ('eMASS Analyst I', 'Arlington, VA', '', False, ('earlycareer', 'GRC & Risk')),
+    ('Junior ACAS Analyst', 'Arlington, VA', '', False, ('earlycareer', 'GRC & Risk')),
+    ('Junior ISSO', 'Arlington, VA', '', False, ('earlycareer', 'GRC & Risk')),
+    ('Junior ISSE', 'Arlington, VA', '', False, ('earlycareer', 'GRC & Risk')),
+    ('ISSO I', 'Arlington, VA', '', False, ('earlycareer', 'GRC & Risk')),
+    ('ISSO III', 'Arlington, VA', '', False, None),
+    # Bank and Big 4 GRC titles, and NICE work-role nouns as level nouns.
+    ('IT Risk Analyst I', 'Charlotte, NC', '', False, ('earlycareer', 'GRC & Risk')),
+    ('IT Auditor I', 'Charlotte, NC', '', False, ('earlycareer', 'GRC & Risk')),
+    ('Internal Audit - IT Audit Analyst I', 'Charlotte, NC', '', False, ('earlycareer', 'GRC & Risk')),
+    ('Technology Controls Analyst I', 'Columbus, OH', '', False, ('earlycareer', 'GRC & Risk')),
+    ('PCI Compliance Analyst I', 'Austin, TX', '', False, ('earlycareer', 'GRC & Risk')),
+    ('Third Party Cyber Risk Analyst I', 'Minneapolis, MN', '', False, ('earlycareer', 'GRC & Risk')),
+    ('Security Controls Assessor I', 'Arlington, VA', '', False, ('earlycareer', 'GRC & Risk')),
+    ('Digital Forensics Examiner I', 'Austin, TX', '', False, ('earlycareer', 'Forensics & IR')),
+    ('Cyber Sys Secur Engr Asc', 'Orlando, FL', '', False, ('earlycareer', 'Security Engineering')),
+    # Security products beside a technical role noun.
+    ('Junior Splunk Engineer', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Junior SailPoint Engineer', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Internal Audit - Technology Audit Associate', 'Charlotte, NC', '', False, ('earlycareer', 'GRC & Risk')),
+    (f'Cybersecurity Summer Fellowship {SEASON}', 'Austin, TX', '', False, ('intern', 'Security Engineering')),
+    ('Cybersecurity Residency', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Firewall Engineer I', 'Austin, TX', '', False, ('earlycareer', 'Cloud & Infra Security')),
+    ('PKI Engineer I', 'Austin, TX', '', False, ('earlycareer', 'Cloud & Infra Security')),
+    ('Junior Microsoft Sentinel Engineer', 'Austin, TX', '', False, ('earlycareer', 'SOC & Detection')),
+    # Named cohorts that carry no usual level word.
+    ('Cybersecurity Development Program', 'Dallas, TX', '', False, ('newgrad', 'Security Engineering')),
+    ('Technology Analyst Program - Cybersecurity', 'Tampa, FL', '', False, ('newgrad', 'Security Engineering')),
+    ('Cyber Apprenticeship Program', 'Fort Meade, MD', '', False, ('earlycareer', 'Security Engineering')),
+    ('Cybersecurity Trainee', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Security Analyst, Early Careers', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    # ...and what stays out: physical security, credit and supplier risk,
+    # observability, NOC-only and fraud work, finance audit, a vendor's own
+    # support title, ambiguous product words, and cohorts that are not cyber.
+    ('Global Security Operations Center Analyst I', 'Austin, TX', '', False, None),
+    ('Threat Assessment Analyst I - Workplace Violence', 'Austin, TX', '', False, None),
+    ('Electronic Security Systems Engineer I', 'Austin, TX', '', False, None),
+    ('Third Party Risk Analyst I - Supplier Financial Health', 'Austin, TX', '', False, None),
+    ('Market Access Management Associate', 'Austin, TX', '', False, None),
+    ('Splunk Observability Engineer I', 'Austin, TX', '', False, None),
+    ('NOC Technician I', 'Austin, TX', '', False, None),
+    ('Internal Audit Analyst I', 'Austin, TX', '', False, None),
+    ('Okta Customer Support Engineer I', 'Austin, TX', '', False, None),
+    ('Sentinel Program Engineer I', 'Roy, UT', '', False, None),
+    ('EDR Equipment Technician I', 'Austin, TX', '', False, None),
+    ('MDR Regulatory Affairs Associate', 'Austin, TX', '', False, None),
+    ('Business Development Program Associate', 'Austin, TX', '', False, None),
+    # Found in review: a GSOC watch floor, badge and patient access offices, a
+    # vendor's own titles naming its product, medical device reporting, other
+    # senses of SOAR and ACAS, program staff, and a passed fellowship season.
+    ('GSOC Watch Floor Analyst I', 'Austin, TX', '', False, None),
+    ('GSOC Incident Handler I', 'Austin, TX', '', False, None),
+    ('Security Access Management Specialist I', 'Austin, TX', '', False, None),
+    ('Patient Access Management Associate', 'Austin, TX', '', False, None),
+    ('Associate Pricing Analyst, Okta', 'Austin, TX', '', True, None),
+    ('Splunk Technical Support Engineer I', 'Austin, TX', '', False, None),
+    ('Software Engineer I - Splunk', 'Austin, TX', '', False, None),
+    ('Junior Medical Device Reporting (MDR) Specialist', 'Austin, TX', '', False, None),
+    ('MDR Complaint Analyst I', 'Austin, TX', '', False, None),
+    ('Soar Technology Junior Software Engineer', 'Ann Arbor, MI', '', False, None),
+    ('ACAS X Software Engineer I', 'McLean, VA', '', False, None),
+    ('Incident Handler I - Customer Service', 'Austin, TX', '', False, None),
+    ('IT Compliance Specialist I - Computer System Validation', 'Austin, TX', '', False, None),
+    ('IT Audit Associate - Financial Audit', 'Austin, TX', '', False, None),
+    ('Information Security Analyst Programmer', 'Austin, TX', '', False, None),
+    ('Cyber Workforce Development Program Specialist', 'Austin, TX', '', False, None),
+    ('Summer 2025 Cybersecurity Fellowship', 'Austin, TX', '', False, None),
 
     # -- rows the new bank, pharma and Big 4 boards would have added --
     ('Associate, Equity Research - Cybersecurity & Data', 'New York, NY', '', False, None),
