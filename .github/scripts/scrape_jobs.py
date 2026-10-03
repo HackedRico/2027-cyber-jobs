@@ -1095,9 +1095,12 @@ def scrape_oracle(company, host, site, security_company=False):
 # reps, and BAE's 'cyber' matches nearly its whole board. Cyber, intern and
 # early-career titles rank near the top, so each term reads a bounded prefix
 # instead of the whole feed.
-EIGHTFOLD_TERMS = ('cyber', 'intern', 'early career')
+# 'cloud engineer' reaches the cloud roles the charter admits at any employer:
+# Microsoft 'Azure Advanced Cloud Engineer 2' and 'Cloud Network Engineer II'
+# were in no other term's results.
+EIGHTFOLD_TERMS = ('cyber', 'intern', 'early career', 'cloud engineer')
 EIGHTFOLD_MAX_PAGES = 50
-PHENOM_TERMS = ('cyber', 'intern')
+PHENOM_TERMS = ('cyber', 'intern', 'cloud engineer')
 PHENOM_PAGE_SIZE = 50
 PHENOM_MAX_PAGES = 4
 
@@ -1369,7 +1372,7 @@ def scrape_phenom(company, host, lang, country, security_company=False,
 # JHU APL answers 58 for 'cyber', 71 for 'cybersecurity' and 73 for 'intern',
 # against 503 for 'security'. 'cyber' alone misses APL's '2027 Internship -
 # Cybersecurity - Mission Engineering', which only the whole word matches.
-JIBE_TERMS = ('cyber', 'cybersecurity', 'intern')
+JIBE_TERMS = ('cyber', 'cybersecurity', 'intern', 'cloud')
 JIBE_PAGE_SIZE = 100
 JIBE_MAX_PAGES = 5
 # careers.jhuapl.edu, careers.pnnl.gov and jobs.exeloncorp.com all set
@@ -2026,7 +2029,10 @@ def _amazon_description(job):
 def scrape_amazon():
     base_url = 'https://www.amazon.jobs/en/search.json'
     params = {
-        'base_query': 'security engineer OR "security analyst" OR cybersecurity',
+        # The cloud and solutions terms reach AWS early-career roles: 'Cloud
+        # Support Associate', 'Associate Solutions Architect'.
+        'base_query': ('security engineer OR "security analyst" OR cybersecurity OR '
+                       '"cloud engineer" OR "cloud support" OR "solutions architect"'),
         'loc_query': 'united states',
         # loc_query only ranks: without this filter a page held GBR, AUS, IND
         # and SGP reqs next to the US ones.
