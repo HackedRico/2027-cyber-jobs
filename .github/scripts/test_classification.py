@@ -374,6 +374,8 @@ CASES = [
     ('Junior ACAS Analyst', 'Arlington, VA', '', False, ('earlycareer', 'GRC & Risk')),
     ('Junior ISSO', 'Arlington, VA', '', False, ('earlycareer', 'GRC & Risk')),
     ('Junior ISSE', 'Arlington, VA', '', False, ('earlycareer', 'GRC & Risk')),
+    ('ISSO I', 'Arlington, VA', '', False, ('earlycareer', 'GRC & Risk')),
+    ('ISSO III', 'Arlington, VA', '', False, None),
     # Bank and Big 4 GRC titles, and NICE work-role nouns as level nouns.
     ('IT Risk Analyst I', 'Charlotte, NC', '', False, ('earlycareer', 'GRC & Risk')),
     ('IT Auditor I', 'Charlotte, NC', '', False, ('earlycareer', 'GRC & Risk')),

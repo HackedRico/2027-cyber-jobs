@@ -32,7 +32,7 @@ The title has to say so:
 
 - **Internship:** intern, internship, co-op, summer analyst, student trainee, or a season with a cohort year such as "Summer 2027".
 - **New grad:** new grad, university or college grad, graduate, rotational, early talent, a development, analyst or pathways program (but not a "Development Program Specialist" who runs one), early in profession, or a cohort year such as "2027".
-- **Early career:** junior or jr, associate, entry level, early career or early careers, apprentice or apprenticeship, trainee, residency or fellowship (one with a past year has no level), tier or level 1 and 2 (also "Level I" or "Level II"), L1 or L2, or a level I or II after the job noun ("SOC Analyst II", "Security Analyst - I", "Security Analyst (I)"). Assessor, examiner, auditor and handler count as job nouns, and Lockheed's "Engr Asc" reads as associate.
+- **Early career:** junior or jr, associate, entry level, early career or early careers, apprentice or apprenticeship, trainee, residency or fellowship (one with a past year has no level), tier or level 1 and 2 (also "Level I" or "Level II"), L1 or L2, or a level I or II after the job noun ("SOC Analyst II", "Security Analyst - I", "Security Analyst (I)"). Assessor, examiner, auditor, handler, ISSO and ISSE count as job nouns, and Lockheed's "Engr Asc" reads as associate.
 
 A title posted at several levels that reach III or 3, such as "Cyber Analyst II / III", "SOC Analyst Tier 1-3" or "Cybersecurity Analyst (Level 2 or 3)", may be hired at the senior level. It gets in only when the posting's description is available and its easiest route passes the years rule below, as in "Level 2: Bachelor's + 2 years ... Level 3: Bachelor's + 5 years".
 

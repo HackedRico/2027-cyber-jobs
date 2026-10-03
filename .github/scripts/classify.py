@@ -64,12 +64,12 @@ ARCHITECT_RE = re.compile(r'\barchitect\b')
 # The level can also follow a separator ("Analyst - III", "Analyst (IV)") and
 # sit in the L-scale ("L3 SOC Analyst"). A separated numeral has to end the
 # title or a bracketed part, so "Analyst - 4 days onsite" is not a level.
-# 'Assessor', 'examiner', 'auditor' and 'handler' are NICE work-role nouns:
-# 'Security Controls Assessor I', 'Digital Forensics Examiner I', 'IT Auditor
-# I', 'Incident Handler I'.
+# 'Assessor', 'examiner', 'auditor' and 'handler' are NICE work-role nouns, and
+# ISSO and ISSE are DoD ones: 'Security Controls Assessor I', 'Digital
+# Forensics Examiner I', 'IT Auditor I', 'ISSO I'.
 _LEVEL_NOUNS = (r'analyst|engineer|consultant|specialist|administrator|technician|'
                 r'developer|tester|responder|investigator|hunter|technologist|'
-                r'assessor|examiner|auditor|handler')
+                r'assessor|examiner|auditor|handler|isso|isse')
 _LEVEL_TAIL = r'\s*(?=$|[)\-–,/|(])'
 LEVELED_SENIOR_RE = re.compile(
     r'\b(?:' + _LEVEL_NOUNS + r'|scientist|researcher|officer|tier|level)'
