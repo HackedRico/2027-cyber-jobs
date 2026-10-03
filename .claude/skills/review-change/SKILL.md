@@ -14,22 +14,27 @@ finding is **reproduced**, with its input and wrong output, before it is reporte
 
 1. **Map the change.** Run `git diff origin/main...HEAD --stat` and give every touched file an
    area from [REFERENCE.md](REFERENCE.md): classifier, scraper and search terms, companies,
-   workflows or docs. Done when each file has an area and you have read each area's checklist.
+   workflows, tests and tooling, or docs and skills. Done when each file has an area and you
+   have read each area's checklist.
 2. **Run the gates.** `ruff check .github/scripts`, then every `run: python
    .github/scripts/test_*.py` line in `.github/workflows/tests.yml`. Done when all pass; a
    failing gate is the first finding.
-3. **Read the blast radius.** `git diff origin/main...HEAD --
-   .github/scripts/fixtures/title_corpus.tsv` lists every real title, stored rows included,
-   whose verdict the change moves. Judge each changed line as the row a student would see.
-   Done when every changed line is called right or written up as a finding.
+3. **Read the blast radius.** `python .github/scripts/test_corpus.py --base origin/main`
+   prints every corpus title and current stored row that main's rules and the branch's judge
+   differently; the corpus diff shows the same moves when the PR rewrote the snapshot. Judge
+   each moved title as the row a student would see. Done when every moved title is called
+   right or written up as a finding.
 4. **Probe every new accept path.** For each term, regex or branch that admits a title, write
    **probes** from every family in REFERENCE.md that its words could reach, and run each
-   through `classify.judge_job(title, 'Austin, TX', '', security_company)` on main and on the
-   branch. Done when every family has met every new accept path.
+   through `judge_job(title, 'Austin, TX', '', security_company)` with the branch's
+   `classify` and with main's, which `test_corpus.base_rules('origin/main')` loads. Done when
+   every family has met every new accept path.
 5. **Check the live run** when the change touches scraping, search terms, companies or an
    accept rule: a full `--dry-run` on main and on the branch, `compare_runs.py`, and both
    scrape timings. Done when every `NEW`, `DROP` and `REFRESHED` line is called right or a
-   finding, and the scrape phase sits far inside the workflow's 30-minute timeout.
+   finding, and the scrape phase sits far inside the workflow's 30-minute timeout. A reviewer
+   without network access reports the live run as not done, and the PR stays a draft until
+   its author runs it.
 6. **Report.** Findings ranked by severity, each with `file:line`, the input, the wrong output
    and a fix, marked reproduced or suspected; unreproduced suspicions go in a closing list.
    Each leak, once fixed, becomes a reject row in `test_classification.py`.

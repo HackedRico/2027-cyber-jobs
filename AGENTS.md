@@ -79,7 +79,9 @@ dropdown together.
 
 A moved verdict fails `test_corpus.py` until `--update` rewrites the snapshot. That diff is
 the change's blast radius: the PR names the titles it moves, and a reviewer reads every
-changed line. Refresh the corpus in its own commit, never inside a rule change.
+changed line. `test_corpus.py --base origin/main` lists the same moves without the
+snapshot, over the corpus and the current stored rows. Refresh the corpus in its own commit,
+never inside a rule change.
 
 ## Verifying a scraper change
 
@@ -130,9 +132,11 @@ root. Beyond what the linter enforces:
   file. Add a row or a function in the same shape.
 - Every test script imports `testkit.py` before the modules it tests. It pins the clock to
   the date the fixtures were written and refuses the network past loopback, so a suite gives
-  the same result on any day and machine. Test a date rollover by passing `today=`, never by reading the real clock.
-- The suites and the review checklists change shape as the code does. The design holds:
-  plain scripts, the pinned clock, no network, and rows in tables.
+  the same result on any day and machine. A test passes `today=` to cover a date rollover.
+- Reshape a suite, an invariant or a review checklist when the code moves, and keep what
+  makes them trustworthy: `test_classification.py` stays tables of real titles, every suite
+  stays offline on the pinned clock, and the corpus diff stays the record of what a rule
+  change moves.
 - A scraper function returns `None` for a broken fetch and `[]` for an empty board. The
   health check relies on the difference.
 

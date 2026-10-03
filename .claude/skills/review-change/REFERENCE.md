@@ -15,20 +15,22 @@ One checklist per area, then the probe families. Each line is a trap a past chan
   keyword addition: "watch floor" as a keyword let "GSOC Watch Floor Analyst I" back in.
 - **Narrow accept paths.** The security-team, tool, cloud and solutions rules live in
   `is_cyber_title` and unlock none of those guards. A term with other senses belongs there.
-- **Text form.** Every rule reads `_fold(title)`. `&` reads as `and` only inside
-  `_has_cyber_keyword`. `NEWGRAD_SIGNALS` match as substrings, so "analyst program" matched
-  "Analyst Programmer"; word-bound a new signal.
+- **Text form.** Every title rule reads `fold_title(title)`: lowercased, whitespace collapsed,
+  a spaced `&` read as `and`. `_has_cyber_keyword` also reads an unspaced `&` as `and`.
+  `NEWGRAD_SIGNALS` match as substrings, so "analyst program" matched "Analyst Programmer";
+  word-bound a new signal. A gap between two words of a pattern crosses spaces, never a
+  bracket: "Python Backend Developer with AWS & SQL (Software Engineer II)" read as cloud.
 - **Level order.** `classify_level` tries intern words, new-grad words, a leveled I or II, a
   summer season with a cohort year, a bare cohort year, early-career words, then the
   description. A new-grad word outranks the summer season and so escaped the passed-season
-  reject ("Summer 2026 Cybersecurity Fellowship"). A new level noun also feeds
+  reject ("Summer <past year> Cybersecurity Fellowship"). A new level noun also feeds
   `LEVELED_SENIOR_RE` and the multi-level rule.
 - **Category order.** `CATEGORY_RULES` is first match. A vendor, place or program word in a
   category regex relabels every title holding it: bare "sentinel" moved Northrop's Sentinel
   missile rows into SOC, bare "palo alto" moved Palo Alto, CA rows. A late category gates on
   its admitting predicate in `infer_category` and yields to `_has_cyber_keyword`.
-- **Stored rows.** The corpus holds every `listings.json` row, so its diff covers them. The
-  scrape refreshes a stored row's category only while its posting is still live.
+- **Stored rows.** `test_corpus.py --base` judges the current `listings.json` rows as well as
+  the corpus. The scrape refreshes a stored row's category only while its posting is live.
 - **Docs agree.** CONTRIBUTING.md states every rule a submitter reads. A new category lands in
   `CATEGORY_RULES`, the issue form, CONTRIBUTING.md and `CATEGORY_BLURBS` together;
   `test_wiring.py` and `test_classification.py` check all four.
@@ -69,6 +71,28 @@ One checklist per area, then the probe families. Each line is a trap a past chan
   `workflow_run`.
 - Actions pin a full commit SHA and installs use `--require-hashes`; `test_wiring.py` checks
   both.
+
+## Tests and tooling
+
+`testkit.py`, the `test_*.py` suites, `fixtures/`, `refresh_corpus.py`.
+
+- **Determinism.** A suite reads no clock and no network: `testkit.py` pins both, and
+  `test_wiring.py` proves each suite imports it first and calls no `now()` itself. Run a
+  changed suite twice with different `PYTHONHASHSEED` values and with the OS clock moved a
+  year ahead; the output should not change.
+- **A check that can fail.** Break the thing a new check guards, in a scratch copy, and
+  watch it fail. An invariant that holds by construction, such as a category drawn from the
+  set it is checked against, tests nothing.
+- **Snapshots.** A corpus refresh lands in its own commit. A rule change that rewrites the
+  snapshot shows only verdict moves.
+
+## Docs and skills
+
+AGENTS.md, CONTRIBUTING.md, `.claude/skills/`.
+
+- CONTRIBUTING.md and AGENTS.md state what the code does now; check every claim a change
+  touches against the code.
+- A skill keeps its SKILL.md short with one level of reference, and carries no dates.
 
 ## Probe families
 
