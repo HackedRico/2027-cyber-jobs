@@ -4,19 +4,19 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **355 companies tracked.**
 
-## Hiring students now (84)
+## Hiring students now (83)
 
 Employers with open roles on the board today.
 
 | Company | Internships | New grad | Early career |
 | ------- | ----------- | -------- | ------------ |
 | Johns Hopkins APL | 11 | 9 |  |
-| Booz Allen Hamilton | 17 |  | 5 |
+| Booz Allen Hamilton | 17 |  | 4 |
 | Vanguard | 7 | 6 |  |
 | American Express | 8 | 4 |  |
+| RTX | 7 |  | 9 |
 | Microsoft | 7 |  | 3 |
-| RTX | 6 |  | 8 |
-| Palo Alto Networks | 5 | 1 | 1 |
+| Palo Alto Networks | 5 | 1 | 2 |
 | Northrop Grumman | 2 | 3 | 8 |
 | MITRE | 3 | 1 | 2 |
 | Tanium | 4 |  |  |
@@ -48,23 +48,22 @@ Employers with open roles on the board today.
 | Deloitte |  | 1 |  |
 | Exelon | 1 |  |  |
 | HP Inc | 1 |  |  |
-| Northern Trust | 1 |  |  |
 | NVIDIA |  | 1 |  |
 | Prophet Security | 1 |  |  |
 | Qualcomm | 1 |  |  |
 | Semgrep | 1 |  |  |
-| Snowflake | 1 |  |  |
 | TRM Labs |  | 1 |  |
 | U.S. Bank | 1 |  |  |
 | Verkada | 1 |  |  |
 | Amazon |  |  | 11 |
-| CrowdStrike |  |  | 7 |
+| CrowdStrike |  |  | 6 |
 | KBR |  |  | 4 |
 | BAE Systems |  |  | 3 |
 | JPMorgan Chase |  |  | 3 |
 | Recorded Future |  |  | 3 |
 | Abnormal AI |  |  | 2 |
 | Amentum |  |  | 2 |
+| ExtraHop |  |  | 2 |
 | SAIC |  |  | 2 |
 | Trail of Bits |  |  | 2 |
 | AeroVironment |  |  | 1 |
@@ -76,7 +75,6 @@ Employers with open roles on the board today.
 | Draper |  |  | 1 |
 | ESET |  |  | 1 |
 | Expel |  |  | 1 |
-| ExtraHop |  |  | 1 |
 | Fireblocks |  |  | 1 |
 | Fortinet |  |  | 1 |
 | Fortra |  |  | 1 |
@@ -86,6 +84,7 @@ Employers with open roles on the board today.
 | MIT Lincoln Laboratory |  |  | 1 |
 | Obsidian Security |  |  | 1 |
 | Pinterest |  |  | 1 |
+| PNNL |  |  | 1 |
 | Praetorian |  |  | 1 |
 | ReliaQuest |  |  | 1 |
 | SailPoint |  |  | 1 |

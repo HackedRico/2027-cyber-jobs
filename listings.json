@@ -2249,10 +2249,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://ntrs.wd1.myworkdayjobs.com/northerntrust/job/Chicago-IL/Technology-Intern---Information-Security_R160869-1",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-05",
-    "missing_since": "2026-09-30"
+    "closed": true,
+    "closed_date": "2026-10-03"
   },
   {
     "company": "The Home Depot",
@@ -2604,10 +2605,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Washington-DC/Cyber-Analyst--Junior_R0249110",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-10",
-    "missing_since": "2026-09-30"
+    "closed": true,
+    "closed_date": "2026-10-03"
   },
   {
     "company": "Northrop Grumman",
@@ -2763,11 +2765,9 @@
     "type": "intern",
     "category": "Cloud & Infra Security",
     "clearance": true,
-    "url": "",
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Systems-Security-Engineering-Intern--Summer-2027-_01874755",
     "source": "Workday",
-    "date_added": "2026-09-14",
-    "closed": true,
-    "closed_date": "2026-09-22"
+    "date_added": "2026-09-14"
   },
   {
     "company": "RTX",
@@ -2787,11 +2787,9 @@
     "type": "earlycareer",
     "category": "Cloud & Infra Security",
     "clearance": true,
-    "url": "",
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Systems-Security-Engineer-I---Anti-Tamper---Program-Protection--On-site-_01874756",
     "source": "Workday",
-    "date_added": "2026-09-14",
-    "closed": true,
-    "closed_date": "2026-09-25"
+    "date_added": "2026-09-14"
   },
   {
     "company": "Northrop Grumman",
@@ -3180,10 +3178,11 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://job-boards.greenhouse.io/extrahopnetworks/jobs/6202979004",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-09-21",
-    "missing_since": "2026-09-30"
+    "closed": true,
+    "closed_date": "2026-10-03"
   },
   {
     "company": "Guidehouse",
@@ -3518,10 +3517,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://jobs.ashbyhq.com/snowflake/5315b6f6-2c14-4cb9-a884-c2bae69f2c69",
+    "url": "",
     "source": "Ashby",
     "date_added": "2026-09-25",
-    "missing_since": "2026-09-30"
+    "closed": true,
+    "closed_date": "2026-10-03"
   },
   {
     "company": "Arctic Wolf",
@@ -3805,10 +3805,11 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": true,
-    "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote-MA/Engineer-II--Advanced-Research--Remote-_R29440",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-28",
-    "missing_since": "2026-09-30"
+    "closed": true,
+    "closed_date": "2026-10-03"
   },
   {
     "company": "CrowdStrike",
@@ -4675,7 +4676,8 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Embedded-Software-Security-Engineer-I---S3E_01878692",
     "source": "Workday",
-    "date_added": "2026-09-30"
+    "date_added": "2026-09-30",
+    "missing_since": "2026-10-03"
   },
   {
     "company": "Microsoft",
@@ -5095,5 +5097,49 @@
     "url": "https://vanguard.wd5.myworkdayjobs.com/vanguard_external/job/Charlotte-NC/College-to-Corporate-IT-Internship-Risk---Security-Engineer--NC-_182785",
     "source": "Workday",
     "date_added": "2026-10-02"
+  },
+  {
+    "company": "ExtraHop",
+    "role": "Support Engineer I - Dallas, TX",
+    "location": "Dallas, TX",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/extrahopnetworks/jobs/6216038004",
+    "source": "Greenhouse",
+    "date_added": "2026-10-03"
+  },
+  {
+    "company": "ExtraHop",
+    "role": "Support Engineer I - Seattle, WA",
+    "location": "Seattle, WA",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/extrahopnetworks/jobs/6215921004",
+    "source": "Greenhouse",
+    "date_added": "2026-10-03"
+  },
+  {
+    "company": "Palo Alto Networks",
+    "role": "Domain Consultant 2",
+    "location": "Columbus; Chicago, IL",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://paloaltonetworks.wd5.myworkdayjobs.com/panwexternalcareers/job/Columbus-United-States-of-America/Domain-Consultant-2_JR-020326",
+    "source": "Workday",
+    "date_added": "2026-10-03"
+  },
+  {
+    "company": "PNNL",
+    "role": "Entry Level Cyber Security Engineer",
+    "location": "Richland, WA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://careers.pnnl.gov/jobs/12191",
+    "source": "Jibe",
+    "date_added": "2026-10-03"
   }
 ]
