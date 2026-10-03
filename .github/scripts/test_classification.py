@@ -413,6 +413,11 @@ CASES = [
     ('Oracle Cloud Developer I', 'Austin, TX', '', False, None),
     ('Cloud Hardware Development Engineer I, Annapurna Labs, Early Career - 2027', 'Austin, TX', '', False, None),
     ('Oracle Cloud Infrastructure Engineer I', 'Austin, TX', '', False, ('earlycareer', 'Cloud Engineering')),
+    # The cloud word reaches its role noun across '&' or 'and', never across a
+    # bracket: JPMorgan's developer works with AWS, the HP engineer is cloud.
+    ('Python Backend Developer with AWS & SQL (Software Engineer II)', 'Columbus, OH', '', False, None),
+    ('Python Backend Developer with AWS and SQL (Software Engineer II)', 'Columbus, OH', '', False, None),
+    ('Cloud Automation & Platform Engineer I', 'Austin, TX', '', False, ('earlycareer', 'Cloud Engineering')),
 
     # -- solutions architecture and presales at any employer, early career only --
     ('Associate Solutions Architect, AGS-Tech, Early Career - 2027', 'Seattle, WA', '', False, ('newgrad', 'Solutions Architecture')),
@@ -526,9 +531,12 @@ CASES = [
     (f'Cybersecurity and Privacy Associate - Summer {SEASON}', 'Los Angeles, CA', '', False, ('newgrad', 'Security Engineering')),
     (f'Advisory Intern, Cyber, Compliance & Assessment - Summer {SEASON}', 'McLean, VA', '', False, ('intern', 'GRC & Risk')),
     (f'Cybersecurity Summer Associate {SEASON}', 'New York, NY', '', False, ('intern', 'Security Engineering')),
+    ('Cybersecurity Summer Associate', 'New York, NY', '', False, ('intern', 'Security Engineering')),
 
     # -- bug fix: a non-breaking or doubled space no longer hides a level --
-    # 23 of 431 stored titles changed verdict when their spaces were not plain.
+    # With their spaces swapped for non-breaking or doubled ones, 23 of the 431
+    # stored titles changed verdict; KeyBank's equity research reject is one.
+    ('Associate,\xa0Equity\xa0Research - Cybersecurity & Data', 'New York, NY', '', False, None),
     ('Cybersecurity SOC Analyst Tier\xa0I', 'Austin, TX', '', False, ('earlycareer', 'SOC & Detection')),
     ('Cybersecurity Engineer-  Entry Level', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
     ('Engineer I, Data Scientist - New\xa0Grad (Hybrid)', 'Austin, TX', '', True, ('newgrad', 'Engineering @ Security Co')),

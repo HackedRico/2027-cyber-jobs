@@ -33,6 +33,7 @@ from classify import (
     _is_foreign_part,
     classify_level,
     evaluate_job,
+    fold_title,
     is_cyber_title,
     is_rejected_title,
     is_us_location,
@@ -793,7 +794,7 @@ def _wants_detail(title, security_company):
     # Leveled candidates need the description, since the experience gate in
     # evaluate_job runs on every level; AI flat titles need it for the same
     # reason.
-    return classify_level(title) is not None or bool(AI_CATEGORY_RE.search(title.lower()))
+    return classify_level(title) is not None or bool(AI_CATEGORY_RE.search(fold_title(title)))
 
 
 def fetch_workday_detail(cxs_root, path, wd_headers, label=''):
@@ -1167,7 +1168,7 @@ def _needs_detail(title, security_company):
     # and those need the description for the experience gate.
     if is_rejected_title(title) or not is_cyber_title(title, security_company):
         return False
-    return classify_level(title) is not None or bool(AI_CATEGORY_RE.search(title.lower()))
+    return classify_level(title) is not None or bool(AI_CATEGORY_RE.search(fold_title(title)))
 
 
 _STATE_ONLY_RE = re.compile(r'^\s*[A-Z]{2}\s*,\s*[A-Z]{2}\s*$')
