@@ -174,8 +174,9 @@ def _term_regex(term):
 
 # These terms would also reject genuine cyber roles, so they carry a guard
 # instead of sitting in the plain list:
-#   'internal audit'     — finance audit, but an IT audit analyst tests
-#                          security controls.
+#   'internal audit'     finance audit, but an IT audit analyst tests
+#                          security controls, so a title naming IT audit,
+#                          technology audit or cyber work is spared.
 #   'loss prevention'    — retail LP, but "Data Loss Prevention (DLP) Analyst"
 #                          is a core security control.
 #   'safety and security' — a guard-force function, but "AI Safety and Security
@@ -185,9 +186,17 @@ def _term_regex(term):
 #                          Palo Alto Networks 'Sales Engineer - Intern'. Only a
 #                          cyber keyword or a security_company flag admits one.
 GUARDED_FUNCTION_REJECTS = [
+    # A corporate GSOC watches travel, facilities and people: 'Global Security
+    # Operations Center Analyst I', 'GSOC Watch Floor Analyst I'. Only a title
+    # that names cyber or information security work ('Cyber GSOC Analyst I')
+    # is spared, since any looser cyber term ('incident', 'threat') also
+    # describes the physical watch floor.
+    r'^(?!.*\b(?:cyber\w*|information security|infosec|network security)\b)'
+    r'.*\b(?:gsoc|global security operations)\b',
     # Internal audit is finance work unless the title names the IT audit team:
     # banks post 'Internal Audit - IT Audit Analyst' to the same board.
-    r'^(?!.*\b(?:it|technology) audit(?:or)?\b).*\binternal audit\b',
+    r'^(?!.*\b(?:(?:it|technology) audit(?:or)?|cyber\w*|information security)\b)'
+    r'.*\binternal audit\b',
     r'\bsales\b(?!\s+(?:solutions?\s+)?engineer)',
     r'(?<!data )\bloss prevention\b',
     # Hourly shift posts: Walmart 'Asset Protection / Security Associate,
@@ -232,13 +241,10 @@ DEPARTMENT_REJECT_RE = re.compile(
 # title needs its own cyber term ('Cybersecurity Intern, Homeland Security').
 # A corporate security engineer secures the company's own IT, and 'Corporate
 # Security Engineer I - Workplace' was rejected as a guard-force title.
-# A corporate GSOC watches travel and facilities, and electronic security is
-# cameras and badge readers: 'Global Security Operations Center Analyst I',
-# 'Electronic Security Systems Engineer I'. A title naming cyber work too
-# ('Cyber GSOC Analyst I') stays.
+# Electronic security is cameras and badge readers: 'Electronic Security
+# Systems Engineer I'.
 NON_CYBER_SECURITY_RE = re.compile(
     r'\b(?:social|food|energy|border|homeland|campus|event|electronic)\s+security\b'
-    r'|\bgsoc\b|\bglobal security operations\b'
     r'|\bcorporate\s+security\b(?!\s+engineer)'
     r'|\bsecurity\s+(?:forces|badging)\b')
 
@@ -332,44 +338,46 @@ CYBER_REGEXES = [re.compile(p) for p in
                   # DoD cyber and SOC acronyms: 'Junior ISSO', 'Junior RMF
                   # Analyst', 'eMASS Analyst I', 'Junior ACAS Analyst', 'CSOC
                   # Analyst I', 'Junior CSSP Analyst', 'SecOps Analyst I',
-                  # 'PKI Engineer I', 'Junior EDR Analyst'.
-                  r'\b(?:isso|isse|rmf|emass|stigs?|acas|nosc|csoc|snoc|cssp|secops|'
-                  r'pki|xdr|soar)\b',
-                  r'\bedr\b(?!\s+equipment)',
-                  # Rapid7 'MDR Analyst I', but not the EU Medical Device
-                  # Regulation.
-                  r'\bmdr\b(?!.{0,30}\b(?:regulat|medical|device))',
-                  r'\bincident handl(?:er|ing)\b', r'\bwatch floor\b',
+                  # 'PKI Engineer I'. ACAS X is the FAA's collision-avoidance
+                  # system, which MITRE and Leidos staff.
+                  r'\b(?:isso|isse|rmf|emass|stigs?|csoc|snoc|cssp|secops|pki|xdr)\b',
+                  r'\bacas\b(?![\s-]*x\b)',
+                  # SOAR is also a program name (USAF SOAR, Soar Technology),
+                  # so it counts only before a technical role noun.
+                  r'\bsoar\s+(?:engineer|analyst|developer|administrator)',
+                  # 'Junior EDR Analyst', but not an electronic data recorder.
+                  r'^(?!.*\b(?:equipment|electronic data|recorder)\b).*\bedr\b',
+                  # Rapid7 'MDR Analyst I', but not medical device reporting.
+                  r'^(?!.*\b(?:medical|device|complaint|vigilance|reporting|regulat\w*)\b)'
+                  r'.*\bmdr\b',
                   r'\brisk management framework\b',
                   # Bank and Big 4 GRC titles: 'IT Risk Analyst I', 'IT Auditor
                   # I', 'Technology Controls Analyst I', 'PCI Compliance Analyst
-                  # I'. Third-party risk needs a security qualifier, since
-                  # 'Third Party Risk Analyst I - Supplier Financial Health'
-                  # is credit work.
-                  r'\bit (?:risk|audit|auditor|compliance|controls)\b',
-                  r'\btechnology controls\b', r'\bpci (?:dss|compliance)\b',
+                  # I'. IT compliance is left out, since pharma uses it for
+                  # system validation. Third-party risk needs a security
+                  # qualifier, since 'Third Party Risk Analyst I - Supplier
+                  # Financial Health' is credit work.
+                  r'\b(?:it|technology) (?:risk|audit|auditor|controls)\b(?!.*\bfinancial audit\b)',
+                  r'\bpci (?:dss|compliance)\b',
                   r'\bthird[- ]party (?:cyber|it|technology|information security|security) risk\b',
                   r'\bvendor (?:cyber|it|security) risk\b',
-                  r'\bidentity governance\b', r'\bpatch management\b',
-                  # Pharma 'Market Access Management' is pricing work.
-                  r'(?<!market )\baccess management\b')]
+                  r'\bidentity governance\b')]
 
-# Security products in a title mark the work only beside a technical role noun
-# ('Junior Splunk Engineer', 'Junior SailPoint Engineer', 'Firewall Engineer I',
-# 'Junior Microsoft Sentinel Engineer'), so a vendor's own support or billing
-# title that names the company does not slip past the department rejects.
-# Sentinel alone is also Northrop's ICBM program and Palo Alto is a city, so
-# both need their qualifier. Splunk also runs observability, which is not
-# security work.
+# A security product marks the work only when it leads a technical role noun,
+# at most one word apart: 'Junior Splunk Engineer', 'Junior SailPoint
+# Engineer', 'Firewall Engineer I', 'Junior Microsoft Sentinel Engineer'.
+# Vendors suffix their own titles with the company ('Associate Pricing Analyst,
+# Okta') and Cisco owns Splunk ('Splunk Technical Support Engineer I'), so a
+# product anywhere else in the title does not count. Sentinel alone is also
+# Northrop's ICBM program and Palo Alto is a city, so both need a qualifier,
+# and Splunk observability is not security work.
 SECURITY_TOOL_RE = re.compile(
+    r'^(?!.*\b(?:observability|o11y|itsi|apm)\b).*'
     r'\b(?:crowdstrike|sailpoint|okta|zscaler|qualys|tenable|rapid7|fortinet|fortigate|'
     r'microsoft sentinel|azure sentinel|palo alto networks|palo alto firewall|pan-os|'
-    r'netskope|saviynt|ping identity|forgerock)\b'
-    r'|\bfirewalls?\b(?!.{0,30}\bfire (?:protection|suppression|alarm))'
-    r'|^(?!.*\b(?:observability|o11y|itsi|apm)\b).*\bsplunk\b')
-TOOL_ROLE_RE = re.compile(
-    r'\b(?:engineer|engineering|administrator|admin|analyst|developer|architect|'
-    r'consultant|specialist|technician)s?\b')
+    r'netskope|saviynt|ping identity|forgerock|firewalls?|splunk)'
+    r'\s+(?:\w+\s+)?(?:engineer|administrator|admin|analyst|developer|architect|'
+    r'consultant)s?\b')
 
 # Bare 'safeguards' is an AI-safety signal here, but IAEA/nuclear
 # non-proliferation "Safeguards Analyst" titles (that omit the word 'nuclear'
@@ -419,12 +427,17 @@ NEWGRAD_SIGNALS = [
     # two-year rotational development experience designed for graduating
     # students"; MITRE runs a 'Cyber New Professionals Program'.
     'technology leadership program', 'new professionals program',
-    # Named cohorts without the usual words: Texas Instruments 'Cybersecurity
-    # Development Program', Citi 'Technology Analyst Program - Cybersecurity',
-    # 'Cybersecurity Residency', Microsoft '(Early in Profession)'.
-    'development program', 'analyst program', 'residency', 'fellowship',
+    # Microsoft's early-career cloud program: '(Early in Profession)'.
     'early in profession', 'early-in-profession',
 ]
+
+# Named cohorts without the usual words: Texas Instruments 'Cybersecurity
+# Development Program', Citi 'Technology Analyst Program - Cybersecurity'. A
+# program role noun after them is a job running the program ('Cyber Workforce
+# Development Program Specialist'), and 'Analyst Programmer' is a developer.
+NEWGRAD_PROGRAM_RE = re.compile(
+    r'\b(?:development|analyst) program\b'
+    r'(?!\s+(?:analyst|specialist|coordinator|manager|officer|lead|director))')
 
 
 def _cohort_years(span=2, today=None):
@@ -472,9 +485,11 @@ EARLYCAREER_SIGNALS = [
     # keeps Anthropic 'Fellows Program, AI Safety & Security' once AI flat
     # titles need early-career evidence.
     'fellows program',
-    # DoD 'Cyber Apprenticeship Program', 'Cybersecurity Trainee', 'Cyber
-    # Academy - Security Analyst', 'Security Analyst, Early Careers'.
-    'apprenticeship', 'trainee', 'early careers', 'academy',
+    # DoD 'Cyber Apprenticeship Program', 'Cybersecurity Trainee', 'Security
+    # Analyst, Early Careers'. Residencies and fellowships sit here rather than
+    # with the new-grad cohorts so a 'Summer 2026 Cybersecurity Fellowship'
+    # still reads as an internship and its passed season still rejects it.
+    'apprenticeship', 'trainee', 'early careers', 'residency', 'fellowship',
 ]
 # Word-bounded so 'level 1' doesn't match 'level 10' and 'associate' doesn't
 # match 'associated'. 'tier ii' is listed explicitly so it isn't lost when
@@ -619,8 +634,8 @@ CATEGORY_RULES = [
                         # 'Incident Responder I'.
                         r'\bmdr\b|falcon complete|network defense|cyber ops\b|'
                         r'responder|'
-                        r'\b(?:nosc|csoc|snoc|cssp|secops|edr|xdr|soar)\b|'
-                        r'incident handl|watch floor|splunk|sentinel|crowdstrike'),
+                        r'\b(?:csoc|snoc|cssp|secops|edr|xdr|soar)\b|'
+                        r'microsoft sentinel|azure sentinel'),
     ('Threat Intelligence', r'threat intel|\bcti\b|intelligence analyst|'
                             r'threat research|adversary|'
                             # JPMorgan 'Cyber Intelligence Associate', Recorded
@@ -631,14 +646,16 @@ CATEGORY_RULES = [
                          r'secure code|devsecops|secdevops|software security'),
     ('Cloud & Infra Security', r'cloud security|infrastructure security|'
                                r'network security|platform security|'
-                               r'systems security|firewall|zscaler|palo alto|'
-                               r'fortinet|fortigate|pan-os|netskope|\bpki\b'),
+                               r'systems security|firewall|palo alto networks|'
+                               r'pan-os|\bpki\b'),
     ('Identity & IAM', r'\biam\b|identity|access management|zero trust|'
-                       r'authentication|privileged access|sailpoint|okta|'
-                       r'saviynt|forgerock|cyberark'),
+                       r'authentication|privileged access'),
     ('GRC & Risk', r'\bgrc\b|governance|risk|compliance|audit|policy|'
                    r'information assurance|\b(?:isso|isse|rmf|emass|stigs?|acas|pci)\b|'
-                   r'technology controls|assessor|patch management|qualys|tenable'),
+                   # JPMorgan's org is 'Cybersecurity & Technology Controls',
+                   # which names no GRC work by itself.
+                   r'(?<!cybersecurity & )(?<!cybersecurity and )technology controls|'
+                   r'assessor'),
     ('Security Engineering', r'security|cyber|infosec|cryptograph|privacy'),
 ]
 CATEGORY_RULES = [(name, re.compile(pattern)) for name, pattern in CATEGORY_RULES]
@@ -1358,6 +1375,7 @@ def strip_html(text):
 # Intern - 2026' (posted Feb 10) was still on the board in late September.
 # Optional leading digit absorbs Northrop's "22026" typo, as COHORT_YEAR_RE does.
 TITLE_YEAR_RE = re.compile(r'\b\d?(20\d\d)\b')
+RESIDENCY_RE = re.compile(r'\b(?:residency|fellowship)\b')
 # From this month on, next summer is the season students are recruiting for.
 SEASON_ROLLOVER_MONTH = 9
 
@@ -1508,7 +1526,7 @@ def is_cyber_title(title, security_company=False):
     t = _fold(title)
     if _has_cyber_keyword(t):
         return True
-    if SECURITY_TOOL_RE.search(t) and TOOL_ROLE_RE.search(t):
+    if SECURITY_TOOL_RE.search(t):
         return True
     if SECURITY_TEAM_RE.search(t) and ENGINEERING_ROLE_RE.search(t):
         return True
@@ -1560,7 +1578,8 @@ def classify_level(title, description='', intern_hint=False, today=None):
     # ATS employment-type field for postings whose title omits "intern".
     if intern_hint or any(p.search(t) for p in INTERN_TITLE_RES):
         return 'intern'
-    if any(kw in t for kw in NEWGRAD_SIGNALS) or any(kw in t for kw in newgrad_year_signals):
+    if (any(kw in t for kw in NEWGRAD_SIGNALS) or any(kw in t for kw in newgrad_year_signals)
+            or NEWGRAD_PROGRAM_RE.search(t)):
         return 'newgrad'
     if re.search(r'\bgraduate\b', t) and 'graduate degree' not in t:
         return 'newgrad'
@@ -1574,6 +1593,11 @@ def classify_level(title, description='', intern_hint=False, today=None):
         return 'intern'
     if cohort_year_re.search(t):
         return 'newgrad'
+    # A residency or fellowship is a seasonal cohort, so one whose year is
+    # already past ('Summer 2025 Cybersecurity Fellowship') has no level; the
+    # cohort-year window above takes the current ones.
+    if RESIDENCY_RE.search(t) and TITLE_YEAR_RE.search(t):
+        return None
     if EARLYCAREER_RE.search(t):
         return 'earlycareer'
     if description:
