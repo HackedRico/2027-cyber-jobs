@@ -348,11 +348,10 @@ CASES = [
     ('Sales Engineer - Intern', 'Austin, TX', '', True, ('intern', 'Engineering @ Security Co')),
     ('Associate Services Architect', 'Boston, MA', '', True, ('earlycareer', 'Engineering @ Security Co')),
     ('Associate Solutions Architect, Security', 'Seattle, WA', '', False, ('earlycareer', 'Security Engineering')),
-    # ...and the limits. Infra titles with no security word stay out, as do a
-    # team word with no engineering noun, sales engineers at a general
-    # employer, camera presales, a leveled architect and a seller.
+    # ...and the limits. Network, sysadmin and SRE titles with no security word
+    # stay out, as do a team word with no engineering noun, sales engineers at
+    # a general employer, camera presales, a leveled architect and a seller.
     ('Network Engineer I', 'Shiloh, IL', '', False, None),
-    ('Cloud Engineer II', 'San Diego, CA', '', False, None),
     ('SYSTEMS ADMINISTRATOR 2 (LINUX)', 'Waimea, HI', '', False, None),
     ('Site Reliability Engineer II', 'Chicago, IL', '', False, None),
     ('Credit Card Fraud Specialist I', 'Heathrow, FL', '', False, None),
@@ -362,6 +361,30 @@ CASES = [
     ('Pre-Sales Solutions Engineer I - Video Security & Access Control', 'San Juan, PR', '', False, None),
     ('Cyber Security Architect/Engineer II', 'Minneapolis, MN', '', False, None),
     ('Associate Sales Representative', 'Austin, TX', '', True, None),
+
+    # -- cloud engineering is in the charter at any employer --
+    ('Cloud Engineer II', 'San Francisco, CA', '', False, ('earlycareer', 'Cloud Engineering')),
+    ('Cloud Network Engineer II', 'Redmond, WA', '', False, ('earlycareer', 'Cloud Engineering')),
+    ('Associate AWS DevOps Engineer', 'Sioux Falls, SD', '', False, ('earlycareer', 'Cloud Engineering')),
+    (f'IT Infrastructure & Cloud Engineering Internship - Summer {SEASON}', 'San Diego, CA', '', False, ('intern', 'Cloud Engineering')),
+    ('Cloud Engineer, New Grad', 'Austin, TX', '', False, ('newgrad', 'Cloud Engineering')),
+    ('Junior Azure Cloud Engineer', 'Remote (US)', '', False, ('earlycareer', 'Cloud Engineering')),
+    # A security word keeps the security category, and a cloud engineer at a
+    # security company is filed as cloud engineering.
+    ('Cloud Security Engineer Intern', 'Seattle, WA', '', False, ('intern', 'Cloud & Infra Security')),
+    ('Cloud Engineer I', 'Austin, TX', '', True, ('earlycareer', 'Cloud Engineering')),
+    # ...and the limits: a level is still required, the cloud word has to lead
+    # the role noun, CRM and ERP suites named Cloud are out, and so are cloud
+    # sales and support roles.
+    ('Cloud Engineer', 'Austin, TX', '', False, None),
+    ('Software Engineer II - Windows in Cloud', 'Redmond, WA', '', False, None),
+    ('Salesforce Service Cloud Developer, Associate', 'Austin, TX', '', False, None),
+    ('Oracle Cloud HCM Developer I', 'Austin, TX', '', False, None),
+    ('Associate Cloud Consultant', 'Austin, TX', '', False, None),
+    ('Cloud Sales Associate', 'Austin, TX', '', False, None),
+    ('Associate Banker, Saint Cloud, MN', 'Saint Cloud, MN', '', False, None),
+    ('Senior Cloud Engineer', 'Austin, TX', '', False, None),
+    ('Cloud Engineer II', 'Austin, TX', 'Requires 5+ years of AWS experience.', False, None),
 
     # -- bug fix: US territories are US locations, not foreign --
     ('Cyber Software Engineer I', 'Aguadilla, PR', '', False, ('earlycareer', 'Security Engineering')),

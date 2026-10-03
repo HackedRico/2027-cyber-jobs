@@ -345,6 +345,22 @@ SECURITY_TEAM_RE = re.compile(
     r'fraud protection|compromise)\b')
 ENGINEERING_ROLE_RE = re.compile(r'\b(?:engineer|engineering|developer)\b')
 
+# Cloud engineering is in the charter at any employer, with or without a
+# security word: the same students apply for both, and the work (IAM, VPCs,
+# hardening, logging) overlaps. The cloud word has to lead the role noun, as in
+# Cisco 'Cloud Engineer II', Microsoft 'Cloud Network Engineer II', KBR
+# 'Associate AWS DevOps Engineer' and Qualcomm 'IT Infrastructure & Cloud
+# Engineering Internship', so a product engineer whose team ships into a cloud
+# (Microsoft 'Software Engineer II - Windows in Cloud') stays out.
+CLOUD_ENGINEERING_RE = re.compile(
+    r'\b(?:cloud|aws|azure|gcp)\b(?:\W+\w+){0,2}?\W+(?:engineer|engineering|developer)s?\b')
+# Product suites named 'Cloud' are CRM and ERP configuration work, not cloud
+# infrastructure: 'Salesforce Service Cloud Developer', 'Oracle Cloud HCM
+# Developer'.
+CLOUD_PRODUCT_RE = re.compile(
+    r'\bsalesforce\b|\b(?:data|service|sales|marketing|commerce|experience|health|'
+    r'industries) cloud\b|\b(?:hcm|erp|epm|scm|fusion|financials|netsuite)\b')
+
 NEWGRAD_SIGNALS = [
     'new grad', 'new-grad', 'university grad', 'college grad', 'campus hire',
     'graduate program', 'grad program', 'graduate engineer',
@@ -567,6 +583,8 @@ CATEGORY_RULES = [
     ('GRC & Risk', r'\bgrc\b|governance|risk|compliance|audit|policy|'
                    r'information assurance'),
     ('Security Engineering', r'security|cyber|infosec|cryptograph|privacy'),
+    # Last, so a cloud title with a security word keeps its security category.
+    ('Cloud Engineering', CLOUD_ENGINEERING_RE.pattern),
 ]
 CATEGORY_RULES = [(name, re.compile(pattern)) for name, pattern in CATEGORY_RULES]
 
@@ -1431,11 +1449,19 @@ def _fold(title):
     return ' '.join(title.lower().split())
 
 
+def is_cloud_engineering_title(title):
+    """True for a cloud engineering role, which the charter admits at any employer."""
+    t = _fold(title)
+    return bool(CLOUD_ENGINEERING_RE.search(t)) and not CLOUD_PRODUCT_RE.search(t)
+
+
 def is_cyber_title(title, security_company=False):
     t = _fold(title)
     if _has_cyber_keyword(t):
         return True
     if SECURITY_TEAM_RE.search(t) and ENGINEERING_ROLE_RE.search(t):
+        return True
+    if is_cloud_engineering_title(t):
         return True
     if not security_company:
         return False
@@ -1877,6 +1903,8 @@ def requires_experience(description):
 def infer_category(title, security_company=False):
     t = _fold(title)
     for category, pattern in CATEGORY_RULES:
+        if category == 'Cloud Engineering' and not is_cloud_engineering_title(t):
+            continue
         if pattern.search(t):
             return category
     if security_company:

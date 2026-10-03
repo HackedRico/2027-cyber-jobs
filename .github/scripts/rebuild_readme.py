@@ -54,6 +54,8 @@ CATEGORY_BLURBS = {
                   'frameworks like NIST and FedRAMP',
     'Security Engineering': 'general security and cyber roles that fit no narrower '
                             'bucket',
+    'Cloud Engineering': 'building and running cloud infrastructure on AWS, Azure or '
+                         'GCP, at any employer',
     'Engineering @ Security Co': 'a software or IT role at a company whose main business '
                                  'is security',
 }
