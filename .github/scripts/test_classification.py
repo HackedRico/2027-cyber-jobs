@@ -409,6 +409,7 @@ CASES = [
     ('Associate SAP Cloud Developer', 'Austin, TX', '', False, None),
     ('Workday Cloud Administrator I', 'Austin, TX', '', False, None),
     ('Oracle Cloud Developer I', 'Austin, TX', '', False, None),
+    ('Cloud Hardware Development Engineer I, Annapurna Labs, Early Career - 2027', 'Austin, TX', '', False, None),
     ('Oracle Cloud Infrastructure Engineer I', 'Austin, TX', '', False, ('earlycareer', 'Cloud Engineering')),
 
     # -- solutions architecture and presales at any employer, early career only --

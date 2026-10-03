@@ -368,8 +368,9 @@ CLOUD_ENGINEERING_RE = re.compile(
 # cloud infrastructure: 'Salesforce Service Cloud Developer', 'Oracle Cloud HCM
 # Developer', 'Associate SAP Cloud Developer', 'Workday Cloud Administrator I'.
 # Cost and data-centre work is facilities and finance ('Cloud FinOps Analyst',
-# 'DCO Technician I, AWS Data Center Operations'), and point clouds, cloud
-# physics and Saint Cloud, MN are other senses.
+# 'DCO Technician I, AWS Data Center Operations'), server hardware is chip and
+# board design (Amazon 'Cloud Hardware Development Engineer I, Annapurna
+# Labs'), and point clouds, cloud physics and Saint Cloud, MN are other senses.
 CLOUD_PRODUCT_RE = re.compile(
     r'\bsalesforce\b|\b(?:data|service|sales|marketing|commerce|experience|health|'
     r'industries|financial services|nonprofit|education|analytics|public sector|'
@@ -377,7 +378,7 @@ CLOUD_PRODUCT_RE = re.compile(
     r'|\b(?:hcm|erp|epm|scm|fusion|financials|netsuite|sap|workday|servicenow|tableau|'
     r'dynamics|guidewire|veeva|cpq)\b|\boracle cloud\b(?!\s+infrastructure)'
     r'|\bfinops\b|\bcost\b|\bkitchen\b|\bcontact cent(?:er|re)\b'
-    r'|\bdata cent(?:er|re)\b|\b(?:saint|st\.?) cloud\b'
+    r'|\bdata cent(?:er|re)\b|\b(?:saint|st\.?) cloud\b|\bhardware\b'
     r'|\b(?:point|word) clouds?\b|\bcloud (?:physics|seeding|9|nine)\b')
 
 # Solutions architecture counts at any employer, but only with an intern,
