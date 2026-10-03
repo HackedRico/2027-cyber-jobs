@@ -1266,6 +1266,62 @@ workday:
   tenant: usaa
   instance: wd1
   board: USAAJOBSWD
+- name: Autodesk
+  tenant: autodesk
+  instance: wd1
+  board: Ext
+- name: Broadcom
+  tenant: broadcom
+  instance: wd1
+  board: External_Career
+- name: Cardinal Health
+  tenant: cardinalhealth
+  instance: wd1
+  board: EXT
+- name: Elevance Health
+  tenant: elevancehealth
+  instance: wd1
+  board: ANT
+- name: Equinix
+  tenant: equinix
+  instance: wd1
+  board: External
+- name: Humana
+  tenant: humana
+  instance: wd5
+  board: Humana_External_Career_Site
+- name: Johnson & Johnson
+  tenant: jj
+  instance: wd5
+  board: JJ
+- name: McKesson
+  tenant: mckesson
+  instance: wd3
+  board: External_Careers
+- name: Medtronic
+  tenant: medtronic
+  instance: wd1
+  board: MedtronicCareers
+- name: Merck
+  tenant: msd
+  instance: wd5
+  board: SearchJobs
+- name: Pfizer
+  tenant: pfizer
+  instance: wd1
+  board: PfizerCareers
+- name: Rackspace
+  tenant: rackspace
+  instance: wd1
+  board: External
+- name: Red Hat
+  tenant: redhat
+  instance: wd5
+  board: jobs
+- name: Workday
+  tenant: workday
+  instance: wd5
+  board: Workday
 oracle:
 - name: SAIC
   host: eihu.fa.us8.oraclecloud.com
@@ -1310,6 +1366,9 @@ oracle:
 - name: Grant Thornton
   host: ehzq.fa.us2.oraclecloud.com
   site: CX_1
+- name: Oracle
+  host: eeho.fa.us2.oraclecloud.com
+  site: CX_45001
 eightfold:
 - name: Lockheed Martin
   tenant: lockheedmartin
