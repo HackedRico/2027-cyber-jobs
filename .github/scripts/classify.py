@@ -226,9 +226,13 @@ DEPARTMENT_REJECT_RE = re.compile(
 # Stripped before the cyber-keyword scan, as 'national security' is, so a
 # title needs its own cyber term ('Cybersecurity Intern, Homeland Security').
 # A corporate security engineer secures the company's own IT, and 'Corporate
-# Security Engineer I - Workplace' was rejected as a guard-force title.
+# Security Engineer I - Workplace' was rejected as a guard-force title. A
+# regional security team and a security resiliency center are corporate
+# security too: Merck '2027 Future Talent Program - North America Regional
+# Security Team - Intern' and '... Global Security Resiliency Center - Intern'.
 NON_CYBER_SECURITY_RE = re.compile(
-    r'\b(?:social|food|energy|border|homeland|campus|event)\s+security\b'
+    r'\b(?:social|food|energy|border|homeland|campus|event|regional)\s+security\b'
+    r'|\bsecurity\s+resilien\w*'
     r'|\bcorporate\s+security\b(?!\s+engineer)'
     r'|\bsecurity\s+(?:forces|badging)\b')
 

@@ -368,6 +368,8 @@ CASES = [
     ('2027 Future Talent Program- Forensic Services Laboratory Intern', 'West Point, PA', '', False, None),
     (f'Strategic Assurance and SOC Services Associate - Summer {SEASON}', 'Fort Lauderdale, FL', '', False, None),
     ('Digital Forensics Lab Intern', 'Austin, TX', '', False, ('intern', 'Forensics & IR')),
+    (f'{SEASON} Future Talent Program - North America Regional Security Team - Intern', 'Rahway, NJ', '', False, None),
+    (f'{SEASON} Future Talent Program - Global Security Resiliency Center - Intern', 'Rahway, NJ', '', False, None),
     # A Big 4 'Associate - Summer <year>' is a full-time start, but an intern
     # title and a bank's 'Summer Associate' are internships.
     (f'Cybersecurity and Privacy Associate - Summer {SEASON}', 'Los Angeles, CA', '', False, ('newgrad', 'Security Engineering')),
