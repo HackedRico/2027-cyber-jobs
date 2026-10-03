@@ -259,7 +259,7 @@ CASES = [
 
     # -- bug fix: leveled numerals reject only in role-noun context --
     # "III/IV/3/4" no longer bare-match version/layer/standard numbers.
-    ('Cybersecurity Analyst I (PCI DSS 4.0)', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Cybersecurity Analyst I (PCI DSS 4.0)', 'Austin, TX', '', False, ('earlycareer', 'GRC & Risk')),
     ('Layer 3 Network Security Analyst I', 'Reston, VA', '', False, ('earlycareer', 'Cloud & Infra Security')),
     ('Cyber IV&V Engineer I', 'Huntsville, AL', '', False, ('earlycareer', 'Security Engineering')),
     # ...but a real leveled-senior marker is still rejected.
@@ -436,6 +436,81 @@ CASES = [
     # A security title on a cloud or presales team keeps its security category.
     ('Cloud Vulnerability Analyst I', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
     ('Vulnerability Solutions Engineer, Associate', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+
+    # -- SOC, blue team and DoD acronyms --
+    ('MDR Analyst I', 'Austin, TX', '', False, ('earlycareer', 'SOC & Detection')),
+    ('CSOC Analyst I', 'Huntsville, AL', '', False, ('earlycareer', 'SOC & Detection')),
+    ('Junior CSSP Analyst', 'Norfolk, VA', '', False, ('earlycareer', 'SOC & Detection')),
+    ('SecOps Analyst I', 'Austin, TX', '', False, ('earlycareer', 'SOC & Detection')),
+    ('Junior EDR Analyst', 'Austin, TX', '', False, ('earlycareer', 'SOC & Detection')),
+    ('Junior RMF Analyst', 'Arlington, VA', '', False, ('earlycareer', 'GRC & Risk')),
+    ('eMASS Analyst I', 'Arlington, VA', '', False, ('earlycareer', 'GRC & Risk')),
+    ('Junior ACAS Analyst', 'Arlington, VA', '', False, ('earlycareer', 'GRC & Risk')),
+    ('Junior ISSO', 'Arlington, VA', '', False, ('earlycareer', 'GRC & Risk')),
+    ('Junior ISSE', 'Arlington, VA', '', False, ('earlycareer', 'GRC & Risk')),
+    ('ISSO I', 'Arlington, VA', '', False, ('earlycareer', 'GRC & Risk')),
+    ('ISSO III', 'Arlington, VA', '', False, None),
+    # Bank and Big 4 GRC titles, and NICE work-role nouns as level nouns.
+    ('IT Risk Analyst I', 'Charlotte, NC', '', False, ('earlycareer', 'GRC & Risk')),
+    ('IT Auditor I', 'Charlotte, NC', '', False, ('earlycareer', 'GRC & Risk')),
+    ('Internal Audit - IT Audit Analyst I', 'Charlotte, NC', '', False, ('earlycareer', 'GRC & Risk')),
+    ('Technology Controls Analyst I', 'Columbus, OH', '', False, ('earlycareer', 'GRC & Risk')),
+    ('PCI Compliance Analyst I', 'Austin, TX', '', False, ('earlycareer', 'GRC & Risk')),
+    ('Third Party Cyber Risk Analyst I', 'Minneapolis, MN', '', False, ('earlycareer', 'GRC & Risk')),
+    ('Security Controls Assessor I', 'Arlington, VA', '', False, ('earlycareer', 'GRC & Risk')),
+    ('Digital Forensics Examiner I', 'Austin, TX', '', False, ('earlycareer', 'Forensics & IR')),
+    ('Cyber Sys Secur Engr Asc', 'Orlando, FL', '', False, ('earlycareer', 'Security Engineering')),
+    # Security products beside a technical role noun.
+    ('Junior Splunk Engineer', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Junior SailPoint Engineer', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Internal Audit - Technology Audit Associate', 'Charlotte, NC', '', False, ('earlycareer', 'GRC & Risk')),
+    (f'Cybersecurity Summer Fellowship {SEASON}', 'Austin, TX', '', False, ('intern', 'Security Engineering')),
+    ('Cybersecurity Residency', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Firewall Engineer I', 'Austin, TX', '', False, ('earlycareer', 'Cloud & Infra Security')),
+    ('PKI Engineer I', 'Austin, TX', '', False, ('earlycareer', 'Cloud & Infra Security')),
+    ('Junior Microsoft Sentinel Engineer', 'Austin, TX', '', False, ('earlycareer', 'SOC & Detection')),
+    # Named cohorts that carry no usual level word.
+    ('Cybersecurity Development Program', 'Dallas, TX', '', False, ('newgrad', 'Security Engineering')),
+    ('Technology Analyst Program - Cybersecurity', 'Tampa, FL', '', False, ('newgrad', 'Security Engineering')),
+    ('Cyber Apprenticeship Program', 'Fort Meade, MD', '', False, ('earlycareer', 'Security Engineering')),
+    ('Cybersecurity Trainee', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Security Analyst, Early Careers', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    # ...and what stays out: physical security, credit and supplier risk,
+    # observability, NOC-only and fraud work, finance audit, a vendor's own
+    # support title, ambiguous product words, and cohorts that are not cyber.
+    ('Global Security Operations Center Analyst I', 'Austin, TX', '', False, None),
+    ('Threat Assessment Analyst I - Workplace Violence', 'Austin, TX', '', False, None),
+    ('Electronic Security Systems Engineer I', 'Austin, TX', '', False, None),
+    ('Third Party Risk Analyst I - Supplier Financial Health', 'Austin, TX', '', False, None),
+    ('Market Access Management Associate', 'Austin, TX', '', False, None),
+    ('Splunk Observability Engineer I', 'Austin, TX', '', False, None),
+    ('NOC Technician I', 'Austin, TX', '', False, None),
+    ('Internal Audit Analyst I', 'Austin, TX', '', False, None),
+    ('Okta Customer Support Engineer I', 'Austin, TX', '', False, None),
+    ('Sentinel Program Engineer I', 'Roy, UT', '', False, None),
+    ('EDR Equipment Technician I', 'Austin, TX', '', False, None),
+    ('MDR Regulatory Affairs Associate', 'Austin, TX', '', False, None),
+    ('Business Development Program Associate', 'Austin, TX', '', False, None),
+    # Found in review: a GSOC watch floor, badge and patient access offices, a
+    # vendor's own titles naming its product, medical device reporting, other
+    # senses of SOAR and ACAS, program staff, and a passed fellowship season.
+    ('GSOC Watch Floor Analyst I', 'Austin, TX', '', False, None),
+    ('GSOC Incident Handler I', 'Austin, TX', '', False, None),
+    ('Security Access Management Specialist I', 'Austin, TX', '', False, None),
+    ('Patient Access Management Associate', 'Austin, TX', '', False, None),
+    ('Associate Pricing Analyst, Okta', 'Austin, TX', '', True, None),
+    ('Splunk Technical Support Engineer I', 'Austin, TX', '', False, None),
+    ('Software Engineer I - Splunk', 'Austin, TX', '', False, None),
+    ('Junior Medical Device Reporting (MDR) Specialist', 'Austin, TX', '', False, None),
+    ('MDR Complaint Analyst I', 'Austin, TX', '', False, None),
+    ('Soar Technology Junior Software Engineer', 'Ann Arbor, MI', '', False, None),
+    ('ACAS X Software Engineer I', 'McLean, VA', '', False, None),
+    ('Incident Handler I - Customer Service', 'Austin, TX', '', False, None),
+    ('IT Compliance Specialist I - Computer System Validation', 'Austin, TX', '', False, None),
+    ('IT Audit Associate - Financial Audit', 'Austin, TX', '', False, None),
+    ('Information Security Analyst Programmer', 'Austin, TX', '', False, None),
+    ('Cyber Workforce Development Program Specialist', 'Austin, TX', '', False, None),
+    ('Summer 2025 Cybersecurity Fellowship', 'Austin, TX', '', False, None),
 
     # -- bug fix: US territories are US locations, not foreign --
     ('Cyber Software Engineer I', 'Aguadilla, PR', '', False, ('earlycareer', 'Security Engineering')),
