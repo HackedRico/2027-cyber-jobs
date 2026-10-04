@@ -19,10 +19,11 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://abnormal.ai/careers/jobs/7786309003?gh_jid=7786309003",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-07-12",
-    "missing_since": "2026-10-01"
+    "closed": true,
+    "closed_date": "2026-10-04"
   },
   {
     "company": "Anduril",
@@ -349,19 +350,6 @@
     "url": "https://www.amazon.jobs/en/jobs/10428283/security-engineer-i-threat-hunting-security-incident-response-team-sirt",
     "source": "Amazon Jobs",
     "date_added": "2026-07-12"
-  },
-  {
-    "company": "Amazon",
-    "role": "Security Engineer II, Vulnerability Management and Response - Strategic Enablement",
-    "location": "Austin, TX",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "",
-    "source": "Amazon Jobs",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-08-04"
   },
   {
     "company": "Amazon",
@@ -3352,10 +3340,11 @@
     "type": "earlycareer",
     "category": "AppSec & ProdSec",
     "clearance": true,
-    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Junior-DevSecOps-Engineer--EDS-Platform-Services-team--Hybrid-rol_01871462",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-23",
-    "missing_since": "2026-10-01"
+    "closed": true,
+    "closed_date": "2026-10-04"
   },
   {
     "company": "Amazon",
@@ -3473,10 +3462,11 @@
     "type": "newgrad",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-West-Virginia-Rocket-Center/XMLNAME-2026-Associate-Cybersecurity-Analyst---Pathways-Program---Rocket-Center-WV_R10252865",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-24",
-    "missing_since": "2026-10-01"
+    "closed": true,
+    "closed_date": "2026-10-04"
   },
   {
     "company": "RTX",
@@ -3507,10 +3497,11 @@
     "type": "earlycareer",
     "category": "Threat Intelligence",
     "clearance": false,
-    "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210790691",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-09-24",
-    "missing_since": "2026-10-01"
+    "closed": true,
+    "closed_date": "2026-10-04"
   },
   {
     "company": "Snowflake",
@@ -4320,10 +4311,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26011878",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-09-29",
-    "missing_since": "2026-10-01"
+    "closed": true,
+    "closed_date": "2026-10-04"
   },
   {
     "company": "American Express",
@@ -4343,10 +4335,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26011908",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-09-29",
-    "missing_since": "2026-10-01"
+    "closed": true,
+    "closed_date": "2026-10-04"
   },
   {
     "company": "American Express",
@@ -4366,10 +4359,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26011914",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-09-29",
-    "missing_since": "2026-10-01"
+    "closed": true,
+    "closed_date": "2026-10-04"
   },
   {
     "company": "American Express",
@@ -4389,10 +4383,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26012460",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-09-29",
-    "missing_since": "2026-10-01"
+    "closed": true,
+    "closed_date": "2026-10-04"
   },
   {
     "company": "American Express",

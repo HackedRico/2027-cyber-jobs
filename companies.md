@@ -13,12 +13,12 @@ Employers with open roles on the board today.
 | Johns Hopkins APL | 11 | 10 |  |
 | Booz Allen Hamilton | 17 |  | 4 |
 | Vanguard | 7 | 6 |  |
-| American Express | 8 | 4 |  |
-| RTX | 7 |  | 9 |
+| American Express | 4 | 4 |  |
+| RTX | 7 |  | 8 |
 | Microsoft | 7 |  | 4 |
 | Palo Alto Networks | 5 | 1 | 2 |
-| Northrop Grumman | 2 | 3 | 10 |
 | BDO | 4 | 1 | 1 |
+| Northrop Grumman | 2 | 2 | 10 |
 | MITRE | 3 | 1 | 2 |
 | HPE | 2 | 2 | 1 |
 | Tanium | 4 |  |  |
@@ -70,14 +70,14 @@ Employers with open roles on the board today.
 | CrowdStrike |  |  | 6 |
 | KBR |  |  | 5 |
 | BAE Systems |  |  | 3 |
-| JPMorgan Chase |  |  | 3 |
 | Kyndryl |  |  | 3 |
 | Recorded Future |  |  | 3 |
-| Abnormal AI |  |  | 2 |
 | Amentum |  |  | 2 |
 | ExtraHop |  |  | 2 |
+| JPMorgan Chase |  |  | 2 |
 | SAIC |  |  | 2 |
 | Trail of Bits |  |  | 2 |
+| Abnormal AI |  |  | 1 |
 | Accenture Federal Services |  |  | 1 |
 | AeroVironment |  |  | 1 |
 | Anthropic |  |  | 1 |
