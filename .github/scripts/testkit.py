@@ -52,7 +52,7 @@ class _DatetimeType(type):
 class _PinnedDate(_RealDate, metaclass=_DateType):
     @classmethod
     def today(cls):
-        return _RealDate(TODAY.year, TODAY.month, TODAY.day)
+        return cls(TODAY.year, TODAY.month, TODAY.day)
 
 
 class _PinnedDatetime(_RealDatetime, metaclass=_DatetimeType):
@@ -60,7 +60,8 @@ class _PinnedDatetime(_RealDatetime, metaclass=_DatetimeType):
     def now(cls, tz=None):
         # Noon UTC, converted, so every zone sees the same instant and date.
         noon = _RealDatetime(TODAY.year, TODAY.month, TODAY.day, 12, tzinfo=_dt.UTC)
-        return noon.astimezone(tz) if tz else noon.replace(tzinfo=None)
+        moment = noon.astimezone(tz) if tz else noon.replace(tzinfo=None)
+        return cls(moment.year, moment.month, moment.day, moment.hour, tzinfo=moment.tzinfo)
 
     @classmethod
     def today(cls):

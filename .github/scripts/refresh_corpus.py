@@ -28,14 +28,14 @@ def scrape(config):
     postings, broken = [], []
     for result in sj.scrape_boards(sj.build_tasks(config)):
         print(f'Checking {result["label"]}... {result["status"]} ({result["count"]} postings)')
-        if result['status'] in ('FAILED', 'CRASHED'):
-            broken.append(result['label'])
+        if result['status'] != 'ok':
+            broken.append(f'{result["label"]} ({result["status"]})')
         postings += [{'company': j.get('company', ''), 'title': j.get('title', ''),
                       'security_company': result['security_company']}
                      for j in result['jobs']]
     if broken:
         # Their titles are missing from this refresh; rerun once they recover.
-        print(f'\nWARNING: {len(broken)} board(s) returned nothing: {", ".join(broken)}')
+        print(f'\nWARNING: {len(broken)} board(s) returned no postings: {", ".join(broken)}')
     return postings
 
 

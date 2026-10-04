@@ -59,10 +59,15 @@ def code_lines(step):
     return lines + ([pending] if pending else [])
 
 
-# Every test script runs unconditionally in CI and is named where AGENTS.md
-# lists the suite.
-ci_steps = [step for _, job in jobs(WORKFLOWS['tests.yml']) if 'if' not in job
-            for step in job.get('steps') or [] if 'if' not in step]
+# Every test script runs unconditionally in CI on every pull request and push,
+# and is named where AGENTS.md lists the suite. PyYAML reads the 'on' key as True.
+triggers = WORKFLOWS['tests.yml'].get(True) or WORKFLOWS['tests.yml'].get('on') or {}
+check('tests.yml runs on every pull request and every push to main',
+      'pull_request' in triggers and 'push' in triggers)
+ci_steps = [step for _, job in jobs(WORKFLOWS['tests.yml'])
+            if 'if' not in job and not job.get('continue-on-error')
+            for step in job.get('steps') or []
+            if 'if' not in step and not step.get('continue-on-error')]
 ci_runs = {line for step in ci_steps for line in code_lines(step)}
 for path in TESTS:
     check(f'tests.yml runs {path.name} in an unconditional step',
@@ -73,23 +78,30 @@ for path in TESTS:
 # clock itself: a test file binds the real datetime classes before testkit
 # loads, so its own now() would read the real date.
 CLOCK_READS = {'now', 'today', 'utcnow', 'fromtimestamp', 'utcfromtimestamp'}
+WALL_CLOCK = {'time', 'time_ns', 'localtime', 'gmtime', 'strftime', 'ctime', 'asctime',
+              'mktime'}
 for path in TESTS:
     tree = ast.parse(path.read_text())
     imports = [(node.lineno, alias.name.split('.')[0])
-               for node in tree.body if isinstance(node, ast.Import)
+               for node in ast.walk(tree) if isinstance(node, ast.Import)
                for alias in node.names]
     imports += [(node.lineno, (node.module or '').split('.')[0])
-                for node in tree.body if isinstance(node, ast.ImportFrom)]
-    pinned = [line for line, name in imports if name == 'testkit']
+                for node in ast.walk(tree) if isinstance(node, ast.ImportFrom)]
+    pinned = [node.lineno for node in tree.body if isinstance(node, ast.Import)
+              and any(alias.name == 'testkit' for alias in node.names)]
     local = [line for line, name in imports if name in LOCAL_MODULES - {'testkit'}]
-    check(f'{path.name} imports testkit before the modules it tests',
+    check(f'{path.name} imports testkit at top level before the modules it tests',
           bool(pinned) and all(line > pinned[0] for line in local))
     for node in ast.walk(tree):
+        if isinstance(node, ast.ImportFrom) and node.module == 'time':
+            for alias in node.names:
+                check(f'{path.name}:{node.lineno} imports time.{alias.name}, a clock read',
+                      alias.name not in WALL_CLOCK)
         if not (isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute)):
             continue
         attr, owner = node.func.attr, node.func.value
-        if attr in CLOCK_READS or (attr == 'time' and isinstance(owner, ast.Name)
-                                   and owner.id == 'time'):
+        on_time = isinstance(owner, ast.Name) and owner.id == 'time'
+        if attr in CLOCK_READS or (on_time and attr in WALL_CLOCK):
             check(f'{path.name}:{node.lineno} reads the clock with .{attr}(); use testkit.TODAY',
                   False)
 
@@ -108,25 +120,32 @@ for name, workflow in WORKFLOWS.items():
                     check(f'{name}: {line!r} uses --require-hashes', '--require-hashes' in line)
 
 # A writer is any job that can push. It queues in readme-updates and runs
-# check_outputs.py before every commit, so no run pushes a charter-breaking
-# row or a mass close.
+# check_outputs.py, unswallowed, before every commit, so no run pushes a
+# charter-breaking row or a mass close.
+GIT = r'\bgit\b(?:\s+-c\s+\S+)*\s+'
 for name, workflow in WORKFLOWS.items():
     for job_name, job in jobs(workflow):
         permissions = job.get('permissions', workflow.get('permissions')) or {}
-        lines = [line for step in job.get('steps') or [] for line in code_lines(step)]
-        writes = (isinstance(permissions, dict) and permissions.get('contents') == 'write'
-                  or any('git push' in line for line in lines))
+        steps = job.get('steps') or []
+        lines = [line for step in steps for line in code_lines(step)]
+        writes = (permissions == 'write-all'
+                  or isinstance(permissions, dict) and permissions.get('contents') == 'write'
+                  or any(re.search(GIT + 'push', line) for line in lines))
         if not writes:
             continue
         concurrency = job.get('concurrency') or workflow.get('concurrency') or {}
         group = concurrency.get('group') if isinstance(concurrency, dict) else concurrency
         check(f'{name}: writer job {job_name} queues in readme-updates', group == 'readme-updates')
         checked = False
-        for line in lines:
-            if 'python .github/scripts/check_outputs.py' in line:
-                checked = True
-            if re.search(r'\bgit commit\b', line):
-                check(f'{name}: {job_name} runs check_outputs.py before {line!r}', checked)
+        for step in steps:
+            for line in code_lines(step):
+                if 'python .github/scripts/check_outputs.py' in line:
+                    check(f'{name}: {line!r} lets check_outputs.py fail the step',
+                          '||' not in line and not step.get('continue-on-error'))
+                    checked = True
+                if re.search(GIT + 'commit', line):
+                    check(f'{name}: {job_name} runs check_outputs.py before {line!r}', checked)
+                    checked = False
 
 # The issue form offers exactly the categories the classifier can give, and
 # CONTRIBUTING.md names each one.

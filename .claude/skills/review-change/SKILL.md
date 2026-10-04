@@ -25,10 +25,10 @@ finding is **reproduced**, with its input and wrong output, before it is reporte
    each moved title as the row a student would see. Done when every moved title is called
    right or written up as a finding.
 4. **Probe every new accept path.** For each term, regex or branch that admits a title, write
-   **probes** from every family in REFERENCE.md that its words could reach, and run each
-   through `judge_job(title, 'Austin, TX', '', security_company)` with the branch's
-   `classify` and with main's, which `test_corpus.base_rules('origin/main')` loads. Done when
-   every family has met every new accept path.
+   **probes** from every family in REFERENCE.md that its words could reach, one per line in a
+   file (`1<TAB>title` for a security company), and run `python .github/scripts/test_corpus.py
+   --base origin/main --titles probes.txt` for both verdicts of each. Done when every family
+   has met every new accept path.
 5. **Check the live run** when the change touches scraping, search terms, companies or an
    accept rule: a full `--dry-run` on main and on the branch, `compare_runs.py`, and both
    scrape timings. Done when every `NEW`, `DROP` and `REFRESHED` line is called right or a

@@ -4,6 +4,7 @@
     python .github/scripts/test_corpus.py                  # fails on any moved verdict
     python .github/scripts/test_corpus.py --update         # rewrites the verdict column
     python .github/scripts/test_corpus.py --base origin/main
+    python .github/scripts/test_corpus.py --base origin/main --titles probes.txt
     python .github/scripts/test_corpus.py --rebuild FILE   # new title list, see select()
 
 fixtures/title_corpus.tsv holds the titles of a full scrape plus every stored
@@ -12,19 +13,27 @@ rule change that moves any verdict fails here until the PR rewrites the column
 with --update, so that file's diff is the change's blast radius: every changed
 line is a real title whose verdict moved, and a reviewer reads each one.
 
---base REF judges the corpus and the current listings.json rows with the
-classify.py at REF and with the working tree's, and prints every title they
-disagree on. It works when a PR refreshes the corpus too, and it exits 0.
+--base REF judges the corpus and the current listings.json rows with the rules
+at REF and with the working tree's, each side reading its own companies.yml
+flags, and prints every title they disagree on. REF's scripts run in their own
+process from a `git archive` copy, so nothing of the working tree leaks in. It
+works when a PR refreshes the corpus too, and it exits 0. With --titles FILE it
+judges the file's titles instead, one per line with an optional "1<TAB>" for a
+security company, and prints both verdicts for every line: the probe runner
+for a review.
 
 Titles are judged with the location 'Remote (US)' and no description, so the
 snapshot covers the title rules alone. The location rules have their own
 tables in test_classification.py.
 """
-import importlib.util
+import io
 import json
 import re
+import shutil
 import subprocess
 import sys
+import tarfile
+import tempfile
 import zlib
 from pathlib import Path
 
@@ -155,46 +164,97 @@ def check_invariants(rows):
     return sum(1 for a in accepted.values() if a)
 
 
-def base_rules(ref):
-    """classify.py as it stands at a git ref, loaded as a separate module."""
-    source = subprocess.run(['git', 'show', f'{ref}:.github/scripts/classify.py'],
-                            cwd=ROOT, capture_output=True, text=True, check=True).stdout
-    module = importlib.util.module_from_spec(
-        importlib.util.spec_from_loader('classify_base', loader=None))
-    exec(compile(source, f'{ref}:classify.py', 'exec'), module.__dict__)
-    return module
+# Judges a JSON list of [title, security_company] with the classify.py beside
+# it, under that copy's own pinned clock, and prints the verdicts as JSON.
+_JUDGE = """
+import json, sys
+sys.path.insert(0, sys.argv[1])
+import testkit
+import classify
+verdicts = []
+for title, flag in json.load(open(sys.argv[2])):
+    accepted, reason = classify.judge_job(title, 'Remote (US)', '', flag)
+    verdicts.append('|'.join(accepted) if accepted else 'out|' + reason)
+print(json.dumps(verdicts))
+"""
 
 
-def compare_with(ref):
+def _flags(config_text):
     import common
     import yaml
-    rules = base_rules(ref)
-    flags = common.security_company_flags(yaml.safe_load((ROOT / 'companies.yml').read_text()))
-    listings = json.loads((ROOT / 'listings.json').read_text())
-    pairs = {(t, s): c for t, c, s, _ in load()}
-    for row in listings:
-        key = (row.get('role', ''), flags.get(row.get('company', ''), False))
-        pairs.setdefault(key, row.get('company', ''))
-    moved = sorted((verdict(t, s, rules), verdict(t, s), c, t)
-                   for (t, s), c in pairs.items() if verdict(t, s, rules) != verdict(t, s))
-    for before, after, company, title in moved:
-        print(f'  {before} -> {after}: {company}, {title!r}')
-    print(f'{len(moved)} of {len(pairs)} titles judge differently at {ref} and in the '
-          'working tree')
+    return common.security_company_flags(yaml.safe_load(config_text) or {})
+
+
+def base_verdicts(ref, items):
+    """Verdicts for [(title, security_company)] under the scripts at a git ref."""
+    archive = subprocess.run(['git', 'archive', '--format=tar', ref, '.github/scripts'],
+                             cwd=ROOT, capture_output=True, check=True).stdout
+    with tempfile.TemporaryDirectory() as tmp:
+        with tarfile.open(fileobj=io.BytesIO(archive)) as tar:
+            tar.extractall(tmp, filter='data')
+        scripts = Path(tmp) / '.github' / 'scripts'
+        if not (scripts / 'testkit.py').exists():
+            # A ref from before the pin still gets the pinned clock.
+            shutil.copy(SCRIPTS / 'testkit.py', scripts / 'testkit.py')
+        (Path(tmp) / 'items.json').write_text(json.dumps(items))
+        result = subprocess.run([sys.executable, '-c', _JUDGE, str(scripts),
+                                 str(Path(tmp) / 'items.json')],
+                                capture_output=True, text=True, check=True)
+    return json.loads(result.stdout)
+
+
+def compare_with(ref, titles_path=None):
+    head_flags = _flags((ROOT / 'companies.yml').read_text())
+    base_flags = _flags(subprocess.run(['git', 'show', f'{ref}:companies.yml'], cwd=ROOT,
+                                       capture_output=True, text=True, check=True).stdout)
+
+    def flag(company, stored, flags):
+        # A company each side knows takes that side's flag; a corpus row whose
+        # company has left companies.yml keeps the flag it was scraped with.
+        return flags.get(company, stored)
+
+    if titles_path:
+        rows = []
+        for line in Path(titles_path).read_text(encoding='utf-8').split('\n'):
+            if line.strip():
+                marked = re.match(r'([01])\t(.*)$', line)
+                rows.append((marked.group(2) if marked else line.strip(), '',
+                             bool(marked and marked.group(1) == '1')))
+    else:
+        rows = [(t, c, s) for t, c, s, _ in load()]
+        for listing in json.loads((ROOT / 'listings.json').read_text()):
+            company = listing.get('company', '')
+            rows.append((listing.get('role', ''), company, head_flags.get(company, False)))
+        rows = list(dict.fromkeys(rows))
+    befores = base_verdicts(ref, [(t, flag(c, s, base_flags)) for t, c, s in rows])
+    moved = 0
+    for (title, company, stored), before in zip(rows, befores, strict=True):
+        after = verdict(title, flag(company, stored, head_flags))
+        if titles_path or before != after:
+            mark = '*' if before != after else ' '
+            print(f'{mark} {before} -> {after}: {company or "-"}, {title!r}')
+        moved += before != after
+    print(f'{moved} of {len(rows)} titles judge differently at {ref} and in the working tree')
+
+
+USAGE = ('usage: test_corpus.py [--update | --rebuild FILE | '
+         '--base REF [--titles FILE]]')
 
 
 def main():
     args = sys.argv[1:]
-    if args[:1] == ['--rebuild'] and len(args) == 2:
+    if len(args) == 2 and args[0] == '--rebuild':
         rows = select(json.loads(Path(args[1]).read_text()))
         write(rows)
         print(f'Wrote {len(rows)} titles to {CORPUS.name}')
         return
-    if args[:1] == ['--base'] and len(args) == 2:
-        compare_with(args[1])
+    if len(args) in (2, 4) and args[0] == '--base' and (len(args) == 2 or args[2] == '--titles'):
+        compare_with(args[1], args[3] if len(args) == 4 else None)
         return
+    if args not in ([], ['--update']):
+        sys.exit(USAGE)
     rows = load()
-    check_snapshot(rows, '--update' in args)
+    check_snapshot(rows, args == ['--update'])
     held = check_invariants(rows)
     if failures:
         print(f'\n{failures} corpus check(s) failed')

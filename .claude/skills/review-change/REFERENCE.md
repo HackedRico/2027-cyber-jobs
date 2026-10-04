@@ -18,8 +18,11 @@ One checklist per area, then the probe families. Each line is a trap a past chan
 - **Text form.** Every title rule reads `fold_title(title)`: lowercased, whitespace collapsed,
   a spaced `&` read as `and`. `_has_cyber_keyword` also reads an unspaced `&` as `and`.
   `NEWGRAD_SIGNALS` match as substrings, so "analyst program" matched "Analyst Programmer";
-  word-bound a new signal. A gap between two words of a pattern crosses spaces, never a
-  bracket: "Python Backend Developer with AWS & SQL (Software Engineer II)" read as cloud.
+  word-bound a new signal. A gap between the words of a pattern is a leak path: the cloud
+  rule's gap crossed a bracket ("Python Backend Developer with AWS & SQL (Software Engineer
+  II)") and let a free "and" reach a team name ("Java Developer I, Cloud and Data Platform
+  Engineering"), and a role inside brackets names a team ("(Systems Engineering) - Cloud
+  Payments").
 - **Level order.** `classify_level` tries intern words, new-grad words, a leveled I or II, a
   summer season with a cohort year, a bare cohort year, early-career words, then the
   description. A new-grad word outranks the summer season and so escaped the passed-season
@@ -76,8 +79,9 @@ One checklist per area, then the probe families. Each line is a trap a past chan
 
 `testkit.py`, the `test_*.py` suites, `fixtures/`, `refresh_corpus.py`.
 
-- **Determinism.** A suite reads no clock and no network: `testkit.py` pins both, and
-  `test_wiring.py` proves each suite imports it first and calls no `now()` itself. Run a
+- **Determinism.** A suite reads no clock and no network: `testkit.py` pins `datetime` and
+  cuts sockets, DNS and proxies, and `test_wiring.py` proves each suite imports it first and
+  reads no clock itself, `time.time()` included. Run a
   changed suite twice with different `PYTHONHASHSEED` values and with the OS clock moved a
   year ahead; the output should not change.
 - **A check that can fail.** Break the thing a new check guards, in a scratch copy, and
