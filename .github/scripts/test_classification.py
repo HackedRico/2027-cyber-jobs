@@ -413,11 +413,23 @@ CASES = [
     ('Oracle Cloud Developer I', 'Austin, TX', '', False, None),
     ('Cloud Hardware Development Engineer I, Annapurna Labs, Early Career - 2027', 'Austin, TX', '', False, None),
     ('Oracle Cloud Infrastructure Engineer I', 'Austin, TX', '', False, ('earlycareer', 'Cloud Engineering')),
-    # The cloud word reaches its role noun across '&' or 'and', never across a
-    # bracket: JPMorgan's developer works with AWS, the HP engineer is cloud.
+    # The cloud word reaches its role noun over at most two words, never across
+    # a bracket, and 'and' or '&' is one of them: JPMorgan's developer works with
+    # AWS, and a developer on a cloud team is not a cloud engineer. HP's title
+    # is the price, a cloud role three words from its noun.
     ('Python Backend Developer with AWS & SQL (Software Engineer II)', 'Columbus, OH', '', False, None),
     ('Python Backend Developer with AWS and SQL (Software Engineer II)', 'Columbus, OH', '', False, None),
-    ('Cloud Automation & Platform Engineer I', 'Austin, TX', '', False, ('earlycareer', 'Cloud Engineering')),
+    ('Java Developer I, Cloud and Data Platform Engineering', 'Austin, TX', '', False, None),
+    ('GCP and BigQuery Data Engineer I', 'Austin, TX', '', False, None),
+    ('Cloud Automation & Platform Engineer I', 'Austin, TX', '', False, None),
+    ('Azure \u2013 Platform Engineer I', 'Austin, TX', '', False, ('earlycareer', 'Cloud Engineering')),
+    ('AWS: DevOps Engineer I', 'Austin, TX', '', False, ('earlycareer', 'Cloud Engineering')),
+    ('Cloud | DevOps Engineer I', 'Austin, TX', '', False, ('earlycareer', 'Cloud Engineering')),
+    # A role named after its cloud may put it in brackets, but a role inside
+    # brackets is a team: BDO's systems engineer is cloud, the payments
+    # developer is not.
+    ('Associate Systems Engineer (Hybrid Cloud)', 'Grand Rapids, MI', '', False, ('earlycareer', 'Cloud Engineering')),
+    ('Software Developer II (Systems Engineering) - Cloud Payments', 'Austin, TX', '', False, None),
 
     # -- solutions architecture and presales at any employer, early career only --
     ('Associate Solutions Architect, AGS-Tech, Early Career - 2027', 'Seattle, WA', '', False, ('newgrad', 'Solutions Architecture')),
@@ -542,6 +554,14 @@ CASES = [
     ('Engineer I, Data Scientist - New\xa0Grad (Hybrid)', 'Austin, TX', '', True, ('newgrad', 'Engineering @ Security Co')),
     ('Senior\xa0Security Engineer', 'Austin, TX', '', False, None),
     ('Physical\xa0Security Analyst I', 'Austin, TX', '', False, None),
+
+    # -- 'safety and security' is a guard force unless it names AI or cyber work --
+    # Reading '&' as 'and' sent these AI-lab teams into the guard-force reject.
+    ('Research Engineer, Model Safety & Security - New Grad', 'San Francisco, CA', '', False, ('newgrad', 'Security Engineering')),
+    ('Research Engineer, Model Safety and Security - New Grad', 'San Francisco, CA', '', False, ('newgrad', 'Security Engineering')),
+    ('Member of Technical Staff, Safety & Security for Agents - New Grad', 'Toronto, ON; New York, NY', '', False, ('newgrad', 'Security Engineering')),
+    ('Cyber Safety & Security Analyst I', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Safety and Security Specialist I', 'Austin, TX', '', False, None),
 
     # -- bug fix: US territories are US locations, not foreign --
     ('Cyber Software Engineer I', 'Aguadilla, PR', '', False, ('earlycareer', 'Security Engineering')),

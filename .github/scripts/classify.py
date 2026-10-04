@@ -186,7 +186,9 @@ def _term_regex(term):
 #   'loss prevention'    — retail LP, but "Data Loss Prevention (DLP) Analyst"
 #                          is a core security control.
 #   'safety and security' — a guard-force function, but "AI Safety and Security
-#                          Engineering" is an AI-lab security team.
+#                          Engineering" is an AI-lab security team, and so are
+#                          model and agent teams: 'Research Engineer, Model
+#                          Safety & Security - New Grad'.
 #   'sales'              — a quota-carrying seller, but a sales engineer is the
 #                          technical presales role: ESET 'Sales Engineer I',
 #                          Palo Alto Networks 'Sales Engineer - Intern'. Only a
@@ -215,7 +217,7 @@ GUARDED_FUNCTION_REJECTS = [
     # night shifts, so the pay rate and the manufacturing site carry it.
     r'\$\d+(?:\.\d+)?\s*/\s*(?:hr|hour)\b',
     r'\bsecurity associate, manufacturing\b',
-    r'(?<!ai )\bsafety and security\b',
+    r'^(?!.*\b(?:cyber\w*|information|ai|ml|model|agents?|llm)\b).*\bsafety and security\b',
 ]
 
 FUNCTION_REJECT_RE = re.compile(
@@ -441,16 +443,20 @@ ENGINEERING_ROLE_RE = re.compile(r'\b(?:engineer|engineering|developer)\b')
 # are often a team name. An infrastructure engineer may name the cloud after
 # the role: 'DevOps Engineer I - AWS', 'SRE I, Azure'.
 # The words between the cloud word and the role noun are joined only by spaces,
-# slashes, hyphens, '&' or 'and', never a bracket or comma: JPMorgan 'Python
-# Backend Developer with AWS & SQL (Software Engineer II)' reached across one.
-_CLOUD_GAP = r'(?:[\s/&+-]+(?:and\s+)?)'
+# slashes, hyphens, dashes, pipes or colons, never a bracket or comma: JPMorgan
+# 'Python Backend Developer with AWS & SQL (Software Engineer II)' reached
+# across one. 'and' counts as one of the two words, so a team name such as
+# 'Java Developer I, Cloud and Data Platform Engineering' stays out.
+_CLOUD_GAP = r'(?:[\s/&+|:\u2013\u2014-]+)'
 CLOUD_ENGINEERING_RE = re.compile(
     r'\b(?:cloud|aws|azure|gcp)\b(?:' + _CLOUD_GAP + r'\w+){0,2}?' + _CLOUD_GAP
     + r'(?:engineer|engineering|developer|administrator|admin|architect|technician)s?\b'
     r'|\bcloud\s+(?:support|operations)\s+(?:associate|engineer|analyst|technician|'
     r'specialist)s?\b'
     r'|\bcloud\s+consultants?\b'
-    r'|\b(?:(?:devops|platform|infrastructure|site reliability|systems)\s+'
+    # A role that opens a bracket names a team, not the job: 'Software
+    # Developer II (Systems Engineering) - Cloud Payments'.
+    r'|(?<!\()\b(?:(?:devops|platform|infrastructure|site reliability|systems)\s+'
     r'engineer(?:ing)?s?|sre)\b.{0,40}\b(?:aws|azure|gcp|cloud)\b')
 # Product suites named 'Cloud' are CRM, ERP and SaaS configuration work, not
 # cloud infrastructure: 'Salesforce Service Cloud Developer', 'Oracle Cloud HCM
