@@ -15,6 +15,8 @@ import tempfile
 from datetime import UTC, datetime
 from pathlib import Path
 
+import testkit  # noqa: F401
+
 sys.path.insert(0, str(Path(__file__).parent))
 import notify  # noqa: E402
 import responses  # noqa: E402

@@ -12,6 +12,8 @@ import sys
 import tempfile
 from pathlib import Path
 
+import testkit  # noqa: F401
+
 sys.path.insert(0, str(Path(__file__).parent))
 import classify  # noqa: E402
 import common  # noqa: E402

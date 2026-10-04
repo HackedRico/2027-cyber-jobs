@@ -27,6 +27,7 @@
 
 - [ ] `python .github/scripts/test_classification.py` passes
 - [ ] Added/updated test cases in `test_classification.py` for the new behavior
+- [ ] `python .github/scripts/test_corpus.py` passes; if verdicts moved, the corpus was rewritten with `--update` and every changed line was read
 - Example job titles this change affects (accepted or rejected differently than before):
 
 ## Checklist

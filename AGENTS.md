@@ -60,6 +60,11 @@ behind `main`. Rebase before opening a PR, and take `main` for any conflict in a
   the untracked `_site/`: the Pages board, its trimmed data file and the Atom feeds.
   `pages.yml` deploys it after each writer finishes, because a push made with `GITHUB_TOKEN`
   starts no Pages build. `test_site.py` covers it.
+- `test_corpus.py` snapshots the title rules over `fixtures/title_corpus.tsv`, the titles of
+  a full scrape plus every stored row, and holds each accepted title to invariants such as
+  "a senior prefix rejects". `refresh_corpus.py` rebuilds that title list from a live scrape.
+  `test_wiring.py` checks the wiring: CI runs every suite, actions pin a commit SHA, writers
+  run `check_outputs.py`, the issue form offers exactly the classifier's categories.
 
 ## Changing the classifier
 
@@ -72,11 +77,18 @@ goes through the full `judge_job` pipeline, which drops it or refreshes its type
 🇺🇸 flag. A missing description never drops a row. A new category is added in `CATEGORY_RULES` and in the issue template
 dropdown together.
 
+A moved verdict fails `test_corpus.py` until `--update` rewrites the snapshot. That diff is
+the change's blast radius: the PR names the titles it moves, and a reviewer reads every
+changed line. `test_corpus.py --base origin/main` lists the same moves without the
+snapshot, over the corpus and the current stored rows. Refresh the corpus in its own commit,
+never inside a rule change.
+
 ## Verifying a scraper change
 
 1. `ruff check .github/scripts`, then every test script under `.github/scripts/`:
-   `test_classification.py`, `test_scrapers.py`, `test_community.py`, `test_health.py`,
-   `test_notify.py` and `test_site.py`. All offline, and `tests.yml` runs the same set.
+   `test_classification.py`, `test_corpus.py`, `test_scrapers.py`, `test_community.py`,
+   `test_health.py`, `test_notify.py`, `test_site.py` and `test_wiring.py`. All offline, and
+   `tests.yml` runs the same set.
 2. `scrape_jobs.py --dry-run --board <ats> --limit 3` while iterating on one parser.
 3. A full `--dry-run` on `main` and on the branch, minutes apart, each redirected to a log,
    then `compare_runs.py before.log after.log`. A clean exit is the equivalence proof; the
@@ -96,6 +108,12 @@ message. Two skills under `.claude/skills/` hold the procedures, and each ends o
 - [triage-board](.claude/skills/triage-board/SKILL.md) takes a failed, regressed or silent
   board to a repaired or dropped entry. It holds what each ATS status code means.
 
+## Reviewing a change
+
+[review-change](.claude/skills/review-change/SKILL.md) is the review procedure: the gates,
+the corpus diff, probes of every new accept path, the live dry run, and a ranked report of
+reproduced findings. Use it for every code review here.
+
 ## Code and test style
 
 Everything under `.github/scripts/` is plain Python 3.12 checked by the `ruff.toml` at the
@@ -112,6 +130,13 @@ root. Beyond what the linter enforces:
   data tables of `(input, expected)` rows looped through `check`; `test_scrapers.py` is
   `test_*` functions over mocked HTTP, each registered in the tuple at the bottom of the
   file. Add a row or a function in the same shape.
+- Every test script imports `testkit.py` before the modules it tests. It pins the clock to
+  the date the fixtures were written and refuses the network past loopback, so a suite gives
+  the same result on any day and machine. A test passes `today=` to cover a date rollover.
+- Reshape a suite, an invariant or a review checklist when the code moves, and keep what
+  makes them trustworthy: `test_classification.py` stays tables of real titles, every suite
+  stays offline on the pinned clock, and the corpus diff stays the record of what a rule
+  change moves.
 - A scraper function returns `None` for a broken fetch and `[]` for an empty board. The
   health check relies on the difference.
 

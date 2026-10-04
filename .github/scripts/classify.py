@@ -89,6 +89,9 @@ INTERN_TITLE_RES = [re.compile(p) for p in (
     # Bank-style ("Cybersecurity Summer Analyst") and USAJOBS Pathways
     # ("Student Trainee") internship titles.
     r'\bsummer analyst\b', r'\bstudent trainee\b',
+    # A bank's 'Cybersecurity Summer Associate' is an MBA internship, year or
+    # no year.
+    r'\bsummer associate\b',
 )]
 
 # "Security Engineer - Summer 2027" is an internship req even without the
@@ -183,7 +186,9 @@ def _term_regex(term):
 #   'loss prevention'    — retail LP, but "Data Loss Prevention (DLP) Analyst"
 #                          is a core security control.
 #   'safety and security' — a guard-force function, but "AI Safety and Security
-#                          Engineering" is an AI-lab security team.
+#                          Engineering" is an AI-lab security team, and so are
+#                          model and agent teams: 'Research Engineer, Model
+#                          Safety & Security - New Grad'.
 #   'sales'              — a quota-carrying seller, but a sales engineer is the
 #                          technical presales role: ESET 'Sales Engineer I',
 #                          Palo Alto Networks 'Sales Engineer - Intern'. Only a
@@ -212,7 +217,7 @@ GUARDED_FUNCTION_REJECTS = [
     # night shifts, so the pay rate and the manufacturing site carry it.
     r'\$\d+(?:\.\d+)?\s*/\s*(?:hr|hour)\b',
     r'\bsecurity associate, manufacturing\b',
-    r'(?<!ai )\bsafety and security\b',
+    r'^(?!.*\b(?:cyber\w*|information|ai|ml|model|agents?|llm)\b).*\bsafety and security\b',
 ]
 
 FUNCTION_REJECT_RE = re.compile(
@@ -437,13 +442,21 @@ ENGINEERING_ROLE_RE = re.compile(r'\b(?:engineer|engineering|developer)\b')
 # Support Associate', Caterpillar 'Cloud Operations Analyst'), since alone they
 # are often a team name. An infrastructure engineer may name the cloud after
 # the role: 'DevOps Engineer I - AWS', 'SRE I, Azure'.
+# The words between the cloud word and the role noun are joined only by spaces,
+# slashes, hyphens, dashes, pipes or colons, never a bracket or comma: JPMorgan
+# 'Python Backend Developer with AWS & SQL (Software Engineer II)' reached
+# across one. 'and' counts as one of the two words, so a team name such as
+# 'Java Developer I, Cloud and Data Platform Engineering' stays out.
+_CLOUD_GAP = r'(?:[\s/&+|:\u2013\u2014-]+)'
 CLOUD_ENGINEERING_RE = re.compile(
-    r'\b(?:cloud|aws|azure|gcp)\b(?:\W+\w+){0,2}?\W+(?:engineer|engineering|developer|'
-    r'administrator|admin|architect|technician)s?\b'
+    r'\b(?:cloud|aws|azure|gcp)\b(?:' + _CLOUD_GAP + r'\w+){0,2}?' + _CLOUD_GAP
+    + r'(?:engineer|engineering|developer|administrator|admin|architect|technician)s?\b'
     r'|\bcloud\s+(?:support|operations)\s+(?:associate|engineer|analyst|technician|'
     r'specialist)s?\b'
     r'|\bcloud\s+consultants?\b'
-    r'|\b(?:(?:devops|platform|infrastructure|site reliability|systems)\s+'
+    # A role that opens a bracket names a team, not the job: 'Software
+    # Developer II (Systems Engineering) - Cloud Payments'.
+    r'|(?<!\()\b(?:(?:devops|platform|infrastructure|site reliability|systems)\s+'
     r'engineer(?:ing)?s?|sre)\b.{0,40}\b(?:aws|azure|gcp|cloud)\b')
 # Product suites named 'Cloud' are CRM, ERP and SaaS configuration work, not
 # cloud infrastructure: 'Salesforce Service Cloud Developer', 'Oracle Cloud HCM
@@ -1482,7 +1495,7 @@ def rejected_title_rule(title, today=None):
     same rule the scraper applies. `today` (a date) is injectable so the season
     check can be tested.
     """
-    t = title.lower()
+    t = fold_title(title)
     unexempt = SENIORITY_EXEMPT_RE.sub(' ', t)
     for pattern in SENIORITY_REJECT:
         m = re.search(pattern, unexempt)
@@ -1596,22 +1609,28 @@ BUSINESS_ANALYST_RE = re.compile(
 ANALYST_TECH_KEYWORDS = {'analyst', 'data analyst', 'researcher'}
 
 
-def _fold(title):
-    # ATS titles carry non-breaking spaces ("Access\xa0& Identity\xa0Management")
-    # that break the multi-word keywords.
-    return ' '.join(title.lower().split())
+def fold_title(title):
+    """The lowercased title with its whitespace collapsed and a spaced '&' read as 'and'.
+
+    Every title rule reads this form. ATS titles carry non-breaking spaces
+    ("Access\xa0& Identity\xa0Management") and doubled spaces (Northrop "2026 -
+    Associate ...") that break each multi-word signal ('tier i', 'new grad'),
+    and "AWS & SQL" left the role noun one word nearer the cloud word than
+    "AWS and SQL" did. An unspaced '&' stays, as in 'fp&a' and 'R&D'.
+    """
+    return ' '.join(title.lower().split()).replace(' & ', ' and ')
 
 
 def is_cloud_engineering_title(title):
     """True for a cloud engineering role, which the charter admits at any employer."""
-    t = _fold(title)
+    t = fold_title(title)
     return (bool(CLOUD_ENGINEERING_RE.search(t)) and not CLOUD_PRODUCT_RE.search(t)
             and not NON_TECH_ROLE_RE.search(t))
 
 
 def is_solutions_title(title):
     """True for an early-career solutions architecture or presales title."""
-    t = _fold(title)
+    t = fold_title(title)
     if NON_TECH_ROLE_RE.search(t):
         return False
     if not (SOLUTIONS_ROLE_RE.search(t)
@@ -1622,7 +1641,7 @@ def is_solutions_title(title):
 
 
 def is_cyber_title(title, security_company=False):
-    t = _fold(title)
+    t = fold_title(title)
     if _has_cyber_keyword(t):
         return True
     if SECURITY_TOOL_RE.search(t):
@@ -1654,7 +1673,7 @@ INFOSEC_TITLE_RE = re.compile(
 
 
 def _is_facility_security_role(title, description):
-    t = SECURITY_CLEARANCE_RE.sub(' ', title.lower())
+    t = SECURITY_CLEARANCE_RE.sub(' ', fold_title(title))
     if not re.search(r'\bsecurity\b', t) or INFOSEC_TITLE_RE.search(t):
         return False
     if _has_cyber_keyword(re.sub(r'\bsecurity\b', ' ', t)):
@@ -1668,7 +1687,7 @@ def classify_level(title, description='', intern_hint=False, today=None):
     `today` (a date) moves the cohort-year window for tests; by default the
     window is the one computed at import.
     """
-    t = title.lower()
+    t = fold_title(title)
     if today is None:
         cohort_year_re, newgrad_year_signals = COHORT_YEAR_RE, NEWGRAD_YEAR_SIGNALS
     else:
@@ -2082,7 +2101,7 @@ def requires_experience(description):
 
 
 def infer_category(title, security_company=False):
-    t = _fold(title)
+    t = fold_title(title)
     for category, pattern in CATEGORY_RULES:
         # The two last rules file only the titles they admit, and never one
         # that names security work: 'Cloud Vulnerability Analyst I' keeps a
@@ -2131,7 +2150,7 @@ def judge_job(title, location, description='', security_company=False,
     # is hired below level 3: a stated count the experience gate below then
     # bounds, or a low ceiling. A missing or silent one is 'no-level', which
     # the stored-row pass in scrape_jobs.py keeps when the body is missing.
-    if (level not in (None, 'intern') and _spans_senior_level(title.lower())
+    if (level not in (None, 'intern') and _spans_senior_level(fold_title(title))
             and not (permits_early_experience(description)
                      or any(_experience_counts(description)))):
         return None, 'no-level'
@@ -2146,7 +2165,7 @@ def judge_job(title, location, description='', security_company=False,
         # at most two years. A silent description is not evidence: Anthropic
         # says only that years "will correlate with the internal job level",
         # and that put its flat Safeguards titles on the early-career table.
-        elif AI_CATEGORY_RE.search(title.lower()) and (
+        elif AI_CATEGORY_RE.search(fold_title(title)) and (
                 permits_early_experience(description)
                 or 0 < required_years(description) <= MAX_ALLOWED_YEARS):
             level = 'earlycareer'

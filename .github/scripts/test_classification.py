@@ -6,6 +6,8 @@ Run from anywhere: python .github/scripts/test_classification.py
 import sys
 from datetime import date
 
+import testkit
+
 sys.path.insert(0, str(__import__('pathlib').Path(__file__).parent))
 import classify as s
 import common
@@ -411,6 +413,23 @@ CASES = [
     ('Oracle Cloud Developer I', 'Austin, TX', '', False, None),
     ('Cloud Hardware Development Engineer I, Annapurna Labs, Early Career - 2027', 'Austin, TX', '', False, None),
     ('Oracle Cloud Infrastructure Engineer I', 'Austin, TX', '', False, ('earlycareer', 'Cloud Engineering')),
+    # The cloud word reaches its role noun over at most two words, never across
+    # a bracket, and 'and' or '&' is one of them: JPMorgan's developer works with
+    # AWS, and a developer on a cloud team is not a cloud engineer. HP's title
+    # is the price, a cloud role three words from its noun.
+    ('Python Backend Developer with AWS & SQL (Software Engineer II)', 'Columbus, OH', '', False, None),
+    ('Python Backend Developer with AWS and SQL (Software Engineer II)', 'Columbus, OH', '', False, None),
+    ('Java Developer I, Cloud and Data Platform Engineering', 'Austin, TX', '', False, None),
+    ('GCP and BigQuery Data Engineer I', 'Austin, TX', '', False, None),
+    ('Cloud Automation & Platform Engineer I', 'Austin, TX', '', False, None),
+    ('Azure \u2013 Platform Engineer I', 'Austin, TX', '', False, ('earlycareer', 'Cloud Engineering')),
+    ('AWS: DevOps Engineer I', 'Austin, TX', '', False, ('earlycareer', 'Cloud Engineering')),
+    ('Cloud | DevOps Engineer I', 'Austin, TX', '', False, ('earlycareer', 'Cloud Engineering')),
+    # A role named after its cloud may put it in brackets, but a role inside
+    # brackets is a team: BDO's systems engineer is cloud, the payments
+    # developer is not.
+    ('Associate Systems Engineer (Hybrid Cloud)', 'Grand Rapids, MI', '', False, ('earlycareer', 'Cloud Engineering')),
+    ('Software Developer II (Systems Engineering) - Cloud Payments', 'Austin, TX', '', False, None),
 
     # -- solutions architecture and presales at any employer, early career only --
     ('Associate Solutions Architect, AGS-Tech, Early Career - 2027', 'Seattle, WA', '', False, ('newgrad', 'Solutions Architecture')),
@@ -524,6 +543,25 @@ CASES = [
     (f'Cybersecurity and Privacy Associate - Summer {SEASON}', 'Los Angeles, CA', '', False, ('newgrad', 'Security Engineering')),
     (f'Advisory Intern, Cyber, Compliance & Assessment - Summer {SEASON}', 'McLean, VA', '', False, ('intern', 'GRC & Risk')),
     (f'Cybersecurity Summer Associate {SEASON}', 'New York, NY', '', False, ('intern', 'Security Engineering')),
+    ('Cybersecurity Summer Associate', 'New York, NY', '', False, ('intern', 'Security Engineering')),
+
+    # -- bug fix: a non-breaking or doubled space no longer hides a level --
+    # With their spaces swapped for non-breaking or doubled ones, 23 of the 431
+    # stored titles changed verdict; KeyBank's equity research reject is one.
+    ('Associate,\xa0Equity\xa0Research - Cybersecurity & Data', 'New York, NY', '', False, None),
+    ('Cybersecurity SOC Analyst Tier\xa0I', 'Austin, TX', '', False, ('earlycareer', 'SOC & Detection')),
+    ('Cybersecurity Engineer-  Entry Level', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Engineer I, Data Scientist - New\xa0Grad (Hybrid)', 'Austin, TX', '', True, ('newgrad', 'Engineering @ Security Co')),
+    ('Senior\xa0Security Engineer', 'Austin, TX', '', False, None),
+    ('Physical\xa0Security Analyst I', 'Austin, TX', '', False, None),
+
+    # -- 'safety and security' is a guard force unless it names AI or cyber work --
+    # Reading '&' as 'and' sent these AI-lab teams into the guard-force reject.
+    ('Research Engineer, Model Safety & Security - New Grad', 'San Francisco, CA', '', False, ('newgrad', 'Security Engineering')),
+    ('Research Engineer, Model Safety and Security - New Grad', 'San Francisco, CA', '', False, ('newgrad', 'Security Engineering')),
+    ('Member of Technical Staff, Safety & Security for Agents - New Grad', 'Toronto, ON; New York, NY', '', False, ('newgrad', 'Security Engineering')),
+    ('Cyber Safety & Security Analyst I', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    ('Safety and Security Specialist I', 'Austin, TX', '', False, None),
 
     # -- bug fix: US territories are US locations, not foreign --
     ('Cyber Software Engineer I', 'Aguadilla, PR', '', False, ('earlycareer', 'Security Engineering')),
@@ -850,7 +888,7 @@ for title, want in LEVEL:
 # recruited is a finished cohort. From September that season is next year.
 SEPT_27 = date(2026, 9, 27)
 JUNE_1 = date(2026, 6, 1)
-THIS_YEAR = date.today().year
+THIS_YEAR = testkit.TODAY.year
 STALE_INTERN = [
     # (title, today, rejected)
     ('Vulnerability Researcher Intern - 2026', SEPT_27, True),
@@ -859,7 +897,7 @@ STALE_INTERN = [
     ('PhD Research Intern, Security and Privacy - Fall 2026', SEPT_27, True),
     ('2026 Part-Time Cyber Security Engineering Intern - Aurora CO', SEPT_27, True),
     # The season form with no "intern" only reads as an internship while its
-    # year is inside COHORT_YEAR_RE's window, which moves with the real date.
+    # year is inside COHORT_YEAR_RE's window, which moves with the date.
     (f'Security Engineer - Summer {THIS_YEAR}', date(THIS_YEAR, 9, 27), True),
     ('Security Engineer Intern - Summer 2019', SEPT_27, True),
     # The coming season, or any title that also names it, stays.
