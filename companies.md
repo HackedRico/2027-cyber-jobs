@@ -4,7 +4,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **408 companies tracked.**
 
-## Hiring students now (102)
+## Hiring students now (104)
 
 Employers with open roles on the board today.
 
@@ -17,8 +17,8 @@ Employers with open roles on the board today.
 | RTX | 7 |  | 9 |
 | Microsoft | 7 |  | 4 |
 | Palo Alto Networks | 5 | 1 | 2 |
+| Northrop Grumman | 2 | 3 | 11 |
 | BDO | 4 | 1 | 1 |
-| Northrop Grumman | 2 | 2 | 10 |
 | MITRE | 3 | 1 | 2 |
 | HPE | 2 | 2 | 1 |
 | Tanium | 4 |  |  |
@@ -30,7 +30,7 @@ Employers with open roles on the board today.
 | Palantir | 2 | 1 |  |
 | The Cigna Group | 2 | 1 |  |
 | Walmart | 3 |  |  |
-| Amazon | 1 | 1 | 12 |
+| Amazon | 1 | 1 | 14 |
 | Battelle | 2 |  | 3 |
 | CACI | 2 |  | 2 |
 | Appian | 1 | 1 | 1 |
@@ -38,6 +38,7 @@ Employers with open roles on the board today.
 | Boeing | 1 | 1 |  |
 | Honeywell | 2 |  |  |
 | Idaho National Laboratory | 2 |  |  |
+| Intel | 2 |  |  |
 | Lockheed Martin | 2 |  |  |
 | Qualcomm | 2 |  |  |
 | Robinhood | 2 |  |  |
@@ -61,6 +62,7 @@ Employers with open roles on the board today.
 | Grant Thornton |  | 1 |  |
 | HP Inc | 1 |  |  |
 | Johnson &amp; Johnson | 1 |  |  |
+| National Laboratory of the Rockies | 1 |  |  |
 | NVIDIA |  | 1 |  |
 | Prophet Security | 1 |  |  |
 | Semgrep | 1 |  |  |
@@ -69,10 +71,10 @@ Employers with open roles on the board today.
 | CrowdStrike |  |  | 6 |
 | KBR |  |  | 5 |
 | BAE Systems |  |  | 3 |
+| ExtraHop |  |  | 3 |
 | Kyndryl |  |  | 3 |
 | Recorded Future |  |  | 3 |
 | Amentum |  |  | 2 |
-| ExtraHop |  |  | 2 |
 | JPMorgan Chase |  |  | 2 |
 | SAIC |  |  | 2 |
 | Trail of Bits |  |  | 2 |

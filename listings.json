@@ -2757,7 +2757,8 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Systems-Security-Engineering-Intern--Summer-2027-_01874755",
     "source": "Workday",
-    "date_added": "2026-09-14"
+    "date_added": "2026-09-14",
+    "missing_since": "2026-10-05"
   },
   {
     "company": "RTX",
@@ -5208,7 +5209,8 @@
     "clearance": false,
     "url": "https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/USA-SAN-FRANCISCO/Cloud-Engineer-II--Full-Time----United-States_2025456",
     "source": "Workday",
-    "date_added": "2026-10-03"
+    "date_added": "2026-10-03",
+    "missing_since": "2026-10-05"
   },
   {
     "company": "GDIT",
@@ -5263,7 +5265,8 @@
     "clearance": true,
     "url": "https://usbank.wd1.myworkdayjobs.com/US_Bank_Careers/job/Cincinnati-OH/Digital-Forensic-Examiner_2026-0026562",
     "source": "Workday",
-    "date_added": "2026-10-03"
+    "date_added": "2026-10-03",
+    "missing_since": "2026-10-05"
   },
   {
     "company": "The Cigna Group",
@@ -5329,7 +5332,8 @@
     "clearance": true,
     "url": "https://dxctechnology.wd1.myworkdayjobs.com/DXCJobs/job/USA---DE---NEWARK/Cybersecurity-Analyst---Tier-2_51581546",
     "source": "Workday",
-    "date_added": "2026-10-03"
+    "date_added": "2026-10-03",
+    "missing_since": "2026-10-05"
   },
   {
     "company": "Federal Reserve System",
@@ -5615,7 +5619,8 @@
     "clearance": false,
     "url": "https://ebqb.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BDOEntryLevelCareers/job/14074",
     "source": "Oracle",
-    "date_added": "2026-10-03"
+    "date_added": "2026-10-03",
+    "missing_since": "2026-10-05"
   },
   {
     "company": "BDO",
@@ -5626,7 +5631,8 @@
     "clearance": false,
     "url": "https://ebqb.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BDOEntryLevelCareers/job/14075",
     "source": "Oracle",
-    "date_added": "2026-10-03"
+    "date_added": "2026-10-03",
+    "missing_since": "2026-10-05"
   },
   {
     "company": "BDO",
@@ -5813,6 +5819,94 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Embedded-Software-Security-Engineer-II---S3E_01879899",
     "source": "Workday",
+    "date_added": "2026-10-05"
+  },
+  {
+    "company": "ExtraHop",
+    "role": "Support Engineer I - NC",
+    "location": "NC (US)",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/extrahopnetworks/jobs/6211107004",
+    "source": "Greenhouse",
+    "date_added": "2026-10-05"
+  },
+  {
+    "company": "Intel",
+    "role": "AI Solution Architect - Graduate Intern",
+    "location": "Santa Clara, CA",
+    "type": "intern",
+    "category": "Solutions Architecture",
+    "clearance": false,
+    "url": "https://intel.wd1.myworkdayjobs.com/External/job/US-California-Santa-Clara/AI-Solution-Architect---Graduate-Intern_JR0287524",
+    "source": "Workday",
+    "date_added": "2026-10-05"
+  },
+  {
+    "company": "Intel",
+    "role": "AI Solution Architect Graduate Intern",
+    "location": "Santa Clara, CA",
+    "type": "intern",
+    "category": "Solutions Architecture",
+    "clearance": false,
+    "url": "https://intel.wd1.myworkdayjobs.com/External/job/US-California-Santa-Clara/AI-Solution-Architect-Graduate-Intern_JR0287530",
+    "source": "Workday",
+    "date_added": "2026-10-05"
+  },
+  {
+    "company": "Northrop Grumman",
+    "role": "2026 Associate Cybersecurity Analyst - Pathways Program - Redondo Beach CA",
+    "location": "Redondo Beach, CA",
+    "type": "newgrad",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-Redondo-Beach/XMLNAME-2026-Associate-Cybersecurity-Analyst---Pathways-Program---Redondo-Beach-CA_R10251914",
+    "source": "Workday",
+    "date_added": "2026-10-05"
+  },
+  {
+    "company": "Northrop Grumman",
+    "role": "Sentinel - Systems Security Engineer level 2/3 (20009)",
+    "location": "Roy, UT",
+    "type": "earlycareer",
+    "category": "Cloud & Infra Security",
+    "clearance": true,
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Utah-Roy/Sentinel---Systems-Security-Engineer-level-2-3--20009-_R10253409",
+    "source": "Workday",
+    "date_added": "2026-10-05"
+  },
+  {
+    "company": "National Laboratory of the Rockies",
+    "role": "Undergraduate / Graduate (Spring / Summer) Intern - Cyber Security Research \u2013 5G",
+    "location": "Golden, CO",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://nrel.wd5.myworkdayjobs.com/NLR/job/Golden-CO/Undergraduate---Graduate--Spring---Summer--Intern---Cyber-Security-Research---5G_R14555",
+    "source": "Workday",
+    "date_added": "2026-10-05"
+  },
+  {
+    "company": "Amazon",
+    "role": "Security Engineer II",
+    "location": "Arlington, VA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10567109/security-engineer-ii",
+    "source": "Amazon Jobs",
+    "date_added": "2026-10-05"
+  },
+  {
+    "company": "Amazon",
+    "role": "Security Engineer II, Amazon Vulnerability Management - Container Domain",
+    "location": "Arlington, VA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10568811/security-engineer-ii-amazon-vulnerability-management-container-domain",
+    "source": "Amazon Jobs",
     "date_added": "2026-10-05"
   }
 ]
