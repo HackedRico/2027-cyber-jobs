@@ -12,9 +12,9 @@ Employers with open roles on the board today.
 | ------- | ----------- | -------- | ------------ |
 | Johns Hopkins APL | 11 | 10 |  |
 | Booz Allen Hamilton | 17 |  | 4 |
-| Vanguard | 7 | 6 |  |
+| Vanguard | 5 | 6 |  |
 | American Express | 4 | 4 |  |
-| RTX | 7 |  | 8 |
+| RTX | 7 |  | 9 |
 | Microsoft | 7 |  | 4 |
 | Palo Alto Networks | 5 | 1 | 2 |
 | BDO | 4 | 1 | 1 |
@@ -34,12 +34,11 @@ Employers with open roles on the board today.
 | Battelle | 2 |  | 3 |
 | CACI | 2 |  | 2 |
 | Appian | 1 | 1 | 1 |
-| Lockheed Martin | 2 |  | 1 |
 | Applied Intuition |  | 2 |  |
 | Boeing | 1 | 1 |  |
-| Duke Energy | 2 |  |  |
 | Honeywell | 2 |  |  |
 | Idaho National Laboratory | 2 |  |  |
+| Lockheed Martin | 2 |  |  |
 | Qualcomm | 2 |  |  |
 | Robinhood | 2 |  |  |
 | TD Bank | 2 |  |  |
@@ -52,11 +51,11 @@ Employers with open roles on the board today.
 | Motorola Solutions | 1 |  | 1 |
 | Parsons | 1 |  | 1 |
 | Sierra Nevada Corporation | 1 |  | 1 |
-| U.S. Bank | 1 |  | 1 |
 | Verkada | 1 |  | 1 |
 | Anduril |  | 1 |  |
 | Bank of America | 1 |  |  |
 | Deloitte |  | 1 |  |
+| Duke Energy | 1 |  |  |
 | Elevance Health | 1 |  |  |
 | Exelon | 1 |  |  |
 | Grant Thornton |  | 1 |  |
@@ -111,6 +110,7 @@ Employers with open roles on the board today.
 | Tenable |  |  | 1 |
 | Trellix |  |  | 1 |
 | Two Six Technologies |  |  | 1 |
+| U.S. Bank |  |  | 1 |
 | Verizon |  |  | 1 |
 
 ## Every tracked board (408)

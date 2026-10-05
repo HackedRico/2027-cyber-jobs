@@ -2225,10 +2225,11 @@
     "type": "intern",
     "category": "GRC & Risk",
     "clearance": false,
-    "url": "https://vanguard.wd5.myworkdayjobs.com/vanguard_external/job/Charlotte-NC/College-to-Corporate-IT-Internship---Risk---Security---Engineer---NC-_177688-1",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-05",
-    "missing_since": "2026-10-02"
+    "closed": true,
+    "closed_date": "2026-10-05"
   },
   {
     "company": "Northern Trust",
@@ -2669,10 +2670,11 @@
     "type": "intern",
     "category": "GRC & Risk",
     "clearance": false,
-    "url": "https://vanguard.wd5.myworkdayjobs.com/vanguard_external/job/Malvern-PA/College-to-Corporate-IT-Internship---Risk---Security---Engineer---PA-_177687-1",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-11",
-    "missing_since": "2026-10-02"
+    "closed": true,
+    "closed_date": "2026-10-05"
   },
   {
     "company": "JPMorgan Chase",
@@ -3899,10 +3901,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://usbank.wd1.myworkdayjobs.com/US_Bank_Careers/job/Cincinnati-OH/XMLNAME-2027-Information-Security-Summer-Intern_2026-0025770",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-28",
-    "missing_since": "2026-10-02"
+    "closed": true,
+    "closed_date": "2026-10-05"
   },
   {
     "company": "AeroVironment",
@@ -3988,10 +3991,11 @@
     "type": "earlycareer",
     "category": "Cloud & Infra Security",
     "clearance": false,
-    "url": "https://lockheedmartin.eightfold.ai/careers/job/996476474225",
+    "url": "",
     "source": "Eightfold",
     "date_added": "2026-09-28",
-    "missing_since": "2026-10-02"
+    "closed": true,
+    "closed_date": "2026-10-05"
   },
   {
     "company": "Lockheed Martin",
@@ -4947,10 +4951,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://dukeenergy.wd1.myworkdayjobs.com/Search/job/Lake-Mary-FL/PGO-Cybersecurity-Summer-2027-Internship_R41822",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-01",
-    "missing_since": "2026-10-02"
+    "closed": true,
+    "closed_date": "2026-10-05"
   },
   {
     "company": "Microsoft",
@@ -5467,8 +5472,7 @@
     "clearance": false,
     "url": "https://td.wd3.myworkdayjobs.com/TD_Bank_Careers/job/Mount-Laurel-New-Jersey/XMLNAME-2027-Summer-Internship-Program---Global-Technology---Solutions---Cyber-Security_R_1510795",
     "source": "Workday",
-    "date_added": "2026-10-03",
-    "missing_since": "2026-10-04"
+    "date_added": "2026-10-03"
   },
   {
     "company": "Fifth Third",
@@ -5799,5 +5803,16 @@
     "url": "https://www.amazon.jobs/en/jobs/10560679/solutions-architect-intern-cohort-ags-tech-2027",
     "source": "Amazon Jobs",
     "date_added": "2026-10-03"
+  },
+  {
+    "company": "RTX",
+    "role": "Embedded Software Security Engineer II - S3E",
+    "location": "Tucson, AZ",
+    "type": "earlycareer",
+    "category": "AppSec & ProdSec",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Embedded-Software-Security-Engineer-II---S3E_01879899",
+    "source": "Workday",
+    "date_added": "2026-10-05"
   }
 ]
