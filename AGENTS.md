@@ -59,12 +59,14 @@ behind `main`. Rebase before opening a PR, and take `main` for any conflict in a
 - `build_site.py` turns `site/` (plain HTML, CSS and JS, no build step) and `listings.json` into
   the untracked `_site/`: the Pages board, its trimmed data file and the Atom feeds.
   `pages.yml` deploys it after each writer finishes, because a push made with `GITHUB_TOKEN`
-  starts no Pages build. `test_site.py` covers it.
+  starts no Pages build, and every six hours, because a follow-on run can be lost to a runner
+  outage before it starts. `test_site.py` covers it.
 - `test_corpus.py` snapshots the title rules over `fixtures/title_corpus.tsv`, the titles of
   a full scrape plus every stored row, and holds each accepted title to invariants such as
   "a senior prefix rejects". `refresh_corpus.py` rebuilds that title list from a live scrape.
   `test_wiring.py` checks the wiring: CI runs every suite, actions pin a commit SHA, writers
-  run `check_outputs.py`, the issue form offers exactly the classifier's categories.
+  run `check_outputs.py`, follow-on workflows have a schedule, the issue form offers exactly
+  the classifier's categories.
 
 ## Changing the classifier
 

@@ -70,8 +70,9 @@ One checklist per area, then the probe families. Each line is a trap a past chan
 
 - Writers share `concurrency: group: readme-updates` with `queue: max`, and each runs
   `check_outputs.py` before every commit. Some linters reject `queue:`; GitHub accepts it.
-- A push made with `GITHUB_TOKEN` starts no workflow, so Pages follows the writers through
-  `workflow_run`.
+- A push made with `GITHUB_TOKEN` starts no workflow, so Pages and the health check follow the
+  writers through `workflow_run`. Each also runs on a schedule, since a hosted-runner outage
+  can drop a follow-on run before it starts and leave the page or the health issue stale.
 - Actions pin a full commit SHA and installs use `--require-hashes`; `test_wiring.py` checks
   both.
 
