@@ -14,7 +14,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**134** internships · **42** new grad · **155** early career open · **159** added in the last 7 days · **156** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 6, 2026
+**135** internships · **42** new grad · **158** early career open · **163** added in the last 7 days · **159** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 6, 2026
 
 <!-- /STATS -->
 
@@ -71,6 +71,7 @@ Cybersecurity internships and co-ops for current students.
 
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
+| CACI | 🆕 Cyber Analyst Intern - Summer 2027 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://caci.wd1.myworkdayjobs.com/External/job/Ashburn-VA-US/Cyber-Analyst-Intern---Summer-2027_333161"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: CACI Cyber Analyst Intern - Summer 2027"></a> | Ashburn, VA | Oct 6 |
 | HPE | 🆕 Cloud Developer Intern<br><sub>Cloud Engineering</sub> | <a href="https://hpe.wd5.myworkdayjobs.com/Jobsathpe/job/San-Jose-California-United-States-of-America/Cloud-Developer-Intern_1214950"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: HPE Cloud Developer Intern"></a> | San Jose, CA | Oct 6 |
 | Intel | 🆕 AI Solution Architect - Undergraduate Intern<br><sub>Solutions Architecture</sub> | <a href="https://intel.wd1.myworkdayjobs.com/External/job/US-Oregon-Hillsboro/AI-Solution-Architect---Graduate-Intern_JR0287531"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Intel AI Solution Architect - Undergraduate Intern"></a> | Hillsboro, OR | Oct 6 |
 | Intel | 🆕 AI Solution Architect - Graduate Intern<br><sub>Solutions Architecture</sub> | <a href="https://intel.wd1.myworkdayjobs.com/External/job/US-California-Santa-Clara/AI-Solution-Architect---Graduate-Intern_JR0287524"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Intel AI Solution Architect - Graduate Intern"></a> | Santa Clara, CA | Oct 5 |
@@ -331,8 +332,11 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
 | Huntress | 🆕 Sales Engineer II, Mid-Market<br><sub>Engineering @ Security Co</sub> | <a href="https://job-boards.greenhouse.io/huntress/jobs/7974374003"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Huntress Sales Engineer II, Mid-Market"></a> | United States of America | Oct 6 |
+| Microsoft | 🆕 Security Analyst II<br><sub>Security Engineering</sub> | <a href="https://microsoft.eightfold.ai/careers/job/1970393557023143"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Microsoft Security Analyst II"></a> | Redmond, WA | Oct 6 |
 | Netskope | 🆕 Associate Solutions Engineer<br><sub>Solutions Architecture</sub> | <a href="https://www.netskope.com/company/careers/open-positions/?gh_jid=8226201"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Netskope Associate Solutions Engineer"></a> | United States | Oct 6 |
 | Northrop Grumman | 🆕 Cloud Software Engineer (Level 2) - AHT 🇺🇸<br><sub>Cloud Engineering</sub> | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-Redondo-Beach/Cloud-Software-Engineer--Level-2----AHT_R10249870"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Northrop Grumman Cloud Software Engineer (Level 2) - AHT"></a> | Redondo Beach, CA | Oct 6 |
+| ↳ | 🆕 Cybersecurity Systems Engineer (Level 1/2) 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-El-Segundo/Cybersecurity-Systems-Engineer--Level-1-2-_R10250987"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Northrop Grumman Cybersecurity Systems Engineer (Level 1/2)"></a> | El Segundo, CA | Oct 6 |
+| ↳ | 🆕 Cloud Software Engineer (Level 2 or 3) - AHT 🇺🇸<br><sub>Cloud Engineering</sub> | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-Redondo-Beach/Cloud-Software-Engineer--Level-2-or-3----AHT_R10254553"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Northrop Grumman Cloud Software Engineer (Level 2 or 3) - AHT"></a> | Redondo Beach, CA | Oct 6 |
 | Amazon | 🆕 Security Engineer II<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10567109/security-engineer-ii"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer II"></a> | Arlington, VA | Oct 5 |
 | ↳ | 🆕 Security Engineer II, Amazon Vulnerability Management - Container Domain<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10568811/security-engineer-ii-amazon-vulnerability-management-container-domain"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer II, Amazon Vulnerability Management - Container Domain"></a> | Arlington, VA | Oct 5 |
 | ExtraHop | 🆕 Support Engineer I - NC<br><sub>Engineering @ Security Co</sub> | <a href="https://job-boards.greenhouse.io/extrahopnetworks/jobs/6211107004"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: ExtraHop Support Engineer I - NC"></a> | NC (US) | Oct 5 |

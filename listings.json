@@ -1450,7 +1450,8 @@
     "clearance": true,
     "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Springfield-VA/Multidisciplinary-Engineer-II_JR101616",
     "source": "Workday",
-    "date_added": "2026-07-24"
+    "date_added": "2026-07-24",
+    "missing_since": "2026-10-06"
   },
   {
     "company": "Appian",
@@ -5677,7 +5678,8 @@
     "clearance": false,
     "url": "https://lumen.eightfold.ai/careers/job/1133915848405",
     "source": "Eightfold",
-    "date_added": "2026-10-03"
+    "date_added": "2026-10-03",
+    "missing_since": "2026-10-06"
   },
   {
     "company": "Microsoft",
@@ -5930,7 +5932,8 @@
     "clearance": false,
     "url": "https://www.netskope.com/company/careers/open-positions/?gh_jid=8226201",
     "source": "Greenhouse",
-    "date_added": "2026-10-06"
+    "date_added": "2026-10-06",
+    "missing_since": "2026-10-06"
   },
   {
     "company": "ID.me",
@@ -5941,7 +5944,8 @@
     "clearance": false,
     "url": "https://job-boards.greenhouse.io/idme/jobs/8011095003",
     "source": "Greenhouse",
-    "date_added": "2026-10-06"
+    "date_added": "2026-10-06",
+    "missing_since": "2026-10-06"
   },
   {
     "company": "ID.me",
@@ -5985,6 +5989,50 @@
     "clearance": false,
     "url": "https://hpe.wd5.myworkdayjobs.com/Jobsathpe/job/San-Jose-California-United-States-of-America/Cloud-Developer-Intern_1214950",
     "source": "Workday",
+    "date_added": "2026-10-06"
+  },
+  {
+    "company": "CACI",
+    "role": "Cyber Analyst Intern - Summer 2027",
+    "location": "Ashburn, VA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://caci.wd1.myworkdayjobs.com/External/job/Ashburn-VA-US/Cyber-Analyst-Intern---Summer-2027_333161",
+    "source": "Workday",
+    "date_added": "2026-10-06"
+  },
+  {
+    "company": "Northrop Grumman",
+    "role": "Cybersecurity Systems Engineer (Level 1/2)",
+    "location": "El Segundo, CA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-El-Segundo/Cybersecurity-Systems-Engineer--Level-1-2-_R10250987",
+    "source": "Workday",
+    "date_added": "2026-10-06"
+  },
+  {
+    "company": "Northrop Grumman",
+    "role": "Cloud Software Engineer (Level 2 or 3) - AHT",
+    "location": "Redondo Beach, CA",
+    "type": "earlycareer",
+    "category": "Cloud Engineering",
+    "clearance": true,
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-Redondo-Beach/Cloud-Software-Engineer--Level-2-or-3----AHT_R10254553",
+    "source": "Workday",
+    "date_added": "2026-10-06"
+  },
+  {
+    "company": "Microsoft",
+    "role": "Security Analyst II",
+    "location": "Redmond, WA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://microsoft.eightfold.ai/careers/job/1970393557023143",
+    "source": "Eightfold",
     "date_added": "2026-10-06"
   }
 ]

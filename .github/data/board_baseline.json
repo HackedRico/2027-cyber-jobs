@@ -1,60 +1,60 @@
 {
   "1Password (ashby/1password)": {
-    "count": 67,
+    "count": 69,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "AT&T (workday/att)": {
-    "count": 340,
+    "count": 328,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Abnormal AI (greenhouse/abnormalsecurity)": {
-    "count": 79,
+    "count": 80,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Accenture (workday/accenture)": {
-    "count": 1300,
+    "count": 1303,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Accenture Federal Services (greenhouse/accenturefederalservices)": {
-    "count": 593,
+    "count": 596,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Action1 (workable/action1)": {
-    "count": 45,
+    "count": 46,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Adobe (workday/adobe)": {
-    "count": 434,
+    "count": 421,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "AeroVironment (workday/avav)": {
-    "count": 319,
+    "count": 325,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Aerospace Corporation (workday/aero)": {
-    "count": 404,
+    "count": 417,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Affirm (greenhouse/affirm)": {
-    "count": 184,
+    "count": 186,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -72,7 +72,7 @@
     "zero_runs": 0
   },
   "Airbnb (greenhouse/airbnb)": {
-    "count": 151,
+    "count": 155,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -102,37 +102,37 @@
     "zero_runs": 0
   },
   "Ally (workday/ally)": {
-    "count": 56,
+    "count": 58,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Amazon (amazon.jobs)": {
-    "count": 321,
+    "count": 318,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Amentum (workday/pae)": {
-    "count": 601,
+    "count": 619,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "American Express (oracle/egug.fa.us2.oraclecloud.com/CX_1)": {
-    "count": 443,
+    "count": 455,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Anchorage Digital (lever/anchorage)": {
-    "count": 14,
+    "count": 15,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Anduril (greenhouse/andurilindustries)": {
-    "count": 2455,
+    "count": 2459,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -144,7 +144,7 @@
     "zero_runs": 0
   },
   "Anthropic (greenhouse/anthropic)": {
-    "count": 645,
+    "count": 639,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -162,31 +162,31 @@
     "zero_runs": 0
   },
   "Apollo Research (lever/apolloresearch)": {
-    "count": 12,
+    "count": 11,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "AppOmni (greenhouse/appomni)": {
     "count": 0,
-    "empty_runs": 46,
+    "empty_runs": 47,
     "last_nonzero": null,
-    "zero_runs": 46
+    "zero_runs": 47
   },
   "Appian (greenhouse/appian)": {
-    "count": 167,
+    "count": 165,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Applied Intuition (ashby/applied)": {
-    "count": 310,
+    "count": 315,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Arctic Wolf (workday/arcticwolf)": {
-    "count": 124,
+    "count": 123,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -210,13 +210,13 @@
     "zero_runs": 0
   },
   "Asana (greenhouse/asana)": {
-    "count": 101,
+    "count": 100,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Autodesk (workday/autodesk)": {
-    "count": 215,
+    "count": 216,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -234,49 +234,49 @@
     "zero_runs": 0
   },
   "Axonius (greenhouse/axonius)": {
-    "count": 23,
+    "count": 24,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "BAE Systems (phenom/jobs.baesystems.com)": {
-    "count": 464,
+    "count": 462,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "BDO (oracle/ebqb.fa.us2.oraclecloud.com/BDOEntryLevelCareers)": {
-    "count": 694,
+    "count": 687,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "BNY (oracle/eofe.fa.us2.oraclecloud.com/BNY-Careers)": {
-    "count": 1355,
+    "count": 1360,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Bank of America (workday/ghr)": {
-    "count": 286,
+    "count": 288,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Battelle (phenom/jobs.battelle.org)": {
-    "count": 98,
+    "count": 99,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Beyond Identity (greenhouse/beyondidentity)": {
     "count": 0,
-    "empty_runs": 46,
+    "empty_runs": 47,
     "last_nonzero": null,
-    "zero_runs": 46
+    "zero_runs": 47
   },
   "BeyondTrust (greenhouse/beyondtrust)": {
-    "count": 48,
+    "count": 45,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -300,13 +300,13 @@
     "zero_runs": 0
   },
   "Bitwarden (greenhouse/bitwarden)": {
-    "count": 34,
+    "count": 36,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "BlackRock (workday/blackrock)": {
-    "count": 143,
+    "count": 144,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -318,7 +318,7 @@
     "zero_runs": 0
   },
   "Block (greenhouse/block)": {
-    "count": 226,
+    "count": 228,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -336,25 +336,25 @@
     "zero_runs": 0
   },
   "Boeing (workday/boeing)": {
-    "count": 492,
+    "count": 496,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Boeing (workday/boeing/INTERN)": {
-    "count": 30,
+    "count": 28,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Booz Allen Hamilton (workday/bah)": {
-    "count": 716,
+    "count": 711,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Brex (greenhouse/brex)": {
-    "count": 284,
+    "count": 282,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -372,43 +372,43 @@
     "zero_runs": 0
   },
   "Broadcom (workday/broadcom)": {
-    "count": 96,
+    "count": 95,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Bugcrowd (greenhouse/bugcrowd)": {
-    "count": 8,
+    "count": 7,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "CACI (workday/caci)": {
-    "count": 737,
+    "count": 735,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "CDW (workday/cdw)": {
-    "count": 53,
+    "count": 55,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "CVS Health (workday/cvshealth)": {
-    "count": 691,
+    "count": 682,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Capital One (workday/capitalone)": {
-    "count": 632,
+    "count": 635,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Cardinal Health (workday/cardinalhealth)": {
-    "count": 121,
+    "count": 119,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -420,7 +420,7 @@
     "zero_runs": 0
   },
   "Cato Networks (greenhouse/catonetworks)": {
-    "count": 90,
+    "count": 94,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -438,7 +438,7 @@
     "zero_runs": 0
   },
   "Chainalysis (ashby/chainalysis-careers)": {
-    "count": 50,
+    "count": 51,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -474,25 +474,25 @@
     "zero_runs": 0
   },
   "Cisco (workday/cisco)": {
-    "count": 648,
+    "count": 653,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Citi (workday/citi)": {
-    "count": 1115,
+    "count": 1117,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Citizens (oracle/hcgn.fa.us2.oraclecloud.com/CX_5001)": {
-    "count": 413,
+    "count": 423,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Cloudflare (greenhouse/cloudflare)": {
-    "count": 415,
+    "count": 418,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -516,13 +516,13 @@
     "zero_runs": 0
   },
   "Cockroach Labs (greenhouse/cockroachlabs)": {
-    "count": 19,
+    "count": 18,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Cohere (ashby/cohere)": {
-    "count": 135,
+    "count": 130,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -534,7 +534,7 @@
     "zero_runs": 0
   },
   "Comcast (workday/comcast)": {
-    "count": 120,
+    "count": 124,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -559,9 +559,9 @@
   },
   "Contrast Security (ashby/contrast-security)": {
     "count": 0,
-    "empty_runs": 46,
+    "empty_runs": 47,
     "last_nonzero": null,
-    "zero_runs": 46
+    "zero_runs": 47
   },
   "Corelight (greenhouse/corelight)": {
     "count": 9,
@@ -576,19 +576,19 @@
     "zero_runs": 0
   },
   "Cribl (greenhouse/cribl)": {
-    "count": 61,
+    "count": 62,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "CrowdStrike (workday/crowdstrike)": {
-    "count": 359,
+    "count": 350,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Cybereason (greenhouse/cybereason)": {
-    "count": 5,
+    "count": 2,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -600,7 +600,7 @@
     "zero_runs": 0
   },
   "DXC Technology (workday/dxctechnology)": {
-    "count": 506,
+    "count": 510,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -618,13 +618,13 @@
     "zero_runs": 0
   },
   "Databricks (greenhouse/databricks)": {
-    "count": 887,
+    "count": 888,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Datadog (greenhouse/datadog)": {
-    "count": 442,
+    "count": 433,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -636,34 +636,34 @@
     "zero_runs": 0
   },
   "Delinea (ashby/delinea)": {
-    "count": 75,
+    "count": 74,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Descope (greenhouse/descope)": {
-    "count": 5,
+    "count": 3,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "DigiCert (greenhouse/digicert)": {
-    "count": 55,
+    "count": 56,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Discord (greenhouse/discord)": {
-    "count": 51,
+    "count": 50,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Dispel (workable/dispel)": {
     "count": 0,
-    "empty_runs": 14,
+    "empty_runs": 15,
     "last_nonzero": "2026-09-30",
-    "zero_runs": 14
+    "zero_runs": 15
   },
   "DomainTools (workable/domain-tools)": {
     "count": 16,
@@ -684,13 +684,13 @@
     "zero_runs": 0
   },
   "Dragos (greenhouse/dragos)": {
-    "count": 51,
+    "count": 50,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Draper (workday/draper)": {
-    "count": 212,
+    "count": 211,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -702,37 +702,37 @@
     "zero_runs": 0
   },
   "Dropbox (greenhouse/dropbox)": {
-    "count": 40,
+    "count": 38,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Duke Energy (workday/dukeenergy)": {
-    "count": 39,
+    "count": 35,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "ESET (workday/eset)": {
-    "count": 86,
+    "count": 85,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Elastic (greenhouse/elastic)": {
-    "count": 402,
+    "count": 405,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Elevance Health (workday/elevancehealth)": {
-    "count": 32,
+    "count": 30,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Endor Labs (greenhouse/endorlabs)": {
-    "count": 29,
+    "count": 30,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -744,19 +744,19 @@
     "zero_runs": 0
   },
   "Epirus (greenhouse/epirus)": {
-    "count": 40,
+    "count": 41,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Epoch AI (lever/epoch-ai)": {
-    "count": 9,
+    "count": 8,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Equinix (workday/equinix)": {
-    "count": 140,
+    "count": 141,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -780,13 +780,13 @@
     "zero_runs": 0
   },
   "Evervault (ashby/evervault)": {
-    "count": 5,
+    "count": 4,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Exelon (jibe/jobs.exeloncorp.com)": {
-    "count": 20,
+    "count": 21,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -804,7 +804,7 @@
     "zero_runs": 0
   },
   "F5 (workday/ffive)": {
-    "count": 215,
+    "count": 209,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -822,31 +822,31 @@
     "zero_runs": 0
   },
   "Fastly (greenhouse/fastly)": {
-    "count": 43,
+    "count": 45,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Federal Reserve System (workday/rb)": {
-    "count": 124,
+    "count": 109,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Fidelity Investments (workday/fmr)": {
-    "count": 221,
+    "count": 211,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Fifth Third (workday/fifththird)": {
-    "count": 342,
+    "count": 343,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Figma (greenhouse/figma)": {
-    "count": 164,
+    "count": 159,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -858,7 +858,7 @@
     "zero_runs": 0
   },
   "Fireblocks (greenhouse/fireblocks)": {
-    "count": 28,
+    "count": 27,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -900,25 +900,25 @@
     "zero_runs": 0
   },
   "Fortinet (oracle/edel.fa.us2.oraclecloud.com/CX_2001)": {
-    "count": 984,
+    "count": 991,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Fortra (workday/fortra)": {
-    "count": 41,
+    "count": 43,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Freddie Mac (workday/freddiemac)": {
-    "count": 99,
+    "count": 94,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "GDIT (workday/gdit)": {
-    "count": 715,
+    "count": 712,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -948,7 +948,7 @@
     "zero_runs": 0
   },
   "Goldman Sachs (oracle/hdpc.fa.us2.oraclecloud.com/LateralHiring)": {
-    "count": 947,
+    "count": 927,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -960,22 +960,22 @@
     "zero_runs": 0
   },
   "Grafana Labs (greenhouse/grafanalabs)": {
-    "count": 125,
+    "count": 135,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Grant Thornton (oracle/ehzq.fa.us2.oraclecloud.com/CX_1)": {
-    "count": 182,
+    "count": 179,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Graylog (lever/graylog)": {
     "count": 0,
-    "empty_runs": 46,
+    "empty_runs": 47,
     "last_nonzero": null,
-    "zero_runs": 46
+    "zero_runs": 47
   },
   "GreyNoise (greenhouse/greynoiseintelligence)": {
     "count": 1,
@@ -990,7 +990,7 @@
     "zero_runs": 0
   },
   "Guidehouse (workday/guidehouse)": {
-    "count": 412,
+    "count": 414,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -1002,13 +1002,13 @@
     "zero_runs": 0
   },
   "HP Inc (workday/hp)": {
-    "count": 336,
+    "count": 333,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "HPE (workday/hpe)": {
-    "count": 632,
+    "count": 633,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -1032,7 +1032,7 @@
     "zero_runs": 0
   },
   "HackerOne (ashby/hackerone)": {
-    "count": 15,
+    "count": 13,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -1062,25 +1062,25 @@
     "zero_runs": 0
   },
   "Horizon3.ai (ashby/horizon3ai)": {
-    "count": 111,
+    "count": 112,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Hoxhunt (ashby/hoxhunt)": {
-    "count": 22,
+    "count": 21,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Humana (workday/humana)": {
-    "count": 82,
+    "count": 77,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Huntington Bank (workday/huntington)": {
-    "count": 347,
+    "count": 346,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -1098,13 +1098,13 @@
     "zero_runs": 0
   },
   "ID.me (greenhouse/idme)": {
-    "count": 55,
+    "count": 53,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Idaho National Laboratory (oracle/elhe.fa.us8.oraclecloud.com/CX_1001)": {
-    "count": 55,
+    "count": 49,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -1116,7 +1116,7 @@
     "zero_runs": 0
   },
   "Illumio (ashby/illumio)": {
-    "count": 64,
+    "count": 61,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -1152,7 +1152,7 @@
     "zero_runs": 0
   },
   "Intel (workday/intel)": {
-    "count": 432,
+    "count": 439,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -1170,13 +1170,13 @@
     "zero_runs": 0
   },
   "JFrog (greenhouse/jfrog)": {
-    "count": 64,
+    "count": 67,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "JPMorgan Chase (oracle/jpmc.fa.oraclecloud.com/CX_1001)": {
-    "count": 7286,
+    "count": 7323,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -1194,31 +1194,31 @@
     "zero_runs": 0
   },
   "Johnson & Johnson (workday/jj)": {
-    "count": 459,
+    "count": 475,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Jscrambler (smartrecruiters/jscrambler)": {
     "count": 0,
-    "empty_runs": 46,
+    "empty_runs": 47,
     "last_nonzero": null,
-    "zero_runs": 46
+    "zero_runs": 47
   },
   "Jumio (greenhouse/jumio)": {
-    "count": 28,
+    "count": 25,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "JupiterOne (workable/jupiterone)": {
     "count": 0,
-    "empty_runs": 22,
+    "empty_runs": 23,
     "last_nonzero": "2026-09-27",
-    "zero_runs": 22
+    "zero_runs": 23
   },
   "KBR (workday/kbr)": {
-    "count": 574,
+    "count": 575,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -1254,7 +1254,7 @@
     "zero_runs": 0
   },
   "KnowBe4 (greenhouse/knowbe4)": {
-    "count": 67,
+    "count": 66,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -1266,22 +1266,22 @@
     "zero_runs": 0
   },
   "Kyndryl (workday/kyndryl)": {
-    "count": 41,
+    "count": 46,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Kyndryl (workday/kyndryl/KyndrylProfessionalCareers)": {
-    "count": 686,
+    "count": 689,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Lakera (ashby/lakera.ai)": {
     "count": 0,
-    "empty_runs": 46,
+    "empty_runs": 47,
     "last_nonzero": null,
-    "zero_runs": 46
+    "zero_runs": 47
   },
   "Lansweeper (recruitee/lansweeper)": {
     "count": 13,
@@ -1290,31 +1290,31 @@
     "zero_runs": 0
   },
   "Lawrence Livermore National Laboratory (smartrecruiters/LLNL)": {
-    "count": 173,
+    "count": 170,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Leidos (workday/leidos)": {
-    "count": 728,
+    "count": 725,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Lockheed Martin (eightfold/lockheedmartin)": {
-    "count": 98,
+    "count": 93,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Lumen (eightfold/lumen)": {
-    "count": 36,
+    "count": 34,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Lyft (greenhouse/lyft)": {
-    "count": 189,
+    "count": 192,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -1326,19 +1326,19 @@
     "zero_runs": 0
   },
   "MITRE (phenom/careers.mitre.org)": {
-    "count": 293,
+    "count": 294,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Marqeta (ashby/marqeta-inc)": {
-    "count": 41,
+    "count": 44,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Mastercard (workday/mastercard)": {
-    "count": 654,
+    "count": 674,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -1350,13 +1350,13 @@
     "zero_runs": 0
   },
   "McKesson (workday/mckesson)": {
-    "count": 280,
+    "count": 286,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Medtronic (workday/medtronic)": {
-    "count": 655,
+    "count": 653,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -1368,7 +1368,7 @@
     "zero_runs": 0
   },
   "Merck (workday/msd)": {
-    "count": 169,
+    "count": 172,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -1381,12 +1381,12 @@
   },
   "Metomic (workable/metomic)": {
     "count": 0,
-    "empty_runs": 46,
+    "empty_runs": 47,
     "last_nonzero": null,
-    "zero_runs": 46
+    "zero_runs": 47
   },
   "Microsoft (eightfold/microsoft)": {
-    "count": 758,
+    "count": 739,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -1399,9 +1399,9 @@
   },
   "Mindgard (workable/mindgard)": {
     "count": 0,
-    "empty_runs": 46,
+    "empty_runs": 47,
     "last_nonzero": null,
-    "zero_runs": 46
+    "zero_runs": 47
   },
   "Miro (ashby/miro)": {
     "count": 26,
@@ -1410,7 +1410,7 @@
     "zero_runs": 0
   },
   "MongoDB (greenhouse/mongodb)": {
-    "count": 392,
+    "count": 393,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -1428,7 +1428,7 @@
     "zero_runs": 0
   },
   "NCC Group (pinpoint/nccgroup)": {
-    "count": 73,
+    "count": 75,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -1446,25 +1446,25 @@
     "zero_runs": 0
   },
   "Nationwide (workday/nationwide)": {
-    "count": 64,
+    "count": 67,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Netcraft (greenhouse/netcraft)": {
-    "count": 13,
+    "count": 14,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Netskope (greenhouse/netskope)": {
-    "count": 152,
+    "count": 150,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "New Relic (greenhouse/newrelic)": {
-    "count": 47,
+    "count": 48,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -1476,31 +1476,31 @@
     "zero_runs": 0
   },
   "Nightwing (workday/nwis)": {
-    "count": 347,
+    "count": 350,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Nike (workday/nike)": {
-    "count": 98,
+    "count": 97,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Northern Trust (workday/ntrs)": {
-    "count": 169,
+    "count": 171,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Northrop Grumman (workday/ngc)": {
-    "count": 972,
+    "count": 964,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Notion (ashby/notion)": {
-    "count": 135,
+    "count": 133,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -1518,7 +1518,7 @@
     "zero_runs": 0
   },
   "OPSWAT (greenhouse/opswat)": {
-    "count": 101,
+    "count": 100,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -1530,13 +1530,13 @@
     "zero_runs": 0
   },
   "Okta (greenhouse/okta)": {
-    "count": 364,
+    "count": 377,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "OneTrust (greenhouse/onetrust)": {
-    "count": 91,
+    "count": 92,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -1554,13 +1554,13 @@
     "zero_runs": 0
   },
   "OpenAI (ashby/openai)": {
-    "count": 821,
+    "count": 819,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Optiv (workday/optiv)": {
-    "count": 49,
+    "count": 47,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -1602,49 +1602,49 @@
     "zero_runs": 0
   },
   "PNC (workday/pnc)": {
-    "count": 74,
+    "count": 73,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "PNNL (jibe/careers.pnnl.gov)": {
-    "count": 15,
+    "count": 16,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "PagerDuty (greenhouse/pagerduty)": {
-    "count": 52,
+    "count": 53,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Palantir (lever/palantir)": {
-    "count": 240,
+    "count": 238,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Palo Alto Networks (workday/paloaltonetworks)": {
-    "count": 644,
+    "count": 637,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Panther Labs (greenhouse/pantherlabs)": {
     "count": 0,
-    "empty_runs": 46,
+    "empty_runs": 47,
     "last_nonzero": null,
-    "zero_runs": 46
+    "zero_runs": 47
   },
   "Parsons (workday/parsons)": {
-    "count": 584,
+    "count": 583,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "PayPal (workday/paypal)": {
-    "count": 299,
+    "count": 301,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -1656,25 +1656,25 @@
     "zero_runs": 0
   },
   "Pfizer (workday/pfizer)": {
-    "count": 79,
+    "count": 84,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Ping Identity (greenhouse/pingidentity)": {
-    "count": 61,
+    "count": 56,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Pinterest (greenhouse/pinterest)": {
-    "count": 174,
+    "count": 175,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Plaid (ashby/plaid)": {
-    "count": 120,
+    "count": 122,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -1710,7 +1710,7 @@
     "zero_runs": 0
   },
   "Protiviti (workday/roberthalf)": {
-    "count": 112,
+    "count": 111,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -1734,19 +1734,19 @@
     "zero_runs": 0
   },
   "PwC (workday/pwc/US_Experienced_Careers)": {
-    "count": 143,
+    "count": 142,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Qualcomm (eightfold/qualcomm)": {
-    "count": 149,
+    "count": 150,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Qualys (workday/qualys)": {
-    "count": 152,
+    "count": 154,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -1758,19 +1758,19 @@
     "zero_runs": 0
   },
   "Rackspace (workday/rackspace)": {
-    "count": 56,
+    "count": 55,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Ramp (ashby/ramp)": {
-    "count": 159,
+    "count": 160,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Rapid7 (workday/mymoose)": {
-    "count": 37,
+    "count": 36,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -1782,7 +1782,7 @@
     "zero_runs": 0
   },
   "Red Hat (workday/redhat)": {
-    "count": 91,
+    "count": 92,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -1818,67 +1818,67 @@
     "zero_runs": 0
   },
   "Ripple (greenhouse/ripple)": {
-    "count": 129,
+    "count": 128,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Robinhood (greenhouse/robinhood)": {
-    "count": 156,
+    "count": 159,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Roblox (greenhouse/roblox)": {
-    "count": 255,
+    "count": 257,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Rubrik (greenhouse/rubrik)": {
-    "count": 129,
+    "count": 130,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "SAIC (oracle/eihu.fa.us8.oraclecloud.com/CX)": {
-    "count": 1005,
+    "count": 1007,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "SANS Institute (pinpoint/sans)": {
-    "count": 2,
+    "count": 5,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "STR (greenhouse/systemstechnologyresearch)": {
-    "count": 139,
+    "count": 135,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "SafeBreach (greenhouse/safebreach)": {
-    "count": 7,
+    "count": 8,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Safety CLI (ashby/safety)": {
     "count": 0,
-    "empty_runs": 46,
+    "empty_runs": 47,
     "last_nonzero": null,
-    "zero_runs": 46
+    "zero_runs": 47
   },
   "SailPoint (workday/sailpoint)": {
-    "count": 104,
+    "count": 111,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Salesforce (workday/salesforce)": {
-    "count": 650,
+    "count": 652,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -1890,7 +1890,7 @@
     "zero_runs": 0
   },
   "Samsara (greenhouse/samsara)": {
-    "count": 243,
+    "count": 240,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -1902,13 +1902,13 @@
     "zero_runs": 0
   },
   "Saronic (ashby/saronic)": {
-    "count": 207,
+    "count": 204,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Saviynt (lever/saviynt)": {
-    "count": 33,
+    "count": 34,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -1938,7 +1938,7 @@
     "zero_runs": 0
   },
   "SecurityScorecard (greenhouse/securityscorecard)": {
-    "count": 11,
+    "count": 10,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -1962,7 +1962,7 @@
     "zero_runs": 0
   },
   "SentinelOne (greenhouse/sentinellabs)": {
-    "count": 253,
+    "count": 258,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -1992,7 +1992,7 @@
     "zero_runs": 0
   },
   "Sierra Nevada Corporation (workday/snc)": {
-    "count": 329,
+    "count": 330,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -2010,7 +2010,7 @@
     "zero_runs": 0
   },
   "Snowflake (ashby/snowflake)": {
-    "count": 349,
+    "count": 356,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -2028,13 +2028,13 @@
     "zero_runs": 0
   },
   "Socure (ashby/socure)": {
-    "count": 79,
+    "count": 81,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Software Engineering Institute (workday/cmu)": {
-    "count": 51,
+    "count": 52,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -2058,7 +2058,7 @@
     "zero_runs": 0
   },
   "Southern Company (oracle/emje.fa.us6.oraclecloud.com/SouthernCompanyJobs)": {
-    "count": 104,
+    "count": 102,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -2088,7 +2088,7 @@
     "zero_runs": 0
   },
   "State Street (workday/statestreet)": {
-    "count": 488,
+    "count": 492,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -2100,16 +2100,16 @@
     "zero_runs": 0
   },
   "Stripe (greenhouse/stripe)": {
-    "count": 718,
+    "count": 721,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Sublime Security (ashby/sublime-security)": {
     "count": 0,
-    "empty_runs": 46,
+    "empty_runs": 47,
     "last_nonzero": null,
-    "zero_runs": 46
+    "zero_runs": 47
   },
   "Sumo Logic (greenhouse/sumologic)": {
     "count": 9,
@@ -2130,25 +2130,25 @@
     "zero_runs": 0
   },
   "Synchrony (workday/synchronyfinancial)": {
-    "count": 35,
+    "count": 38,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Sysdig (lever/sysdig)": {
-    "count": 13,
+    "count": 15,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "T-Mobile (workday/tmobile)": {
-    "count": 125,
+    "count": 124,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "TD Bank (workday/td)": {
-    "count": 476,
+    "count": 469,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -2160,19 +2160,19 @@
     "zero_runs": 0
   },
   "Tailscale (greenhouse/tailscale)": {
-    "count": 57,
+    "count": 55,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Tanium (greenhouse/tanium)": {
-    "count": 56,
+    "count": 55,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Target (workday/target)": {
-    "count": 534,
+    "count": 536,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -2196,19 +2196,19 @@
     "zero_runs": 0
   },
   "The Cigna Group (workday/cigna)": {
-    "count": 166,
+    "count": 169,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "The Hartford (workday/thehartford)": {
-    "count": 88,
+    "count": 91,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "The Home Depot (workday/homedepot)": {
-    "count": 171,
+    "count": 175,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -2220,7 +2220,7 @@
     "zero_runs": 0
   },
   "Toast (greenhouse/toast)": {
-    "count": 325,
+    "count": 329,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -2262,31 +2262,31 @@
     "zero_runs": 0
   },
   "Travelers (workday/travelers)": {
-    "count": 298,
+    "count": 306,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Trellix (workday/trellix)": {
-    "count": 62,
+    "count": 61,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Trend Micro (workday/trendmicro)": {
-    "count": 197,
+    "count": 194,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Truist (workday/truist)": {
-    "count": 184,
+    "count": 187,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Twilio (greenhouse/twilio)": {
-    "count": 128,
+    "count": 131,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -2298,25 +2298,25 @@
     "zero_runs": 0
   },
   "Two Six Technologies (greenhouse/twosixtechnologies)": {
-    "count": 75,
+    "count": 76,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "U.S. Bank (workday/usbank)": {
-    "count": 478,
+    "count": 484,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "USAA (workday/usaa)": {
-    "count": 218,
+    "count": 217,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Unisys (workday/unisys)": {
-    "count": 283,
+    "count": 280,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -2328,13 +2328,13 @@
     "zero_runs": 0
   },
   "Vanguard (workday/vanguard)": {
-    "count": 201,
+    "count": 209,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Vannevar Labs (greenhouse/vannevarlabs)": {
-    "count": 29,
+    "count": 28,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -2346,7 +2346,7 @@
     "zero_runs": 0
   },
   "Vectra AI (greenhouse/vectranetworks)": {
-    "count": 29,
+    "count": 28,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -2364,7 +2364,7 @@
     "zero_runs": 0
   },
   "Verizon (workday/verizon)": {
-    "count": 224,
+    "count": 233,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -2382,19 +2382,19 @@
     "zero_runs": 0
   },
   "Visa (workday/visa)": {
-    "count": 289,
+    "count": 298,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Wallarm (recruitee/wallarm)": {
     "count": 0,
-    "empty_runs": 46,
+    "empty_runs": 47,
     "last_nonzero": null,
-    "zero_runs": 46
+    "zero_runs": 47
   },
   "Walmart (workday/walmart)": {
-    "count": 1119,
+    "count": 1122,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -2412,7 +2412,7 @@
     "zero_runs": 0
   },
   "Wells Fargo (workday/wf)": {
-    "count": 455,
+    "count": 452,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -2424,7 +2424,7 @@
     "zero_runs": 0
   },
   "Wiz (greenhouse/wizinc)": {
-    "count": 132,
+    "count": 131,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -2436,7 +2436,7 @@
     "zero_runs": 0
   },
   "Workday (workday/workday)": {
-    "count": 320,
+    "count": 317,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -2454,19 +2454,19 @@
     "zero_runs": 0
   },
   "Zapier (ashby/zapier)": {
-    "count": 10,
+    "count": 9,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Zoom (workday/zoom)": {
-    "count": 36,
+    "count": 38,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
   },
   "Zscaler (greenhouse/zscaler)": {
-    "count": 363,
+    "count": 366,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0
@@ -2478,7 +2478,7 @@
     "zero_runs": 0
   },
   "xAI (greenhouse/xai)": {
-    "count": 302,
+    "count": 304,
     "empty_runs": 0,
     "last_nonzero": "2026-10-06",
     "zero_runs": 0

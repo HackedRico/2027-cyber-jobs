@@ -15,13 +15,14 @@ Employers with open roles on the board today.
 | Vanguard | 5 | 6 |  |
 | American Express | 4 | 4 |  |
 | RTX | 7 |  | 8 |
-| Microsoft | 7 |  | 4 |
+| Microsoft | 7 |  | 5 |
 | Palo Alto Networks | 5 | 1 | 2 |
 | BDO | 4 | 1 | 1 |
 | HPE | 3 | 2 | 1 |
 | MITRE | 3 | 1 | 2 |
 | Tanium | 4 |  |  |
-| Northrop Grumman |  | 3 | 12 |
+| Northrop Grumman |  | 3 | 14 |
+| CACI | 3 |  | 2 |
 | Cisco | 3 |  | 2 |
 | Goldman Sachs | 3 |  | 1 |
 | Federal Reserve System | 3 |  |  |
@@ -33,7 +34,6 @@ Employers with open roles on the board today.
 | Walmart | 3 |  |  |
 | Amazon | 1 | 1 | 14 |
 | Battelle | 2 |  | 3 |
-| CACI | 2 |  | 2 |
 | Appian | 1 | 1 | 1 |
 | ID.me |  | 2 | 1 |
 | Applied Intuition |  | 2 |  |
