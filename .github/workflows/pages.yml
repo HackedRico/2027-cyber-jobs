@@ -6,6 +6,11 @@ on:
   workflow_run:
     workflows: [Scrape Job Boards, Check Links, Add Approved Listings]
     types: [completed]
+  # A follow-on run can be lost before it starts: in GitHub's 5 Oct 2026 Actions
+  # incident no hosted runner took the build, and Pages served the older listings
+  # until the next writer. Rebuilding from main every six hours bounds that gap.
+  schedule:
+    - cron: '41 1,7,13,19 * * *'
   push:
     branches: [main]
     paths:

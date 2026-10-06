@@ -147,6 +147,16 @@ for name, workflow in WORKFLOWS.items():
                     check(f'{name}: {job_name} runs check_outputs.py before {line!r}', checked)
                     checked = False
 
+# A workflow that follows the writers through workflow_run also runs on a
+# schedule. GitHub's 5 Oct 2026 Actions incident left two such runs unassigned
+# to any runner ('The job was not acquired by Runner of type hosted even after
+# multiple attempts'), and Pages served the older build until the next writer.
+for name, workflow in WORKFLOWS.items():
+    on = workflow.get(True) or workflow.get('on') or {}
+    if isinstance(on, dict) and 'workflow_run' in on:
+        check(f'{name} follows the writers through workflow_run, so it needs a schedule '
+              'that catches up a run lost to a runner outage', 'schedule' in on)
+
 # The issue form offers exactly the categories the classifier can give, and
 # CONTRIBUTING.md names each one.
 categories = set(classify.CATEGORY_NAMES) | set(classify.FALLBACK_CATEGORIES)
