@@ -4,7 +4,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **408 companies tracked.**
 
-## Hiring students now (104)
+## Hiring students now (106)
 
 Employers with open roles on the board today.
 
@@ -14,19 +14,20 @@ Employers with open roles on the board today.
 | Booz Allen Hamilton | 17 |  | 4 |
 | Vanguard | 5 | 6 |  |
 | American Express | 4 | 4 |  |
-| RTX | 7 |  | 9 |
+| RTX | 7 |  | 8 |
 | Microsoft | 7 |  | 4 |
 | Palo Alto Networks | 5 | 1 | 2 |
-| Northrop Grumman | 2 | 3 | 11 |
 | BDO | 4 | 1 | 1 |
+| HPE | 3 | 2 | 1 |
 | MITRE | 3 | 1 | 2 |
-| HPE | 2 | 2 | 1 |
 | Tanium | 4 |  |  |
+| Northrop Grumman |  | 3 | 12 |
 | Cisco | 3 |  | 2 |
 | Goldman Sachs | 3 |  | 1 |
 | Federal Reserve System | 3 |  |  |
 | Fifth Third | 3 |  |  |
 | Immuta | 3 |  |  |
+| Intel | 3 |  |  |
 | Palantir | 2 | 1 |  |
 | The Cigna Group | 2 | 1 |  |
 | Walmart | 3 |  |  |
@@ -34,11 +35,11 @@ Employers with open roles on the board today.
 | Battelle | 2 |  | 3 |
 | CACI | 2 |  | 2 |
 | Appian | 1 | 1 | 1 |
+| ID.me |  | 2 | 1 |
 | Applied Intuition |  | 2 |  |
 | Boeing | 1 | 1 |  |
 | Honeywell | 2 |  |  |
 | Idaho National Laboratory | 2 |  |  |
-| Intel | 2 |  |  |
 | Lockheed Martin | 2 |  |  |
 | Qualcomm | 2 |  |  |
 | Robinhood | 2 |  |  |
@@ -76,6 +77,7 @@ Employers with open roles on the board today.
 | Recorded Future |  |  | 3 |
 | Amentum |  |  | 2 |
 | JPMorgan Chase |  |  | 2 |
+| Pinterest |  |  | 2 |
 | SAIC |  |  | 2 |
 | Trail of Bits |  |  | 2 |
 | Abnormal AI |  |  | 1 |
@@ -96,12 +98,12 @@ Employers with open roles on the board today.
 | Fortra |  |  | 1 |
 | Freddie Mac |  |  | 1 |
 | HII |  |  | 1 |
-| ID.me |  |  | 1 |
+| Huntress |  |  | 1 |
 | Illumio |  |  | 1 |
 | Lumen |  |  | 1 |
 | MIT Lincoln Laboratory |  |  | 1 |
+| Netskope |  |  | 1 |
 | Obsidian Security |  |  | 1 |
-| Pinterest |  |  | 1 |
 | PNNL |  |  | 1 |
 | Praetorian |  |  | 1 |
 | PwC |  |  | 1 |
