@@ -1387,7 +1387,7 @@ def _location_city_key(loc):
     return loc.split(',')[0].strip().lower()
 
 
-def normalize_location(location):
+def normalize_location(location, mark_us=True):
     """Convert "USA - Austin, Texas" -> "Austin, TX"; collapse remote variants.
 
     Multi-location strings (";" or "|" separated) drop a bare-city part
@@ -1395,6 +1395,10 @@ def normalize_location(location):
     genuinely distinct qualified parts ("Portland, OR; Portland, ME") are
     kept. Foreign options are dropped once any US part remains, since the
     board is US-only and "London, UK" beside "Remote (US)" is noise.
+
+    A US part whose normalized form names no US place keeps a "(US)" marker.
+    `mark_us=False` returns the bare form, so a caller can see a stored
+    location decay ("Ma, US" -> "Ma") instead of reading the marker as US.
     """
     if not location:
         return location
@@ -1403,6 +1407,11 @@ def normalize_location(location):
         if not raw.strip():
             continue
         norm = _normalize_single_location(raw)
+        # Dropping the country must not drop the only US signal: Palo Alto
+        # Networks 'Cleveland, United States of America' became 'Cleveland',
+        # which check_outputs.py re-judged as not US, failing two scrape runs.
+        if mark_us and norm and is_us_location(raw) and not is_us_location(norm):
+            norm = 'Remote (US)' if REMOTE_WORD_RE.search(norm) else f'{norm} (US)'
         if norm and norm not in seen:
             seen.append(norm)
     domestic = [s for s in seen if not _is_foreign_part(s)]

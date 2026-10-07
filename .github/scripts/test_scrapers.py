@@ -2402,6 +2402,25 @@ def test_workday_fingerprint_survives_a_location_move():
     check('...and is not inserted again under its new location', added, [])
 
 
+def test_insert_keeps_only_rows_check_outputs_accepts():
+    """Palo Alto Networks' Cleveland row failed check_outputs.py two runs running."""
+    job = {'company': 'Palo Alto Networks', 'board': 'Workday', 'id': 'wd-cle',
+           'title': 'Solutions Consultant 2 - Strategic Accounts',
+           'location': 'Cleveland, United States of America',
+           'url': 'https://jobs.paloaltonetworks.com/job/Cleveland/SC-2_R1'}
+    added, _ = sj.insert_new_listings([], [job], {}, {'wd-cle': True}, '2026-10-07')
+    check('a US city with no state lands with a US marker',
+          [r['location'] for r in added], ['Cleveland (US)'])
+    original = sj.normalize_location
+    try:
+        sj.normalize_location = lambda location: 'Narnia'
+        added, _ = sj.insert_new_listings([], [dict(job, id='wd-x')], {}, {'wd-x': True},
+                                          '2026-10-07')
+    finally:
+        sj.normalize_location = original
+    check('a row whose stored location is not US is skipped, not written', added, [])
+
+
 RTX = 'https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/'
 
 
@@ -3021,7 +3040,8 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_payload_paths_cannot_name_another_host,
            test_control_characters_never_reach_a_row,
            test_log_lines_cannot_start_a_workflow_command,
-           test_check_slugs_reports_who_owns_each_board):
+           test_check_slugs_reports_who_owns_each_board,
+           test_insert_keeps_only_rows_check_outputs_accepts):
     fn()
 
 if failures:
