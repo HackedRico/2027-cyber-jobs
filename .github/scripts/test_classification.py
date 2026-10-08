@@ -717,6 +717,14 @@ print(f'\n{len(CASES) - failures}/{len(CASES)} passed')
 
 # Location normalization checks
 NORM = [
+    # A US city with no state named keeps a US marker: Palo Alto Networks
+    # 'Cleveland, United States of America' was stored as 'Cleveland', which
+    # check_outputs.py read as not US, and that one row failed two scrape runs.
+    ('Cleveland, United States of America', 'Cleveland (US)'),
+    ('Burbank, United States of America', 'Burbank (US)'),
+    ('US - Remote (Any location)', 'Remote (US)'),
+    ('UNITED STATES - Remote, CANADA - Remote, LATAM - Remote', 'Remote (US)'),
+    ('US-Nationwide-FIELD', 'Nationwide-FIELD (US)'),
     ('Austin, Texas', 'Austin, TX'),
     ('Remote', 'Remote (US)'),
     ('remote - us', 'Remote (US)'),
@@ -1076,6 +1084,14 @@ for loc, want in US_LOC:
     if got != want:
         failures += 1
         print(f'FAIL is_us_location({loc!r}) = {got!r}, want {want!r}')
+
+# Normalizing never takes a location off the board: check_outputs.py re-judges
+# the stored form, so a US location that normalizes to a non-US one fails the
+# whole writer run.
+for raw in [r for r, _ in NORM] + [r for r, *_ in US_LOC]:
+    if s.is_us_location(raw) and not s.is_us_location(s.normalize_location(raw)):
+        failures += 1
+        print(f'FAIL normalize_location({raw!r}) = {s.normalize_location(raw)!r} loses the US')
 
 # requires_experience: phrasing coverage + no false positive on incidental years.
 EXP = [

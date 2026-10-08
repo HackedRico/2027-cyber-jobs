@@ -1919,7 +1919,8 @@ def _location_is_broken(location):
     # run first.
     parts = [p for p in re.split(r'[;|]', location or '') if p.strip()]
     return not parts or any(
-        not is_us_location(p) or not is_us_location(normalize_location(p)) for p in parts)
+        not is_us_location(p) or not is_us_location(normalize_location(p, mark_us=False))
+        for p in parts)
 
 
 def repair_broken_locations(listings, raw_jobs):
@@ -2518,6 +2519,13 @@ def insert_new_listings(listings, raw_jobs, seen, sec_flags, today):
             'source': job.get('board', ''),
             'date_added': today,
         }
+        # check_outputs.py re-judges each new row's stored form and fails the
+        # whole run on one it rejects, which dropped every other new row and
+        # closure from two scrapes over one Cleveland row. Skip it here instead.
+        if is_rejected_title(row['role']) or not is_us_location(row['location']):
+            print(f'  SKIPPED [stored-form] {_oneline(job["company"])} — '
+                  f'{_oneline(job["title"])} @ {_oneline(location)!r}')
+            continue
         listings.append(row)
         added_rows.append(row)
         print(f'  NEW [{level}] {_oneline(job["company"])} — {_oneline(job["title"])} '
