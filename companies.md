@@ -4,20 +4,20 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **408 companies tracked.**
 
-## Hiring students now (108)
+## Hiring students now (111)
 
 Employers with open roles on the board today.
 
 | Company | Internships | New grad | Early career |
 | ------- | ----------- | -------- | ------------ |
-| Johns Hopkins APL | 11 | 10 |  |
+| Johns Hopkins APL | 11 | 11 |  |
 | Booz Allen Hamilton | 17 |  | 4 |
 | Vanguard | 5 | 6 |  |
+| RTX | 8 |  | 8 |
 | American Express | 4 | 4 |  |
-| RTX | 7 |  | 8 |
 | Microsoft | 7 |  | 5 |
+| MITRE | 5 | 1 | 5 |
 | Palo Alto Networks | 5 | 1 | 3 |
-| MITRE | 4 | 1 | 4 |
 | HPE | 3 | 2 | 1 |
 | Northrop Grumman |  | 4 | 14 |
 | Cisco | 4 |  | 2 |
@@ -26,6 +26,7 @@ Employers with open roles on the board today.
 | BDO | 3 |  | 1 |
 | Federal Reserve System | 3 |  | 1 |
 | Goldman Sachs | 3 |  | 1 |
+| GuidePoint Security | 3 |  | 1 |
 | Fifth Third | 3 |  |  |
 | Immuta | 3 |  |  |
 | Intel | 3 |  |  |
@@ -50,7 +51,6 @@ Employers with open roles on the board today.
 | Leidos | 1 |  | 5 |
 | GDIT | 1 |  | 2 |
 | The Home Depot | 1 |  | 2 |
-| GuidePoint Security | 1 |  | 1 |
 | Motorola Solutions | 1 |  | 1 |
 | NVIDIA |  | 1 | 1 |
 | Parsons | 1 |  | 1 |
@@ -65,6 +65,7 @@ Employers with open roles on the board today.
 | Grant Thornton |  | 1 |  |
 | HP Inc | 1 |  |  |
 | Johnson &amp; Johnson | 1 |  |  |
+| KeyBank |  | 1 |  |
 | National Laboratory of the Rockies | 1 |  |  |
 | OPSWAT | 1 |  |  |
 | Prophet Security | 1 |  |  |
@@ -115,8 +116,10 @@ Employers with open roles on the board today.
 | Snowflake |  |  | 1 |
 | STR |  |  | 1 |
 | Tenable |  |  | 1 |
+| Tines |  |  | 1 |
 | Trellix |  |  | 1 |
 | Two Six Technologies |  |  | 1 |
+| U.S. Bank |  |  | 1 |
 | Verizon |  |  | 1 |
 
 ## Every tracked board (408)

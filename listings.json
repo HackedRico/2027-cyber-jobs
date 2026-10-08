@@ -2732,7 +2732,8 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Systems-Security-Engineering-Intern--Summer-2027-_01874755",
     "source": "Workday",
-    "date_added": "2026-09-14"
+    "date_added": "2026-09-14",
+    "missing_since": "2026-10-08"
   },
   {
     "company": "RTX",
@@ -3985,7 +3986,8 @@
     "clearance": true,
     "url": "https://lockheedmartin.eightfold.ai/careers/job/996476900832",
     "source": "Eightfold",
-    "date_added": "2026-09-28"
+    "date_added": "2026-09-28",
+    "missing_since": "2026-10-08"
   },
   {
     "company": "Lockheed Martin",
@@ -3996,7 +3998,8 @@
     "clearance": true,
     "url": "https://lockheedmartin.eightfold.ai/careers/job/996476901746",
     "source": "Eightfold",
-    "date_added": "2026-09-28"
+    "date_added": "2026-09-28",
+    "missing_since": "2026-10-08"
   },
   {
     "company": "Microsoft",
@@ -5246,11 +5249,9 @@
     "type": "earlycareer",
     "category": "Forensics & IR",
     "clearance": true,
-    "url": "",
+    "url": "https://usbank.wd1.myworkdayjobs.com/US_Bank_Careers/job/Cincinnati-OH/Digital-Forensic-Examiner_2026-0026562",
     "source": "Workday",
-    "date_added": "2026-10-03",
-    "closed": true,
-    "closed_date": "2026-10-08"
+    "date_added": "2026-10-03"
   },
   {
     "company": "The Cigna Group",
@@ -5943,7 +5944,8 @@
     "clearance": false,
     "url": "https://job-boards.greenhouse.io/idme/jobs/8011089003",
     "source": "Greenhouse",
-    "date_added": "2026-10-06"
+    "date_added": "2026-10-06",
+    "missing_since": "2026-10-08"
   },
   {
     "company": "Intel",
@@ -5965,8 +5967,7 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-Redondo-Beach/Cloud-Software-Engineer--Level-2----AHT_R10249870",
     "source": "Workday",
-    "date_added": "2026-10-06",
-    "missing_since": "2026-10-08"
+    "date_added": "2026-10-06"
   },
   {
     "company": "HPE",
@@ -6110,7 +6111,8 @@
     "clearance": false,
     "url": "https://entrust.wd1.myworkdayjobs.com/EntrustCareers/job/United-States---Shakopee-MN-GHQ/Software-Engineer-Co-op_R004416",
     "source": "Workday",
-    "date_added": "2026-10-08"
+    "date_added": "2026-10-08",
+    "missing_since": "2026-10-08"
   },
   {
     "company": "Entrust",
@@ -6198,6 +6200,94 @@
     "clearance": true,
     "url": "https://careers.mitre.org/us/en/job/R117730",
     "source": "Phenom",
+    "date_added": "2026-10-08"
+  },
+  {
+    "company": "GuidePoint Security",
+    "role": "Application Security Intern - GPSU/NE",
+    "location": "Remote (US)",
+    "type": "intern",
+    "category": "AppSec & ProdSec",
+    "clearance": false,
+    "url": "https://boards.greenhouse.io/guidepointsecurity/jobs/6218639004?gh_jid=6218639004",
+    "source": "Greenhouse",
+    "date_added": "2026-10-08"
+  },
+  {
+    "company": "GuidePoint Security",
+    "role": "Cloud Infrastructure Intern - GPSU/NE",
+    "location": "Remote (US)",
+    "type": "intern",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://boards.greenhouse.io/guidepointsecurity/jobs/6218667004?gh_jid=6218667004",
+    "source": "Greenhouse",
+    "date_added": "2026-10-08"
+  },
+  {
+    "company": "Tines",
+    "role": "Technical Support Engineer I",
+    "location": "Boston, MA",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/tines/jobs/6220150004",
+    "source": "Greenhouse",
+    "date_added": "2026-10-08"
+  },
+  {
+    "company": "RTX",
+    "role": "Systems Security Engineering Intern  (Summer 2027)",
+    "location": "Fullerton, CA",
+    "type": "intern",
+    "category": "Cloud & Infra Security",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-FULLERTON-675--1801-Hughes-Dr--BLDG-675/Systems-Security-Engineering-Intern---Summer-2027-_01878922",
+    "source": "Workday",
+    "date_added": "2026-10-08"
+  },
+  {
+    "company": "KeyBank",
+    "role": "2027 Key Technology & Services: Cyber/Information Security Track Rotational Analyst Program - Cleveland",
+    "location": "Brooklyn, OH",
+    "type": "newgrad",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://keybank.wd5.myworkdayjobs.com/External_Career_Site/job/Brooklyn-OH/XMLNAME-2027-Key-Technology---Services--Cyber-Information-Security-Track-Rotational-Analyst-Program---Cleveland_R-41389-1",
+    "source": "Workday",
+    "date_added": "2026-10-08"
+  },
+  {
+    "company": "MITRE",
+    "role": "Cybersecurity Engineer Intern",
+    "location": "McLean, VA; Bedford, MA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://careers.mitre.org/us/en/job/R117737",
+    "source": "Phenom",
+    "date_added": "2026-10-08"
+  },
+  {
+    "company": "MITRE",
+    "role": "Associate Wireless Security Engineer",
+    "location": "Bedford, MA; McLean, VA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://careers.mitre.org/us/en/job/R116389",
+    "source": "Phenom",
+    "date_added": "2026-10-08"
+  },
+  {
+    "company": "Johns Hopkins APL",
+    "role": "2027 Graduate - Analyst/Researcher - Cyber Capabilities Development",
+    "location": "Laurel, MD",
+    "type": "newgrad",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://careers.jhuapl.edu/jobs/60428",
+    "source": "Jibe",
     "date_added": "2026-10-08"
   }
 ]

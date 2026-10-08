@@ -4,11 +4,6 @@
   "ok": 399,
   "empty": 15,
   "failed": [],
-  "regressed": [
-    {
-      "board": "runZero (greenhouse/runzero)",
-      "had": 1
-    }
-  ],
+  "regressed": [],
   "silent": 14
 }
