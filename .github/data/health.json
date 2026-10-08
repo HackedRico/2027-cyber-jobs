@@ -1,9 +1,14 @@
 {
-  "date": "2026-10-06",
+  "date": "2026-10-08",
   "boards": 414,
-  "ok": 400,
-  "empty": 14,
+  "ok": 399,
+  "empty": 15,
   "failed": [],
-  "regressed": [],
+  "regressed": [
+    {
+      "board": "runZero (greenhouse/runzero)",
+      "had": 1
+    }
+  ],
   "silent": 14
 }

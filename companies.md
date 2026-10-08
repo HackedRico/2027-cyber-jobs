@@ -4,7 +4,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **408 companies tracked.**
 
-## Hiring students now (106)
+## Hiring students now (108)
 
 Employers with open roles on the board today.
 
@@ -16,41 +16,43 @@ Employers with open roles on the board today.
 | American Express | 4 | 4 |  |
 | RTX | 7 |  | 8 |
 | Microsoft | 7 |  | 5 |
-| Palo Alto Networks | 5 | 1 | 2 |
-| BDO | 4 | 1 | 1 |
+| Palo Alto Networks | 5 | 1 | 3 |
+| MITRE | 4 | 1 | 4 |
 | HPE | 3 | 2 | 1 |
-| MITRE | 3 | 1 | 2 |
+| Northrop Grumman |  | 4 | 14 |
+| Cisco | 4 |  | 2 |
 | Tanium | 4 |  |  |
-| Northrop Grumman |  | 3 | 14 |
 | CACI | 3 |  | 2 |
-| Cisco | 3 |  | 2 |
+| BDO | 3 |  | 1 |
+| Federal Reserve System | 3 |  | 1 |
 | Goldman Sachs | 3 |  | 1 |
-| Federal Reserve System | 3 |  |  |
 | Fifth Third | 3 |  |  |
 | Immuta | 3 |  |  |
 | Intel | 3 |  |  |
+| Lockheed Martin | 3 |  |  |
 | Palantir | 2 | 1 |  |
 | The Cigna Group | 2 | 1 |  |
 | Walmart | 3 |  |  |
 | Amazon | 1 | 1 | 14 |
+| Software Engineering Institute | 2 |  | 6 |
 | Battelle | 2 |  | 3 |
 | Appian | 1 | 1 | 1 |
 | ID.me |  | 2 | 1 |
 | Applied Intuition |  | 2 |  |
 | Boeing | 1 | 1 |  |
+| Entrust | 2 |  |  |
 | Honeywell | 2 |  |  |
 | Idaho National Laboratory | 2 |  |  |
-| Lockheed Martin | 2 |  |  |
 | Qualcomm | 2 |  |  |
 | Robinhood | 2 |  |  |
 | TD Bank | 2 |  |  |
 | Nightwing | 1 |  | 8 |
-| Software Engineering Institute | 1 |  | 6 |
 | Leidos | 1 |  | 5 |
 | GDIT | 1 |  | 2 |
 | The Home Depot | 1 |  | 2 |
 | GuidePoint Security | 1 |  | 1 |
 | Motorola Solutions | 1 |  | 1 |
+| NVIDIA |  | 1 | 1 |
 | Parsons | 1 |  | 1 |
 | Sierra Nevada Corporation | 1 |  | 1 |
 | Verkada | 1 |  | 1 |
@@ -64,8 +66,9 @@ Employers with open roles on the board today.
 | HP Inc | 1 |  |  |
 | Johnson &amp; Johnson | 1 |  |  |
 | National Laboratory of the Rockies | 1 |  |  |
-| NVIDIA |  | 1 |  |
+| OPSWAT | 1 |  |  |
 | Prophet Security | 1 |  |  |
+| Rubrik |  | 1 |  |
 | Semgrep | 1 |  |  |
 | State Farm | 1 |  |  |
 | TRM Labs |  | 1 |  |
@@ -75,6 +78,7 @@ Employers with open roles on the board today.
 | ExtraHop |  |  | 3 |
 | Kyndryl |  |  | 3 |
 | Recorded Future |  |  | 3 |
+| AeroVironment |  |  | 2 |
 | Amentum |  |  | 2 |
 | JPMorgan Chase |  |  | 2 |
 | Pinterest |  |  | 2 |
@@ -82,7 +86,6 @@ Employers with open roles on the board today.
 | Trail of Bits |  |  | 2 |
 | Abnormal AI |  |  | 1 |
 | Accenture Federal Services |  |  | 1 |
-| AeroVironment |  |  | 1 |
 | Anthropic |  |  | 1 |
 | Arctic Wolf |  |  | 1 |
 | Chainalysis |  |  | 1 |
@@ -90,7 +93,6 @@ Employers with open roles on the board today.
 | Delinea |  |  | 1 |
 | Dragos |  |  | 1 |
 | Draper |  |  | 1 |
-| DXC Technology |  |  | 1 |
 | ESET |  |  | 1 |
 | Expel |  |  | 1 |
 | Fireblocks |  |  | 1 |
@@ -106,6 +108,7 @@ Employers with open roles on the board today.
 | Obsidian Security |  |  | 1 |
 | PNNL |  |  | 1 |
 | Praetorian |  |  | 1 |
+| Proofpoint |  |  | 1 |
 | PwC |  |  | 1 |
 | ReliaQuest |  |  | 1 |
 | SailPoint |  |  | 1 |
@@ -114,7 +117,6 @@ Employers with open roles on the board today.
 | Tenable |  |  | 1 |
 | Trellix |  |  | 1 |
 | Two Six Technologies |  |  | 1 |
-| U.S. Bank |  |  | 1 |
 | Verizon |  |  | 1 |
 
 ## Every tracked board (408)
