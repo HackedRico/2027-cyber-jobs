@@ -2449,6 +2449,9 @@ def insert_new_listings(listings, raw_jobs, seen, sec_flags, today):
     blanked = {listing_dedup_key(e.get('company', ''), e.get('role', ''),
                                  e.get('location', '')): e
                for e in listings if not e.get('url')}
+    open_keys = {listing_dedup_key(e.get('company', ''), e.get('role', ''),
+                                   e.get('location', ''))
+                 for e in listings if e.get('url') and not e.get('closed')}
     added_rows = []
     revived_rows = []
 
@@ -2483,8 +2486,9 @@ def insert_new_listings(listings, raw_jobs, seen, sec_flags, today):
         seen[jid] = today
         # ExtraHop's Dallas req moved from 'Dallas, TX' to 'Remote | Dallas, TX',
         # the key of a closed row, and reviving it put the open row's url on
-        # two rows, which failed check_outputs and lost two scrapes.
-        if key in blanked and not held:
+        # two rows, which failed check_outputs and lost two scrapes. An open
+        # row holding the key fails the same check.
+        if key in blanked and not held and key not in open_keys:
             row = blanked.pop(key)
             row['url'] = url
             # A company that moved ATS revives on its new board; a stale source

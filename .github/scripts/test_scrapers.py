@@ -2637,6 +2637,13 @@ def test_revive_skips_a_url_an_open_row_holds():
     check('a posting an open row already holds revives nothing', (added, revived), ([], []))
     check('the closed row stays closed and blank',
           (listings[0]['url'], listings[0].get('closed')), ('', True))
+    # The same failure through the dedup key: an open row under another req
+    # already holds the closed row's company, role and location.
+    listings[1]['location'] = 'Remote (US); Dallas, TX'
+    raw = [dict(raw[0], id='gh-ExtraHop-3', url=GH_JOBS.format('extrahop', 3))]
+    added, revived = sj.insert_new_listings(listings, raw, {}, {'gh-ExtraHop-3': True},
+                                            '2026-10-09')
+    check('a key an open row already holds revives nothing', (added, revived), ([], []))
 
 
 def test_orphan_pass_renames_a_renamed_company():
