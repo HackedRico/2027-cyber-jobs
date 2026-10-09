@@ -2221,9 +2221,13 @@ def report_board_health(board_stats, today=None, persist=True):
               f'(broken slug or ATS drift?)')
     if dead:
         # One aggregated annotation, not one per board: a long-neglected config
-        # can hold dozens, and 40 warnings bury the regression above them.
-        print(f'::warning::{len(dead)} board(s) have returned 0 postings for '
-              f'{ZERO_RUN_ALERT}+ consecutive runs — see the run summary')
+        # can hold dozens, and 40 warnings bury the regression above them. A
+        # notice, not a warning: on Greenhouse, Ashby, Lever, Workable and
+        # Recruitee a wrong slug 404s and lands in `broken`, so an empty answer
+        # is a live board with nothing open. All 14 silent boards in October 2026
+        # checked out that way. SmartRecruiters answers 200 for any slug.
+        print(f'::notice::{len(dead)} board(s) answered with no openings for '
+              f'{ZERO_RUN_ALERT}+ scrapes in a row, see the run summary')
 
     lines = [
         '## Scrape run summary',
@@ -2238,10 +2242,15 @@ def report_board_health(board_stats, today=None, persist=True):
         lines.append('- ⚠️ Regressed to zero: '
                      + ', '.join(_oneline(label) for label, _ in regressed))
     if dead:
-        lines += ['', f'<details><summary>💀 Silent for {ZERO_RUN_ALERT}+ runs '
-                      f'({len(dead)})</summary>', '']
-        lines += [f'- `{_oneline(label)}` — {runs} runs, '
-                  + (f'last postings {last}' if last else 'no postings on record')
+        # "50 runs" read as 50 requests. Each scrape asks a board once and gets
+        # its whole job list back, so the count is scrapes, not calls.
+        lines += ['', f'<details><summary>💤 Empty for {ZERO_RUN_ALERT}+ scrapes in a row '
+                      f'({len(dead)})</summary>', '',
+                  'Each board answered with an empty job list, one request per scrape. '
+                  'A wrong slug shows as failed instead, except on SmartRecruiters. '
+                  'The triage-board skill checks one against the careers page.', '']
+        lines += [f'- `{_oneline(label)}`: empty the last {runs} scrapes, '
+                  + (f'last had postings {last}' if last else 'never had postings')
                   for label, runs, last in dead]
         lines += ['', '</details>']
     summary = '\n'.join(lines)
