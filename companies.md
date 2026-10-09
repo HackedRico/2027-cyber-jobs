@@ -34,7 +34,7 @@ Employers with open roles on the board today.
 | Palantir | 2 | 1 |  |
 | The Cigna Group | 2 | 1 |  |
 | Walmart | 3 |  |  |
-| Amazon | 1 | 1 | 14 |
+| Amazon | 1 | 1 | 13 |
 | Software Engineering Institute | 2 |  | 6 |
 | Battelle | 2 |  | 3 |
 | Appian | 1 | 1 | 1 |
