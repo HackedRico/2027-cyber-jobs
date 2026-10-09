@@ -2462,8 +2462,9 @@ def insert_new_listings(listings, raw_jobs, seen, sec_flags, today):
         # The fingerprint catches a Workday req whose URL and location both
         # moved, which neither the URL nor the key can see.
         fingerprint = job_fingerprint(job['company'], job.get('board', ''), url)
-        on_board = ((url and normalize_url(url) in existing_urls) or key in existing_keys
-                    or (fingerprint and fingerprint in existing_fps))
+        held = ((url and normalize_url(url) in existing_urls)
+                or (fingerprint and fingerprint in existing_fps))
+        on_board = held or key in existing_keys
         if jid in seen and on_board and key not in blanked:
             continue
         verdict = evaluate_job(
@@ -2480,7 +2481,10 @@ def insert_new_listings(listings, raw_jobs, seen, sec_flags, today):
             # forever even after the ATS later populates the URL.
             continue
         seen[jid] = today
-        if key in blanked:
+        # ExtraHop's Dallas req moved from 'Dallas, TX' to 'Remote | Dallas, TX',
+        # the key of a closed row, and reviving it put the open row's url on
+        # two rows, which failed check_outputs and lost two scrapes.
+        if key in blanked and not held:
             row = blanked.pop(key)
             row['url'] = url
             # A company that moved ATS revives on its new board; a stale source
