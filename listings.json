@@ -351,19 +351,6 @@
   },
   {
     "company": "Amazon",
-    "role": "Security & Compliance Engineer II, AWS Security Assurance Services, LLC",
-    "location": "Arlington, VA",
-    "type": "earlycareer",
-    "category": "GRC & Risk",
-    "clearance": false,
-    "url": "",
-    "source": "Amazon Jobs",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-08-09"
-  },
-  {
-    "company": "Amazon",
     "role": "Data Engineer II, Veritas, Security Tools Foundation",
     "location": "Seattle, WA",
     "type": "earlycareer",
@@ -791,7 +778,8 @@
     "clearance": false,
     "url": "https://jobs.ashbyhq.com/illumio/c03fae33-a169-429e-81f0-15b9bcc1df56",
     "source": "Ashby",
-    "date_added": "2026-07-18"
+    "date_added": "2026-07-18",
+    "missing_since": "2026-10-10"
   },
   {
     "company": "ReliaQuest",
@@ -1435,10 +1423,11 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": true,
-    "url": "https://nwis.wd12.myworkdayjobs.com/NW/job/Springfield-VA/Multidisciplinary-Engineer-II_JR101616",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-07-24",
-    "missing_since": "2026-10-06"
+    "closed": true,
+    "closed_date": "2026-10-10"
   },
   {
     "company": "Appian",
@@ -2619,11 +2608,9 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": true,
-    "url": "",
+    "url": "https://evergreenix.wd1.myworkdayjobs.com/external-careers2/job/USA_TX_Richardson/Software-Engineer-I_JR500748-1",
     "source": "Workday",
-    "date_added": "2026-09-11",
-    "closed": true,
-    "closed_date": "2026-09-19"
+    "date_added": "2026-09-11"
   },
   {
     "company": "Morgan Stanley",
@@ -2903,7 +2890,8 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MA-TEWKSBURY-TB1--50-Apple-Hill-Dr--ASSABET-BLDG/Internship---Raytheon-Systems-Security-Engineer--Onsite_01874702",
     "source": "Workday",
-    "date_added": "2026-09-16"
+    "date_added": "2026-09-16",
+    "missing_since": "2026-10-10"
   },
   {
     "company": "RTX",
@@ -2914,7 +2902,8 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-RI-PORTSMOUTH-PS1--1847-W-Main-Rd--NIMITZ-BLDG/Internship---Raytheon-Systems-Security-Engineer-Onsite_01874705",
     "source": "Workday",
-    "date_added": "2026-09-16"
+    "date_added": "2026-09-16",
+    "missing_since": "2026-10-10"
   },
   {
     "company": "RTX",
@@ -2925,7 +2914,8 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MA-WOBURN-WB2--225-Presidential-Way--GODDARD-BLDG/Internship---Raytheon-Systems-Security-Engineer--Onsite_01874703",
     "source": "Workday",
-    "date_added": "2026-09-16"
+    "date_added": "2026-09-16",
+    "missing_since": "2026-10-10"
   },
   {
     "company": "The Home Depot",
@@ -2982,7 +2972,8 @@
     "clearance": false,
     "url": "https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/RTP-North-Carolina-US/Security-Engineer-I--Full-Time----United-States_2025883",
     "source": "Workday",
-    "date_added": "2026-09-16"
+    "date_added": "2026-09-16",
+    "missing_since": "2026-10-10"
   },
   {
     "company": "Cisco",
@@ -2993,7 +2984,8 @@
     "clearance": true,
     "url": "https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/RTP-North-Carolina-US/Security-Engineer-I--Intern----United-States_2025885",
     "source": "Workday",
-    "date_added": "2026-09-16"
+    "date_added": "2026-09-16",
+    "missing_since": "2026-10-10"
   },
   {
     "company": "Cisco",
@@ -3004,7 +2996,8 @@
     "clearance": true,
     "url": "https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/RTP-North-Carolina-US/Security-Research-Engineer-I--Intern----United-States_2025886",
     "source": "Workday",
-    "date_added": "2026-09-16"
+    "date_added": "2026-09-16",
+    "missing_since": "2026-10-10"
   },
   {
     "company": "Boeing",
@@ -3424,7 +3417,8 @@
     "clearance": false,
     "url": "https://expel.com/about/career-listing/8588028002?gh_jid=8588028002",
     "source": "Greenhouse",
-    "date_added": "2026-09-24"
+    "date_added": "2026-09-24",
+    "missing_since": "2026-10-10"
   },
   {
     "company": "CrowdStrike",
@@ -3771,7 +3765,8 @@
     "clearance": false,
     "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Analyst-I--Falcon-Complete--Remote-_R29479",
     "source": "Workday",
-    "date_added": "2026-09-28"
+    "date_added": "2026-09-28",
+    "missing_since": "2026-10-10"
   },
   {
     "company": "CrowdStrike",
@@ -4706,7 +4701,8 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MA-MARLBOROUGH-MA2--1001-Boston-Post-Rd--BLDG-2/Internship---Raytheon-Systems-Security-Engineer--Onsite_01874700",
     "source": "Workday",
-    "date_added": "2026-09-30"
+    "date_added": "2026-09-30",
+    "missing_since": "2026-10-10"
   },
   {
     "company": "RTX",
@@ -4717,7 +4713,8 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-GOLETA-H03--6380-Hollister-Ave--BLDG-H03/Software-Security-Engineer---II--Onsite_01876900",
     "source": "Workday",
-    "date_added": "2026-09-30"
+    "date_added": "2026-09-30",
+    "missing_since": "2026-10-10"
   },
   {
     "company": "Fortinet",
@@ -4927,7 +4924,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Utah-Roy/XMLNAME-2027--Associate-Systems-Security-Engineer---Roy-UT_R10253951",
     "source": "Workday",
-    "date_added": "2026-10-01"
+    "date_added": "2026-10-01",
+    "missing_since": "2026-10-10"
   },
   {
     "company": "Duke Energy",
@@ -4984,7 +4982,8 @@
     "clearance": false,
     "url": "https://dukeenergy.wd1.myworkdayjobs.com/Search/job/Lake-Mary-FL/PGO-Cybersecurity-Spring-2027-Co-op_R41837",
     "source": "Workday",
-    "date_added": "2026-10-02"
+    "date_added": "2026-10-02",
+    "missing_since": "2026-10-10"
   },
   {
     "company": "Fortra",
@@ -5473,7 +5472,8 @@
     "clearance": false,
     "url": "https://fifththird.wd5.myworkdayjobs.com/53careers/job/Cincinnati-OH/Information-Security-Co-op---Code-Security---Spring-2027_R71575",
     "source": "Workday",
-    "date_added": "2026-10-03"
+    "date_added": "2026-10-03",
+    "missing_since": "2026-10-10"
   },
   {
     "company": "Fifth Third",
@@ -5484,7 +5484,8 @@
     "clearance": false,
     "url": "https://fifththird.wd5.myworkdayjobs.com/53careers/job/Cincinnati-OH/Information-Security-Co-op---Identity---Access-Management---Spring-2027_R71590",
     "source": "Workday",
-    "date_added": "2026-10-03"
+    "date_added": "2026-10-03",
+    "missing_since": "2026-10-10"
   },
   {
     "company": "Fifth Third",
@@ -5506,7 +5507,8 @@
     "clearance": false,
     "url": "https://freddiemac.wd5.myworkdayjobs.com/External/job/McLean-VA/IT-Risk-Associate-II_JR17646",
     "source": "Workday",
-    "date_added": "2026-10-03"
+    "date_added": "2026-10-03",
+    "missing_since": "2026-10-10"
   },
   {
     "company": "Elevance Health",
@@ -5662,10 +5664,11 @@
     "type": "earlycareer",
     "category": "Cloud & Infra Security",
     "clearance": false,
-    "url": "https://lumen.eightfold.ai/careers/job/1133915848405",
+    "url": "",
     "source": "Eightfold",
     "date_added": "2026-10-03",
-    "missing_since": "2026-10-06"
+    "closed": true,
+    "closed_date": "2026-10-10"
   },
   {
     "company": "Microsoft",
@@ -5919,10 +5922,11 @@
     "type": "earlycareer",
     "category": "Solutions Architecture",
     "clearance": false,
-    "url": "https://www.netskope.com/company/careers/open-positions/?gh_jid=8226201",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-10-06",
-    "missing_since": "2026-10-06"
+    "closed": true,
+    "closed_date": "2026-10-10"
   },
   {
     "company": "ID.me",
@@ -5931,10 +5935,11 @@
     "type": "newgrad",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://job-boards.greenhouse.io/idme/jobs/8011095003",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-10-06",
-    "missing_since": "2026-10-06"
+    "closed": true,
+    "closed_date": "2026-10-10"
   },
   {
     "company": "ID.me",
@@ -6290,5 +6295,181 @@
     "url": "https://careers.jhuapl.edu/jobs/60428",
     "source": "Jibe",
     "date_added": "2026-10-08"
+  },
+  {
+    "company": "Pinterest",
+    "role": "Solutions Engineer Intern 2027 (USA)",
+    "location": "San Francisco, CA; Remote (US)",
+    "type": "intern",
+    "category": "Solutions Architecture",
+    "clearance": false,
+    "url": "https://www.pinterestcareers.com/jobs/?gh_jid=8214788",
+    "source": "Greenhouse",
+    "date_added": "2026-10-10"
+  },
+  {
+    "company": "Leidos",
+    "role": "Tier 2 Security Operations Center (SOC) Analyst",
+    "location": "Alexandria, VA",
+    "type": "earlycareer",
+    "category": "SOC & Detection",
+    "clearance": true,
+    "url": "https://leidos.wd5.myworkdayjobs.com/External/job/Alexandria-VA/Tier-2-Security-Operations-Center--SOC--Analyst_R-00194216",
+    "source": "Workday",
+    "date_added": "2026-10-10"
+  },
+  {
+    "company": "RTX",
+    "role": "Systems Security Cyber Engineer II - Contingent (Onsite - Aurora, CO) TS/SCI required",
+    "location": "Aurora, CO",
+    "type": "earlycareer",
+    "category": "Cloud & Infra Security",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CO-AURORA-S76--16430-E-Hughes-Dr--BLDG-S76/Systems-Security-Cyber-Engineer-II---Contingent--Onsite---Aurora--CO--TS-SCI-required_01881403",
+    "source": "Workday",
+    "date_added": "2026-10-10"
+  },
+  {
+    "company": "RTX",
+    "role": "Embedded Security Software Engineer I (Onsite)",
+    "location": "Tewksbury, MA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MA-TEWKSBURY-TB1--50-Apple-Hill-Dr--ASSABET-BLDG/Embedded-Security-Software-Engineer-I--Onsite-_01881440",
+    "source": "Workday",
+    "date_added": "2026-10-10"
+  },
+  {
+    "company": "RTX",
+    "role": "Embedded Security Software Engineer II (Onsite)",
+    "location": "Tewksbury, MA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MA-TEWKSBURY-TB1--50-Apple-Hill-Dr--ASSABET-BLDG/Embedded-Security-Software-Engineer-II--Onsite-_01881450",
+    "source": "Workday",
+    "date_added": "2026-10-10"
+  },
+  {
+    "company": "RTX",
+    "role": "Embedded Security Software Engineer I (Onsite)",
+    "location": "El Segundo, CA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-EL-SEGUNDO-R01--2000-E-Imperial-Hwy--BLDG-R01/Embedded-Security-Software-Engineer--Onsite-_01881362",
+    "source": "Workday",
+    "date_added": "2026-10-10"
+  },
+  {
+    "company": "RTX",
+    "role": "Embedded Security Software Engineer I (Onsite)",
+    "location": "Tucson, AZ",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-800--1151-E-Hermans-Rd--BLDG-800/Embedded-Security-Software-Engineer-I--Onsite-_01881370",
+    "source": "Workday",
+    "date_added": "2026-10-10"
+  },
+  {
+    "company": "RTX",
+    "role": "Embedded Security Software Engineer II (Onsite)",
+    "location": "Goleta, CA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-GOLETA-B01--6825-Cortona-Dr--BLDG-B01/Embedded-Security-Software-Engineer-II--Onsite-_01881383",
+    "source": "Workday",
+    "date_added": "2026-10-10"
+  },
+  {
+    "company": "RTX",
+    "role": "Embedded Security Software Engineer II (Onsite)",
+    "location": "Tucson, AZ",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-800--1151-E-Hermans-Rd--BLDG-800/Embedded-Security-Software-Engineer-II--Onsite-_01881372",
+    "source": "Workday",
+    "date_added": "2026-10-10"
+  },
+  {
+    "company": "RTX",
+    "role": "Embedded Security Software  Engineer II (Onsite)",
+    "location": "El Segundo, CA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-EL-SEGUNDO-R01--2000-E-Imperial-Hwy--BLDG-R01/Embedded-Security-Software--Engineer-II--Onsite-_01881357",
+    "source": "Workday",
+    "date_added": "2026-10-10"
+  },
+  {
+    "company": "Software Engineering Institute",
+    "role": "AI Security Software Engineer Intern \u2013 Summer 2027",
+    "location": "Pittsburgh, PA",
+    "type": "intern",
+    "category": "AI Security & Safety",
+    "clearance": false,
+    "url": "https://cmu.wd115.myworkdayjobs.com/SEI/job/Pittsburgh-PA/AI-Security-Software-Engineer-Intern---Summer-2027_2025200-1",
+    "source": "Workday",
+    "date_added": "2026-10-10"
+  },
+  {
+    "company": "Software Engineering Institute",
+    "role": "AI Security Research Intern \u2013 Summer 2027",
+    "location": "Pittsburgh, PA",
+    "type": "intern",
+    "category": "AI Security & Safety",
+    "clearance": false,
+    "url": "https://cmu.wd115.myworkdayjobs.com/SEI/job/Pittsburgh-PA/AI-Security-Research-Intern---Summer-2027_2025199-1",
+    "source": "Workday",
+    "date_added": "2026-10-10"
+  },
+  {
+    "company": "USAA",
+    "role": "Technology Risk & Compliance Advisor III (Junior Level)",
+    "location": "Charlotte, NC - CENTS",
+    "type": "earlycareer",
+    "category": "GRC & Risk",
+    "clearance": false,
+    "url": "https://usaa.wd1.myworkdayjobs.com/USAAJOBSWD/job/Charlotte-NC---CENTS/Technology-Risk---Compliance-Advisor-III--Junior-Level-_R0121469",
+    "source": "Workday",
+    "date_added": "2026-10-10"
+  },
+  {
+    "company": "BDO",
+    "role": "Assurance Intern, Technology Risk Assurance - Summer 2027 (Atlanta)",
+    "location": "Atlanta, GA",
+    "type": "intern",
+    "category": "GRC & Risk",
+    "clearance": false,
+    "url": "https://ebqb.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BDOEntryLevelCareers/job/11429",
+    "source": "Oracle",
+    "date_added": "2026-10-10"
+  },
+  {
+    "company": "BAE Systems",
+    "role": "System Security Engineer II",
+    "location": "Broomfield, CO",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://jobs.baesystems.com/global/en/job/130065BR",
+    "source": "Phenom",
+    "date_added": "2026-10-10"
+  },
+  {
+    "company": "MITRE",
+    "role": "Cyber Operations Intern",
+    "location": "Fort Meade - Annapolis Junction, MD",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://careers.mitre.org/us/en/job/R117487",
+    "source": "Phenom",
+    "date_added": "2026-10-10"
   }
 ]

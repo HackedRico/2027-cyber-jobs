@@ -13,17 +13,18 @@ Employers with open roles on the board today.
 | Johns Hopkins APL | 11 | 11 |  |
 | Booz Allen Hamilton | 17 |  | 4 |
 | Vanguard | 5 | 6 |  |
-| RTX | 8 |  | 8 |
+| RTX | 8 |  | 16 |
 | American Express | 4 | 4 |  |
 | Microsoft | 7 |  | 5 |
-| MITRE | 5 | 1 | 5 |
+| MITRE | 6 | 1 | 5 |
 | Palo Alto Networks | 5 | 1 | 3 |
 | HPE | 3 | 2 | 1 |
 | Northrop Grumman |  | 4 | 14 |
+| Software Engineering Institute | 4 |  | 6 |
 | Cisco | 4 |  | 2 |
+| BDO | 4 |  | 1 |
 | Tanium | 4 |  |  |
 | CACI | 3 |  | 2 |
-| BDO | 3 |  | 1 |
 | Federal Reserve System | 3 |  | 1 |
 | Goldman Sachs | 3 |  | 1 |
 | GuidePoint Security | 3 |  | 1 |
@@ -35,10 +36,8 @@ Employers with open roles on the board today.
 | The Cigna Group | 2 | 1 |  |
 | Walmart | 3 |  |  |
 | Amazon | 1 | 1 | 13 |
-| Software Engineering Institute | 2 |  | 6 |
 | Battelle | 2 |  | 3 |
 | Appian | 1 | 1 | 1 |
-| ID.me |  | 2 | 1 |
 | Applied Intuition |  | 2 |  |
 | Boeing | 1 | 1 |  |
 | Entrust | 2 |  |  |
@@ -47,10 +46,12 @@ Employers with open roles on the board today.
 | Qualcomm | 2 |  |  |
 | Robinhood | 2 |  |  |
 | TD Bank | 2 |  |  |
-| Nightwing | 1 |  | 8 |
-| Leidos | 1 |  | 5 |
+| Nightwing | 1 |  | 7 |
+| Leidos | 1 |  | 6 |
 | GDIT | 1 |  | 2 |
+| Pinterest | 1 |  | 2 |
 | The Home Depot | 1 |  | 2 |
+| ID.me |  | 1 | 1 |
 | Motorola Solutions | 1 |  | 1 |
 | NVIDIA |  | 1 | 1 |
 | Parsons | 1 |  | 1 |
@@ -75,14 +76,13 @@ Employers with open roles on the board today.
 | TRM Labs |  | 1 |  |
 | CrowdStrike |  |  | 6 |
 | KBR |  |  | 5 |
-| BAE Systems |  |  | 3 |
+| BAE Systems |  |  | 4 |
 | ExtraHop |  |  | 3 |
 | Kyndryl |  |  | 3 |
 | Recorded Future |  |  | 3 |
 | AeroVironment |  |  | 2 |
 | Amentum |  |  | 2 |
 | JPMorgan Chase |  |  | 2 |
-| Pinterest |  |  | 2 |
 | SAIC |  |  | 2 |
 | Trail of Bits |  |  | 2 |
 | Abnormal AI |  |  | 1 |
@@ -95,6 +95,7 @@ Employers with open roles on the board today.
 | Dragos |  |  | 1 |
 | Draper |  |  | 1 |
 | ESET |  |  | 1 |
+| Everfox |  |  | 1 |
 | Expel |  |  | 1 |
 | Fireblocks |  |  | 1 |
 | Fortinet |  |  | 1 |
@@ -103,9 +104,7 @@ Employers with open roles on the board today.
 | HII |  |  | 1 |
 | Huntress |  |  | 1 |
 | Illumio |  |  | 1 |
-| Lumen |  |  | 1 |
 | MIT Lincoln Laboratory |  |  | 1 |
-| Netskope |  |  | 1 |
 | Obsidian Security |  |  | 1 |
 | PNNL |  |  | 1 |
 | Praetorian |  |  | 1 |
@@ -120,6 +119,7 @@ Employers with open roles on the board today.
 | Trellix |  |  | 1 |
 | Two Six Technologies |  |  | 1 |
 | U.S. Bank |  |  | 1 |
+| USAA |  |  | 1 |
 | Verizon |  |  | 1 |
 
 ## Every tracked board (408)
