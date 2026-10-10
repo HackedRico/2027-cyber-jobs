@@ -2221,9 +2221,13 @@ def report_board_health(board_stats, today=None, persist=True):
               f'(broken slug or ATS drift?)')
     if dead:
         # One aggregated annotation, not one per board: a long-neglected config
-        # can hold dozens, and 40 warnings bury the regression above them.
-        print(f'::warning::{len(dead)} board(s) have returned 0 postings for '
-              f'{ZERO_RUN_ALERT}+ consecutive runs — see the run summary')
+        # can hold dozens, and 40 warnings bury the regression above them. A
+        # notice, not a warning: on Greenhouse, Ashby, Lever, Workable and
+        # Recruitee a wrong slug 404s and lands in `broken`, so an empty answer
+        # is a live board with nothing open. All 14 silent boards in October 2026
+        # checked out that way. SmartRecruiters answers 200 for any slug.
+        print(f'::notice::{len(dead)} board(s) answered with no openings for '
+              f'{ZERO_RUN_ALERT}+ scrapes in a row, see the run summary')
 
     lines = [
         '## Scrape run summary',
@@ -2238,10 +2242,15 @@ def report_board_health(board_stats, today=None, persist=True):
         lines.append('- ⚠️ Regressed to zero: '
                      + ', '.join(_oneline(label) for label, _ in regressed))
     if dead:
-        lines += ['', f'<details><summary>💀 Silent for {ZERO_RUN_ALERT}+ runs '
-                      f'({len(dead)})</summary>', '']
-        lines += [f'- `{_oneline(label)}` — {runs} runs, '
-                  + (f'last postings {last}' if last else 'no postings on record')
+        # "50 runs" read as 50 requests. Each scrape asks a board once and gets
+        # its whole job list back, so the count is scrapes, not calls.
+        lines += ['', f'<details><summary>💤 Empty for {ZERO_RUN_ALERT}+ scrapes in a row '
+                      f'({len(dead)})</summary>', '',
+                  'Each board answered with an empty job list, one request per scrape. '
+                  'A wrong slug shows as failed instead, except on SmartRecruiters. '
+                  'The triage-board skill checks one against the careers page.', '']
+        lines += [f'- `{_oneline(label)}`: empty the last {runs} scrapes, '
+                  + (f'last had postings {last}' if last else 'never had postings')
                   for label, runs, last in dead]
         lines += ['', '</details>']
     summary = '\n'.join(lines)
@@ -2449,6 +2458,9 @@ def insert_new_listings(listings, raw_jobs, seen, sec_flags, today):
     blanked = {listing_dedup_key(e.get('company', ''), e.get('role', ''),
                                  e.get('location', '')): e
                for e in listings if not e.get('url')}
+    open_keys = {listing_dedup_key(e.get('company', ''), e.get('role', ''),
+                                   e.get('location', ''))
+                 for e in listings if e.get('url') and not e.get('closed')}
     added_rows = []
     revived_rows = []
 
@@ -2462,8 +2474,9 @@ def insert_new_listings(listings, raw_jobs, seen, sec_flags, today):
         # The fingerprint catches a Workday req whose URL and location both
         # moved, which neither the URL nor the key can see.
         fingerprint = job_fingerprint(job['company'], job.get('board', ''), url)
-        on_board = ((url and normalize_url(url) in existing_urls) or key in existing_keys
-                    or (fingerprint and fingerprint in existing_fps))
+        held = ((url and normalize_url(url) in existing_urls)
+                or (fingerprint and fingerprint in existing_fps))
+        on_board = held or key in existing_keys
         if jid in seen and on_board and key not in blanked:
             continue
         verdict = evaluate_job(
@@ -2480,7 +2493,11 @@ def insert_new_listings(listings, raw_jobs, seen, sec_flags, today):
             # forever even after the ATS later populates the URL.
             continue
         seen[jid] = today
-        if key in blanked:
+        # ExtraHop's Dallas req moved from 'Dallas, TX' to 'Remote | Dallas, TX',
+        # the key of a closed row, and reviving it put the open row's url on
+        # two rows, which failed check_outputs and lost two scrapes. An open
+        # row holding the key fails the same check.
+        if key in blanked and not held and key not in open_keys:
             row = blanked.pop(key)
             row['url'] = url
             # A company that moved ATS revives on its new board; a stale source

@@ -2619,6 +2619,33 @@ def test_revive_takes_the_new_source():
                                       '2026-09-11', raw)[0], [])
 
 
+def test_revive_skips_a_url_an_open_row_holds():
+    """ExtraHop's Dallas req moved from 'Dallas, TX' to 'Remote | Dallas, TX'.
+
+    The new location matched a closed row's key, so the run revived it with the
+    open row's url and check_outputs failed the commit on the duplicate.
+    """
+    listings = [_stored('ExtraHop', 'Support Engineer I - Dallas, TX', 1, url='',
+                        location='Remote (US); Dallas, TX', closed=True,
+                        closed_date='2026-09-25'),
+                _stored('ExtraHop', 'Support Engineer I - Dallas, TX', 2,
+                        location='Dallas, TX')]
+    raw = [_live('ExtraHop', 'Support Engineer I - Dallas, TX', 2, 'Entry level.',
+                 location='Remote | Dallas, TX')]
+    added, revived = sj.insert_new_listings(listings, raw, {}, {'gh-ExtraHop-2': True},
+                                            '2026-10-09')
+    check('a posting an open row already holds revives nothing', (added, revived), ([], []))
+    check('the closed row stays closed and blank',
+          (listings[0]['url'], listings[0].get('closed')), ('', True))
+    # The same failure through the dedup key: an open row under another req
+    # already holds the closed row's company, role and location.
+    listings[1]['location'] = 'Remote (US); Dallas, TX'
+    raw = [dict(raw[0], id='gh-ExtraHop-3', url=GH_JOBS.format('extrahop', 3))]
+    added, revived = sj.insert_new_listings(listings, raw, {}, {'gh-ExtraHop-3': True},
+                                            '2026-10-09')
+    check('a key an open row already holds revives nothing', (added, revived), ([], []))
+
+
 def test_orphan_pass_renames_a_renamed_company():
     config = {'greenhouse': [{'name': 'Acme Corp', 'slug': 'acme'}]}
     listings = [_stored('Acme', 'SOC Analyst I', 1, missing_since='2026-09-09'),
@@ -3029,7 +3056,8 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_reevaluate_rejudges_a_row_past_the_workday_cap,
            test_main_probes_each_missed_workday_row_once,
            test_insert_readds_a_dropped_row_while_its_posting_is_live,
-           test_revive_takes_the_new_source, test_orphan_pass_renames_a_renamed_company,
+           test_revive_takes_the_new_source, test_revive_skips_a_url_an_open_row_holds,
+           test_orphan_pass_renames_a_renamed_company,
            test_failed_board_holds_its_companys_rows,
            test_failed_boards_do_not_grow_the_silent_streak,
            test_orphan_pass_covers_jibe_rows,
