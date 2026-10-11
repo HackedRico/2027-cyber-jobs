@@ -4,23 +4,23 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **408 companies tracked.**
 
-## Hiring students now (111)
+## Hiring students now (109)
 
 Employers with open roles on the board today.
 
 | Company | Internships | New grad | Early career |
 | ------- | ----------- | -------- | ------------ |
-| Johns Hopkins APL | 11 | 11 |  |
+| Johns Hopkins APL | 12 | 11 |  |
 | Booz Allen Hamilton | 17 |  | 4 |
 | Vanguard | 5 | 6 |  |
-| RTX | 8 |  | 16 |
 | American Express | 4 | 4 |  |
+| RTX | 7 |  | 16 |
 | Microsoft | 7 |  | 5 |
 | MITRE | 6 | 1 | 5 |
 | Palo Alto Networks | 5 | 1 | 3 |
 | HPE | 3 | 2 | 1 |
-| Northrop Grumman |  | 4 | 14 |
-| Software Engineering Institute | 4 |  | 6 |
+| Northrop Grumman |  | 4 | 11 |
+| Software Engineering Institute | 4 |  | 5 |
 | Cisco | 4 |  | 2 |
 | BDO | 4 |  | 1 |
 | Tanium | 4 |  |  |
@@ -31,7 +31,6 @@ Employers with open roles on the board today.
 | Fifth Third | 3 |  |  |
 | Immuta | 3 |  |  |
 | Intel | 3 |  |  |
-| Lockheed Martin | 3 |  |  |
 | Palantir | 2 | 1 |  |
 | The Cigna Group | 2 | 1 |  |
 | Walmart | 3 |  |  |
@@ -40,38 +39,38 @@ Employers with open roles on the board today.
 | Appian | 1 | 1 | 1 |
 | Applied Intuition |  | 2 |  |
 | Boeing | 1 | 1 |  |
-| Entrust | 2 |  |  |
 | Honeywell | 2 |  |  |
 | Idaho National Laboratory | 2 |  |  |
 | Qualcomm | 2 |  |  |
-| Robinhood | 2 |  |  |
 | TD Bank | 2 |  |  |
 | Nightwing | 1 |  | 7 |
 | Leidos | 1 |  | 6 |
 | GDIT | 1 |  | 2 |
 | Pinterest | 1 |  | 2 |
 | The Home Depot | 1 |  | 2 |
-| ID.me |  | 1 | 1 |
 | Motorola Solutions | 1 |  | 1 |
 | NVIDIA |  | 1 | 1 |
 | Parsons | 1 |  | 1 |
-| Sierra Nevada Corporation | 1 |  | 1 |
 | Verkada | 1 |  | 1 |
 | Anduril |  | 1 |  |
 | Bank of America | 1 |  |  |
 | Deloitte |  | 1 |  |
 | Duke Energy | 1 |  |  |
 | Elevance Health | 1 |  |  |
+| Entrust | 1 |  |  |
 | Exelon | 1 |  |  |
 | Grant Thornton |  | 1 |  |
 | HP Inc | 1 |  |  |
 | Johnson &amp; Johnson | 1 |  |  |
 | KeyBank |  | 1 |  |
+| Lockheed Martin | 1 |  |  |
 | National Laboratory of the Rockies | 1 |  |  |
 | OPSWAT | 1 |  |  |
 | Prophet Security | 1 |  |  |
+| Robinhood | 1 |  |  |
 | Rubrik |  | 1 |  |
 | Semgrep | 1 |  |  |
+| Sierra Nevada Corporation | 1 |  |  |
 | State Farm | 1 |  |  |
 | TRM Labs |  | 1 |  |
 | CrowdStrike |  |  | 6 |
@@ -103,16 +102,15 @@ Employers with open roles on the board today.
 | Freddie Mac |  |  | 1 |
 | HII |  |  | 1 |
 | Huntress |  |  | 1 |
+| ID.me |  |  | 1 |
 | Illumio |  |  | 1 |
 | MIT Lincoln Laboratory |  |  | 1 |
 | Obsidian Security |  |  | 1 |
-| PNNL |  |  | 1 |
 | Praetorian |  |  | 1 |
 | Proofpoint |  |  | 1 |
 | PwC |  |  | 1 |
 | ReliaQuest |  |  | 1 |
 | SailPoint |  |  | 1 |
-| Snowflake |  |  | 1 |
 | STR |  |  | 1 |
 | Tenable |  |  | 1 |
 | Tines |  |  | 1 |

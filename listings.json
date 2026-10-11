@@ -1966,10 +1966,9 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Colorado-Aurora/Cyber-Systems-Engineer---Level-2-or-3--AHT-_R10249390",
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Colorado-Aurora/Cyber-Systems-Engineer---Level-2-or-3--AHT-_R10244210",
     "source": "Workday",
-    "date_added": "2026-09-05",
-    "missing_since": "2026-10-08"
+    "date_added": "2026-09-05"
   },
   {
     "company": "Northrop Grumman",
@@ -2015,10 +2014,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Colorado-Colorado-Springs/Cyber-Software-Test-Engineer---UI-Automated-Test-Engr--26-381-_R10247191",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-05",
-    "missing_since": "2026-10-08"
+    "closed": true,
+    "closed_date": "2026-10-11"
   },
   {
     "company": "Northrop Grumman",
@@ -2717,10 +2717,11 @@
     "type": "intern",
     "category": "Cloud & Infra Security",
     "clearance": true,
-    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Systems-Security-Engineering-Intern--Summer-2027-_01874755",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-14",
-    "missing_since": "2026-10-08"
+    "closed": true,
+    "closed_date": "2026-10-11"
   },
   {
     "company": "RTX",
@@ -3091,10 +3092,11 @@
     "type": "intern",
     "category": "Offensive Security",
     "clearance": false,
-    "url": "https://boards.greenhouse.io/robinhood/jobs/8214142?t=gh_src=&gh_jid=8214142",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-09-18",
-    "missing_since": "2026-10-08"
+    "closed": true,
+    "closed_date": "2026-10-11"
   },
   {
     "company": "Motorola Solutions",
@@ -3364,10 +3366,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Colorado-Colorado-Springs/Cyber-Operator-Field-Engineer---Level-2--AHT-_R10252571",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-23",
-    "missing_since": "2026-10-08"
+    "closed": true,
+    "closed_date": "2026-10-11"
   },
   {
     "company": "Northrop Grumman",
@@ -3979,10 +3982,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://lockheedmartin.eightfold.ai/careers/job/996476900832",
+    "url": "",
     "source": "Eightfold",
     "date_added": "2026-09-28",
-    "missing_since": "2026-10-08"
+    "closed": true,
+    "closed_date": "2026-10-11"
   },
   {
     "company": "Lockheed Martin",
@@ -3991,10 +3995,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://lockheedmartin.eightfold.ai/careers/job/996476901746",
+    "url": "",
     "source": "Eightfold",
     "date_added": "2026-09-28",
-    "missing_since": "2026-10-08"
+    "closed": true,
+    "closed_date": "2026-10-11"
   },
   {
     "company": "Microsoft",
@@ -4193,10 +4198,11 @@
     "type": "earlycareer",
     "category": "AI Security & Safety",
     "clearance": true,
-    "url": "https://cmu.wd115.myworkdayjobs.com/SEI/job/Pittsburgh-PA/Associate-AI-Red-Team-Engineer_2024999-2",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-29",
-    "missing_since": "2026-10-08"
+    "closed": true,
+    "closed_date": "2026-10-11"
   },
   {
     "company": "Software Engineering Institute",
@@ -4644,7 +4650,8 @@
     "clearance": true,
     "url": "https://careers.jhuapl.edu/jobs/59997",
     "source": "Jibe",
-    "date_added": "2026-09-29"
+    "date_added": "2026-09-29",
+    "missing_since": "2026-10-11"
   },
   {
     "company": "RTX",
@@ -4789,10 +4796,11 @@
     "type": "earlycareer",
     "category": "Cloud & Infra Security",
     "clearance": true,
-    "url": "https://snc.wd1.myworkdayjobs.com/SNC_External_Career_Site/job/Lone-Tree-CO/Systems-Security-Engineer-I--For-2026-Interns-Only-_R0030608",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-01",
-    "missing_since": "2026-10-08"
+    "closed": true,
+    "closed_date": "2026-10-11"
   },
   {
     "company": "Trellix",
@@ -5058,10 +5066,9 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://caci.wd1.myworkdayjobs.com/External/job/High-Point-NC-US/Network---Cybersecurity-Intern---Summer-2027_333034-1",
+    "url": "https://caci.wd1.myworkdayjobs.com/External/job/High-Point-NC-US/Network---Cybersecurity-Intern---Summer-2027_333001",
     "source": "Workday",
-    "date_added": "2026-10-02",
-    "missing_since": "2026-10-08"
+    "date_added": "2026-10-02"
   },
   {
     "company": "Vanguard",
@@ -5125,10 +5132,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://careers.pnnl.gov/jobs/12191",
+    "url": "",
     "source": "Jibe",
     "date_added": "2026-10-03",
-    "missing_since": "2026-10-08"
+    "closed": true,
+    "closed_date": "2026-10-11"
   },
   {
     "company": "Appian",
@@ -5181,10 +5189,11 @@
     "type": "earlycareer",
     "category": "Solutions Architecture",
     "clearance": false,
-    "url": "https://jobs.ashbyhq.com/snowflake/a4d05466-3c2e-4509-bfec-8830bccc885b",
+    "url": "",
     "source": "Ashby",
     "date_added": "2026-10-03",
-    "missing_since": "2026-10-08"
+    "closed": true,
+    "closed_date": "2026-10-11"
   },
   {
     "company": "Cisco",
@@ -5949,10 +5958,11 @@
     "type": "newgrad",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://job-boards.greenhouse.io/idme/jobs/8011089003",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-10-06",
-    "missing_since": "2026-10-08"
+    "closed": true,
+    "closed_date": "2026-10-11"
   },
   {
     "company": "Intel",
@@ -6016,10 +6026,11 @@
     "type": "earlycareer",
     "category": "Cloud Engineering",
     "clearance": true,
-    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-Redondo-Beach/Cloud-Software-Engineer--Level-2-or-3----AHT_R10254553",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-06",
-    "missing_since": "2026-10-08"
+    "closed": true,
+    "closed_date": "2026-10-11"
   },
   {
     "company": "Microsoft",
@@ -6117,10 +6128,11 @@
     "type": "intern",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://entrust.wd1.myworkdayjobs.com/EntrustCareers/job/United-States---Shakopee-MN-GHQ/Software-Engineer-Co-op_R004416",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-08",
-    "missing_since": "2026-10-08"
+    "closed": true,
+    "closed_date": "2026-10-11"
   },
   {
     "company": "Entrust",
@@ -6473,5 +6485,16 @@
     "url": "https://careers.mitre.org/us/en/job/R117487",
     "source": "Phenom",
     "date_added": "2026-10-10"
+  },
+  {
+    "company": "Johns Hopkins APL",
+    "role": "2027 Internship - Cybersecurity Engineer - Critical Infrastructure Protection",
+    "location": "Laurel, MD",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://careers.jhuapl.edu/jobs/60431",
+    "source": "Jibe",
+    "date_added": "2026-10-11"
   }
 ]
