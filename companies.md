@@ -10,19 +10,19 @@ Employers with open roles on the board today.
 
 | Company | Internships | New grad | Early career |
 | ------- | ----------- | -------- | ------------ |
-| Johns Hopkins APL | 12 | 11 |  |
+| Johns Hopkins APL | 12 | 12 |  |
 | Booz Allen Hamilton | 17 |  | 4 |
 | Vanguard | 5 | 6 |  |
+| Microsoft | 8 |  | 5 |
 | American Express | 4 | 4 |  |
 | RTX | 7 |  | 16 |
-| Microsoft | 7 |  | 5 |
 | MITRE | 6 | 1 | 5 |
 | Palo Alto Networks | 5 | 1 | 3 |
+| BDO | 4 | 1 | 1 |
 | HPE | 3 | 2 | 1 |
 | Northrop Grumman |  | 4 | 11 |
 | Software Engineering Institute | 4 |  | 5 |
 | Cisco | 4 |  | 2 |
-| BDO | 4 |  | 1 |
 | Tanium | 4 |  |  |
 | CACI | 3 |  | 2 |
 | Federal Reserve System | 3 |  | 1 |
@@ -36,18 +36,20 @@ Employers with open roles on the board today.
 | Walmart | 3 |  |  |
 | Amazon | 1 | 1 | 13 |
 | Battelle | 2 |  | 3 |
+| GDIT | 2 |  | 2 |
 | Appian | 1 | 1 | 1 |
 | Applied Intuition |  | 2 |  |
 | Boeing | 1 | 1 |  |
 | Honeywell | 2 |  |  |
 | Idaho National Laboratory | 2 |  |  |
+| Lockheed Martin | 2 |  |  |
 | Qualcomm | 2 |  |  |
 | TD Bank | 2 |  |  |
 | Nightwing | 1 |  | 7 |
 | Leidos | 1 |  | 6 |
-| GDIT | 1 |  | 2 |
 | Pinterest | 1 |  | 2 |
 | The Home Depot | 1 |  | 2 |
+| ID.me |  | 1 | 1 |
 | Motorola Solutions | 1 |  | 1 |
 | NVIDIA |  | 1 | 1 |
 | Parsons | 1 |  | 1 |
@@ -63,7 +65,6 @@ Employers with open roles on the board today.
 | HP Inc | 1 |  |  |
 | Johnson &amp; Johnson | 1 |  |  |
 | KeyBank |  | 1 |  |
-| Lockheed Martin | 1 |  |  |
 | National Laboratory of the Rockies | 1 |  |  |
 | OPSWAT | 1 |  |  |
 | Prophet Security | 1 |  |  |
@@ -83,6 +84,7 @@ Employers with open roles on the board today.
 | Amentum |  |  | 2 |
 | JPMorgan Chase |  |  | 2 |
 | SAIC |  |  | 2 |
+| STR |  |  | 2 |
 | Trail of Bits |  |  | 2 |
 | Abnormal AI |  |  | 1 |
 | Accenture Federal Services |  |  | 1 |
@@ -102,7 +104,6 @@ Employers with open roles on the board today.
 | Freddie Mac |  |  | 1 |
 | HII |  |  | 1 |
 | Huntress |  |  | 1 |
-| ID.me |  |  | 1 |
 | Illumio |  |  | 1 |
 | MIT Lincoln Laboratory |  |  | 1 |
 | Obsidian Security |  |  | 1 |
@@ -111,7 +112,6 @@ Employers with open roles on the board today.
 | PwC |  |  | 1 |
 | ReliaQuest |  |  | 1 |
 | SailPoint |  |  | 1 |
-| STR |  |  | 1 |
 | Tenable |  |  | 1 |
 | Tines |  |  | 1 |
 | Trellix |  |  | 1 |

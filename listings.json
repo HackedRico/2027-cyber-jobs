@@ -2038,7 +2038,8 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MA-MARLBOROUGH-MA1--1001-Boston-Post-Rd--BLDG-1/Embedded-Systems-Security-Engineer-II--Onsite---Marlborough--MA--Secret-cleararance-required_01868048",
     "source": "Workday",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "missing_since": "2026-10-12"
   },
   {
     "company": "Sierra Nevada Corporation",
@@ -2901,7 +2902,8 @@
     "clearance": false,
     "url": "https://homedepot.wd5.myworkdayjobs.com/CareerDepot/job/GEORGIA---VIRTUAL---GA01/Cybersecurity-Engineer-II---SIEM-and-EDR--Remote-_Req187569",
     "source": "Workday",
-    "date_added": "2026-09-16"
+    "date_added": "2026-09-16",
+    "missing_since": "2026-10-12"
   },
   {
     "company": "The Home Depot",
@@ -3767,7 +3769,8 @@
     "clearance": false,
     "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote-TX/Strategic-Advisory-Services--AI-Security-Consultant--Remote-_R28272",
     "source": "Workday",
-    "date_added": "2026-09-28"
+    "date_added": "2026-09-28",
+    "missing_since": "2026-10-12"
   },
   {
     "company": "Draper",
@@ -5482,7 +5485,8 @@
     "clearance": false,
     "url": "https://fifththird.wd5.myworkdayjobs.com/53careers/job/Cincinnati-OH/XMLNAME-2027-IT-Audit-Intern_R70611",
     "source": "Workday",
-    "date_added": "2026-10-03"
+    "date_added": "2026-10-03",
+    "missing_since": "2026-10-12"
   },
   {
     "company": "Freddie Mac",
@@ -5619,7 +5623,8 @@
     "clearance": false,
     "url": "https://ebqb.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BDOEntryLevelCareers/job/11334",
     "source": "Oracle",
-    "date_added": "2026-10-03"
+    "date_added": "2026-10-03",
+    "missing_since": "2026-10-12"
   },
   {
     "company": "BDO",
@@ -5921,11 +5926,9 @@
     "type": "newgrad",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "",
+    "url": "https://job-boards.greenhouse.io/idme/jobs/8011095003",
     "source": "Greenhouse",
-    "date_added": "2026-10-06",
-    "closed": true,
-    "closed_date": "2026-10-10"
+    "date_added": "2026-10-06"
   },
   {
     "company": "ID.me",
@@ -6472,5 +6475,71 @@
     "url": "https://careers.jhuapl.edu/jobs/60431",
     "source": "Jibe",
     "date_added": "2026-10-11"
+  },
+  {
+    "company": "STR",
+    "role": "Associate Embedded Systems Emulation Engineer",
+    "location": "Woburn, MA",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": true,
+    "url": "https://job-boards.greenhouse.io/systemstechnologyresearch/jobs/4721162006",
+    "source": "Greenhouse",
+    "date_added": "2026-10-12"
+  },
+  {
+    "company": "GDIT",
+    "role": "2027 Summer Intern - Defense Agencies (Cybersecurity)",
+    "location": "Falls Church, VA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://gdit.wd5.myworkdayjobs.com/GDIT_EarlyTalent/job/USA-VA-Falls-Church/XMLNAME-2027-Summer-Intern---Defense-Agencies--Cybersecurity-_RQ230273",
+    "source": "Workday",
+    "date_added": "2026-10-12"
+  },
+  {
+    "company": "BDO",
+    "role": "Assurance Associate, Technology Risk Assurance - Summer 2027 (Dallas)",
+    "location": "Dallas, TX",
+    "type": "newgrad",
+    "category": "GRC & Risk",
+    "clearance": false,
+    "url": "https://ebqb.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BDOEntryLevelCareers/job/14355",
+    "source": "Oracle",
+    "date_added": "2026-10-12"
+  },
+  {
+    "company": "Lockheed Martin",
+    "role": "Systems Engineer (Cyber) - Intern",
+    "location": "Orlando, FL",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://lockheedmartin.eightfold.ai/careers/job/996477335927",
+    "source": "Eightfold",
+    "date_added": "2026-10-12"
+  },
+  {
+    "company": "Microsoft",
+    "role": "Cloud Network Engineering Internship Oportunities",
+    "location": "Redmond, WA",
+    "type": "intern",
+    "category": "Cloud Engineering",
+    "clearance": false,
+    "url": "https://microsoft.eightfold.ai/careers/job/1970393557037856",
+    "source": "Eightfold",
+    "date_added": "2026-10-12"
+  },
+  {
+    "company": "Johns Hopkins APL",
+    "role": "2027 Graduate - Engineer/Researcher - Cyber Capabilities Development",
+    "location": "Laurel, MD",
+    "type": "newgrad",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://careers.jhuapl.edu/jobs/60429",
+    "source": "Jibe",
+    "date_added": "2026-10-12"
   }
 ]

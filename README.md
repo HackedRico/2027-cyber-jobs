@@ -14,7 +14,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**146** internships · **43** new grad · **167** early career open · **56** added in the last 7 days · **171** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 12, 2026
+**149** internships · **46** new grad · **168** early career open · **63** added in the last 7 days · **175** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 12, 2026
 
 <!-- /STATS -->
 
@@ -71,6 +71,9 @@ Cybersecurity internships and co-ops for current students.
 
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
+| GDIT | 🆕 2027 Summer Intern - Defense Agencies (Cybersecurity) 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://gdit.wd5.myworkdayjobs.com/GDIT_EarlyTalent/job/USA-VA-Falls-Church/XMLNAME-2027-Summer-Intern---Defense-Agencies--Cybersecurity-_RQ230273"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: GDIT 2027 Summer Intern - Defense Agencies (Cybersecurity)"></a> | Falls Church, VA | Oct 12 |
+| Lockheed Martin | 🆕 Systems Engineer (Cyber) - Intern 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://lockheedmartin.eightfold.ai/careers/job/996477335927"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Lockheed Martin Systems Engineer (Cyber) - Intern"></a> | Orlando, FL | Oct 12 |
+| Microsoft | 🆕 Cloud Network Engineering Internship Oportunities<br><sub>Cloud Engineering</sub> | <a href="https://microsoft.eightfold.ai/careers/job/1970393557037856"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Microsoft Cloud Network Engineering Internship Oportunities"></a> | Redmond, WA | Oct 12 |
 | Johns Hopkins APL | 🆕 2027 Internship - Cybersecurity Engineer - Critical Infrastructure Protection 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://careers.jhuapl.edu/jobs/60431"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Johns Hopkins APL 2027 Internship - Cybersecurity Engineer - Critical Infrastructure Protection"></a> | Laurel, MD | Oct 11 |
 | BDO | 🆕 Assurance Intern, Technology Risk Assurance - Summer 2027 (Atlanta)<br><sub>GRC &amp; Risk</sub> | <a href="https://ebqb.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BDOEntryLevelCareers/job/11429"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: BDO Assurance Intern, Technology Risk Assurance - Summer 2027 (Atlanta)"></a> | Atlanta, GA | Oct 10 |
 | MITRE | 🆕 Cyber Operations Intern 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://careers.mitre.org/us/en/job/R117487"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: MITRE Cyber Operations Intern"></a> | Fort Meade - Annapolis Junction, MD | Oct 10 |
@@ -267,10 +270,13 @@ Full-time roles and rotational programs for students in their final year or just
 
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
+| BDO | 🆕 Assurance Associate, Technology Risk Assurance - Summer 2027 (Dallas)<br><sub>GRC &amp; Risk</sub> | <a href="https://ebqb.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BDOEntryLevelCareers/job/14355"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: BDO Assurance Associate, Technology Risk Assurance - Summer 2027 (Dallas)"></a> | Dallas, TX | Oct 12 |
+| Johns Hopkins APL | 🆕 2027 Graduate - Engineer/Researcher - Cyber Capabilities Development 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://careers.jhuapl.edu/jobs/60429"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Johns Hopkins APL 2027 Graduate - Engineer/Researcher - Cyber Capabilities Development"></a> | Laurel, MD | Oct 12 |
 | Johns Hopkins APL | 🆕 2027 Graduate - Analyst/Researcher - Cyber Capabilities Development 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://careers.jhuapl.edu/jobs/60428"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Johns Hopkins APL 2027 Graduate - Analyst/Researcher - Cyber Capabilities Development"></a> | Laurel, MD | Oct 8 |
 | KeyBank | 🆕 2027 Key Technology &amp; Services: Cyber/Information Security Track Rotational Analyst Program - Cleveland<br><sub>Security Engineering</sub> | <a href="https://keybank.wd5.myworkdayjobs.com/External_Career_Site/job/Brooklyn-OH/XMLNAME-2027-Key-Technology---Services--Cyber-Information-Security-Track-Rotational-Analyst-Program---Cleveland_R-41389-1"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: KeyBank 2027 Key Technology &amp; Services: Cyber/Information Security Track Rotational Analyst Program - Cleveland"></a> | Brooklyn, OH | Oct 8 |
 | Northrop Grumman | 🆕 2027 - Associate Cyber Software Engineer - Cincinnati OH 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Ohio-Cincinnati/XMLNAME-2027---Associate-Cyber-Software-Engineer---Cincinnati-OH_R10254990-1"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Northrop Grumman 2027 - Associate Cyber Software Engineer - Cincinnati OH"></a> | Cincinnati, OH | Oct 8 |
 | Rubrik | 🆕 Software Engineer - Product Platform Security<br><sub>Cloud &amp; Infra Security</sub> | <a href="https://www.rubrik.com/company/careers/departments/job.8243737?gh_jid=8243737"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Rubrik Software Engineer - Product Platform Security"></a> | Palo Alto, CA | Oct 8 |
+| ID.me | 🆕 Software Development Engineer II – Life Hub (Super App) (New Grad / Early Career)<br><sub>Engineering @ Security Co</sub> | <a href="https://job-boards.greenhouse.io/idme/jobs/8011095003"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: ID.me Software Development Engineer II – Life Hub (Super App) (New Grad / Early Career)"></a> | Mountain View, CA | Oct 6 |
 | Northrop Grumman | 🆕 2026 Associate Cybersecurity Analyst - Pathways Program - Redondo Beach CA 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-Redondo-Beach/XMLNAME-2026-Associate-Cybersecurity-Analyst---Pathways-Program---Redondo-Beach-CA_R10251914"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Northrop Grumman 2026 Associate Cybersecurity Analyst - Pathways Program - Redondo Beach CA"></a> | Redondo Beach, CA | Oct 5 |
 | Amazon | Associate Solutions Architect, AGS-Tech, Early Career - 2027<br><sub>Solutions Architecture</sub> | <a href="https://www.amazon.jobs/en/jobs/10558472/associate-solutions-architect-ags-tech-early-career-2027"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Associate Solutions Architect, AGS-Tech, Early Career - 2027"></a> | Seattle, WA | Oct 3 |
 | Appian | Associate Solutions Consultant (2027 Graduates)<br><sub>Solutions Architecture</sub> | <a href="https://job-boards.greenhouse.io/appian/jobs/8035742"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Appian Associate Solutions Consultant (2027 Graduates)"></a> | McLean, VA | Oct 3 |
@@ -315,12 +321,11 @@ Full-time roles and rotational programs for students in their final year or just
 
 <!-- CLOSED_START newgrad -->
 
-<details><summary>🔒 18 closed in the last 60 days</summary>
+<details><summary>🔒 17 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
 | ID.me | Software Engineer II, Developer Portal (New Grad / Early Career) | Oct 11 |
-| ID.me | Software Development Engineer II – Life Hub (Super App) (New Grad / Early Career) | Oct 10 |
 | BDO | Advisory Associate, Cyber, Compliance &amp; Assessment - Summer 2027 (Multiple Locations) | Oct 8 |
 | Northrop Grumman | 2026 Associate Cybersecurity Analyst - Pathways Program - Rocket Center WV | Oct 4 |
 | Northrop Grumman | 2027 Associate Classified Cybersecurity Analyst - Pathways Program - Huntsville AL | Sep 27 |
@@ -352,6 +357,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
+| STR | 🆕 Associate Embedded Systems Emulation Engineer 🇺🇸<br><sub>Engineering @ Security Co</sub> | <a href="https://job-boards.greenhouse.io/systemstechnologyresearch/jobs/4721162006"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: STR Associate Embedded Systems Emulation Engineer"></a> | Woburn, MA | Oct 12 |
 | BAE Systems | 🆕 System Security Engineer II 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://jobs.baesystems.com/global/en/job/130065BR"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: BAE Systems System Security Engineer II"></a> | Broomfield, CO | Oct 10 |
 | Leidos | 🆕 Tier 2 Security Operations Center (SOC) Analyst 🇺🇸<br><sub>SOC &amp; Detection</sub> | <a href="https://leidos.wd5.myworkdayjobs.com/External/job/Alexandria-VA/Tier-2-Security-Operations-Center--SOC--Analyst_R-00194216"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Leidos Tier 2 Security Operations Center (SOC) Analyst"></a> | Alexandria, VA | Oct 10 |
 | RTX | 🆕 Systems Security Cyber Engineer II - Contingent (Onsite - Aurora, CO) TS/SCI required 🇺🇸<br><sub>Cloud &amp; Infra Security</sub> | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CO-AURORA-S76--16430-E-Hughes-Dr--BLDG-S76/Systems-Security-Cyber-Engineer-II---Contingent--Onsite---Aurora--CO--TS-SCI-required_01881403"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: RTX Systems Security Cyber Engineer II - Contingent (Onsite - Aurora, CO) TS/SCI required"></a> | Aurora, CO | Oct 10 |
