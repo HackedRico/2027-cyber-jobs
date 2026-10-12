@@ -14,7 +14,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**146** internships · **43** new grad · **167** early career open · **56** added in the last 7 days · **171** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 11, 2026
+**146** internships · **43** new grad · **167** early career open · **56** added in the last 7 days · **171** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 12, 2026
 
 <!-- /STATS -->
 
@@ -524,7 +524,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 <!-- CLOSED_START earlycareer -->
 
-<details><summary>🔒 153 closed in the last 60 days</summary>
+<details><summary>🔒 151 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
@@ -679,8 +679,6 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 | Abnormal AI | Machine Learning Engineer II | Aug 20 |
 | Amazon | Software Engineer, AI Security | Aug 18 |
 | Abnormal AI | Software Engineer II, Message Mailflow | Aug 15 |
-| Amazon | Data Engineer II, Veritas, Security Tools Foundation | Aug 12 |
-| ↳ | Software Development Engineer II, Payments Security | Aug 12 |
 
 </details>
 

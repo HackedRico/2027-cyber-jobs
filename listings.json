@@ -351,19 +351,6 @@
   },
   {
     "company": "Amazon",
-    "role": "Data Engineer II, Veritas, Security Tools Foundation",
-    "location": "Seattle, WA",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "",
-    "source": "Amazon Jobs",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-08-12"
-  },
-  {
-    "company": "Amazon",
     "role": "Systems Development Engineer I, ADC Security Services (AS2E)",
     "location": "Arlington, VA",
     "type": "earlycareer",
@@ -520,19 +507,6 @@
     "date_added": "2026-07-12",
     "closed": true,
     "closed_date": "2026-08-18"
-  },
-  {
-    "company": "Amazon",
-    "role": "Software Development Engineer II, Payments Security",
-    "location": "Herndon, VA",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "",
-    "source": "Amazon Jobs",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-08-12"
   },
   {
     "company": "Amazon",
