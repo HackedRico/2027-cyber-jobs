@@ -1,9 +1,14 @@
 {
   "date": "2026-10-13",
   "boards": 414,
-  "ok": 398,
-  "empty": 16,
+  "ok": 397,
+  "empty": 17,
   "failed": [],
-  "regressed": [],
+  "regressed": [
+    {
+      "board": "Nudge Security (ashby/nudgesecurity)",
+      "had": 1
+    }
+  ],
   "silent": 15
 }

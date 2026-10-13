@@ -2799,13 +2799,11 @@
     "role": "Analyst I, Falcon Complete (Remote, PST/MST)",
     "location": "Remote (US)",
     "type": "earlycareer",
-    "category": "Engineering @ Security Co",
+    "category": "SOC & Detection",
     "clearance": false,
-    "url": "",
+    "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Associate-Analyst--Falcon-Complete_R30082",
     "source": "Workday",
-    "date_added": "2026-09-16",
-    "closed": true,
-    "closed_date": "2026-09-19"
+    "date_added": "2026-09-16"
   },
   {
     "company": "CrowdStrike",
@@ -3553,7 +3551,8 @@
     "clearance": true,
     "url": "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/El-Segundo-CA/Cybersecurity-Engineer--Junior_R0250290",
     "source": "Workday",
-    "date_added": "2026-09-28"
+    "date_added": "2026-09-28",
+    "missing_since": "2026-10-13"
   },
   {
     "company": "Booz Allen Hamilton",
@@ -5250,7 +5249,8 @@
     "clearance": true,
     "url": "https://usbank.wd1.myworkdayjobs.com/US_Bank_Careers/job/Cincinnati-OH/Digital-Forensic-Examiner_2026-0026562",
     "source": "Workday",
-    "date_added": "2026-10-03"
+    "date_added": "2026-10-03",
+    "missing_since": "2026-10-13"
   },
   {
     "company": "The Cigna Group",
@@ -5953,11 +5953,9 @@
     "type": "newgrad",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "",
+    "url": "https://job-boards.greenhouse.io/idme/jobs/8011089003",
     "source": "Greenhouse",
-    "date_added": "2026-10-06",
-    "closed": true,
-    "closed_date": "2026-10-11"
+    "date_added": "2026-10-06"
   },
   {
     "company": "Intel",
@@ -6260,7 +6258,8 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-FULLERTON-675--1801-Hughes-Dr--BLDG-675/Systems-Security-Engineering-Intern---Summer-2027-_01878922",
     "source": "Workday",
-    "date_added": "2026-10-08"
+    "date_added": "2026-10-08",
+    "missing_since": "2026-10-13"
   },
   {
     "company": "KeyBank",
@@ -6558,5 +6557,71 @@
     "url": "https://careers.jhuapl.edu/jobs/60429",
     "source": "Jibe",
     "date_added": "2026-10-12"
+  },
+  {
+    "company": "Draper",
+    "role": "Classified Cybersecurity/IT Internship (Summer 2027)",
+    "location": "Cambridge, MA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://draper.wd5.myworkdayjobs.com/Draper_Careers/job/Cambridge-MA/Classified-Cybersecurity-IT-Internship--Summer-2027-_JR003021",
+    "source": "Workday",
+    "date_added": "2026-10-13"
+  },
+  {
+    "company": "BlackRock",
+    "role": "Associate, Technology Audit",
+    "location": "New York, NY",
+    "type": "earlycareer",
+    "category": "GRC & Risk",
+    "clearance": false,
+    "url": "https://blackrock.wd1.myworkdayjobs.com/BlackRock_Professional/job/New-York-NY/Associate--Technology-Audit_R266284",
+    "source": "Workday",
+    "date_added": "2026-10-13"
+  },
+  {
+    "company": "Citi",
+    "role": "Security and Derivatives Intermediate Associate Analyst",
+    "location": "Tampa Florida United States",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://citi.wd5.myworkdayjobs.com/2/job/Tampa-Florida-United-States/Security-and-Derivatives-Intermediate-Associate-Analyst_261000639",
+    "source": "Workday",
+    "date_added": "2026-10-13"
+  },
+  {
+    "company": "Fannie Mae",
+    "role": "Jr. Cloud Automation Engineer",
+    "location": "Reston, VA",
+    "type": "earlycareer",
+    "category": "Cloud Engineering",
+    "clearance": false,
+    "url": "https://fanniemae.wd1.myworkdayjobs.com/FannieMaeCareers/job/Reston-VA/Jr-Cloud-Automation-Engineer_JR2956",
+    "source": "Workday",
+    "date_added": "2026-10-13"
+  },
+  {
+    "company": "Grant Thornton",
+    "role": "Risk Cyber Internal Audit Experienced Associate",
+    "location": "New York, NY; Edison, NJ",
+    "type": "earlycareer",
+    "category": "GRC & Risk",
+    "clearance": false,
+    "url": "https://ehzq.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/116144",
+    "source": "Oracle",
+    "date_added": "2026-10-13"
+  },
+  {
+    "company": "Johns Hopkins APL",
+    "role": "2027 PhD Graduate \u2013 Wireless Communications Engineer \u2013 Wireless Cyber Capabilities",
+    "location": "Laurel, MD",
+    "type": "newgrad",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://careers.jhuapl.edu/jobs/59922",
+    "source": "Jibe",
+    "date_added": "2026-10-13"
   }
 ]

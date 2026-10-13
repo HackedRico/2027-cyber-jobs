@@ -4,13 +4,13 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **408 companies tracked.**
 
-## Hiring students now (105)
+## Hiring students now (107)
 
 Employers with open roles on the board today.
 
 | Company | Internships | New grad | Early career |
 | ------- | ----------- | -------- | ------------ |
-| Johns Hopkins APL | 12 | 12 |  |
+| Johns Hopkins APL | 12 | 13 |  |
 | Booz Allen Hamilton | 17 |  | 4 |
 | Vanguard | 5 | 6 |  |
 | Microsoft | 8 |  | 5 |
@@ -36,6 +36,7 @@ Employers with open roles on the board today.
 | Battelle | 2 |  | 3 |
 | GDIT | 2 |  | 2 |
 | Appian | 1 | 1 | 1 |
+| ID.me |  | 2 | 1 |
 | Applied Intuition |  | 2 |  |
 | Boeing | 1 | 1 |  |
 | Cisco | 2 |  |  |
@@ -48,7 +49,8 @@ Employers with open roles on the board today.
 | Leidos | 1 |  | 6 |
 | Pinterest | 1 |  | 2 |
 | The Home Depot | 1 |  | 2 |
-| ID.me |  | 1 | 1 |
+| Draper | 1 |  | 1 |
+| Grant Thornton |  | 1 | 1 |
 | Motorola Solutions | 1 |  | 1 |
 | NVIDIA |  | 1 | 1 |
 | Parsons | 1 |  | 1 |
@@ -60,7 +62,6 @@ Employers with open roles on the board today.
 | Entrust | 1 |  |  |
 | Exelon | 1 |  |  |
 | Fifth Third | 1 |  |  |
-| Grant Thornton |  | 1 |  |
 | HP Inc | 1 |  |  |
 | Johnson &amp; Johnson | 1 |  |  |
 | KeyBank |  | 1 |  |
@@ -73,7 +74,7 @@ Employers with open roles on the board today.
 | Sierra Nevada Corporation | 1 |  |  |
 | State Farm | 1 |  |  |
 | TRM Labs |  | 1 |  |
-| CrowdStrike |  |  | 5 |
+| CrowdStrike |  |  | 6 |
 | KBR |  |  | 5 |
 | BAE Systems |  |  | 4 |
 | ExtraHop |  |  | 3 |
@@ -81,6 +82,7 @@ Employers with open roles on the board today.
 | Recorded Future |  |  | 3 |
 | AeroVironment |  |  | 2 |
 | Amentum |  |  | 2 |
+| Citi |  |  | 2 |
 | JPMorgan Chase |  |  | 2 |
 | SAIC |  |  | 2 |
 | STR |  |  | 2 |
@@ -89,13 +91,13 @@ Employers with open roles on the board today.
 | Accenture Federal Services |  |  | 1 |
 | Anthropic |  |  | 1 |
 | Arctic Wolf |  |  | 1 |
+| BlackRock |  |  | 1 |
 | Chainalysis |  |  | 1 |
-| Citi |  |  | 1 |
 | Delinea |  |  | 1 |
 | Dragos |  |  | 1 |
-| Draper |  |  | 1 |
 | ESET |  |  | 1 |
 | Everfox |  |  | 1 |
+| Fannie Mae |  |  | 1 |
 | Fireblocks |  |  | 1 |
 | Fortinet |  |  | 1 |
 | Fortra |  |  | 1 |
