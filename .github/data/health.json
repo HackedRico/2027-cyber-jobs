@@ -1,14 +1,9 @@
 {
-  "date": "2026-10-12",
+  "date": "2026-10-13",
   "boards": 414,
   "ok": 398,
   "empty": 16,
   "failed": [],
-  "regressed": [
-    {
-      "board": "Confluent (ashby/confluent)",
-      "had": 17
-    }
-  ],
+  "regressed": [],
   "silent": 15
 }

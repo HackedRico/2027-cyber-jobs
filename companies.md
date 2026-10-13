@@ -4,7 +4,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **408 companies tracked.**
 
-## Hiring students now (109)
+## Hiring students now (105)
 
 Employers with open roles on the board today.
 
@@ -15,31 +15,30 @@ Employers with open roles on the board today.
 | Vanguard | 5 | 6 |  |
 | Microsoft | 8 |  | 5 |
 | American Express | 4 | 4 |  |
-| RTX | 7 |  | 16 |
 | MITRE | 6 | 1 | 5 |
 | Palo Alto Networks | 5 | 1 | 3 |
 | BDO | 4 | 1 | 1 |
 | HPE | 3 | 2 | 1 |
-| Northrop Grumman |  | 4 | 11 |
 | Software Engineering Institute | 4 |  | 5 |
-| Cisco | 4 |  | 2 |
 | Tanium | 4 |  |  |
+| RTX | 3 |  | 15 |
 | CACI | 3 |  | 2 |
 | Federal Reserve System | 3 |  | 1 |
 | Goldman Sachs | 3 |  | 1 |
 | GuidePoint Security | 3 |  | 1 |
-| Fifth Third | 3 |  |  |
 | Immuta | 3 |  |  |
 | Intel | 3 |  |  |
 | Palantir | 2 | 1 |  |
 | The Cigna Group | 2 | 1 |  |
 | Walmart | 3 |  |  |
 | Amazon | 1 | 1 | 13 |
+| Northrop Grumman |  | 2 | 12 |
 | Battelle | 2 |  | 3 |
 | GDIT | 2 |  | 2 |
 | Appian | 1 | 1 | 1 |
 | Applied Intuition |  | 2 |  |
 | Boeing | 1 | 1 |  |
+| Cisco | 2 |  |  |
 | Honeywell | 2 |  |  |
 | Idaho National Laboratory | 2 |  |  |
 | Lockheed Martin | 2 |  |  |
@@ -57,10 +56,10 @@ Employers with open roles on the board today.
 | Anduril |  | 1 |  |
 | Bank of America | 1 |  |  |
 | Deloitte |  | 1 |  |
-| Duke Energy | 1 |  |  |
 | Elevance Health | 1 |  |  |
 | Entrust | 1 |  |  |
 | Exelon | 1 |  |  |
+| Fifth Third | 1 |  |  |
 | Grant Thornton |  | 1 |  |
 | HP Inc | 1 |  |  |
 | Johnson &amp; Johnson | 1 |  |  |
@@ -74,7 +73,7 @@ Employers with open roles on the board today.
 | Sierra Nevada Corporation | 1 |  |  |
 | State Farm | 1 |  |  |
 | TRM Labs |  | 1 |  |
-| CrowdStrike |  |  | 6 |
+| CrowdStrike |  |  | 5 |
 | KBR |  |  | 5 |
 | BAE Systems |  |  | 4 |
 | ExtraHop |  |  | 3 |
@@ -97,14 +96,11 @@ Employers with open roles on the board today.
 | Draper |  |  | 1 |
 | ESET |  |  | 1 |
 | Everfox |  |  | 1 |
-| Expel |  |  | 1 |
 | Fireblocks |  |  | 1 |
 | Fortinet |  |  | 1 |
 | Fortra |  |  | 1 |
-| Freddie Mac |  |  | 1 |
 | HII |  |  | 1 |
 | Huntress |  |  | 1 |
-| Illumio |  |  | 1 |
 | MIT Lincoln Laboratory |  |  | 1 |
 | Obsidian Security |  |  | 1 |
 | Praetorian |  |  | 1 |
