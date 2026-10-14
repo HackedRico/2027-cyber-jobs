@@ -1,9 +1,16 @@
 {
   "date": "2026-10-14",
   "boards": 414,
-  "ok": 397,
+  "ok": 396,
   "empty": 17,
-  "failed": [],
-  "regressed": [],
+  "failed": [
+    "Cybereason (greenhouse/cybereason)"
+  ],
+  "regressed": [
+    {
+      "board": "Cybereason (greenhouse/cybereason)",
+      "had": 2
+    }
+  ],
   "silent": 15
 }

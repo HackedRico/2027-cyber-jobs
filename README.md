@@ -14,7 +14,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**138** internships · **48** new grad · **169** early career open · **55** added in the last 7 days · **170** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 14, 2026
+**139** internships · **48** new grad · **173** early career open · **59** added in the last 7 days · **172** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 14, 2026
 
 <!-- /STATS -->
 
@@ -71,6 +71,7 @@ Cybersecurity internships and co-ops for current students.
 
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
+| Northrop Grumman | 🆕 2027 S/W Cybersecurity Intern – Annapolis MD 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Maryland-Annapolis/XMLNAME-2027-S-W-Cybersecurity-Intern---Annapolis-MD_R10254705"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Northrop Grumman 2027 S/W Cybersecurity Intern – Annapolis MD"></a> | Annapolis, MD | Oct 14 |
 | Draper | 🆕 Classified Cybersecurity/IT Internship (Summer 2027) 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://draper.wd5.myworkdayjobs.com/Draper_Careers/job/Cambridge-MA/Classified-Cybersecurity-IT-Internship--Summer-2027-_JR003021"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Draper Classified Cybersecurity/IT Internship (Summer 2027)"></a> | Cambridge, MA | Oct 13 |
 | GDIT | 🆕 2027 Summer Intern - Defense Agencies (Cybersecurity) 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://gdit.wd5.myworkdayjobs.com/GDIT_EarlyTalent/job/USA-VA-Falls-Church/XMLNAME-2027-Summer-Intern---Defense-Agencies--Cybersecurity-_RQ230273"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: GDIT 2027 Summer Intern - Defense Agencies (Cybersecurity)"></a> | Falls Church, VA | Oct 12 |
 | Lockheed Martin | 🆕 Systems Engineer (Cyber) - Intern 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://lockheedmartin.eightfold.ai/careers/job/996477335927"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Lockheed Martin Systems Engineer (Cyber) - Intern"></a> | Orlando, FL | Oct 12 |
@@ -361,6 +362,9 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
+| CACI | 🆕 Cyber Security Engineer, Jr. 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://caci.wd1.myworkdayjobs.com/External/job/Florham-Park-NJ-US/Cyber-Security-Engineer--Jr_333540"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: CACI Cyber Security Engineer, Jr."></a> | Florham Park, NJ | Oct 14 |
+| Chainalysis | 🆕 Software Engineer II, Compliance Core<br><sub>GRC &amp; Risk</sub> | <a href="https://jobs.ashbyhq.com/chainalysis-careers/05ebe657-fb6e-47c0-a8ce-4ac6ac362d2d"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Chainalysis Software Engineer II, Compliance Core"></a> | NY (US) | Oct 14 |
+| GuidePoint Security | 🆕 Associate Security Engineer - AD/Entra ID (Remote in the US)<br><sub>Security Engineering</sub> | <a href="https://boards.greenhouse.io/guidepointsecurity/jobs/6223956004?gh_jid=6223956004"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: GuidePoint Security Associate Security Engineer - AD/Entra ID (Remote in the US)"></a> | Remote (US) | Oct 14 |
 | Northrop Grumman | 🆕 Associate Cloud Software Engineer (Level 1) 🇺🇸<br><sub>Cloud Engineering</sub> | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-Redondo-Beach/Associate-Cloud-Software-Engineer--Level-1-_R10255928"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Northrop Grumman Associate Cloud Software Engineer (Level 1)"></a> | Redondo Beach, CA | Oct 14 |
 | Salt Security | 🆕 Associate Solutions Architect<br><sub>Solutions Architecture</sub> | <a href="https://salt.security/job-board?gh_jid=5265030007"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Salt Security Associate Solutions Architect"></a> | Central (US) | Oct 14 |
 | BlackRock | 🆕 Associate, Technology Audit<br><sub>GRC &amp; Risk</sub> | <a href="https://blackrock.wd1.myworkdayjobs.com/BlackRock_Professional/job/New-York-NY/Associate--Technology-Audit_R266284"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: BlackRock Associate, Technology Audit"></a> | New York, NY | Oct 13 |
@@ -514,6 +518,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 | Recorded Future | Fraud Analyst<br><sub>Threat Intelligence</sub> | <a href="https://job-boards.greenhouse.io/recordedfuture/jobs/8539329002"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Recorded Future Fraud Analyst"></a> | Washington, DC | Jul 22 |
 | ↳ | Fraud Analyst<br><sub>Threat Intelligence</sub> | <a href="https://job-boards.greenhouse.io/recordedfuture/jobs/8534834002"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Recorded Future Fraud Analyst"></a> | New York, NY | Jul 22 |
 | ↳ | Fraud Analyst<br><sub>Threat Intelligence</sub> | <a href="https://job-boards.greenhouse.io/recordedfuture/jobs/8539331002"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Recorded Future Fraud Analyst"></a> | Boston, MA | Jul 22 |
+| Mastercard | Security Monitoring and Response Analyst II<br><sub>Security Engineering</sub> | <a href="https://mastercard.wd1.myworkdayjobs.com/CorporateCareers/job/OFallon-Missouri/Corporate-Security-Operations-Analyst-II_R-292111-1"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Mastercard Security Monitoring and Response Analyst II"></a> | O'Fallon, MO | Jul 21 |
 | CrowdStrike | Engineer II, Software Assurance, Product Security (Remote)<br><sub>AppSec &amp; ProdSec</sub> | <a href="https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Engineer-II--Software-Assurance--Product-Security--Remote-_R29328"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: CrowdStrike Engineer II, Software Assurance, Product Security (Remote)"></a> | Remote (US) | Jul 20 |
 | ReliaQuest | Associate Software Engineer<br><sub>Engineering @ Security Co</sub> | <a href="https://reliaquest.wd5.myworkdayjobs.com/ReliaQuest_Careers/job/Tampa-FL/Associate-Software-Engineer_R15047"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: ReliaQuest Associate Software Engineer"></a> | Tampa, FL | Jul 18 |
 | Booz Allen Hamilton | Cybersecurity Analyst, Junior 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Rome-NY/Cybersecurity-Analyst--Junior_R0227512"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Booz Allen Hamilton Cybersecurity Analyst, Junior"></a> | Rome, NY | Jul 17 |
@@ -535,7 +540,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 <!-- CLOSED_START earlycareer -->
 
-<details><summary>🔒 156 closed in the last 60 days</summary>
+<details><summary>🔒 155 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
@@ -647,7 +652,6 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 | Leidos | IT Security Engineer II | Sep 19 |
 | ↳ | IT Security Engineer 2 | Sep 19 |
 | ↳ | Tier 2 Cyber Incident Response Analyst | Sep 19 |
-| Mastercard | Security Monitoring and Response Analyst II | Sep 19 |
 | Morgan Stanley | Associate - AI Governance &amp; Reporting - Model Risk | Sep 19 |
 | Netskope | Solutions Engineer - SDWAN | Sep 19 |
 | ↳ | Solutions Engineer - SDWAN | Sep 19 |

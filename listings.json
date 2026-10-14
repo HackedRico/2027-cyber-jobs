@@ -554,7 +554,8 @@
     "clearance": false,
     "url": "https://paloaltonetworks.wd5.myworkdayjobs.com/panwexternalcareers/job/Office---USA---VA---Reston/Intern---Threat-Intelligence--NATSEC-_JR-013988-1",
     "source": "Workday",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-10-14"
   },
   {
     "company": "Palo Alto Networks",
@@ -900,11 +901,9 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "",
+    "url": "https://mastercard.wd1.myworkdayjobs.com/CorporateCareers/job/OFallon-Missouri/Corporate-Security-Operations-Analyst-II_R-292111-1",
     "source": "Workday",
-    "date_added": "2026-07-21",
-    "closed": true,
-    "closed_date": "2026-09-19"
+    "date_added": "2026-07-21"
   },
   {
     "company": "Optiv",
@@ -2940,7 +2939,8 @@
     "clearance": false,
     "url": "https://boards.greenhouse.io/robinhood/jobs/8207970?t=gh_src=&gh_jid=8207970",
     "source": "Greenhouse",
-    "date_added": "2026-09-16"
+    "date_added": "2026-09-16",
+    "missing_since": "2026-10-14"
   },
   {
     "company": "Cisco",
@@ -4969,7 +4969,8 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-PR-AGUADILLA-110--Rd-110-N-Km-288--RD110/Software-Engineer--DevSecOps-Co-Op--Summer-Fall-2027---Hybrid-_01873555",
     "source": "Workday",
-    "date_added": "2026-10-02"
+    "date_added": "2026-10-02",
+    "missing_since": "2026-10-14"
   },
   {
     "company": "Duke Energy",
@@ -6017,7 +6018,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-El-Segundo/Cybersecurity-Systems-Engineer--Level-1-2-_R10250987",
     "source": "Workday",
-    "date_added": "2026-10-06"
+    "date_added": "2026-10-06",
+    "missing_since": "2026-10-14"
   },
   {
     "company": "Northrop Grumman",
@@ -6177,7 +6179,8 @@
     "clearance": true,
     "url": "https://rb.wd5.myworkdayjobs.com/FRS/job/Richmond-VA/AI-Solutions-Engineer---Associate_R-0000033675-1",
     "source": "Workday",
-    "date_added": "2026-10-08"
+    "date_added": "2026-10-08",
+    "missing_since": "2026-10-14"
   },
   {
     "company": "Lockheed Martin",
@@ -6672,6 +6675,50 @@
     "category": "SOC & Detection",
     "clearance": false,
     "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/SoC-Software-Engineer---New-College-Graduate-2026_JR2027552-1",
+    "source": "Workday",
+    "date_added": "2026-10-14"
+  },
+  {
+    "company": "GuidePoint Security",
+    "role": "Associate Security Engineer - AD/Entra ID (Remote in the US)",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://boards.greenhouse.io/guidepointsecurity/jobs/6223956004?gh_jid=6223956004",
+    "source": "Greenhouse",
+    "date_added": "2026-10-14"
+  },
+  {
+    "company": "Chainalysis",
+    "role": "Software Engineer II, Compliance Core",
+    "location": "NY (US)",
+    "type": "earlycareer",
+    "category": "GRC & Risk",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/chainalysis-careers/05ebe657-fb6e-47c0-a8ce-4ac6ac362d2d",
+    "source": "Ashby",
+    "date_added": "2026-10-14"
+  },
+  {
+    "company": "CACI",
+    "role": "Cyber Security Engineer, Jr.",
+    "location": "Florham Park, NJ",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://caci.wd1.myworkdayjobs.com/External/job/Florham-Park-NJ-US/Cyber-Security-Engineer--Jr_333540",
+    "source": "Workday",
+    "date_added": "2026-10-14"
+  },
+  {
+    "company": "Northrop Grumman",
+    "role": "2027 S/W Cybersecurity Intern \u2013 Annapolis MD",
+    "location": "Annapolis, MD",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Maryland-Annapolis/XMLNAME-2027-S-W-Cybersecurity-Intern---Annapolis-MD_R10254705",
     "source": "Workday",
     "date_added": "2026-10-14"
   }

@@ -4,7 +4,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **408 companies tracked.**
 
-## Hiring students now (107)
+## Hiring students now (108)
 
 Employers with open roles on the board today.
 
@@ -22,10 +22,11 @@ Employers with open roles on the board today.
 | Software Engineering Institute | 4 |  | 5 |
 | Tanium | 4 |  |  |
 | RTX | 3 |  | 15 |
-| CACI | 3 |  | 2 |
+| Northrop Grumman | 1 | 2 | 13 |
+| CACI | 3 |  | 3 |
+| GuidePoint Security | 3 |  | 2 |
 | Federal Reserve System | 3 |  | 1 |
 | Goldman Sachs | 3 |  | 1 |
-| GuidePoint Security | 3 |  | 1 |
 | NVIDIA |  | 3 | 1 |
 | Immuta | 3 |  |  |
 | Intel | 3 |  |  |
@@ -33,7 +34,6 @@ Employers with open roles on the board today.
 | The Cigna Group | 2 | 1 |  |
 | Walmart | 3 |  |  |
 | Amazon | 1 | 1 | 13 |
-| Northrop Grumman |  | 2 | 13 |
 | Battelle | 2 |  | 3 |
 | GDIT | 2 |  | 2 |
 | Appian | 1 | 1 | 1 |
@@ -81,6 +81,7 @@ Employers with open roles on the board today.
 | Recorded Future |  |  | 3 |
 | AeroVironment |  |  | 2 |
 | Amentum |  |  | 2 |
+| Chainalysis |  |  | 2 |
 | Citi |  |  | 2 |
 | JPMorgan Chase |  |  | 2 |
 | SAIC |  |  | 2 |
@@ -91,7 +92,6 @@ Employers with open roles on the board today.
 | Anthropic |  |  | 1 |
 | Arctic Wolf |  |  | 1 |
 | BlackRock |  |  | 1 |
-| Chainalysis |  |  | 1 |
 | Delinea |  |  | 1 |
 | Dragos |  |  | 1 |
 | ESET |  |  | 1 |
@@ -102,6 +102,7 @@ Employers with open roles on the board today.
 | Fortra |  |  | 1 |
 | HII |  |  | 1 |
 | Huntress |  |  | 1 |
+| Mastercard |  |  | 1 |
 | MIT Lincoln Laboratory |  |  | 1 |
 | Obsidian Security |  |  | 1 |
 | Praetorian |  |  | 1 |
