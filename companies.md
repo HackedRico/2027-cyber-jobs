@@ -10,7 +10,7 @@ Employers with open roles on the board today.
 
 | Company | Internships | New grad | Early career |
 | ------- | ----------- | -------- | ------------ |
-| Johns Hopkins APL | 12 | 13 |  |
+| Johns Hopkins APL | 11 | 13 |  |
 | Booz Allen Hamilton | 17 |  | 4 |
 | Vanguard | 5 | 6 |  |
 | Microsoft | 8 |  | 5 |
@@ -26,13 +26,14 @@ Employers with open roles on the board today.
 | Federal Reserve System | 3 |  | 1 |
 | Goldman Sachs | 3 |  | 1 |
 | GuidePoint Security | 3 |  | 1 |
+| NVIDIA |  | 3 | 1 |
 | Immuta | 3 |  |  |
 | Intel | 3 |  |  |
 | Palantir | 2 | 1 |  |
 | The Cigna Group | 2 | 1 |  |
 | Walmart | 3 |  |  |
 | Amazon | 1 | 1 | 13 |
-| Northrop Grumman |  | 2 | 12 |
+| Northrop Grumman |  | 2 | 13 |
 | Battelle | 2 |  | 3 |
 | GDIT | 2 |  | 2 |
 | Appian | 1 | 1 | 1 |
@@ -44,7 +45,6 @@ Employers with open roles on the board today.
 | Idaho National Laboratory | 2 |  |  |
 | Lockheed Martin | 2 |  |  |
 | Qualcomm | 2 |  |  |
-| TD Bank | 2 |  |  |
 | Nightwing | 1 |  | 7 |
 | Leidos | 1 |  | 6 |
 | Pinterest | 1 |  | 2 |
@@ -52,7 +52,6 @@ Employers with open roles on the board today.
 | Draper | 1 |  | 1 |
 | Grant Thornton |  | 1 | 1 |
 | Motorola Solutions | 1 |  | 1 |
-| NVIDIA |  | 1 | 1 |
 | Parsons | 1 |  | 1 |
 | Verkada | 1 |  | 1 |
 | Anduril |  | 1 |  |
@@ -110,6 +109,7 @@ Employers with open roles on the board today.
 | PwC |  |  | 1 |
 | ReliaQuest |  |  | 1 |
 | SailPoint |  |  | 1 |
+| Salt Security |  |  | 1 |
 | Tenable |  |  | 1 |
 | Tines |  |  | 1 |
 | Trellix |  |  | 1 |

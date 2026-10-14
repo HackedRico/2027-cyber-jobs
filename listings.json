@@ -2374,7 +2374,8 @@
     "clearance": true,
     "url": "https://boards.greenhouse.io/andurilindustries/jobs/5233074007?gh_jid=5233074007",
     "source": "Greenhouse",
-    "date_added": "2026-09-09"
+    "date_added": "2026-09-09",
+    "missing_since": "2026-10-14"
   },
   {
     "company": "Tanium",
@@ -4632,10 +4633,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://careers.jhuapl.edu/jobs/59997",
+    "url": "",
     "source": "Jibe",
     "date_added": "2026-09-29",
-    "missing_since": "2026-10-11"
+    "closed": true,
+    "closed_date": "2026-10-14"
   },
   {
     "company": "RTX",
@@ -4874,7 +4876,8 @@
     "clearance": true,
     "url": "https://parsons.wd5.myworkdayjobs.com/Search/job/US---FL-Melbourne/Associate-Vulnerability-Researcher-Engineer_R186346",
     "source": "Workday",
-    "date_added": "2026-10-01"
+    "date_added": "2026-10-01",
+    "missing_since": "2026-10-14"
   },
   {
     "company": "Parsons",
@@ -5272,7 +5275,8 @@
     "clearance": false,
     "url": "https://walmart.wd504.myworkdayjobs.com/WalmartExternal/job/USA-Maverick-Building-AR-Bentonville-Home-Office/Summer-2027-Corporate-Intern--Global-IT-Audit_R-2630160",
     "source": "Workday",
-    "date_added": "2026-10-03"
+    "date_added": "2026-10-03",
+    "missing_since": "2026-10-14"
   },
   {
     "company": "Software Engineering Institute",
@@ -5448,10 +5452,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://td.wd3.myworkdayjobs.com/TD_Bank_Careers/job/Mount-Laurel-New-Jersey/XMLNAME-2027-Spring-Co-op---Global-Technology---Solutions---Cyber-Security_R_1510103",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-03",
-    "missing_since": "2026-10-11"
+    "closed": true,
+    "closed_date": "2026-10-14"
   },
   {
     "company": "TD Bank",
@@ -5460,10 +5465,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://td.wd3.myworkdayjobs.com/TD_Bank_Careers/job/Mount-Laurel-New-Jersey/XMLNAME-2027-Summer-Internship-Program---Global-Technology---Solutions---Cyber-Security_R_1510795",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-03",
-    "missing_since": "2026-10-11"
+    "closed": true,
+    "closed_date": "2026-10-14"
   },
   {
     "company": "Fifth Third",
@@ -5602,7 +5608,8 @@
     "clearance": false,
     "url": "https://ebqb.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BDOEntryLevelCareers/job/13972",
     "source": "Oracle",
-    "date_added": "2026-10-03"
+    "date_added": "2026-10-03",
+    "missing_since": "2026-10-14"
   },
   {
     "company": "BDO",
@@ -6623,5 +6630,49 @@
     "url": "https://careers.jhuapl.edu/jobs/59922",
     "source": "Jibe",
     "date_added": "2026-10-13"
+  },
+  {
+    "company": "Salt Security",
+    "role": "Associate Solutions Architect",
+    "location": "Central (US)",
+    "type": "earlycareer",
+    "category": "Solutions Architecture",
+    "clearance": false,
+    "url": "https://salt.security/job-board?gh_jid=5265030007",
+    "source": "Greenhouse",
+    "date_added": "2026-10-14"
+  },
+  {
+    "company": "Northrop Grumman",
+    "role": "Associate Cloud Software Engineer (Level 1)",
+    "location": "Redondo Beach, CA",
+    "type": "earlycareer",
+    "category": "Cloud Engineering",
+    "clearance": true,
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-Redondo-Beach/Associate-Cloud-Software-Engineer--Level-1-_R10255928",
+    "source": "Workday",
+    "date_added": "2026-10-14"
+  },
+  {
+    "company": "NVIDIA",
+    "role": "SoC Software Engineer - New College Grad 2027",
+    "location": "Santa Clara, CA",
+    "type": "newgrad",
+    "category": "SOC & Detection",
+    "clearance": false,
+    "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/SoC-Software-Engineer---New-College-Grad-2027_JR2026744",
+    "source": "Workday",
+    "date_added": "2026-10-14"
+  },
+  {
+    "company": "NVIDIA",
+    "role": "SoC Software Engineer \u2013 New College Graduate 2026",
+    "location": "Santa Clara, CA",
+    "type": "newgrad",
+    "category": "SOC & Detection",
+    "clearance": false,
+    "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/SoC-Software-Engineer---New-College-Graduate-2026_JR2027552-1",
+    "source": "Workday",
+    "date_added": "2026-10-14"
   }
 ]
