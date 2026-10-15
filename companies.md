@@ -17,17 +17,17 @@ Employers with open roles on the board today.
 | American Express | 4 | 4 |  |
 | MITRE | 6 | 1 | 5 |
 | Palo Alto Networks | 5 | 1 | 3 |
-| BDO | 4 | 1 | 1 |
-| HPE | 3 | 2 | 1 |
+| HPE | 3 | 3 | 1 |
+| Northrop Grumman | 3 | 2 | 13 |
 | Software Engineering Institute | 4 |  | 5 |
+| GuidePoint Security | 4 |  | 2 |
+| BDO | 3 | 1 | 1 |
+| NVIDIA | 1 | 3 | 1 |
 | Tanium | 4 |  |  |
-| RTX | 3 |  | 15 |
-| Northrop Grumman | 1 | 2 | 13 |
+| RTX | 3 |  | 14 |
 | CACI | 3 |  | 3 |
-| GuidePoint Security | 3 |  | 2 |
 | Federal Reserve System | 3 |  | 1 |
 | Goldman Sachs | 3 |  | 1 |
-| NVIDIA |  | 3 | 1 |
 | Immuta | 3 |  |  |
 | Intel | 3 |  |  |
 | Palantir | 2 | 1 |  |
@@ -41,6 +41,7 @@ Employers with open roles on the board today.
 | Applied Intuition |  | 2 |  |
 | Boeing | 1 | 1 |  |
 | Cisco | 2 |  |  |
+| Elevance Health | 2 |  |  |
 | Honeywell | 2 |  |  |
 | Idaho National Laboratory | 2 |  |  |
 | Lockheed Martin | 2 |  |  |
@@ -48,19 +49,17 @@ Employers with open roles on the board today.
 | Nightwing | 1 |  | 7 |
 | Leidos | 1 |  | 6 |
 | Pinterest | 1 |  | 2 |
-| The Home Depot | 1 |  | 2 |
 | Draper | 1 |  | 1 |
 | Grant Thornton |  | 1 | 1 |
 | Motorola Solutions | 1 |  | 1 |
 | Parsons | 1 |  | 1 |
+| The Home Depot | 1 |  | 1 |
 | Verkada | 1 |  | 1 |
 | Anduril |  | 1 |  |
 | Bank of America | 1 |  |  |
 | Deloitte |  | 1 |  |
-| Elevance Health | 1 |  |  |
 | Entrust | 1 |  |  |
 | Exelon | 1 |  |  |
-| Fifth Third | 1 |  |  |
 | HP Inc | 1 |  |  |
 | Johnson &amp; Johnson | 1 |  |  |
 | KeyBank |  | 1 |  |
@@ -69,11 +68,12 @@ Employers with open roles on the board today.
 | Prophet Security | 1 |  |  |
 | Robinhood | 1 |  |  |
 | Rubrik |  | 1 |  |
+| Salesforce | 1 |  |  |
 | Semgrep | 1 |  |  |
 | Sierra Nevada Corporation | 1 |  |  |
 | State Farm | 1 |  |  |
 | TRM Labs |  | 1 |  |
-| CrowdStrike |  |  | 6 |
+| CrowdStrike |  |  | 5 |
 | KBR |  |  | 5 |
 | BAE Systems |  |  | 4 |
 | ExtraHop |  |  | 3 |

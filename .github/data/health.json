@@ -1,16 +1,16 @@
 {
-  "date": "2026-10-14",
+  "date": "2026-10-15",
   "boards": 414,
-  "ok": 396,
-  "empty": 17,
+  "ok": 395,
+  "empty": 18,
   "failed": [
     "Cybereason (greenhouse/cybereason)"
   ],
   "regressed": [
     {
-      "board": "Cybereason (greenhouse/cybereason)",
-      "had": 2
+      "board": "Blumira (greenhouse/blumira)",
+      "had": 1
     }
   ],
-  "silent": 15
+  "silent": 16
 }
