@@ -6,11 +6,6 @@
   "failed": [
     "Cybereason (greenhouse/cybereason)"
   ],
-  "regressed": [
-    {
-      "board": "Blumira (greenhouse/blumira)",
-      "had": 1
-    }
-  ],
+  "regressed": [],
   "silent": 16
 }

@@ -53,6 +53,7 @@ Employers with open roles on the board today.
 | Grant Thornton |  | 1 | 1 |
 | Motorola Solutions | 1 |  | 1 |
 | Parsons | 1 |  | 1 |
+| Sierra Nevada Corporation | 1 |  | 1 |
 | The Home Depot | 1 |  | 1 |
 | Verkada | 1 |  | 1 |
 | Anduril |  | 1 |  |
@@ -70,7 +71,6 @@ Employers with open roles on the board today.
 | Rubrik |  | 1 |  |
 | Salesforce | 1 |  |  |
 | Semgrep | 1 |  |  |
-| Sierra Nevada Corporation | 1 |  |  |
 | State Farm | 1 |  |  |
 | TRM Labs |  | 1 |  |
 | CrowdStrike |  |  | 5 |

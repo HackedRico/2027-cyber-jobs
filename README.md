@@ -14,7 +14,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**143** internships · **49** new grad · **170** early career open · **65** added in the last 7 days · **173** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 15, 2026
+**143** internships · **49** new grad · **171** early career open · **66** added in the last 7 days · **174** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 15, 2026
 
 <!-- /STATS -->
 
@@ -368,6 +368,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
+| Sierra Nevada Corporation | 🆕 Systems Security Engineer I 🇺🇸<br><sub>Cloud &amp; Infra Security</sub> | <a href="https://snc.wd1.myworkdayjobs.com/SNC_External_Career_Site/job/Lone-Tree-CO/Systems-Security-Engineer-I_R0031080"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Sierra Nevada Corporation Systems Security Engineer I"></a> | Lone Tree, CO | Oct 15 |
 | CACI | 🆕 Cyber Security Engineer, Jr. 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://caci.wd1.myworkdayjobs.com/External/job/Florham-Park-NJ-US/Cyber-Security-Engineer--Jr_333540"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: CACI Cyber Security Engineer, Jr."></a> | Florham Park, NJ | Oct 14 |
 | Chainalysis | 🆕 Software Engineer II, Compliance Core<br><sub>GRC &amp; Risk</sub> | <a href="https://jobs.ashbyhq.com/chainalysis-careers/05ebe657-fb6e-47c0-a8ce-4ac6ac362d2d"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Chainalysis Software Engineer II, Compliance Core"></a> | NY (US) | Oct 14 |
 | GuidePoint Security | 🆕 Associate Security Engineer - AD/Entra ID (Remote in the US)<br><sub>Security Engineering</sub> | <a href="https://boards.greenhouse.io/guidepointsecurity/jobs/6223956004?gh_jid=6223956004"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: GuidePoint Security Associate Security Engineer - AD/Entra ID (Remote in the US)"></a> | Remote (US) | Oct 14 |
