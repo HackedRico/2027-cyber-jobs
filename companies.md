@@ -4,7 +4,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **408 companies tracked.**
 
-## Hiring students now (110)
+## Hiring students now (112)
 
 Employers with open roles on the board today.
 
@@ -33,6 +33,7 @@ Employers with open roles on the board today.
 | Palantir | 2 | 1 |  |
 | Walmart | 3 |  |  |
 | RTX | 2 |  | 14 |
+| Leidos | 2 |  | 6 |
 | Battelle | 2 |  | 3 |
 | GDIT | 2 |  | 2 |
 | Appian | 1 | 1 | 1 |
@@ -47,8 +48,8 @@ Employers with open roles on the board today.
 | National Laboratory of the Rockies | 2 |  |  |
 | Qualcomm | 2 |  |  |
 | The Cigna Group | 2 |  |  |
+| Together AI | 1 | 1 |  |
 | Nightwing | 1 |  | 7 |
-| Leidos | 1 |  | 6 |
 | Pinterest | 1 |  | 2 |
 | Draper | 1 |  | 1 |
 | Grant Thornton |  | 1 | 1 |
@@ -64,6 +65,7 @@ Employers with open roles on the board today.
 | Exelon | 1 |  |  |
 | Guidehouse |  | 1 |  |
 | HP Inc | 1 |  |  |
+| ICF | 1 |  |  |
 | Johnson &amp; Johnson | 1 |  |  |
 | KeyBank |  | 1 |  |
 | OPSWAT | 1 |  |  |
