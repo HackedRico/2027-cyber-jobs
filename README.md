@@ -14,7 +14,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**149** internships · **49** new grad · **174** early career open · **57** added in the last 7 days · **178** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 16, 2026
+**148** internships · **48** new grad · **174** early career open · **57** added in the last 7 days · **178** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 16, 2026
 
 <!-- /STATS -->
 
@@ -109,7 +109,6 @@ Cybersecurity internships and co-ops for current students.
 | Intel | AI Solution Architect - Graduate Intern<br><sub>Solutions Architecture</sub> | <a href="https://intel.wd1.myworkdayjobs.com/External/job/US-California-Santa-Clara/AI-Solution-Architect---Graduate-Intern_JR0287524"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Intel AI Solution Architect - Graduate Intern"></a> | Santa Clara, CA | Oct 5 |
 | ↳ | AI Solution Architect Graduate Intern<br><sub>Solutions Architecture</sub> | <a href="https://intel.wd1.myworkdayjobs.com/External/job/US-California-Santa-Clara/AI-Solution-Architect-Graduate-Intern_JR0287530"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Intel AI Solution Architect Graduate Intern"></a> | Santa Clara, CA | Oct 5 |
 | National Laboratory of the Rockies | Undergraduate / Graduate (Spring / Summer) Intern - Cyber Security Research – 5G<br><sub>Security Engineering</sub> | <a href="https://nrel.wd5.myworkdayjobs.com/NLR/job/Golden-CO/Undergraduate---Graduate--Spring---Summer--Intern---Cyber-Security-Research---5G_R14555"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: National Laboratory of the Rockies Undergraduate / Graduate (Spring / Summer) Intern - Cyber Security Research – 5G"></a> | Golden, CO | Oct 5 |
-| Amazon | Solutions Architect Intern Cohort, AGS-Tech - 2027<br><sub>Solutions Architecture</sub> | <a href="https://www.amazon.jobs/en/jobs/10560679/solutions-architect-intern-cohort-ags-tech-2027"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Solutions Architect Intern Cohort, AGS-Tech - 2027"></a> | Seattle, WA | Oct 3 |
 | Battelle | Hardware Reverse Engineer/Vulnerability Research Internship (Summer 2027) 🇺🇸<br><sub>Offensive Security</sub> | <a href="https://jobs.battelle.org/us/en/job/76529"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Battelle Hardware Reverse Engineer/Vulnerability Research Internship (Summer 2027)"></a> | COLUMBUS, OH | Oct 3 |
 | ↳ | Reverse Engineering/Vulnerability Research Internship (Summer 2027) 🇺🇸<br><sub>Offensive Security</sub> | <a href="https://jobs.battelle.org/us/en/job/76543"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Battelle Reverse Engineering/Vulnerability Research Internship (Summer 2027)"></a> | COLUMBUS, OH | Oct 3 |
 | BDO | Assurance Intern, Technology Risk Assurance - Summer 2027 (San Jose)<br><sub>GRC &amp; Risk</sub> | <a href="https://ebqb.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BDOEntryLevelCareers/job/13972"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: BDO Assurance Intern, Technology Risk Assurance - Summer 2027 (San Jose)"></a> | San Jose, CA | Oct 3 |
@@ -225,10 +224,11 @@ Cybersecurity internships and co-ops for current students.
 
 <!-- CLOSED_START intern -->
 
-<details><summary>🔒 40 closed in the last 60 days</summary>
+<details><summary>🔒 41 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
+| Amazon | Solutions Architect Intern Cohort, AGS-Tech - 2027 | Oct 16 |
 | RTX | Systems Security Engineering Intern (Summer 2027) | Oct 16 |
 | BDO | Assurance Intern, Technology Risk Assurance - Summer 2027 (San Diego) | Oct 15 |
 | Fifth Third | 2027 IT Audit Intern | Oct 15 |
@@ -297,7 +297,6 @@ Full-time roles and rotational programs for students in their final year or just
 | ID.me | Software Development Engineer II – Life Hub (Super App) (New Grad / Early Career)<br><sub>Engineering @ Security Co</sub> | <a href="https://job-boards.greenhouse.io/idme/jobs/8011095003"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: ID.me Software Development Engineer II – Life Hub (Super App) (New Grad / Early Career)"></a> | Mountain View, CA | Oct 6 |
 | ↳ | Software Engineer II, Developer Portal (New Grad / Early Career)<br><sub>Engineering @ Security Co</sub> | <a href="https://job-boards.greenhouse.io/idme/jobs/8011089003"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: ID.me Software Engineer II, Developer Portal (New Grad / Early Career)"></a> | Mountain View, CA | Oct 6 |
 | Northrop Grumman | 2026 Associate Cybersecurity Analyst - Pathways Program - Redondo Beach CA 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-Redondo-Beach/XMLNAME-2026-Associate-Cybersecurity-Analyst---Pathways-Program---Redondo-Beach-CA_R10251914"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Northrop Grumman 2026 Associate Cybersecurity Analyst - Pathways Program - Redondo Beach CA"></a> | Redondo Beach, CA | Oct 5 |
-| Amazon | Associate Solutions Architect, AGS-Tech, Early Career - 2027<br><sub>Solutions Architecture</sub> | <a href="https://www.amazon.jobs/en/jobs/10558472/associate-solutions-architect-ags-tech-early-career-2027"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Associate Solutions Architect, AGS-Tech, Early Career - 2027"></a> | Seattle, WA | Oct 3 |
 | Appian | Associate Solutions Consultant (2027 Graduates)<br><sub>Solutions Architecture</sub> | <a href="https://job-boards.greenhouse.io/appian/jobs/8035742"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Appian Associate Solutions Consultant (2027 Graduates)"></a> | McLean, VA | Oct 3 |
 | Applied Intuition | OTA/Cloud Validation Engineer - New Grad (2027)<br><sub>Cloud Engineering</sub> | <a href="https://jobs.ashbyhq.com/applied/e5ec6599-5ae4-4f0f-b0fd-cd6f4cad8d95"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Applied Intuition OTA/Cloud Validation Engineer - New Grad (2027)"></a> | Sunnyvale, CA | Oct 3 |
 | Grant Thornton | Cybersecurity and Privacy Associate - Summer 2027<br><sub>Security Engineering</sub> | <a href="https://ehzq.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/115751"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Grant Thornton Cybersecurity and Privacy Associate - Summer 2027"></a> | Los Angeles, CA | Oct 3 |
@@ -338,10 +337,11 @@ Full-time roles and rotational programs for students in their final year or just
 
 <!-- CLOSED_START newgrad -->
 
-<details><summary>🔒 19 closed in the last 60 days</summary>
+<details><summary>🔒 20 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
+| Amazon | Associate Solutions Architect, AGS-Tech, Early Career - 2027 | Oct 16 |
 | The Cigna Group | Technology Development Program (TECDP) - Cyber Security Track - Start Date: July 12, 2027 | Oct 16 |
 | Northrop Grumman | 2027 Associate Systems Security Engineer - Roy UT | Oct 13 |
 | ↳ | 2027 - Associate Cyber Software Engineer - Cincinnati OH | Oct 13 |

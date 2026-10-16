@@ -33,7 +33,6 @@ Employers with open roles on the board today.
 | Palantir | 2 | 1 |  |
 | Walmart | 3 |  |  |
 | RTX | 2 |  | 14 |
-| Amazon | 1 | 1 | 13 |
 | Battelle | 2 |  | 3 |
 | GDIT | 2 |  | 2 |
 | Appian | 1 | 1 | 1 |
@@ -75,6 +74,7 @@ Employers with open roles on the board today.
 | Semgrep | 1 |  |  |
 | State Farm | 1 |  |  |
 | TRM Labs |  | 1 |  |
+| Amazon |  |  | 13 |
 | CrowdStrike |  |  | 7 |
 | KBR |  |  | 5 |
 | BAE Systems |  |  | 4 |
