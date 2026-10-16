@@ -4,35 +4,35 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **408 companies tracked.**
 
-## Hiring students now (108)
+## Hiring students now (110)
 
 Employers with open roles on the board today.
 
 | Company | Internships | New grad | Early career |
 | ------- | ----------- | -------- | ------------ |
 | Johns Hopkins APL | 11 | 13 |  |
-| Booz Allen Hamilton | 17 |  | 4 |
+| Booz Allen Hamilton | 17 |  | 3 |
 | Vanguard | 5 | 6 |  |
 | Microsoft | 8 |  | 5 |
 | American Express | 4 | 4 |  |
 | MITRE | 6 | 1 | 5 |
 | Palo Alto Networks | 5 | 1 | 3 |
-| HPE | 3 | 3 | 1 |
+| HPE | 3 | 3 | 2 |
+| Lawrence Livermore National Laboratory | 6 |  |  |
 | Northrop Grumman | 3 | 2 | 13 |
 | Software Engineering Institute | 4 |  | 5 |
 | GuidePoint Security | 4 |  | 2 |
 | BDO | 3 | 1 | 1 |
 | NVIDIA | 1 | 3 | 1 |
 | Tanium | 4 |  |  |
-| RTX | 3 |  | 14 |
 | CACI | 3 |  | 3 |
 | Federal Reserve System | 3 |  | 1 |
 | Goldman Sachs | 3 |  | 1 |
 | Immuta | 3 |  |  |
 | Intel | 3 |  |  |
 | Palantir | 2 | 1 |  |
-| The Cigna Group | 2 | 1 |  |
 | Walmart | 3 |  |  |
+| RTX | 2 |  | 14 |
 | Amazon | 1 | 1 | 13 |
 | Battelle | 2 |  | 3 |
 | GDIT | 2 |  | 2 |
@@ -45,7 +45,9 @@ Employers with open roles on the board today.
 | Honeywell | 2 |  |  |
 | Idaho National Laboratory | 2 |  |  |
 | Lockheed Martin | 2 |  |  |
+| National Laboratory of the Rockies | 2 |  |  |
 | Qualcomm | 2 |  |  |
+| The Cigna Group | 2 |  |  |
 | Nightwing | 1 |  | 7 |
 | Leidos | 1 |  | 6 |
 | Pinterest | 1 |  | 2 |
@@ -61,10 +63,10 @@ Employers with open roles on the board today.
 | Deloitte |  | 1 |  |
 | Entrust | 1 |  |  |
 | Exelon | 1 |  |  |
+| Guidehouse |  | 1 |  |
 | HP Inc | 1 |  |  |
 | Johnson &amp; Johnson | 1 |  |  |
 | KeyBank |  | 1 |  |
-| National Laboratory of the Rockies | 1 |  |  |
 | OPSWAT | 1 |  |  |
 | Prophet Security | 1 |  |  |
 | Robinhood | 1 |  |  |
@@ -73,12 +75,13 @@ Employers with open roles on the board today.
 | Semgrep | 1 |  |  |
 | State Farm | 1 |  |  |
 | TRM Labs |  | 1 |  |
-| CrowdStrike |  |  | 5 |
+| CrowdStrike |  |  | 7 |
 | KBR |  |  | 5 |
 | BAE Systems |  |  | 4 |
 | ExtraHop |  |  | 3 |
 | Kyndryl |  |  | 3 |
 | Recorded Future |  |  | 3 |
+| 1Password |  |  | 2 |
 | AeroVironment |  |  | 2 |
 | Amentum |  |  | 2 |
 | Chainalysis |  |  | 2 |
@@ -115,7 +118,6 @@ Employers with open roles on the board today.
 | Tines |  |  | 1 |
 | Trellix |  |  | 1 |
 | Two Six Technologies |  |  | 1 |
-| U.S. Bank |  |  | 1 |
 | USAA |  |  | 1 |
 | Verizon |  |  | 1 |
 

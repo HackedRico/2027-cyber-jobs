@@ -2475,10 +2475,11 @@
     "type": "newgrad",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://cigna.wd5.myworkdayjobs.com/cignacareers/job/Bloomfield-CT/Technology-Development-Program--TECDP----Cyber-Security-Track---Start-Date--July-12--2027_26010468",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-09",
-    "missing_since": "2026-10-13"
+    "closed": true,
+    "closed_date": "2026-10-16"
   },
   {
     "company": "Northrop Grumman",
@@ -2574,7 +2575,8 @@
     "clearance": true,
     "url": "https://evergreenix.wd1.myworkdayjobs.com/external-careers2/job/USA_TX_Richardson/Software-Engineer-I_JR500748-1",
     "source": "Workday",
-    "date_added": "2026-09-11"
+    "date_added": "2026-09-11",
+    "missing_since": "2026-10-16"
   },
   {
     "company": "Morgan Stanley",
@@ -3539,10 +3541,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/El-Segundo-CA/Cybersecurity-Engineer--Junior_R0250290",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-28",
-    "missing_since": "2026-10-13"
+    "closed": true,
+    "closed_date": "2026-10-16"
   },
   {
     "company": "Booz Allen Hamilton",
@@ -5242,10 +5245,11 @@
     "type": "earlycareer",
     "category": "Forensics & IR",
     "clearance": true,
-    "url": "https://usbank.wd1.myworkdayjobs.com/US_Bank_Careers/job/Cincinnati-OH/Digital-Forensic-Examiner_2026-0026562",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-03",
-    "missing_since": "2026-10-13"
+    "closed": true,
+    "closed_date": "2026-10-16"
   },
   {
     "company": "The Cigna Group",
@@ -6158,7 +6162,8 @@
     "clearance": true,
     "url": "https://avav.wd1.myworkdayjobs.com/AVAV/job/Moorpark-CA/Embedded-Cybersecurity-Engineer-II_9015",
     "source": "Workday",
-    "date_added": "2026-10-08"
+    "date_added": "2026-10-08",
+    "missing_since": "2026-10-16"
   },
   {
     "company": "Software Engineering Institute",
@@ -6267,10 +6272,11 @@
     "type": "intern",
     "category": "Cloud & Infra Security",
     "clearance": true,
-    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-FULLERTON-675--1801-Hughes-Dr--BLDG-675/Systems-Security-Engineering-Intern---Summer-2027-_01878922",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-08",
-    "missing_since": "2026-10-13"
+    "closed": true,
+    "closed_date": "2026-10-16"
   },
   {
     "company": "KeyBank",
@@ -6394,7 +6400,8 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-800--1151-E-Hermans-Rd--BLDG-800/Embedded-Security-Software-Engineer-I--Onsite-_01881370",
     "source": "Workday",
-    "date_added": "2026-10-10"
+    "date_added": "2026-10-10",
+    "missing_since": "2026-10-16"
   },
   {
     "company": "RTX",
@@ -6783,7 +6790,8 @@
     "clearance": false,
     "url": "https://hpe.wd5.myworkdayjobs.com/Jobsathpe/job/San-Jose-California-United-States-of-America/Graduate-Cloud-Developer_1214989",
     "source": "Workday",
-    "date_added": "2026-10-15"
+    "date_added": "2026-10-15",
+    "missing_since": "2026-10-16"
   },
   {
     "company": "Elevance Health",
@@ -6806,5 +6814,148 @@
     "url": "https://snc.wd1.myworkdayjobs.com/SNC_External_Career_Site/job/Lone-Tree-CO/Systems-Security-Engineer-I_R0031080",
     "source": "Workday",
     "date_added": "2026-10-15"
+  },
+  {
+    "company": "1Password",
+    "role": "Junior Security Engineer",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/1password/49f0fe51-fcdc-46d8-a046-35f357b0cf6e",
+    "source": "Ashby",
+    "date_added": "2026-10-16"
+  },
+  {
+    "company": "1Password",
+    "role": "Junior Developer",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/1password/a492badd-a02f-4360-aa15-7ea8c6e2c85e",
+    "source": "Ashby",
+    "date_added": "2026-10-16"
+  },
+  {
+    "company": "Lawrence Livermore National Laboratory",
+    "role": "Cybersecurity Undergraduate Intern - Cyber and Critical Infrastructure Summer Institute - Summer 2027",
+    "location": "Livermore, CA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://jobs.smartrecruiters.com/LLNL/3743990016165636",
+    "source": "SmartRecruiters",
+    "date_added": "2026-10-16"
+  },
+  {
+    "company": "Lawrence Livermore National Laboratory",
+    "role": "Cybersecurity Graduate Intern - Cyber and Critical Infrastructure Summer Institute - Summer 2027",
+    "location": "Livermore, CA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://jobs.smartrecruiters.com/LLNL/3743990016165586",
+    "source": "SmartRecruiters",
+    "date_added": "2026-10-16"
+  },
+  {
+    "company": "Lawrence Livermore National Laboratory",
+    "role": "Power Systems Graduate Intern - Cyber and Critical Infrastructure Summer Institute - Summer 2027",
+    "location": "Livermore, CA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://jobs.smartrecruiters.com/LLNL/3743990016165506",
+    "source": "SmartRecruiters",
+    "date_added": "2026-10-16"
+  },
+  {
+    "company": "Lawrence Livermore National Laboratory",
+    "role": "Critical Infrastructure Analysis Undergraduate Intern - Cyber and Critical Infrastructure Summer Institute - Summer 2027",
+    "location": "Livermore, CA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://jobs.smartrecruiters.com/LLNL/3743990016165496",
+    "source": "SmartRecruiters",
+    "date_added": "2026-10-16"
+  },
+  {
+    "company": "Lawrence Livermore National Laboratory",
+    "role": "Power Systems Undergraduate Intern - Cyber and Critical Infrastructure Summer Institute - Summer 2027",
+    "location": "Livermore, CA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://jobs.smartrecruiters.com/LLNL/3743990016164416",
+    "source": "SmartRecruiters",
+    "date_added": "2026-10-16"
+  },
+  {
+    "company": "Lawrence Livermore National Laboratory",
+    "role": "Critical Infrastructure Analysis Graduate Intern - Cyber and Critical Infrastructure Summer Institute - Summer 2027",
+    "location": "Livermore, CA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://jobs.smartrecruiters.com/LLNL/3743990016164366",
+    "source": "SmartRecruiters",
+    "date_added": "2026-10-16"
+  },
+  {
+    "company": "CrowdStrike",
+    "role": "Analyst I, Falcon Complete (Hybrid, San Antonio)",
+    "location": "Remote (US); San Antonio, TX",
+    "type": "earlycareer",
+    "category": "SOC & Detection",
+    "clearance": false,
+    "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Analyst-I--Falcon-Complete--Hybrid--San-Antonio-_R30220",
+    "source": "Workday",
+    "date_added": "2026-10-16"
+  },
+  {
+    "company": "CrowdStrike",
+    "role": "Analyst I, Falcon Complete GovCloud (Hybrid, St. Louis)",
+    "location": "Remote (US); St. Louis, MO",
+    "type": "earlycareer",
+    "category": "SOC & Detection",
+    "clearance": false,
+    "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Analyst-I--Falcon-Complete--Remote-_R29479",
+    "source": "Workday",
+    "date_added": "2026-10-16"
+  },
+  {
+    "company": "Guidehouse",
+    "role": "Consultant - Defense & Security - Campus 2026",
+    "location": "McLean, VA",
+    "type": "newgrad",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://guidehouse.wd1.myworkdayjobs.com/External/job/US---VA-McLean/Consultant---Defense---Security---Campus-2026_45522-1",
+    "source": "Workday",
+    "date_added": "2026-10-16"
+  },
+  {
+    "company": "National Laboratory of the Rockies",
+    "role": "Graduate (10-12 weeks) Intern - AI/ML for Cybersecurity",
+    "location": "Golden, CO; Remote Site",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://nrel.wd5.myworkdayjobs.com/NLR/job/Golden-CO/Graduate--10-12-weeks--Intern---AI-ML-for-Cybersecurity_R14563",
+    "source": "Workday",
+    "date_added": "2026-10-16"
+  },
+  {
+    "company": "HPE",
+    "role": "Cloud Developer II",
+    "location": "San Jose, CA",
+    "type": "earlycareer",
+    "category": "Cloud Engineering",
+    "clearance": false,
+    "url": "https://hpe.wd5.myworkdayjobs.com/Jobsathpe/job/San-Jose-California-United-States-of-America/Cloud-Developer-II_1214980",
+    "source": "Workday",
+    "date_added": "2026-10-16"
   }
 ]
