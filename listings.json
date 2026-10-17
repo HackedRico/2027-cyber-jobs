@@ -552,10 +552,11 @@
     "type": "intern",
     "category": "Threat Intelligence",
     "clearance": false,
-    "url": "https://paloaltonetworks.wd5.myworkdayjobs.com/panwexternalcareers/job/Office---USA---VA---Reston/Intern---Threat-Intelligence--NATSEC-_JR-013988-1",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-07-12",
-    "missing_since": "2026-10-14"
+    "closed": true,
+    "closed_date": "2026-10-17"
   },
   {
     "company": "Palo Alto Networks",
@@ -2359,10 +2360,11 @@
     "type": "newgrad",
     "category": "Threat Intelligence",
     "clearance": true,
-    "url": "https://boards.greenhouse.io/andurilindustries/jobs/5233074007?gh_jid=5233074007",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-09-09",
-    "missing_since": "2026-10-14"
+    "closed": true,
+    "closed_date": "2026-10-17"
   },
   {
     "company": "Tanium",
@@ -2928,10 +2930,11 @@
     "type": "intern",
     "category": "GRC & Risk",
     "clearance": false,
-    "url": "https://boards.greenhouse.io/robinhood/jobs/8207970?t=gh_src=&gh_jid=8207970",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-09-16",
-    "missing_since": "2026-10-14"
+    "closed": true,
+    "closed_date": "2026-10-17"
   },
   {
     "company": "Cisco",
@@ -3377,11 +3380,9 @@
     "type": "earlycareer",
     "category": "SOC & Detection",
     "clearance": false,
-    "url": "",
+    "url": "https://statestreet.wd1.myworkdayjobs.com/Global/job/Quincy-Massachusetts/Junior-SIEM-Data-Engineer_R-794329",
     "source": "Workday",
-    "date_added": "2026-09-23",
-    "closed": true,
-    "closed_date": "2026-09-27"
+    "date_added": "2026-09-23"
   },
   {
     "company": "Expel",
@@ -4837,7 +4838,8 @@
     "clearance": true,
     "url": "https://gdit.wd5.myworkdayjobs.com/External_Career_Site/job/USA-VA-Vienna/Junior-Tactical-All-Source-Threat-Intelligence-Analyst---Overnight-Shift---Top-Secret-Clearance-_RQ228754",
     "source": "Workday",
-    "date_added": "2026-10-01"
+    "date_added": "2026-10-01",
+    "missing_since": "2026-10-17"
   },
   {
     "company": "GDIT",
@@ -4868,10 +4870,11 @@
     "type": "earlycareer",
     "category": "Offensive Security",
     "clearance": true,
-    "url": "https://parsons.wd5.myworkdayjobs.com/Search/job/US---FL-Melbourne/Associate-Vulnerability-Researcher-Engineer_R186346",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-01",
-    "missing_since": "2026-10-14"
+    "closed": true,
+    "closed_date": "2026-10-17"
   },
   {
     "company": "Parsons",
@@ -4961,10 +4964,11 @@
     "type": "intern",
     "category": "AppSec & ProdSec",
     "clearance": true,
-    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-PR-AGUADILLA-110--Rd-110-N-Km-288--RD110/Software-Engineer--DevSecOps-Co-Op--Summer-Fall-2027---Hybrid-_01873555",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-02",
-    "missing_since": "2026-10-14"
+    "closed": true,
+    "closed_date": "2026-10-17"
   },
   {
     "company": "Duke Energy",
@@ -5271,10 +5275,11 @@
     "type": "intern",
     "category": "GRC & Risk",
     "clearance": false,
-    "url": "https://walmart.wd504.myworkdayjobs.com/WalmartExternal/job/USA-Maverick-Building-AR-Bentonville-Home-Office/Summer-2027-Corporate-Intern--Global-IT-Audit_R-2630160",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-03",
-    "missing_since": "2026-10-14"
+    "closed": true,
+    "closed_date": "2026-10-17"
   },
   {
     "company": "Software Engineering Institute",
@@ -5606,10 +5611,11 @@
     "type": "intern",
     "category": "GRC & Risk",
     "clearance": false,
-    "url": "https://ebqb.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BDOEntryLevelCareers/job/13972",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-10-03",
-    "missing_since": "2026-10-14"
+    "closed": true,
+    "closed_date": "2026-10-17"
   },
   {
     "company": "BDO",
@@ -6025,10 +6031,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-El-Segundo/Cybersecurity-Systems-Engineer--Level-1-2-_R10250987",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-06",
-    "missing_since": "2026-10-14"
+    "closed": true,
+    "closed_date": "2026-10-17"
   },
   {
     "company": "Northrop Grumman",
@@ -6188,10 +6195,11 @@
     "type": "earlycareer",
     "category": "Solutions Architecture",
     "clearance": true,
-    "url": "https://rb.wd5.myworkdayjobs.com/FRS/job/Richmond-VA/AI-Solutions-Engineer---Associate_R-0000033675-1",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-08",
-    "missing_since": "2026-10-14"
+    "closed": true,
+    "closed_date": "2026-10-17"
   },
   {
     "company": "Lockheed Martin",
@@ -6639,7 +6647,8 @@
     "clearance": false,
     "url": "https://ehzq.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/116144",
     "source": "Oracle",
-    "date_added": "2026-10-13"
+    "date_added": "2026-10-13",
+    "missing_since": "2026-10-17"
   },
   {
     "company": "Johns Hopkins APL",
@@ -6730,7 +6739,8 @@
     "clearance": true,
     "url": "https://caci.wd1.myworkdayjobs.com/External/job/Florham-Park-NJ-US/Cyber-Security-Engineer--Jr_333540",
     "source": "Workday",
-    "date_added": "2026-10-14"
+    "date_added": "2026-10-14",
+    "missing_since": "2026-10-17"
   },
   {
     "company": "Northrop Grumman",
@@ -7008,5 +7018,93 @@
     "url": "https://icf.wd5.myworkdayjobs.com/ICFExternal_Career_Site/job/Reston-VA/XMLNAME-2027-Summer-Intern--Cloud-Engineer--AWS-Azure---Reston--VA-_R2603554",
     "source": "Workday",
     "date_added": "2026-10-16"
+  },
+  {
+    "company": "Corelight",
+    "role": "Associate Escalation Engineer",
+    "location": "United States",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://boards.greenhouse.io/corelight/jobs/8287269?gh_jid=8287269",
+    "source": "Greenhouse",
+    "date_added": "2026-10-17"
+  },
+  {
+    "company": "Entrust",
+    "role": "Mechanical Engineering Co-Op",
+    "location": "Shakopee, MN",
+    "type": "intern",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://entrust.wd1.myworkdayjobs.com/EntrustCareers/job/United-States---Shakopee-MN-GHQ/Mechanical-Engineering-Co-Op_R004415",
+    "source": "Workday",
+    "date_added": "2026-10-17"
+  },
+  {
+    "company": "Entrust",
+    "role": "Software Engineering Co-op",
+    "location": "Shakopee, MN",
+    "type": "intern",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://entrust.wd1.myworkdayjobs.com/EntrustCareers/job/United-States---Shakopee-MN-GHQ/Software-Engineering-Co-op_R004425",
+    "source": "Workday",
+    "date_added": "2026-10-17"
+  },
+  {
+    "company": "Johnson & Johnson",
+    "role": "Associate Clinical Account Specialist (ACAS) Intern (Summer 2027)",
+    "location": "Irvine, CA; Toledo, OH; North Dakota (Any City); Connecticut (Any City); Richmond, VA; Cleveland, OH",
+    "type": "intern",
+    "category": "GRC & Risk",
+    "clearance": false,
+    "url": "https://jj.wd5.myworkdayjobs.com/JJ/job/Irvine-California-United-States-of-America/Associate-Clinical-Account-Specialist--ACAS--Intern--Summer-2027-_R-104405",
+    "source": "Workday",
+    "date_added": "2026-10-17"
+  },
+  {
+    "company": "BDO",
+    "role": "Assurance Intern, Technology Risk Assurance \u2013 Summer 2027 (New York)",
+    "location": "New York, NY",
+    "type": "intern",
+    "category": "GRC & Risk",
+    "clearance": false,
+    "url": "https://ebqb.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BDOEntryLevelCareers/job/14411",
+    "source": "Oracle",
+    "date_added": "2026-10-17"
+  },
+  {
+    "company": "BDO",
+    "role": "Assurance Associate, Technology Risk Assurance \u2013 Fall 2026 (Los Angeles)",
+    "location": "Los Angeles, CA",
+    "type": "newgrad",
+    "category": "GRC & Risk",
+    "clearance": false,
+    "url": "https://ebqb.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BDOEntryLevelCareers/job/14428",
+    "source": "Oracle",
+    "date_added": "2026-10-17"
+  },
+  {
+    "company": "Lumen",
+    "role": "Cybersecurity, Risk & Digital Trust - Summer 2027 Internship Pathway",
+    "location": "Remote (US)",
+    "type": "intern",
+    "category": "GRC & Risk",
+    "clearance": false,
+    "url": "https://lumen.eightfold.ai/careers/job/1133916380525",
+    "source": "Eightfold",
+    "date_added": "2026-10-17"
+  },
+  {
+    "company": "BAE Systems",
+    "role": "Cyber Analyst II - ISSO",
+    "location": "Broomfield, CO; Boulder, CO",
+    "type": "earlycareer",
+    "category": "GRC & Risk",
+    "clearance": true,
+    "url": "https://jobs.baesystems.com/global/en/job/131570BR",
+    "source": "Phenom",
+    "date_added": "2026-10-17"
   }
 ]

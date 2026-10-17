@@ -4,7 +4,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **408 companies tracked.**
 
-## Hiring students now (112)
+## Hiring students now (113)
 
 Employers with open roles on the board today.
 
@@ -16,23 +16,22 @@ Employers with open roles on the board today.
 | Microsoft | 8 |  | 5 |
 | American Express | 4 | 4 |  |
 | MITRE | 6 | 1 | 5 |
-| Palo Alto Networks | 5 | 1 | 3 |
 | HPE | 3 | 3 | 2 |
 | Lawrence Livermore National Laboratory | 6 |  |  |
-| Northrop Grumman | 3 | 2 | 13 |
+| Northrop Grumman | 3 | 2 | 12 |
+| Palo Alto Networks | 4 | 1 | 3 |
+| BDO | 3 | 2 | 1 |
 | Software Engineering Institute | 4 |  | 5 |
 | GuidePoint Security | 4 |  | 2 |
-| BDO | 3 | 1 | 1 |
 | NVIDIA | 1 | 3 | 1 |
 | Tanium | 4 |  |  |
 | CACI | 3 |  | 3 |
-| Federal Reserve System | 3 |  | 1 |
 | Goldman Sachs | 3 |  | 1 |
+| Entrust | 3 |  |  |
+| Federal Reserve System | 3 |  |  |
 | Immuta | 3 |  |  |
 | Intel | 3 |  |  |
 | Palantir | 2 | 1 |  |
-| Walmart | 3 |  |  |
-| RTX | 2 |  | 14 |
 | Leidos | 2 |  | 6 |
 | Battelle | 2 |  | 3 |
 | GDIT | 2 |  | 2 |
@@ -44,33 +43,33 @@ Employers with open roles on the board today.
 | Elevance Health | 2 |  |  |
 | Honeywell | 2 |  |  |
 | Idaho National Laboratory | 2 |  |  |
+| Johnson &amp; Johnson | 2 |  |  |
 | Lockheed Martin | 2 |  |  |
 | National Laboratory of the Rockies | 2 |  |  |
 | Qualcomm | 2 |  |  |
 | The Cigna Group | 2 |  |  |
 | Together AI | 1 | 1 |  |
+| Walmart | 2 |  |  |
+| RTX | 1 |  | 14 |
 | Nightwing | 1 |  | 7 |
 | Pinterest | 1 |  | 2 |
 | Draper | 1 |  | 1 |
 | Grant Thornton |  | 1 | 1 |
 | Motorola Solutions | 1 |  | 1 |
-| Parsons | 1 |  | 1 |
 | Sierra Nevada Corporation | 1 |  | 1 |
 | The Home Depot | 1 |  | 1 |
 | Verkada | 1 |  | 1 |
-| Anduril |  | 1 |  |
 | Bank of America | 1 |  |  |
 | Deloitte |  | 1 |  |
-| Entrust | 1 |  |  |
 | Exelon | 1 |  |  |
 | Guidehouse |  | 1 |  |
 | HP Inc | 1 |  |  |
 | ICF | 1 |  |  |
-| Johnson &amp; Johnson | 1 |  |  |
 | KeyBank |  | 1 |  |
+| Lumen | 1 |  |  |
 | OPSWAT | 1 |  |  |
+| Parsons | 1 |  |  |
 | Prophet Security | 1 |  |  |
-| Robinhood | 1 |  |  |
 | Rubrik |  | 1 |  |
 | Salesforce | 1 |  |  |
 | Semgrep | 1 |  |  |
@@ -78,8 +77,8 @@ Employers with open roles on the board today.
 | TRM Labs |  | 1 |  |
 | Amazon |  |  | 13 |
 | CrowdStrike |  |  | 7 |
+| BAE Systems |  |  | 5 |
 | KBR |  |  | 5 |
-| BAE Systems |  |  | 4 |
 | ExtraHop |  |  | 3 |
 | Kyndryl |  |  | 3 |
 | Recorded Future |  |  | 3 |
@@ -97,6 +96,7 @@ Employers with open roles on the board today.
 | Anthropic |  |  | 1 |
 | Arctic Wolf |  |  | 1 |
 | BlackRock |  |  | 1 |
+| Corelight |  |  | 1 |
 | Delinea |  |  | 1 |
 | Dragos |  |  | 1 |
 | ESET |  |  | 1 |
@@ -116,6 +116,7 @@ Employers with open roles on the board today.
 | ReliaQuest |  |  | 1 |
 | SailPoint |  |  | 1 |
 | Salt Security |  |  | 1 |
+| State Street |  |  | 1 |
 | Tenable |  |  | 1 |
 | Tines |  |  | 1 |
 | Trellix |  |  | 1 |

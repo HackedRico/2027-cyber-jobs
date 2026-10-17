@@ -1,11 +1,32 @@
 {
-  "date": "2026-10-16",
+  "date": "2026-10-17",
   "boards": 414,
-  "ok": 395,
+  "ok": 391,
   "empty": 18,
   "failed": [
-    "Cybereason (greenhouse/cybereason)"
+    "Accenture (workday/accenture)",
+    "Citizens (oracle/hcgn.fa.us2.oraclecloud.com/CX_5001)",
+    "Cybereason (greenhouse/cybereason)",
+    "Snyk (workday/snyk)",
+    "Webflow (greenhouse/webflow)"
   ],
-  "regressed": [],
-  "silent": 17
+  "regressed": [
+    {
+      "board": "Webflow (greenhouse/webflow)",
+      "had": 20
+    },
+    {
+      "board": "Snyk (workday/snyk)",
+      "had": 18
+    },
+    {
+      "board": "Accenture (workday/accenture)",
+      "had": 1303
+    },
+    {
+      "board": "Citizens (oracle/hcgn.fa.us2.oraclecloud.com/CX_5001)",
+      "had": 461
+    }
+  ],
+  "silent": 18
 }
