@@ -3511,7 +3511,8 @@
     "clearance": false,
     "url": "https://boards.greenhouse.io/guidepointsecurity/jobs/6148707004?gh_jid=6148707004",
     "source": "Greenhouse",
-    "date_added": "2026-09-28"
+    "date_added": "2026-09-28",
+    "missing_since": "2026-10-17"
   },
   {
     "company": "STR",
@@ -6480,7 +6481,8 @@
     "clearance": false,
     "url": "https://usaa.wd1.myworkdayjobs.com/USAAJOBSWD/job/Charlotte-NC---CENTS/Technology-Risk---Compliance-Advisor-III--Junior-Level-_R0121469",
     "source": "Workday",
-    "date_added": "2026-10-10"
+    "date_added": "2026-10-10",
+    "missing_since": "2026-10-17"
   },
   {
     "company": "BDO",
@@ -6751,7 +6753,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Maryland-Annapolis/XMLNAME-2027-S-W-Cybersecurity-Intern---Annapolis-MD_R10254705",
     "source": "Workday",
-    "date_added": "2026-10-14"
+    "date_added": "2026-10-14",
+    "missing_since": "2026-10-17"
   },
   {
     "company": "GuidePoint Security",
@@ -6773,7 +6776,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Texas-San-Antonio/XMLNAME-2027-Cyber-Software-Engineer-Intern---San-Antonio-TX_R10256037",
     "source": "Workday",
-    "date_added": "2026-10-15"
+    "date_added": "2026-10-15",
+    "missing_since": "2026-10-17"
   },
   {
     "company": "NVIDIA",
@@ -7105,6 +7109,17 @@
     "clearance": true,
     "url": "https://jobs.baesystems.com/global/en/job/131570BR",
     "source": "Phenom",
+    "date_added": "2026-10-17"
+  },
+  {
+    "company": "Abnormal AI",
+    "role": "Software Engineer 1 - Cloud Infrastructure",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://abnormal.ai/careers/jobs/8015179003?gh_jid=8015179003",
+    "source": "Greenhouse",
     "date_added": "2026-10-17"
   }
 ]

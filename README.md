@@ -14,7 +14,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**151** internships · **49** new grad · **174** early career open · **69** added in the last 7 days · **176** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 17, 2026
+**151** internships · **49** new grad · **175** early career open · **70** added in the last 7 days · **176** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 17, 2026
 
 <!-- /STATS -->
 
@@ -386,6 +386,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
+| Abnormal AI | 🆕 Software Engineer 1 - Cloud Infrastructure<br><sub>Engineering @ Security Co</sub> | <a href="https://abnormal.ai/careers/jobs/8015179003?gh_jid=8015179003"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Abnormal AI Software Engineer 1 - Cloud Infrastructure"></a> | Remote (US) | Oct 17 |
 | BAE Systems | 🆕 Cyber Analyst II - ISSO 🇺🇸<br><sub>GRC &amp; Risk</sub> | <a href="https://jobs.baesystems.com/global/en/job/131570BR"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: BAE Systems Cyber Analyst II - ISSO"></a> | <details><summary>**2 locations**</summary>Broomfield, CO<br>Boulder, CO</details> | Oct 17 |
 | Corelight | 🆕 Associate Escalation Engineer<br><sub>Engineering @ Security Co</sub> | <a href="https://boards.greenhouse.io/corelight/jobs/8287269?gh_jid=8287269"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Corelight Associate Escalation Engineer"></a> | United States | Oct 17 |
 | 1Password | 🆕 Junior Security Engineer<br><sub>Security Engineering</sub> | <a href="https://jobs.ashbyhq.com/1password/49f0fe51-fcdc-46d8-a046-35f357b0cf6e"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: 1Password Junior Security Engineer"></a> | Remote (US) | Oct 16 |

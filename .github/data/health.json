@@ -1,32 +1,18 @@
 {
   "date": "2026-10-17",
   "boards": 414,
-  "ok": 391,
+  "ok": 393,
   "empty": 18,
   "failed": [
-    "Accenture (workday/accenture)",
-    "Citizens (oracle/hcgn.fa.us2.oraclecloud.com/CX_5001)",
     "Cybereason (greenhouse/cybereason)",
-    "Snyk (workday/snyk)",
-    "Webflow (greenhouse/webflow)"
+    "Panther Labs (greenhouse/pantherlabs)",
+    "Walmart (workday/walmart)"
   ],
   "regressed": [
     {
-      "board": "Webflow (greenhouse/webflow)",
-      "had": 20
-    },
-    {
-      "board": "Snyk (workday/snyk)",
-      "had": 18
-    },
-    {
-      "board": "Accenture (workday/accenture)",
-      "had": 1303
-    },
-    {
-      "board": "Citizens (oracle/hcgn.fa.us2.oraclecloud.com/CX_5001)",
-      "had": 461
+      "board": "Walmart (workday/walmart)",
+      "had": 1100
     }
   ],
-  "silent": 18
+  "silent": 19
 }

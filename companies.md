@@ -83,6 +83,7 @@ Employers with open roles on the board today.
 | Kyndryl |  |  | 3 |
 | Recorded Future |  |  | 3 |
 | 1Password |  |  | 2 |
+| Abnormal AI |  |  | 2 |
 | AeroVironment |  |  | 2 |
 | Amentum |  |  | 2 |
 | Chainalysis |  |  | 2 |
@@ -91,7 +92,6 @@ Employers with open roles on the board today.
 | SAIC |  |  | 2 |
 | STR |  |  | 2 |
 | Trail of Bits |  |  | 2 |
-| Abnormal AI |  |  | 1 |
 | Accenture Federal Services |  |  | 1 |
 | Anthropic |  |  | 1 |
 | Arctic Wolf |  |  | 1 |
