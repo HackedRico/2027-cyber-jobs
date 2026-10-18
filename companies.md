@@ -4,13 +4,13 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **408 companies tracked.**
 
-## Hiring students now (113)
+## Hiring students now (111)
 
 Employers with open roles on the board today.
 
 | Company | Internships | New grad | Early career |
 | ------- | ----------- | -------- | ------------ |
-| Johns Hopkins APL | 11 | 13 |  |
+| Johns Hopkins APL | 11 | 12 |  |
 | Booz Allen Hamilton | 17 |  | 3 |
 | Vanguard | 5 | 6 |  |
 | Microsoft | 8 |  | 5 |
@@ -18,11 +18,11 @@ Employers with open roles on the board today.
 | MITRE | 6 | 1 | 5 |
 | HPE | 3 | 3 | 2 |
 | Lawrence Livermore National Laboratory | 6 |  |  |
-| Northrop Grumman | 3 | 2 | 12 |
 | Palo Alto Networks | 4 | 1 | 3 |
-| BDO | 3 | 2 | 1 |
+| BDO | 3 | 2 |  |
+| Northrop Grumman | 2 | 2 | 11 |
 | Software Engineering Institute | 4 |  | 5 |
-| GuidePoint Security | 4 |  | 2 |
+| GuidePoint Security | 4 |  | 1 |
 | NVIDIA | 1 | 3 | 1 |
 | Tanium | 4 |  |  |
 | CACI | 3 |  | 3 |
@@ -33,8 +33,7 @@ Employers with open roles on the board today.
 | Intel | 3 |  |  |
 | Palantir | 2 | 1 |  |
 | Leidos | 2 |  | 6 |
-| Battelle | 2 |  | 3 |
-| GDIT | 2 |  | 2 |
+| Battelle | 2 |  | 2 |
 | Appian | 1 | 1 | 1 |
 | ID.me |  | 2 | 1 |
 | Applied Intuition |  | 2 |  |
@@ -47,11 +46,11 @@ Employers with open roles on the board today.
 | Lockheed Martin | 2 |  |  |
 | National Laboratory of the Rockies | 2 |  |  |
 | Qualcomm | 2 |  |  |
-| The Cigna Group | 2 |  |  |
 | Together AI | 1 | 1 |  |
 | Walmart | 2 |  |  |
-| RTX | 1 |  | 14 |
+| RTX | 1 |  | 11 |
 | Nightwing | 1 |  | 7 |
+| GDIT | 1 |  | 2 |
 | Pinterest | 1 |  | 2 |
 | Draper | 1 |  | 1 |
 | Grant Thornton |  | 1 | 1 |
@@ -86,7 +85,6 @@ Employers with open roles on the board today.
 | Abnormal AI |  |  | 2 |
 | AeroVironment |  |  | 2 |
 | Amentum |  |  | 2 |
-| Chainalysis |  |  | 2 |
 | Citi |  |  | 2 |
 | JPMorgan Chase |  |  | 2 |
 | SAIC |  |  | 2 |
@@ -96,6 +94,7 @@ Employers with open roles on the board today.
 | Anthropic |  |  | 1 |
 | Arctic Wolf |  |  | 1 |
 | BlackRock |  |  | 1 |
+| Chainalysis |  |  | 1 |
 | Corelight |  |  | 1 |
 | Delinea |  |  | 1 |
 | Dragos |  |  | 1 |
@@ -111,7 +110,6 @@ Employers with open roles on the board today.
 | MIT Lincoln Laboratory |  |  | 1 |
 | Obsidian Security |  |  | 1 |
 | Praetorian |  |  | 1 |
-| Proofpoint |  |  | 1 |
 | PwC |  |  | 1 |
 | ReliaQuest |  |  | 1 |
 | SailPoint |  |  | 1 |

@@ -1,18 +1,12 @@
 {
-  "date": "2026-10-17",
+  "date": "2026-10-18",
   "boards": 414,
-  "ok": 393,
+  "ok": 394,
   "empty": 18,
   "failed": [
     "Cybereason (greenhouse/cybereason)",
-    "Panther Labs (greenhouse/pantherlabs)",
-    "Walmart (workday/walmart)"
+    "Panther Labs (greenhouse/pantherlabs)"
   ],
-  "regressed": [
-    {
-      "board": "Walmart (workday/walmart)",
-      "had": 1100
-    }
-  ],
+  "regressed": [],
   "silent": 19
 }

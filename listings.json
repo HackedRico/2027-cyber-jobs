@@ -497,19 +497,6 @@
   },
   {
     "company": "Amazon",
-    "role": "Software Engineer, AI Security",
-    "location": "New York, NY",
-    "type": "earlycareer",
-    "category": "AI Security & Safety",
-    "clearance": false,
-    "url": "",
-    "source": "Amazon Jobs",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-08-18"
-  },
-  {
-    "company": "Amazon",
     "role": "Software Development Engineer II, Infrastructure Security-HLS",
     "location": "Herndon, VA",
     "type": "earlycareer",
@@ -2465,10 +2452,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://cigna.wd5.myworkdayjobs.com/cignacareers/job/CT-Bloomfield-900-Cottage-Grove-Rd-Wilde-Bldg/The-Cigna-Group-s-Technology-Development-Program---Cybersecurity-Track-Summer-Internship_26009531",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-09",
-    "missing_since": "2026-10-15"
+    "closed": true,
+    "closed_date": "2026-10-18"
   },
   {
     "company": "The Cigna Group",
@@ -2842,10 +2830,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Ohio-Cincinnati/XMLNAME-2027-Cyber-Software-Engineer-Intern---Cincinnati-OH_R10249186",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-16",
-    "missing_since": "2026-10-15"
+    "closed": true,
+    "closed_date": "2026-10-18"
   },
   {
     "company": "RTX",
@@ -4595,10 +4584,11 @@
     "type": "newgrad",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://careers.jhuapl.edu/jobs/57710",
+    "url": "",
     "source": "Jibe",
     "date_added": "2026-09-29",
-    "missing_since": "2026-10-15"
+    "closed": true,
+    "closed_date": "2026-10-18"
   },
   {
     "company": "Johns Hopkins APL",
@@ -5264,10 +5254,11 @@
     "type": "intern",
     "category": "Cloud Engineering",
     "clearance": false,
-    "url": "https://cigna.wd5.myworkdayjobs.com/cignacareers/job/CT-Bloomfield-900-Cottage-Grove-Rd-Wilde-Bldg/The-Cigna-Group-s-Technology-Development-Program-----Infrastructure---Cloud-Engineering-Track_26009529",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-03",
-    "missing_since": "2026-10-15"
+    "closed": true,
+    "closed_date": "2026-10-18"
   },
   {
     "company": "Walmart",
@@ -5600,10 +5591,11 @@
     "type": "earlycareer",
     "category": "Cloud Engineering",
     "clearance": false,
-    "url": "https://ebqb.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BDOEntryLevelCareers/job/13225",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-10-03",
-    "missing_since": "2026-10-15"
+    "closed": true,
+    "closed_date": "2026-10-18"
   },
   {
     "company": "BDO",
@@ -5754,10 +5746,11 @@
     "type": "earlycareer",
     "category": "Offensive Security",
     "clearance": true,
-    "url": "https://jobs.battelle.org/us/en/job/76282",
+    "url": "",
     "source": "Phenom",
     "date_added": "2026-10-03",
-    "missing_since": "2026-10-15"
+    "closed": true,
+    "closed_date": "2026-10-18"
   },
   {
     "company": "Battelle",
@@ -6137,10 +6130,11 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://proofpoint.wd5.myworkdayjobs.com/proofpointcareers/job/Texas/AI-Engineer-II_R14847",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-08",
-    "missing_since": "2026-10-15"
+    "closed": true,
+    "closed_date": "2026-10-18"
   },
   {
     "company": "Entrust",
@@ -6376,10 +6370,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MA-TEWKSBURY-TB1--50-Apple-Hill-Dr--ASSABET-BLDG/Embedded-Security-Software-Engineer-I--Onsite-_01881440",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-10",
-    "missing_since": "2026-10-15"
+    "closed": true,
+    "closed_date": "2026-10-18"
   },
   {
     "company": "RTX",
@@ -6388,10 +6383,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MA-TEWKSBURY-TB1--50-Apple-Hill-Dr--ASSABET-BLDG/Embedded-Security-Software-Engineer-II--Onsite-_01881450",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-10",
-    "missing_since": "2026-10-15"
+    "closed": true,
+    "closed_date": "2026-10-18"
   },
   {
     "company": "RTX",
@@ -6400,10 +6396,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-EL-SEGUNDO-R01--2000-E-Imperial-Hwy--BLDG-R01/Embedded-Security-Software-Engineer--Onsite-_01881362",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-10",
-    "missing_since": "2026-10-15"
+    "closed": true,
+    "closed_date": "2026-10-18"
   },
   {
     "company": "RTX",
@@ -6546,10 +6543,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://gdit.wd5.myworkdayjobs.com/GDIT_EarlyTalent/job/USA-VA-Falls-Church/XMLNAME-2027-Summer-Intern---Defense-Agencies--Cybersecurity-_RQ230273",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-12",
-    "missing_since": "2026-10-15"
+    "closed": true,
+    "closed_date": "2026-10-18"
   },
   {
     "company": "BDO",
@@ -6681,10 +6679,11 @@
     "type": "earlycareer",
     "category": "Cloud Engineering",
     "clearance": true,
-    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-Redondo-Beach/Associate-Cloud-Software-Engineer--Level-1-_R10255928",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-14",
-    "missing_since": "2026-10-15"
+    "closed": true,
+    "closed_date": "2026-10-18"
   },
   {
     "company": "NVIDIA",
@@ -6715,10 +6714,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://boards.greenhouse.io/guidepointsecurity/jobs/6223956004?gh_jid=6223956004",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-10-14",
-    "missing_since": "2026-10-15"
+    "closed": true,
+    "closed_date": "2026-10-18"
   },
   {
     "company": "Chainalysis",
@@ -6727,10 +6727,11 @@
     "type": "earlycareer",
     "category": "GRC & Risk",
     "clearance": false,
-    "url": "https://jobs.ashbyhq.com/chainalysis-careers/05ebe657-fb6e-47c0-a8ce-4ac6ac362d2d",
+    "url": "",
     "source": "Ashby",
     "date_added": "2026-10-14",
-    "missing_since": "2026-10-15"
+    "closed": true,
+    "closed_date": "2026-10-18"
   },
   {
     "company": "CACI",
