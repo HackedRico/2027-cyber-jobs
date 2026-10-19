@@ -4,7 +4,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **408 companies tracked.**
 
-## Hiring students now (111)
+## Hiring students now (109)
 
 Employers with open roles on the board today.
 
@@ -16,16 +16,15 @@ Employers with open roles on the board today.
 | Microsoft | 8 |  | 5 |
 | American Express | 4 | 4 |  |
 | MITRE | 6 | 1 | 5 |
-| HPE | 3 | 3 | 2 |
 | Lawrence Livermore National Laboratory | 6 |  |  |
 | Palo Alto Networks | 4 | 1 | 3 |
+| HPE | 3 | 2 | 1 |
 | BDO | 3 | 2 |  |
-| Northrop Grumman | 2 | 2 | 11 |
 | Software Engineering Institute | 4 |  | 5 |
 | GuidePoint Security | 4 |  | 1 |
 | NVIDIA | 1 | 3 | 1 |
 | Tanium | 4 |  |  |
-| CACI | 3 |  | 3 |
+| Northrop Grumman | 2 | 1 | 11 |
 | Goldman Sachs | 3 |  | 1 |
 | Entrust | 3 |  |  |
 | Federal Reserve System | 3 |  |  |
@@ -33,6 +32,7 @@ Employers with open roles on the board today.
 | Intel | 3 |  |  |
 | Palantir | 2 | 1 |  |
 | Leidos | 2 |  | 6 |
+| CACI | 2 |  | 3 |
 | Battelle | 2 |  | 2 |
 | Appian | 1 | 1 | 1 |
 | ID.me |  | 2 | 1 |
@@ -48,7 +48,7 @@ Employers with open roles on the board today.
 | Qualcomm | 2 |  |  |
 | Together AI | 1 | 1 |  |
 | Walmart | 2 |  |  |
-| RTX | 1 |  | 11 |
+| RTX | 1 |  | 10 |
 | Nightwing | 1 |  | 7 |
 | GDIT | 1 |  | 2 |
 | Pinterest | 1 |  | 2 |
@@ -72,7 +72,6 @@ Employers with open roles on the board today.
 | Rubrik |  | 1 |  |
 | Salesforce | 1 |  |  |
 | Semgrep | 1 |  |  |
-| State Farm | 1 |  |  |
 | TRM Labs |  | 1 |  |
 | Amazon |  |  | 13 |
 | CrowdStrike |  |  | 7 |
@@ -83,7 +82,6 @@ Employers with open roles on the board today.
 | Recorded Future |  |  | 3 |
 | 1Password |  |  | 2 |
 | Abnormal AI |  |  | 2 |
-| AeroVironment |  |  | 2 |
 | Amentum |  |  | 2 |
 | Citi |  |  | 2 |
 | JPMorgan Chase |  |  | 2 |
@@ -91,9 +89,9 @@ Employers with open roles on the board today.
 | STR |  |  | 2 |
 | Trail of Bits |  |  | 2 |
 | Accenture Federal Services |  |  | 1 |
+| AeroVironment |  |  | 1 |
 | Anthropic |  |  | 1 |
 | Arctic Wolf |  |  | 1 |
-| BlackRock |  |  | 1 |
 | Chainalysis |  |  | 1 |
 | Corelight |  |  | 1 |
 | Delinea |  |  | 1 |

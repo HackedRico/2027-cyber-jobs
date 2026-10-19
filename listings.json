@@ -2563,10 +2563,9 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": true,
-    "url": "https://evergreenix.wd1.myworkdayjobs.com/external-careers2/job/USA_TX_Richardson/Software-Engineer-I_JR500748-1",
+    "url": "https://evergreenix.wd1.myworkdayjobs.com/external-careers2/job/USA_TX_Richardson/Software-Engineer-I_JR500749-1",
     "source": "Workday",
-    "date_added": "2026-09-11",
-    "missing_since": "2026-10-16"
+    "date_added": "2026-09-11"
   },
   {
     "company": "Morgan Stanley",
@@ -5047,10 +5046,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://caci.wd1.myworkdayjobs.com/External/job/High-Point-NC-US/Network---Cybersecurity-Intern---Summer-2027_333001",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-02",
-    "missing_since": "2026-10-16"
+    "closed": true,
+    "closed_date": "2026-10-19"
   },
   {
     "company": "Vanguard",
@@ -5781,10 +5781,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://jobs.statefarm.com/jobs/45928",
+    "url": "",
     "source": "Jibe",
     "date_added": "2026-10-03",
-    "missing_since": "2026-10-16"
+    "closed": true,
+    "closed_date": "2026-10-19"
   },
   {
     "company": "Amazon",
@@ -5879,10 +5880,11 @@
     "type": "newgrad",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-Redondo-Beach/XMLNAME-2026-Associate-Cybersecurity-Analyst---Pathways-Program---Redondo-Beach-CA_R10251914",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-05",
-    "missing_since": "2026-10-16"
+    "closed": true,
+    "closed_date": "2026-10-19"
   },
   {
     "company": "Northrop Grumman",
@@ -6167,10 +6169,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://avav.wd1.myworkdayjobs.com/AVAV/job/Moorpark-CA/Embedded-Cybersecurity-Engineer-II_9015",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-08",
-    "missing_since": "2026-10-16"
+    "closed": true,
+    "closed_date": "2026-10-19"
   },
   {
     "company": "Software Engineering Institute",
@@ -6409,10 +6412,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-800--1151-E-Hermans-Rd--BLDG-800/Embedded-Security-Software-Engineer-I--Onsite-_01881370",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-10",
-    "missing_since": "2026-10-16"
+    "closed": true,
+    "closed_date": "2026-10-19"
   },
   {
     "company": "RTX",
@@ -6611,10 +6615,11 @@
     "type": "earlycareer",
     "category": "GRC & Risk",
     "clearance": false,
-    "url": "https://blackrock.wd1.myworkdayjobs.com/BlackRock_Professional/job/New-York-NY/Associate--Technology-Audit_R266284",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-13",
-    "missing_since": "2026-10-16"
+    "closed": true,
+    "closed_date": "2026-10-19"
   },
   {
     "company": "Citi",
@@ -6809,10 +6814,11 @@
     "type": "newgrad",
     "category": "Cloud Engineering",
     "clearance": false,
-    "url": "https://hpe.wd5.myworkdayjobs.com/Jobsathpe/job/San-Jose-California-United-States-of-America/Graduate-Cloud-Developer_1214989",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-15",
-    "missing_since": "2026-10-16"
+    "closed": true,
+    "closed_date": "2026-10-19"
   },
   {
     "company": "Elevance Health",
@@ -6975,10 +6981,11 @@
     "type": "earlycareer",
     "category": "Cloud Engineering",
     "clearance": false,
-    "url": "https://hpe.wd5.myworkdayjobs.com/Jobsathpe/job/San-Jose-California-United-States-of-America/Cloud-Developer-II_1214980",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-16",
-    "missing_since": "2026-10-16"
+    "closed": true,
+    "closed_date": "2026-10-19"
   },
   {
     "company": "Together AI",
