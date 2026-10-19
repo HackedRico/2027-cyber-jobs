@@ -1,8 +1,8 @@
 {
   "date": "2026-10-19",
   "boards": 414,
-  "ok": 394,
-  "empty": 18,
+  "ok": 395,
+  "empty": 17,
   "failed": [
     "Cybereason (greenhouse/cybereason)",
     "Panther Labs (greenhouse/pantherlabs)"

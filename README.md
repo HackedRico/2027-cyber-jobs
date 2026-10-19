@@ -14,7 +14,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**145** internships · **46** new grad · **162** early career open · **46** added in the last 7 days · **164** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 19, 2026
+**145** internships · **47** new grad · **166** early career open · **50** added in the last 7 days · **165** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 19, 2026
 
 <!-- /STATS -->
 
@@ -292,6 +292,7 @@ Full-time roles and rotational programs for students in their final year or just
 
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
+| Johns Hopkins APL | 🆕 2027 Graduate -Cybersecurity Software Engineer - Cyber Concepts 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://careers.jhuapl.edu/jobs/60116"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Johns Hopkins APL 2027 Graduate -Cybersecurity Software Engineer - Cyber Concepts"></a> | Laurel, MD | Oct 19 |
 | BDO | 🆕 Assurance Associate, Technology Risk Assurance – Fall 2026 (Los Angeles)<br><sub>GRC &amp; Risk</sub> | <a href="https://ebqb.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BDOEntryLevelCareers/job/14428"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: BDO Assurance Associate, Technology Risk Assurance – Fall 2026 (Los Angeles)"></a> | Los Angeles, CA | Oct 17 |
 | Guidehouse | 🆕 Consultant - Defense &amp; Security - Campus 2026 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://guidehouse.wd1.myworkdayjobs.com/External/job/US---VA-McLean/Consultant---Defense---Security---Campus-2026_45522-1"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Guidehouse Consultant - Defense &amp; Security - Campus 2026"></a> | McLean, VA | Oct 16 |
 | Together AI | 🆕 Hardware Security Engineer, New Grad (2027)<br><sub>Security Engineering</sub> | <a href="https://job-boards.greenhouse.io/togetherai/jobs/5238471007"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Together AI Hardware Security Engineer, New Grad (2027)"></a> | San Francisco, CA | Oct 16 |
@@ -386,6 +387,9 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
+| Cisco | 🆕 Attack Surface Management Security Engineer I (Full-Time) – United States<br><sub>Security Engineering</sub> | <a href="https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/RTP-North-Carolina-US/Attack-Surface-Management-Security-Engineer-I--Full-Time----United-States_2029031"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Cisco Attack Surface Management Security Engineer I (Full-Time) – United States"></a> | <details><summary>**2 locations**</summary>RTP, NC<br>Knoxville, TN</details> | Oct 19 |
+| ↳ | 🆕 Attack Surface Management Security Engineer II (Full-Time) – United States<br><sub>Security Engineering</sub> | <a href="https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/RTP-North-Carolina-US/Attack-Surface-Management-Security-Engineer-II--Full-Time----United-States_2029035"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Cisco Attack Surface Management Security Engineer II (Full-Time) – United States"></a> | <details><summary>**2 locations**</summary>RTP, NC<br>Knoxville, TN</details> | Oct 19 |
+| CrowdStrike | 🆕 Software Engineer II - Engine Team, LogScale (Hybrid)<br><sub>Engineering @ Security Co</sub> | <a href="https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Austin-TX/Software-Engineer-II---Engine-Team--LogScale--Hybrid-_R30387"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: CrowdStrike Software Engineer II - Engine Team, LogScale (Hybrid)"></a> | Austin, TX | Oct 19 |
 | Abnormal AI | 🆕 Software Engineer 1 - Cloud Infrastructure<br><sub>Engineering @ Security Co</sub> | <a href="https://abnormal.ai/careers/jobs/8015179003?gh_jid=8015179003"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Abnormal AI Software Engineer 1 - Cloud Infrastructure"></a> | Remote (US) | Oct 17 |
 | BAE Systems | 🆕 Cyber Analyst II - ISSO 🇺🇸<br><sub>GRC &amp; Risk</sub> | <a href="https://jobs.baesystems.com/global/en/job/131570BR"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: BAE Systems Cyber Analyst II - ISSO"></a> | <details><summary>**2 locations**</summary>Broomfield, CO<br>Boulder, CO</details> | Oct 17 |
 | Corelight | 🆕 Associate Escalation Engineer<br><sub>Engineering @ Security Co</sub> | <a href="https://boards.greenhouse.io/corelight/jobs/8287269?gh_jid=8287269"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Corelight Associate Escalation Engineer"></a> | United States | Oct 17 |
@@ -497,6 +501,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 | Everfox | Software Engineer I 🇺🇸<br><sub>Engineering @ Security Co</sub> | <a href="https://evergreenix.wd1.myworkdayjobs.com/external-careers2/job/USA_TX_Richardson/Software-Engineer-I_JR500749-1"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Everfox Software Engineer I"></a> | Richardson, TX | Sep 11 |
 | Northrop Grumman | Level 2/3 Cyber Systems Engineer - AISR&amp;T Contingent 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-San-Diego/Level-2-3-Cyber-Systems-Engineer---AISR-T-Contingent_R10249593"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Northrop Grumman Level 2/3 Cyber Systems Engineer - AISR&amp;T Contingent"></a> | San Diego, CA | Sep 10 |
 | SailPoint | Associate Security Software Engineer<br><sub>Security Engineering</sub> | <a href="https://sailpoint.wd1.myworkdayjobs.com/SailPoint/job/Remote-Texas-USA/Associate-Security-Software-Engineer_R013786"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: SailPoint Associate Security Software Engineer"></a> | <details><summary>**2 locations**</summary>Remote (US)<br>United States</details> | Sep 9 |
+| Rapid7 | Security Operations Analyst II<br><sub>SOC &amp; Detection</sub> | <a href="https://mymoose.wd1.myworkdayjobs.com/careers/job/US---Remote/Security-Operations-Analyst-II_R12333"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Rapid7 Security Operations Analyst II"></a> | Remote (US) | Sep 8 |
 | Amazon | Security Engineer II - AMZ9802161<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10487669/security-engineer-ii-amz9802161"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer II - AMZ9802161"></a> | Austin, TX | Sep 5 |
 | ↳ | Security Engineer II, US Amazon Dedicated Cloud Security 🇺🇸<br><sub>Cloud &amp; Infra Security</sub> | <a href="https://www.amazon.jobs/en/jobs/10498424/security-engineer-ii-us-amazon-dedicated-cloud-security"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer II, US Amazon Dedicated Cloud Security"></a> | Jessup, MD | Sep 5 |
 | ↳ | Security Engineer II, Enterprise Protection Program<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10505020/security-engineer-ii-enterprise-protection-program"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer II, Enterprise Protection Program"></a> | Herndon, VA | Sep 5 |
@@ -553,7 +558,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 <!-- CLOSED_START earlycareer -->
 
-<details><summary>🔒 173 closed in the last 60 days</summary>
+<details><summary>🔒 172 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
@@ -706,7 +711,6 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 | Pinterest | Security Software Engineer II, Corporate Security | Sep 19 |
 | Proofpoint | Associate Triage Analyst | Sep 19 |
 | ↳ | Systems Security Engineer I | Sep 19 |
-| Rapid7 | Security Operations Analyst II | Sep 19 |
 | RTX | Cyber Engineer II (Onsite - Cedar Rapids, IA) Secret Clearance Required | Sep 19 |
 | ↳ | Embedded Product System Security Engineer II (Onsite - Cedar Rapids, IA) | Sep 19 |
 | ↳ | Systems Security Engineer II (Anti-Tamper/Program Protection) (Onsite) - P2 | Sep 19 |

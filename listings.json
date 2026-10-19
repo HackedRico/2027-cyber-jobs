@@ -2334,11 +2334,9 @@
     "type": "earlycareer",
     "category": "SOC & Detection",
     "clearance": false,
-    "url": "",
+    "url": "https://mymoose.wd1.myworkdayjobs.com/careers/job/US---Remote/Security-Operations-Analyst-II_R12333",
     "source": "Workday",
-    "date_added": "2026-09-08",
-    "closed": true,
-    "closed_date": "2026-09-19"
+    "date_added": "2026-09-08"
   },
   {
     "company": "Anduril",
@@ -2565,7 +2563,8 @@
     "clearance": true,
     "url": "https://evergreenix.wd1.myworkdayjobs.com/external-careers2/job/USA_TX_Richardson/Software-Engineer-I_JR500749-1",
     "source": "Workday",
-    "date_added": "2026-09-11"
+    "date_added": "2026-09-11",
+    "missing_since": "2026-10-19"
   },
   {
     "company": "Morgan Stanley",
@@ -6851,7 +6850,8 @@
     "clearance": false,
     "url": "https://jobs.ashbyhq.com/1password/49f0fe51-fcdc-46d8-a046-35f357b0cf6e",
     "source": "Ashby",
-    "date_added": "2026-10-16"
+    "date_added": "2026-10-16",
+    "missing_since": "2026-10-19"
   },
   {
     "company": "1Password",
@@ -6862,7 +6862,8 @@
     "clearance": false,
     "url": "https://jobs.ashbyhq.com/1password/a492badd-a02f-4360-aa15-7ea8c6e2c85e",
     "source": "Ashby",
-    "date_added": "2026-10-16"
+    "date_added": "2026-10-16",
+    "missing_since": "2026-10-19"
   },
   {
     "company": "Lawrence Livermore National Laboratory",
@@ -7129,5 +7130,49 @@
     "url": "https://abnormal.ai/careers/jobs/8015179003?gh_jid=8015179003",
     "source": "Greenhouse",
     "date_added": "2026-10-17"
+  },
+  {
+    "company": "Cisco",
+    "role": "Attack Surface Management Security Engineer I (Full-Time) \u2013 United States",
+    "location": "RTP, NC; Knoxville, TN",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/RTP-North-Carolina-US/Attack-Surface-Management-Security-Engineer-I--Full-Time----United-States_2029031",
+    "source": "Workday",
+    "date_added": "2026-10-19"
+  },
+  {
+    "company": "Cisco",
+    "role": "Attack Surface Management Security Engineer II (Full-Time) \u2013 United States",
+    "location": "RTP, NC; Knoxville, TN",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/RTP-North-Carolina-US/Attack-Surface-Management-Security-Engineer-II--Full-Time----United-States_2029035",
+    "source": "Workday",
+    "date_added": "2026-10-19"
+  },
+  {
+    "company": "CrowdStrike",
+    "role": "Software Engineer II - Engine Team, LogScale (Hybrid)",
+    "location": "Austin, TX",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Austin-TX/Software-Engineer-II---Engine-Team--LogScale--Hybrid-_R30387",
+    "source": "Workday",
+    "date_added": "2026-10-19"
+  },
+  {
+    "company": "Johns Hopkins APL",
+    "role": "2027 Graduate -Cybersecurity Software Engineer - Cyber Concepts",
+    "location": "Laurel, MD",
+    "type": "newgrad",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://careers.jhuapl.edu/jobs/60116",
+    "source": "Jibe",
+    "date_added": "2026-10-19"
   }
 ]

@@ -4,13 +4,13 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **408 companies tracked.**
 
-## Hiring students now (109)
+## Hiring students now (110)
 
 Employers with open roles on the board today.
 
 | Company | Internships | New grad | Early career |
 | ------- | ----------- | -------- | ------------ |
-| Johns Hopkins APL | 11 | 12 |  |
+| Johns Hopkins APL | 11 | 13 |  |
 | Booz Allen Hamilton | 17 |  | 3 |
 | Vanguard | 5 | 6 |  |
 | Microsoft | 8 |  | 5 |
@@ -34,11 +34,11 @@ Employers with open roles on the board today.
 | Leidos | 2 |  | 6 |
 | CACI | 2 |  | 3 |
 | Battelle | 2 |  | 2 |
+| Cisco | 2 |  | 2 |
 | Appian | 1 | 1 | 1 |
 | ID.me |  | 2 | 1 |
 | Applied Intuition |  | 2 |  |
 | Boeing | 1 | 1 |  |
-| Cisco | 2 |  |  |
 | Elevance Health | 2 |  |  |
 | Honeywell | 2 |  |  |
 | Idaho National Laboratory | 2 |  |  |
@@ -74,7 +74,7 @@ Employers with open roles on the board today.
 | Semgrep | 1 |  |  |
 | TRM Labs |  | 1 |  |
 | Amazon |  |  | 13 |
-| CrowdStrike |  |  | 7 |
+| CrowdStrike |  |  | 8 |
 | BAE Systems |  |  | 5 |
 | KBR |  |  | 5 |
 | ExtraHop |  |  | 3 |
@@ -109,6 +109,7 @@ Employers with open roles on the board today.
 | Obsidian Security |  |  | 1 |
 | Praetorian |  |  | 1 |
 | PwC |  |  | 1 |
+| Rapid7 |  |  | 1 |
 | ReliaQuest |  |  | 1 |
 | SailPoint |  |  | 1 |
 | Salt Security |  |  | 1 |
