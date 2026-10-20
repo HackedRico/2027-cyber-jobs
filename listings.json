@@ -592,19 +592,6 @@
     "closed_date": "2026-09-19"
   },
   {
-    "company": "Abnormal AI",
-    "role": "Machine Learning Engineer II",
-    "location": "Remote (US)",
-    "type": "earlycareer",
-    "category": "Engineering @ Security Co",
-    "clearance": false,
-    "url": "",
-    "source": "Greenhouse",
-    "date_added": "2026-07-14",
-    "closed": true,
-    "closed_date": "2026-08-20"
-  },
-  {
     "company": "Anthropic",
     "role": "Safeguards Enforcement Analyst, Ban Evasion & Recidivism",
     "location": "Remote (US); San Francisco, CA; New York City, NY; Washington, DC",
@@ -2024,7 +2011,8 @@
     "clearance": true,
     "url": "https://snc.wd1.myworkdayjobs.com/SNC_External_Career_Site/job/Hagerstown-MD/Systems-Security-Engineering-Intern--Summer-2027-_R0030783",
     "source": "Workday",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "missing_since": "2026-10-20"
   },
   {
     "company": "Boeing",
@@ -3369,7 +3357,8 @@
     "clearance": false,
     "url": "https://statestreet.wd1.myworkdayjobs.com/Global/job/Quincy-Massachusetts/Junior-SIEM-Data-Engineer_R-794329",
     "source": "Workday",
-    "date_added": "2026-09-23"
+    "date_added": "2026-09-23",
+    "missing_since": "2026-10-20"
   },
   {
     "company": "Expel",
@@ -3496,10 +3485,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://boards.greenhouse.io/guidepointsecurity/jobs/6148707004?gh_jid=6148707004",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-09-28",
-    "missing_since": "2026-10-17"
+    "closed": true,
+    "closed_date": "2026-10-20"
   },
   {
     "company": "STR",
@@ -4825,10 +4815,11 @@
     "type": "earlycareer",
     "category": "Threat Intelligence",
     "clearance": true,
-    "url": "https://gdit.wd5.myworkdayjobs.com/External_Career_Site/job/USA-VA-Vienna/Junior-Tactical-All-Source-Threat-Intelligence-Analyst---Overnight-Shift---Top-Secret-Clearance-_RQ228754",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-01",
-    "missing_since": "2026-10-17"
+    "closed": true,
+    "closed_date": "2026-10-20"
   },
   {
     "company": "GDIT",
@@ -6479,10 +6470,11 @@
     "type": "earlycareer",
     "category": "GRC & Risk",
     "clearance": false,
-    "url": "https://usaa.wd1.myworkdayjobs.com/USAAJOBSWD/job/Charlotte-NC---CENTS/Technology-Risk---Compliance-Advisor-III--Junior-Level-_R0121469",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-10",
-    "missing_since": "2026-10-17"
+    "closed": true,
+    "closed_date": "2026-10-20"
   },
   {
     "company": "BDO",
@@ -6640,7 +6632,8 @@
     "clearance": false,
     "url": "https://fanniemae.wd1.myworkdayjobs.com/FannieMaeCareers/job/Reston-VA/Jr-Cloud-Automation-Engineer_JR2956",
     "source": "Workday",
-    "date_added": "2026-10-13"
+    "date_added": "2026-10-13",
+    "missing_since": "2026-10-20"
   },
   {
     "company": "Grant Thornton",
@@ -6649,10 +6642,11 @@
     "type": "earlycareer",
     "category": "GRC & Risk",
     "clearance": false,
-    "url": "https://ehzq.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/116144",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-10-13",
-    "missing_since": "2026-10-17"
+    "closed": true,
+    "closed_date": "2026-10-20"
   },
   {
     "company": "Johns Hopkins APL",
@@ -6744,10 +6738,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://caci.wd1.myworkdayjobs.com/External/job/Florham-Park-NJ-US/Cyber-Security-Engineer--Jr_333540",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-14",
-    "missing_since": "2026-10-17"
+    "closed": true,
+    "closed_date": "2026-10-20"
   },
   {
     "company": "Northrop Grumman",
@@ -6756,10 +6751,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Maryland-Annapolis/XMLNAME-2027-S-W-Cybersecurity-Intern---Annapolis-MD_R10254705",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-14",
-    "missing_since": "2026-10-17"
+    "closed": true,
+    "closed_date": "2026-10-20"
   },
   {
     "company": "GuidePoint Security",
@@ -6779,10 +6775,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Texas-San-Antonio/XMLNAME-2027-Cyber-Software-Engineer-Intern---San-Antonio-TX_R10256037",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-15",
-    "missing_since": "2026-10-17"
+    "closed": true,
+    "closed_date": "2026-10-20"
   },
   {
     "company": "NVIDIA",
@@ -7096,7 +7093,8 @@
     "clearance": false,
     "url": "https://ebqb.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BDOEntryLevelCareers/job/14428",
     "source": "Oracle",
-    "date_added": "2026-10-17"
+    "date_added": "2026-10-17",
+    "missing_since": "2026-10-20"
   },
   {
     "company": "Lumen",
@@ -7129,7 +7127,8 @@
     "clearance": false,
     "url": "https://abnormal.ai/careers/jobs/8015179003?gh_jid=8015179003",
     "source": "Greenhouse",
-    "date_added": "2026-10-17"
+    "date_added": "2026-10-17",
+    "missing_since": "2026-10-20"
   },
   {
     "company": "Cisco",
@@ -7159,7 +7158,7 @@
     "location": "Austin, TX",
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
-    "clearance": false,
+    "clearance": true,
     "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Austin-TX/Software-Engineer-II---Engine-Team--LogScale--Hybrid-_R30387",
     "source": "Workday",
     "date_added": "2026-10-19"
@@ -7174,5 +7173,82 @@
     "url": "https://careers.jhuapl.edu/jobs/60116",
     "source": "Jibe",
     "date_added": "2026-10-19"
+  },
+  {
+    "company": "Shift5",
+    "role": "Junior Data Solutions Architect",
+    "location": "Rosslyn, VA or Remote",
+    "type": "earlycareer",
+    "category": "Solutions Architecture",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/shift5/jobs/6228485004",
+    "source": "Greenhouse",
+    "date_added": "2026-10-20"
+  },
+  {
+    "company": "Cisco",
+    "role": "Information Security Engineer II (Full-Time) \u2013 United States",
+    "location": "RTP, NC",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/RTP-North-Carolina-US/Information-Security-Engineer-II--Full-Time----United-States_2028339",
+    "source": "Workday",
+    "date_added": "2026-10-20"
+  },
+  {
+    "company": "Salesforce",
+    "role": "Summer 2027 Intern - Software Engineer (Security/Government)",
+    "location": "San Francisco, CA; Bellevue, WA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/California---San-Francisco/Summer-2027-Intern---Software-Engineer--Security-Government-_JR364911-1",
+    "source": "Workday",
+    "date_added": "2026-10-20"
+  },
+  {
+    "company": "Aerospace Corporation",
+    "role": "2027 Cloud Solutions Engineer / Site Reliability Undergrad Intern",
+    "location": "El Segundo, CA; Chantilly, VA; Colorado Springs, CO",
+    "type": "intern",
+    "category": "Cloud Engineering",
+    "clearance": true,
+    "url": "https://aero.wd5.myworkdayjobs.com/External/job/El-Segundo-CA/XMLNAME-2027-Cloud-Solutions-Engineer---Site-Reliability-Undergrad-Intern_R016714",
+    "source": "Workday",
+    "date_added": "2026-10-20"
+  },
+  {
+    "company": "Fortra",
+    "role": "Associate Solutions Engineer",
+    "location": "United States; TX (US); GA (US); CT (US); UT (US); NY (US); NJ (US); AZ (US)",
+    "type": "earlycareer",
+    "category": "Solutions Architecture",
+    "clearance": false,
+    "url": "https://fortra.wd12.myworkdayjobs.com/FortraCareers/job/United-States/Associate-Solutions-Engineer_R26-0421",
+    "source": "Workday",
+    "date_added": "2026-10-20"
+  },
+  {
+    "company": "JPMorgan Chase",
+    "role": "Security Engineer II -Python Developer",
+    "location": "Jersey City, NJ",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210799827",
+    "source": "Oracle",
+    "date_added": "2026-10-20"
+  },
+  {
+    "company": "Fortinet",
+    "role": "Early Careers: Software Development Engineer",
+    "location": "Sunnyvale, CA",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://edel.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/24668",
+    "source": "Oracle",
+    "date_added": "2026-10-20"
   }
 ]
