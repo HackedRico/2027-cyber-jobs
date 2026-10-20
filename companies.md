@@ -30,6 +30,7 @@ Employers with open roles on the board today.
 | Immuta | 3 |  |  |
 | Intel | 3 |  |  |
 | Palantir | 2 | 1 |  |
+| Northrop Grumman | 1 | 1 | 11 |
 | Leidos | 2 |  | 6 |
 | Cisco | 2 |  | 3 |
 | Battelle | 2 |  | 2 |
@@ -48,13 +49,13 @@ Employers with open roles on the board today.
 | Salesforce | 2 |  |  |
 | Together AI | 1 | 1 |  |
 | Walmart | 2 |  |  |
-| Northrop Grumman |  | 1 | 11 |
 | RTX | 1 |  | 10 |
 | Nightwing | 1 |  | 7 |
 | Pinterest | 1 |  | 2 |
 | Draper | 1 |  | 1 |
 | GDIT | 1 |  | 1 |
 | Motorola Solutions | 1 |  | 1 |
+| Parsons | 1 |  | 1 |
 | Sierra Nevada Corporation | 1 |  | 1 |
 | The Home Depot | 1 |  | 1 |
 | Verkada | 1 |  | 1 |
@@ -69,7 +70,6 @@ Employers with open roles on the board today.
 | KeyBank |  | 1 |  |
 | Lumen | 1 |  |  |
 | OPSWAT | 1 |  |  |
-| Parsons | 1 |  |  |
 | Prophet Security | 1 |  |  |
 | Rubrik |  | 1 |  |
 | Semgrep | 1 |  |  |

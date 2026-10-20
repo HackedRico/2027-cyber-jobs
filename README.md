@@ -14,7 +14,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**144** internships · **47** new grad · **167** early career open · **48** added in the last 7 days · **164** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 20, 2026
+**145** internships · **47** new grad · **168** early career open · **49** added in the last 7 days · **166** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 20, 2026
 
 <!-- /STATS -->
 
@@ -189,6 +189,7 @@ Cybersecurity internships and co-ops for current students.
 | Qualcomm | Security (Product, Systems, Cyber) Engineering Internship - Summer 2027<br><sub>Security Engineering</sub> | <a href="https://qualcomm.eightfold.ai/careers/job/446720740636"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Qualcomm Security (Product, Systems, Cyber) Engineering Internship - Summer 2027"></a> | San Diego, CA | Sep 28 |
 | RTX | Cyber Research Internship (Summer 2027) - Onsite 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-IA-CEDAR-RAPIDS-166--855-35Th-St-NE--BLDG-166/Cyber-Research-Internship--Summer-2027----Onsite_01872177"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: RTX Cyber Research Internship (Summer 2027) - Onsite"></a> | Cedar Rapids, IA | Sep 28 |
 | Nightwing | Multidisciplinary Engineer Intern 🇺🇸<br><sub>Engineering @ Security Co</sub> | <a href="https://nwis.wd12.myworkdayjobs.com/NW/job/Springfield-VA/Multidisciplinary-Engineer-Intern_JR102090"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Nightwing Multidisciplinary Engineer Intern"></a> | Springfield, VA | Sep 22 |
+| Northrop Grumman | 2027 Cyber Systems Engineer Intern-Tampa FL 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Florida-Tampa/XMLNAME-2027-Cyber-Systems-Engineer-Intern-Tampa-FL_R10249196"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Northrop Grumman 2027 Cyber Systems Engineer Intern-Tampa FL"></a> | Tampa, FL | Sep 22 |
 | Tanium | Cloud Security Intern<br><sub>Cloud &amp; Infra Security</sub> | <a href="https://job-boards.greenhouse.io/tanium/jobs/8176398"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Tanium Cloud Security Intern"></a> | Durham, NC | Sep 22 |
 | Motorola Solutions | Cyber Security - 2027 Summer Internship (Chicago Hybrid)<br><sub>Security Engineering</sub> | <a href="https://motorolasolutions.wd5.myworkdayjobs.com/Careers/job/Chicago-IL/Cyber-Security---2027-Summer-Internship--Chicago-Hybrid-_R68369"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Motorola Solutions Cyber Security - 2027 Summer Internship (Chicago Hybrid)"></a> | Chicago, IL | Sep 18 |
 | Walmart | Summer 2027 Intern: Cybersecurity Undergrad<br><sub>Security Engineering</sub> | <a href="https://walmart.wd504.myworkdayjobs.com/WalmartExternal/job/USA-ISD-Office---DGTC-AR-BENTONVILLE-Home-Office/Summer-2027-Intern--Cybersecurity-Undergrad_R-2630025"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Walmart Summer 2027 Intern: Cybersecurity Undergrad"></a> | Bentonville, AR | Sep 15 |
@@ -220,7 +221,7 @@ Cybersecurity internships and co-ops for current students.
 
 <!-- CLOSED_START intern -->
 
-<details><summary>🔒 55 closed in the last 60 days</summary>
+<details><summary>🔒 54 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
@@ -261,7 +262,6 @@ Cybersecurity internships and co-ops for current students.
 | RTX | Systems Security Engineering Intern (Summer 2027) | Oct 11 |
 | BDO | Advisory Intern, Cyber, Compliance &amp; Assessment - Summer 2027 (Multiple Locations) | Oct 8 |
 | Northrop Grumman | 2027 Cyber Software Engineer Intern - Tampa FL | Oct 6 |
-| ↳ | 2027 Cyber Systems Engineer Intern-Tampa FL | Oct 6 |
 | Duke Energy | PGO Cybersecurity Summer 2027 Internship | Oct 5 |
 | U.S. Bank | 2027 Information Security Summer Intern | Oct 5 |
 | Vanguard | College to Corporate IT Internship - Risk &amp; Security - Engineer (NC) | Oct 5 |
@@ -393,6 +393,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 | Fortinet | 🆕 Early Careers: Software Development Engineer<br><sub>Engineering @ Security Co</sub> | <a href="https://edel.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/24668"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Fortinet Early Careers: Software Development Engineer"></a> | Sunnyvale, CA | Oct 20 |
 | Fortra | 🆕 Associate Solutions Engineer<br><sub>Solutions Architecture</sub> | <a href="https://fortra.wd12.myworkdayjobs.com/FortraCareers/job/United-States/Associate-Solutions-Engineer_R26-0421"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Fortra Associate Solutions Engineer"></a> | <details><summary>**8 locations**</summary>United States<br>TX (US)<br>GA (US)<br>CT (US)<br>UT (US)<br>NY (US)<br>NJ (US)<br>AZ (US)</details> | Oct 20 |
 | JPMorgan Chase | 🆕 Security Engineer II -Python Developer<br><sub>Security Engineering</sub> | <a href="https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210799827"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: JPMorgan Chase Security Engineer II -Python Developer"></a> | Jersey City, NJ | Oct 20 |
+| Parsons | 🆕 ABAD Cyber Security Systems Engineer Associate**This position is located at Ramstein AFB, Germany (International Assignment) **NO REMOTE WORK** 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://parsons.wd5.myworkdayjobs.com/Search/job/US---Remote-Any-Location/ABAD-Cyber-Security-Systems-Engineer-Associate--This-position-is-located-at-Ramstein-AFB--Germany--International-Assignment----NO-REMOTE-WORK--_R187490"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Parsons ABAD Cyber Security Systems Engineer Associate**This position is located at Ramstein AFB, Germany (International Assignment) **NO REMOTE WORK**"></a> | Remote (US) | Oct 20 |
 | Shift5 | 🆕 Junior Data Solutions Architect<br><sub>Solutions Architecture</sub> | <a href="https://job-boards.greenhouse.io/shift5/jobs/6228485004"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Shift5 Junior Data Solutions Architect"></a> | Rosslyn, VA or Remote | Oct 20 |
 | Cisco | 🆕 Attack Surface Management Security Engineer I (Full-Time) – United States<br><sub>Security Engineering</sub> | <a href="https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/RTP-North-Carolina-US/Attack-Surface-Management-Security-Engineer-I--Full-Time----United-States_2029031"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Cisco Attack Surface Management Security Engineer I (Full-Time) – United States"></a> | <details><summary>**2 locations**</summary>RTP, NC<br>Knoxville, TN</details> | Oct 19 |
 | ↳ | 🆕 Attack Surface Management Security Engineer II (Full-Time) – United States<br><sub>Security Engineering</sub> | <a href="https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/RTP-North-Carolina-US/Attack-Surface-Management-Security-Engineer-II--Full-Time----United-States_2029035"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Cisco Attack Surface Management Security Engineer II (Full-Time) – United States"></a> | <details><summary>**2 locations**</summary>RTP, NC<br>Knoxville, TN</details> | Oct 19 |

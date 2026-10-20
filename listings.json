@@ -3175,11 +3175,9 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "",
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Florida-Tampa/XMLNAME-2027-Cyber-Systems-Engineer-Intern-Tampa-FL_R10249196",
     "source": "Workday",
-    "date_added": "2026-09-22",
-    "closed": true,
-    "closed_date": "2026-10-06"
+    "date_added": "2026-09-22"
   },
   {
     "company": "Duke Energy",
@@ -6847,8 +6845,7 @@
     "clearance": false,
     "url": "https://jobs.ashbyhq.com/1password/49f0fe51-fcdc-46d8-a046-35f357b0cf6e",
     "source": "Ashby",
-    "date_added": "2026-10-16",
-    "missing_since": "2026-10-19"
+    "date_added": "2026-10-16"
   },
   {
     "company": "1Password",
@@ -7249,6 +7246,17 @@
     "clearance": false,
     "url": "https://edel.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/24668",
     "source": "Oracle",
+    "date_added": "2026-10-20"
+  },
+  {
+    "company": "Parsons",
+    "role": "ABAD Cyber Security Systems Engineer Associate**This position is located at Ramstein AFB, Germany (International Assignment) **NO REMOTE WORK**",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://parsons.wd5.myworkdayjobs.com/Search/job/US---Remote-Any-Location/ABAD-Cyber-Security-Systems-Engineer-Associate--This-position-is-located-at-Ramstein-AFB--Germany--International-Assignment----NO-REMOTE-WORK--_R187490",
+    "source": "Workday",
     "date_added": "2026-10-20"
   }
 ]
