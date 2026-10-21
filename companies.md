@@ -4,7 +4,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **408 companies tracked.**
 
-## Hiring students now (111)
+## Hiring students now (113)
 
 Employers with open roles on the board today.
 
@@ -14,19 +14,19 @@ Employers with open roles on the board today.
 | Booz Allen Hamilton | 17 |  | 3 |
 | Vanguard | 5 | 6 |  |
 | Microsoft | 8 |  | 5 |
+| MITRE | 7 | 1 | 5 |
 | American Express | 4 | 4 |  |
-| MITRE | 6 | 1 | 5 |
 | Lawrence Livermore National Laboratory | 6 |  |  |
 | Palo Alto Networks | 4 | 1 | 3 |
 | HPE | 3 | 2 | 1 |
 | BDO | 3 | 2 |  |
 | Software Engineering Institute | 4 |  | 5 |
 | NVIDIA | 1 | 3 | 1 |
+| Federal Reserve System | 4 |  |  |
 | Tanium | 4 |  |  |
 | Goldman Sachs | 3 |  | 1 |
 | GuidePoint Security | 3 |  | 1 |
 | Entrust | 3 |  |  |
-| Federal Reserve System | 3 |  |  |
 | Immuta | 3 |  |  |
 | Intel | 3 |  |  |
 | Palantir | 2 | 1 |  |
@@ -36,12 +36,13 @@ Employers with open roles on the board today.
 | Battelle | 2 |  | 2 |
 | CACI | 2 |  | 2 |
 | Appian | 1 | 1 | 1 |
+| Honeywell | 2 |  | 1 |
 | ID.me |  | 2 | 1 |
 | Applied Intuition |  | 2 |  |
 | Boeing | 1 | 1 |  |
 | Elevance Health | 2 |  |  |
-| Honeywell | 2 |  |  |
 | Idaho National Laboratory | 2 |  |  |
+| Illumio | 2 |  |  |
 | Johnson &amp; Johnson | 2 |  |  |
 | Lockheed Martin | 2 |  |  |
 | National Laboratory of the Rockies | 2 |  |  |
@@ -59,6 +60,7 @@ Employers with open roles on the board today.
 | Sierra Nevada Corporation | 1 |  | 1 |
 | The Home Depot | 1 |  | 1 |
 | Verkada | 1 |  | 1 |
+| Adobe | 1 |  |  |
 | Aerospace Corporation | 1 |  |  |
 | Bank of America | 1 |  |  |
 | Deloitte |  | 1 |  |

@@ -757,19 +757,6 @@
     "closed_date": "2026-09-19"
   },
   {
-    "company": "Coalfire",
-    "role": "Associate, Vulnerability Assessment",
-    "location": "United States",
-    "type": "earlycareer",
-    "category": "Engineering @ Security Co",
-    "clearance": false,
-    "url": "",
-    "source": "Lever",
-    "date_added": "2026-07-20",
-    "closed": true,
-    "closed_date": "2026-08-21"
-  },
-  {
     "company": "TRM Labs",
     "role": "University Grad \u2013 Product Engineer (2026-2027) - Los Angeles Only",
     "location": "Los Angeles, CA",
@@ -6459,7 +6446,8 @@
     "clearance": false,
     "url": "https://cmu.wd115.myworkdayjobs.com/SEI/job/Pittsburgh-PA/AI-Security-Research-Intern---Summer-2027_2025199-1",
     "source": "Workday",
-    "date_added": "2026-10-10"
+    "date_added": "2026-10-10",
+    "missing_since": "2026-10-21"
   },
   {
     "company": "USAA",
@@ -6956,7 +6944,8 @@
     "clearance": true,
     "url": "https://guidehouse.wd1.myworkdayjobs.com/External/job/US---VA-McLean/Consultant---Defense---Security---Campus-2026_45522-1",
     "source": "Workday",
-    "date_added": "2026-10-16"
+    "date_added": "2026-10-16",
+    "missing_since": "2026-10-21"
   },
   {
     "company": "National Laboratory of the Rockies",
@@ -7258,5 +7247,71 @@
     "url": "https://parsons.wd5.myworkdayjobs.com/Search/job/US---Remote-Any-Location/ABAD-Cyber-Security-Systems-Engineer-Associate--This-position-is-located-at-Ramstein-AFB--Germany--International-Assignment----NO-REMOTE-WORK--_R187490",
     "source": "Workday",
     "date_added": "2026-10-20"
+  },
+  {
+    "company": "Illumio",
+    "role": "Security Research, Intern",
+    "location": "Sunnyvale, California - HQ",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/illumio/09d4895b-6de4-4d22-bbc3-aa45f2b24260",
+    "source": "Ashby",
+    "date_added": "2026-10-21"
+  },
+  {
+    "company": "Illumio",
+    "role": "Engineering Intern, Product Security",
+    "location": "Sunnyvale, California - HQ",
+    "type": "intern",
+    "category": "AppSec & ProdSec",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/illumio/8708e622-900e-458a-96b3-ae339329a56d",
+    "source": "Ashby",
+    "date_added": "2026-10-21"
+  },
+  {
+    "company": "Adobe",
+    "role": "2027 Intern - Security Engineer",
+    "location": "San Jose, CA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://adobe.wd5.myworkdayjobs.com/external_experienced/job/San-Jose/XMLNAME-2027-Intern---Security-Engineer_R173001",
+    "source": "Workday",
+    "date_added": "2026-10-21"
+  },
+  {
+    "company": "Federal Reserve System",
+    "role": "2027 Intern - Technology Risk",
+    "location": "Dallas, TX",
+    "type": "intern",
+    "category": "GRC & Risk",
+    "clearance": true,
+    "url": "https://rb.wd5.myworkdayjobs.com/FRS/job/Dallas-TX/XMLNAME-2027-Intern---Technology-Risk_R-0000033765",
+    "source": "Workday",
+    "date_added": "2026-10-21"
+  },
+  {
+    "company": "Honeywell",
+    "role": "Cyber Security Engineer I-Penetration Tester",
+    "location": "Plymouth, MN",
+    "type": "earlycareer",
+    "category": "Offensive Security",
+    "clearance": true,
+    "url": "https://ibqbjb.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/160406",
+    "source": "Oracle",
+    "date_added": "2026-10-21"
+  },
+  {
+    "company": "MITRE",
+    "role": "Trustworthy AI Intern",
+    "location": "McLean, VA",
+    "type": "intern",
+    "category": "AI Security & Safety",
+    "clearance": true,
+    "url": "https://careers.mitre.org/us/en/job/R117833",
+    "source": "Phenom",
+    "date_added": "2026-10-21"
   }
 ]
