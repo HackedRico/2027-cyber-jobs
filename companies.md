@@ -4,7 +4,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **408 companies tracked.**
 
-## Hiring students now (113)
+## Hiring students now (115)
 
 Employers with open roles on the board today.
 
@@ -26,6 +26,7 @@ Employers with open roles on the board today.
 | Tanium | 4 |  |  |
 | Goldman Sachs | 3 |  | 1 |
 | GuidePoint Security | 3 |  | 1 |
+| Aerospace Corporation | 3 |  |  |
 | Entrust | 3 |  |  |
 | Immuta | 3 |  |  |
 | Intel | 3 |  |  |
@@ -34,8 +35,8 @@ Employers with open roles on the board today.
 | Leidos | 2 |  | 6 |
 | Cisco | 2 |  | 3 |
 | Battelle | 2 |  | 2 |
-| CACI | 2 |  | 2 |
 | Appian | 1 | 1 | 1 |
+| CACI | 2 |  | 1 |
 | Honeywell | 2 |  | 1 |
 | ID.me |  | 2 | 1 |
 | Applied Intuition |  | 2 |  |
@@ -61,9 +62,9 @@ Employers with open roles on the board today.
 | The Home Depot | 1 |  | 1 |
 | Verkada | 1 |  | 1 |
 | Adobe | 1 |  |  |
-| Aerospace Corporation | 1 |  |  |
 | Bank of America | 1 |  |  |
 | Deloitte |  | 1 |  |
+| Duke Energy | 1 |  |  |
 | Exelon | 1 |  |  |
 | Grant Thornton |  | 1 |  |
 | Guidehouse |  | 1 |  |
@@ -75,6 +76,7 @@ Employers with open roles on the board today.
 | Prophet Security | 1 |  |  |
 | Rubrik |  | 1 |  |
 | Semgrep | 1 |  |  |
+| T-Mobile | 1 |  |  |
 | TRM Labs |  | 1 |  |
 | Amazon |  |  | 13 |
 | CrowdStrike |  |  | 8 |
