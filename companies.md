@@ -11,11 +11,12 @@ Employers with open roles on the board today.
 | Company | Internships | New grad | Early career |
 | ------- | ----------- | -------- | ------------ |
 | Johns Hopkins APL | 11 | 13 |  |
-| Booz Allen Hamilton | 17 |  | 3 |
+| Booz Allen Hamilton | 17 |  | 4 |
 | Vanguard | 5 | 6 |  |
 | Microsoft | 9 |  | 5 |
 | MITRE | 7 | 1 | 5 |
 | American Express | 4 | 4 |  |
+| 1Password | 6 |  | 1 |
 | Lawrence Livermore National Laboratory | 6 |  |  |
 | Palo Alto Networks | 4 | 1 | 3 |
 | BDO | 3 | 2 | 1 |
@@ -25,13 +26,13 @@ Employers with open roles on the board today.
 | Federal Reserve System | 4 |  |  |
 | Intel | 4 |  |  |
 | Tanium | 4 |  |  |
+| Northrop Grumman | 2 | 1 | 11 |
 | Goldman Sachs | 3 |  | 1 |
 | GuidePoint Security | 3 |  | 1 |
 | Aerospace Corporation | 3 |  |  |
 | Entrust | 3 |  |  |
 | Immuta | 3 |  |  |
 | Palantir | 2 | 1 |  |
-| Northrop Grumman | 1 | 1 | 11 |
 | Leidos | 2 |  | 6 |
 | Cisco | 2 |  | 3 |
 | Battelle | 2 |  | 2 |
@@ -53,9 +54,10 @@ Employers with open roles on the board today.
 | Walmart | 2 |  |  |
 | RTX | 1 |  | 10 |
 | Nightwing | 1 |  | 7 |
+| GDIT | 1 |  | 2 |
 | Pinterest | 1 |  | 2 |
+| STR | 1 |  | 2 |
 | Draper | 1 |  | 1 |
-| GDIT | 1 |  | 1 |
 | Motorola Solutions | 1 |  | 1 |
 | Parsons | 1 |  | 1 |
 | Sierra Nevada Corporation | 1 |  | 1 |
@@ -82,19 +84,17 @@ Employers with open roles on the board today.
 | CrowdStrike |  |  | 8 |
 | BAE Systems |  |  | 5 |
 | KBR |  |  | 5 |
+| Abnormal AI |  |  | 3 |
 | ExtraHop |  |  | 3 |
 | JPMorgan Chase |  |  | 3 |
 | Kyndryl |  |  | 3 |
 | Recorded Future |  |  | 3 |
-| Abnormal AI |  |  | 2 |
 | Amentum |  |  | 2 |
 | Citi |  |  | 2 |
 | Fortinet |  |  | 2 |
 | Fortra |  |  | 2 |
 | SAIC |  |  | 2 |
-| STR |  |  | 2 |
 | Trail of Bits |  |  | 2 |
-| 1Password |  |  | 1 |
 | Accenture Federal Services |  |  | 1 |
 | AeroVironment |  |  | 1 |
 | Anthropic |  |  | 1 |

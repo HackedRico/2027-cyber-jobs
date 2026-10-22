@@ -1300,7 +1300,8 @@
     "clearance": true,
     "url": "https://jobs.ashbyhq.com/chainalysis-careers/4808108e-6a69-46c4-b9da-930070562608",
     "source": "Ashby",
-    "date_added": "2026-07-23"
+    "date_added": "2026-07-23",
+    "missing_since": "2026-10-22"
   },
   {
     "company": "Sierra Nevada Corporation",
@@ -2336,7 +2337,8 @@
     "clearance": false,
     "url": "https://jobs.lever.co/immuta/b9b21075-74a4-4b64-8f1b-f0be1fb0b24d",
     "source": "Lever",
-    "date_added": "2026-09-09"
+    "date_added": "2026-09-09",
+    "missing_since": "2026-10-22"
   },
   {
     "company": "Immuta",
@@ -3094,11 +3096,9 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "",
+    "url": "https://abnormal.ai/careers/jobs/8001641003?gh_jid=8001641003",
     "source": "Greenhouse",
-    "date_added": "2026-09-22",
-    "closed": true,
-    "closed_date": "2026-09-26"
+    "date_added": "2026-09-22"
   },
   {
     "company": "Nightwing",
@@ -6744,11 +6744,9 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "",
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Texas-San-Antonio/XMLNAME-2027-Cyber-Software-Engineer-Intern---San-Antonio-TX_R10257311",
     "source": "Workday",
-    "date_added": "2026-10-15",
-    "closed": true,
-    "closed_date": "2026-10-20"
+    "date_added": "2026-10-15"
   },
   {
     "company": "NVIDIA",
@@ -7097,8 +7095,7 @@
     "clearance": false,
     "url": "https://abnormal.ai/careers/jobs/8015179003?gh_jid=8015179003",
     "source": "Greenhouse",
-    "date_added": "2026-10-17",
-    "missing_since": "2026-10-20"
+    "date_added": "2026-10-17"
   },
   {
     "company": "Cisco",
@@ -7396,6 +7393,105 @@
     "clearance": false,
     "url": "https://www.amazon.jobs/en/jobs/10585308/security-engineer-i-secure-third-party-tools-s3t",
     "source": "Amazon Jobs",
+    "date_added": "2026-10-22"
+  },
+  {
+    "company": "STR",
+    "role": "Data Analyst Intern - Summer 2027",
+    "location": "Arlington, VA",
+    "type": "intern",
+    "category": "Engineering @ Security Co",
+    "clearance": true,
+    "url": "https://job-boards.greenhouse.io/systemstechnologyresearch/jobs/4723980006",
+    "source": "Greenhouse",
+    "date_added": "2026-10-22"
+  },
+  {
+    "company": "1Password",
+    "role": "Developer Intern, Data Security - Winter 2027",
+    "location": "Remote (US)",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/1password/8af1359a-c8a2-492b-b567-ae8ae184a8a1",
+    "source": "Ashby",
+    "date_added": "2026-10-22"
+  },
+  {
+    "company": "1Password",
+    "role": "Developer Intern, Machine Identity - Winter 2027",
+    "location": "Remote (US)",
+    "type": "intern",
+    "category": "Identity & IAM",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/1password/6a6869a7-98d2-43e3-b9b5-b68fa4daeb9f",
+    "source": "Ashby",
+    "date_added": "2026-10-22"
+  },
+  {
+    "company": "1Password",
+    "role": "Developer Intern, Vault Team - Winter 2027",
+    "location": "Remote (US)",
+    "type": "intern",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/1password/b2726ac7-dd0d-42f3-93a5-139e18c90779",
+    "source": "Ashby",
+    "date_added": "2026-10-22"
+  },
+  {
+    "company": "1Password",
+    "role": "Security Intern, Threat Operations - Winter 2027",
+    "location": "Remote (US)",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/1password/aac7eea6-ed7c-4871-bbf2-7cb2d5138847",
+    "source": "Ashby",
+    "date_added": "2026-10-22"
+  },
+  {
+    "company": "1Password",
+    "role": "Developer Intern, Provisioning - Winter 2027",
+    "location": "Remote (US)",
+    "type": "intern",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/1password/c5289ef1-e919-4672-85c5-ee3112f9ddb9",
+    "source": "Ashby",
+    "date_added": "2026-10-22"
+  },
+  {
+    "company": "1Password",
+    "role": "Developer Intern, Front-End Platform - Winter 2027",
+    "location": "Remote (US)",
+    "type": "intern",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/1password/71a3afd1-12b3-4f55-a3bd-fc4e7c46ee37",
+    "source": "Ashby",
+    "date_added": "2026-10-22"
+  },
+  {
+    "company": "Booz Allen Hamilton",
+    "role": "ISSO Security Analyst, Junior",
+    "location": "McLean, VA",
+    "type": "earlycareer",
+    "category": "GRC & Risk",
+    "clearance": true,
+    "url": "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/McLean-VA/ISSO-Security-Analyst--Junior_R0252137-1",
+    "source": "Workday",
+    "date_added": "2026-10-22"
+  },
+  {
+    "company": "GDIT",
+    "role": "Tier I Security Operations Center (SOC) Analyst",
+    "location": "Bossier City, LA",
+    "type": "earlycareer",
+    "category": "SOC & Detection",
+    "clearance": true,
+    "url": "https://gdit.wd5.myworkdayjobs.com/External_Career_Site/job/USA-LA-Bossier-City/Tier-I-Security-Operations-Center--SOC--Analyst_RQ230985-2",
+    "source": "Workday",
     "date_added": "2026-10-22"
   }
 ]
