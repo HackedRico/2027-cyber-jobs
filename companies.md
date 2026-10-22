@@ -78,7 +78,7 @@ Employers with open roles on the board today.
 | Semgrep | 1 |  |  |
 | T-Mobile | 1 |  |  |
 | TRM Labs |  | 1 |  |
-| Amazon |  |  | 15 |
+| Amazon |  |  | 14 |
 | CrowdStrike |  |  | 8 |
 | BAE Systems |  |  | 5 |
 | KBR |  |  | 5 |

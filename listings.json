@@ -5871,11 +5871,12 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10567109/security-engineer-ii",
+    "url": "",
     "source": "Amazon Jobs",
     "date_added": "2026-10-05",
-    "dead_since": "2026-10-21",
-    "missing_since": "2026-10-21"
+    "last_url": "https://www.amazon.jobs/en/jobs/10567109/security-engineer-ii",
+    "closed": true,
+    "closed_date": "2026-10-22"
   },
   {
     "company": "Amazon",

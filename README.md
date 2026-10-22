@@ -14,7 +14,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**156** internships · **47** new grad · **169** early career open · **56** added in the last 7 days · **170** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 22, 2026
+**156** internships · **47** new grad · **168** early career open · **56** added in the last 7 days · **170** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 22, 2026
 
 <!-- /STATS -->
 
@@ -439,8 +439,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 | Huntress | Sales Engineer II, Mid-Market<br><sub>Engineering @ Security Co</sub> | <a href="https://job-boards.greenhouse.io/huntress/jobs/7974374003"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Huntress Sales Engineer II, Mid-Market"></a> | United States of America | Oct 6 |
 | Microsoft | Security Analyst II<br><sub>Security Engineering</sub> | <a href="https://microsoft.eightfold.ai/careers/job/1970393557023143"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Microsoft Security Analyst II"></a> | Redmond, WA | Oct 6 |
 | Northrop Grumman | Cloud Software Engineer (Level 2) - AHT 🇺🇸<br><sub>Cloud Engineering</sub> | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-Redondo-Beach/Cloud-Software-Engineer--Level-2----AHT_R10249870"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Northrop Grumman Cloud Software Engineer (Level 2) - AHT"></a> | Redondo Beach, CA | Oct 6 |
-| Amazon | Security Engineer II<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10567109/security-engineer-ii"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer II"></a> | Arlington, VA | Oct 5 |
-| ↳ | Security Engineer II, Amazon Vulnerability Management - Container Domain<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10568811/security-engineer-ii-amazon-vulnerability-management-container-domain"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer II, Amazon Vulnerability Management - Container Domain"></a> | Arlington, VA | Oct 5 |
+| Amazon | Security Engineer II, Amazon Vulnerability Management - Container Domain<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10568811/security-engineer-ii-amazon-vulnerability-management-container-domain"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer II, Amazon Vulnerability Management - Container Domain"></a> | Arlington, VA | Oct 5 |
 | ExtraHop | Support Engineer I - NC<br><sub>Engineering @ Security Co</sub> | <a href="https://job-boards.greenhouse.io/extrahopnetworks/jobs/6211107004"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: ExtraHop Support Engineer I - NC"></a> | NC (US) | Oct 5 |
 | Northrop Grumman | Sentinel - Systems Security Engineer level 2/3 (20009) 🇺🇸<br><sub>Cloud &amp; Infra Security</sub> | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Utah-Roy/Sentinel---Systems-Security-Engineer-level-2-3--20009-_R10253409"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Northrop Grumman Sentinel - Systems Security Engineer level 2/3 (20009)"></a> | Roy, UT | Oct 5 |
 | RTX | Embedded Software Security Engineer II - S3E 🇺🇸<br><sub>AppSec &amp; ProdSec</sub> | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Embedded-Software-Security-Engineer-II---S3E_01879899"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: RTX Embedded Software Security Engineer II - S3E"></a> | Tucson, AZ | Oct 5 |
@@ -574,11 +573,12 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 <!-- CLOSED_START earlycareer -->
 
-<details><summary>🔒 175 closed in the last 60 days</summary>
+<details><summary>🔒 176 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
 | 1Password | Junior Developer | Oct 22 |
+| Amazon | Security Engineer II | Oct 22 |
 | Everfox | Software Engineer I | Oct 22 |
 | CACI | Cyber Security Engineer, Jr. | Oct 20 |
 | GDIT | Junior Tactical All Source Threat Intelligence Analyst - Overnight Shift (Top Secret Clearance) | Oct 20 |
