@@ -4,7 +4,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **408 companies tracked.**
 
-## Hiring students now (115)
+## Hiring students now (114)
 
 Employers with open roles on the board today.
 
@@ -13,23 +13,23 @@ Employers with open roles on the board today.
 | Johns Hopkins APL | 11 | 13 |  |
 | Booz Allen Hamilton | 17 |  | 3 |
 | Vanguard | 5 | 6 |  |
-| Microsoft | 8 |  | 5 |
+| Microsoft | 9 |  | 5 |
 | MITRE | 7 | 1 | 5 |
 | American Express | 4 | 4 |  |
 | Lawrence Livermore National Laboratory | 6 |  |  |
 | Palo Alto Networks | 4 | 1 | 3 |
+| BDO | 3 | 2 | 1 |
 | HPE | 3 | 2 | 1 |
-| BDO | 3 | 2 |  |
 | Software Engineering Institute | 4 |  | 5 |
 | NVIDIA | 1 | 3 | 1 |
 | Federal Reserve System | 4 |  |  |
+| Intel | 4 |  |  |
 | Tanium | 4 |  |  |
 | Goldman Sachs | 3 |  | 1 |
 | GuidePoint Security | 3 |  | 1 |
 | Aerospace Corporation | 3 |  |  |
 | Entrust | 3 |  |  |
 | Immuta | 3 |  |  |
-| Intel | 3 |  |  |
 | Palantir | 2 | 1 |  |
 | Northrop Grumman | 1 | 1 | 11 |
 | Leidos | 2 |  | 6 |
@@ -78,7 +78,7 @@ Employers with open roles on the board today.
 | Semgrep | 1 |  |  |
 | T-Mobile | 1 |  |  |
 | TRM Labs |  | 1 |  |
-| Amazon |  |  | 13 |
+| Amazon |  |  | 15 |
 | CrowdStrike |  |  | 8 |
 | BAE Systems |  |  | 5 |
 | KBR |  |  | 5 |
@@ -86,7 +86,6 @@ Employers with open roles on the board today.
 | JPMorgan Chase |  |  | 3 |
 | Kyndryl |  |  | 3 |
 | Recorded Future |  |  | 3 |
-| 1Password |  |  | 2 |
 | Abnormal AI |  |  | 2 |
 | Amentum |  |  | 2 |
 | Citi |  |  | 2 |
@@ -95,6 +94,7 @@ Employers with open roles on the board today.
 | SAIC |  |  | 2 |
 | STR |  |  | 2 |
 | Trail of Bits |  |  | 2 |
+| 1Password |  |  | 1 |
 | Accenture Federal Services |  |  | 1 |
 | AeroVironment |  |  | 1 |
 | Anthropic |  |  | 1 |
@@ -104,7 +104,6 @@ Employers with open roles on the board today.
 | Delinea |  |  | 1 |
 | Dragos |  |  | 1 |
 | ESET |  |  | 1 |
-| Everfox |  |  | 1 |
 | Fannie Mae |  |  | 1 |
 | Fireblocks |  |  | 1 |
 | HII |  |  | 1 |

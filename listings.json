@@ -707,19 +707,6 @@
     "closed_date": "2026-09-19"
   },
   {
-    "company": "Amazon",
-    "role": "Data Engineer II, GTPC Tech, Compliance & Assurance, AWS Security",
-    "location": "New York, NY",
-    "type": "earlycareer",
-    "category": "GRC & Risk",
-    "clearance": false,
-    "url": "",
-    "source": "Amazon Jobs",
-    "date_added": "2026-07-17",
-    "closed": true,
-    "closed_date": "2026-08-22"
-  },
-  {
     "company": "Illumio",
     "role": "Site Reliability Engineer II",
     "location": "Sunnyvale, CA",
@@ -2024,7 +2011,8 @@
     "clearance": true,
     "url": "https://pae.wd1.myworkdayjobs.com/Amentum_Careers/job/US-HI-Waimea/Cyber-Security-Analyst-1_R0167372",
     "source": "Workday",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "missing_since": "2026-10-22"
   },
   {
     "company": "Amentum",
@@ -2301,7 +2289,8 @@
     "clearance": false,
     "url": "https://mymoose.wd1.myworkdayjobs.com/careers/job/US---Remote/Security-Operations-Analyst-II_R12333",
     "source": "Workday",
-    "date_added": "2026-09-08"
+    "date_added": "2026-09-08",
+    "missing_since": "2026-10-22"
   },
   {
     "company": "Anduril",
@@ -2526,10 +2515,11 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": true,
-    "url": "https://evergreenix.wd1.myworkdayjobs.com/external-careers2/job/USA_TX_Richardson/Software-Engineer-I_JR500749-1",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-11",
-    "missing_since": "2026-10-19"
+    "closed": true,
+    "closed_date": "2026-10-22"
   },
   {
     "company": "Morgan Stanley",
@@ -3587,7 +3577,8 @@
     "clearance": true,
     "url": "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/McLean-VA/University---Summer-27--Cybersecurity-Analyst-Intern_R0248214",
     "source": "Workday",
-    "date_added": "2026-09-28"
+    "date_added": "2026-09-28",
+    "missing_since": "2026-10-22"
   },
   {
     "company": "Booz Allen Hamilton",
@@ -6833,10 +6824,11 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://jobs.ashbyhq.com/1password/a492badd-a02f-4360-aa15-7ea8c6e2c85e",
+    "url": "",
     "source": "Ashby",
     "date_added": "2026-10-16",
-    "missing_since": "2026-10-19"
+    "closed": true,
+    "closed_date": "2026-10-22"
   },
   {
     "company": "Lawrence Livermore National Laboratory",
@@ -7349,5 +7341,60 @@
     "url": "https://dukeenergy.wd1.myworkdayjobs.com/Search/job/Hartsville-SC/Nuclear-Cybersecurity-2027-Summer-Internship_R42099",
     "source": "Workday",
     "date_added": "2026-10-21"
+  },
+  {
+    "company": "Intel",
+    "role": "Information Security Engineer Undergraduate Intern",
+    "location": "Folsom, CA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://intel.wd1.myworkdayjobs.com/External/job/US-California-Folsom/Information-Security-Engineer-Undergraduate-Intern_JR0287588",
+    "source": "Workday",
+    "date_added": "2026-10-22"
+  },
+  {
+    "company": "BDO",
+    "role": "Assurance Experienced Associate, Technology Risk Assurance",
+    "location": "Los Angeles, CA; Costa Mesa, CA; San Diego, CA",
+    "type": "earlycareer",
+    "category": "GRC & Risk",
+    "clearance": false,
+    "url": "https://ebqb.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BDOEntryLevelCareers/job/14467",
+    "source": "Oracle",
+    "date_added": "2026-10-22"
+  },
+  {
+    "company": "Microsoft",
+    "role": "Software Engineer: Security & Identity Intern Opportunities for University Students, Cambridge",
+    "location": "Cambridge, MA",
+    "type": "intern",
+    "category": "Identity & IAM",
+    "clearance": false,
+    "url": "https://microsoft.eightfold.ai/careers/job/1970393557044765",
+    "source": "Eightfold",
+    "date_added": "2026-10-22"
+  },
+  {
+    "company": "Amazon",
+    "role": "Security Engineer I, AWS Proactive Security Team",
+    "location": "Seattle, WA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10585501/security-engineer-i-aws-proactive-security-team",
+    "source": "Amazon Jobs",
+    "date_added": "2026-10-22"
+  },
+  {
+    "company": "Amazon",
+    "role": "Security Engineer I, Secure Third Party Tools (S3T)",
+    "location": "Arlington, VA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10585308/security-engineer-i-secure-third-party-tools-s3t",
+    "source": "Amazon Jobs",
+    "date_added": "2026-10-22"
   }
 ]
