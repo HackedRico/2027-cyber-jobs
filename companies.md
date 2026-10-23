@@ -4,33 +4,34 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **408 companies tracked.**
 
-## Hiring students now (114)
+## Hiring students now (112)
 
 Employers with open roles on the board today.
 
 | Company | Internships | New grad | Early career |
 | ------- | ----------- | -------- | ------------ |
 | Johns Hopkins APL | 11 | 13 |  |
-| Booz Allen Hamilton | 17 |  | 4 |
+| Booz Allen Hamilton | 17 |  | 5 |
 | Vanguard | 5 | 6 |  |
-| Microsoft | 9 |  | 5 |
+| Microsoft | 9 |  | 6 |
 | MITRE | 7 | 1 | 5 |
 | American Express | 4 | 4 |  |
-| 1Password | 6 |  | 1 |
+| 1Password | 7 |  | 1 |
 | Lawrence Livermore National Laboratory | 6 |  |  |
 | Palo Alto Networks | 4 | 1 | 3 |
-| BDO | 3 | 2 | 1 |
 | HPE | 3 | 2 | 1 |
-| Software Engineering Institute | 4 |  | 5 |
+| Northrop Grumman | 3 | 1 | 13 |
+| Software Engineering Institute | 4 |  | 6 |
+| BDO | 3 | 1 | 1 |
+| GuidePoint Security | 4 |  | 1 |
 | NVIDIA | 1 | 3 | 1 |
 | Federal Reserve System | 4 |  |  |
 | Intel | 4 |  |  |
 | Tanium | 4 |  |  |
-| Northrop Grumman | 2 | 1 | 11 |
 | Goldman Sachs | 3 |  | 1 |
-| GuidePoint Security | 3 |  | 1 |
 | Aerospace Corporation | 3 |  |  |
 | Entrust | 3 |  |  |
+| Idaho National Laboratory | 3 |  |  |
 | Immuta | 3 |  |  |
 | Palantir | 2 | 1 |  |
 | Leidos | 2 |  | 6 |
@@ -40,19 +41,18 @@ Employers with open roles on the board today.
 | CACI | 2 |  | 1 |
 | Honeywell | 2 |  | 1 |
 | ID.me |  | 2 | 1 |
+| Lockheed Martin | 2 |  | 1 |
 | Applied Intuition |  | 2 |  |
 | Boeing | 1 | 1 |  |
 | Elevance Health | 2 |  |  |
-| Idaho National Laboratory | 2 |  |  |
 | Illumio | 2 |  |  |
 | Johnson &amp; Johnson | 2 |  |  |
-| Lockheed Martin | 2 |  |  |
 | National Laboratory of the Rockies | 2 |  |  |
 | Qualcomm | 2 |  |  |
 | Salesforce | 2 |  |  |
 | Together AI | 1 | 1 |  |
 | Walmart | 2 |  |  |
-| RTX | 1 |  | 10 |
+| RTX | 1 |  | 11 |
 | Nightwing | 1 |  | 7 |
 | GDIT | 1 |  | 2 |
 | Pinterest | 1 |  | 2 |
@@ -86,14 +86,15 @@ Employers with open roles on the board today.
 | KBR |  |  | 5 |
 | Abnormal AI |  |  | 3 |
 | ExtraHop |  |  | 3 |
+| Fortinet |  |  | 3 |
 | JPMorgan Chase |  |  | 3 |
 | Kyndryl |  |  | 3 |
 | Recorded Future |  |  | 3 |
 | Amentum |  |  | 2 |
 | Citi |  |  | 2 |
-| Fortinet |  |  | 2 |
 | Fortra |  |  | 2 |
 | SAIC |  |  | 2 |
+| Salt Security |  |  | 2 |
 | Trail of Bits |  |  | 2 |
 | Accenture Federal Services |  |  | 1 |
 | AeroVironment |  |  | 1 |
@@ -104,7 +105,6 @@ Employers with open roles on the board today.
 | Delinea |  |  | 1 |
 | Dragos |  |  | 1 |
 | ESET |  |  | 1 |
-| Fannie Mae |  |  | 1 |
 | Fireblocks |  |  | 1 |
 | HII |  |  | 1 |
 | Huntress |  |  | 1 |
@@ -116,9 +116,7 @@ Employers with open roles on the board today.
 | Rapid7 |  |  | 1 |
 | ReliaQuest |  |  | 1 |
 | SailPoint |  |  | 1 |
-| Salt Security |  |  | 1 |
 | Shift5 |  |  | 1 |
-| State Street |  |  | 1 |
 | Tenable |  |  | 1 |
 | Tines |  |  | 1 |
 | Trellix |  |  | 1 |
