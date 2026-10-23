@@ -14,7 +14,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**168** internships · **46** new grad · **178** early career open · **67** added in the last 7 days · **182** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 23, 2026
+**170** internships · **46** new grad · **179** early career open · **70** added in the last 7 days · **183** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 23, 2026
 
 <!-- /STATS -->
 
@@ -72,6 +72,8 @@ Cybersecurity internships and co-ops for current students.
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
 | 1Password | 🆕 Developer Intern, Extension Excellence - Winter 2027<br><sub>Engineering @ Security Co</sub> | <a href="https://jobs.ashbyhq.com/1password/7f1732a6-5317-4319-82b9-67c62e88d491"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: 1Password Developer Intern, Extension Excellence - Winter 2027"></a> | Remote (US) | Oct 23 |
+| ↳ | 🆕 Developer Intern, Credential Brokering - Winter 2027<br><sub>Engineering @ Security Co</sub> | <a href="https://jobs.ashbyhq.com/1password/67bfbd8b-aba9-42b1-a8a8-833367888fba"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: 1Password Developer Intern, Credential Brokering - Winter 2027"></a> | Remote (US) | Oct 23 |
+| ↳ | 🆕 Developer Intern, Developer Interfaces - Winter 2027<br><sub>Engineering @ Security Co</sub> | <a href="https://jobs.ashbyhq.com/1password/00f861d4-2b4a-4159-b6dc-8aed0cde6e39"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: 1Password Developer Intern, Developer Interfaces - Winter 2027"></a> | Remote (US) | Oct 23 |
 | Idaho National Laboratory | 🆕 Cybersecurity Industrial Controls Internship - Summer 2027<br><sub>Security Engineering</sub> | <a href="https://elhe.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1002/job/2242"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Idaho National Laboratory Cybersecurity Industrial Controls Internship - Summer 2027"></a> | Idaho Falls, ID | Oct 23 |
 | Sierra Nevada Corporation | 🆕 Systems Security Engineer Intern - Summer 2027 (For SNC Summer 2026 Interns Only) 🇺🇸<br><sub>Cloud &amp; Infra Security</sub> | <a href="https://snc.wd1.myworkdayjobs.com/SNC_External_Career_Site/job/Hagerstown-MD/Systems-Security-Engineer-Intern---Summer-2027--For-SNC-Summer-2026-Interns-Only-_R0030540"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Sierra Nevada Corporation Systems Security Engineer Intern - Summer 2027 (For SNC Summer 2026 Interns Only)"></a> | Hagerstown, MD | Oct 23 |
 | 1Password | 🆕 Developer Intern, Data Security - Winter 2027<br><sub>Security Engineering</sub> | <a href="https://jobs.ashbyhq.com/1password/8af1359a-c8a2-492b-b567-ae8ae184a8a1"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: 1Password Developer Intern, Data Security - Winter 2027"></a> | Remote (US) | Oct 22 |
@@ -410,6 +412,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
+| Amentum | 🆕 Junior DevSecOps Engineer 🇺🇸<br><sub>AppSec &amp; ProdSec</sub> | <a href="https://pae.wd1.myworkdayjobs.com/Amentum_Careers/job/US-VA-Dahlgren/Junior-DevSecOps-Engineer_R0172729"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amentum Junior DevSecOps Engineer"></a> | Dahlgren, VA | Oct 23 |
 | Fortinet | 🆕 Jr. Software QA Engineer<br><sub>Engineering @ Security Co</sub> | <a href="https://edel.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/24747"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Fortinet Jr. Software QA Engineer"></a> | Union City, CA | Oct 23 |
 | Lockheed Martin | 🆕 Software Engineer (Combat Systems DevSecOps) - Early Career 🇺🇸<br><sub>AppSec &amp; ProdSec</sub> | <a href="https://lockheedmartin.eightfold.ai/careers/job/996477330857"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Lockheed Martin Software Engineer (Combat Systems DevSecOps) - Early Career"></a> | Mt Laurel Township, NJ | Oct 23 |
 | Microsoft | 🆕 Software Engineer 2 - Microsoft Red Team<br><sub>Offensive Security</sub> | <a href="https://microsoft.eightfold.ai/careers/job/1970393557044699"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Microsoft Software Engineer 2 - Microsoft Red Team"></a> | Redmond, WA | Oct 23 |

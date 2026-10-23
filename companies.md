@@ -14,9 +14,9 @@ Employers with open roles on the board today.
 | Booz Allen Hamilton | 17 |  | 5 |
 | Vanguard | 5 | 6 |  |
 | Microsoft | 9 |  | 6 |
+| 1Password | 9 |  | 1 |
 | MITRE | 7 | 1 | 5 |
 | American Express | 4 | 4 |  |
-| 1Password | 7 |  | 1 |
 | Lawrence Livermore National Laboratory | 6 |  |  |
 | Palo Alto Networks | 4 | 1 | 3 |
 | HPE | 3 | 2 | 1 |
@@ -85,12 +85,12 @@ Employers with open roles on the board today.
 | BAE Systems |  |  | 5 |
 | KBR |  |  | 5 |
 | Abnormal AI |  |  | 3 |
+| Amentum |  |  | 3 |
 | ExtraHop |  |  | 3 |
 | Fortinet |  |  | 3 |
 | JPMorgan Chase |  |  | 3 |
 | Kyndryl |  |  | 3 |
 | Recorded Future |  |  | 3 |
-| Amentum |  |  | 2 |
 | Citi |  |  | 2 |
 | Fortra |  |  | 2 |
 | SAIC |  |  | 2 |
