@@ -4,7 +4,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **408 companies tracked.**
 
-## Hiring students now (112)
+## Hiring students now (113)
 
 Employers with open roles on the board today.
 
@@ -17,19 +17,19 @@ Employers with open roles on the board today.
 | 1Password | 9 |  | 1 |
 | MITRE | 7 | 1 | 5 |
 | American Express | 4 | 4 |  |
+| HPE | 4 | 2 | 1 |
 | Lawrence Livermore National Laboratory | 6 |  |  |
 | Palo Alto Networks | 4 | 1 | 3 |
-| HPE | 3 | 2 | 1 |
-| Northrop Grumman | 3 | 1 | 13 |
+| Northrop Grumman | 3 | 1 | 12 |
 | Software Engineering Institute | 4 |  | 6 |
 | BDO | 3 | 1 | 1 |
 | GuidePoint Security | 4 |  | 1 |
 | NVIDIA | 1 | 3 | 1 |
+| Aerospace Corporation | 4 |  |  |
 | Federal Reserve System | 4 |  |  |
 | Intel | 4 |  |  |
 | Tanium | 4 |  |  |
 | Goldman Sachs | 3 |  | 1 |
-| Aerospace Corporation | 3 |  |  |
 | Entrust | 3 |  |  |
 | Idaho National Laboratory | 3 |  |  |
 | Immuta | 3 |  |  |
@@ -37,6 +37,7 @@ Employers with open roles on the board today.
 | Leidos | 2 |  | 6 |
 | Cisco | 2 |  | 3 |
 | Battelle | 2 |  | 2 |
+| Citi | 1 | 1 | 2 |
 | Appian | 1 | 1 | 1 |
 | CACI | 2 |  | 1 |
 | Honeywell | 2 |  | 1 |
@@ -52,7 +53,7 @@ Employers with open roles on the board today.
 | Salesforce | 2 |  |  |
 | Together AI | 1 | 1 |  |
 | Walmart | 2 |  |  |
-| RTX | 1 |  | 11 |
+| RTX | 1 |  | 12 |
 | Nightwing | 1 |  | 7 |
 | GDIT | 1 |  | 2 |
 | Pinterest | 1 |  | 2 |
@@ -69,7 +70,6 @@ Employers with open roles on the board today.
 | Duke Energy | 1 |  |  |
 | Exelon | 1 |  |  |
 | Grant Thornton |  | 1 |  |
-| Guidehouse |  | 1 |  |
 | HP Inc | 1 |  |  |
 | ICF | 1 |  |  |
 | KeyBank |  | 1 |  |
@@ -77,22 +77,22 @@ Employers with open roles on the board today.
 | OPSWAT | 1 |  |  |
 | Prophet Security | 1 |  |  |
 | Rubrik |  | 1 |  |
+| Sardine | 1 |  |  |
 | Semgrep | 1 |  |  |
 | T-Mobile | 1 |  |  |
 | TRM Labs |  | 1 |  |
-| Amazon |  |  | 14 |
+| Amazon |  |  | 15 |
 | CrowdStrike |  |  | 8 |
 | BAE Systems |  |  | 5 |
 | KBR |  |  | 5 |
+| Amentum |  |  | 4 |
+| Fortinet |  |  | 4 |
 | Abnormal AI |  |  | 3 |
-| Amentum |  |  | 3 |
 | ExtraHop |  |  | 3 |
-| Fortinet |  |  | 3 |
-| JPMorgan Chase |  |  | 3 |
 | Kyndryl |  |  | 3 |
 | Recorded Future |  |  | 3 |
-| Citi |  |  | 2 |
 | Fortra |  |  | 2 |
+| JPMorgan Chase |  |  | 2 |
 | SAIC |  |  | 2 |
 | Salt Security |  |  | 2 |
 | Trail of Bits |  |  | 2 |
@@ -100,6 +100,7 @@ Employers with open roles on the board today.
 | AeroVironment |  |  | 1 |
 | Anthropic |  |  | 1 |
 | Arctic Wolf |  |  | 1 |
+| BeyondTrust |  |  | 1 |
 | Chainalysis |  |  | 1 |
 | Corelight |  |  | 1 |
 | Delinea |  |  | 1 |

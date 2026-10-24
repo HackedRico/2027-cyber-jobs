@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-23",
+  "date": "2026-10-24",
   "boards": 414,
   "ok": 394,
   "empty": 17,
@@ -10,9 +10,9 @@
   ],
   "regressed": [
     {
-      "board": "Primer (greenhouse/primerai)",
-      "had": 5
+      "board": "American Express (oracle/egug.fa.us2.oraclecloud.com/CX_1)",
+      "had": 395
     }
   ],
-  "silent": 19
+  "silent": 18
 }
