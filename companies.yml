@@ -115,11 +115,6 @@ greenhouse:
   slug: cribl
   apply_hosts:
   - cribl.io
-- name: Cybereason
-  slug: cybereason
-  security_company: true
-  apply_hosts:
-  - jobs.cybereason.com
 - name: Databricks
   slug: databricks
   apply_hosts:
@@ -249,9 +244,6 @@ greenhouse:
   security_company: true
 - name: PagerDuty
   slug: pagerduty
-- name: Panther Labs
-  slug: pantherlabs
-  security_company: true
 - name: Ping Identity
   slug: pingidentity
   security_company: true
@@ -264,8 +256,6 @@ greenhouse:
   security_company: true
   apply_hosts:
   - www.praetorian.com
-- name: Primer
-  slug: primerai
 - name: Recorded Future
   slug: recordedfuture
   security_company: true
@@ -384,8 +374,6 @@ greenhouse:
   - www.veracode.com
 - name: Verkada
   slug: verkada
-- name: Webflow
-  slug: webflow
 - name: Wiz
   slug: wizinc
   security_company: true
@@ -567,8 +555,6 @@ ashby:
 - name: ConductorOne
   slug: C1
   security_company: true
-- name: Confluent
-  slug: confluent
 - name: Credal
   slug: credal
   security_company: true
@@ -685,6 +671,8 @@ ashby:
 - name: WorkOS
   slug: workos
   security_company: true
+- name: Webflow
+  slug: webflow
 - name: Zapier
   slug: zapier
 - name: Flashpoint
