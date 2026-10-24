@@ -317,6 +317,38 @@ check('previous_state tolerates a hand-edited body',
       hc.previous_state({'body': '<!-- health-state: [broken -->'}), set())
 
 
+# --- a lookup that missed #44 opened #64 and dropped five regressed boards -------
+old = {'number': 44, 'state': 'open', 'title': 'Scraper health',
+       'body': hc.render_body({'board-regressed:Webflow': 'x', 'board-failed:C': 'y'}, NOW)}
+new = {'number': 64, 'state': 'open', 'title': 'Scraper health', 'body': hc.render_body({'board-failed:C': 'y'}, NOW)}
+gone = {'number': 9, 'state': 'closed', 'body': ''}
+keeper, extras = hc.pick_issue([new, old, gone])
+check('the newest open issue is kept and an older open one is superseded',
+      (keeper['number'], [e['number'] for e in extras]), (64, [44]))
+check('the merged state keeps what every open issue tracked',
+      hc.merged_state(keeper, extras), {'board-regressed:Webflow', 'board-failed:C'})
+check('a closed issue is reused when none is open', hc.pick_issue([gone]), (gone, []))
+check('no issue at all opens a fresh one', hc.pick_issue([]), (None, []))
+calls = hc.plan({'board-failed:C': 'y'}, new, NOW, M, extras)
+check('plan closes the superseded issue even when the kept one is unchanged',
+      [(c[0], c[1], c[2].get('state')) for c in calls],
+      [('POST', '/issues/44/comments', None), ('PATCH', '/issues/44', 'closed')])
+check('the closing comment points at the kept issue', '#64' in calls[0][2]['body'], True)
+
+
+class FakeIssues:
+    def repo_path(self, path):
+        return path
+
+    def call(self, method, path, body=None, ok=()):
+        return [new, {'number': 70, 'title': 'Scraper health', 'pull_request': {}},
+                {'number': 71, 'title': 'Other'}, old]
+
+
+check('find_issues keeps every Scraper health issue and skips PRs and other titles',
+      [i['number'] for i in hc.find_issues(FakeIssues())], [64, 44])
+
+
 # --- run lookups read the unfiltered list (#44) --------------------------------
 class FakeRuns:
     def __init__(self, runs):

@@ -222,8 +222,28 @@ def previous_state(issue):
         return set()
 
 
-def plan(problems, issue, now, mention):
-    """Return the (method, path suffix, body) calls that bring the issue in step."""
+def merged_state(issue, extras):
+    """Problem keys stored on the kept issue and on every issue it supersedes."""
+    return set().union(previous_state(issue), *(previous_state(e) for e in extras))
+
+
+def plan(problems, issue, now, mention, extras=()):
+    """Return the (method, path suffix, body) calls that bring the issue in step.
+
+    `extras` are other open health issues; each is closed with a pointer to
+    `issue`, so a duplicate lasts one run.
+    """
+    calls = _plan_issue(problems, issue, now, mention)
+    keeper = issue['number'] if issue else None
+    for extra in extras:
+        n = extra['number']
+        note = f'Superseded by #{keeper}, closing.' if keeper else 'Superseded, closing.'
+        calls += [('POST', f'/issues/{n}/comments', {'body': note}),
+                  ('PATCH', f'/issues/{n}', {'state': 'closed'})]
+    return calls
+
+
+def _plan_issue(problems, issue, now, mention):
     previous = previous_state(issue)
     is_open = bool(issue) and issue.get('state') == 'open'
     if problems:
@@ -246,11 +266,26 @@ def plan(problems, issue, now, mention):
     return []
 
 
-def find_issue(gh):
+def find_issues(gh):
+    """Every "Scraper health" issue, newest first."""
     data = gh.call('GET', gh.repo_path(
         f'/issues?state=all&labels={ISSUE_LABEL}&per_page=100&sort=created&direction=desc'))
-    return next((i for i in data or [] if i.get('title') == ISSUE_TITLE
-                 and 'pull_request' not in i), None)
+    return [i for i in data or [] if i.get('title') == ISSUE_TITLE
+            and 'pull_request' not in i]
+
+
+def pick_issue(issues):
+    """Return (issue to keep, older open issues to close).
+
+    On 2026-10-22 one lookup came back without #44, so the run opened #64.
+    The regressed boards lived only on #44's stored state, and five of them
+    dropped off the report. Keeping the newest open issue and reading every
+    open issue's state lets the next run fold the duplicate back in.
+    """
+    open_issues = [i for i in issues if i.get('state') == 'open']
+    if open_issues:
+        return open_issues[0], open_issues[1:]
+    return (issues[0] if issues else None), []
 
 
 def _token(dry_run):
@@ -277,18 +312,20 @@ def main():
     mention = os.environ.get('HEALTH_MENTION', '@HackedRico')
     now = datetime.now(UTC)
 
-    issue = find_issue(gh)
+    issue, extras = pick_issue(find_issues(gh))
     problems = find_problems(
         now, latest_writer_runs(gh), last_successful_scrape(gh),
         _read_json(HEALTH_FILE, {}), _read_json(BASELINE_FILE, {}),
-        _read_json(LISTINGS_FILE, []), previous_state(issue))
+        _read_json(LISTINGS_FILE, []), merged_state(issue, extras))
 
     print(f'{len(problems)} problem(s):')
     for key in sorted(problems):
         print(f'  {key}: {problems[key]}')
     print(f'Issue: #{issue["number"]} ({issue["state"]})' if issue else 'Issue: none yet')
+    if extras:
+        print('Superseding: ' + ', '.join(f'#{e["number"]}' for e in extras))
 
-    calls = plan(problems, issue, now, mention)
+    calls = plan(problems, issue, now, mention, extras)
     if not calls:
         print('No change to report')
         return
