@@ -2,7 +2,7 @@
 
 Employers whose job boards are scraped automatically (see [companies.yml](companies.yml)). 🛡️ marks pure-play security companies, where every engineering role is a security-industry job.
 
-**408 companies tracked.**
+**404 companies tracked.**
 
 ## Hiring students now (113)
 
@@ -124,7 +124,7 @@ Employers with open roles on the board today.
 | Two Six Technologies |  |  | 1 |
 | Verizon |  |  | 1 |
 
-## Every tracked board (408)
+## Every tracked board (404)
 
 ### Ashby (70)
 
@@ -137,7 +137,6 @@ Employers with open roles on the board today.
 - Character AI
 - Cohere
 - ConductorOne 🛡️
-- Confluent
 - Contrast Security 🛡️
 - Credal 🛡️
 - Cyberhaven 🛡️
@@ -195,6 +194,7 @@ Employers with open roles on the board today.
 - TRM Labs 🛡️
 - UpGuard 🛡️
 - Vanta 🛡️
+- Webflow
 - WitnessAI 🛡️
 - WorkOS 🛡️
 - Zapier
@@ -206,7 +206,7 @@ Employers with open roles on the board today.
 - Microsoft
 - Qualcomm
 
-### Greenhouse (147)
+### Greenhouse (143)
 
 - Abnormal AI 🛡️
 - Accenture Federal Services
@@ -248,7 +248,6 @@ Employers with open roles on the board today.
 - ConsenSys
 - Corelight 🛡️
 - Cribl
-- Cybereason 🛡️
 - Dashlane 🛡️
 - Databricks
 - Datadog
@@ -304,11 +303,9 @@ Employers with open roles on the board today.
 - Orca Security 🛡️
 - Osano 🛡️
 - PagerDuty
-- Panther Labs 🛡️
 - Ping Identity 🛡️
 - Pinterest
 - Praetorian 🛡️
-- Primer
 - Prove 🛡️
 - Recorded Future 🛡️
 - Reddit
@@ -350,7 +347,6 @@ Employers with open roles on the board today.
 - Veracode 🛡️
 - Veriff 🛡️
 - Verkada
-- Webflow
 - Wiz 🛡️
 - xAI
 - Yubico 🛡️
