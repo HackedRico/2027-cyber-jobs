@@ -4,14 +4,14 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **404 companies tracked.**
 
-## Hiring students now (113)
+## Hiring students now (111)
 
 Employers with open roles on the board today.
 
 | Company | Internships | New grad | Early career |
 | ------- | ----------- | -------- | ------------ |
 | Johns Hopkins APL | 11 | 13 |  |
-| Booz Allen Hamilton | 17 |  | 5 |
+| Booz Allen Hamilton | 16 |  | 5 |
 | Vanguard | 5 | 6 |  |
 | Microsoft | 9 |  | 6 |
 | 1Password | 9 |  | 1 |
@@ -32,7 +32,6 @@ Employers with open roles on the board today.
 | Goldman Sachs | 3 |  | 1 |
 | Entrust | 3 |  |  |
 | Idaho National Laboratory | 3 |  |  |
-| Immuta | 3 |  |  |
 | Palantir | 2 | 1 |  |
 | Leidos | 2 |  | 6 |
 | Cisco | 2 |  | 3 |
@@ -47,6 +46,7 @@ Employers with open roles on the board today.
 | Boeing | 1 | 1 |  |
 | Elevance Health | 2 |  |  |
 | Illumio | 2 |  |  |
+| Immuta | 2 |  |  |
 | Johnson &amp; Johnson | 2 |  |  |
 | National Laboratory of the Rockies | 2 |  |  |
 | Qualcomm | 2 |  |  |
@@ -85,9 +85,9 @@ Employers with open roles on the board today.
 | CrowdStrike |  |  | 8 |
 | BAE Systems |  |  | 5 |
 | KBR |  |  | 5 |
-| Amentum |  |  | 4 |
 | Fortinet |  |  | 4 |
 | Abnormal AI |  |  | 3 |
+| Amentum |  |  | 3 |
 | ExtraHop |  |  | 3 |
 | Kyndryl |  |  | 3 |
 | Recorded Future |  |  | 3 |
@@ -101,7 +101,6 @@ Employers with open roles on the board today.
 | Anthropic |  |  | 1 |
 | Arctic Wolf |  |  | 1 |
 | BeyondTrust |  |  | 1 |
-| Chainalysis |  |  | 1 |
 | Corelight |  |  | 1 |
 | Delinea |  |  | 1 |
 | Dragos |  |  | 1 |
@@ -114,7 +113,6 @@ Employers with open roles on the board today.
 | Obsidian Security |  |  | 1 |
 | Praetorian |  |  | 1 |
 | PwC |  |  | 1 |
-| Rapid7 |  |  | 1 |
 | ReliaQuest |  |  | 1 |
 | SailPoint |  |  | 1 |
 | Shift5 |  |  | 1 |

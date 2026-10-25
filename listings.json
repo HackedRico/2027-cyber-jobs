@@ -1266,29 +1266,17 @@
     "closed_date": "2026-09-19"
   },
   {
-    "company": "Amazon",
-    "role": "Security Engineer II, Infrastructure Security Identity",
-    "location": "Minneapolis, MN",
-    "type": "earlycareer",
-    "category": "Cloud & Infra Security",
-    "clearance": false,
-    "url": "",
-    "source": "Amazon Jobs",
-    "date_added": "2026-07-22",
-    "closed": true,
-    "closed_date": "2026-08-25"
-  },
-  {
     "company": "Chainalysis",
     "role": "Software Engineer II, Gov Systems",
     "location": "Remote (US)",
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": true,
-    "url": "https://jobs.ashbyhq.com/chainalysis-careers/4808108e-6a69-46c4-b9da-930070562608",
+    "url": "",
     "source": "Ashby",
     "date_added": "2026-07-23",
-    "missing_since": "2026-10-22"
+    "closed": true,
+    "closed_date": "2026-10-25"
   },
   {
     "company": "Sierra Nevada Corporation",
@@ -1454,19 +1442,6 @@
     "date_added": "2026-07-29",
     "closed": true,
     "closed_date": "2026-09-19"
-  },
-  {
-    "company": "Amazon",
-    "role": "Security Engineer II, Stores Security Review Operations",
-    "location": "Remote (US)",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "",
-    "source": "Amazon Jobs",
-    "date_added": "2026-07-29",
-    "closed": true,
-    "closed_date": "2026-08-25"
   },
   {
     "company": "KBR",
@@ -2001,10 +1976,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://pae.wd1.myworkdayjobs.com/Amentum_Careers/job/US-HI-Waimea/Cyber-Security-Analyst-1_R0167372",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-05",
-    "missing_since": "2026-10-22"
+    "closed": true,
+    "closed_date": "2026-10-25"
   },
   {
     "company": "Amentum",
@@ -2279,10 +2255,11 @@
     "type": "earlycareer",
     "category": "SOC & Detection",
     "clearance": false,
-    "url": "https://mymoose.wd1.myworkdayjobs.com/careers/job/US---Remote/Security-Operations-Analyst-II_R12333",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-08",
-    "missing_since": "2026-10-22"
+    "closed": true,
+    "closed_date": "2026-10-25"
   },
   {
     "company": "Anduril",
@@ -2326,10 +2303,11 @@
     "type": "intern",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://jobs.lever.co/immuta/b9b21075-74a4-4b64-8f1b-f0be1fb0b24d",
+    "url": "",
     "source": "Lever",
     "date_added": "2026-09-09",
-    "missing_since": "2026-10-22"
+    "closed": true,
+    "closed_date": "2026-10-25"
   },
   {
     "company": "Immuta",
@@ -3566,10 +3544,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/McLean-VA/University---Summer-27--Cybersecurity-Analyst-Intern_R0248214",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-28",
-    "missing_since": "2026-10-22"
+    "closed": true,
+    "closed_date": "2026-10-25"
   },
   {
     "company": "Booz Allen Hamilton",
@@ -5662,7 +5641,8 @@
     "clearance": true,
     "url": "https://jobs.battelle.org/us/en/job/76529",
     "source": "Phenom",
-    "date_added": "2026-10-03"
+    "date_added": "2026-10-03",
+    "missing_since": "2026-10-25"
   },
   {
     "company": "Battelle",
@@ -5673,7 +5653,8 @@
     "clearance": true,
     "url": "https://jobs.battelle.org/us/en/job/76543",
     "source": "Phenom",
-    "date_added": "2026-10-03"
+    "date_added": "2026-10-03",
+    "missing_since": "2026-10-25"
   },
   {
     "company": "Battelle",
@@ -7043,7 +7024,8 @@
     "clearance": false,
     "url": "https://ebqb.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BDOEntryLevelCareers/job/14411",
     "source": "Oracle",
-    "date_added": "2026-10-17"
+    "date_added": "2026-10-17",
+    "missing_since": "2026-10-25"
   },
   {
     "company": "BDO",
