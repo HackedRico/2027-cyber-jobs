@@ -4812,7 +4812,8 @@
     "clearance": true,
     "url": "https://boeing.wd1.myworkdayjobs.com/INTERN/job/USA---Seattle-WA/Information-Digital-Technology---Security-Career-Foundation-Program---2027-Cohort_JR2026522914",
     "source": "Workday",
-    "date_added": "2026-10-01"
+    "date_added": "2026-10-01",
+    "missing_since": "2026-10-25"
   },
   {
     "company": "Microsoft",
@@ -6719,7 +6720,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Texas-San-Antonio/XMLNAME-2027-Cyber-Software-Engineer-Intern---San-Antonio-TX_R10257311",
     "source": "Workday",
-    "date_added": "2026-10-15"
+    "date_added": "2026-10-15",
+    "missing_since": "2026-10-25"
   },
   {
     "company": "NVIDIA",
