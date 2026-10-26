@@ -2089,7 +2089,8 @@
     "clearance": false,
     "url": "https://homedepot.wd5.myworkdayjobs.com/CareerDepot/job/STORE-SUPPORT-CENTER-ATLANTA---9090/XMLNAME-2027-Summer-Internship---Cybersecurity_Req191938",
     "source": "Workday",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "missing_since": "2026-10-26"
   },
   {
     "company": "Comcast",
@@ -2624,7 +2625,8 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Systems-Security-Engineer-I---Anti-Tamper---Program-Protection--On-site-_01874756",
     "source": "Workday",
-    "date_added": "2026-09-14"
+    "date_added": "2026-09-14",
+    "missing_since": "2026-10-26"
   },
   {
     "company": "Northrop Grumman",
@@ -3070,7 +3072,8 @@
     "clearance": false,
     "url": "https://abnormal.ai/careers/jobs/8001641003?gh_jid=8001641003",
     "source": "Greenhouse",
-    "date_added": "2026-09-22"
+    "date_added": "2026-09-22",
+    "missing_since": "2026-10-26"
   },
   {
     "company": "Nightwing",
@@ -3105,7 +3108,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Florida-Tampa/XMLNAME-2027-Cyber-Software-Engineer-Intern---Tampa-FL_R10249530",
     "source": "Workday",
-    "date_added": "2026-09-22"
+    "date_added": "2026-09-22",
+    "missing_since": "2026-10-26"
   },
   {
     "company": "Northrop Grumman",
@@ -3270,7 +3274,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Arizona-Chandler/Associate-Classified-Cybersecurity-Analyst---Secret_R10250039-1",
     "source": "Workday",
-    "date_added": "2026-09-23"
+    "date_added": "2026-09-23",
+    "missing_since": "2026-10-26"
   },
   {
     "company": "Northrop Grumman",
@@ -3392,7 +3397,8 @@
     "clearance": false,
     "url": "https://arcticwolf.wd1.myworkdayjobs.com/External/job/Waterloo-ON-CAN/Professional-Services-Engineer-1_R26_1068",
     "source": "Workday",
-    "date_added": "2026-09-28"
+    "date_added": "2026-09-28",
+    "missing_since": "2026-10-26"
   },
   {
     "company": "CrowdStrike",
@@ -4807,7 +4813,8 @@
     "clearance": false,
     "url": "https://parsons.wd5.myworkdayjobs.com/Search/job/US---MD-Field-Location/CNO-Development-Intern-Co-op_R184352",
     "source": "Workday",
-    "date_added": "2026-10-01"
+    "date_added": "2026-10-01",
+    "missing_since": "2026-10-26"
   },
   {
     "company": "Boeing",
@@ -6339,11 +6346,9 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "",
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-EL-SEGUNDO-R01--2000-E-Imperial-Hwy--BLDG-R01/Embedded-Security-Software-Engineer--Onsite-_01881362",
     "source": "Workday",
-    "date_added": "2026-10-10",
-    "closed": true,
-    "closed_date": "2026-10-18"
+    "date_added": "2026-10-10"
   },
   {
     "company": "RTX",
@@ -6717,7 +6722,8 @@
     "clearance": false,
     "url": "https://boards.greenhouse.io/guidepointsecurity/jobs/6224196004?gh_jid=6224196004",
     "source": "Greenhouse",
-    "date_added": "2026-10-15"
+    "date_added": "2026-10-15",
+    "missing_since": "2026-10-26"
   },
   {
     "company": "Northrop Grumman",
@@ -7149,11 +7155,9 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "",
+    "url": "https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/RTP-North-Carolina-US/Information-Security-Engineer-II--Full-Time----United-States_2028339",
     "source": "Workday",
-    "date_added": "2026-10-20",
-    "closed": true,
-    "closed_date": "2026-10-26"
+    "date_added": "2026-10-20"
   },
   {
     "company": "Salesforce",
@@ -7397,7 +7401,8 @@
     "clearance": true,
     "url": "https://job-boards.greenhouse.io/systemstechnologyresearch/jobs/4723980006",
     "source": "Greenhouse",
-    "date_added": "2026-10-22"
+    "date_added": "2026-10-22",
+    "missing_since": "2026-10-26"
   },
   {
     "company": "1Password",
@@ -7485,7 +7490,8 @@
     "clearance": true,
     "url": "https://gdit.wd5.myworkdayjobs.com/External_Career_Site/job/USA-LA-Bossier-City/Tier-I-Security-Operations-Center--SOC--Analyst_RQ230985-2",
     "source": "Workday",
-    "date_added": "2026-10-22"
+    "date_added": "2026-10-22",
+    "missing_since": "2026-10-26"
   },
   {
     "company": "Salt Security",
@@ -7727,6 +7733,72 @@
     "clearance": true,
     "url": "https://guidehouse.wd1.myworkdayjobs.com/External/job/US---VA-McLean/IT-Cybersecurity-Compliance-Technical-Associate--Campus-2027_45899",
     "source": "Workday",
+    "date_added": "2026-10-26"
+  },
+  {
+    "company": "Booz Allen Hamilton",
+    "role": "University - 2027 Summer Games Cyber Security Intern - Lexington, MA",
+    "location": "Lexington, MA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Lexington-MA/University---2027-Summer-Games-Cyber-Security-Intern---Lexington--MA_R0252278",
+    "source": "Workday",
+    "date_added": "2026-10-26"
+  },
+  {
+    "company": "Aerospace Corporation",
+    "role": "2027 Cloud Solutions Engineer / Site Reliability Grad Intern",
+    "location": "El Segundo, CA; Chantilly, VA; Colorado Springs, CO",
+    "type": "intern",
+    "category": "Cloud Engineering",
+    "clearance": true,
+    "url": "https://aero.wd5.myworkdayjobs.com/External/job/El-Segundo-CA/XMLNAME-2027-Cloud-Solutions-Engineer---Site-Reliability-Grad-Intern_R016715",
+    "source": "Workday",
+    "date_added": "2026-10-26"
+  },
+  {
+    "company": "Wells Fargo",
+    "role": "2027 Technology Summer Internship - Early Careers (Cybersecurity)",
+    "location": "CHARLOTTE, NC; PHOENIX, AZ; CHANDLER, AZ",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://wf.wd1.myworkdayjobs.com/WellsFargoJobs/job/CHARLOTTE-NC/XMLNAME-2027-Technology-Summer-Internship---Early-Careers--Cybersecurity-_R-583417",
+    "source": "Workday",
+    "date_added": "2026-10-26"
+  },
+  {
+    "company": "Lockheed Martin",
+    "role": "DevSecOps Software Engineer-Early Career",
+    "location": "Manassas, VA",
+    "type": "earlycareer",
+    "category": "AppSec & ProdSec",
+    "clearance": false,
+    "url": "https://lockheedmartin.eightfold.ai/careers/job/996476578145",
+    "source": "Eightfold",
+    "date_added": "2026-10-26"
+  },
+  {
+    "company": "Amazon",
+    "role": "Security Engineer II, AWS Proactive Security Team",
+    "location": "Seattle, WA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10588732/security-engineer-ii-aws-proactive-security-team",
+    "source": "Amazon Jobs",
+    "date_added": "2026-10-26"
+  },
+  {
+    "company": "Amazon",
+    "role": "Security & Compliance Engineer I, AWS Security Assurance Services, LLC",
+    "location": "Herndon, VA",
+    "type": "earlycareer",
+    "category": "GRC & Risk",
+    "clearance": true,
+    "url": "https://www.amazon.jobs/en/jobs/10588655/security-compliance-engineer-i-aws-security-assurance-services-llc",
+    "source": "Amazon Jobs",
     "date_added": "2026-10-26"
   }
 ]

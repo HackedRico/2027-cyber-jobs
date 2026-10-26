@@ -4,14 +4,14 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **404 companies tracked.**
 
-## Hiring students now (111)
+## Hiring students now (112)
 
 Employers with open roles on the board today.
 
 | Company | Internships | New grad | Early career |
 | ------- | ----------- | -------- | ------------ |
 | Johns Hopkins APL | 11 | 13 |  |
-| Booz Allen Hamilton | 16 |  | 5 |
+| Booz Allen Hamilton | 17 |  | 5 |
 | Vanguard | 5 | 6 |  |
 | Microsoft | 9 |  | 6 |
 | 1Password | 9 |  | 1 |
@@ -20,10 +20,10 @@ Employers with open roles on the board today.
 | HPE | 4 | 2 | 1 |
 | Lawrence Livermore National Laboratory | 6 |  |  |
 | Palo Alto Networks | 4 | 1 | 3 |
+| Aerospace Corporation | 5 |  |  |
 | BDO | 3 | 1 | 1 |
 | GuidePoint Security | 4 |  | 1 |
 | NVIDIA | 1 | 3 | 1 |
-| Aerospace Corporation | 4 |  |  |
 | Federal Reserve System | 4 |  |  |
 | Intel | 4 |  |  |
 | Tanium | 4 |  |  |
@@ -50,13 +50,14 @@ Employers with open roles on the board today.
 | Salesforce | 2 |  |  |
 | Together AI | 1 | 1 |  |
 | Walmart | 2 |  |  |
-| RTX | 1 |  | 12 |
+| RTX | 1 |  | 13 |
 | Nightwing | 1 |  | 7 |
 | GDIT | 1 |  | 2 |
+| Lockheed Martin | 1 |  | 2 |
 | Pinterest | 1 |  | 2 |
 | STR | 1 |  | 2 |
+| Cisco | 1 |  | 1 |
 | Draper | 1 |  | 1 |
-| Lockheed Martin | 1 |  | 1 |
 | Motorola Solutions | 1 |  | 1 |
 | Parsons | 1 |  | 1 |
 | Sierra Nevada Corporation | 1 |  | 1 |
@@ -65,7 +66,6 @@ Employers with open roles on the board today.
 | Adobe | 1 |  |  |
 | Bank of America | 1 |  |  |
 | Boeing |  | 1 |  |
-| Cisco | 1 |  |  |
 | Deloitte |  | 1 |  |
 | Duke Energy | 1 |  |  |
 | Exelon | 1 |  |  |
@@ -82,7 +82,8 @@ Employers with open roles on the board today.
 | Semgrep | 1 |  |  |
 | T-Mobile | 1 |  |  |
 | TRM Labs |  | 1 |  |
-| Amazon |  |  | 15 |
+| Wells Fargo | 1 |  |  |
+| Amazon |  |  | 17 |
 | CrowdStrike |  |  | 8 |
 | BAE Systems |  |  | 5 |
 | KBR |  |  | 5 |
