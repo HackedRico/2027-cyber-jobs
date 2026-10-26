@@ -20,8 +20,6 @@ Employers with open roles on the board today.
 | HPE | 4 | 2 | 1 |
 | Lawrence Livermore National Laboratory | 6 |  |  |
 | Palo Alto Networks | 4 | 1 | 3 |
-| Northrop Grumman | 3 | 1 | 12 |
-| Software Engineering Institute | 4 |  | 6 |
 | BDO | 3 | 1 | 1 |
 | GuidePoint Security | 4 |  | 1 |
 | NVIDIA | 1 | 3 | 1 |
@@ -29,21 +27,20 @@ Employers with open roles on the board today.
 | Federal Reserve System | 4 |  |  |
 | Intel | 4 |  |  |
 | Tanium | 4 |  |  |
+| Northrop Grumman | 2 | 1 | 11 |
+| Software Engineering Institute | 3 |  | 6 |
 | Goldman Sachs | 3 |  | 1 |
 | Entrust | 3 |  |  |
 | Idaho National Laboratory | 3 |  |  |
 | Palantir | 2 | 1 |  |
 | Leidos | 2 |  | 6 |
-| Cisco | 2 |  | 3 |
 | Battelle | 2 |  | 2 |
 | Citi | 1 | 1 | 2 |
 | Appian | 1 | 1 | 1 |
 | CACI | 2 |  | 1 |
 | Honeywell | 2 |  | 1 |
 | ID.me |  | 2 | 1 |
-| Lockheed Martin | 2 |  | 1 |
 | Applied Intuition |  | 2 |  |
-| Boeing | 1 | 1 |  |
 | Elevance Health | 2 |  |  |
 | Illumio | 2 |  |  |
 | Immuta | 2 |  |  |
@@ -59,6 +56,7 @@ Employers with open roles on the board today.
 | Pinterest | 1 |  | 2 |
 | STR | 1 |  | 2 |
 | Draper | 1 |  | 1 |
+| Lockheed Martin | 1 |  | 1 |
 | Motorola Solutions | 1 |  | 1 |
 | Parsons | 1 |  | 1 |
 | Sierra Nevada Corporation | 1 |  | 1 |
@@ -66,10 +64,13 @@ Employers with open roles on the board today.
 | Verkada | 1 |  | 1 |
 | Adobe | 1 |  |  |
 | Bank of America | 1 |  |  |
+| Boeing |  | 1 |  |
+| Cisco | 1 |  |  |
 | Deloitte |  | 1 |  |
 | Duke Energy | 1 |  |  |
 | Exelon | 1 |  |  |
 | Grant Thornton |  | 1 |  |
+| Guidehouse |  | 1 |  |
 | HP Inc | 1 |  |  |
 | ICF | 1 |  |  |
 | KeyBank |  | 1 |  |
@@ -93,7 +94,6 @@ Employers with open roles on the board today.
 | Recorded Future |  |  | 3 |
 | Fortra |  |  | 2 |
 | JPMorgan Chase |  |  | 2 |
-| SAIC |  |  | 2 |
 | Salt Security |  |  | 2 |
 | Trail of Bits |  |  | 2 |
 | Accenture Federal Services |  |  | 1 |
@@ -114,13 +114,13 @@ Employers with open roles on the board today.
 | Praetorian |  |  | 1 |
 | PwC |  |  | 1 |
 | ReliaQuest |  |  | 1 |
+| SAIC |  |  | 1 |
 | SailPoint |  |  | 1 |
 | Shift5 |  |  | 1 |
 | Tenable |  |  | 1 |
 | Tines |  |  | 1 |
 | Trellix |  |  | 1 |
 | Two Six Technologies |  |  | 1 |
-| Verizon |  |  | 1 |
 
 ## Every tracked board (404)
 
