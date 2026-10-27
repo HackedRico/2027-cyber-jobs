@@ -4,13 +4,13 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **404 companies tracked.**
 
-## Hiring students now (114)
+## Hiring students now (117)
 
 Employers with open roles on the board today.
 
 | Company | Internships | New grad | Early career |
 | ------- | ----------- | -------- | ------------ |
-| Johns Hopkins APL | 12 | 13 |  |
+| Johns Hopkins APL | 12 | 14 |  |
 | Booz Allen Hamilton | 13 |  | 4 |
 | Vanguard | 5 | 6 |  |
 | Microsoft | 9 |  | 6 |
@@ -28,18 +28,19 @@ Employers with open roles on the board today.
 | Intel | 4 |  |  |
 | Tanium | 4 |  |  |
 | Northrop Grumman | 2 | 1 | 12 |
+| Leidos | 3 |  | 6 |
 | Software Engineering Institute | 3 |  | 6 |
 | Goldman Sachs | 3 |  | 1 |
 | Entrust | 3 |  |  |
 | Idaho National Laboratory | 3 |  |  |
 | Palantir | 2 | 1 |  |
-| Leidos | 2 |  | 6 |
 | Battelle | 2 |  | 2 |
 | Citi | 1 | 1 | 2 |
 | Appian | 1 | 1 | 1 |
 | CACI | 2 |  | 1 |
 | Honeywell | 2 |  | 1 |
 | ID.me |  | 2 | 1 |
+| Sierra Nevada Corporation | 2 |  | 1 |
 | Applied Intuition |  | 2 |  |
 | Elevance Health | 2 |  |  |
 | Illumio | 2 |  |  |
@@ -49,6 +50,7 @@ Employers with open roles on the board today.
 | Qualcomm | 2 |  |  |
 | Salesforce | 2 |  |  |
 | Together AI | 1 | 1 |  |
+| Visa | 2 |  |  |
 | Walmart | 2 |  |  |
 | RTX | 1 |  | 13 |
 | Nightwing | 1 |  | 7 |
@@ -60,7 +62,6 @@ Employers with open roles on the board today.
 | Draper | 1 |  | 1 |
 | Motorola Solutions | 1 |  | 1 |
 | Parsons | 1 |  | 1 |
-| Sierra Nevada Corporation | 1 |  | 1 |
 | The Home Depot | 1 |  | 1 |
 | Verkada | 1 |  | 1 |
 | Adobe | 1 |  |  |
@@ -69,6 +70,7 @@ Employers with open roles on the board today.
 | Deloitte |  | 1 |  |
 | Duke Energy | 1 |  |  |
 | Exelon | 1 |  |  |
+| Fifth Third | 1 |  |  |
 | Grant Thornton |  | 1 |  |
 | Guidehouse |  | 1 |  |
 | HP Inc | 1 |  |  |
@@ -86,7 +88,7 @@ Employers with open roles on the board today.
 | Wells Fargo | 1 |  |  |
 | Amazon |  |  | 17 |
 | CrowdStrike |  |  | 8 |
-| BAE Systems |  |  | 5 |
+| BAE Systems |  |  | 6 |
 | Fortinet |  |  | 5 |
 | KBR |  |  | 5 |
 | Abnormal AI |  |  | 3 |
@@ -107,6 +109,7 @@ Employers with open roles on the board today.
 | Corelight |  |  | 1 |
 | Delinea |  |  | 1 |
 | Dragos |  |  | 1 |
+| DXC Technology |  |  | 1 |
 | ESET |  |  | 1 |
 | Everfox |  |  | 1 |
 | Fireblocks |  |  | 1 |

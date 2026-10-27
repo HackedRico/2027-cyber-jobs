@@ -2551,7 +2551,8 @@
     "clearance": true,
     "url": "https://gdit.wd5.myworkdayjobs.com/External_Career_Site/job/USA-VA-Arlington/Cybersecurity-Exercise-Planner--Junior-_RQ230639",
     "source": "Workday",
-    "date_added": "2026-09-14"
+    "date_added": "2026-09-14",
+    "missing_since": "2026-10-27"
   },
   {
     "company": "Leidos",
@@ -4710,7 +4711,8 @@
     "clearance": false,
     "url": "https://trellix.wd1.myworkdayjobs.com/EnterpriseCareers/job/Remote-United-States/Junior-Solutions-Engineer_JR0037944",
     "source": "Workday",
-    "date_added": "2026-10-01"
+    "date_added": "2026-10-01",
+    "missing_since": "2026-10-27"
   },
   {
     "company": "ESET",
@@ -5243,11 +5245,9 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "",
+    "url": "https://dxctechnology.wd1.myworkdayjobs.com/DXCJobs/job/USA---DE---NEWARK/Cybersecurity-Analyst---Tier-2_51581546",
     "source": "Workday",
-    "date_added": "2026-10-03",
-    "closed": true,
-    "closed_date": "2026-10-08"
+    "date_added": "2026-10-03"
   },
   {
     "company": "Federal Reserve System",
@@ -6626,7 +6626,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-Redondo-Beach/Associate-Cloud-Software-Engineer--Level-1-_R10255928",
     "source": "Workday",
-    "date_added": "2026-10-14"
+    "date_added": "2026-10-14",
+    "missing_since": "2026-10-27"
   },
   {
     "company": "NVIDIA",
@@ -7313,7 +7314,8 @@
     "clearance": false,
     "url": "https://tmobile.wd1.myworkdayjobs.com/External/job/Atlanta-Georgia/Summer-2027-Software-Engineer---Cloud-Security-Summer-Internship_REQ379190",
     "source": "Workday",
-    "date_added": "2026-10-21"
+    "date_added": "2026-10-21",
+    "missing_since": "2026-10-27"
   },
   {
     "company": "Duke Energy",
@@ -7712,7 +7714,8 @@
     "url": "https://www.amazon.jobs/en/jobs/10587725/security-engineer-i-stores-security-healthcare-security",
     "source": "Amazon Jobs",
     "date_added": "2026-10-24",
-    "dead_since": "2026-10-27"
+    "dead_since": "2026-10-27",
+    "missing_since": "2026-10-27"
   },
   {
     "company": "Guidehouse",
@@ -7833,6 +7836,83 @@
     "category": "Security Engineering",
     "clearance": true,
     "url": "https://careers.jhuapl.edu/jobs/60115",
+    "source": "Jibe",
+    "date_added": "2026-10-27"
+  },
+  {
+    "company": "Leidos",
+    "role": "Cybersecurity Intern",
+    "location": "Arlington, VA; Washington, DC; Camp Springs, MD",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://leidos.wd5.myworkdayjobs.com/External/job/Arlington-VA/Cybersecurity-Intern_R-00195531",
+    "source": "Workday",
+    "date_added": "2026-10-27"
+  },
+  {
+    "company": "Sierra Nevada Corporation",
+    "role": "Cybersecurity Analyst Intern",
+    "location": "Sparks, NV",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://snc.wd1.myworkdayjobs.com/SNC_External_Career_Site/job/Sparks-NV/Cybersecurity-Analyst-Intern_R0031269",
+    "source": "Workday",
+    "date_added": "2026-10-27"
+  },
+  {
+    "company": "Visa",
+    "role": "Network and Security Engineering Intern - 2027, Highlands Ranch, CO",
+    "location": "Denver, CO",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://visa.wd5.myworkdayjobs.com/Visa/job/US---Denver-CO/Network-and-Security-Engineering-Intern---2027--Highlands-Ranch--CO_REF089779W-1",
+    "source": "Workday",
+    "date_added": "2026-10-27"
+  },
+  {
+    "company": "Visa",
+    "role": "Network and Security Engineering Intern - 2027, Ashburn, VA",
+    "location": "Ashburn, VA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://visa.wd5.myworkdayjobs.com/Visa/job/US---Ashburn-VA/Network-and-Security-Engineering-Intern---2027--Ashburn--VA_REF089778W",
+    "source": "Workday",
+    "date_added": "2026-10-27"
+  },
+  {
+    "company": "Fifth Third",
+    "role": "IT Audit Co-op - Spring 2027",
+    "location": "Cincinnati, OH",
+    "type": "intern",
+    "category": "GRC & Risk",
+    "clearance": false,
+    "url": "https://fifththird.wd5.myworkdayjobs.com/53careers/job/Cincinnati-OH/IT-Audit-Co-op---Spring-2027_R74518",
+    "source": "Workday",
+    "date_added": "2026-10-27"
+  },
+  {
+    "company": "BAE Systems",
+    "role": "Cyber Analyst II \u2013 ISSO",
+    "location": "Broomfield, CO; Boulder, CO",
+    "type": "earlycareer",
+    "category": "GRC & Risk",
+    "clearance": true,
+    "url": "https://jobs.baesystems.com/global/en/job/131921BR",
+    "source": "Phenom",
+    "date_added": "2026-10-27"
+  },
+  {
+    "company": "Johns Hopkins APL",
+    "role": "2027 Graduate \u2013 Cybersecurity Engineer - Critical Infrastructure Protection",
+    "location": "Laurel, MD",
+    "type": "newgrad",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://careers.jhuapl.edu/jobs/60384",
     "source": "Jibe",
     "date_added": "2026-10-27"
   }
