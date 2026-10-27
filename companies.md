@@ -4,14 +4,14 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **404 companies tracked.**
 
-## Hiring students now (112)
+## Hiring students now (114)
 
 Employers with open roles on the board today.
 
 | Company | Internships | New grad | Early career |
 | ------- | ----------- | -------- | ------------ |
-| Johns Hopkins APL | 11 | 13 |  |
-| Booz Allen Hamilton | 17 |  | 5 |
+| Johns Hopkins APL | 12 | 13 |  |
+| Booz Allen Hamilton | 13 |  | 4 |
 | Vanguard | 5 | 6 |  |
 | Microsoft | 9 |  | 6 |
 | 1Password | 9 |  | 1 |
@@ -27,7 +27,7 @@ Employers with open roles on the board today.
 | Federal Reserve System | 4 |  |  |
 | Intel | 4 |  |  |
 | Tanium | 4 |  |  |
-| Northrop Grumman | 2 | 1 | 11 |
+| Northrop Grumman | 2 | 1 | 12 |
 | Software Engineering Institute | 3 |  | 6 |
 | Goldman Sachs | 3 |  | 1 |
 | Entrust | 3 |  |  |
@@ -52,7 +52,7 @@ Employers with open roles on the board today.
 | Walmart | 2 |  |  |
 | RTX | 1 |  | 13 |
 | Nightwing | 1 |  | 7 |
-| GDIT | 1 |  | 2 |
+| GDIT | 1 |  | 3 |
 | Lockheed Martin | 1 |  | 2 |
 | Pinterest | 1 |  | 2 |
 | STR | 1 |  | 2 |
@@ -79,6 +79,7 @@ Employers with open roles on the board today.
 | Prophet Security | 1 |  |  |
 | Rubrik |  | 1 |  |
 | Sardine | 1 |  |  |
+| Saviynt | 1 |  |  |
 | Semgrep | 1 |  |  |
 | T-Mobile | 1 |  |  |
 | TRM Labs |  | 1 |  |
@@ -86,8 +87,8 @@ Employers with open roles on the board today.
 | Amazon |  |  | 17 |
 | CrowdStrike |  |  | 8 |
 | BAE Systems |  |  | 5 |
+| Fortinet |  |  | 5 |
 | KBR |  |  | 5 |
-| Fortinet |  |  | 4 |
 | Abnormal AI |  |  | 3 |
 | Amentum |  |  | 3 |
 | ExtraHop |  |  | 3 |
@@ -95,6 +96,7 @@ Employers with open roles on the board today.
 | Recorded Future |  |  | 3 |
 | Fortra |  |  | 2 |
 | JPMorgan Chase |  |  | 2 |
+| PwC |  |  | 2 |
 | Salt Security |  |  | 2 |
 | Trail of Bits |  |  | 2 |
 | Accenture Federal Services |  |  | 1 |
@@ -106,6 +108,7 @@ Employers with open roles on the board today.
 | Delinea |  |  | 1 |
 | Dragos |  |  | 1 |
 | ESET |  |  | 1 |
+| Everfox |  |  | 1 |
 | Fireblocks |  |  | 1 |
 | HII |  |  | 1 |
 | Huntress |  |  | 1 |
@@ -113,7 +116,6 @@ Employers with open roles on the board today.
 | MIT Lincoln Laboratory |  |  | 1 |
 | Obsidian Security |  |  | 1 |
 | Praetorian |  |  | 1 |
-| PwC |  |  | 1 |
 | ReliaQuest |  |  | 1 |
 | SAIC |  |  | 1 |
 | SailPoint |  |  | 1 |

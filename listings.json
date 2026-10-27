@@ -338,19 +338,6 @@
   },
   {
     "company": "Amazon",
-    "role": "Systems Development Engineer I, ADC Security Services (AS2E)",
-    "location": "Arlington, VA",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Amazon Jobs",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-08-27"
-  },
-  {
-    "company": "Amazon",
     "role": "Software Dev Engineer II, Customer Service Security",
     "location": "Seattle, WA",
     "type": "earlycareer",
@@ -2127,7 +2114,8 @@
     "clearance": false,
     "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210758538",
     "source": "Oracle",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "missing_since": "2026-10-27"
   },
   {
     "company": "Amazon",
@@ -2439,10 +2427,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Washington-DC/Cyber-Analyst--Junior_R0249110",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-10",
-    "missing_since": "2026-10-24"
+    "closed": true,
+    "closed_date": "2026-10-27"
   },
   {
     "company": "Northrop Grumman",
@@ -2488,11 +2477,9 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": true,
-    "url": "",
+    "url": "https://evergreenix.wd1.myworkdayjobs.com/external-careers2/job/USA_TX_Richardson/Software-Engineer-I_JR500927",
     "source": "Workday",
-    "date_added": "2026-09-11",
-    "closed": true,
-    "closed_date": "2026-10-22"
+    "date_added": "2026-09-11"
   },
   {
     "company": "Morgan Stanley",
@@ -2562,11 +2549,9 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "",
+    "url": "https://gdit.wd5.myworkdayjobs.com/External_Career_Site/job/USA-VA-Arlington/Cybersecurity-Exercise-Planner--Junior-_RQ230639",
     "source": "Workday",
-    "date_added": "2026-09-14",
-    "closed": true,
-    "closed_date": "2026-09-19"
+    "date_added": "2026-09-14"
   },
   {
     "company": "Leidos",
@@ -3486,10 +3471,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/McLean-VA/University---2027-Summer-Games-Cyber-Security-Intern---McLean--VA_R0248034",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-28",
-    "missing_since": "2026-10-24"
+    "closed": true,
+    "closed_date": "2026-10-27"
   },
   {
     "company": "Booz Allen Hamilton",
@@ -3509,10 +3495,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Colorado-Springs-CO/University--2027-Summer-Games-Cybersecurity-Intern_R0248131",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-28",
-    "missing_since": "2026-10-24"
+    "closed": true,
+    "closed_date": "2026-10-27"
   },
   {
     "company": "Booz Allen Hamilton",
@@ -3521,10 +3508,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Charleston-SC/University---2027-Summer-Games-Cyber-Security-Intern---Charleston--SC_R0248136",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-28",
-    "missing_since": "2026-10-24"
+    "closed": true,
+    "closed_date": "2026-10-27"
   },
   {
     "company": "Booz Allen Hamilton",
@@ -3601,10 +3589,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Fort-Walton-Beach-FL/University---2027-Summer-Games-Cyber-Security-Intern---Ft-Walton-Beach--FL_R0248416",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-28",
-    "missing_since": "2026-10-24"
+    "closed": true,
+    "closed_date": "2026-10-27"
   },
   {
     "company": "Booz Allen Hamilton",
@@ -5023,7 +5012,8 @@
     "clearance": false,
     "url": "https://job-boards.greenhouse.io/extrahopnetworks/jobs/6216038004",
     "source": "Greenhouse",
-    "date_added": "2026-10-03"
+    "date_added": "2026-10-03",
+    "missing_since": "2026-10-27"
   },
   {
     "company": "ExtraHop",
@@ -5791,7 +5781,8 @@
     "clearance": false,
     "url": "https://job-boards.greenhouse.io/extrahopnetworks/jobs/6211107004",
     "source": "Greenhouse",
-    "date_added": "2026-10-05"
+    "date_added": "2026-10-05",
+    "missing_since": "2026-10-27"
   },
   {
     "company": "Intel",
@@ -6633,11 +6624,9 @@
     "type": "earlycareer",
     "category": "Cloud Engineering",
     "clearance": true,
-    "url": "",
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-Redondo-Beach/Associate-Cloud-Software-Engineer--Level-1-_R10255928",
     "source": "Workday",
-    "date_added": "2026-10-14",
-    "closed": true,
-    "closed_date": "2026-10-18"
+    "date_added": "2026-10-14"
   },
   {
     "company": "NVIDIA",
@@ -7733,7 +7722,8 @@
     "clearance": true,
     "url": "https://guidehouse.wd1.myworkdayjobs.com/External/job/US---VA-McLean/IT-Cybersecurity-Compliance-Technical-Associate--Campus-2027_45899",
     "source": "Workday",
-    "date_added": "2026-10-26"
+    "date_added": "2026-10-26",
+    "missing_since": "2026-10-27"
   },
   {
     "company": "Booz Allen Hamilton",
@@ -7800,5 +7790,49 @@
     "url": "https://www.amazon.jobs/en/jobs/10588655/security-compliance-engineer-i-aws-security-assurance-services-llc",
     "source": "Amazon Jobs",
     "date_added": "2026-10-26"
+  },
+  {
+    "company": "Saviynt",
+    "role": "Research Scientist Intern - PhD",
+    "location": "Milpitas, CA",
+    "type": "intern",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://jobs.lever.co/saviynt/183188c3-c043-4f91-b3f0-30ec4961f4c7",
+    "source": "Lever",
+    "date_added": "2026-10-27"
+  },
+  {
+    "company": "PwC",
+    "role": "Cyber Defense & Resilience - Incident Response - Experienced Associate",
+    "location": "Tampa, FL; Dallas, TX; Chicago, IL; Washington, DC; Boston, MA; Cleveland, OH",
+    "type": "earlycareer",
+    "category": "SOC & Detection",
+    "clearance": false,
+    "url": "https://pwc.wd3.myworkdayjobs.com/US_Experienced_Careers/job/FL-Tampa/Cyber-Defense---Resilience---Incident-Response---Experienced-Associate_770111WD",
+    "source": "Workday",
+    "date_added": "2026-10-27"
+  },
+  {
+    "company": "Fortinet",
+    "role": "Early Careers: AI Automation Engineer",
+    "location": "Sunnyvale, CA",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://edel.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/24771",
+    "source": "Oracle",
+    "date_added": "2026-10-27"
+  },
+  {
+    "company": "Johns Hopkins APL",
+    "role": "2027 Internship - Cybersecurity Software Developer",
+    "location": "Laurel, MD",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://careers.jhuapl.edu/jobs/60115",
+    "source": "Jibe",
+    "date_added": "2026-10-27"
   }
 ]
