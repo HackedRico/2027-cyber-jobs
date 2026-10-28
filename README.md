@@ -14,7 +14,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**172** internships · **48** new grad · **186** early career open · **69** added in the last 7 days · **185** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 28, 2026
+**172** internships · **48** new grad · **185** early career open · **68** added in the last 7 days · **185** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 28, 2026
 
 <!-- /STATS -->
 
@@ -441,7 +441,6 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 | Amazon | 🆕 Security Engineer II, AWS Proactive Security Team<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10588732/security-engineer-ii-aws-proactive-security-team"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer II, AWS Proactive Security Team"></a> | Seattle, WA | Oct 26 |
 | ↳ | 🆕 Security &amp; Compliance Engineer I, AWS Security Assurance Services, LLC 🇺🇸<br><sub>GRC &amp; Risk</sub> | <a href="https://www.amazon.jobs/en/jobs/10588655/security-compliance-engineer-i-aws-security-assurance-services-llc"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security &amp; Compliance Engineer I, AWS Security Assurance Services, LLC"></a> | Herndon, VA | Oct 26 |
 | Lockheed Martin | 🆕 DevSecOps Software Engineer-Early Career<br><sub>AppSec &amp; ProdSec</sub> | <a href="https://lockheedmartin.eightfold.ai/careers/job/996476578145"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Lockheed Martin DevSecOps Software Engineer-Early Career"></a> | Manassas, VA | Oct 26 |
-| Amazon | 🆕 Security Engineer I , Stores Security- Healthcare Security<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10587725/security-engineer-i-stores-security-healthcare-security"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer I , Stores Security- Healthcare Security"></a> | Seattle, WA | Oct 24 |
 | Amentum | 🆕 Junior Information Systems Security Officer (ISSO) MDX - SSFB/HSV 🇺🇸<br><sub>Cloud &amp; Infra Security</sub> | <a href="https://pae.wd1.myworkdayjobs.com/Amentum_Careers/job/US-CO-Colorado-Springs/Junior-Information-Systems-Security-Officer--ISSO--MDX---SSFB-HSV_R0173893"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amentum Junior Information Systems Security Officer (ISSO) MDX - SSFB/HSV"></a> | <details><summary>**2 locations**</summary>Colorado Springs, CO<br>Redstone Arsenal, AL</details> | Oct 24 |
 | BeyondTrust | 🆕 Associate Data Engineer<br><sub>Engineering @ Security Co</sub> | <a href="https://job-boards.greenhouse.io/beyondtrust/jobs/8300876"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: BeyondTrust Associate Data Engineer"></a> | Remote (US) | Oct 24 |
 | Fortinet | 🆕 Early Careers: Verification Engineer<br><sub>Engineering @ Security Co</sub> | <a href="https://edel.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/23622"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Fortinet Early Careers: Verification Engineer"></a> | Sunnyvale, CA | Oct 24 |
@@ -624,10 +623,11 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 <!-- CLOSED_START earlycareer -->
 
-<details><summary>🔒 174 closed in the last 60 days</summary>
+<details><summary>🔒 175 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
+| Amazon | Security Engineer I , Stores Security- Healthcare Security | Oct 28 |
 | Booz Allen Hamilton | Cyber Analyst, Junior | Oct 27 |
 | Cisco | Attack Surface Management Security Engineer I (Full-Time) – United States | Oct 26 |
 | ↳ | Attack Surface Management Security Engineer II (Full-Time) – United States | Oct 26 |

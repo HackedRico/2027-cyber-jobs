@@ -2150,7 +2150,8 @@
     "url": "https://www.amazon.jobs/en/jobs/10505020/security-engineer-ii-enterprise-protection-program",
     "source": "Amazon Jobs",
     "date_added": "2026-09-05",
-    "missing_since": "2026-10-28"
+    "missing_since": "2026-10-28",
+    "dead_since": "2026-10-28"
   },
   {
     "company": "Amazon",
@@ -7711,11 +7712,12 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10587725/security-engineer-i-stores-security-healthcare-security",
+    "url": "",
     "source": "Amazon Jobs",
     "date_added": "2026-10-24",
-    "dead_since": "2026-10-27",
-    "missing_since": "2026-10-27"
+    "last_url": "https://www.amazon.jobs/en/jobs/10587725/security-engineer-i-stores-security-healthcare-security",
+    "closed": true,
+    "closed_date": "2026-10-28"
   },
   {
     "company": "Guidehouse",
