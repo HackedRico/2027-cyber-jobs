@@ -14,14 +14,14 @@ Employers with open roles on the board today.
 | Booz Allen Hamilton | 13 |  | 4 |
 | Vanguard | 5 | 6 |  |
 | Microsoft | 9 |  | 6 |
-| 1Password | 9 |  | 1 |
+| 1Password | 9 |  | 2 |
 | MITRE | 7 | 1 | 5 |
 | American Express | 4 | 4 |  |
 | HPE | 4 | 2 | 1 |
 | Lawrence Livermore National Laboratory | 6 |  |  |
 | Palo Alto Networks | 4 | 1 | 3 |
 | Aerospace Corporation | 5 |  |  |
-| Leidos | 4 |  | 6 |
+| Leidos | 4 |  | 7 |
 | GuidePoint Security | 4 |  | 1 |
 | NVIDIA | 1 | 3 | 1 |
 | Federal Reserve System | 4 |  |  |
@@ -33,7 +33,7 @@ Employers with open roles on the board today.
 | Entrust | 3 |  |  |
 | Idaho National Laboratory | 3 |  |  |
 | Palantir | 2 | 1 |  |
-| Northrop Grumman | 1 | 1 | 12 |
+| Northrop Grumman | 1 | 1 | 13 |
 | Citi | 1 | 1 | 2 |
 | Appian | 1 | 1 | 1 |
 | CACI | 2 |  | 1 |
@@ -52,8 +52,8 @@ Employers with open roles on the board today.
 | Together AI | 1 | 1 |  |
 | Visa | 2 |  |  |
 | Walmart | 2 |  |  |
-| RTX | 1 |  | 14 |
-| Nightwing | 1 |  | 7 |
+| RTX | 1 |  | 15 |
+| Nightwing | 1 |  | 8 |
 | GDIT | 1 |  | 3 |
 | Lockheed Martin | 1 |  | 2 |
 | Pinterest | 1 |  | 2 |

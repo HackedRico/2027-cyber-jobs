@@ -14,7 +14,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**172** internships · **48** new grad · **185** early career open · **68** added in the last 7 days · **185** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 28, 2026
+**172** internships · **48** new grad · **190** early career open · **71** added in the last 7 days · **189** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 28, 2026
 
 <!-- /STATS -->
 
@@ -434,6 +434,9 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
 | Amentum | 🆕 Jr. Cyber Defense Analyst MDX - SSFB/HSV 🇺🇸<br><sub>SOC &amp; Detection</sub> | <a href="https://pae.wd1.myworkdayjobs.com/Amentum_Careers/job/US-CO-Colorado-Springs/Jr-Cyber-Defense-Analyst-MDX---SSFB-HSV_R0174104"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amentum Jr. Cyber Defense Analyst MDX - SSFB/HSV"></a> | <details><summary>**2 locations**</summary>Colorado Springs, CO<br>Redstone Arsenal, AL</details> | Oct 28 |
+| Leidos | 🆕 Junior Offensive Cyber Engineer 🇺🇸<br><sub>Offensive Security</sub> | <a href="https://leidos.wd5.myworkdayjobs.com/External/job/Lawton-OK/Junior-Offensive-Cyber-Engineer_R-00195608"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Leidos Junior Offensive Cyber Engineer"></a> | Lawton, OK | Oct 28 |
+| Nightwing | 🆕 Jr. Computational Engineer 🇺🇸<br><sub>Engineering @ Security Co</sub> | <a href="https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/Jr-Computational-Engineer_JR102201"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Nightwing Jr. Computational Engineer"></a> | Annapolis Junction, MD | Oct 28 |
+| Northrop Grumman | 🆕 DevSecOps/Software Infrastructure Engineer – Level 2/3 (Chandler) (AHT) 🇺🇸<br><sub>AppSec &amp; ProdSec</sub> | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Arizona-Chandler/DevSecOps-Software-Infrastructure-Engineer---Level-2-3--Chandler---AHT-_R10257989"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Northrop Grumman DevSecOps/Software Infrastructure Engineer – Level 2/3 (Chandler) (AHT)"></a> | Chandler, AZ | Oct 28 |
 | RTX | 🆕 Systems Security Engineer I – Anti-Tamper / Program Protection (On-site ) 🇺🇸<br><sub>Cloud &amp; Infra Security</sub> | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Systems-Security-Engineer-I---Anti-Tamper---Program-Protection--On-site--_01883946"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: RTX Systems Security Engineer I – Anti-Tamper / Program Protection (On-site )"></a> | Tucson, AZ | Oct 28 |
 | BAE Systems | 🆕 Cyber Analyst II – ISSO 🇺🇸<br><sub>GRC &amp; Risk</sub> | <a href="https://jobs.baesystems.com/global/en/job/131921BR"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: BAE Systems Cyber Analyst II – ISSO"></a> | <details><summary>**2 locations**</summary>Broomfield, CO<br>Boulder, CO</details> | Oct 27 |
 | Fortinet | 🆕 Early Careers: AI Automation Engineer<br><sub>Engineering @ Security Co</sub> | <a href="https://edel.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/24771"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Fortinet Early Careers: AI Automation Engineer"></a> | Sunnyvale, CA | Oct 27 |
@@ -467,6 +470,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 | BAE Systems | Cyber Analyst II - ISSO 🇺🇸<br><sub>GRC &amp; Risk</sub> | <a href="https://jobs.baesystems.com/global/en/job/131570BR"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: BAE Systems Cyber Analyst II - ISSO"></a> | <details><summary>**2 locations**</summary>Broomfield, CO<br>Boulder, CO</details> | Oct 17 |
 | Corelight | Associate Escalation Engineer<br><sub>Engineering @ Security Co</sub> | <a href="https://boards.greenhouse.io/corelight/jobs/8287269?gh_jid=8287269"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Corelight Associate Escalation Engineer"></a> | United States | Oct 17 |
 | 1Password | Junior Security Engineer<br><sub>Security Engineering</sub> | <a href="https://jobs.ashbyhq.com/1password/49f0fe51-fcdc-46d8-a046-35f357b0cf6e"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: 1Password Junior Security Engineer"></a> | Remote (US) | Oct 16 |
+| ↳ | Junior Developer<br><sub>Engineering @ Security Co</sub> | <a href="https://jobs.ashbyhq.com/1password/a492badd-a02f-4360-aa15-7ea8c6e2c85e"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: 1Password Junior Developer"></a> | Remote (US) | Oct 16 |
 | CrowdStrike | Analyst I, Falcon Complete (Hybrid, San Antonio)<br><sub>SOC &amp; Detection</sub> | <a href="https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Analyst-I--Falcon-Complete--Hybrid--San-Antonio-_R30220"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: CrowdStrike Analyst I, Falcon Complete (Hybrid, San Antonio)"></a> | <details><summary>**2 locations**</summary>Remote (US)<br>San Antonio, TX</details> | Oct 16 |
 | ↳ | Analyst I, Falcon Complete GovCloud (Hybrid, St. Louis)<br><sub>SOC &amp; Detection</sub> | <a href="https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Analyst-I--Falcon-Complete--Remote-_R29479"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: CrowdStrike Analyst I, Falcon Complete GovCloud (Hybrid, St. Louis)"></a> | <details><summary>**2 locations**</summary>Remote (US)<br>St. Louis, MO</details> | Oct 16 |
 | Sierra Nevada Corporation | Systems Security Engineer I 🇺🇸<br><sub>Cloud &amp; Infra Security</sub> | <a href="https://snc.wd1.myworkdayjobs.com/SNC_External_Career_Site/job/Lone-Tree-CO/Systems-Security-Engineer-I_R0031080"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Sierra Nevada Corporation Systems Security Engineer I"></a> | Lone Tree, CO | Oct 15 |
@@ -527,6 +531,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 | BAE Systems | Insider Threat Cyber Analyst I<br><sub>Security Engineering</sub> | <a href="https://jobs.baesystems.com/global/en/job/129635BR"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: BAE Systems Insider Threat Cyber Analyst I"></a> | Falls Church, VA | Sep 30 |
 | Fortinet | Jr. QC Engineer<br><sub>Engineering @ Security Co</sub> | <a href="https://edel.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/21624"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Fortinet Jr. QC Engineer"></a> | Union City, CA | Sep 30 |
 | MITRE | Associate Embedded Security Engineer 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://careers.mitre.org/us/en/job/R115645"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: MITRE Associate Embedded Security Engineer"></a> | <details><summary>**3 locations**</summary>Bedford, MA<br>Albuquerque, NM<br>McLean, VA</details> | Sep 30 |
+| RTX | Software Security Engineer - II, Onsite 🇺🇸<br><sub>AppSec &amp; ProdSec</sub> | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-GOLETA-H03--6380-Hollister-Ave--BLDG-H03/Software-Security-Engineer---II--Onsite_01876900"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: RTX Software Security Engineer - II, Onsite"></a> | Goleta, CA | Sep 30 |
 | Software Engineering Institute | Associate Cybersecurity Operations Researcher 🇺🇸<br><sub>SOC &amp; Detection</sub> | <a href="https://cmu.wd115.myworkdayjobs.com/SEI/job/Pittsburgh-PA/Associate-Cybersecurity-Operations-Researcher_2024322-2"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Software Engineering Institute Associate Cybersecurity Operations Researcher"></a> | Pittsburgh, PA | Sep 29 |
 | ↳ | Associate AI Red Team Engineer 🇺🇸<br><sub>AI Security &amp; Safety</sub> | <a href="https://cmu.wd115.myworkdayjobs.com/SEI/job/Pittsburgh-PA/Associate-AI-Red-Team-Engineer_2025255-1"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Software Engineering Institute Associate AI Red Team Engineer"></a> | Pittsburgh, PA | Sep 29 |
 | ↳ | Associate AI Security Researcher 🇺🇸<br><sub>AI Security &amp; Safety</sub> | <a href="https://cmu.wd115.myworkdayjobs.com/SEI/job/Pittsburgh-PA/Associate-AI-Security-Researcher_2024456-1"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Software Engineering Institute Associate AI Security Researcher"></a> | Pittsburgh, PA | Sep 29 |
@@ -623,7 +628,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 <!-- CLOSED_START earlycareer -->
 
-<details><summary>🔒 175 closed in the last 60 days</summary>
+<details><summary>🔒 173 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
@@ -641,7 +646,6 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 | Northrop Grumman | Sentinel - Associate / Systems Engineer - STPA - SEC - Systems Security | Oct 24 |
 | Fannie Mae | Jr. Cloud Automation Engineer | Oct 23 |
 | State Street | Junior SIEM Data Engineer | Oct 23 |
-| 1Password | Junior Developer | Oct 22 |
 | Amazon | Security Engineer II | Oct 22 |
 | CACI | Cyber Security Engineer, Jr. | Oct 20 |
 | GDIT | Junior Tactical All Source Threat Intelligence Analyst - Overnight Shift (Top Secret Clearance) | Oct 20 |
@@ -671,7 +675,6 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 | Expel | Associate SOC Analyst | Oct 13 |
 | Freddie Mac | IT Risk Associate II | Oct 13 |
 | Illumio | Site Reliability Engineer II | Oct 13 |
-| RTX | Software Security Engineer - II, Onsite | Oct 13 |
 | Northrop Grumman | Cyber Operator/Field Engineer – Level 2 (AHT) | Oct 11 |
 | ↳ | Cloud Software Engineer (Level 2 or 3) - AHT | Oct 11 |
 | PNNL | Entry Level Cyber Security Engineer | Oct 11 |
