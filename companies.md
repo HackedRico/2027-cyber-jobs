@@ -10,7 +10,7 @@ Employers with open roles on the board today.
 
 | Company | Internships | New grad | Early career |
 | ------- | ----------- | -------- | ------------ |
-| Johns Hopkins APL | 12 | 14 |  |
+| Johns Hopkins APL | 12 | 15 |  |
 | Booz Allen Hamilton | 13 |  | 4 |
 | Vanguard | 5 | 6 |  |
 | Microsoft | 9 |  | 6 |
@@ -21,20 +21,19 @@ Employers with open roles on the board today.
 | Lawrence Livermore National Laboratory | 6 |  |  |
 | Palo Alto Networks | 4 | 1 | 3 |
 | Aerospace Corporation | 5 |  |  |
-| BDO | 3 | 1 | 1 |
+| Leidos | 4 |  | 6 |
 | GuidePoint Security | 4 |  | 1 |
 | NVIDIA | 1 | 3 | 1 |
 | Federal Reserve System | 4 |  |  |
 | Intel | 4 |  |  |
 | Tanium | 4 |  |  |
-| Northrop Grumman | 2 | 1 | 12 |
-| Leidos | 3 |  | 6 |
 | Software Engineering Institute | 3 |  | 6 |
+| BDO | 2 | 1 | 1 |
 | Goldman Sachs | 3 |  | 1 |
 | Entrust | 3 |  |  |
 | Idaho National Laboratory | 3 |  |  |
 | Palantir | 2 | 1 |  |
-| Battelle | 2 |  | 2 |
+| Northrop Grumman | 1 | 1 | 12 |
 | Citi | 1 | 1 | 2 |
 | Appian | 1 | 1 | 1 |
 | CACI | 2 |  | 1 |
@@ -43,6 +42,7 @@ Employers with open roles on the board today.
 | Sierra Nevada Corporation | 2 |  | 1 |
 | Applied Intuition |  | 2 |  |
 | Elevance Health | 2 |  |  |
+| HP Inc | 2 |  |  |
 | Illumio | 2 |  |  |
 | Immuta | 2 |  |  |
 | Johnson &amp; Johnson | 2 |  |  |
@@ -52,7 +52,7 @@ Employers with open roles on the board today.
 | Together AI | 1 | 1 |  |
 | Visa | 2 |  |  |
 | Walmart | 2 |  |  |
-| RTX | 1 |  | 13 |
+| RTX | 1 |  | 14 |
 | Nightwing | 1 |  | 7 |
 | GDIT | 1 |  | 3 |
 | Lockheed Martin | 1 |  | 2 |
@@ -66,14 +66,12 @@ Employers with open roles on the board today.
 | Verkada | 1 |  | 1 |
 | Adobe | 1 |  |  |
 | Bank of America | 1 |  |  |
-| Boeing |  | 1 |  |
 | Deloitte |  | 1 |  |
 | Duke Energy | 1 |  |  |
 | Exelon | 1 |  |  |
 | Fifth Third | 1 |  |  |
 | Grant Thornton |  | 1 |  |
 | Guidehouse |  | 1 |  |
-| HP Inc | 1 |  |  |
 | ICF | 1 |  |  |
 | KeyBank |  | 1 |  |
 | Lumen | 1 |  |  |
@@ -84,6 +82,7 @@ Employers with open roles on the board today.
 | Saviynt | 1 |  |  |
 | Semgrep | 1 |  |  |
 | T-Mobile | 1 |  |  |
+| Trace3 | 1 |  |  |
 | TRM Labs |  | 1 |  |
 | Wells Fargo | 1 |  |  |
 | Amazon |  |  | 17 |
@@ -91,11 +90,12 @@ Employers with open roles on the board today.
 | BAE Systems |  |  | 6 |
 | Fortinet |  |  | 5 |
 | KBR |  |  | 5 |
+| Amentum |  |  | 4 |
 | Abnormal AI |  |  | 3 |
-| Amentum |  |  | 3 |
 | ExtraHop |  |  | 3 |
 | Kyndryl |  |  | 3 |
 | Recorded Future |  |  | 3 |
+| Battelle |  |  | 2 |
 | Fortra |  |  | 2 |
 | JPMorgan Chase |  |  | 2 |
 | PwC |  |  | 2 |

@@ -470,19 +470,6 @@
     "closed_date": "2026-09-19"
   },
   {
-    "company": "Amazon",
-    "role": "Software Development Engineer II, Infrastructure Security-HLS",
-    "location": "Herndon, VA",
-    "type": "earlycareer",
-    "category": "Cloud & Infra Security",
-    "clearance": false,
-    "url": "",
-    "source": "Amazon Jobs",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-08-28"
-  },
-  {
     "company": "Nightwing",
     "role": "Software / Hardware Engineering - Intern",
     "location": "Annapolis Junction, MD",
@@ -1570,7 +1557,8 @@
     "clearance": false,
     "url": "https://job-boards.greenhouse.io/dragos/jobs/5367349008",
     "source": "Greenhouse",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "missing_since": "2026-10-28"
   },
   {
     "company": "Fireblocks",
@@ -2161,7 +2149,8 @@
     "clearance": false,
     "url": "https://www.amazon.jobs/en/jobs/10505020/security-engineer-ii-enterprise-protection-program",
     "source": "Amazon Jobs",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "missing_since": "2026-10-28"
   },
   {
     "company": "Amazon",
@@ -2309,7 +2298,8 @@
     "clearance": false,
     "url": "https://jobs.lever.co/immuta/3c4cb235-6138-4a50-add2-666a5216427e",
     "source": "Lever",
-    "date_added": "2026-09-09"
+    "date_added": "2026-09-09",
+    "missing_since": "2026-10-28"
   },
   {
     "company": "Immuta",
@@ -2479,7 +2469,8 @@
     "clearance": true,
     "url": "https://evergreenix.wd1.myworkdayjobs.com/external-careers2/job/USA_TX_Richardson/Software-Engineer-I_JR500927",
     "source": "Workday",
-    "date_added": "2026-09-11"
+    "date_added": "2026-09-11",
+    "missing_since": "2026-10-28"
   },
   {
     "company": "Morgan Stanley",
@@ -4814,10 +4805,11 @@
     "type": "newgrad",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://boeing.wd1.myworkdayjobs.com/INTERN/job/USA---Seattle-WA/Information-Digital-Technology---Security-Career-Foundation-Program---2027-Cohort_JR2026522914",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-01",
-    "missing_since": "2026-10-25"
+    "closed": true,
+    "closed_date": "2026-10-28"
   },
   {
     "company": "Microsoft",
@@ -5643,10 +5635,11 @@
     "type": "intern",
     "category": "Offensive Security",
     "clearance": true,
-    "url": "https://jobs.battelle.org/us/en/job/76529",
+    "url": "",
     "source": "Phenom",
     "date_added": "2026-10-03",
-    "missing_since": "2026-10-25"
+    "closed": true,
+    "closed_date": "2026-10-28"
   },
   {
     "company": "Battelle",
@@ -5655,10 +5648,11 @@
     "type": "intern",
     "category": "Offensive Security",
     "clearance": true,
-    "url": "https://jobs.battelle.org/us/en/job/76543",
+    "url": "",
     "source": "Phenom",
     "date_added": "2026-10-03",
-    "missing_since": "2026-10-25"
+    "closed": true,
+    "closed_date": "2026-10-28"
   },
   {
     "company": "Battelle",
@@ -5954,7 +5948,8 @@
     "clearance": true,
     "url": "https://caci.wd1.myworkdayjobs.com/External/job/Ashburn-VA-US/Cyber-Analyst-Intern---Summer-2027_333161",
     "source": "Workday",
-    "date_added": "2026-10-06"
+    "date_added": "2026-10-06",
+    "missing_since": "2026-10-28"
   },
   {
     "company": "Northrop Grumman",
@@ -6638,7 +6633,8 @@
     "clearance": false,
     "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/SoC-Software-Engineer---New-College-Grad-2027_JR2026744",
     "source": "Workday",
-    "date_added": "2026-10-14"
+    "date_added": "2026-10-14",
+    "missing_since": "2026-10-28"
   },
   {
     "company": "NVIDIA",
@@ -6712,8 +6708,7 @@
     "clearance": false,
     "url": "https://boards.greenhouse.io/guidepointsecurity/jobs/6224196004?gh_jid=6224196004",
     "source": "Greenhouse",
-    "date_added": "2026-10-15",
-    "missing_since": "2026-10-26"
+    "date_added": "2026-10-15"
   },
   {
     "company": "Northrop Grumman",
@@ -6722,10 +6717,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Texas-San-Antonio/XMLNAME-2027-Cyber-Software-Engineer-Intern---San-Antonio-TX_R10257311",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-15",
-    "missing_since": "2026-10-25"
+    "closed": true,
+    "closed_date": "2026-10-28"
   },
   {
     "company": "NVIDIA",
@@ -6793,7 +6789,8 @@
     "clearance": false,
     "url": "https://jobs.ashbyhq.com/1password/49f0fe51-fcdc-46d8-a046-35f357b0cf6e",
     "source": "Ashby",
-    "date_added": "2026-10-16"
+    "date_added": "2026-10-16",
+    "missing_since": "2026-10-28"
   },
   {
     "company": "1Password",
@@ -7028,10 +7025,11 @@
     "type": "intern",
     "category": "GRC & Risk",
     "clearance": false,
-    "url": "https://ebqb.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BDOEntryLevelCareers/job/14411",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-10-17",
-    "missing_since": "2026-10-25"
+    "closed": true,
+    "closed_date": "2026-10-28"
   },
   {
     "company": "BDO",
@@ -7348,7 +7346,8 @@
     "clearance": false,
     "url": "https://ebqb.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BDOEntryLevelCareers/job/14467",
     "source": "Oracle",
-    "date_added": "2026-10-22"
+    "date_added": "2026-10-22",
+    "missing_since": "2026-10-28"
   },
   {
     "company": "Microsoft",
@@ -7691,7 +7690,8 @@
     "clearance": false,
     "url": "https://hpe.wd5.myworkdayjobs.com/Jobsathpe/job/Spring-Texas-United-States-of-America/Cybersecurity-Engineering-Intern_1216080",
     "source": "Workday",
-    "date_added": "2026-10-24"
+    "date_added": "2026-10-24",
+    "missing_since": "2026-10-28"
   },
   {
     "company": "Fortinet",
@@ -7915,5 +7915,71 @@
     "url": "https://careers.jhuapl.edu/jobs/60384",
     "source": "Jibe",
     "date_added": "2026-10-27"
+  },
+  {
+    "company": "Trace3",
+    "role": "Solutions Architect Intern",
+    "location": "Dallas, TX",
+    "type": "intern",
+    "category": "Solutions Architecture",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/trace3/jobs/8328124",
+    "source": "Greenhouse",
+    "date_added": "2026-10-28"
+  },
+  {
+    "company": "Leidos",
+    "role": "Cybersecurity Analyst Intern",
+    "location": "Pearl Harbor, HI",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://leidos.wd5.myworkdayjobs.com/External/job/Pearl-Harbor-HI/Cybersecurity-Analyst-Intern_R-00195607",
+    "source": "Workday",
+    "date_added": "2026-10-28"
+  },
+  {
+    "company": "RTX",
+    "role": "Systems Security Engineer I \u2013 Anti-Tamper / Program Protection (On-site )",
+    "location": "Tucson, AZ",
+    "type": "earlycareer",
+    "category": "Cloud & Infra Security",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Systems-Security-Engineer-I---Anti-Tamper---Program-Protection--On-site--_01883946",
+    "source": "Workday",
+    "date_added": "2026-10-28"
+  },
+  {
+    "company": "Amentum",
+    "role": "Jr. Cyber Defense Analyst MDX - SSFB/HSV",
+    "location": "Colorado Springs, CO; Redstone Arsenal, AL",
+    "type": "earlycareer",
+    "category": "SOC & Detection",
+    "clearance": true,
+    "url": "https://pae.wd1.myworkdayjobs.com/Amentum_Careers/job/US-CO-Colorado-Springs/Jr-Cyber-Defense-Analyst-MDX---SSFB-HSV_R0174104",
+    "source": "Workday",
+    "date_added": "2026-10-28"
+  },
+  {
+    "company": "HP Inc",
+    "role": "Cloud Engineering Intern - HP IQ",
+    "location": "San Francisco, CA",
+    "type": "intern",
+    "category": "Cloud Engineering",
+    "clearance": false,
+    "url": "https://hp.wd5.myworkdayjobs.com/ExternalCareerSite/job/San-Francisco-California-United-States-of-America/Cloud-Engineering-Intern_UNI4799-1",
+    "source": "Workday",
+    "date_added": "2026-10-28"
+  },
+  {
+    "company": "Johns Hopkins APL",
+    "role": "2027 Graduate - Cyber Engineer/Scientist - Resilient Military Systems",
+    "location": "Laurel, MD",
+    "type": "newgrad",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://careers.jhuapl.edu/jobs/59353",
+    "source": "Jibe",
+    "date_added": "2026-10-28"
   }
 ]
