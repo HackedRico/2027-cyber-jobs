@@ -517,10 +517,14 @@ def _ashby_place(label, address):
     # the structured address beside them says United States. 105 postings
     # across the Ashby boards read that way. The label wins whenever it
     # already reads as US, except a bare 'Remote', which names no country:
-    # beside a Toronto address it is 'Remote (Canada)', not Remote (US).
+    # beside a Toronto address it is 'Remote (Canada)', not Remote (US). A US
+    # one is scoped too, or a posting remote in both read 'Remote; Remote
+    # (Canada)', and a bare Remote beside a foreign place reads as foreign.
     postal = (address or {}).get('postalAddress') or {}
     country = (postal.get('addressCountry') or '').strip()
-    if label and country and country.lower() not in US_COUNTRY_NAMES and _is_bare_remote(label):
+    if label and country and _is_bare_remote(label):
+        if country.lower() in US_COUNTRY_NAMES:
+            country = 'United States'
         return f'{label.strip()} ({country})'
     if label and is_us_location(label):
         return label
