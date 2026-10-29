@@ -933,6 +933,12 @@ NORM = [
     ('US, WV - Summit Point', 'Summit Point, WV'),
     ('US - Remote (Any Location)', 'Remote (US)'),
     ('CA - YT, Faro', 'CA - YT, Faro'),
+    # A country-coded site abroad drops beside a US one; kept, 'CA - Remote'
+    # read as California and 'IN - Remote' failed the stored-form check.
+    ('US - VA, Centreville; CA - Remote (Any Location)', 'Centreville, VA'),
+    ('US - FL, Melbourne; IN - Remote (Any Location)', 'Melbourne, FL'),
+    ('(USA) ISD Office - DGTC AR BENTONVILLE Home Office; (CAN) ON MISSISSAUGA Home Office',
+     'Bentonville, AR'),
 ]
 for raw, want in NORM:
     got = s.normalize_location(raw)

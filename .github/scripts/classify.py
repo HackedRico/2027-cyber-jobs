@@ -1376,6 +1376,15 @@ def _title_city(name):
 
 
 def _is_foreign_part(part):
+    # A country code decides the part as it does in is_us_location: Parsons'
+    # 'CA - Remote (Any Location)' stayed beside 'Centreville, VA' as if it
+    # were California, and Walmart's '(CAN) ON MISSISSAUGA' as a US site.
+    country = _iso_site_country(part)
+    if country:
+        return country != 'US'
+    m = COUNTRY_CODE_PREFIX_RE.match(part.strip())
+    if m:
+        return m.group(1) != 'USA'
     # A trailing US state code rescues a US city that shares a foreign name
     # ("Paris, TX", "Vienna, VA"), but not a foreign place's own code.
     if _us_region_code(part):
