@@ -211,6 +211,14 @@ with tempfile.TemporaryDirectory() as tmp:
         rebuild_readme.main()
     (rebuild_readme.LISTINGS_FILE, rebuild_readme.README_FILE,
      rebuild_readme.COMPANIES_MD) = saved
+    # On a quiet morning the link check compares the README the evening scrape
+    # built with a rebuild made today, and only the stats date differs. Built
+    # and checked on one pinned day, this never needed the stats strip.
+    readme = tmp / 'README.md'
+    built = readme.read_text()
+    check('the rebuilt README carries the stats date made stale below',
+          'updated Oct 1, 2026' in built, True)
+    readme.write_text(built.replace('updated Oct 1, 2026', 'updated Sep 30, 2026'))
     check('readme_drift is quiet on a freshly rebuilt README, whatever the stats date',
           co.readme_drift(tmp / 'listings.json', tmp / 'README.md'), [])
     check('readme_drift left the README it checked alone',
