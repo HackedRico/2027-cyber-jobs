@@ -297,9 +297,24 @@ def parse_issue_body(body):
 _HTML_BLOCK_RE = re.compile(
     r'^(?:[ \t]*(?:>|[-+*](?=[ \t])|\d{1,9}[.)](?=[ \t])))*[ \t]*'
     r'<(?:[!?]|/?[A-Za-z][A-Za-z0-9-]*(?=[\s/>]|$))', re.MULTILINE)
-# Every line the page renders as a heading, at any level and with or without
-# a closing run of #, so "### Link ###" reads as a second "### Link".
-_HEADING_RE = re.compile(r'^ {0,3}#{1,6}(?:[ \t]+(.*?))?(?:[ \t]+#+)?[ \t]*$', re.MULTILINE)
+# A line the page renders as a heading, at any level. Matched one line at a
+# time with the closing run of # cut in _headings: a lazy group before an
+# optional closing run backtracked quadratically, and one 64k-character
+# heading line of spaces and tabs took 44 s to check.
+_ATX_HEADING_RE = re.compile(r' {0,3}#{1,6}(?:[ \t]+(.*))?')
+
+
+def _headings(body):
+    for line in body.split('\n'):
+        atx = _ATX_HEADING_RE.fullmatch(line)
+        if not atx:
+            continue
+        # "### Link ###" reads as a second "### Link"; "### C#" keeps its #.
+        text = (atx.group(1) or '').rstrip(' \t')
+        bare = text.rstrip('#')
+        if bare != text and (not bare or bare[-1] in ' \t'):
+            text = bare
+        yield ' '.join(text.split())
 
 
 def form_body_problem(body):
@@ -316,8 +331,7 @@ def form_body_problem(body):
         return ('a line of the issue body starts with HTML such as `<!--`, which can '
                 'hide text from the reviewer.')
     seen = set()
-    for m in _HEADING_RE.finditer(body):
-        heading = ' '.join((m.group(1) or '').split())
+    for heading in _headings(body):
         if heading.casefold() in seen:
             return (f'the heading {md_code(heading)} appears more than once in the issue '
                     'body, and only the first is read.')

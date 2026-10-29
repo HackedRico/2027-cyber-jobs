@@ -10,6 +10,7 @@ import json
 import os
 import sys
 import tempfile
+import time
 from pathlib import Path
 
 import testkit  # noqa: F401
@@ -97,6 +98,12 @@ BODIES = [
 ]
 for name, body, want in BODIES:
     check(f'form_body_problem flags {name}', common.form_body_problem(body) is not None, want)
+# Every edit to an open issue runs this check: a 64k-character heading line,
+# about GitHub's body cap, took 44 s when one regex read the whole heading.
+started = time.monotonic()
+common.form_body_problem('### a' + ' \t' * 32_000 + 'b')
+check('form_body_problem reads a 64k-character heading line in under a second',
+      time.monotonic() - started < 1, True)
 
 
 # --- normalize_url -------------------------------------------------------------
