@@ -15,11 +15,13 @@
 
 ## For company additions
 
-<!-- Delete this section if not applicable. -->
+<!-- Delete this section if not applicable. CONTRIBUTING.md section 3 says how to get each line. -->
 
-- [ ] Verified the board API returns JSON (e.g. `curl -s "https://boards-api.greenhouse.io/v1/boards/<slug>/jobs" | head -c 200`)
 - [ ] `security_company: true` only set for pure-play security vendors/consultancies
 - Company careers page URL:
+- Page on the employer's own site that links to the board:
+- `Checking <Company> (<ats>/<id>)... ok (N postings` line from `scrape_jobs.py --dry-run --board <ats>`:
+- Owner line from `check_slugs.py --board <ats>` (none for Workday, Oracle, Eightfold, Phenom or Jibe):
 
 ## For scraper/filter changes
 

@@ -116,11 +116,14 @@ Set `security_company: true` for companies whose main business is security, such
 
 Add the board only if the employer's own website links to it. Greenhouse, Lever, Ashby, Recruitee and Pinpoint hand back the apply link, and the scraper keeps it only on the vendor's domain or a host listed under the company's `apply_hosts` (for example `careers.airbnb.com`). Any other link falls back to the vendor's page for that job.
 
-Please verify the endpoint returns JSON before opening the PR, e.g.:
+Before opening the PR, prove that the scraper reads the board and that the board is the employer's, and paste both lines into the PR template with the page on the employer's site that links to the board:
 
 ```bash
-curl -s "https://boards-api.greenhouse.io/v1/boards/acme/jobs" | head -c 200
+python .github/scripts/scrape_jobs.py --dry-run --board ashby  # "Checking Acme (ashby/acme)... ok (N postings", N above zero
+python .github/scripts/check_slugs.py --board ashby            # the entry's owner line names the employer
 ```
+
+Workday, Oracle, Eightfold, Phenom and Jibe print no owner line, since their host is already the employer's.
 
 ## 4. Improve the scraper
 
