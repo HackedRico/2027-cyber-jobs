@@ -15,11 +15,14 @@ scraper reads it.
    postings can still belong to someone else: Ashby `menlo` is Menlo Research, a robotics
    lab, while menlosecurity.com links to `menlosecurity`. The careers URL usually names the
    ATS (`boards.greenhouse.io/acme`, `acme.wd5.myworkdayjobs.com/External`). A branded page
-   such as `careers.acme.com` embeds one: fetch the HTML and search it for `greenhouse.io`, `lever.co`, `ashbyhq.com`,
-   `smartrecruiters.com`, `workable.com`, `recruitee.com`, `pinpointhq.com`,
-   `myworkdayjobs.com` or `oraclecloud.com`. The identifier table in CONTRIBUTING.md maps each
-   URL shape to the fields the entry needs. A company on none of these platforms cannot be
-   scraped; tell the user to submit roles through the issue form instead.
+   such as `careers.acme.com` embeds one: fetch the HTML and search it for every platform in
+   the identifier table in CONTRIBUTING.md, which maps each URL shape to the fields the entry
+   needs: `greenhouse.io`, `lever.co`, `ashbyhq.com`, `smartrecruiters.com`, `workable.com`,
+   `recruitee.com`, `pinpointhq.com`, `myworkdayjobs.com`, `oraclecloud.com` or
+   `eightfold.ai`, or a script from `cdn.phenompeople.com` (Phenom). For iCIMS Jibe, check
+   whether `<careers host>/api/jobs?keywords=cyber` returns JSON with `totalCount`. A company
+   on none of these platforms cannot be scraped; tell the user to submit roles through the
+   issue form instead.
 2. **Decide `security_company`.** Set it to `true` only when security products or services
    are the company's main business, because it admits every engineering title from that
    board. A bank with a security team is not one; a pentest consultancy is.
