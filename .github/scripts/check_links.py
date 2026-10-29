@@ -5,7 +5,8 @@ Reads open rows from listings.json and checks only the ones nothing else can
 close. A scraped row whose URL carries a requisition id is retired by the
 scraper within VANISHED_DAYS once it leaves its board, so checking it here only
 adds requests. What remains is Community rows, rows with no fingerprint, and
-amazon.jobs rows, which this check closes the same day the posting goes.
+amazon.jobs rows, which this check closes on the second day in a row that the
+posting answers 404 or 410, sooner than the scraper's retire.
 """
 
 import html
