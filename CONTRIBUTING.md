@@ -6,6 +6,8 @@ There are four ways to help: submit a job, report a bad row, ask for a company, 
 
 Open a [new issue](../../issues/new/choose) with the **Add Job Listing** form. Within a minute a bot comments with a check of your submission and labels it `valid` or `needs-fix`. Edit the issue to fix anything it flags, and the same comment updates. The check is advisory: a maintainer reads the posting and decides. Once the maintainer adds the `approved` label, a workflow adds the row, and your issue closes after the row is on the board. If the row cannot be added, the bot comments the reason and removes the label.
 
+Fill in the form and add nothing around it. A submission whose body starts a line with HTML, such as `<!--`, or repeats a heading is not added, since either can show the maintainer other text than the row stores.
+
 The scraper applies the rules below to every posting, and the bot runs the same rules on your title and location. A row has to meet all three.
 
 ### A cybersecurity, cloud engineering or solutions architecture role

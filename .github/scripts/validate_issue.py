@@ -32,6 +32,7 @@ from classify import (  # noqa: E402
 )
 from common import (  # noqa: E402
     fetch_target_problem,
+    form_body_problem,
     gh_headers,
     host_matches,
     link_host,
@@ -98,10 +99,16 @@ ATS_DOMAINS = frozenset({
 ONE_LINE_FIELDS = ('Company Name', 'Role / Job Title')
 
 
-def form_errors(fields):
-    """Problems in the form itself, each a markdown bullet body."""
-    errors = [f'**{f}** is missing or empty' for f in REQUIRED_FIELDS
-              if not fields.get(f, '').strip()]
+def form_errors(fields, body=None):
+    """Problems in the form itself, each a markdown bullet body.
+
+    `body` is the raw issue body the fields were parsed from, checked for
+    text the rendered issue hides; None skips that check.
+    """
+    problem = form_body_problem(body) if body is not None else None
+    errors = [problem[:1].upper() + problem[1:]] if problem else []
+    errors += [f'**{f}** is missing or empty' for f in REQUIRED_FIELDS
+               if not fields.get(f, '').strip()]
     errors += [f'**{f}** must be one line' for f in ONE_LINE_FIELDS
                if re.search(r'[\r\n]', fields.get(f, '').strip())]
     link = fields.get('Direct Application Link', '').strip()
@@ -265,17 +272,17 @@ def _option(value, options):
     return value if value in options else 'a value that is not a form option'
 
 
-def build_verdict(fields, listings, security_companies=frozenset(), link=None):
+def build_verdict(fields, listings, security_companies=frozenset(), link=None, body=None):
     """Return (comment body, ok) for a parsed submission.
 
     `link` is check_link's result, or None when the link was not fetched.
-    `ok` is False when the form has errors, the row is a duplicate, the link
-    is dead or on a host `domain_warning` flags, or evaluate_job rejects the
-    title and location.
+    `body` is the raw issue body, for form_errors. `ok` is False when the
+    form has errors, the row is a duplicate, the link is dead or on a host
+    `domain_warning` flags, or evaluate_job rejects the title and location.
     """
     listing = fields_to_listing(fields, security_companies)
     security_company = listing['company'].lower() in security_companies
-    errors = form_errors(fields)
+    errors = form_errors(fields, body)
     gate = charter_gate(listing['role'], listing['location'], security_company)
     dupes = find_duplicates(listing, listings) if listing['company'] else []
     # process_approved reopens a closed match rather than rejecting it.
@@ -293,8 +300,14 @@ def build_verdict(fields, listings, security_companies=frozenset(), link=None):
              '',
              '**Form**']
     lines += [f'- ❌ {e}' for e in errors] or ['- ✅ Required fields are filled in']
-    if listing['location'] and not validate_location(fields.get('Location', '')):
-        lines.append(f"- Location will be stored as {md_code(listing['location'])}")
+
+    # Exactly what approval writes, since the rendered issue can show the
+    # reviewer something else: an inline comment in a field is invisible there.
+    lines += ['', '**Stored on approval**',
+              f"- Company: {md_code(listing['company'])}",
+              f"- Role: {md_code(listing['role'])}",
+              f"- Location: {md_code(listing['location'])}",
+              f"- Link: {md_code(listing['url'])}"]
 
     lines += ['', '**Charter** (title and location only)']
     if gate:
@@ -407,7 +420,7 @@ def main():
     link = None
     if link_url and not args.no_link and re.match(r'^https?://\S+$', link_url):
         link = check_link(link_url)
-    verdict, ok = build_verdict(fields, listings, load_security_companies(), link)
+    verdict, ok = build_verdict(fields, listings, load_security_companies(), link, body)
 
     print('\n'.join(oneline(line) for line in verdict.splitlines()))
     print(f'Verdict: {"valid" if ok else "needs-fix"}')

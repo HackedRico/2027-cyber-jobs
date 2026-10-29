@@ -260,6 +260,43 @@ def parse_issue_body(body):
     return fields
 
 
+# A line that opens a raw HTML block, at the margin or after a list or quote
+# marker. The page drops a comment, `<?`, `<!X` or CDATA and a tag's
+# attributes, and one left open hides every line below it, while
+# parse_issue_body still reads the fields inside. Only a line start counts:
+# "< 2 years" and an autolink in Notes are honest text.
+_HTML_BLOCK_RE = re.compile(
+    r'^(?:[ \t]*(?:>|[-+*](?=[ \t])|\d{1,9}[.)](?=[ \t])))*[ \t]*'
+    r'<(?:[!?]|/?[A-Za-z][A-Za-z0-9-]*(?=[\s/>]|$))', re.MULTILINE)
+# Every line the page renders as a heading, at any level and with or without
+# a closing run of #, so "### Link ###" reads as a second "### Link".
+_HEADING_RE = re.compile(r'^ {0,3}#{1,6}(?:[ \t]+(.*?))?(?:[ \t]+#+)?[ \t]*$', re.MULTILINE)
+
+
+def form_body_problem(body):
+    """Why an issue body can show a reviewer other fields than the bot reads, or None.
+
+    The issue form alone did it: a Role of `<!--` and a Notes line of `-->`
+    hid the form's own Location and Direct Application Link, Notes drew a
+    second set, and parse_issue_body took the hidden first copy, so approval
+    stored a link the maintainer never saw. The form itself never starts a
+    line with HTML or writes a heading twice.
+    """
+    body = re.sub(r'\r\n?', '\n', body or '')
+    if _HTML_BLOCK_RE.search(body):
+        return ('a line of the issue body starts with HTML such as `<!--`, which can '
+                'hide text from the reviewer.')
+    seen = set()
+    for m in _HEADING_RE.finditer(body):
+        heading = ' '.join((m.group(1) or '').split())
+        if heading.casefold() in seen:
+            return (f'the heading {md_code(heading)} appears more than once in the issue '
+                    'body, and only the first is read.')
+        if heading:
+            seen.add(heading.casefold())
+    return None
+
+
 REMOTE_RE = re.compile(r'^remote\s*(\(us\)|\(usa\)|\(united states\))?$', re.IGNORECASE)
 BARE_COUNTRY_RE = re.compile(r'^(us|usa|united states|nationwide)$', re.IGNORECASE)
 CITY_STATE_RE = re.compile(r'^.+,\s*([A-Z]{2})$')

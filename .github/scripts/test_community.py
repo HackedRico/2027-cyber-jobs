@@ -36,7 +36,8 @@ def check(name, got, want):
 
 def form(company='Acme', role='Security Analyst Intern', listing_type='Internship / Co-op',
          category='SOC & Detection', location='Austin, TX',
-         link='https://boards.greenhouse.io/acme/jobs/1', clearance='No'):
+         link='https://boards.greenhouse.io/acme/jobs/1', clearance='No',
+         notes='_No response_'):
     return (f'### Company Name\n\n{company}\n\n'
             f'### Role / Job Title\n\n{role}\n\n'
             f'### Listing Type\n\n{listing_type}\n\n'
@@ -44,7 +45,7 @@ def form(company='Acme', role='Security Analyst Intern', listing_type='Internshi
             f'### Location\n\n{location}\n\n'
             f'### Security Clearance / U.S. Citizenship Required?\n\n{clearance}\n\n'
             f'### Direct Application Link\n\n{link}\n\n'
-            f'### Additional Notes (Optional)\n\n_No response_\n')
+            f'### Additional Notes (Optional)\n\n{notes}\n')
 
 
 # --- parse_issue_body ----------------------------------------------------------
@@ -61,6 +62,40 @@ PARSE = [
 for name, body, want in PARSE:
     got = common.parse_issue_body(body)
     check(f'parse_issue_body {name}', {k: got.get(k) for k in want}, want)
+
+
+# --- form_body_problem ---------------------------------------------------------
+# The parser reads text the rendered issue hides, and its first copy of a field
+# wins: a comment around a first Direct Application Link showed the maintainer
+# the honest link below it while approval stored the hidden one.
+EVIL_LINK = 'https://evil.example/jobs/2'
+HIDDEN = f'### Direct Application Link\n\n{EVIL_LINK}\n\n'
+HIDDEN_BODY = f'<!--\n{HIDDEN}### x -->\n\n' + form()
+BODIES = [
+    ('an honest form', form(), False),
+    ('an honest form with CRLF line ends', form().replace('\n', '\r\n'), False),
+    ('Notes with "< 2 years", an autolink and inline markup',
+     form(notes='< 2 years of experience\n<https://acme.example/team>\n'
+                'Apply by <b>Friday</b> <!-- rolling -->'), False),
+    ('a comment that hides a first link', HIDDEN_BODY, True),
+    ('a comment that hides a first role',
+     '<!--\n### Role / Job Title\n\nSenior Security Engineer\n\n-->\n\n' + form(), True),
+    # Only the form: Role opens the comment, Notes closes it and draws the
+    # fields again under headings the parser reads as new ones.
+    ('a Role of <!-- closed in Notes',
+     form(role='<!--', link=EVIL_LINK,
+          notes='-->\n\nSecurity Analyst Intern\n\n'
+                '### Direct Application Link ###\n\nhttps://boards.greenhouse.io/acme/jobs/1'),
+     True),
+    ('a comment opened in a list item', f'- <!--\n{HIDDEN}x <!-- -->\n\n' + form(), True),
+    ('a processing instruction', f'<?\n{HIDDEN}### x ?>\n\n' + form(), True),
+    ('a CDATA section', f'<![CDATA[\n{HIDDEN}### x ]]>\n\n' + form(), True),
+    ('a heading repeated after the form', form() + HIDDEN, True),
+    ('a heading repeated at another level and case',
+     form() + f'## direct application link ##\n\n{EVIL_LINK}\n', True),
+]
+for name, body, want in BODIES:
+    check(f'form_body_problem flags {name}', common.form_body_problem(body) is not None, want)
 
 
 # --- normalize_url -------------------------------------------------------------
@@ -579,10 +614,20 @@ check('build_verdict shows the category a Not sure row gets',
 
 body, ok = vi.build_verdict(common.parse_issue_body(form(location='Arlington, Virginia')),
                             EXISTING, frozenset(), ALIVE)
-check('build_verdict shows the stored location',
-      'Location will be stored as `Arlington, VA`' in body, True)
+check('build_verdict shows the stored location', '- Location: `Arlington, VA`' in body, True)
 check('build_verdict body has no em or en dashes',
       '\u2014' in body or '\u2013' in body, False)
+
+# A hidden first link: the verdict flags the body and shows the link approval
+# would store, and ingest refuses it.
+body, ok = vi.build_verdict(common.parse_issue_body(HIDDEN_BODY), EXISTING, frozenset(), ALIVE,
+                            body=HIDDEN_BODY)
+check('build_verdict flags a body that hides text',
+      (ok, '- ❌ A line of the issue body starts with HTML' in body), (False, True))
+check('build_verdict shows the link approval stores', f'- Link: `{EVIL_LINK}`' in body, True)
+result = pa.ingest([{'number': 1, 'body': HIDDEN_BODY}], [], today='2026-09-27')[0]
+check('ingest skips a body that hides text',
+      (result['outcome'], 'starts with HTML' in result['detail']), ('skipped', True))
 
 
 # --- escaping echoed fields ----------------------------------------------------

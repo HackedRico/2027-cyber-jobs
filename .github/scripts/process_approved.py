@@ -27,6 +27,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 import rebuild_readme  # noqa: E402
 from classify import CATEGORY_ALLOWLIST, infer_category, listing_dedup_key  # noqa: E402
 from common import (  # noqa: E402
+    form_body_problem,
     gh_headers,
     link_host,
     md_escape,
@@ -255,8 +256,9 @@ def ingest(issues, listings, security_companies=frozenset(), today=None):
     results = []
     for issue in issues:
         number = issue.get('number')
+        body = issue.get('body') or ''
         try:
-            fields = parse_issue_body(issue.get('body') or '')
+            fields = parse_issue_body(body)
             listing = fields_to_listing(fields, security_companies, today)
         except Exception as e:
             # One malformed issue must not abort the whole approved batch.
@@ -265,7 +267,7 @@ def ingest(issues, listings, security_companies=frozenset(), today=None):
                                       f'({md_escape(str(e))}).'})
             continue
 
-        problem = submission_problem(fields, listing)
+        problem = form_body_problem(body) or submission_problem(fields, listing)
         if problem:
             results.append({'number': number, 'outcome': 'skipped', 'detail': problem})
             continue
