@@ -826,7 +826,7 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 ## How it works
 
 1. [`companies.yml`](companies.yml) lists employers with security teams, plus pure-play security companies, whose job boards expose public APIs.
-2. [`scrape_jobs.py`](.github/scripts/scrape_jobs.py) runs twice a day, pulls every posting, and keeps the ones that are cybersecurity roles, at internship, new-grad or early-career level, and located in the US.
+2. [`scrape_jobs.py`](.github/scripts/scrape_jobs.py) runs twice a day, reads each board (on Workday, Eightfold, Phenom, Jibe and Amazon, only what searches for cyber, cloud and student roles return), and keeps the postings that are cybersecurity, cloud engineering or solutions architecture roles, at internship, new-grad or early-career level, and located in the US.
 3. New matches land in [`listings.json`](listings.json) and the tables above are rebuilt from it.
 4. A role closes when its posting leaves the employer's board for 3 days (up to 14 on the largest boards, which the scraper cannot read in full) or the employer leaves `companies.yml`, or, for community, Amazon and other rows the scraper cannot match to a posting, when a daily [link check](.github/scripts/check_links.py) finds the link gone two days in a row. Closed roles fold under each table for 60 days.
 
