@@ -265,6 +265,12 @@ def build(out=DEFAULT_OUT, listings_file=LISTINGS_FILE, src=SITE_SRC, today=None
     today = today or date.today()
     listings = json.loads(Path(listings_file).read_text(encoding='utf-8'))
     out = Path(out)
+    # The build empties `out` first: '--out site' deleted the page source and
+    # '--out .' the whole checkout. '--out site/preview' copied the page into
+    # itself and left the build's files in the page source.
+    source, target = Path(src).resolve(), out.resolve()
+    if target in (source, *source.parents) or source in target.parents:
+        raise SystemExit(f'Refusing to build into {out}: it overlaps the page source {src}')
     out.mkdir(parents=True, exist_ok=True)
     # Empty the directory rather than delete it, so a local http.server
     # started inside it keeps serving across rebuilds.

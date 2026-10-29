@@ -5,7 +5,9 @@
 """
 import copy
 import json
+import os
 import re
+import shutil
 import sys
 import tempfile
 import xml.etree.ElementTree as ET
@@ -283,6 +285,39 @@ for kind, want in (('intern', ['Acme: Security Intern']),
 _, items = entries(bs.build_feed(bs.page_data(real, TODAY)['rows'])[1])
 check('feed.xml caps at 50 entries', len(items), bs.FEED_SIZE)
 check('real feed entry ids are unique', len({e.find(f'{A}id').text for e in items}), len(items))
+
+
+# --- --out never overlaps the source ----------------------------------------------
+# The build empties --out first: '--out site' deleted the page source and
+# '--out .' the whole checkout. '--out site/preview' wrote the build into site/.
+def build_into(root, out):
+    saved = sys.argv, Path.cwd()
+    sys.argv = ['build_site.py', '--out', out, '--today', TODAY.isoformat()]
+    try:
+        os.chdir(root)
+        bs.main()
+        return 'built'
+    except SystemExit as e:
+        return str(e.code).split(':')[0]
+    finally:
+        sys.argv = saved[0]
+        os.chdir(saved[1])
+
+
+with tempfile.TemporaryDirectory() as tmp:
+    shutil.copytree(ROOT / 'site', Path(tmp) / 'site')
+    (Path(tmp) / 'listings.json').write_text(json.dumps(LISTINGS), encoding='utf-8')
+    files = sorted(str(p.relative_to(tmp)) for p in Path(tmp).rglob('*'))
+    refused = [build_into(tmp, out) for out in ('site', '.', 'site/..', tmp, 'site/preview')]
+    check('--out refuses the page source, every folder above it and any inside it',
+          refused, ['Refusing to build into site', 'Refusing to build into .',
+                    'Refusing to build into site/..', f'Refusing to build into {tmp}',
+                    'Refusing to build into site/preview'])
+    check('a refused build leaves every file in place',
+          sorted(str(p.relative_to(tmp)) for p in Path(tmp).rglob('*')), files)
+    check('--out _site still builds', (build_into(tmp, '_site'),
+                                       (Path(tmp) / '_site' / 'index.html').exists()),
+          ('built', True))
 
 
 # --- one bad row cannot break the feeds ----------------------------------------
