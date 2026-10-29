@@ -778,6 +778,14 @@ def recruitee_location(job):
     return '; '.join(dict.fromkeys(p for p in map(_recruitee_part, sites) if p))
 
 
+# Only a listed code reads as a country: any three leading capitals also put a
+# US site named 'NYC Office' or 'ATL Office' abroad. A site whose code is
+# missing here falls back to its city and province.
+PINPOINT_FOREIGN_CODES = frozenset(
+    'ARE AUS BEL CAN CHE DEU DNK ESP FRA GBR HKG IND IRL ISR ITA JPN LTU MEX NLD NOR '
+    'NZL POL PRT SGP SWE'.split())
+
+
 def scrape_pinpoint(company, slug, apply_hosts=()):
     if not _valid_slug(slug):
         print(f'  [{_oneline(company)}] invalid pinpoint slug {slug!r} — skipping')
@@ -797,7 +805,7 @@ def scrape_pinpoint(company, slug, apply_hosts=()):
         # NCC Group site at 'Cambridge, Cambridgeshire' read as Massachusetts.
         # A foreign site gets no location, as in recruitee_location.
         code = re.match(r'([A-Z]{3})\b', name)
-        if code and code.group(1) != 'USA':
+        if code and code.group(1) in PINPOINT_FOREIGN_CODES:
             location = ''
         # Pinpoint marks a Manchester-based home worker 'remote' too (NCC Group
         # 'Associate SOC Analyst'), so only a USA location name reads as US.

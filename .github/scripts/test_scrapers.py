@@ -1300,14 +1300,17 @@ def test_pinpoint_remote_is_us_only_for_usa_locations():
          'location': {'city': 'Cambridge', 'province': '', 'name': 'GBR Cambridge'}},
         {'id': '6', 'title': 'Security Consultant', 'workplace_type': 'onsite',
          'location': {'city': 'Austin', 'province': 'Texas', 'name': 'USA Austin'}},
+        # A US site can lead with a city's code, which is no country.
+        {'id': '7', 'title': 'Security Consultant I', 'workplace_type': 'onsite',
+         'location': {'city': 'New York', 'province': 'New York', 'name': 'NYC Office'}},
     ]})
     jobs = sj.scrape_pinpoint('Acme', 'acme')
     check('pinpoint gives a site outside the USA no location',
           [j['location'] for j in jobs],
-          ['', 'Remote', '', '', '', 'Austin, Texas'])
+          ['', 'Remote', '', '', '', 'Austin, Texas', 'New York, New York'])
     check('only the USA postings read as US',
           [sj.is_us_location(j['location']) for j in jobs],
-          [False, True, False, False, False, True])
+          [False, True, False, False, False, True, True])
 
 
 @responses.activate
