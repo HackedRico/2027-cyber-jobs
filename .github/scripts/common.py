@@ -377,7 +377,8 @@ def _fix_typed_spelling(part):
     return REGION_CODE_RE.sub(lambda m: f', {m.group(1).upper()}', part)
 
 
-def _typed_places(location):
+def typed_location(location):
+    """Return a form location as typed, one place per `;`, with typed spellings fixed."""
     return '; '.join(_fix_typed_spelling(p) for p in SUBMITTED_SPLIT_RE.split(location or '')
                      if p.strip())
 
@@ -388,7 +389,7 @@ def normalize_submitted_location(location):
     Runs the scraper's normalize_location over the whole string, so a foreign
     option beside a US one is dropped the same way it is for scraped rows.
     """
-    return normalize_location(_typed_places(location)) or ''
+    return normalize_location(typed_location(location)) or ''
 
 
 def validate_location(location):
@@ -420,7 +421,7 @@ def validate_location(location):
                 f'{md_code(part)}: {md_code(m.group(1))} is not a US state code. '
                 f'This board is US-only.'
             )
-    typed = _typed_places(location)
+    typed = typed_location(location)
     if not errors and not is_us_location(typed):
         # Each part alone looks fine once normalize_location has run: it drops
         # "London, UK" and reads the bare "Remote" left beside it as Remote

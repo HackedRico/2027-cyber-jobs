@@ -734,9 +734,13 @@ body, ok = vi.build_verdict(common.parse_issue_body(form(location='Arlington, Vi
 check('build_verdict shows the stored location', '- Location: `Arlington, VA`' in body, True)
 
 # A location the verdict once passed, or failed while ingest still added it.
+# One place per line is the form's other separator, and the charter gate once
+# read the two lines as one place abroad.
 for location, valid in (('London, UK; Remote', False), ('Remote (Europe); Remote', False),
                         ('Toronto, CA', False), ('Mumbai, IN', False),
-                        ('Arlington, Virginia; Remote', True)):
+                        ('Arlington, Virginia; Remote', True),
+                        ('Austin, TX\nLondon, UK', True), ('Remote (US)\nBangalore, India', True),
+                        ('London, UK\nRemote', False)):
     verdict, ok = vi.build_verdict(common.parse_issue_body(form(location=location)),
                                    EXISTING, frozenset(), ALIVE)
     check(f'build_verdict on {location!r}',

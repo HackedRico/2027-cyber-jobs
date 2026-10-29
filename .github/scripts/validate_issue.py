@@ -43,6 +43,7 @@ from common import (  # noqa: E402
     oneline,
     parse_issue_body,
     public_address,
+    typed_location,
     validate_location,
 )
 from process_approved import fields_to_listing, load_security_companies  # noqa: E402
@@ -296,8 +297,11 @@ def build_verdict(fields, listings, security_companies=frozenset(), link=None, b
     security_company = listing['company'].lower() in security_companies
     errors = form_errors(fields, body)
     # The submitted location, since the stored one has lost any foreign part
-    # and calls a bare "Remote" beside it Remote (US).
-    gate = charter_gate(listing['role'], fields.get('Location', ''), security_company)
+    # and calls a bare "Remote" beside it Remote (US). Split as validate_location
+    # splits it: a newline joined "Austin, TX" to "London, UK" into one place
+    # that read as abroad, though the form takes one location per line.
+    gate = charter_gate(listing['role'], typed_location(fields.get('Location', '')),
+                        security_company)
     dupes = find_duplicates(listing, listings) if listing['company'] else []
     # process_approved reopens a closed match rather than rejecting it.
     open_dupes = [entry for entry, _ in dupes if is_open(entry)]
