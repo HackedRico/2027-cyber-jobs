@@ -15,6 +15,7 @@ from pathlib import Path
 import testkit  # noqa: F401
 
 sys.path.insert(0, str(Path(__file__).parent))
+import check_outputs as co  # noqa: E402
 import classify  # noqa: E402
 import common  # noqa: E402
 import process_approved as pa  # noqa: E402
@@ -540,6 +541,13 @@ def test_adapter_connects_to_the_checked_address():
     except vi.BlockedAddress:
         pass
     check('adapter resolves the name once per request', resolved, ['rebind.example'])
+    resolved.clear()
+    try:
+        blocking.get_connection_with_tls_context(_Request('http://jobs.example:6379/'), True)
+        check('adapter refuses a port other than 80 or 443', 'no error', 'BlockedTarget')
+    except vi.BlockedTarget:
+        pass
+    check('adapter refuses the port before resolving the name', resolved, [])
 
 
 def test_session_sends_the_hostname_to_the_pinned_address():
@@ -560,12 +568,29 @@ def test_session_sends_the_hostname_to_the_pinned_address():
     server = http.server.HTTPServer(('127.0.0.1', 0), Handler)
     threading.Thread(target=server.serve_forever, daemon=True).start()
     port = server.server_address[1]
+    allowed = common.ALLOWED_PORTS
     try:
+        # A loopback server cannot take port 80 or 443.
+        common.ALLOWED_PORTS = allowed | {port}
         session = vi.public_session(resolve=lambda host, port: '127.0.0.1')
         resp = session.get(f'http://jobs.example:{port}/x', timeout=5)
         check('pinned session reaches the resolved address with the hostname as Host',
               (resp.status_code, hosts), (200, [f'jobs.example:{port}']))
+        common.ALLOWED_PORTS = allowed
+        # requests ends the host at the backslash, so it would connect to this
+        # port while urlsplit read the Workday host on 443.
+        trick = f'http://jobs.example:{port}\\@crowdstrike.wd5.myworkdayjobs.com/x'
+        check('check_link reads the port a backslash link really uses',
+              vi.check_link(trick, get=session.get),
+              {'dead': True, 'summary': f'not checked: port {port} is not fetched, only 80 and 443'})
+        try:
+            session.get(trick, timeout=5)
+            check('the session refuses a port other than 80 or 443', 'fetched', 'BlockedTarget')
+        except vi.BlockedTarget:
+            pass
+        check('a refused port never reaches the server', len(hosts), 1)
     finally:
+        common.ALLOWED_PORTS = allowed
         server.shutdown()
         server.server_close()
 
@@ -721,6 +746,7 @@ HOSTS = [
     ('https://Careers.ACME.com./x', 'careers.acme.com'),
     ('https://bücher.example/x', 'xn--bcher-kva.example'),
     ('https://user@jobs.example:443/x', 'jobs.example'),
+    ('https://evil.example\\@crowdstrike.wd5.myworkdayjobs.com/x', 'evil.example'),
     ('javascript:alert(1)', ''),
     ('', ''),
 ]
@@ -731,6 +757,28 @@ check('host_matches takes a subdomain of an ATS',
           'acme.wd5.myworkdayjobs.com', 'greenhouse.io', 'greenhouse.io.evil.example',
           'evilgreenhouse.io')],
       [True, True, False, False])
+
+# A browser and urllib3 end the host at a backslash and urlsplit does not, so
+# this link showed the Workday host, raised no domain warning and opened
+# evil.example.
+BACKSLASH = 'https://evil.example\\@crowdstrike.wd5.myworkdayjobs.com/en-US/x/job/X_R1'
+body, ok = vi.build_verdict(common.parse_issue_body(form(link=BACKSLASH)), EXISTING,
+                            frozenset(), ALIVE)
+check('build_verdict refuses a link with a backslash',
+      ('must be a single-line URL starting with `http://` or `https://`, with no backslash'
+       in body, ok), (True, False))
+check('build_verdict shows the host a browser opens', '- Host: `evil.example`' in body, True)
+# A bare scheme passed ingest and then failed check_outputs, which failed every
+# later add-listing run while the issue stayed approved.
+listings = []
+results = pa.ingest([{'number': 1, 'body': form(link=BACKSLASH)},
+                     {'number': 2, 'body': form(role='SOC Analyst Intern', link='https://')},
+                     {'number': 3, 'body': form()}], listings, today='2026-09-27')
+check('ingest skips a backslash link and a bare scheme and adds the rest',
+      [(r['number'], r['outcome']) for r in results],
+      [(1, 'skipped'), (2, 'skipped'), (3, 'added')])
+check('ingest names the link problem', 'http(s) URL' in results[1]['detail'], True)
+check('check_outputs passes what ingest stored', co.check_listings(listings), [])
 
 
 # --- one-line fields and control characters in a submission ---------------------

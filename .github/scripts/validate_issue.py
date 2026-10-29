@@ -31,6 +31,7 @@ from classify import (  # noqa: E402
     rejected_title_rule,
 )
 from common import (  # noqa: E402
+    HTTP_URL_RE,
     fetch_target_problem,
     form_body_problem,
     gh_headers,
@@ -112,9 +113,9 @@ def form_errors(fields, body=None):
     errors += [f'**{f}** must be one line' for f in ONE_LINE_FIELDS
                if re.search(r'[\r\n]', fields.get(f, '').strip())]
     link = fields.get('Direct Application Link', '').strip()
-    if link and not re.match(r'^https?://\S+$', link):
+    if link and not HTTP_URL_RE.fullmatch(link):
         errors.append('**Direct Application Link** must be a single-line URL '
-                      'starting with `http://` or `https://`')
+                      'starting with `http://` or `https://`, with no backslash')
     location = fields.get('Location', '').strip()
     if location:
         errors.extend(f'**Location**: {e}' for e in validate_location(location))
@@ -155,6 +156,10 @@ class BlockedAddress(requests.ConnectionError):
     """The link's host resolves to an address that is not public."""
 
 
+class BlockedTarget(requests.ConnectionError):
+    """The URL requests is about to fetch fails common.fetch_target_problem."""
+
+
 class PublicOnlyAdapter(HTTPAdapter):
     """Connect only to a public address, and to the one that was checked.
 
@@ -171,6 +176,11 @@ class PublicOnlyAdapter(HTTPAdapter):
         super().__init__(**kwargs)
 
     def get_connection_with_tls_context(self, request, verify, proxies=None, cert=None):
+        problem = fetch_target_problem(request.url)
+        if problem:
+            # check_link vets each hop, but requests parses the URL again, and
+            # a backslash once moved the port it connected to past that check.
+            raise BlockedTarget(problem, request=request)
         parts = urlsplit(request.url)
         host = parts.hostname or ''
         port = parts.port or (443 if parts.scheme == 'https' else 80)
@@ -231,6 +241,8 @@ def check_link(url, get=None):
         except BlockedAddress:
             return {'dead': True, 'summary': f'{md_code(link_host(url))} does not resolve '
                                              'to a public address'}
+        except BlockedTarget as e:
+            return {'dead': True, 'summary': f'not checked: {e}'}
         except requests.RequestException as e:
             return {'dead': False, 'summary': f'could not connect ({type(e).__name__})'}
         resp.close()
@@ -418,7 +430,7 @@ def main():
     listings = json.loads(LISTINGS_FILE.read_text()) if LISTINGS_FILE.exists() else []
     link_url = fields.get('Direct Application Link', '').strip()
     link = None
-    if link_url and not args.no_link and re.match(r'^https?://\S+$', link_url):
+    if link_url and not args.no_link and HTTP_URL_RE.fullmatch(link_url):
         link = check_link(link_url)
     verdict, ok = build_verdict(fields, listings, load_security_companies(), link, body)
 

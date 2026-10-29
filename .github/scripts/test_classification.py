@@ -1650,6 +1650,8 @@ RENDER = [
     ('escape_cell escapes angle brackets', rr.escape_cell('<b>') == '&lt;b&gt;'),
     ('apply_btn rejects whitespace in url', rr.apply_btn('https://x/j\n| Fake |') == '🔒'),
     ('apply_btn rejects javascript:', rr.apply_btn('javascript:alert(1)') == '🔒'),
+    ('apply_btn rejects a backslash, which a browser reads as /',
+     rr.apply_btn('https://evil.example\\@crowdstrike.wd5.myworkdayjobs.com/x') == '🔒'),
     ('apply_btn escapes pipe in url', '|' not in rr.apply_btn('https://x/a|b')),
     ('apply_btn renders a clean https url', rr.apply_btn('https://x/job').startswith('<a href="https://x/job"')),
     # GFM autolinks a bare URL, www. and user@host inside a table cell.

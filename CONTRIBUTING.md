@@ -82,7 +82,7 @@ The role is in the US or remote within the US. The form accepts:
 
 Separate several locations with `;` or put one per line. The bot shows the form it will store, such as `Arlington, VA`. A foreign location next to a US one is dropped, and a role with no US location is out, as is one whose title places it abroad ("Support Engineer I - UK", "... located at Ramstein AFB, Germany").
 
-The application link must go to the posting itself, not a careers homepage, and open without a login.
+The application link must go to the posting itself, not a careers homepage, and open without a login. Paste it as one `http://` or `https://` URL with no spaces or backslashes.
 
 ## 2. Report a bad row
 

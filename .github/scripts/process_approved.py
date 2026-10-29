@@ -27,6 +27,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 import rebuild_readme  # noqa: E402
 from classify import CATEGORY_ALLOWLIST, infer_category, listing_dedup_key  # noqa: E402
 from common import (  # noqa: E402
+    HTTP_URL_RE,
     form_body_problem,
     gh_headers,
     link_host,
@@ -219,8 +220,8 @@ def submission_problem(fields, listing):
     # places before it gets here.
     if any(re.search(r'[\r\n]', listing[f]) for f in ('company', 'role', 'location')):
         return 'the company, role and location must each be one line.'
-    if not re.match(r'^https?://', listing['url']) or re.search(r'\s', listing['url']):
-        return 'the application link must be a single-line http(s) URL.'
+    if not HTTP_URL_RE.fullmatch(listing['url']):
+        return 'the application link must be a single-line http(s) URL with no backslash.'
     # Re-validated at ingestion: an edit after validate_issue.py ran could
     # carry a non-US or malformed location past that check.
     loc_errors = validate_location(fields.get('Location', ''))

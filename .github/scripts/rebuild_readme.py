@@ -10,7 +10,7 @@ from datetime import date, datetime
 from pathlib import Path
 
 from classify import CATEGORY_NAMES, FALLBACK_CATEGORIES
-from common import defang_autolinks
+from common import HTTP_URL_RE, defang_autolinks
 
 LISTINGS_FILE = Path('listings.json')
 README_FILE = Path('README.md')
@@ -142,7 +142,7 @@ def apply_btn(url, label=''):
     # stops an embedded newline/tab from breaking out of the table cell and
     # injecting a fake row with a working (phishing) link. '|' is escaped so a
     # bare pipe can't open a new column either.
-    if not url or not re.match(r'^https?://', url) or re.search(r'\s', url):
+    if not url or not HTTP_URL_RE.fullmatch(url):
         return '🔒'
     href = html.escape(url, quote=True).replace('|', '&#124;')
     # A screen reader otherwise hears 198 identical "Apply" links.

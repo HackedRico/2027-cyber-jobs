@@ -187,6 +187,20 @@ def public_address(host, port=443):
     return next((a for a in addresses if ':' not in a), addresses[0])
 
 
+# A link the board stores and fetches: http(s), something after the scheme,
+# and no whitespace or backslash. Use with fullmatch. The ingest check and
+# check_outputs once disagreed on a bare "https://", which then failed every
+# later add-listing run.
+HTTP_URL_RE = re.compile(r'https?://[^\s\\]+')
+
+
+def _split_as_browser(url):
+    # Browsers and urllib3 read a backslash as '/' and urlsplit does not:
+    # 'https://evil.example\@crowdstrike.wd5.myworkdayjobs.com/' showed the
+    # Workday host in the verdict and fetched evil.example.
+    return urlsplit(url.replace('\\', '/'))
+
+
 def fetch_target_problem(url):
     """Why an untrusted link must not be fetched, or None when it may be.
 
@@ -194,7 +208,7 @@ def fetch_target_problem(url):
     host is still a way to probe services a job posting never runs on.
     """
     try:
-        parts = urlsplit(url)
+        parts = _split_as_browser(url)
         port = parts.port
     except ValueError:
         return 'the link is not a valid URL'
@@ -212,7 +226,7 @@ def link_host(url):
     as xn--greenhuse-52h.io.
     """
     try:
-        host = urlsplit(url or '').hostname or ''
+        host = _split_as_browser(url or '').hostname or ''
     except ValueError:
         return ''
     host = host.rstrip('.')

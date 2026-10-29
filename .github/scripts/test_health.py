@@ -52,6 +52,11 @@ ROWS = [
     ('a non-http url', row(url='javascript:alert(1)'), ['is not a single-line http(s) link']),
     ('a url with a newline', row(url='https://x.example/a\n| fake |'),
      ['is not a single-line http(s) link']),
+    # A browser opens evil.example; urlsplit reads the Workday host.
+    ('a url with a backslash',
+     row(url='https://evil.example\\@crowdstrike.wd5.myworkdayjobs.com/x/job/X_R1'),
+     ['is not a single-line http(s) link']),
+    ('a bare scheme', row(url='https://'), ['is not a single-line http(s) link']),
     ('a missing field', {k: v for k, v in row().items() if k != 'source'},
      ['missing field `source`']),
     ('a string clearance', row(clearance='yes'), ['`clearance` is str, want bool']),
