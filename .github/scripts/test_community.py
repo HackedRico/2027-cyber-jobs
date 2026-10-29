@@ -203,6 +203,11 @@ for submitted, stored, valid in LOCATIONS:
     if not classify.is_us_location(submitted):
         check(f'is_us_location rejects, so validate_location must too: {submitted!r}',
               bool(errors), True)
+# "Mumbai, IN" was told to fix a bare "Remote" it never had.
+check('validate_location names a bare Remote only when one was typed',
+      ['bare "Remote"' in ' '.join(common.validate_location(location))
+       for location in ('London, UK; Remote', 'Mumbai, IN', 'Remote (Canada)')],
+      [True, False, False])
 
 
 # --- security_company_names ----------------------------------------------------

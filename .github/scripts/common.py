@@ -423,11 +423,11 @@ def validate_location(location):
         # Each part alone looks fine once normalize_location has run: it drops
         # "London, UK" and reads the bare "Remote" left beside it as Remote
         # (US), and "Toronto, CA" passes as a California city.
-        errors.append(
-            f'{md_code(typed)} does not read as a US location. A bare "Remote" beside '
-            f'a place abroad reads as remote from there, so write "Remote (US)" for a '
-            f'US option.'
-        )
+        error = f'{md_code(typed)} does not read as a US location.'
+        if any(m and not m.group(1) for m in map(REMOTE_RE.match, typed.split('; '))):
+            error += (' A bare "Remote" beside a place abroad reads as remote from there, '
+                      'so write "Remote (US)" for a US option.')
+        errors.append(error)
     return errors
 
 
