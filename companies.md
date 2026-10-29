@@ -4,14 +4,14 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **404 companies tracked.**
 
-## Hiring students now (117)
+## Hiring students now (120)
 
 Employers with open roles on the board today.
 
 | Company | Internships | New grad | Early career |
 | ------- | ----------- | -------- | ------------ |
 | Johns Hopkins APL | 12 | 15 |  |
-| Booz Allen Hamilton | 13 |  | 4 |
+| Booz Allen Hamilton | 17 |  | 4 |
 | Vanguard | 5 | 6 |  |
 | Microsoft | 9 |  | 6 |
 | 1Password | 9 |  | 2 |
@@ -31,9 +31,9 @@ Employers with open roles on the board today.
 | BDO | 2 | 1 | 1 |
 | Goldman Sachs | 3 |  | 1 |
 | Entrust | 3 |  |  |
+| HP Inc | 3 |  |  |
 | Idaho National Laboratory | 3 |  |  |
 | Palantir | 2 | 1 |  |
-| Northrop Grumman | 1 | 1 | 13 |
 | Citi | 1 | 1 | 2 |
 | Appian | 1 | 1 | 1 |
 | CACI | 2 |  | 1 |
@@ -42,7 +42,6 @@ Employers with open roles on the board today.
 | Sierra Nevada Corporation | 2 |  | 1 |
 | Applied Intuition |  | 2 |  |
 | Elevance Health | 2 |  |  |
-| HP Inc | 2 |  |  |
 | Illumio | 2 |  |  |
 | Immuta | 2 |  |  |
 | Johnson &amp; Johnson | 2 |  |  |
@@ -52,17 +51,15 @@ Employers with open roles on the board today.
 | Together AI | 1 | 1 |  |
 | Visa | 2 |  |  |
 | Walmart | 2 |  |  |
-| RTX | 1 |  | 15 |
+| RTX | 1 |  | 14 |
+| Northrop Grumman |  | 1 | 12 |
 | Nightwing | 1 |  | 8 |
-| GDIT | 1 |  | 3 |
+| GDIT | 1 |  | 2 |
 | Lockheed Martin | 1 |  | 2 |
 | Pinterest | 1 |  | 2 |
-| STR | 1 |  | 2 |
 | Cisco | 1 |  | 1 |
 | Draper | 1 |  | 1 |
 | Motorola Solutions | 1 |  | 1 |
-| Parsons | 1 |  | 1 |
-| The Home Depot | 1 |  | 1 |
 | Verkada | 1 |  | 1 |
 | Adobe | 1 |  |  |
 | Bank of America | 1 |  |  |
@@ -70,6 +67,7 @@ Employers with open roles on the board today.
 | Duke Energy | 1 |  |  |
 | Exelon | 1 |  |  |
 | Fifth Third | 1 |  |  |
+| Figma | 1 |  |  |
 | Grant Thornton |  | 1 |  |
 | Guidehouse |  | 1 |  |
 | ICF | 1 |  |  |
@@ -91,20 +89,21 @@ Employers with open roles on the board today.
 | Fortinet |  |  | 5 |
 | KBR |  |  | 5 |
 | Amentum |  |  | 4 |
-| Abnormal AI |  |  | 3 |
 | ExtraHop |  |  | 3 |
+| JPMorgan Chase |  |  | 3 |
 | Kyndryl |  |  | 3 |
 | Recorded Future |  |  | 3 |
+| Abnormal AI |  |  | 2 |
 | Battelle |  |  | 2 |
+| Boeing |  |  | 2 |
 | Fortra |  |  | 2 |
-| JPMorgan Chase |  |  | 2 |
 | PwC |  |  | 2 |
 | Salt Security |  |  | 2 |
+| STR |  |  | 2 |
 | Trail of Bits |  |  | 2 |
 | Accenture Federal Services |  |  | 1 |
 | AeroVironment |  |  | 1 |
 | Anthropic |  |  | 1 |
-| Arctic Wolf |  |  | 1 |
 | BeyondTrust |  |  | 1 |
 | Corelight |  |  | 1 |
 | Delinea |  |  | 1 |
@@ -117,13 +116,17 @@ Employers with open roles on the board today.
 | Huntress |  |  | 1 |
 | Mastercard |  |  | 1 |
 | MIT Lincoln Laboratory |  |  | 1 |
+| Morgan Stanley |  |  | 1 |
 | Obsidian Security |  |  | 1 |
+| Parsons |  |  | 1 |
+| PNC |  |  | 1 |
 | Praetorian |  |  | 1 |
 | ReliaQuest |  |  | 1 |
 | SAIC |  |  | 1 |
 | SailPoint |  |  | 1 |
 | Shift5 |  |  | 1 |
 | Tenable |  |  | 1 |
+| The Home Depot |  |  | 1 |
 | Tines |  |  | 1 |
 | Trellix |  |  | 1 |
 | Two Six Technologies |  |  | 1 |
