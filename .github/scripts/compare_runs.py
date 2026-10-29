@@ -7,9 +7,10 @@
 
 Reports rows accepted in only one run, rows whose level changed, existing rows
 one run drops, retires, reclassifies, refreshes, revives, renames or has its
-location repaired and the other does not, postings one run skips at insert, a
-changed renormalized-location or control-character count or closing summary
-line, and boards whose status changed. Event lines are counted, so a run that
+location repaired and the other does not, postings one run skips at insert or
+defers on a failed detail fetch, a changed renormalized-location or
+control-character count or closing summary line, and boards whose status
+changed. Event lines are counted, so a run that
 drops one of two same-title rows differs from one that drops both. Exits 1
 when anything differs, so a clean exit is the equivalence proof for a scraper
 or classifier change, with one blind spot: an event line names a stored row by
@@ -40,6 +41,9 @@ BOARD_RE = re.compile(r'^Checking (.+?)\.\.\. (ok|zero|FAILED|CRASHED) \((\d+) p
 REVIVED_RE = re.compile(r'^\s*REVIVED (.+)$')
 RENAMED_RE = re.compile(r'^\s*RENAMED \[company\] (.+)$')
 SKIPPED_RE = re.compile(r'^\s*SKIPPED \[([\w-]+)\] (.+)$')
+# A 429 or 5xx on a detail fetch defers the posting, so without these lines a
+# title deferred in one run read as accepted only in the other, a false flip.
+DEFERRED_RE = re.compile(r'^\s*DEFERRED \[([\w-]+)\] (.+)$')
 RENORMALIZED_RE = re.compile(r'^Renormalized (\d+) location\(s\)$')
 STRIPPED_RE = re.compile(r'^Stripped control characters from (\d+) row\(s\)$')
 SUMMARY_RE = re.compile(r'^Added \d+ new listing\(s\), .+$')
@@ -56,6 +60,7 @@ class Run(NamedTuple):
     revived: Counter  # "Company — Title"
     renamed: Counter  # "Old Company -> Company — Title"
     skipped: Counter  # ("Company — Title @ 'location'", reason)
+    deferred: Counter  # ("Company — Title", reason)
     renormalized: int
     stripped: int     # rows stripped of control characters
     summary: str | None  # the closing "Added N new listing(s), ..." line
@@ -71,6 +76,7 @@ def parse_log(text):
     # so even a (title, old location) key repeats.
     dropped, reclassified, refreshed, retired = Counter(), Counter(), Counter(), Counter()
     revived, renamed, skipped, repaired = Counter(), Counter(), Counter(), Counter()
+    deferred = Counter()
     renormalized, stripped, summary = 0, 0, None
     for line in text.splitlines():
         if m := NEW_RE.match(line):
@@ -87,6 +93,8 @@ def parse_log(text):
             renamed[m.group(1).strip()] += 1
         elif m := SKIPPED_RE.match(line):
             skipped[(m.group(2).strip(), m.group(1))] += 1
+        elif m := DEFERRED_RE.match(line):
+            deferred[(m.group(2).strip(), m.group(1))] += 1
         elif m := RENORMALIZED_RE.match(line):
             renormalized = int(m.group(1))
         elif m := STRIPPED_RE.match(line):
@@ -100,7 +108,7 @@ def parse_log(text):
         elif m := BOARD_RE.match(line):
             boards[m.group(1)] = (m.group(2), int(m.group(3)))
     return Run(rows, dropped, reclassified, repaired, boards, refreshed, retired,
-               revived, renamed, skipped, renormalized, stripped, summary)
+               revived, renamed, skipped, deferred, renormalized, stripped, summary)
 
 
 def _section(title, items):
@@ -161,6 +169,8 @@ def diff(before, after):
             + _both_ways('Existing rows whose company was renamed', before.renamed,
                          after.renamed, str)
             + _both_ways('Postings skipped at insert', before.skipped, after.skipped, _tagged)
+            + _both_ways('Postings deferred on a failed detail fetch', before.deferred,
+                         after.deferred, _tagged)
             + _changed('Locations renormalized', before.renormalized, after.renormalized)
             + _changed('Rows stripped of control characters', before.stripped,
                        after.stripped)

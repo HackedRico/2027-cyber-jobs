@@ -2822,6 +2822,12 @@ def test_compare_runs_counts_repeats_and_reads_every_event():
               compare_runs.parse_log(board + repair.format('Reston, VA'))),
           ['Existing rows whose location was repaired only before (1):',
            "  - Acme — SOC Analyst I: 'US' -> 'Austin, TX'", ''])
+    deferred = '  DEFERRED [detail] Acme — Cyber Analyst I\n'
+    check('compare_runs lists a posting only one run deferred on a failed detail fetch',
+          compare_runs.diff(compare_runs.parse_log(board + deferred),
+                            compare_runs.parse_log(board)),
+          ['Postings deferred on a failed detail fetch only before (1):',
+           '  - Acme — Cyber Analyst I [detail]', ''])
     summary = ('\nAdded 1 new listing(s), revived {}, reclassified 0, purged 0, '
                'repaired 0 location(s) + folded 0 duplicate(s), retired 0 vanished '
                '(0 more missing) + 0 orphaned, dropped 0 (none), '
