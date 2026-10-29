@@ -9,6 +9,7 @@ This file owns the ATS scrapers, persistence, and orchestration.
 """
 
 import argparse
+import html
 import json
 import os
 import random
@@ -395,7 +396,11 @@ def scrape_greenhouse(company, slug, apply_hosts=()):
             'url': links.pick(job.get('absolute_url', ''),
                               f'https://job-boards.greenhouse.io/{slug}/jobs/{job["id"]}'),
             'board': 'Greenhouse',
-            'description': job.get('content', ''),
+            # The Job Board API escapes `content` once more than the posting's
+            # HTML, and strip_html unescapes once, so '5+&nbsp;years' and
+            # 'U.S.&nbsp;citizen' reached the experience and clearance rules as
+            # literal entities and a 5-year req passed as early career.
+            'description': html.unescape(job.get('content') or ''),
         })
     links.report()
     return jobs

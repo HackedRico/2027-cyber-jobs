@@ -7,6 +7,7 @@ Exercises the response-shape handling that only broke in production before —
 location extraction, pagination stops, intern hints, schema drift, and the
 retry/backoff fetch layer — without touching the network.
 """
+import html
 import json
 import os
 import sys
@@ -69,6 +70,7 @@ def test_greenhouse_location_reads_only_location_fields():
 
 
 # --- scrape_greenhouse ---------------------------------------------------------
+# The Job Board API sends `content` HTML-escaped: '&lt;p&gt;' for '<p>'.
 @responses.activate
 def test_greenhouse():
     responses.get(
@@ -76,11 +78,32 @@ def test_greenhouse():
         json={'jobs': [{'id': 1, 'title': 'Security Engineer',
                         'location': {'name': 'Remote'},
                         'offices': [{'name': 'Austin, TX'}],
-                        'absolute_url': 'https://x/1', 'content': 'desc'}]})
+                        'absolute_url': 'https://x/1',
+                        'content': html.escape('<p>desc</p>')}]})
     jobs = sj.scrape_greenhouse('Acme', 'acme')
     check('greenhouse parses one job', len(jobs), 1)
     check('greenhouse uses offices for location', jobs[0]['location'], 'Austin, TX')
     check('greenhouse id', jobs[0]['id'], 'greenhouse_acme_1')
+    check('greenhouse stores the posting html', jobs[0]['description'], '<p>desc</p>')
+
+
+@responses.activate
+def test_greenhouse_entities_reach_the_gates():
+    """'5+&nbsp;years' arrives as '5+&amp;nbsp;years' and read as no floor at all."""
+    def posting(n, title, body):
+        return {'id': n, 'title': title, 'location': {'name': 'Austin, TX'},
+                'absolute_url': GH_JOBS.format('acme', n), 'content': html.escape(body)}
+    responses.get('https://boards-api.greenhouse.io/v1/boards/acme/jobs', json={'jobs': [
+        posting(1, 'Security Engineer I', '<p>Join our detection team.</p>'
+                '<ul><li>5+&nbsp;years of experience in security engineering</li></ul>'),
+        posting(2, 'Security Analyst I', '<p>Entry level SOC role.</p>'
+                '<p>Must be a U.S.&nbsp;citizen.</p>')]})
+    jobs = sj.scrape_greenhouse('Acme', 'acme')
+    added, _ = sj.insert_new_listings([], jobs, {}, {}, '2026-10-29')
+    check('the escaped years floor keeps the 5-year req off the board',
+          [r['role'] for r in added], ['Security Analyst I'])
+    check('the escaped citizenship line sets clearance',
+          [r['clearance'] for r in added], [True])
 
 
 @responses.activate
@@ -3401,7 +3424,8 @@ def test_check_slugs_reports_who_owns_each_board():
 
 
 for fn in (test_greenhouse_location_reads_only_location_fields,
-           test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
+           test_greenhouse, test_greenhouse_entities_reach_the_gates,
+           test_greenhouse_http_error_returns_none, test_lever,
            test_lever_reads_all_locations,
            test_ashby, test_ashby_schema_drift_warns,
            test_ashby_falls_back_to_the_postal_address,
