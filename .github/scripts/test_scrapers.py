@@ -147,15 +147,21 @@ def test_lever_reads_all_locations():
         posting('d', 'DK', 'Remote Denmark', 'Remote Sweden'),
         {'id': 'e', 'text': 'Security Analyst', 'country': 'US',
          'categories': {'location': 'Austin, TX'}, 'hostedUrl': 'x'},
+        # A bare remote names no country, so the GB country decides.
+        posting('f', 'GB', 'Remote'),
+        posting('g', 'CA', 'Flexible / Remote'),
+        posting('h', 'CA', 'Remote', 'Remote (US)'),
+        posting('i', 'US', 'Remote'),
     ])
     jobs = sj.scrape_lever('Acme', 'acme')
     check('lever joins allLocations and skips only a req with no US site',
           [(j['id'], j['location']) for j in jobs],
           [('lever_acme_a', 'Vancouver; Milpitas, California'),
            ('lever_acme_b', 'Wichita Metro Area; San Diego, California; Dallas, Texas'),
-           ('lever_acme_e', 'Austin, TX')])
+           ('lever_acme_e', 'Austin, TX'), ('lever_acme_h', 'Remote; Remote (US)'),
+           ('lever_acme_i', 'Remote')])
     check('each kept req passes the US filter',
-          [sj.is_us_location(j['location']) for j in jobs], [True, True, True])
+          [sj.is_us_location(j['location']) for j in jobs], [True] * 5)
 
 
 # --- scrape_ashby --------------------------------------------------------------

@@ -30,7 +30,9 @@ import requests
 import yaml
 from classify import (
     AI_CATEGORY_RE,
+    LOCATION_SPLIT_RE,
     US_STATE_ABBRS,
+    _is_bare_remote,
     _is_foreign_part,
     classify_level,
     evaluate_job,
@@ -423,7 +425,11 @@ def scrape_lever(company, slug, apply_hosts=()):
         sites += [x for x in cats.get('allLocations') or [] if isinstance(x, str)]
         location = '; '.join(dict.fromkeys(x.strip() for x in sites if x and x.strip()))
         country = job.get('country', '')
-        if country and country.upper() != 'US' and not is_us_location(location):
+        # A bare 'Remote' reads as US, so a GB req at 'Remote' was kept as
+        # Remote (US). Under a foreign country only a named US site counts.
+        if country and country.upper() != 'US' and not any(
+                is_us_location(p) and not _is_bare_remote(p)
+                for p in LOCATION_SPLIT_RE.split(location) if p.strip()):
             continue
         # Lever's commitment category ("Internship", "Intern") flags intern
         # reqs whose titles omit the word.
