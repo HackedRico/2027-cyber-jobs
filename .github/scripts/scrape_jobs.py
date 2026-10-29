@@ -777,10 +777,17 @@ def scrape_pinpoint(company, slug, apply_hosts=()):
     jobs = []
     for job in data.get('data', []):
         loc = job.get('location') or {}
+        name = (loc.get('name') or '').strip()
+        # location.name leads with the site's ISO-3 country ('GBR Cambridge',
+        # 'USA Remote - Central Time'), which city and province leave out: an
+        # NCC Group site at 'Cambridge, Cambridgeshire' read as Massachusetts.
+        # A foreign site gets no location, as in recruitee_location.
+        code = re.match(r'([A-Z]{3})\b', name)
+        if code and code.group(1) != 'USA':
+            location = ''
         # Pinpoint marks a Manchester-based home worker 'remote' too (NCC Group
         # 'Associate SOC Analyst'), so only a USA location name reads as US.
-        if (job.get('workplace_type') == 'remote'
-                and (loc.get('name') or '').strip().upper().startswith('USA')):
+        elif job.get('workplace_type') == 'remote' and name.upper().startswith('USA'):
             location = 'Remote'
         else:
             location = ', '.join(p for p in (loc.get('city'), loc.get('province')) if p)

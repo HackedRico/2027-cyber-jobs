@@ -1282,13 +1282,22 @@ def test_pinpoint_remote_is_us_only_for_usa_locations():
         {'id': '3', 'title': 'SOC Analyst', 'workplace_type': 'remote',
          'location': {'city': 'Remote', 'province': 'Greater London',
                       'name': 'GBR Remote'}},
+        # City and province alone put Cambridge, England in Massachusetts.
+        {'id': '4', 'title': 'Associate Security Consultant', 'workplace_type': 'hybrid',
+         'location': {'city': 'Cambridge', 'province': 'Cambridgeshire',
+                      'name': 'GBR Cambridge Science Park'}},
+        {'id': '5', 'title': 'Graduate Security Consultant', 'workplace_type': 'onsite',
+         'location': {'city': 'Cambridge', 'province': '', 'name': 'GBR Cambridge'}},
+        {'id': '6', 'title': 'Security Consultant', 'workplace_type': 'onsite',
+         'location': {'city': 'Austin', 'province': 'Texas', 'name': 'USA Austin'}},
     ]})
     jobs = sj.scrape_pinpoint('Acme', 'acme')
-    check('pinpoint keeps the real location of a non-US remote posting',
+    check('pinpoint gives a site outside the USA no location',
           [j['location'] for j in jobs],
-          ['Manchester, Greater Manchester', 'Remote', 'Remote, Greater London'])
-    check('only the USA remote posting reads as US',
-          [sj.is_us_location(j['location']) for j in jobs], [False, True, False])
+          ['', 'Remote', '', '', '', 'Austin, Texas'])
+    check('only the USA postings read as US',
+          [sj.is_us_location(j['location']) for j in jobs],
+          [False, True, False, False, False, True])
 
 
 @responses.activate
