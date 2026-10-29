@@ -108,7 +108,10 @@ def test_greenhouse_entities_reach_the_gates():
 
 @responses.activate
 def test_greenhouse_http_error_returns_none():
-    responses.get('https://boards-api.greenhouse.io/v1/boards/dead/jobs', status=404)
+    # A real 404 carries a JSON body; a bodiless mock reached None through the
+    # non-JSON retry even with the status check gone.
+    responses.get('https://boards-api.greenhouse.io/v1/boards/dead/jobs', status=404,
+                  json={'status': 404, 'error': 'Job not found'})
     check('greenhouse 404 -> None', sj.scrape_greenhouse('Dead', 'dead'), None)
 
 
@@ -326,7 +329,7 @@ def test_fetch_json_retries_transient():
 
 @responses.activate
 def test_fetch_json_gives_up_on_404():
-    responses.get('https://api.test/y', status=404)
+    responses.get('https://api.test/y', status=404, json={'error': 'Not Found'})
     check('fetch_json 404 -> None', sj.fetch_json('https://api.test/y', label='t'), None)
 
 
@@ -359,6 +362,12 @@ def test_slug_validation_blocks_host_reparenting():
 def test_workday_total_failure_returns_none():
     responses.post('https://t.wd5.myworkdayjobs.com/wday/cxs/t/B/jobs', status=500)
     check('workday all-fetch-fail -> None', sj.scrape_workday('X', 't', 'wd5', 'B'), None)
+    # A migrated tenant (Comcast, Walmart in triage-board) answers 410 with a
+    # JSON body, which must read as a failed board, not an empty one.
+    responses.post('https://m.wd5.myworkdayjobs.com/wday/cxs/m/B/jobs', status=410,
+                   json={'errorCode': 'ERR_TENANT_MIGRATED', 'httpStatus': 410})
+    check('workday 410 ERR_TENANT_MIGRATED -> None', sj.scrape_workday('X', 'm', 'wd5', 'B'),
+          None)
 
 
 # --- pagination keeps going when the total field is absent --------------------
