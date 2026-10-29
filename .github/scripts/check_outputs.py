@@ -7,11 +7,11 @@ Exits 1 on a broken row. With --baseline (the listings.json already on main),
 a problem the baseline has too is printed as a warning instead, so a bad row
 that predates this check cannot block every scrape until someone fixes it by
 hand. The baseline also gates two changes no single row shows: a new scraped
-row the charter rules reject, and a run that closes or drops more than
-MASS_CLOSE_SHARE of the open board. ALLOW_MASS_CLOSE=1 in the environment
-lets a reviewed mass close through. A README table that differs from a fresh
-rebuild is only ever a warning. Stdlib only, so it runs before any dependency
-is installed.
+row whose stored role `is_rejected_title` rejects or whose stored location is
+not US, and a run that closes or drops more than MASS_CLOSE_SHARE of the open
+board. ALLOW_MASS_CLOSE=1 in the environment lets a reviewed mass close
+through. A README table that differs from a fresh rebuild is only ever a
+warning. Stdlib only, so it runs before any dependency is installed.
 """
 
 import argparse
