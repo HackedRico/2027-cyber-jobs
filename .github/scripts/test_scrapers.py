@@ -1224,11 +1224,21 @@ def test_workday_posting_state():
     responses.add(responses.GET, api + 'Unknown_R3', status=404,
                   json={'errorCode': 'S21', 'httpStatus': 404})
     responses.add(responses.GET, api + 'Flaky_R4', status=500, json={})
+    responses.add(responses.GET, api + 'Closed_R5',
+                  json={'jobPostingInfo': {'title': 'Cyber Analyst I', 'canApply': False}})
+    responses.add(responses.GET, api + 'Live_R6',
+                  json={'jobPostingInfo': {'title': 'Cyber Analyst I'}})
     public = base + '/Ext/job/Austin-TX/'
     check('a 200 with canApply is live', sj.workday_posting_state(public + 'Live_R1'), 'live')
     check('403 S22 is a closed req', sj.workday_posting_state(public + 'Closed_R2'), 'gone')
     check('404 S21 is an unknown path', sj.workday_posting_state(public + 'Unknown_R3'), 'gone')
     check('a 500 says nothing', sj.workday_posting_state(public + 'Flaky_R4'), None)
+    # Only the detail probe retires a row behind a capped sweep (CVS, RTX and
+    # Northrop hit the cap every run), and a closed req read as live never goes.
+    check('a 200 with canApply false is a closed req',
+          sj.workday_posting_state(public + 'Closed_R5'), 'gone')
+    check('a 200 without canApply is live', sj.workday_posting_state(public + 'Live_R6'),
+          'live')
     check('a locale prefix is skipped',
           sj.workday_posting_state(base + '/en-US/Ext/job/Austin-TX/Live_R1'), 'live')
     check('a non-workday url says nothing',
