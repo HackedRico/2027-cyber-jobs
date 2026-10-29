@@ -123,7 +123,7 @@ python .github/scripts/scrape_jobs.py --dry-run --board ashby  # "Checking Acme 
 python .github/scripts/check_slugs.py --board ashby            # the entry's owner line names the employer
 ```
 
-Workday, Oracle, Eightfold, Phenom and Jibe print no owner line, since their host is already the employer's.
+Workday, Oracle, Eightfold, Phenom and Jibe report no owner name, so the page on the employer's own site that links to the board is the proof.
 
 ## 4. Improve the scraper
 

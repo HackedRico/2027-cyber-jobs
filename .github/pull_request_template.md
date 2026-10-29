@@ -21,7 +21,7 @@
 - Company careers page URL:
 - Page on the employer's own site that links to the board:
 - `Checking <Company> (<ats>/<id>)... ok (N postings` line from `scrape_jobs.py --dry-run --board <ats>`:
-- Owner line from `check_slugs.py --board <ats>` (none for Workday, Oracle, Eightfold, Phenom or Jibe):
+- Owner line from `check_slugs.py --board <ats>` (none for Workday, Oracle, Eightfold, Phenom or Jibe, where the linking page above is the proof):
 
 ## For scraper/filter changes
 

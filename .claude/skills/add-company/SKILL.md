@@ -49,7 +49,8 @@ scraper reads it.
    the entry's line. The board name must be the employer's, and on Ashby the website must be
    their domain; on Lever and Pinpoint the postings must name them. A line marked `?` means
    stop until the employer's own site confirms a rename. Workday, Oracle, Eightfold, Phenom
-   and Jibe have no owner line, since their host is already the employer's.
+   and Jibe report no owner name, so the page on the employer's own site that links to the
+   board is the proof.
 6. **Commit** as `feat(companies): add Acme`, and fill the company-additions section of the
    PR template with the careers URL, the page on the employer's site that links to it, the
    `Checking` line from step 4 and the owner line from step 5.
