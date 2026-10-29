@@ -23,15 +23,17 @@ sys.path.insert(0, str(Path(__file__).parent))
 from classify import (  # noqa: E402
     CATEGORY_ALLOWLIST,
     classify_level,
-    evaluate_job,
     infer_category,
     is_cyber_title,
     is_us_location,
+    judge_job,
     listing_dedup_key,
     rejected_title_rule,
 )
 from common import (  # noqa: E402
+    HTTP_URL_RE,
     fetch_target_problem,
+    form_body_problem,
     gh_headers,
     host_matches,
     link_host,
@@ -41,6 +43,7 @@ from common import (  # noqa: E402
     oneline,
     parse_issue_body,
     public_address,
+    typed_location,
     validate_location,
 )
 from process_approved import fields_to_listing, load_security_companies  # noqa: E402
@@ -98,16 +101,22 @@ ATS_DOMAINS = frozenset({
 ONE_LINE_FIELDS = ('Company Name', 'Role / Job Title')
 
 
-def form_errors(fields):
-    """Problems in the form itself, each a markdown bullet body."""
-    errors = [f'**{f}** is missing or empty' for f in REQUIRED_FIELDS
-              if not fields.get(f, '').strip()]
+def form_errors(fields, body=None):
+    """Problems in the form itself, each a markdown bullet body.
+
+    `body` is the raw issue body the fields were parsed from, checked for
+    text the rendered issue hides; None skips that check.
+    """
+    problem = form_body_problem(body) if body is not None else None
+    errors = [problem[:1].upper() + problem[1:]] if problem else []
+    errors += [f'**{f}** is missing or empty' for f in REQUIRED_FIELDS
+               if not fields.get(f, '').strip()]
     errors += [f'**{f}** must be one line' for f in ONE_LINE_FIELDS
                if re.search(r'[\r\n]', fields.get(f, '').strip())]
     link = fields.get('Direct Application Link', '').strip()
-    if link and not re.match(r'^https?://\S+$', link):
+    if link and not HTTP_URL_RE.fullmatch(link):
         errors.append('**Direct Application Link** must be a single-line URL '
-                      'starting with `http://` or `https://`')
+                      'starting with `http://` or `https://`, with no backslash')
     location = fields.get('Location', '').strip()
     if location:
         errors.extend(f'**Location**: {e}' for e in validate_location(location))
@@ -115,7 +124,7 @@ def form_errors(fields):
 
 
 def charter_gate(title, location, security_company=False):
-    """The first evaluate_job gate a title and location fail, or None."""
+    """The first judge_job gate a title and location fail, or None."""
     if not title:
         return 'there is no job title'
     reason = rejected_title_rule(title)
@@ -123,7 +132,17 @@ def charter_gate(title, location, security_company=False):
         return md_escape(reason)
     if not is_cyber_title(title, security_company):
         return 'the title has no cybersecurity keyword'
-    if evaluate_job(title, 'Remote (US)', '', security_company) is None:
+    # The title alone can fail two gates past the level word, and both read as
+    # "no early-career signal" above a Level line that found one: 'Cybersecurity
+    # Analyst Intern - London, UK' places the role abroad, and 'Cybersecurity
+    # Engineer (Associate or Mid-Level)' needs its posting to set the level.
+    _, reason = judge_job(title, 'Remote (US)', '', security_company)
+    if reason == 'non-us-location':
+        return 'the title places the role outside the US'
+    if reason and classify_level(title):
+        return ('the title spans levels that reach III or mid, so it gets in only when '
+                'the posting shows its easiest route asks for 2 years or less')
+    if reason:
         return 'the title has no intern, new grad or early-career signal'
     if not is_us_location(location):
         return 'the location is not in the US'
@@ -148,6 +167,10 @@ class BlockedAddress(requests.ConnectionError):
     """The link's host resolves to an address that is not public."""
 
 
+class BlockedTarget(requests.ConnectionError):
+    """The URL requests is about to fetch fails common.fetch_target_problem."""
+
+
 class PublicOnlyAdapter(HTTPAdapter):
     """Connect only to a public address, and to the one that was checked.
 
@@ -164,6 +187,11 @@ class PublicOnlyAdapter(HTTPAdapter):
         super().__init__(**kwargs)
 
     def get_connection_with_tls_context(self, request, verify, proxies=None, cert=None):
+        problem = fetch_target_problem(request.url)
+        if problem:
+            # check_link vets each hop, but requests parses the URL again, and
+            # a backslash once moved the port it connected to past that check.
+            raise BlockedTarget(problem, request=request)
         parts = urlsplit(request.url)
         host = parts.hostname or ''
         port = parts.port or (443 if parts.scheme == 'https' else 80)
@@ -224,6 +252,8 @@ def check_link(url, get=None):
         except BlockedAddress:
             return {'dead': True, 'summary': f'{md_code(link_host(url))} does not resolve '
                                              'to a public address'}
+        except BlockedTarget as e:
+            return {'dead': True, 'summary': f'not checked: {e}'}
         except requests.RequestException as e:
             return {'dead': False, 'summary': f'could not connect ({type(e).__name__})'}
         resp.close()
@@ -265,18 +295,23 @@ def _option(value, options):
     return value if value in options else 'a value that is not a form option'
 
 
-def build_verdict(fields, listings, security_companies=frozenset(), link=None):
+def build_verdict(fields, listings, security_companies=frozenset(), link=None, body=None):
     """Return (comment body, ok) for a parsed submission.
 
     `link` is check_link's result, or None when the link was not fetched.
-    `ok` is False when the form has errors, the row is a duplicate, the link
-    is dead or on a host `domain_warning` flags, or evaluate_job rejects the
-    title and location.
+    `body` is the raw issue body, for form_errors. `ok` is False when the
+    form has errors, the row is a duplicate, the link is dead or on a host
+    `domain_warning` flags, or evaluate_job rejects the title and location.
     """
     listing = fields_to_listing(fields, security_companies)
     security_company = listing['company'].lower() in security_companies
-    errors = form_errors(fields)
-    gate = charter_gate(listing['role'], listing['location'], security_company)
+    errors = form_errors(fields, body)
+    # The submitted location, since the stored one has lost any foreign part
+    # and calls a bare "Remote" beside it Remote (US). Split as validate_location
+    # splits it: a newline joined "Austin, TX" to "London, UK" into one place
+    # that read as abroad, though the form takes one location per line.
+    gate = charter_gate(listing['role'], typed_location(fields.get('Location', '')),
+                        security_company)
     dupes = find_duplicates(listing, listings) if listing['company'] else []
     # process_approved reopens a closed match rather than rejecting it.
     open_dupes = [entry for entry, _ in dupes if is_open(entry)]
@@ -293,8 +328,14 @@ def build_verdict(fields, listings, security_companies=frozenset(), link=None):
              '',
              '**Form**']
     lines += [f'- ❌ {e}' for e in errors] or ['- ✅ Required fields are filled in']
-    if listing['location'] and not validate_location(fields.get('Location', '')):
-        lines.append(f"- Location will be stored as {md_code(listing['location'])}")
+
+    # Exactly what approval writes, since the rendered issue can show the
+    # reviewer something else: an inline comment in a field is invisible there.
+    lines += ['', '**Stored on approval**',
+              f"- Company: {md_code(listing['company'])}",
+              f"- Role: {md_code(listing['role'])}",
+              f"- Location: {md_code(listing['location'])}",
+              f"- Link: {md_code(listing['url'])}"]
 
     lines += ['', '**Charter** (title and location only)']
     if gate:
@@ -405,9 +446,9 @@ def main():
     listings = json.loads(LISTINGS_FILE.read_text()) if LISTINGS_FILE.exists() else []
     link_url = fields.get('Direct Application Link', '').strip()
     link = None
-    if link_url and not args.no_link and re.match(r'^https?://\S+$', link_url):
+    if link_url and not args.no_link and HTTP_URL_RE.fullmatch(link_url):
         link = check_link(link_url)
-    verdict, ok = build_verdict(fields, listings, load_security_companies(), link)
+    verdict, ok = build_verdict(fields, listings, load_security_companies(), link, body)
 
     print('\n'.join(oneline(line) for line in verdict.splitlines()))
     print(f'Verdict: {"valid" if ok else "needs-fix"}')

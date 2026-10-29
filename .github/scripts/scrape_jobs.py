@@ -9,6 +9,7 @@ This file owns the ATS scrapers, persistence, and orchestration.
 """
 
 import argparse
+import html
 import json
 import os
 import random
@@ -29,7 +30,10 @@ import requests
 import yaml
 from classify import (
     AI_CATEGORY_RE,
+    LOCATION_SPLIT_RE,
     US_STATE_ABBRS,
+    US_TOKEN_RE,
+    _is_bare_remote,
     _is_foreign_part,
     classify_level,
     evaluate_job,
@@ -45,7 +49,9 @@ from classify import (
     reclassify_listings,
     renormalize_locations,
     requires_clearance,
+    stamp_twins,
     strip_html,
+    title_places_abroad,
 )
 from common import normalize_url, security_company_flags, write_run_events
 
@@ -282,7 +288,9 @@ def check_container(data, key, label):
 # ---------------------------------------------------------------------------
 # ATS scrapers — each yields dicts with:
 #   id, company, title, location, url, board, description (optional),
-#   partial_sweep (optional: True when the board's feed was cut short)
+#   partial_sweep (optional: True when the board's feed was cut short),
+#   detail_failed (optional: True when a candidate's detail fetch failed, so
+#   its description is missing rather than empty)
 # Scrapers return None on an unrecoverable fetch failure and a (possibly empty)
 # list otherwise, so the run summary can tell breakage from an empty board.
 # ---------------------------------------------------------------------------
@@ -394,10 +402,21 @@ def scrape_greenhouse(company, slug, apply_hosts=()):
             'url': links.pick(job.get('absolute_url', ''),
                               f'https://job-boards.greenhouse.io/{slug}/jobs/{job["id"]}'),
             'board': 'Greenhouse',
-            'description': job.get('content', ''),
+            # The Job Board API escapes `content` once more than the posting's
+            # HTML, and strip_html unescapes once, so '5+&nbsp;years' and
+            # 'U.S.&nbsp;citizen' reached the experience and clearance rules as
+            # literal entities and a 5-year req passed as early career.
+            'description': html.unescape(job.get('content') or ''),
         })
     links.report()
     return jobs
+
+
+# An ATS label naming the intern track: Lever's commitment 'Internship', Jibe
+# tenants' custom fields (APL's tags9 'Internship', PNNL's tags2 'University
+# Internships', Exelon's category 'Intern/Co-Op'). The word boundary keeps
+# 'International' and 'Internal Transfer Eligible' out.
+_INTERN_LABEL_RE = re.compile(r'\bintern(?:ships?|s)?\b', re.IGNORECASE)
 
 
 def scrape_lever(company, slug, apply_hosts=()):
@@ -417,11 +436,15 @@ def scrape_lever(company, slug, apply_hosts=()):
         sites += [x for x in cats.get('allLocations') or [] if isinstance(x, str)]
         location = '; '.join(dict.fromkeys(x.strip() for x in sites if x and x.strip()))
         country = job.get('country', '')
-        if country and country.upper() != 'US' and not is_us_location(location):
+        # A bare 'Remote' reads as US, so a GB req at 'Remote' was kept as
+        # Remote (US). Under a foreign country only a named US site counts.
+        if country and country.upper() != 'US' and not any(
+                is_us_location(p) and not _is_bare_remote(p)
+                for p in LOCATION_SPLIT_RE.split(location) if p.strip()):
             continue
         # Lever's commitment category ("Internship", "Intern") flags intern
         # reqs whose titles omit the word.
-        commitment = (cats.get('commitment') or '').lower()
+        commitment = cats.get('commitment') or ''
         jobs.append({
             'id': f'lever_{slug}_{job["id"]}',
             'company': company,
@@ -431,7 +454,7 @@ def scrape_lever(company, slug, apply_hosts=()):
                               f'https://jobs.lever.co/{slug}/{job["id"]}'),
             'board': 'Lever',
             'description': _lever_description(job),
-            'intern_hint': 'intern' in commitment,
+            'intern_hint': bool(_INTERN_LABEL_RE.search(commitment)),
         })
     links.report()
     return jobs
@@ -494,18 +517,33 @@ def _ashby_place(label, address):
     # 'Oakland', or 'North America', all of which fail the US check, while
     # the structured address beside them says United States. 105 postings
     # across the Ashby boards read that way. The label wins whenever it
-    # already reads as US.
+    # already reads as US, except a bare 'Remote', which names no country:
+    # beside a Toronto address it is 'Remote (Canada)', not Remote (US). A US
+    # one is scoped too, or a posting remote in both read 'Remote; Remote
+    # (Canada)', and a bare Remote beside a foreign place reads as foreign.
+    postal = (address or {}).get('postalAddress') or {}
+    country = (postal.get('addressCountry') or '').strip()
+    if label and country and _is_bare_remote(label):
+        if country.lower() in US_COUNTRY_NAMES:
+            country = 'United States'
+        return f'{label.strip()} ({country})'
     if label and is_us_location(label):
         return label
-    postal = (address or {}).get('postalAddress') or {}
-    if (postal.get('addressCountry') or '').strip().lower() not in US_COUNTRY_NAMES:
+    if country.lower() not in US_COUNTRY_NAMES:
         return label
     city = (postal.get('addressLocality') or '').strip()
     region = (postal.get('addressRegion') or '').strip()
     if label and label.strip().lower() != city.lower():
         # A scope label is not the address, which is often the head office:
         # WorkOS's 'United States & Canada' roles carry San Francisco, so
-        # the scope stays and only the country is added.
+        # the scope stays and only the country is added. For the same reason
+        # an 'EMEA' or 'London, UK' label beside that address is not in the US.
+        # The address's own city is not that foreign place: 'Vienna, VA
+        # (Hybrid)' at a Vienna, Virginia address fails the US check only for
+        # its tag, and 'Vienna' read as Austria.
+        rest = re.sub(rf'\b{re.escape(city)}\b', '', label, flags=re.IGNORECASE) if city else label
+        if _is_foreign_part(rest) and not US_TOKEN_RE.search(label.lower()):
+            return label
         return f'{label}; United States'
     if not region or region.lower() in US_COUNTRY_NAMES:
         # 'San Mateo, United States' normalizes back to the bare city.
@@ -586,7 +624,9 @@ def scrape_smartrecruiters(company, identifier, security_company=False):
         fetched += 1
         description = fetch_smartrecruiters_description(
             f'{url}/{job["id"].rsplit("_", 1)[-1]}', label=f'{company} SmartRecruiters')
-        if description:
+        if description is None:
+            job['detail_failed'] = True
+        elif description:
             job['description'] = description
         time.sleep(0.3)
     return jobs
@@ -597,9 +637,11 @@ SMARTRECRUITERS_DETAIL_CAP = 30
 
 
 def fetch_smartrecruiters_description(url, label=''):
-    """Return a posting's jobAd sections as one body, or '' on failure."""
+    """Return a posting's jobAd sections as one body, or None on a failed fetch."""
     data = fetch_json(url, label=label)
-    sections = ((data or {}).get('jobAd') or {}).get('sections') or {}
+    if data is None:
+        return None
+    sections = (data.get('jobAd') or {}).get('sections') or {}
     parts = []
     for section in sections.values():
         if not isinstance(section, dict):
@@ -737,6 +779,21 @@ def recruitee_location(job):
     return '; '.join(dict.fromkeys(p for p in map(_recruitee_part, sites) if p))
 
 
+# Only a listed code reads as a country: any three leading capitals also put a
+# US site named 'NYC Office' or 'ATL Office' abroad. A site whose code is
+# missing here falls back to its city and province. Each country is named the
+# way NON_US_RE reads it.
+PINPOINT_FOREIGN_COUNTRIES = {
+    'ARE': 'UAE', 'AUS': 'Australia', 'BEL': 'Belgium', 'CAN': 'Canada',
+    'CHE': 'Switzerland', 'DEU': 'Germany', 'DNK': 'Denmark', 'ESP': 'Spain',
+    'FRA': 'France', 'GBR': 'United Kingdom', 'HKG': 'Hong Kong', 'IND': 'India',
+    'IRL': 'Ireland', 'ISR': 'Israel', 'ITA': 'Italy', 'JPN': 'Japan',
+    'LTU': 'Lithuania', 'MEX': 'Mexico', 'NLD': 'Netherlands', 'NOR': 'Norway',
+    'NZL': 'New Zealand', 'POL': 'Poland', 'PRT': 'Portugal', 'SGP': 'Singapore',
+    'SWE': 'Sweden',
+}
+
+
 def scrape_pinpoint(company, slug, apply_hosts=()):
     if not _valid_slug(slug):
         print(f'  [{_oneline(company)}] invalid pinpoint slug {slug!r} — skipping')
@@ -750,10 +807,20 @@ def scrape_pinpoint(company, slug, apply_hosts=()):
     jobs = []
     for job in data.get('data', []):
         loc = job.get('location') or {}
+        name = (loc.get('name') or '').strip()
+        # location.name leads with the site's ISO-3 country ('GBR Cambridge',
+        # 'USA Remote - Central Time'), which city and province leave out: an
+        # NCC Group site at 'Cambridge, Cambridgeshire' read as Massachusetts.
+        # A foreign site keeps its country, as in _recruitee_part: a blank
+        # location is no evidence to the stored-row pass, so a row stored at
+        # that site before stayed open while its posting was live.
+        code = re.match(r'([A-Z]{3})\b', name)
+        if code and code.group(1) in PINPOINT_FOREIGN_COUNTRIES:
+            location = ', '.join(p for p in (loc.get('city'), loc.get('province'),
+                                             PINPOINT_FOREIGN_COUNTRIES[code.group(1)]) if p)
         # Pinpoint marks a Manchester-based home worker 'remote' too (NCC Group
         # 'Associate SOC Analyst'), so only a USA location name reads as US.
-        if (job.get('workplace_type') == 'remote'
-                and (loc.get('name') or '').strip().upper().startswith('USA')):
+        elif job.get('workplace_type') == 'remote' and name.upper().startswith('USA'):
             location = 'Remote'
         else:
             location = ', '.join(p for p in (loc.get('city'), loc.get('province')) if p)
@@ -769,7 +836,13 @@ def scrape_pinpoint(company, slug, apply_hosts=()):
             'location': location,
             'url': links.pick(job.get('url', ''), f'https://{slug}.pinpointhq.com{path}'),
             'board': 'Pinpoint',
-            'description': job.get('description', ''),
+            # The requirement sections sit beside the intro, as Recruitee's do,
+            # so a years floor in skills_knowledge_expertise never reached the
+            # experience gate. 'benefits' stays out: service-year perks could
+            # read as a floor.
+            'description': '\n'.join(filter(None, (job.get('description'),
+                                                   job.get('key_responsibilities'),
+                                                   job.get('skills_knowledge_expertise')))),
         })
     links.report()
     return jobs
@@ -990,6 +1063,8 @@ def scrape_workday(company, tenant, instance, board, security_company=False,
                            or MULTI_LOCATION_RE.search(job['location'].strip()))
         location, description = fetch_workday_detail(cxs_root, path, wd_headers,
                                                      label=f'{company} Workday')
+        if location is None:
+            job['detail_failed'] = True
         if needs_locations and location:
             job['location'] = location
         if description:
@@ -1004,11 +1079,13 @@ ORACLE_DETAIL_CAP = 30
 
 
 def fetch_oracle_description(host, site, req_id, label=''):
-    """Return a req's external description and qualifications, or '' on failure."""
+    """Return a req's external description and qualifications, or None on a failed fetch."""
     api = f'https://{host}/hcmRestApi/resources/latest/recruitingCEJobRequisitionDetails'
     params = {'onlyData': 'true', 'finder': f'ById;Id="{req_id}",siteNumber={site}'}
     data = fetch_json(api, params=params, label=label)
-    items = (data or {}).get('items') or []
+    if data is None:
+        return None
+    items = data.get('items') or []
     if not items:
         return ''
     fields = (items[0].get('ExternalDescriptionStr'), items[0].get('ExternalQualificationsStr'))
@@ -1087,7 +1164,9 @@ def scrape_oracle(company, host, site, security_company=False):
             continue
         fetched += 1
         description = fetch_oracle_description(host, site, req, label=f'{company} Oracle')
-        if description:
+        if description is None:
+            job['detail_failed'] = True
+        elif description:
             job['description'] = description
         time.sleep(0.3)
     return jobs
@@ -1271,6 +1350,8 @@ def scrape_eightfold(company, tenant, domain, security_company=False,
                                    params={'position_id': pid, 'domain': domain,
                                            'hl': 'en'},
                                    headers=headers, label=f'{company} Eightfold detail')
+        if data is None:
+            job['detail_failed'] = True
         detail = (data or {}).get('data') or {}
         if isinstance(detail, dict) and detail.get('jobDescription'):
             job['description'] = detail['jobDescription']
@@ -1363,6 +1444,8 @@ def scrape_phenom(company, host, lang, country, security_company=False,
                             jobId=job_id, jobSeqNo=seq)
         data = _get_json_patiently(api, method='POST', json=body, headers=headers,
                                    label=f'{company} Phenom detail')
+        if data is None:
+            job['detail_failed'] = True
         detail = ((data or {}).get('jobDetail') or {}).get('data') or {}
         description = (detail.get('job') or {}).get('description', '')
         if description:
@@ -1381,11 +1464,6 @@ JIBE_MAX_PAGES = 5
 # careers.jhuapl.edu, careers.pnnl.gov and jobs.exeloncorp.com all set
 # crawl-delay: 5 in robots.txt.
 JIBE_REQUEST_DELAY = 5
-
-# Each tenant files the student track in its own custom field: APL's tags9
-# 'Internship', PNNL's tags2 'University Internships', Exelon's category
-# 'Intern/Co-Op'. The word boundary keeps 'International' out.
-_JIBE_INTERN_RE = re.compile(r'\bintern(?:ships?|s)?\b', re.IGNORECASE)
 
 
 def _jibe_place(place):
@@ -1413,7 +1491,7 @@ def _jibe_intern_hint(data):
     for key, value in data.items():
         if key.startswith('tags') and isinstance(value, list):
             labels += [str(v) for v in value]
-    return any(_JIBE_INTERN_RE.search(label) for label in labels)
+    return any(_INTERN_LABEL_RE.search(label) for label in labels)
 
 
 def scrape_jibe(company, host, extra_terms=None):
@@ -1437,7 +1515,8 @@ def scrape_jibe(company, host, extra_terms=None):
     seen_ids = set()
     any_ok = False
     # Cleared when a page fails or a term hits the page cap, so
-    # retire_vanished_listings does not read a cut-short sweep as closures.
+    # retire_vanished_listings gives a row missing from a cut-short sweep
+    # PARTIAL_VANISHED_DAYS instead of VANISHED_DAYS.
     complete = True
     first_request = True
     for term in terms:
@@ -1472,7 +1551,11 @@ def scrape_jibe(company, host, extra_terms=None):
                     'location': location,
                     'url': f'https://{host}/jobs/{slug}',
                     'board': 'Jibe',
-                    'description': info.get('description') or info.get('qualifications') or '',
+                    # Keeping only the first non-empty field dropped a years
+                    # floor or clearance line filed under qualifications.
+                    'description': '\n\n'.join(filter(None, (
+                        info.get('description'), info.get('responsibilities'),
+                        info.get('qualifications')))),
                     'intern_hint': _jibe_intern_hint(info),
                 })
             total = data.get('totalCount')
@@ -1584,8 +1667,9 @@ def reevaluate_stored_listings(listings, raw_jobs, sec_flags, probe=None,
         for candidate titles) is not evidence: a 'no-level' verdict, the one
         gate an empty body trips alone, keeps the row with its stored type, and
         `clearance` only turns on from the title;
-      * a blank live location never drops a row, nor does Workday's list-view
-        placeholder ("2 Locations") left behind by a failed detail fetch;
+      * a blank live location never fails the location gate, nor does
+        Workday's list-view placeholder ("2 Locations") left behind by a
+        failed detail fetch, though a live title placed abroad still drops;
       * intern rows stay interns: their level may come from an ATS hint, and
         the experience gate exempts them, as it does at insert.
     """
@@ -1622,8 +1706,11 @@ def reevaluate_stored_listings(listings, raw_jobs, sec_flags, probe=None,
             if reason == 'no-level' and not described:
                 continue
             live_location = (job.get('location') or '').strip()
-            if reason == 'non-us-location' and (
-                    not live_location or MULTI_LOCATION_RE.search(live_location)):
+            # The waiver is for the location gate only: a live retitle to
+            # Parsons' '...located at Ramstein AFB, Germany**' stayed open
+            # behind a '2 Locations' placeholder.
+            if (reason == 'non-us-location' and not title_places_abroad(job.get('title', ''))
+                    and (not live_location or MULTI_LOCATION_RE.search(live_location))):
                 continue
             dropped.append((entry, reason))
             continue
@@ -1649,6 +1736,17 @@ def reevaluate_stored_listings(listings, raw_jobs, sec_flags, probe=None,
 # misses: long enough to ride out one partial fetch of a paginated board, short
 # enough that a student is not sent to a req that closed last week.
 VANISHED_DAYS = 3
+
+# Behind a sweep cut short by a page cap or a failed page, absence is weaker
+# evidence, so a non-Workday row (which has no detail probe) waits this long
+# instead. A live req that ranking pushes past the cap is usually seen again
+# within two weeks, and any sighting clears the streak; the revive path brings
+# back one that reappears later. Holding such rows outright kept Microsoft
+# 'Security Research INTERN' open a month after its req closed, since
+# Microsoft's 'security' term matches 970 postings against a 500 cap every run,
+# and the charter counts a dead row shown forever as worse than a live one
+# hidden.
+PARTIAL_VANISHED_DAYS = 14
 
 # Per source, the part of an apply URL that identifies the requisition. Both a
 # stored row and a freshly scraped posting are reduced through these, so the
@@ -1768,14 +1866,18 @@ def retire_vanished_listings(listings, raw_jobs, today, silent_boards=frozenset(
         so a broken slug, a failed fetch, or a `--board`/`--limit` subset can
         never retire anything it did not actually look at;
       * a board whose sweep was cut short (postings flagged `partial_sweep`,
-        from a page cap or a failed page) retires nothing on absence alone,
-        since the missing req may sit past the cut. A Workday row there is
-        asked about directly through `probe`, and only a 'gone' answer counts
-        as a miss; the big tenants (CVS, RTX, Northrop) cut short every run;
+        from a page cap or a failed page) may have missed a live req past the
+        cut. A Workday row there is asked about directly through `probe`, and
+        only a 'gone' answer counts as a miss; the big tenants (CVS, RTX,
+        Northrop) cut short every run. Any other row there must be missing for
+        PARTIAL_VANISHED_DAYS: Microsoft (Eightfold), BAE and MITRE (Phenom)
+        are cut short every run too, and retiring nothing there kept their
+        closed reqs open for weeks;
       * a company in `failed_companies` had a board fail or crash this run, so
-        all its rows are treated as behind a partial sweep. Idaho National
-        Laboratory has two Oracle sites, and one failing while the other
-        answered used to stamp the failed site's rows missing;
+        its Workday rows are probed as above and its other rows keep their
+        streak as it was. Idaho National Laboratory has two Oracle sites, and
+        one failing while the other answered used to stamp the failed site's
+        rows missing;
       * a row must be missing for VANISHED_DAYS before it goes, so one partial
         fetch that went unnoticed costs a re-check rather than the listings;
       * Community rows carry a maintainer's judgment and never appear in
@@ -1814,17 +1916,23 @@ def retire_vanished_listings(listings, raw_jobs, today, silent_boards=frozenset(
             # out of one page never accumulates its way to retirement.
             entry.pop('missing_since', None)
             continue
-        if (company, source) in partial or company in failed_companies:
-            state = probe(entry['url']) if source == 'Workday' else None
+        grace = VANISHED_DAYS
+        cut_short = (company, source) in partial
+        if source == 'Workday' and (cut_short or company in failed_companies):
+            state = probe(entry['url'])
             if state == 'live':
                 entry.pop('missing_since', None)
             if state != 'gone':
                 continue
+        elif company in failed_companies:
+            continue
+        elif cut_short:
+            grace = PARTIAL_VANISHED_DAYS
         first_missed = entry.get('missing_since')
         if not first_missed:
             entry['missing_since'] = today
             continue
-        if _days_since(first_missed, today) < VANISHED_DAYS:
+        if _days_since(first_missed, today) < grace:
             continue
         _retire(entry, today)
         retired.append(entry)
@@ -1851,6 +1959,16 @@ def _req_identity(source, url):
     return (source, fingerprint[2], host)
 
 
+def _community_req(url):
+    # A Community row has no ATS source, so job_fingerprint reads no req id
+    # off it, and Workday moves a live req's location slug (Chantilly-VA to
+    # Reston-VA), so a resubmitted Workday link and the posting the scraper
+    # finds next can share only the req id.
+    if not _host_of(url).endswith('.myworkdayjobs.com'):
+        return None
+    return _req_identity('Workday', normalize_url(url))
+
+
 def retire_orphaned_listings(listings, config, today, raw_jobs=()):
     """Close open rows whose company no longer has a board for their source.
 
@@ -1864,7 +1982,14 @@ def retire_orphaned_listings(listings, config, today, raw_jobs=()):
     A company renamed in companies.yml orphans its rows by name while their
     reqs are still live. An open row whose req is in this run's `raw_jobs`
     under another company takes that company's name instead of retiring, so
-    the insert pass does not add the same req again beside a closed copy.
+    the insert pass does not add the same req again beside a closed copy. A
+    rename that lands on a run where the board fails finds no live req, so
+    the rows retire; a retired row keeps `last_url`, and once its req is
+    live again under the new name the row takes that name too, closed, and
+    the insert pass revives it instead of announcing every req as NEW. An
+    open row whose name differs from the configured one only in case takes
+    the configured spelling: every other pass keys on the exact name, so a
+    'Crowdstrike' row under a 'CrowdStrike' entry was never judged again.
 
     Guardrails, all in the keep direction:
       * Community rows and any source outside the config-driven ATSs (Amazon
@@ -1873,19 +1998,33 @@ def retire_orphaned_listings(listings, config, today, raw_jobs=()):
         truncated companies.yml cannot close the board.
     """
     sources = CONFIGURED_SOURCES | {key.lower() for key in config}
-    configured = {(str(entry.get('name', '')).casefold(), kind.lower())
-                  for kind, entries in config.items() if isinstance(entries, list)
-                  for entry in entries if isinstance(entry, dict)}
+    configured, spelling = set(), {}
+    for kind, entries in config.items():
+        for entry in entries if isinstance(entries, list) else ():
+            if isinstance(entry, dict):
+                name = str(entry.get('name', ''))
+                configured.add((name, kind.lower()))
+                spelling.setdefault((name.casefold(), kind.lower()), name)
     if not configured:
         return [], []
     live_owner = None
     retired, renamed = [], []
     for entry in listings:
         source = (entry.get('source') or '').lower()
+        company = entry.get('company', '')
         if (source not in sources or entry.get('source') == 'Community'
-                or entry.get('closed') or not entry.get('url')):
+                or (company, source) in configured):
             continue
-        if (entry.get('company', '').casefold(), source) in configured:
+        is_open = bool(entry.get('url')) and not entry.get('closed')
+        url = entry['url'] if is_open else entry.get('last_url')
+        if not url:
+            continue
+        if is_open and (company.casefold(), source) in spelling:
+            renamed.append((entry, company))
+            entry['company'] = spelling[(company.casefold(), source)]
+            # A stamp from before the case change went unchecked while the
+            # row was stranded, so one miss on the next run retired it.
+            entry.pop('missing_since', None)
             continue
         if live_owner is None:
             live_owner = {}
@@ -1893,14 +2032,16 @@ def retire_orphaned_listings(listings, config, today, raw_jobs=()):
                 identity = _req_identity(job.get('board', ''), job.get('url', ''))
                 if identity and job.get('company'):
                     live_owner.setdefault(identity, job['company'])
-        owner = live_owner.get(_req_identity(entry.get('source', ''), entry['url']))
-        if owner and owner != entry.get('company'):
-            renamed.append((entry, entry.get('company', '')))
+        owner = live_owner.get(_req_identity(entry.get('source', ''), url))
+        if owner and owner != company:
+            renamed.append((entry, company))
             entry['company'] = owner
             entry.pop('missing_since', None)
             continue
-        _retire(entry, today)
-        retired.append(entry)
+        if is_open:
+            entry['last_url'] = entry['url']
+            _retire(entry, today)
+            retired.append(entry)
     return retired, renamed
 
 
@@ -2241,6 +2382,12 @@ def report_board_health(board_stats, today=None, persist=True):
     if regressed:
         lines.append('- ⚠️ Regressed to zero: '
                      + ', '.join(_oneline(label) for label, _ in regressed))
+    # Names the boards where retire_vanished_listings runs slow, so a board that
+    # stays on this line is visibly holding closed reqs longer than the rest.
+    cut_short = [b['label'] for b in board_stats if b.get('partial')]
+    if cut_short:
+        lines.append(f'- Cut short (a missing row retires after {PARTIAL_VANISHED_DAYS} days, '
+                     'Workday rows are probed): ' + ', '.join(_oneline(x) for x in cut_short))
     if dead:
         # "50 runs" read as 50 requests. Each scrape asks a board once and gets
         # its whole job list back, so the count is scrapes, not calls.
@@ -2428,21 +2575,27 @@ def scrape_boards(tasks, workers=SCRAPE_WORKERS):
         yield from pool.map(run_board, tasks)
 
 
-def insert_new_listings(listings, raw_jobs, seen, sec_flags, today):
+def insert_new_listings(listings, raw_jobs, seen, sec_flags, today, deferred=None):
     """Add each accepted posting that no row holds yet, and revive blanked rows.
 
     Mutates `listings` and `seen` and returns (added_rows, revived_rows).
     `sec_flags` maps a posting id to its board's `security_company` flag.
+    Each posting deferred for a failed detail fetch is appended to `deferred`
+    when one is given.
 
     A seen posting is skipped only while a row already holds its normalized
-    URL, dedup key or fingerprint. Skipping every seen id, as this once did,
-    meant a row that the stored-row pass dropped or the orphan pass retired
-    never came back while its posting stayed live, since each run re-stamped
-    the id. Such a posting goes back through `evaluate_job` instead. That is
-    stable: a row the re-eval pass drops this run fails the same gates here,
-    since `evaluate_job` is `judge_job` without the intern and flag leniency
-    the re-eval pass adds, and a row the repair pass folded carries the key
-    of the row it folded into.
+    URL, dedup key or fingerprint, or, for a Workday posting, an open
+    Community row lists its req id (`_community_req`). Skipping every seen
+    id, as this once did, meant a row that the stored-row pass dropped or
+    the orphan pass retired never came back while its posting stayed live,
+    since each run re-stamped the id. Such a posting goes back through
+    `evaluate_job` instead. That is stable: a row the re-eval pass drops
+    this run fails the same gates here, since `evaluate_job` is `judge_job`
+    without the intern and flag leniency the re-eval pass adds, and a row
+    the repair pass folded carries the key of the row it folded into.
+
+    A posting whose detail fetch failed and that no row holds is deferred:
+    neither judged nor stamped seen, so the next run fetches it again.
     """
     existing_urls = {normalize_url(e.get('url', '')) for e in listings if e.get('url')}
     # Secondary key catches the same role reposted per-location under distinct
@@ -2453,6 +2606,8 @@ def insert_new_listings(listings, raw_jobs, seen, sec_flags, today):
                                        e.get('location', '')) for e in listings}
     existing_fps = {job_fingerprint(e.get('company', ''), e.get('source', ''), e['url'])
                     for e in listings if e.get('url')} - {None}
+    community_reqs = {_community_req(e['url']) for e in listings
+                      if e.get('url') and e.get('source') == 'Community'} - {None}
     # Rows a dead-link sweep blanked; a still-live posting revives them so a
     # 403/transient false positive self-heals instead of staying 🔒 forever.
     blanked = {listing_dedup_key(e.get('company', ''), e.get('role', ''),
@@ -2475,9 +2630,22 @@ def insert_new_listings(listings, raw_jobs, seen, sec_flags, today):
         # moved, which neither the URL nor the key can see.
         fingerprint = job_fingerprint(job['company'], job.get('board', ''), url)
         held = ((url and normalize_url(url) in existing_urls)
-                or (fingerprint and fingerprint in existing_fps))
+                or (fingerprint and fingerprint in existing_fps)
+                or (community_reqs and url
+                    and _req_identity(job.get('board', ''), normalize_url(url))
+                    in community_reqs))
         on_board = held or key in existing_keys
         if jid in seen and on_board and key not in blanked:
+            continue
+        # The scraper asks for a candidate's description because its title
+        # alone cannot settle the experience gate, and a 429 or 5xx on that
+        # request admitted a 6-year 'Security Engineer II' as early career.
+        # Left unjudged and unstamped, the posting is fetched again next run.
+        # A held posting adds nothing either way, so it needs no deferral.
+        if job.get('detail_failed') and not held:
+            print(f'  DEFERRED [detail] {_oneline(job["company"])} — {_oneline(job["title"])}')
+            if deferred is not None:
+                deferred.append(job)
             continue
         verdict = evaluate_job(
             job.get('title', ''), job.get('location', ''),
@@ -2502,8 +2670,11 @@ def insert_new_listings(listings, raw_jobs, seen, sec_flags, today):
             row['url'] = url
             # A company that moved ATS revives on its new board; a stale source
             # left the row orphaned again on the next run, RETIRED then REVIVED
-            # every run. A Community row keeps the maintainer's provenance.
-            if row.get('source') != 'Community' and job.get('board'):
+            # every run. A Community row hands over too: left Community, one
+            # past check_links' 120-day age-out was closed every morning and
+            # revived every evening. On its board's source the vanished pass
+            # owns it from here.
+            if job.get('board'):
                 row['source'] = job['board']
             row.pop('closed', None)
             row.pop('closed_date', None)
@@ -2599,7 +2770,8 @@ def main():
             # Amazon has no companies.yml entry to read.
             company_flags.setdefault(job['company'], result['security_company'])
         raw_jobs.extend(result['jobs'])
-        board_stats.append({key: result[key] for key in ('label', 'status', 'count')})
+        board_stats.append({**{key: result[key] for key in ('label', 'status', 'count')},
+                            'partial': any(job.get('partial_sweep') for job in result['jobs'])})
     print(f'\nScraped {len(tasks)} board(s) in {time.monotonic() - started:.0f}s')
 
     # Only a full run may roll the baseline — a --board/--limit run holds counts
@@ -2610,6 +2782,12 @@ def main():
     print(f'\nScraped {len(raw_jobs)} raw postings; filtering...')
 
     listings = load_listings()
+
+    # Before any pass below removes a row. RTX posted 'Embedded Security Software
+    # Engineer I (Onsite)' in Tewksbury, El Segundo and Tucson on one day, and
+    # purging the closed Tewksbury row renumbered the other two, moving a
+    # student's Applied mark on El Segundo onto Tucson.
+    stamp_twins(listings)
 
     # Drop long-closed rows so the board doesn't accumulate dead postings.
     listings, purged = purge_stale_listings(listings, today)
@@ -2692,7 +2870,9 @@ def main():
         print(f'  RENAMED [company] {_oneline(old)} -> {_oneline(entry.get("company", ""))} — '
               f'{_oneline(entry.get("role", ""))}')
 
-    added_rows, revived_rows = insert_new_listings(listings, raw_jobs, seen, sec_flags, today)
+    deferred = []
+    added_rows, revived_rows = insert_new_listings(listings, raw_jobs, seen, sec_flags, today,
+                                                   deferred)
 
     # Refresh last-seen for every still-live id, then expire the stale ones.
     for job in raw_jobs:
@@ -2709,12 +2889,16 @@ def main():
                or renormalized or scrubbed or repaired or folded or vanished or orphaned
                or renamed or pending)
     dropped_by = ', '.join(f'{n} {reason}' for reason, n in sorted(drop_counts.items()))
+    # A detail endpoint that fails every run while the list endpoint answers
+    # stops every new candidate and leaves its board 'ok', so the summary
+    # counts deferrals. Left off at zero, a run with none prints its usual line.
+    deferral = f', deferred {len(deferred)} on a failed detail fetch' if deferred else ''
     print(f'\nAdded {added} new listing(s), revived {revived}, '
           f'reclassified {reclassified}, purged {purged}, '
           f'repaired {len(repaired)} location(s) + folded {len(folded)} duplicate(s), '
           f'retired {len(vanished)} vanished ({pending} more missing) + {len(orphaned)} orphaned, '
           f'dropped {len(drops)} ({dropped_by or "none"}), '
-          f'refreshed {len(refreshed) - relevelled} category or clearance field(s)')
+          f'refreshed {len(refreshed) - relevelled} category or clearance field(s){deferral}')
 
     if args.dry_run:
         print('[dry-run] no files written; skipping README rebuild')

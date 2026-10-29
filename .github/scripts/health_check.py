@@ -92,7 +92,10 @@ def completed_runs(gh, workflow):
     success, and opened a false 'no successful scrape' issue (#44). The
     unfiltered list is current, so the filtering happens here.
     """
-    data = gh.call('GET', gh.repo_path(f'/actions/workflows/{workflow}/runs?per_page=30'))
+    # Every label event but 'approved' adds a skipped add-listing run, so
+    # fifteen add-job submissions, two labels each, fill a page of 30 and hide
+    # a failed run behind them. 100 is the API's largest page.
+    data = gh.call('GET', gh.repo_path(f'/actions/workflows/{workflow}/runs?per_page=100'))
     return [r for r in (data or {}).get('workflow_runs', []) if r.get('status') == 'completed']
 
 

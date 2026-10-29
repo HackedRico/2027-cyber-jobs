@@ -10,11 +10,14 @@ import json
 import os
 import sys
 import tempfile
+import time
 from pathlib import Path
 
 import testkit  # noqa: F401
 
 sys.path.insert(0, str(Path(__file__).parent))
+import check_links  # noqa: E402
+import check_outputs as co  # noqa: E402
 import classify  # noqa: E402
 import common  # noqa: E402
 import process_approved as pa  # noqa: E402
@@ -36,7 +39,8 @@ def check(name, got, want):
 
 def form(company='Acme', role='Security Analyst Intern', listing_type='Internship / Co-op',
          category='SOC & Detection', location='Austin, TX',
-         link='https://boards.greenhouse.io/acme/jobs/1', clearance='No'):
+         link='https://boards.greenhouse.io/acme/jobs/1', clearance='No',
+         notes='_No response_'):
     return (f'### Company Name\n\n{company}\n\n'
             f'### Role / Job Title\n\n{role}\n\n'
             f'### Listing Type\n\n{listing_type}\n\n'
@@ -44,7 +48,7 @@ def form(company='Acme', role='Security Analyst Intern', listing_type='Internshi
             f'### Location\n\n{location}\n\n'
             f'### Security Clearance / U.S. Citizenship Required?\n\n{clearance}\n\n'
             f'### Direct Application Link\n\n{link}\n\n'
-            f'### Additional Notes (Optional)\n\n_No response_\n')
+            f'### Additional Notes (Optional)\n\n{notes}\n')
 
 
 # --- parse_issue_body ----------------------------------------------------------
@@ -63,6 +67,70 @@ for name, body, want in PARSE:
     check(f'parse_issue_body {name}', {k: got.get(k) for k in want}, want)
 
 
+# --- form_body_problem ---------------------------------------------------------
+# The parser reads text the rendered issue hides, and its first copy of a field
+# wins: a comment around a first Direct Application Link showed the maintainer
+# the honest link below it while approval stored the hidden one.
+EVIL_LINK = 'https://evil.example/jobs/2'
+HIDDEN = f'### Direct Application Link\n\n{EVIL_LINK}\n\n'
+HIDDEN_BODY = f'<!--\n{HIDDEN}### x -->\n\n' + form()
+# Only the form, with HTML mid-line: the <details> summary reads as the
+# Category and folds the form's own Category, Location and link, and Notes
+# closes it and draws the link again as a setext heading.
+DECOY = ('Rolling basis. </details>\n\nDirect Application Link\n---\n\n'
+         'https://boards.greenhouse.io/acme/jobs/1')
+DETAILS_BODY = form(listing_type='Internship / Co-op <details><summary>SOC &amp; Detection</summary>',
+                    link=EVIL_LINK, notes=DECOY)
+# The page drops a byte-order mark that opens the body, so this comment still
+# hides the first link, and the form's own link heading is redrawn in setext.
+BOM_BODY = ('\ufeff<!--\n' + HIDDEN + '### x -->\n\n'
+            + form().replace('### Direct Application Link', 'Direct Application Link\n---'))
+BODIES = [
+    ('an honest form', form(), False),
+    ('an honest form with CRLF line ends', form().replace('\n', '\r\n'), False),
+    ('Notes with "< 2 years" and autolinks',
+     form(notes='< 2 years of experience\n<https://acme.example/team>\n<jobs@acme.example>'),
+     False),
+    # The form never needs HTML, so inline markup is refused with the rest.
+    ('inline HTML in Notes', form(notes='Apply by <b>Friday</b> <!-- rolling -->'), True),
+    ('a <details> opened mid-line in Listing Type', DETAILS_BODY, True),
+    ('a <details> opened mid-line in Role',
+     form(role='Security Analyst Intern <details><summary>Internship / Co-op</summary>',
+          link=EVIL_LINK, notes=DECOY), True),
+    ('a comment that hides a first link', HIDDEN_BODY, True),
+    ('a byte-order mark before a comment that hides a first link', BOM_BODY, True),
+    ('a byte-order mark before a repeated heading', '\ufeff' + HIDDEN + form(), True),
+    ('a comment that hides a first role',
+     '<!--\n### Role / Job Title\n\nSenior Security Engineer\n\n-->\n\n' + form(), True),
+    # Only the form: Role opens the comment, Notes closes it and draws the
+    # fields again under headings the parser reads as new ones.
+    ('a Role of <!-- closed in Notes',
+     form(role='<!--', link=EVIL_LINK,
+          notes='-->\n\nSecurity Analyst Intern\n\n'
+                '### Direct Application Link ###\n\nhttps://boards.greenhouse.io/acme/jobs/1'),
+     True),
+    ('a comment opened in a list item', f'- <!--\n{HIDDEN}x <!-- -->\n\n' + form(), True),
+    ('a processing instruction', f'<?\n{HIDDEN}### x ?>\n\n' + form(), True),
+    ('a CDATA section', f'<![CDATA[\n{HIDDEN}### x ]]>\n\n' + form(), True),
+    ('a heading repeated after the form', form() + HIDDEN, True),
+    ('a heading repeated at another level and case',
+     form() + f'## direct application link ##\n\n{EVIL_LINK}\n', True),
+    ('a heading repeated as a setext heading over two lines',
+     form(link=EVIL_LINK, notes='Direct\nApplication Link\n=====\n\n'
+                                'https://boards.greenhouse.io/acme/jobs/1'), True),
+    ('a thematic break after a blank line', form(notes='Location\n\n---\n\nRolling basis.'),
+     False),
+]
+for name, body, want in BODIES:
+    check(f'form_body_problem flags {name}', common.form_body_problem(body) is not None, want)
+# Every edit to an open issue runs this check: a 64k-character heading line,
+# about GitHub's body cap, took 44 s when one regex read the whole heading.
+started = time.monotonic()
+common.form_body_problem('### a' + ' \t' * 32_000 + 'b')
+check('form_body_problem reads a 64k-character heading line in under a second',
+      time.monotonic() - started < 1, True)
+
+
 # --- normalize_url -------------------------------------------------------------
 # A submitter's link and the scraper's link for one req must compare equal, or
 # the approved issue lands as a second row.
@@ -75,6 +143,13 @@ URLS = [
     ('a Workday link with a lowercase locale',
      'https://nwis.wd12.myworkdayjobs.com/en-us/NW/job/Springfield-VA/X_JR1/apply', WORKDAY),
     ('a bare Workday link', WORKDAY, WORKDAY),
+    ('a Phenom link with the title slug after the req',
+     'https://careers.mitre.org/us/en/job/R114937/Cybersecurity-Engineer-Intern',
+     'https://careers.mitre.org/us/en/job/R114937'),
+    ('the scraper Phenom link', 'https://careers.mitre.org/us/en/job/R114937',
+     'https://careers.mitre.org/us/en/job/R114937'),
+    ('a Jibe link with a lang param', 'https://careers.jhuapl.edu/jobs/59772?lang=en-us',
+     'https://careers.jhuapl.edu/jobs/59772'),
 ]
 for name, url, want in URLS:
     check(f'normalize_url {name}', common.normalize_url(url), want)
@@ -92,6 +167,7 @@ LOCATIONS = [
     ('McLean, Va', 'McLean, VA', True),
     ('Reston, va.', 'Reston, VA', True),
     ('Arlington VA', 'Arlington, VA', True),
+    ('Fort  Meade, MD', 'Fort Meade, MD', True),
     ('New York, New York', 'New York, NY', True),
     ('San Juan, PR', 'San Juan, PR', True),
     ('Remote (US)', 'Remote (US)', True),
@@ -100,6 +176,13 @@ LOCATIONS = [
     ('United States', 'United States', True),
     ('Seattle, WA\nAustin, TX', 'Seattle, WA; Austin, TX', True),
     ('Austin, TX; London, UK', 'Austin, TX', True),
+    ('Arlington, Virginia; Remote', 'Arlington, VA; Remote (US)', True),
+    # normalize_location drops the foreign part and calls the bare Remote left
+    # beside it Remote (US), and a foreign city's code can be a state's.
+    ('London, UK; Remote', 'Remote (US)', False),
+    ('Remote (Europe); Remote', 'Remote (US)', False),
+    ('Toronto, CA', 'Toronto, CA', False),
+    ('Mumbai, IN', 'Mumbai, IN', False),
     ('London, UK', 'London, UK', False),
     ('Toronto, ON', 'Toronto, ON', False),
     ('Bangalore, India', 'Bangalore, India', False),
@@ -122,6 +205,15 @@ for submitted, stored, valid in LOCATIONS:
     if not classify.is_us_location(submitted):
         check(f'is_us_location rejects, so validate_location must too: {submitted!r}',
               bool(errors), True)
+# normalize_location's patterns rescan a whitespace run, so a Location of 65k
+# spaces in an issue body cost about 80s a call until the form path collapsed it.
+check('normalize_submitted_location collapses a long whitespace run',
+      common.normalize_submitted_location('Fort' + ' ' * 10_000 + 'Meade, MD'), 'Fort Meade, MD')
+# "Mumbai, IN" was told to fix a bare "Remote" it never had.
+check('validate_location names a bare Remote only when one was typed',
+      ['bare "Remote"' in ' '.join(common.validate_location(location))
+       for location in ('London, UK; Remote', 'Mumbai, IN', 'Remote (Canada)')],
+      [True, False, False])
 
 
 # --- security_company_names ----------------------------------------------------
@@ -176,7 +268,8 @@ EXISTING = [
      'url': 'https://boards.greenhouse.io/acme/jobs/9', 'type': 'earlycareer'},
     {'company': 'Beta', 'role': 'Security Engineer Intern', 'location': 'Reston, VA',
      'url': '', 'closed': True, 'closed_date': '2026-09-01', 'missing_since': '2026-08-20',
-     'dead_since': '2026-08-30', 'source': 'Greenhouse', 'type': 'intern'},
+     'dead_since': '2026-08-30', 'source': 'Greenhouse', 'type': 'intern',
+     'date_added': '2026-07-12'},
     # Closed and open rows under one key: the open one makes it a duplicate.
     {'company': 'Gamma', 'role': 'SOC Analyst Intern', 'location': 'Austin, TX',
      'url': '', 'closed': True, 'type': 'intern'},
@@ -210,9 +303,16 @@ check('ingest outcomes', [(r['number'], r['outcome']) for r in results],
 check('ingest appends only the added row', len(listings), len(EXISTING) + 1)
 check('ingest names the location problem', 'London, UK' in results[3]['detail'], True)
 check('ingest names the url problem', 'http(s)' in results[4]['detail'], True)
-check('ingest revives a closed row in place as a Community row', listings[1], {
+# Stamped the day it reopens: the link check ages a Community row out 120 days
+# after date_added, and this one's old date had it closed again on 2026-11-09.
+# date_added stays, since the board's row id and the feeds key on it.
+check('ingest revives a closed row in place as a Community row reopened today', listings[1], {
     'company': 'Beta', 'role': 'Security Engineer Intern', 'location': 'Reston, VA',
-    'url': 'https://beta.example/jobs/2', 'source': 'Community', 'type': 'intern'})
+    'url': 'https://beta.example/jobs/2', 'source': 'Community', 'type': 'intern',
+    'date_added': '2026-07-12', 'reopened': '2026-09-27'})
+check('...which the link check ages from its reopen date',
+      [check_links.is_aged_out(listings[1], d) for d in ('2026-11-09', '2027-01-25')],
+      [False, True])
 check('ingest calls an open twin of a closed row a duplicate',
       results[7]['detail'], 'Gamma: SOC Analyst Intern, open')
 check('ingest leaves the closed twin closed', listings[2].get('closed'), True)
@@ -317,18 +417,15 @@ def test_notify_revived_and_held():
     check('notify leaves a revived issue open when the push failed', len(responses.calls), 0)
 
 
-@responses.activate
-def test_ingest_writes_run_events_for_added_rows():
-    responses.get('https://api.github.com/repos/o/r/issues', json=[
-        {'number': 1, 'body': form()},
-        {'number': 2, 'body': form(link='https://boards.greenhouse.io/acme/jobs/9')},
-        {'number': 3, 'body': form(company='Beta', role='Security Engineer Intern',
-                                   location='Reston, VA', link='https://beta.example/jobs/2')},
-        # Edited after approval, so its new link never reaches the board.
-        {'number': 4, 'body': form(role='Swapped Link Intern', link='https://evil.example/')},
-    ])
+BETA_ISSUE = {'number': 3, 'body': form(company='Beta', role='Security Engineer Intern',
+                                         location='Reston, VA',
+                                         link='https://beta.example/jobs/2')}
+
+
+def _run_ingest(issues, edits):
+    responses.get('https://api.github.com/repos/o/r/issues', json=issues)
     responses.get('https://api.github.com/repos/o/r/issues', json=[])
-    _mock_approval({1: None, 2: None, 3: None, 4: '2026-09-27T10:05:00Z'})
+    _mock_approval(edits)
     saved = (pa.LISTINGS_FILE, pa.load_security_companies, pa.rebuild_readme.main)
     with tempfile.TemporaryDirectory() as tmp:
         tmp = Path(tmp)
@@ -341,9 +438,29 @@ def test_ingest_writes_run_events_for_added_rows():
             pa.rebuild_readme.main = lambda: None
             pa.run_ingest('t', 'o/r')
             events = json.loads(events_file.read_text())
+            saved_rows = json.loads((tmp / 'listings.json').read_text())
         finally:
             del os.environ['RUN_EVENTS_FILE']
             pa.LISTINGS_FILE, pa.load_security_companies, pa.rebuild_readme.main = saved
+    return events, saved_rows
+
+
+@responses.activate
+def test_ingest_writes_run_events_for_added_rows():
+    events, saved_rows = _run_ingest([
+        {'number': 1, 'body': form()},
+        {'number': 2, 'body': form(link='https://boards.greenhouse.io/acme/jobs/9')},
+        BETA_ISSUE,
+        # Edited after approval, so its new link never reaches the board.
+        {'number': 4, 'body': form(role='Swapped Link Intern', link='https://evil.example/')},
+    ], {1: None, 2: None, 3: None, 4: '2026-09-27T10:05:00Z'})
+    # With the write gone, the run still announced both rows and closed both
+    # issues as added and revived, and nothing reached main.
+    check('ingest saves the added row and the reopened row to listings.json',
+          [(r['company'], r['role'], r['url'], pa.rebuild_readme.is_open(r))
+           for r in [saved_rows[1], *saved_rows[len(EXISTING):]]],
+          [('Beta', 'Security Engineer Intern', 'https://beta.example/jobs/2', True),
+           ('Acme', 'Security Analyst Intern', 'https://boards.greenhouse.io/acme/jobs/1', True)])
     check('ingest events carry the schema notify.py reads',
           sorted(events), ['added', 'retired', 'revived', 'run_at', 'schema_version'])
     check('ingest events list only the added row, not the duplicate',
@@ -356,6 +473,17 @@ def test_ingest_writes_run_events_for_added_rows():
           (events['schema_version'], events['retired']), (1, []))
     check('ingest never adds the link from an edit made after approval',
           'Swapped Link Intern' in json.dumps(events), False)
+
+
+@responses.activate
+def test_ingest_saves_a_run_that_only_revives():
+    # With the write gated on added rows, this run announced Beta's row and
+    # closed issue 3 as revived while listings.json kept the row closed.
+    events, saved_rows = _run_ingest([BETA_ISSUE], {3: None})
+    check('ingest saves the reopened row when it adds none',
+          ([r['url'] for r in events['revived']], len(saved_rows), saved_rows[1]['url'],
+           pa.rebuild_readme.is_open(saved_rows[1])),
+          (['https://beta.example/jobs/2'], len(EXISTING), 'https://beta.example/jobs/2', True))
 
 
 @responses.activate
@@ -391,6 +519,12 @@ GATES = [
     ('Software Engineer, New Grad', 'Austin, TX', False, 'no cybersecurity keyword'),
     ('Software Engineer, New Grad', 'Austin, TX', True, None),
     ('Security Engineer', 'Austin, TX', False, 'no intern, new grad'),
+    # Title-only gates past the level word, once all named as no level signal.
+    ('Cybersecurity Analyst Intern - London, UK', 'Austin, TX', False, 'places the role outside'),
+    ('Cyber Security Analyst I - Ramstein AFB, Germany', 'Remote (US)', False,
+     'places the role outside'),
+    ('Cybersecurity Engineer (Associate or Mid-Level)', 'Austin, TX', False, 'spans levels'),
+    ('Cyber Analyst II / III', 'Austin, TX', False, 'spans levels'),
     ('Security Analyst Intern', 'London, UK', False, 'not in the US'),
     ('', 'Austin, TX', False, 'no job title'),
 ]
@@ -505,6 +639,13 @@ def test_adapter_connects_to_the_checked_address():
     except vi.BlockedAddress:
         pass
     check('adapter resolves the name once per request', resolved, ['rebind.example'])
+    resolved.clear()
+    try:
+        blocking.get_connection_with_tls_context(_Request('http://jobs.example:6379/'), True)
+        check('adapter refuses a port other than 80 or 443', 'no error', 'BlockedTarget')
+    except vi.BlockedTarget:
+        pass
+    check('adapter refuses the port before resolving the name', resolved, [])
 
 
 def test_session_sends_the_hostname_to_the_pinned_address():
@@ -525,12 +666,29 @@ def test_session_sends_the_hostname_to_the_pinned_address():
     server = http.server.HTTPServer(('127.0.0.1', 0), Handler)
     threading.Thread(target=server.serve_forever, daemon=True).start()
     port = server.server_address[1]
+    allowed = common.ALLOWED_PORTS
     try:
+        # A loopback server cannot take port 80 or 443.
+        common.ALLOWED_PORTS = allowed | {port}
         session = vi.public_session(resolve=lambda host, port: '127.0.0.1')
         resp = session.get(f'http://jobs.example:{port}/x', timeout=5)
         check('pinned session reaches the resolved address with the hostname as Host',
               (resp.status_code, hosts), (200, [f'jobs.example:{port}']))
+        common.ALLOWED_PORTS = allowed
+        # requests ends the host at the backslash, so it would connect to this
+        # port while urlsplit read the Workday host on 443.
+        trick = f'http://jobs.example:{port}\\@crowdstrike.wd5.myworkdayjobs.com/x'
+        check('check_link reads the port a backslash link really uses',
+              vi.check_link(trick, get=session.get),
+              {'dead': True, 'summary': f'not checked: port {port} is not fetched, only 80 and 443'})
+        try:
+            session.get(trick, timeout=5)
+            check('the session refuses a port other than 80 or 443', 'fetched', 'BlockedTarget')
+        except vi.BlockedTarget:
+            pass
+        check('a refused port never reaches the server', len(hosts), 1)
     finally:
+        common.ALLOWED_PORTS = allowed
         server.shutdown()
         server.server_close()
 
@@ -579,10 +737,40 @@ check('build_verdict shows the category a Not sure row gets',
 
 body, ok = vi.build_verdict(common.parse_issue_body(form(location='Arlington, Virginia')),
                             EXISTING, frozenset(), ALIVE)
-check('build_verdict shows the stored location',
-      'Location will be stored as `Arlington, VA`' in body, True)
+check('build_verdict shows the stored location', '- Location: `Arlington, VA`' in body, True)
+
+# A location the verdict once passed, or failed while ingest still added it.
+# One place per line is the form's other separator, and the charter gate once
+# read the two lines as one place abroad.
+for location, valid in (('London, UK; Remote', False), ('Remote (Europe); Remote', False),
+                        ('Toronto, CA', False), ('Mumbai, IN', False),
+                        ('Arlington, Virginia; Remote', True),
+                        ('Austin, TX\nLondon, UK', True), ('Remote (US)\nBangalore, India', True),
+                        ('London, UK\nRemote', False)):
+    verdict, ok = vi.build_verdict(common.parse_issue_body(form(location=location)),
+                                   EXISTING, frozenset(), ALIVE)
+    check(f'build_verdict on {location!r}',
+          (ok, 'does not read as a US location' in verdict,
+           'the location is not in the US' in verdict),
+          (valid, not valid, not valid))
+    result = pa.ingest([{'number': 1, 'body': form(location=location)}], [],
+                       today='2026-09-27')[0]
+    check(f'ingest on {location!r}', result['outcome'], 'added' if valid else 'skipped')
 check('build_verdict body has no em or en dashes',
       '\u2014' in body or '\u2013' in body, False)
+
+# A hidden first link: the verdict flags the body and shows the link approval
+# would store, and ingest refuses it.
+for name, hidden in (('a comment', HIDDEN_BODY), ('a mid-line <details>', DETAILS_BODY),
+                     ('a comment after a byte-order mark', BOM_BODY)):
+    body, ok = vi.build_verdict(common.parse_issue_body(hidden), EXISTING, frozenset(), ALIVE,
+                                body=hidden)
+    check(f'build_verdict flags {name} that hides text',
+          (ok, '- ❌ The issue body contains HTML' in body), (False, True))
+    check(f'build_verdict shows the link {name} hides', f'- Link: `{EVIL_LINK}`' in body, True)
+    result = pa.ingest([{'number': 1, 'body': hidden}], [], today='2026-09-27')[0]
+    check(f'ingest skips {name} that hides text',
+          (result['outcome'], 'contains HTML' in result['detail']), ('skipped', True))
 
 
 # --- escaping echoed fields ----------------------------------------------------
@@ -593,6 +781,9 @@ check('md_code shows an empty value', common.md_code('  '), '(empty)')
 check('md_escape breaks a bare url autolink',
       common.md_escape('see https://evil.example or www.evil.example'),
       'see https&#8203;://evil.example or www&#8203;.evil.example')
+check('md_escape breaks an autolink after an underscore',
+      common.md_escape('a_www.evil.example b_https://evil.example'),
+      'a\\_www&#8203;.evil.example b\\_https&#8203;://evil.example')
 
 # A submitted Category of this shape once closed the verdict's code span and
 # rendered a phishing link and @mentions in the bot's comment.
@@ -675,7 +866,11 @@ HOSTS = [
     ('https://boards.greenhouse.io/acme/jobs/1', 'boards.greenhouse.io'),
     ('https://Careers.ACME.com./x', 'careers.acme.com'),
     ('https://bücher.example/x', 'xn--bcher-kva.example'),
+    # requests and a browser keep the ß that IDNA 2003 maps to "ss".
+    ('https://career5.succeßfactors.com/careers?career_job_req_id=1',
+     'career5.xn--succefactors-p9a.com'),
     ('https://user@jobs.example:443/x', 'jobs.example'),
+    ('https://evil.example\\@crowdstrike.wd5.myworkdayjobs.com/x', 'evil.example'),
     ('javascript:alert(1)', ''),
     ('', ''),
 ]
@@ -686,6 +881,28 @@ check('host_matches takes a subdomain of an ATS',
           'acme.wd5.myworkdayjobs.com', 'greenhouse.io', 'greenhouse.io.evil.example',
           'evilgreenhouse.io')],
       [True, True, False, False])
+
+# A browser and urllib3 end the host at a backslash and urlsplit does not, so
+# this link showed the Workday host, raised no domain warning and opened
+# evil.example.
+BACKSLASH = 'https://evil.example\\@crowdstrike.wd5.myworkdayjobs.com/en-US/x/job/X_R1'
+body, ok = vi.build_verdict(common.parse_issue_body(form(link=BACKSLASH)), EXISTING,
+                            frozenset(), ALIVE)
+check('build_verdict refuses a link with a backslash',
+      ('must be a single-line URL starting with `http://` or `https://`, with no backslash'
+       in body, ok), (True, False))
+check('build_verdict shows the host a browser opens', '- Host: `evil.example`' in body, True)
+# A bare scheme passed ingest and then failed check_outputs, which failed every
+# later add-listing run while the issue stayed approved.
+listings = []
+results = pa.ingest([{'number': 1, 'body': form(link=BACKSLASH)},
+                     {'number': 2, 'body': form(role='SOC Analyst Intern', link='https://')},
+                     {'number': 3, 'body': form()}], listings, today='2026-09-27')
+check('ingest skips a backslash link and a bare scheme and adds the rest',
+      [(r['number'], r['outcome']) for r in results],
+      [(1, 'skipped'), (2, 'skipped'), (3, 'added')])
+check('ingest names the link problem', 'http(s) URL' in results[1]['detail'], True)
+check('check_outputs passes what ingest stored', co.check_listings(listings), [])
 
 
 # --- one-line fields and control characters in a submission ---------------------
@@ -722,13 +939,13 @@ def test_revive_logs_the_old_and_new_hosts():
            'last_url': 'https://boards.greenhouse.io/beta/jobs/1', 'source': 'Greenhouse'}
     out = io.StringIO()
     with contextlib.redirect_stdout(out):
-        pa._revive(row, 'https://beta-careers.example/jobs/2')
+        pa._revive(row, 'https://beta-careers.example/jobs/2', '2026-09-27')
     check('revive logs the old and new hosts',
           'boards.greenhouse.io -> beta-careers.example' in out.getvalue(), True)
     row = {'company': 'Evil\n::error::x', 'role': 'R', 'url': '', 'closed': True}
     out = io.StringIO()
     with contextlib.redirect_stdout(out):
-        pa._revive(row, 'https://x.example/')
+        pa._revive(row, 'https://x.example/', '2026-09-27')
     check('revive log is one line with no stored link',
           (out.getvalue().count('\n'), '(none) -> x.example' in out.getvalue()), (1, True))
 
@@ -774,6 +991,7 @@ def test_ingest_log_is_one_line_per_issue():
 for fn in (test_notify_after_push, test_notify_leaves_added_issue_open_when_push_failed,
            test_notify_reports_api_failure, test_screen_edited_skips_an_issue_edited_after_approval,
            test_notify_revived_and_held, test_ingest_writes_run_events_for_added_rows,
+           test_ingest_saves_a_run_that_only_revives,
            test_adapter_connects_to_the_checked_address,
            test_session_sends_the_hostname_to_the_pinned_address,
            test_revive_logs_the_old_and_new_hosts, test_logs_flatten_untrusted_text,

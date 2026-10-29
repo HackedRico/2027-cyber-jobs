@@ -109,6 +109,13 @@ for _name in ('HTTP_PROXY', 'HTTPS_PROXY', 'ALL_PROXY', 'http_proxy', 'https_pro
               'all_proxy'):
     os.environ.pop(_name, None)
 os.environ['NO_PROXY'] = os.environ['no_proxy'] = '*'
+# The suites run the real writers. Every Actions step sets GITHUB_STEP_SUMMARY
+# and GITHUB_OUTPUT, so each Tests run's summary page carried nine fake 'Scrape
+# run summary' blocks, two flagging a failed and a regressed board. An
+# ALLOW_MASS_CLOSE exported in a shell let check_outputs pass the mass close
+# test_health expects it to fail.
+for _name in ('ALLOW_MASS_CLOSE', 'GITHUB_STEP_SUMMARY', 'GITHUB_OUTPUT'):
+    os.environ.pop(_name, None)
 
 _real_connect = socket.socket.connect
 _real_connect_ex = socket.socket.connect_ex

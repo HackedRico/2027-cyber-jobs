@@ -7,11 +7,11 @@ Exits 1 on a broken row. With --baseline (the listings.json already on main),
 a problem the baseline has too is printed as a warning instead, so a bad row
 that predates this check cannot block every scrape until someone fixes it by
 hand. The baseline also gates two changes no single row shows: a new scraped
-row the charter rules reject, and a run that closes or drops more than
-MASS_CLOSE_SHARE of the open board. ALLOW_MASS_CLOSE=1 in the environment
-lets a reviewed mass close through. A README table that differs from a fresh
-rebuild is only ever a warning. Stdlib only, so it runs before any dependency
-is installed.
+row whose stored role `is_rejected_title` rejects or whose stored location is
+not US, and a run that closes or drops more than MASS_CLOSE_SHARE of the open
+board. ALLOW_MASS_CLOSE=1 in the environment lets a reviewed mass close
+through. A README table that differs from a fresh rebuild is only ever a
+warning. Stdlib only, so it runs before any dependency is installed.
 """
 
 import argparse
@@ -34,7 +34,7 @@ from classify import (  # noqa: E402
     is_us_location,
     listing_dedup_key,
 )
-from common import CONTROL_RE, normalize_url, oneline  # noqa: E402
+from common import CONTROL_RE, HTTP_URL_RE, normalize_url, oneline  # noqa: E402
 
 LISTINGS_FILE = Path('listings.json')
 README_FILE = Path('README.md')
@@ -45,8 +45,7 @@ REQUIRED_FIELDS = {
 }
 NONEMPTY_FIELDS = ('company', 'role', 'location', 'type', 'category', 'source', 'date_added')
 TYPES = {'intern', 'newgrad', 'earlycareer'}
-DATE_FIELDS = ('date_added', 'closed_date', 'missing_since')
-URL_RE = re.compile(r'^https?://\S+$')
+DATE_FIELDS = ('date_added', 'closed_date', 'missing_since', 'reopened')
 STATS_RE = re.compile(r'<!-- STATS -->.*?<!-- /STATS -->', re.DOTALL)
 
 # A run that closes or drops more of the open board than this needs a person to
@@ -102,7 +101,7 @@ def check_row(entry):
         problems.append(f'{label}: `closed` is not a boolean')
     url = entry.get('url')
     if isinstance(url, str):
-        if url and not URL_RE.match(url):
+        if url and not HTTP_URL_RE.fullmatch(url):
             problems.append(f'{label}: url {url!r} is not a single-line http(s) link')
         elif not url and not entry.get('closed'):
             problems.append(f'{label}: url is empty but the row is not closed')

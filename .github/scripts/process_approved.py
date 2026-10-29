@@ -27,6 +27,8 @@ sys.path.insert(0, str(Path(__file__).parent))
 import rebuild_readme  # noqa: E402
 from classify import CATEGORY_ALLOWLIST, infer_category, listing_dedup_key  # noqa: E402
 from common import (  # noqa: E402
+    HTTP_URL_RE,
+    form_body_problem,
     gh_headers,
     link_host,
     md_escape,
@@ -218,8 +220,8 @@ def submission_problem(fields, listing):
     # places before it gets here.
     if any(re.search(r'[\r\n]', listing[f]) for f in ('company', 'role', 'location')):
         return 'the company, role and location must each be one line.'
-    if not re.match(r'^https?://', listing['url']) or re.search(r'\s', listing['url']):
-        return 'the application link must be a single-line http(s) URL.'
+    if not HTTP_URL_RE.fullmatch(listing['url']):
+        return 'the application link must be a single-line http(s) URL with no backslash.'
     # Re-validated at ingestion: an edit after validate_issue.py ran could
     # carry a non-US or malformed location past that check.
     loc_errors = validate_location(fields.get('Location', ''))
@@ -255,8 +257,9 @@ def ingest(issues, listings, security_companies=frozenset(), today=None):
     results = []
     for issue in issues:
         number = issue.get('number')
+        body = issue.get('body') or ''
         try:
-            fields = parse_issue_body(issue.get('body') or '')
+            fields = parse_issue_body(body)
             listing = fields_to_listing(fields, security_companies, today)
         except Exception as e:
             # One malformed issue must not abort the whole approved batch.
@@ -265,7 +268,7 @@ def ingest(issues, listings, security_companies=frozenset(), today=None):
                                       f'({md_escape(str(e))}).'})
             continue
 
-        problem = submission_problem(fields, listing)
+        problem = form_body_problem(body) or submission_problem(fields, listing)
         if problem:
             results.append({'number': number, 'outcome': 'skipped', 'detail': problem})
             continue
@@ -280,7 +283,7 @@ def ingest(issues, listings, security_companies=frozenset(), today=None):
 
         row = closed_url.get(url) or closed_key.get(key)
         if row:
-            _revive(row, listing['url'])
+            _revive(row, listing['url'], listing['date_added'])
             for index, k in ((closed_url, url), (closed_key, key)):
                 if index.get(k) is row:
                     del index[k]
@@ -296,7 +299,7 @@ def ingest(issues, listings, security_companies=frozenset(), today=None):
     return results
 
 
-def _revive(row, url):
+def _revive(row, url, today):
     # A submission can point a scraped row at a new domain; the log keeps the
     # switch visible to anyone auditing the run.
     old_host = link_host(row.get('url') or row.get('last_url')) or '(none)'
@@ -307,6 +310,12 @@ def _revive(row, url):
     # or orphan pass. Community rows are exempt from both and go to the daily
     # link check instead.
     row['source'] = 'Community'
+    # The link check ages a Community row out 120 days after date_added, so a
+    # row revived with its old date (2026-07-12 rows reach 120 days on
+    # 2026-11-09) closed again on its next run. date_added stays: the board's
+    # row id and the Atom feeds key on it, so a new date lost the student's
+    # Applied mark and announced the row again.
+    row['reopened'] = today
     for field in ('closed', 'closed_date', 'missing_since', 'dead_since'):
         row.pop(field, None)
 

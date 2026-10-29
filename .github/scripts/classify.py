@@ -39,6 +39,17 @@ SENIORITY_REJECT = [
     # Supervisor", "Data & AI Governance Leader, MD". 'leader' is word-bounded
     # so "Cyber Leadership Development Program" (a new-grad cohort) survives.
     r'\bsupervisor\b', r'\bleader\b',
+    # Bank and consulting ranks the terms above miss: State Street
+    # 'Cybersecurity, AVP' (an assistant vice president), Kyndryl 'Consult
+    # Associate Partner Banking' and 'Associate Consult Partner, Public Sector',
+    # Mastercard 'Associate Managing Consultant, Advisors & Consulting
+    # Services, Deploy' (a manager-level rank), and KnowBe4's 'Snr. Site
+    # Reliability Engineer'. A partner engineer is channel presales (Wiz
+    # 'Partner Solutions Engineer, Israel', Ping Identity 'Partner Sales
+    # Engineer (France)'), so an associate partner before an engineer or
+    # architect noun is that role's entry rung, not the rank.
+    r'\bavp\b', r'\bmanaging consultant\b', r'\bsnr\b',
+    r'\bassociate (?:consult )?partner\b(?!(?: [a-z]+){0,2} (?:engineer|architect)s?\b)',
 ]
 # Seniority words inside a level name or an org unit, not the role: Anthropic
 # 'Member of Technical Staff, Security - New Grad', MIT Lincoln Laboratory
@@ -145,17 +156,41 @@ FUNCTION_REJECT = [
     'chip design', 'tapeout', 'manufacturing engineer',
     'process engineer', 'mechanical engineer', 'electrical engineer',
     'chemical engineer', 'industrial engineer', 'civil engineer',
+    # The discipline names the terms above miss, which the security-company
+    # 'engineer' allowance then let in: Entrust 'Mechanical Engineering Co-Op'.
+    'manufacturing engineering', 'mechanical engineering', 'electrical engineering',
+    'chemical engineering', 'industrial engineering', 'civil engineering',
+    'process engineering',
     'photolithography', 'metrology',
     # The SoC lookahead in CYBER_REGEXES has no 'physical', so Micron's 'HBM
     # SoC Physical Design Engineer Intern' read as a SOC analyst intern.
     'physical design',
     # Reqs a student cannot apply to: return offers for current interns
-    # (Walmart '2026 Intern Conversion: 2027 Return Intern Cybersecurity'),
+    # (Walmart '2026 Intern Conversion: 2027 Return Intern Cybersecurity',
+    # Sierra Nevada 'Systems Security Engineer I (For 2026 Interns Only)'),
     # DoD SkillBridge slots for active-duty members (Blackpoint Cyber), and
     # dated recruiting events (JPMorgan 'Hiring Event - Security Architecture
     # & Engineering - Sep 24-25th 2026', whose event year read as a cohort).
-    'intern conversion', 'return intern', 'returning intern', 'skillbridge',
-    'active duty', 'hiring event',
+    'intern conversion', 'return intern', 'returning intern', 'returning interns',
+    'interns only', 'former intern', 'skillbridge', 'active duty', 'hiring event',
+    # A returnship is for professionals back from a career break: Goldman
+    # Sachs '2027 - Returnship Programme – London'.
+    'returnship',
+    # Programs reserved for service members, veterans and military spouses,
+    # which the 'fellowship' and 'associate' level words read as student
+    # cohorts: BlackRock 'Veterans Transition Program- Associate, Access &
+    # Identity Management Engineer' and 'Vet Transition Program-...', Goldman
+    # Sachs '2027 - Veterans Integration Programme - London', Bank of America
+    # 'Corporate Security Military Development Program' and Johnson & Johnson
+    # 'Military Leadership Development Program'. The military fellowships are
+    # guarded below. The Aerospace Corporation's '2027 Aerospace Returning
+    # Interns' is a return offer.
+    'military development program', 'military leadership development program',
+    'veterans transition', 'veteran transition', 'vet transition', 'veterans integration',
+    # Bank model validation, which an 'AI risk' or 'AI governance' team name
+    # read as AI security: Goldman Sachs 'Model Risk Management, AI Risk,
+    # Dallas, Analyst/Associate'.
+    'model risk',
     # Sales, support and design roles that security-company 'analyst' and
     # 'developer' titles let in: Proofpoint 'Deals Desk Analyst II', Okta
     # 'Developer Support Associate (New Grad)', DigiCert 'Associate
@@ -206,9 +241,36 @@ GUARDED_FUNCTION_REJECTS = [
     r'^(?!.*\b(?:(?:it|technology) audit(?:or)?|cyber\w*|information security)\b)'
     r'.*\binternal audit\b',
     # A crime or pharma lab, not digital forensics: Merck '2027 Future Talent
-    # Program- Forensic Services Laboratory Intern'.
+    # Program- Forensic Services Laboratory Intern'. A lab title can name the
+    # lab first ('DNA Forensic Analyst'), so word order does not matter here.
+    # Healthcare forensics is medical billing review: BDO 'Experienced
+    # Associate, Healthcare Forensics Coder'. Only the phrase counts, since a
+    # security team can serve a healthcare business (Amazon 'Security Engineer
+    # II, Stores Security - HealthCare') and a forensics analyst can review code.
     r'^(?!.*\b(?:digital|computer|cyber\w*|mobile|network|malware)\b)'
-    r'.*\bforensic\w*\b.*\b(?:lab|laboratory|chemist\w*|toxicolog\w*|dna|biolog\w*)\b',
+    r'(?:(?=.*\bforensic\w*\b).*\b(?:lab|laboratory|chemist\w*|toxicolog\w*|dna|biolog\w*)\b'
+    r'|.*\bhealth ?care forensic|.*\bforensic\w* coders?\b)',
+    # Insurance underwriting, where 'cyber' names the line of cover: Chubb
+    # 'Junior Underwriter / Underwriter Cyber & Technology, (all*), 80-100%'.
+    # Underwriters Laboratories is a product-safety and security test house.
+    r'\bunderwriters?\b(?! laborator)',
+    # Underwriting is insurance or credit work: Chubb 'Chubb Summer Internship
+    # Program (Underwriting & Claims)', JPMorgan 'Consumer Underwriting Trainee
+    # - Home Lending Operations'. It also names the team an engineer builds
+    # for (Affirm 'Machine Learning Engineer II (Underwriting ML)'), so an
+    # engineering role noun, a security analyst or an IT or information
+    # security title spares it. A bare 'cyber' does not, since that names the
+    # line of cover.
+    r'^(?!.*\b(?:engineer(?:s|ing)?|developers?|architects?|administrators?|sre|devops|'
+    r'security (?:[a-z]+ )?analysts?|(?:it|information|network|application|cloud|product|data)'
+    r' security)\b).*\bunderwriting\b',
+    # GuidePoint Security's 'GPSU Military - Federal Fellowship (Hybrid)' and
+    # 'GPSU Military/Military Spouses - Commercial Fellowship', Sierra Nevada
+    # 'Military Fellowship Program: Cybersecurity Analyst' and Oracle
+    # 'SkillBridge NetSuite Military Fellowship' are for service members,
+    # veterans and their spouses. At most one word may sit between, so a
+    # 'Military Systems Cybersecurity' team keeps its fellowships.
+    r'\bmilitary(?:/military spouses?| spouses?)?(?: ?[-–:])?(?: [a-z]+)? fellowships?\b',
     r'\bsales\b(?!\s+(?:solutions?\s+)?engineer)',
     r'(?<!data )\bloss prevention\b',
     # Hourly shift posts: Walmart 'Asset Protection / Security Associate,
@@ -218,6 +280,15 @@ GUARDED_FUNCTION_REJECTS = [
     r'\$\d+(?:\.\d+)?\s*/\s*(?:hr|hour)\b',
     r'\bsecurity associate, manufacturing\b',
     r'^(?!.*\b(?:cyber\w*|information|ai|ml|model|agents?|llm)\b).*\bsafety and security\b',
+    # A hardware discipline with a specialty between it and the role noun,
+    # which 'mechanical engineer' misses and a security company's 'engineer'
+    # allowance would admit: Honeywell 'Mechanical Design Engineer I', RTX
+    # 'Electrical Test Engineer I', HPE 'Mechanical Hardware Engineer I
+    # Graduate', Boeing 'Mechanical Systems Design Engineer – Associate/
+    # Experienced', RTX 'Manufacturing Development Engineer II'. The specialty
+    # is listed, so Palantir 'Privacy & Civil Liberties Engineer' stays.
+    r'\b(?:mechanical|electrical|chemical|industrial|civil|manufacturing)\s+(?:systems?\s+)?'
+    r'(?:design|test|hardware|development|optimization)\s+engineer(?:s|ing)?\b',
 ]
 
 FUNCTION_REJECT_RE = re.compile(
@@ -257,30 +328,48 @@ DEPARTMENT_REJECT_RE = re.compile(
 # Systems Engineer I'. A regional security team and a security resiliency
 # center are corporate security too: Merck '2027 Future Talent Program - North
 # America Regional Security Team - Intern' and '... Global Security Resiliency
-# Center - Intern'.
+# Center - Intern'. So is a bank's global security office: JPMorgan 'Global
+# Security Investigator - Associate', Lyft 'Investigator, Global Security'.
+# A bank's singular 'security' can also be a tradable one: Morgan Stanley
+# 'North American Security Settlements- Analyst/ Associate', Citi 'Security
+# and Derivatives Intermediate Associate Analyst'.
+# Fire and security is building systems (Honeywell 'Fire and Security System
+# Engineer I (m/f/d)'), facility security is the cleared-site office (MITRE
+# 'Facility Security Coordinator and Administrator—Albuquerque, NM'), and
+# security cooperation is the DoD's work with partner militaries (Booz Allen
+# 'Intelligence Security Cooperation and Engagement Planner').
 NON_CYBER_SECURITY_RE = re.compile(
-    r'\b(?:social|food|energy|border|homeland|campus|event|electronic|regional)\s+security\b'
+    r'\b(?:social|food|energy|border|homeland|campus|event|electronic|regional|global|'
+    r'fire and|facility)\s+security\b'
     r'|\bsecurity\s+resilien\w*'
     r'|\bcorporate\s+security\b(?!\s+engineer)'
-    r'|\bsecurity\s+(?:forces|badging)\b')
+    r'|\bsecurity\s+(?:forces|badging|cooperation)\b'
+    r'|\bsecurity\s+(?:and\s+derivatives?|settlements?|master|valuations?|pricing|lending)\b')
 
 # A bare 'security' before these role nouns is usually a facility, badging or
 # guard job: RTX 'Security Specialist II' (COMSEC, NISPOM), SAIC 'Security
 # Associate', KBR 'Associate Security Specialist', GDIT 'Security Specialist -
 # Administrative (Junior)', 'Security Access Control Technician I'. Such a
 # title needs a second cyber term ('Cyber Security Specialist I', 'IT Security
-# Specialist I') or a technical role noun ('Associate Security Analyst').
+# Specialist I') or a technical role noun ('Associate Security Analyst'). A
+# bare SOC is not one, since a guard force runs its own security operations
+# center: PNC 'Security Associate- SOC', posted to its data and operations
+# centers. A bare security investigator is the corporate kind (Comcast
+# 'Investigator 2, Security') and a bare security operator a guard post
+# (Southern Company 'Armed NERC CIP Security Operator'), so both need the
+# second term too, as TD Bank's 'Lead Insider Threat Investigator (US)' has.
 WEAK_SECURITY_ROLE_RE = re.compile(
-    r'\b(?:specialist|technician|associate|assistant|coordinator|officer)s?\b')
+    r'\b(?:specialist|technician|associate|assistant|coordinator|officer|investigator|'
+    r'operator)s?\b')
 TECH_SECURITY_ROLE_RE = re.compile(
     r'\b(?:analyst|engineer|engineering|consultant|administrator|developer|tester|'
-    r'responder|investigator|researcher|scientist|architect|auditor|hunter)s?\b')
+    r'responder|researcher|scientist|architect|auditor|hunter)s?\b')
 # The role noun has to follow the word 'security' closely for a department
 # title to count as security work: 'Silicon Security Researcher' does,
 # 'Revenue Platform Engineer, Security' does not.
 SECURITY_ROLE_RE = re.compile(
     r'\bsecurity\s+(?:[a-z]+\s+)?(?:analyst|engineer|consultant|administrator|'
-    r'developer|tester|responder|investigator|researcher|scientist|architect|'
+    r'developer|tester|responder|researcher|scientist|architect|'
     r'auditor|hunter)s?\b')
 # A word that makes 'security' information security by itself.
 INFOSEC_QUALIFIER_RE = re.compile(
@@ -340,16 +429,23 @@ SOC_AUDIT_GUARD = r'(?![\s-]*[12]\b)(?!\s+reporting\b)'
 # 'SOC Services' beside audit 'Assurance' is the same report work: Grant
 # Thornton 'Strategic Assurance and SOC Services Associate'.
 SOC_ASSURANCE_GUARD = r'^(?!.*(?<!information )\bassurance\b.*\bsoc services\b).*'
+# 'SoC' is also a system on a chip. Qualcomm lists it among chip disciplines
+# ("Hardware (CPU, GPU, SoC, Digital Design, DV) Engineering Internship") and
+# as a prefix ("SoC Performance Architect"), and NVIDIA names it beside the GPU
+# ('System Software Engineer – GPU and SOC (2027 RDSS Intern)') and before the
+# software that runs on it ('SoC Software Engineer - New College Grad 2027'),
+# so a processor anywhere in the title, or a chip discipline right after the
+# acronym, rules it out. Intel 'Graduate Talent (ISCP SoC Front End Team)' is
+# a chip design team.
+SOC_CHIP_GUARD = r'^(?!.*\b[cg]pus?\b)'
+SOC_PATTERN = (SOC_CHIP_GUARD + SOC_ASSURANCE_GUARD
+               + r'\bsoc\b(?![\s,/-]+(?:asic|design|digital design|verification|rtl|'
+               r'silicon|power|performance|hardware|software|firmware|front[\s-]?end|'
+               r'validation))' + SOC_AUDIT_GUARD)
 
-# Short acronyms need word boundaries ('soc' is inside 'associate'), and
-# 'SoC' must not match system-on-chip hardware titles. Qualcomm lists SoC among
-# chip disciplines ("Hardware (CPU, GPU, SoC, Digital Design, DV) Engineering
-# Internship") and as a prefix ("SoC Performance Architect"), so a comma-listed
-# neighbour counts as well as a following word.
+# Short acronyms need word boundaries ('soc' is inside 'associate').
 CYBER_REGEXES = [re.compile(p) for p in
-                 (SOC_ASSURANCE_GUARD
-                  + r'(?<!pu, )\bsoc\b(?![\s,/-]+(asic|design|digital design|verification|'
-                  r'rtl|silicon|power|performance|hardware))' + SOC_AUDIT_GUARD,
+                 (SOC_PATTERN,
                   # SOC 2 is the security audit report, so its compliance work
                   # is GRC; SOC 1 covers financial controls and stays out.
                   r'\bsoc[\s-]*2\s+compliance\b',
@@ -361,7 +457,9 @@ CYBER_REGEXES = [re.compile(p) for p in
                   # 'PKI Engineer I'. ACAS X is the FAA's collision-avoidance
                   # system, which MITRE and Leidos staff.
                   r'\b(?:isso|isse|rmf|emass|stigs?|csoc|snoc|cssp|secops|pki|xdr)\b',
-                  r'\bacas\b(?![\s-]*x\b)',
+                  # Johnson & Johnson's ACAS is its sales intern, the
+                  # 'Associate Clinical Account Specialist (ACAS) Intern'.
+                  r'^(?!.*\bclinical account\b).*\bacas\b(?![\s-]*x\b)',
                   # SOAR is also a program name (USAF SOAR, Soar Technology),
                   # so it counts only before a technical role noun.
                   r'\bsoar\s+(?:engineer|analyst|developer|administrator)',
@@ -460,7 +558,8 @@ CLOUD_ENGINEERING_RE = re.compile(
     r'engineer(?:ing)?s?|sre)\b.{0,40}\b(?:aws|azure|gcp|cloud)\b')
 # Product suites named 'Cloud' are CRM, ERP and SaaS configuration work, not
 # cloud infrastructure: 'Salesforce Service Cloud Developer', 'Oracle Cloud HCM
-# Developer', 'Associate SAP Cloud Developer', 'Workday Cloud Administrator I'.
+# Developer', 'Associate SAP Cloud Developer', 'Workday Cloud Administrator I',
+# and contact-centre suites (Unisys 'Junior Genesys Cloud CX Architect').
 # Cost and data-centre work is facilities and finance ('Cloud FinOps Analyst',
 # 'DCO Technician I, AWS Data Center Operations'), server hardware is chip and
 # board design (Amazon 'Cloud Hardware Development Engineer I, Annapurna
@@ -470,7 +569,7 @@ CLOUD_PRODUCT_RE = re.compile(
     r'industries|financial services|nonprofit|education|analytics|public sector|'
     r'manufacturing) cloud\b'
     r'|\b(?:hcm|erp|epm|scm|fusion|financials|netsuite|sap|workday|servicenow|tableau|'
-    r'dynamics|guidewire|veeva|cpq)\b|\boracle cloud\b(?!\s+infrastructure)'
+    r'dynamics|guidewire|veeva|cpq|genesys)\b|\boracle cloud\b(?!\s+infrastructure)'
     r'|\bfinops\b|\bcost\b|\bkitchen\b|\bcontact cent(?:er|re)\b'
     r'|\bdata cent(?:er|re)\b|\b(?:saint|st\.?) cloud\b|\bhardware\b'
     r'|\b(?:point|word) clouds?\b|\bcloud (?:physics|seeding|9|nine)\b')
@@ -612,10 +711,27 @@ MULTI_LEVEL_RE = re.compile(
     r'(' + _LEVEL_TOKEN + r'(?:(?:\s*/\s*|[-–]|\s+(?:or|to|through|and)\s+|\s*&\s*)'
     + _LEVEL_TOKEN + r')+)\b')
 _SENIOR_LEVEL_TOKEN_RE = re.compile(r'\b(?:iii|iv|[3-9])\b')
+# Boeing spells its spans in words: 'Systems Engineer (Associate or
+# Mid-Level)', 'Full Stack Software Engineer (Associate/Experienced)', 'Space
+# Systems Engineer (Associate, Experienced)', 'X-37B Industrial Engineer,
+# Associate or Mid-Career', 'Boeing Engineering Entry-level, Associate and
+# Mid-level Positions', as do KBR ('Junior, Mid-Level, and Senior Level Radar
+# Signals Processing Engineer') and Booz Allen ('Digital Forensic Examiner,
+# Mid'). The low word levels the title, so the span needs the same
+# description evidence as a numeral one, in either order. A word must join
+# the two: PwC's 'Experienced Associate' names one level and is no span. A
+# bare 'mid' is a level only when no hyphen follows, so JPMorgan's 'Associate
+# – Mid-Cap Financial Sponsors Group' is no span either.
+_SPAN_LOW = r'(?:associate|junior|jr|entry[- ]?level)'
+_SPAN_HIGH = r'(?:mid[- ]?(?:level|career)|mid(?![-\w])|experienced)'
+_SPAN_JOIN = r'(?:\s*[,/&–-]\s*|\s+(?:or|and|to|through)\s+)'
+WORD_LEVEL_SPAN_RE = re.compile(
+    rf'\b(?:{_SPAN_LOW}\.?{_SPAN_JOIN}{_SPAN_HIGH}|{_SPAN_HIGH}{_SPAN_JOIN}{_SPAN_LOW})\b')
 
 
 def _spans_senior_level(t):
-    return any(_SENIOR_LEVEL_TOKEN_RE.search(m.group(1)) for m in MULTI_LEVEL_RE.finditer(t))
+    return (any(_SENIOR_LEVEL_TOKEN_RE.search(m.group(1)) for m in MULTI_LEVEL_RE.finditer(t))
+            or bool(WORD_LEVEL_SPAN_RE.search(t)))
 
 # Strong phrases in a job description that mark a role as early career.
 # Deliberately tight — descriptions are noisy (boilerplate like "from early
@@ -711,7 +827,7 @@ CATEGORY_RULES = [
                            # Computer network operations: Nightwing 'Junior
                            # CNO Developer'.
                            r'\bcno\b'),
-    ('SOC & Detection', r'\bsoc\b' + SOC_AUDIT_GUARD
+    ('SOC & Detection', SOC_PATTERN
                         + r'|security operations|detection|blue team|'
                         r'incident response|threat hunt|csirt|siem|'
                         r'cyber defense|defensive cyber|triage|'
@@ -805,7 +921,7 @@ CA_PROVINCES = {'AB', 'BC', 'MB', 'NB', 'NL', 'NS', 'NT', 'NU', 'ON', 'PE',
                 'QC', 'SK', 'YT'}
 
 US_SUBSTRINGS = [
-    'united states', 'usa', 'u.s.', 'us only', 'us-remote', 'remote - us',
+    'united states', 'u.s.', 'us only', 'us-remote', 'remote - us',
     'remote (us', 'remote, us', 'us remote', 'anywhere in the us',
     'new york', 'san francisco', 'los angeles', 'seattle', 'boston',
     'chicago', 'austin', 'denver', 'atlanta', 'miami', 'dallas', 'houston',
@@ -821,13 +937,22 @@ US_SUBSTRINGS = [
     # "Remote - NYC", "US Remote (New England)".
     'nyc', 'bay area', 'socal', 'new england',
 ]
+# 'usa' as a plain substring sat inside 'Busan' and 'Jerusalem'. An underscore
+# still ends the word, as in 'USA_TX_Richardson'.
+USA_WORD_RE = re.compile(r'(?<![a-z])usa(?![a-z])')
+
+
+def _names_us_place(low):
+    return bool(USA_WORD_RE.search(low)) or any(s in low for s in US_SUBSTRINGS)
+
 
 NON_US_SUBSTRINGS = [
     'canada', 'toronto', 'vancouver', 'montreal', 'ottawa', 'calgary',
-    'waterloo', 'ontario', 'british columbia', 'quebec',
+    'waterloo', 'ontario', 'british columbia', 'quebec', 'mississauga',
+    'kitchener', 'kanata', 'burnaby', 'edmonton', 'winnipeg', 'fredericton',
     'london', 'united kingdom', ' uk', '(uk)', 'u.k.', 'scotland',
     'ireland', 'dublin', 'belfast',
-    'germany', 'berlin', 'munich', 'frankfurt',
+    'germany', 'berlin', 'munich', 'frankfurt', 'hamburg',
     # Parsons' 'DE - Ramstein Air Force Base' read DE as Delaware.
     'ramstein',
     'france', 'paris', 'netherlands', 'amsterdam', 'belgium', 'brussels',
@@ -835,10 +960,12 @@ NON_US_SUBSTRINGS = [
     'poland', 'warsaw', 'krakow', 'czech', 'prague', 'romania', 'bucharest',
     'sweden', 'stockholm', 'norway', 'oslo', 'denmark', 'copenhagen',
     'finland', 'helsinki', 'switzerland', 'zurich', 'austria', 'vienna',
-    'estonia', 'tallinn', 'hungary', 'budapest', 'greece', 'athens',
-    'israel', 'tel aviv', 'jerusalem',
+    'estonia', 'tallinn', 'lithuania', 'vilnius', 'hungary', 'budapest',
+    'greece', 'athens',
+    'israel', 'tel aviv', 'jerusalem', 'haifa', 'herzliya', 'petah tikva',
+    'ramat gan',
     # Named so the country Georgia is not read as the US state.
-    'tbilisi',
+    'tbilisi', 'batumi', 'kutaisi',
     'india', 'bangalore', 'bengaluru', 'hyderabad', 'pune', 'mumbai',
     'delhi', 'chennai', 'noida', 'gurgaon', 'gurugram', 'goa',
     # State names, so 'Mysuru, Karnataka, IN' does not read as Indiana.
@@ -852,8 +979,8 @@ NON_US_SUBSTRINGS = [
     # Continents a remote scope names: "Remote (Europe)", "Remote (Asia)".
     'europe', 'asia', 'latin america',
     'mexico city', ', mexico', 'brazil', 'sao paulo', 'argentina',
-    'buenos aires', 'colombia', 'bogota', 'chile', 'santiago', 'costa rica',
-    'peru', 'uruguay',
+    'buenos aires', 'colombia', 'bogota', 'medellin', 'chile', 'santiago',
+    'costa rica', 'peru', 'uruguay',
     # Named explicitly so it is rejected by rule rather than by the absence of
     # a US signal — 'virgin islands' alone resolves to the US territory.
     'british virgin islands',
@@ -869,17 +996,27 @@ ENGLAND_RE = r'(?<!new )\bengland\b'
 # The same lookbehind for "Remote (Mexico)", which ', mexico' missed, without
 # claiming "Albuquerque, New Mexico".
 MEXICO_RE = r'(?<!new )\bmexico\b'
+# A US token that says where the role is not: "Remote (Non-US)" and "Remote -
+# Excluding USA" read as US remote and were stored as Remote (US). The token
+# has to end the scope, so "Remote - US (excluding U.S. territories)" and a
+# title's "(Non-US Persons)" still read as US.
+NOT_US_RE = (r'\b(?:non|outside|excluding|except|ex)[\s-]+(?:of\s+)?(?:the\s+)?'
+             r'(?:u\.?s\.?a?\.?|united states)(?![a-z])(?=\s*(?:[),/;|•\-–]|$))')
 NON_US_RE = re.compile('|'.join([_term_regex(t) for t in NON_US_SUBSTRINGS]
-                                + [ENGLAND_RE, MEXICO_RE]))
+                                + [ENGLAND_RE, MEXICO_RE, NOT_US_RE]))
 
 REGION_CODE_RE = re.compile(r',\s*([A-Za-z]{2})\.?\s*$')
 
 # Foreign places whose own country or region code is also a US state code.
 # A trailing code rescues "Paris, TX" and "Perth Amboy, NJ", but "Pune, IN"
 # is India, "Chennai, TN" is Tamil Nadu, "Goa, GA" is Goa, "Perth, WA" is
-# Western Australia and "Toronto, Ontario, CA" is Canada. Each place pattern
-# lists only the codes that country uses, so "Athens, GA" and "Melbourne, FL"
-# stay US. Ladakh's LA is left out for Delhi, Louisiana.
+# Western Australia and "Toronto, Ontario, CA" is Canada. A country's own ISO
+# code collides too: "Tel Aviv, IL", "Berlin, DE", "Bogota, CO", "Vancouver,
+# CA", and "Tbilisi, Georgia", which the normalizer stores as "Tbilisi, GA".
+# Each place pattern lists only the codes that country uses, so "Athens, GA",
+# "Melbourne, FL", "Hamburg, NY" and "Waterloo, IA" stay US. Ladakh's LA is
+# left out for Delhi, Louisiana. Every place here is in NON_US_SUBSTRINGS too,
+# which is what drops it beside a US site.
 FOREIGN_CODE_COLLISIONS = [
     (re.compile(r'\b(?:india|bangalore|bengaluru|hyderabad|pune|mumbai|delhi|'
                 r'chennai|noida|gurgaon|gurugram|goa|karnataka|tamil nadu|'
@@ -890,8 +1027,17 @@ FOREIGN_CODE_COLLISIONS = [
                 r'western australia)\b(?! amboy)'),
      {'WA'}),
     (re.compile(r'\b(?:canada|toronto|montreal|calgary|ottawa|quebec|'
-                r'british columbia)\b'),
+                r'british columbia|vancouver|waterloo|mississauga|kitchener|'
+                r'kanata|burnaby|edmonton|winnipeg|fredericton)\b'),
      {'CA'}),
+    (re.compile(r'\b(?:israel|tel aviv|jerusalem|haifa|herzliya|petah tikva|'
+                r'ramat gan)\b'),
+     {'IL'}),
+    (re.compile(r'\b(?:germany|berlin|munich|frankfurt|hamburg)\b'), {'DE'}),
+    (re.compile(r'\b(?:colombia|bogota|medellin)\b'), {'CO'}),
+    (re.compile(r'\b(?:tbilisi|batumi|kutaisi)\b'), {'GA'}),
+    (re.compile(r'\b(?:argentina|buenos aires)\b'), {'AR'}),
+    (re.compile(r'\b(?:indonesia|jakarta)\b'), {'ID'}),
 ]
 
 
@@ -933,7 +1079,7 @@ DC_SPELLING_RE = re.compile(r'\bwashington\s*,?\s*d\.?\s*c\.?(?![a-z])',
                             re.IGNORECASE)
 
 
-def _state_names(text):
+def state_names(text):
     """Distinct state/territory abbreviations named in full in `text`."""
     found = []
     if DC_SPELLING_RE.search(text):
@@ -973,7 +1119,7 @@ def _remote_state_scope(location):
     """
     if not REMOTE_WORD_RE.search(location):
         return None
-    names = _state_names(location)
+    names = state_names(location)
     if len(names) != 1:
         return None
     rest = REMOTE_WORD_RE.sub(' ', STATE_NAME_RE.sub(
@@ -1005,7 +1151,7 @@ def _is_us_remote(text):
     if not m:
         return False
     scope = m.group('scope')
-    if scope is None or US_TOKEN_RE.search(scope) or _state_names(scope):
+    if scope is None or US_TOKEN_RE.search(scope) or state_names(scope):
         return True
     if scope.strip().upper() in US_STATES:
         return True
@@ -1026,7 +1172,7 @@ def _is_bare_remote(part):
     # "Remote" or "Remote (Hybrid)", but not "Remote (US)" or "Remote (Texas)".
     low = part.strip().lower()
     return (_is_us_remote(low) and not US_TOKEN_RE.search(low)
-            and not _state_names(part))
+            and not state_names(part))
 
 
 def _is_foreign_only(part):
@@ -1034,8 +1180,30 @@ def _is_foreign_only(part):
     if not NON_US_RE.search(low):
         return False
     # A comma-joined part can name US cities beside a foreign one: "New York
-    # City, Toronto, Chicago, or Remote".
-    return not (any(s in low for s in US_SUBSTRINGS) or _has_strong_us_token(part))
+    # City, Toronto, Chicago, or Remote". The USA in "Excluding USA" is not one.
+    return not (_names_us_place(re.sub(NOT_US_RE, ' ', low)) or _has_strong_us_token(part))
+
+
+# A title puts the state code mid-string or in parentheses, where the
+# end-anchored _us_region_code misses it: "Cyber Security Engineer I (Vienna,
+# VA)" and Northrop's "2027 Engineering Intern - Melbourne (FL) (Evergreen)"
+# read as abroad and were rejected at their own US site.
+TITLE_STATE_PAREN_RE = re.compile(r'\s*\(([A-Z]{2})\)')
+TITLE_SEGMENT_RE = re.compile(r'\s+[-–—]\s+|[()|•/]|\*\*')
+
+
+def title_places_abroad(title):
+    """True when the title names a foreign place and no US one.
+
+    The title can place a role abroad that the ATS lists as remote: Parsons
+    'ABAD Cyber Security Systems Engineer Associate**This position is located
+    at Ramstein AFB, Germany**' was stored as Remote (US).
+    """
+    title = ' '.join(title.split())
+    if not _is_foreign_only(title):
+        return False
+    segments = TITLE_SEGMENT_RE.split(TITLE_STATE_PAREN_RE.sub(r', \1', title))
+    return not any(_us_region_code(s.strip()) for s in segments)
 
 
 def _part_is_us(part):
@@ -1047,6 +1215,11 @@ def _part_is_us(part):
     country = _iso_site_country(p)
     if country:
         return country == 'US'
+    # A trailing state code rescues a US town that shares a foreign name, as it
+    # does in _is_foreign_part: 'Hamburg, NY; Hamburg, DE' kept its US site in
+    # the normalizer but read as having none.
+    if _us_region_code(p):
+        return True
     low = p.lower()
     # A part that names a foreign place is not a US part, even if it also says
     # "remote" ("Remote (EMEA)").
@@ -1069,9 +1242,9 @@ def _part_is_us(part):
             return True
     if US_TOKEN_RE.search(low):
         return True
-    if _state_names(p):
+    if state_names(p):
         return True
-    return any(s in low for s in US_SUBSTRINGS)
+    return _names_us_place(low)
 
 
 # Split on every delimiter that separates co-equal location options so a US
@@ -1091,6 +1264,8 @@ def _has_strong_us_token(location):
     hours)"), a mid-string state code followed by a country ("Chennai, TN,
     India"), and a code the named foreign place uses itself ("Pune, IN").
     """
+    # The hyphen in "Remote (Non-US)" left "US)" as a segment of its own.
+    location = re.sub(NOT_US_RE, ' ', location, flags=re.IGNORECASE)
     for seg in SEGMENT_SPLIT_RE.split(location):
         if re.sub(r'[^a-z]', '', seg.strip().lower()) in US_COUNTRY_SEGMENTS:
             return True
@@ -1166,7 +1341,7 @@ def is_us_location(location):
         return False
     if _is_us_remote(loc.strip()):
         return True
-    return any(s in loc for s in US_SUBSTRINGS)
+    return _names_us_place(loc)
 
 
 # Opaque Workday facility codes ("CASD14", "TXSA08UNK").
@@ -1200,8 +1375,13 @@ SITE_CODE_CITY_ADDRESS_RE = re.compile(r'^(?:[A-Z]\d+\s+)?([A-Za-z .\']+?)\s*-\s
 # "VA-Dahlgren", "HI-Pearl Harbor", "USA_TX_Richardson", "Atlanta GA".
 STATE_DASH_CITY_RE = re.compile(r'^([A-Z]{2})-([A-Za-z .\']+)$')
 USA_UNDERSCORE_RE = re.compile(r'^USA?_([A-Z]{2})_(.+)$')
-# Walmart Workday: "(USA) ISD Office - DGTC AR BENTONVILLE Home Office".
-HOME_OFFICE_RE = re.compile(r'\b([A-Z]{2})\s+([A-Z][A-Z ]+?)\s+Home Office$')
+# Walmart Workday: "(USA) ISD Office - DGTC AR BENTONVILLE Home Office". The
+# city can be mixed case: "(USA) Maverick Building AR Bentonville Home Office"
+# fell through to the office strip and was stored as "... Bentonville Home".
+# A lookahead, so each two-capital word is tried in turn: a site name's own
+# "HQ Campus" or "IT Services" would otherwise end the search before the state.
+# The city's length cap keeps that scan linear on a long issue-form string.
+HOME_OFFICE_RE = re.compile(r"(?=\b([A-Z]{2})\s+([A-Z][A-Za-z .']{0,40}?)\s+Home Office$)")
 CITY_SPACE_STATE_RE = re.compile(r'^([A-Za-z .\']+)\s+([A-Z]{2})$')
 # Workday appends ", More..." when a req lists further sites: "Chicago, IL,
 # More...".
@@ -1242,6 +1422,15 @@ def _title_city(name):
 
 
 def _is_foreign_part(part):
+    # A country code decides the part as it does in is_us_location: Parsons'
+    # 'CA - Remote (Any Location)' stayed beside 'Centreville, VA' as if it
+    # were California, and Walmart's '(CAN) ON MISSISSAUGA' as a US site.
+    country = _iso_site_country(part)
+    if country:
+        return country != 'US'
+    m = COUNTRY_CODE_PREFIX_RE.match(part.strip())
+    if m:
+        return m.group(1) != 'USA'
     # A trailing US state code rescues a US city that shares a foreign name
     # ("Paris, TX", "Vienna, VA"), but not a foreign place's own code.
     if _us_region_code(part):
@@ -1296,13 +1485,18 @@ def _normalize_single_location(location):
         if abbr:
             return f'{m.group(2).strip()}, {abbr}'
     # PANW-style Workday: "Office - USA - CA - Headquarters" / "Office - USA - TX"
-    m = re.fullmatch(r'(?:Office|Remote|Virtual Location)\s*-\s*USA?\s*-\s*'
+    m = re.fullmatch(r'(Office|Remote|Virtual Location)\s*-\s*USA?\s*-\s*'
                      r'([A-Z]{2})(?:\s*-\s*(.+))?', location, flags=re.IGNORECASE)
     if m:
-        state = m.group(1).upper()
-        site = (m.group(2) or '').strip()
-        if site and site.lower() not in ('headquarters', 'hq', 'remote', 'office'):
-            return f'{site}, {state}'
+        state = m.group(2).upper()
+        site = (m.group(3) or '').strip()
+        named = site if site.lower() not in ('headquarters', 'hq', 'remote', 'office') else ''
+        # 'Remote - USA - TX' is a remote role, not an office: it was stored
+        # as 'TX (US)', which the board's Remote filter does not list.
+        if m.group(1).lower() != 'office' and state in US_STATES:
+            return f'Remote - {named}, {state}' if named else f'Remote, {state}'
+        if named:
+            return f'{named}, {state}'
         return f'{state} (US)' if state in US_STATES else (site or 'United States')
     # "Virtual Location - Virginia, VA" / "Virtual Location - Remote" -> remote
     if re.fullmatch(r'Virtual Location\s*-\s*.+', location, flags=re.IGNORECASE):
@@ -1317,8 +1511,8 @@ def _normalize_single_location(location):
     m = USA_UNDERSCORE_RE.fullmatch(location)
     if m:
         return f'{m.group(2).strip()}, {m.group(1)}'
-    m = HOME_OFFICE_RE.search(location)
-    if m and m.group(1) in US_STATES:
+    m = next((m for m in HOME_OFFICE_RE.finditer(location) if m.group(1) in US_STATES), None)
+    if m:
         return f'{_title_city(m.group(2))}, {m.group(1)}'
     m = STATE_CITY_ADDRESS_RE.fullmatch(location)
     if m and m.group(1) in US_STATES:
@@ -1387,6 +1581,12 @@ def _location_city_key(loc):
     return loc.split(',')[0].strip().lower()
 
 
+# A US scope beside another country ("Remote (US & Canada)") is a US remote
+# option; a US token in an hours or shift phrase ("India (US Hours)") is not.
+US_SCOPE_RE = re.compile(r'\b(?:u\.?s\.?a?\.?|united states)(?![a-z])'
+                         r'(?!\.?\s*(?:[a-z]+\s+)?(?:hours|shift|time))')
+
+
 def normalize_location(location, mark_us=True):
     """Convert "USA - Austin, Texas" -> "Austin, TX"; collapse remote variants.
 
@@ -1400,6 +1600,20 @@ def normalize_location(location, mark_us=True):
     `mark_us=False` returns the bare form, so a caller can see a stored
     location decay ("Ma, US" -> "Ma") instead of reading the marker as US.
     """
+    # The workplace tag comes off after the shape rules have run, so one pass
+    # stored 'Remote (Hybrid)' as 'Remote' and the next scrape's renormalize
+    # made it 'Remote (US)'. A repost keyed on the first form then landed as a
+    # second open row, and check_outputs.py failed every scrape after it.
+    result = _normalize_pass(location, mark_us)
+    for _ in range(3):
+        again = _normalize_pass(result, mark_us)
+        if not again or again == result:
+            break
+        result = again
+    return result
+
+
+def _normalize_pass(location, mark_us):
     if not location:
         return location
     seen = []
@@ -1407,6 +1621,20 @@ def normalize_location(location, mark_us=True):
         if not raw.strip():
             continue
         norm = _normalize_single_location(raw)
+        # Each part reaches its own fixed point before the bare-city fold below:
+        # 'Remote (Hybrid)' was still a bare 'Remote' there and folded into the
+        # 'Remote, CA' beside it, losing the US-wide option.
+        for _ in range(3):
+            again = _normalize_single_location(norm) if norm else norm
+            if not again or again == norm:
+                break
+            norm = again
+        # A remote option abroad keeps its own text, so the domestic filter
+        # below drops it: 'Remote, India (US Hours)' and 'Virtual Location -
+        # Canada' were relabeled Remote (US) beside a US site.
+        if (norm == 'Remote (US)' and _is_foreign_part(raw) and not is_us_location(raw)
+                and not US_SCOPE_RE.search(re.sub(NOT_US_RE, ' ', raw.lower()))):
+            norm = raw.strip()
         # Dropping the country must not drop the only US signal: Palo Alto
         # Networks 'Cleveland, United States of America' became 'Cleveland',
         # which check_outputs.py re-judged as not US, failing two scrape runs.
@@ -1429,17 +1657,34 @@ def renormalize_locations(listings):
     A row keeps the string the normalizer produced when it landed, so a rule
     added later never reaches the board without this pass. Community rows stay
     as the maintainer wrote them, and a result that would blank the location
-    (an opaque facility code alone) keeps the old value.
+    (an opaque facility code alone) keeps the old value. An open row also keeps
+    it when the new one would give it the (company, role, location) key another
+    open row holds: RTX posted 'Systems Engineer I, V&V Testing' twice at
+    Aguadilla, stored as 'Aguadilla, Puerto Rico' and 'Aguadilla, PR', and two
+    open rows with one key fail check_outputs.py on every run.
     """
+    def key(entry, location):
+        return listing_dedup_key(entry.get('company', ''), entry.get('role', ''), location)
+
+    def is_open(entry):
+        return bool(entry.get('url')) and not entry.get('closed')
+
+    held = {key(e, e.get('location', '')) for e in listings if is_open(e)}
     changed = 0
     for entry in listings:
         if entry.get('source') == 'Community':
             continue
         before = entry.get('location', '')
         after = normalize_location(before)
-        if after and after != before:
-            entry['location'] = after
-            changed += 1
+        if not after or after == before:
+            continue
+        if is_open(entry):
+            new_key = key(entry, after)
+            if new_key != key(entry, before) and new_key in held:
+                continue
+            held.add(new_key)
+        entry['location'] = after
+        changed += 1
     return changed
 
 
@@ -1532,9 +1777,10 @@ def rejected_title_rule(title, today=None):
         return f'"{m.group(0)}" names a department and the title names no security work'
     if re.search(r'\bsecurity\b', _strip_non_cyber_security(t)):
         m = WEAK_SECURITY_ROLE_RE.search(t)
-        if m and not TECH_SECURITY_ROLE_RE.search(t) and not _has_second_cyber_term(t):
+        if (m and not TECH_SECURITY_ROLE_RE.search(t)
+                and not _has_second_cyber_term(re.sub(r'\bsoc\b', ' ', t))):
             return (f'a security "{m.group(0)}" with no other cyber term is usually '
-                    'a facility, badging or guard role')
+                    'a facility, badging, guard or corporate security role')
     if _is_stale_intern_title(title, today):
         return (f'the internship season in the title has passed; the earliest one '
                 f'still recruiting is {first_open_season(today)}')
@@ -1572,6 +1818,17 @@ SECURITY_CLEARANCE_RE = re.compile(r'\bsecurity clearance\b')
 # Security]' and KBR 'National Security Solutions (NSS) Semiconductor Research
 # Internship' matched 'security'. A title that also says 'cyber' keeps it.
 NATIONAL_SECURITY_RE = re.compile(r'\bnational security(?: solutions)?\b')
+# 'Threat' in its military senses: GDIT 'Junior Tactical All Source Threat
+# Intelligence Analyst - Overnight Shift (Top Secret Clearance)' is military
+# intelligence, Amentum 'Counter Threat Finance Analyst (CENTCOM - B31)' traces
+# an adversary's money, and SAIC 'Jr. Mobile Threat to Aerospace Operations
+# (TTAO) Technician Assistant' names a threat to aircraft, and Northrop 'Mod
+# Sim System Engineer (Mission Support Threat Engineer - Level 2 or 3)' models
+# an adversary's weapons for a simulation. Only the phrase is stripped, so a
+# cyber word elsewhere in the title still counts.
+NON_CYBER_THREAT_RE = re.compile(
+    r'\ball[- ]source\s+threat\b|\bcounter[- ]?threat\s+finance\b|\bthreats?\s+to\s+aerospace\b'
+    r'|\bmission\s+support\s+threat\b')
 
 
 def _strip_non_cyber_security(t):
@@ -1581,7 +1838,8 @@ def _strip_non_cyber_security(t):
 
 def _has_cyber_keyword(t):
     # 'Identity & Access Management Intern' reads as 'identity and access'.
-    t = re.sub(r'\s+', ' ', _strip_non_cyber_security(t).replace('&', ' and '))
+    t = NON_CYBER_THREAT_RE.sub(' ', _strip_non_cyber_security(t))
+    t = re.sub(r'\s+', ' ', t.replace('&', ' and '))
     return _is_cyber_keyword_hit(t) or any(p.search(t) for p in CYBER_REGEXES)
 
 
@@ -2189,7 +2447,7 @@ def judge_job(title, location, description='', security_company=False,
     # parser would misread as a floor.
     if level != 'intern' and exceeds_experience_cap(description):
         return None, 'over-experienced'
-    if not is_us_location(location):
+    if not is_us_location(location) or title_places_abroad(title):
         return None, 'non-us-location'
     return (level, infer_category(title, security_company)), None
 
@@ -2250,6 +2508,52 @@ def purge_stale_listings(listings, today, max_age_days=60):
     return kept, removed
 
 
+def _twin_key(entry):
+    return tuple(entry.get(f, '').strip() for f in ('company', 'role', 'date_added'))
+
+
+def twin_ordinals(listings):
+    """Each row's number among its twins, the rows sharing company, role and date_added.
+
+    A row stamped with `twin` keeps that number unless an earlier twin holds
+    it; any other row takes its position among its twins, passing over a
+    number a stamped twin holds.
+    """
+    taken = {}
+    for entry in listings:
+        if isinstance(entry.get('twin'), int):
+            taken.setdefault(_twin_key(entry), set()).add(entry['twin'])
+    positions, held, ordinals = {}, set(), []
+    for entry in listings:
+        key = _twin_key(entry)
+        ordinal = entry.get('twin')
+        # The orphan pass renames a company's rows to the name companies.yml
+        # now uses, which can merge two groups that each stamped a twin 1.
+        if not isinstance(ordinal, int) or (key, ordinal) in held:
+            ordinal = positions.get(key, 0)
+            # A stamped twin can sit at a lower position once an earlier
+            # twin is gone, and two rows must never share an id.
+            while ordinal in taken.get(key, ()):
+                ordinal += 1
+            taken.setdefault(key, set()).add(ordinal)
+        held.add((key, ordinal))
+        positions[key] = positions.get(key, 0) + 1
+        ordinals.append(ordinal)
+    return ordinals
+
+
+def stamp_twins(listings):
+    """Store `twin` on each row twin_ordinals numbers 1 or more, unless it holds that number.
+
+    The board page keys a row and its Applied mark by that number, and while
+    it was only a position, removing an earlier twin renumbered the later ones.
+    A stamp twin_ordinals passed over is rewritten, so the new number sticks.
+    """
+    for entry, ordinal in zip(listings, twin_ordinals(listings), strict=True):
+        if ordinal and entry.get('twin') != ordinal:
+            entry['twin'] = ordinal
+
+
 def prune_seen(seen, today, ttl_days=45):
     """Drop scraper job-ids not refreshed within ttl_days; return a new dict.
 
@@ -2270,7 +2574,8 @@ def reclassify_listings(listings, sec_flags=None):
     (company, role, old_type, new_type) re-levelings. `rejected` holds
     (row, reason) pairs: 'rejected-title' when the title now fails
     `is_rejected_title`, 'not-cyber' when it fails `is_cyber_title` under the
-    company's current flag. A seniority or function term added after a row
+    company's current flag, 'non-us-location' when the title places the role
+    abroad (`title_places_abroad`). A seniority or function term added after a row
     landed, or a `security_company` flag its employer lost, then retires the
     row instead of leaving it on the board until its link dies. The same title
     gates run at ingestion, so this never drops a row the scraper would accept
@@ -2301,6 +2606,9 @@ def reclassify_listings(listings, sec_flags=None):
             continue
         if company in sec_flags and not is_cyber_title(role, sec_flags[company]):
             rejected.append((entry, 'not-cyber'))
+            continue
+        if title_places_abroad(role):
+            rejected.append((entry, 'non-us-location'))
             continue
         kept.append(entry)
         if entry.get('type') == 'intern':

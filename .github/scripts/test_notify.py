@@ -289,6 +289,9 @@ def test_markdown_escaping():
           'see #&#8203;12 and HackedRico/2027-cyber-jobs#&#8203;3, not C# or #tag')
     check('_apply_link drops a non-http url', notify._apply_link('javascript:alert(1)'), '')
     check('_apply_link drops a url with whitespace', notify._apply_link('https://x/a b'), '')
+    check('_apply_link drops a url a browser reads with another host',
+          notify._apply_link('https://evil.example\\@boards.greenhouse.io/x/jobs/1'), '')
+    check('_apply_link drops a bare scheme', notify._apply_link('https://'), '')
     check('_apply_link keeps an https url', notify._apply_link('https://x/a'),
           ' · [Apply](https://x/a)')
 
@@ -396,22 +399,36 @@ def test_notify_one_failed_stream_does_not_stop_the_others():
               for c in responses.calls), True)
 
 
-def test_notify_main_returns_one_on_a_failed_announcement():
+def test_notify_main_announces_only_with_a_token():
+    # The exit code alone passed a token check turned inside out, which
+    # refused every real run and announced nothing: count the calls too.
     saved = notify.announce
+    calls = []
+
+    def recording(*args, **kwargs):
+        calls.append(args[2])
 
     def failing(*args, **kwargs):
+        calls.append(args[2])
         raise notify.AnnounceError('failed: release x')
+    results = []
     with tempfile.TemporaryDirectory() as tmp:
         events = Path(tmp) / 'events.json'
         events.write_text(json.dumps(_events([_row('Acme', 'SOC Intern')])))
-        os.environ['GITHUB_TOKEN'] = 't'
-        notify.announce = failing
-        try:
-            code = notify.main(['--events', str(events), '--listings', str(events)])
-        finally:
-            notify.announce = saved
-            del os.environ['GITHUB_TOKEN']
-    check('main exits 1 after a failed announcement', code, 1)
+        for token, announce in (('t', recording), ('t', failing), (None, recording)):
+            calls.clear()
+            if token:
+                os.environ['GITHUB_TOKEN'] = token
+            notify.announce = announce
+            try:
+                code = notify.main(['--events', str(events), '--listings', str(events)])
+            finally:
+                notify.announce = saved
+                os.environ.pop('GITHUB_TOKEN', None)
+            results.append((code, list(calls)))
+    check('main announces with the token and exits 0', results[0], (0, ['t']))
+    check('main exits 1 after a failed announcement', results[1], (1, ['t']))
+    check('main without a token exits 1 and announces nothing', results[2], (1, []))
 
 
 for fn in (test_notify_skips_release_when_nothing_added,
@@ -425,7 +442,7 @@ for fn in (test_notify_skips_release_when_nothing_added,
            test_notify_relocks_when_the_comment_fails, test_notify_dry_run_posts_nothing,
            test_notify_retries_a_taken_release_tag,
            test_notify_one_failed_stream_does_not_stop_the_others,
-           test_notify_main_returns_one_on_a_failed_announcement):
+           test_notify_main_announces_only_with_a_token):
     fn()
 
 if failures:

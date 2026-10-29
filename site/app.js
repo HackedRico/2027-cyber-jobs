@@ -85,7 +85,10 @@
     return new Date(y, m - 1, d);
   }
 
-  function daysAgo(iso) { return Math.round((today - parseDay(iso)) / 86400000); }
+  // date_added is the runner's UTC date, and the 23:17 UTC scrape lands around
+  // 02:00 UTC, the evening before in the US. Those rows came out at -1 days,
+  // and the pulse chart's age >= 0 dropped the newest batch from its total.
+  function daysAgo(iso) { return Math.max(0, Math.round((today - parseDay(iso)) / 86400000)); }
 
   function shortDate(iso) {
     const d = parseDay(iso);
@@ -99,7 +102,9 @@
   const ESC = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
   function esc(text) { return String(text).replace(/[&<>"']/g, (c) => ESC[c]); }
 
-  function safeUrl(url) { return /^https?:\/\/\S+$/.test(url || '') ? url : ''; }
+  // No backslash: a browser reads it as a slash, so a link whose host check
+  // saw an allowed host after a '\@' would open the host before it.
+  function safeUrl(url) { return /^https?:\/\/[^\s\\]+$/i.test(url || '') ? url : ''; }
 
   function plural(n, one, many) { return `${n} ${n === 1 ? one : many}`; }
 
@@ -222,7 +227,10 @@
   function highlighter(needles) {
     const alts = [...new Set(needles.map((n) => n.trim()))]
       .sort((a, b) => b.length - a.length)
-      .map((w) => w.replace(/[+#]/g, '\\$&'));
+      // words() leaves only letters, digits, + and #, and of those only + is
+      // special. Under the u flag '\#' is an invalid escape: a search for
+      // "C#" threw here and turned highlighting off.
+      .map((w) => w.replace(/\+/g, '\\+'));
     if (!alts.length) return null;
     try {
       return new RegExp(`(?<![\\p{L}\\p{N}+#])(?:${alts.join('|')})`, 'giu');

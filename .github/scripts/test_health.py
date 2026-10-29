@@ -6,6 +6,7 @@
 import contextlib
 import io
 import json
+import re
 import sys
 import tempfile
 from datetime import UTC, datetime, timedelta
@@ -51,6 +52,11 @@ ROWS = [
     ('a non-http url', row(url='javascript:alert(1)'), ['is not a single-line http(s) link']),
     ('a url with a newline', row(url='https://x.example/a\n| fake |'),
      ['is not a single-line http(s) link']),
+    # A browser opens evil.example; urlsplit reads the Workday host.
+    ('a url with a backslash',
+     row(url='https://evil.example\\@crowdstrike.wd5.myworkdayjobs.com/x/job/X_R1'),
+     ['is not a single-line http(s) link']),
+    ('a bare scheme', row(url='https://'), ['is not a single-line http(s) link']),
     ('a missing field', {k: v for k, v in row().items() if k != 'source'},
      ['missing field `source`']),
     ('a string clearance', row(clearance='yes'), ['`clearance` is str, want bool']),
@@ -205,6 +211,14 @@ with tempfile.TemporaryDirectory() as tmp:
         rebuild_readme.main()
     (rebuild_readme.LISTINGS_FILE, rebuild_readme.README_FILE,
      rebuild_readme.COMPANIES_MD) = saved
+    # On a quiet morning the link check compares the README the evening scrape
+    # built with a rebuild made today, and only the stats date differs. Built
+    # and checked on one pinned day, this never needed the stats strip.
+    readme = tmp / 'README.md'
+    built = readme.read_text()
+    check('the rebuilt README carries the stats date made stale below',
+          'updated Oct 1, 2026' in built, True)
+    readme.write_text(built.replace('updated Oct 1, 2026', 'updated Sep 30, 2026'))
     check('readme_drift is quiet on a freshly rebuilt README, whatever the stats date',
           co.readme_drift(tmp / 'listings.json', tmp / 'README.md'), [])
     check('readme_drift left the README it checked alone',
@@ -359,7 +373,9 @@ class FakeRuns:
 
     def call(self, method, path, body=None, ok=()):
         self.paths.append(path)
-        return {'workflow_runs': self.runs}
+        # The API answers one page, 30 runs unless per_page asks for more.
+        per_page = int(re.search(r'per_page=(\d+)', path)[1]) if 'per_page=' in path else 30
+        return {'workflow_runs': self.runs[:per_page]}
 
 
 gh = FakeRuns([
@@ -373,6 +389,12 @@ check('the last success skips runs still going', hc.last_successful_scrape(gh),
 check('no request uses the lagging status filter', any('status=' in p for p in gh.paths), False)
 check('the latest writer run skips in-progress and skipped runs',
       {r['conclusion'] for r in hc.latest_writer_runs(gh).values()}, {'success'})
+# Fifteen issue-form submissions, two labels each, put 30 skipped add-listing
+# runs in front of a failed approval run.
+gh = FakeRuns([{'status': 'completed', 'conclusion': 'skipped'}] * 30
+              + [{'status': 'completed', 'conclusion': 'failure'}])
+check('a failed writer run behind 30 skipped runs is still seen',
+      {(r or {}).get('conclusion') for r in hc.latest_writer_runs(gh).values()}, {'failure'})
 
 
 if failures:

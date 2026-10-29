@@ -3,8 +3,11 @@
 
     python .github/scripts/test_site.py
 """
+import copy
 import json
+import os
 import re
+import shutil
 import sys
 import tempfile
 import xml.etree.ElementTree as ET
@@ -15,6 +18,7 @@ import testkit  # noqa: F401
 
 sys.path.insert(0, str(Path(__file__).parent))
 import build_site as bs  # noqa: E402
+import classify  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 TODAY = date(2026, 9, 28)
@@ -53,6 +57,19 @@ PLACES = [
     ('Hybrid - Massachusetts - Boston, US - Headquarters - Maryland - Columbia',
      (['MA', 'MD'], False)),
     ('Aguadilla, PR', (['PR'], False)),
+    # The capital's spelling read as Washington state.
+    ('Washington, D.C.', (['DC'], False)),
+    ('Washington D.C.', (['DC'], False)),
+    ('Remote - Washington, D.C.', (['DC'], True)),
+    ('Washington, D.C. / Arlington, VA', (['DC', 'VA'], False)),
+    # The words classify reads as remote missed the Remote filter.
+    ('Virtual (US)', ([], True)),
+    ('Telework (US)', ([], True)),
+    ('Work From Home (US)', ([], True)),
+    ('US Virtual', ([], True)),
+    ('Austin, TX (Non-Remote)', (['TX'], False)),
+    ('Austin, TX (Not Remote)', (['TX'], False)),
+    ('Arlington, VA **NO REMOTE WORK**', (['VA'], False)),
     ('United States', ([], False)),
     ('', ([], False)),
 ]
@@ -112,6 +129,49 @@ real = json.loads((ROOT / 'listings.json').read_text(encoding='utf-8'))
 ids = bs.row_ids(real)
 check('row_ids is unique across listings.json', len(ids), len(set(ids)))
 
+# The scraper stamps `twin` on later twins before any pass removes a row.
+stamped = copy.deepcopy(real)
+classify.stamp_twins(stamped)
+check('stamping twins moves no id in listings.json', bs.row_ids(stamped), ids)
+check('stamping twins numbers only later twins',
+      all(e['twin'] >= 1 for e in stamped if 'twin' in e), True)
+
+# Purging the closed Tewksbury twin renumbered the other two by position and
+# moved an Applied mark from El Segundo onto Tucson.
+RTX = [row(company='RTX', role='Embedded Security Software Engineer I (Onsite)',
+           location=place, date_added='2026-10-10', **extra)
+       for place, extra in (('Tewksbury, MA', {'url': '', 'closed': True,
+                                               'closed_date': '2026-10-18'}),
+                            ('El Segundo, CA', {}), ('Tucson, AZ', {}))]
+before = dict(zip((r['location'] for r in RTX), bs.row_ids(RTX), strict=True))
+classify.stamp_twins(RTX)
+kept, _ = classify.purge_stale_listings(RTX, '2026-12-18')
+check('a purged twin leaves the stamped twins their ids',
+      dict(zip((r['location'] for r in kept), bs.row_ids(kept), strict=True)),
+      {'El Segundo, CA': before['El Segundo, CA'], 'Tucson, AZ': before['Tucson, AZ']})
+late = {k: v for k, v in RTX[1].items() if k != 'twin'} | {'location': 'Andover, MA'}
+check('a twin added after the stamp never takes a stamped twin\'s number',
+      len(set(bs.row_ids(kept + [late]))), 3)
+
+# The orphan pass renames rows to the company name companies.yml now uses.
+# Folding 'Acme Federal' into 'Acme' merged two groups that each held a
+# stamped twin 1, and Denver and Columbia shared one id.
+MERGED = [row(company=company, role='Security Analyst I', location=place,
+              date_added='2026-10-01')
+          for company, place in (('Acme', 'Austin, TX'), ('Acme', 'Denver, CO'),
+                                 ('Acme Federal', 'Reston, VA'),
+                                 ('Acme Federal', 'Columbia, MD'))]
+classify.stamp_twins(MERGED)
+denver = bs.row_ids(MERGED)[1]
+for r in MERGED:
+    r['company'] = 'Acme'
+merged_ids = bs.row_ids(MERGED)
+check('a merged group with one stamped number twice gives every row its own id',
+      (len(set(merged_ids)), merged_ids[1]), (4, denver))
+classify.stamp_twins(MERGED)
+check('stamping the merged group rewrites the later stamp and moves no id',
+      ([r.get('twin') for r in MERGED], bs.row_ids(MERGED)), ([None, 1, 2, 3], merged_ids))
+
 
 # --- build and feeds -------------------------------------------------------------
 LISTINGS = [
@@ -161,6 +221,30 @@ beta = data['rows'][1]
 check('site data carries states and remote', (beta['states'], beta['remote']), (['VA'], True))
 
 
+# --- the Updated stamp -------------------------------------------------------------
+# pages.yml rebuilds every six hours, and stamping the build's own date said
+# the board was updated with no scrape behind it.
+def generated_with(health_text):
+    with tempfile.TemporaryDirectory() as tmp:
+        src = Path(tmp) / 'listings.json'
+        src.write_text(json.dumps(LISTINGS), encoding='utf-8')
+        health = Path(tmp) / 'health.json'
+        if health_text is not None:
+            health.write_text(health_text, encoding='utf-8')
+        out = Path(tmp) / '_site'
+        bs.build(out, listings_file=src, src=ROOT / 'site', today=TODAY, health_file=health)
+        return json.loads((out / 'listings.json').read_text(encoding='utf-8'))['generated']
+
+
+check('the page is stamped with the last scrape in health.json',
+      generated_with(json.dumps({'date': '2026-09-26', 'boards': 410, 'ok': 396})),
+      '2026-09-26')
+check('the page falls back to today without a readable health.json',
+      [generated_with(text) for text in (None, '{"date": "2026-09', '[]', '{"date": 20260926}',
+                                         '{"boards": 410}')],
+      ['2026-09-28'] * 5)
+
+
 def entries(xml_text):
     feed = ET.fromstring(xml_text)
     check('feed root is an Atom feed', feed.tag, f'{A}feed')
@@ -198,9 +282,51 @@ for kind, want in (('intern', ['Acme: Security Intern']),
     check(f'feed-{kind}.xml carries its type only',
           [e.find(f'{A}title').text for e in items], want)
 
-_, items = entries(bs.build_feed(bs.page_data(real, TODAY)['rows'])[1])
+# The cap is checked on rows of its own: listings.json is a bot output, and a
+# board under 50 open rows would have failed every PR with no code change.
+MANY = [row(role=f'SOC Analyst {i}', url=f'https://boards.greenhouse.io/acme/jobs/{i}')
+        for i in range(60)]
+_, items = entries(bs.build_feed(bs.page_data(MANY, TODAY)['rows'])[1])
 check('feed.xml caps at 50 entries', len(items), bs.FEED_SIZE)
+check('feed entry ids are unique', len({e.find(f'{A}id').text for e in items}), len(items))
+real_rows = bs.page_data(real, TODAY)['rows']
+_, items = entries(bs.build_feed(real_rows)[1])
+check('the real feed holds the newest open rows up to the cap', len(items),
+      min(bs.FEED_SIZE, sum(not r.get('closed') for r in real_rows)))
 check('real feed entry ids are unique', len({e.find(f'{A}id').text for e in items}), len(items))
+
+
+# --- --out never overlaps the source ----------------------------------------------
+# The build empties --out first: '--out site' deleted the page source and
+# '--out .' the whole checkout. '--out site/preview' wrote the build into site/.
+def build_into(root, out):
+    saved = sys.argv, Path.cwd()
+    sys.argv = ['build_site.py', '--out', out, '--today', TODAY.isoformat()]
+    try:
+        os.chdir(root)
+        bs.main()
+        return 'built'
+    except SystemExit as e:
+        return str(e.code).split(':')[0]
+    finally:
+        sys.argv = saved[0]
+        os.chdir(saved[1])
+
+
+with tempfile.TemporaryDirectory() as tmp:
+    shutil.copytree(ROOT / 'site', Path(tmp) / 'site')
+    (Path(tmp) / 'listings.json').write_text(json.dumps(LISTINGS), encoding='utf-8')
+    files = sorted(str(p.relative_to(tmp)) for p in Path(tmp).rglob('*'))
+    refused = [build_into(tmp, out) for out in ('site', '.', 'site/..', tmp, 'site/preview')]
+    check('--out refuses the page source, every folder above it and any inside it',
+          refused, ['Refusing to build into site', 'Refusing to build into .',
+                    'Refusing to build into site/..', f'Refusing to build into {tmp}',
+                    'Refusing to build into site/preview'])
+    check('a refused build leaves every file in place',
+          sorted(str(p.relative_to(tmp)) for p in Path(tmp).rglob('*')), files)
+    check('--out _site still builds', (build_into(tmp, '_site'),
+                                       (Path(tmp) / '_site' / 'index.html').exists()),
+          ('built', True))
 
 
 # --- one bad row cannot break the feeds ----------------------------------------
@@ -232,6 +358,15 @@ check('the page data drops the same characters',
       [(r['company'], r['role']) for r in page['rows']],
       [('Acme', 'SOC[31m Analyst I'), ('Beta', 'Security Intern'),
        ('Gamma', 'Cyber Analyst I')])
+
+# A browser opens jobs-crowdstrike.example; urlsplit sees boards.greenhouse.io.
+SPOOF = 'https://jobs-crowdstrike.example\\@boards.greenhouse.io/crowdstrike/jobs/7012345'
+_, items = entries(bs.build_feed([bs.page_row(row(url=SPOOF))])[1])
+check('a feed never links to a url holding a backslash',
+      items[0].find(f'{A}link').get('href'), bs.SITE_URL)
+check('the feed link rule needs a host and takes any case',
+      [bool(bs.HTTP_URL_RE.match(u)) for u in ('https://', 'HTTPS://acme.example/jobs/1')],
+      [False, True])
 
 
 if failures:

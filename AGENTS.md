@@ -17,7 +17,8 @@ executable version, and the two must agree.
 
 Bots own these on `main`: `listings.json`, the README tables and stats block, `companies.md`,
 and `.github/data/`. Change the board by changing its inputs (`companies.yml`, the scripts, or
-an approved issue), never by editing the outputs.
+an approved issue), never by editing the outputs. The one exception: a maintainer closes a
+bad Community row in `listings.json` from a Report a Listing issue, since no rule re-judges it.
 
 Three workflows share the `readme-updates` concurrency group and commit as
 `github-actions[bot]`: the scrape at 11:17 and 23:17 UTC, the link check at 09:43 UTC that
@@ -35,15 +36,17 @@ behind `main`. Rebase before opening a PR, and take `main` for any conflict in a
   only works when the scraper and the submission flow normalise identically.
 - `scrape_jobs.py` owns one `scrape_<ats>` function per platform, persistence
   (`seen_jobs.json` is per-posting last-seen, `board_baseline.json` is per-board counts for the
-  silent-board alarm), and `main()`, which runs purge, renormalise, reclassify, the
+  silent-board alarm), and `main()`, which stamps `twin` on later same-day twins (the number
+  the board page tells them apart by), then runs purge, renormalise, reclassify, the
   stored-row re-evaluation, the location repair, the vanished-req retire and the orphan retire
   (a row whose company has no board for its source in `companies.yml`) over existing rows
   before dedup and insert of new ones.
-- `check_links.py` is the daily link check. It only visits rows the scraper cannot retire:
-  Community rows, amazon.jobs rows and rows with no req id in the URL. A 404 or 410 closes the
-  row on its second day. For a Community row, a 200 whose `<title>` reads as not found or is
-  empty, or a redirect that drops the req id, closes it on its third day, and a Community row
-  120 days old ages out.
+- `check_links.py` is the daily link check. It visits the rows the scraper cannot retire,
+  Community rows and rows with no req id in the URL, plus amazon.jobs rows, which answer a real
+  404 and so close here sooner than the scraper's retire. A 404 or 410 closes the row on its
+  second day. For a Community row, a 200 whose `<title>` reads as not found or is empty, or a
+  redirect that drops the req id, closes it on its third day, and a Community row 120 days old
+  ages out.
 - `notify.py` turns the events file a scrape or add-listing run writes into a GitHub Release
   and one comment per matching alert issue, unlocking and relocking each thread.
   `test_notify.py` covers it.
@@ -54,30 +57,40 @@ behind `main`. Rebase before opening a PR, and take `main` for any conflict in a
   the push lands. `test_community.py` covers them.
 - `check_outputs.py` and `health_check.py` are stdlib-only guards on the bot's output and runs;
   `test_health.py` covers them. Against main's listings.json, `check_outputs.py` also fails a
-  new scraped row the charter rules reject and a run that closes more than a quarter of the
-  open rows. Rerun the writer by hand with `allow_mass_close` once the cause is understood.
-- `build_site.py` turns `site/` (plain HTML, CSS and JS, no build step) and `listings.json` into
-  the untracked `_site/`: the Pages board, its trimmed data file and the Atom feeds.
+  new scraped row whose stored role `is_rejected_title` rejects or whose stored location is not
+  US, and a run that closes more than a quarter of the open rows. It does not re-run the rest
+  of the charter (cyber under the company's flag, level, experience cap); `evaluate_job` in
+  `scrape_jobs.insert_new_listings` judges that before a row is stored. Rerun the writer by
+  hand with `allow_mass_close` once the cause is understood.
+- `build_site.py` turns `site/` (plain HTML, CSS and JS, no build step), `listings.json` and the
+  last scrape's date in `.github/data/health.json` into the untracked `_site/`: the Pages board,
+  its trimmed data file and the Atom feeds.
   `pages.yml` deploys it after each writer finishes, because a push made with `GITHUB_TOKEN`
   starts no Pages build, and every six hours, because a follow-on run can be lost to a runner
   outage before it starts. `test_site.py` covers it.
 - `test_corpus.py` snapshots the title rules over `fixtures/title_corpus.tsv`, the titles of
   a full scrape plus every stored row, and holds each accepted title to invariants such as
   "a senior prefix rejects". `refresh_corpus.py` rebuilds that title list from a live scrape.
-  `test_wiring.py` checks the wiring: CI runs every suite, actions pin a commit SHA, writers
-  run `check_outputs.py`, follow-on workflows have a schedule, the issue form offers exactly
-  the classifier's categories.
+  `test_wiring.py` checks the wiring: CI runs each suite alone in a step that fails with it,
+  testkit really pins the clock and cuts the network, actions pin a commit SHA, writers run
+  `check_outputs.py` unswallowed in the step that commits, follow-on workflows have a
+  schedule, the issue form offers exactly the classifier's categories.
 
 ## Changing the classifier
 
 Every keyword or location change lands with a case in `test_classification.py`, and the PR
 names the example titles that flip. Rejects are cheap. An accept rule costs precision, so it
 needs a real title the current rules miss and a reason no existing rule should catch it.
-Every rule reaches existing rows on the next scrape. Each row gets the title rules under its
-company's current `security_company` flag, and a row whose posting is still in the feed also
-goes through the full `judge_job` pipeline, which drops it or refreshes its type, category and
-🇺🇸 flag. A missing description never drops a row. A new category is added in `CATEGORY_RULES` and in the issue template
-dropdown together.
+Every rule reaches existing scraped rows on the next scrape. Community rows keep the
+maintainer's verdict and are never re-judged, so no input closes a bad one: the link check
+closes it once its link dies or it turns 120 days old, or a maintainer closes it in
+`listings.json` from a Report a Listing issue, the maintainer's exception to "Who writes what".
+Each scraped row gets the title rules under its company's current `security_company` flag, and
+a row whose posting is still in the feed also goes through the full `judge_job` pipeline, which
+drops it or refreshes its type, category and 🇺🇸 flag. A missing description never drops a
+row. A new category is added in `CATEGORY_RULES`, the issue template dropdown, the category
+list in CONTRIBUTING.md and `rebuild_readme.CATEGORY_BLURBS` together; `test_wiring.py` and
+`test_classification.py` check all four.
 
 A moved verdict fails `test_corpus.py` until `--update` rewrites the snapshot. That diff is
 the change's blast radius: the PR names the titles it moves, and a reviewer reads every
@@ -96,9 +109,9 @@ never inside a rule change.
    then `compare_runs.py before.log after.log`. A clean exit is the equivalence proof; the
    flipped rows it prints are the example titles the PR names.
 
-Workday tenants are most of the wall clock, the workflow times out at 30 minutes, and a
-cancelled run drops the whole scrape. Anything new that runs per Workday job needs the full
-dry-run timing before merge.
+Workday tenants are most of the wall clock. The scrape step stops at 25 minutes (the job at
+30), and a timed-out scrape fails the run and drops the whole scrape. Anything new that runs per
+Workday job needs the full dry-run timing before merge.
 
 ## Adding or repairing a board
 
@@ -133,8 +146,10 @@ root. Beyond what the linter enforces:
   `test_*` functions over mocked HTTP, each registered in the tuple at the bottom of the
   file. Add a row or a function in the same shape.
 - Every test script imports `testkit.py` before the modules it tests. It pins the clock to
-  the date the fixtures were written and refuses the network past loopback, so a suite gives
-  the same result on any day and machine. A test passes `today=` to cover a date rollover.
+  the date the fixtures were written, refuses the network past loopback and clears the runner
+  variables the writers read (`ALLOW_MASS_CLOSE`, `GITHUB_STEP_SUMMARY`, `GITHUB_OUTPUT`), so
+  a suite gives the same result on any day and machine. A test passes `today=` to cover a
+  date rollover.
 - Reshape a suite, an invariant or a review checklist when the code moves, and keep what
   makes them trustworthy: `test_classification.py` stays tables of real titles, every suite
   stays offline on the pinned clock, and the corpus diff stays the record of what a rule

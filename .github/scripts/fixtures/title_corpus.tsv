@@ -128,11 +128,11 @@ title	company	security_company	verdict
 2027 - Corporate Functions - Global Finance & Business Management - Summer Internship - Warsaw	JPMorgan Chase	0	out|rejected-title
 2027 - Corporate Functions - Human Resources Analyst Development Program - Summer Internship - London	JPMorgan Chase	0	out|rejected-title
 2027 - Global Investment Banking Analyst Program - Full-Time - London	JPMorgan Chase	0	out|not-cyber
-2027 - Returnship Programme – Birmingham	Goldman Sachs	0	out|not-cyber
-2027 - Returnship Programme – London	Goldman Sachs	0	out|not-cyber
-2027 - Veterans Integration Programme - London	Goldman Sachs	0	out|not-cyber
-2027 - Veterans Integration Programme – Birmingham	Goldman Sachs	0	out|not-cyber
-2027 Aerospace Returning Interns	Aerospace Corporation	0	out|not-cyber
+2027 - Returnship Programme – Birmingham	Goldman Sachs	0	out|rejected-title
+2027 - Returnship Programme – London	Goldman Sachs	0	out|rejected-title
+2027 - Veterans Integration Programme - London	Goldman Sachs	0	out|rejected-title
+2027 - Veterans Integration Programme – Birmingham	Goldman Sachs	0	out|rejected-title
+2027 Aerospace Returning Interns	Aerospace Corporation	0	out|rejected-title
 2027 Analyst Program - People, Engagement and Impact (Dublin)	BNY	0	out|not-cyber
 2027 APAC Banking Summer Analyst - Hong Kong	Wells Fargo	0	out|not-cyber
 2027 APAC Banking Summer Analyst - Singapore	Wells Fargo	0	out|not-cyber
@@ -387,7 +387,7 @@ title	company	security_company	verdict
 2027 Earth-Orbit Flight Dynamics Engineer	Aerospace Corporation	0	out|not-cyber
 2027 Electrical Design and Technology Internship - Linthicum MD	Northrop Grumman	0	out|not-cyber
 2027 Electrical Engineer Intern	Anduril	0	out|rejected-title
-2027 Electrical Engineering Undergraduate Intern	Aerospace Corporation	0	out|not-cyber
+2027 Electrical Engineering Undergraduate Intern	Aerospace Corporation	0	out|rejected-title
 2027 Electro-Optical Engineering Grad Intern	Aerospace Corporation	0	out|not-cyber
 2027 Electro-Optical Engineering Undergrad Intern	Aerospace Corporation	0	out|not-cyber
 2027 Electronic Component Structural Analysis Engineer	Aerospace Corporation	0	out|not-cyber
@@ -425,7 +425,7 @@ title	company	security_company	verdict
 2027 Future Talent Program - Animal Health Formulation and Analytical Sciences - Intern	Merck	0	out|not-cyber
 2027 Future Talent Program - Animal Health R&D Quality Assurance - Intern	Merck	0	out|not-cyber
 2027 Future Talent Program - Business Intelligence - Intern	Merck	0	out|not-cyber
-2027 Future Talent Program - Chemical Engineering Research & Development Intern	Merck	0	out|not-cyber
+2027 Future Talent Program - Chemical Engineering Research & Development Intern	Merck	0	out|rejected-title
 2027 Future Talent Program - Data Science - Intern	Merck	0	out|not-cyber
 2027 Future Talent Program - Discovery Bio-Analytics - Intern	Merck	0	out|not-cyber
 2027 Future Talent Program - Discovery Sample Management Automation - Intern	Merck	0	out|not-cyber
@@ -642,7 +642,7 @@ title	company	security_company	verdict
 2027 Launch Operations Readiness Engineer	Aerospace Corporation	0	out|not-cyber
 2027 Manufacturing Engineer Intern	Anduril	0	out|rejected-title
 2027 Manufacturing Operations and Planning Intern - Huntsville AL	Northrop Grumman	0	out|not-cyber
-2027 Manufacturing Optimization Engineer Intern	Anduril	0	out|not-cyber
+2027 Manufacturing Optimization Engineer Intern	Anduril	0	out|rejected-title
 2027 Marketing Leadership Development Program - Full-Time Analyst Opportunity	JPMorgan Chase	0	out|rejected-title
 2027 Marketing Leadership Development Program - Summer Analyst Opportunity	JPMorgan Chase	0	out|rejected-title
 2027 Markets Quantitative Trading & Research Analyst Program – Off-Cycle Internship - Hong Kong	JPMorgan Chase	0	out|not-cyber
@@ -665,7 +665,7 @@ title	company	security_company	verdict
 2027 Navigation & Positioning Architecture Systems Graduate Intern	Aerospace Corporation	0	out|not-cyber
 2027 Operations Analyst Program - Summer Analyst (AZ, DE, FL, OH, TX)	JPMorgan Chase	0	out|not-cyber
 2027 Operations Full-Time Rotational Development Program	U.S. Bank	0	out|not-cyber
-2027 Operations Industrial Engineering Intern	Northrop Grumman	0	out|not-cyber
+2027 Operations Industrial Engineering Intern	Northrop Grumman	0	out|rejected-title
 2027 Operations Summer Intern	U.S. Bank	0	out|not-cyber
 2027 Pfizer Grange Castle Graduate Programme	Pfizer	0	out|not-cyber
 2027 Pfizer Newbridge Graduate Programme	Pfizer	0	out|not-cyber
@@ -1022,7 +1022,7 @@ title	company	security_company	verdict
 2027 | APEJ | Singapore | Global Investment Research | Summer Analyst	Goldman Sachs	0	out|not-cyber
 2027 | APEJ | Singapore | Human Capital Management | Summer Analyst	Goldman Sachs	0	out|not-cyber
 2027 | APEJ | Singapore | Internal Audit, Business Audit | Summer Analyst	Goldman Sachs	0	out|rejected-title
-2027 | APEJ | Singapore | Internal Audit, Technology Audit | Summer Analyst	Goldman Sachs	0	intern|GRC & Risk
+2027 | APEJ | Singapore | Internal Audit, Technology Audit | Summer Analyst	Goldman Sachs	0	out|non-us-location
 2027 | APEJ | Singapore | Investment Banking | Off-Cycle Internship	Goldman Sachs	0	out|not-cyber
 2027 | APEJ | Singapore | Investment Banking | Summer Analyst	Goldman Sachs	0	out|not-cyber
 2027 | APEJ | Singapore | Operations | New Analyst	Goldman Sachs	0	out|not-cyber
@@ -1439,7 +1439,7 @@ ARC Support Engineer - L2	HPE	0	out|not-cyber
 Architecture Concepts Associate Director	Aerospace Corporation	0	out|rejected-title
 Architecture Energy Modeling Engineer - New College Grad 2026	NVIDIA	0	out|not-cyber
 Area Sales Manager - Enterprise Resiliency and Security	Motorola Solutions	0	out|rejected-title
-Armed NERC CIP Security Operator	Southern Company	0	out|no-level
+Armed NERC CIP Security Operator	Southern Company	0	out|rejected-title
 Armed Security Officer - (CO) (VAXCOM)	Parsons	0	out|rejected-title
 Armed Security Officer - New Mexico (VAXCOM)	Parsons	0	out|rejected-title
 Armed Security Officer-Team Lead (North Carolina)	Parsons	0	out|rejected-title
@@ -1540,7 +1540,7 @@ Asset Management - Client Account Management Senior Associate	JPMorgan Chase	0	o
 Asset Management - Client Onboarding Associate (Institutional)	JPMorgan Chase	0	out|not-cyber
 Asset Management - Client Service - Institutional Contract Specialist - Associate	JPMorgan Chase	0	out|not-cyber
 Asset Management - Client Support Associate - Global Liquidity	JPMorgan Chase	0	out|not-cyber
-Asset Management - Commercial Real Estate Debt Underwriter - Associate	JPMorgan Chase	0	out|not-cyber
+Asset Management - Commercial Real Estate Debt Underwriter - Associate	JPMorgan Chase	0	out|rejected-title
 Asset Management - Communication Control Group - Associate	JPMorgan Chase	0	out|not-cyber
 Asset Management - Controls Management - Associate	JPMorgan Chase	0	out|not-cyber
 Asset Management - Data Engineer - Associate	JPMorgan Chase	0	out|not-cyber
@@ -1603,7 +1603,7 @@ Asset Serving Associate	JPMorgan Chase	0	out|not-cyber
 Asset-Backed Securitization & Financing (“ABS&F”) - Associate - NEW YORK	Citi	0	out|not-cyber
 Asset-Backed Securitization and Financing - Associate	Citi	0	out|not-cyber
 Associate & Counsel – Consumer Banking Legal	JPMorgan Chase	0	out|rejected-title
-Associate - AI Governance & Reporting - Model Risk	Morgan Stanley	0	earlycareer|AI Security & Safety
+Associate - AI Governance & Reporting - Model Risk	Morgan Stanley	0	out|rejected-title
 Associate - Asset & Wealth Management - Audit	JPMorgan Chase	0	out|not-cyber
 Associate - Automation (Global Financial Crimes and Compliance)	JPMorgan Chase	0	out|not-cyber
 Associate - Compliance and Ops Risk Test Sr Specialist	JPMorgan Chase	0	out|rejected-title
@@ -1991,7 +1991,7 @@ Associate Commercial Growth Account Executive	MongoDB	0	out|rejected-title
 Associate Communications & Signal Processing Engineer	MITRE	0	out|not-cyber
 Associate Communications Systems Engineer	MITRE	0	out|not-cyber
 Associate Configuration Management Engineer	Boeing	0	out|not-cyber
-Associate Consult Partner, Public Sector (Provincial)	Kyndryl	0	out|not-cyber
+Associate Consult Partner, Public Sector (Provincial)	Kyndryl	0	out|rejected-title
 Associate Consultant	Appian	0	out|not-cyber
 Associate Consultant (2027 Graduates)	Appian	0	out|not-cyber
 Associate Consultant (2027 Graduates, Top Secret Clearance)	Appian	0	out|not-cyber
@@ -2137,7 +2137,7 @@ Associate Document Operations Specialist - 12 month FTC	Entrust	1	out|not-cyber
 Associate Editor	Applied Intuition	0	out|not-cyber
 Associate Electrical Designer - HyperRF Systems	AeroVironment	0	out|not-cyber
 Associate Electrical Engineer	Northrop Grumman	0	out|rejected-title
-Associate Electrical Test Engineer	Boeing	0	out|not-cyber
+Associate Electrical Test Engineer	Boeing	0	out|rejected-title
 Associate Embedded Security Engineer	MITRE	0	earlycareer|Security Engineering
 Associate Embedded Software Engineer - Summer 2027	MITRE	0	out|not-cyber
 Associate Engagement Manager, Professional Services A2C Delivery	Amazon	0	out|rejected-title
@@ -2175,7 +2175,7 @@ Associate I, Business Operations	Databricks	0	out|not-cyber
 Associate II - Advisory (Digital Infrastructure)	Citizens	0	out|not-cyber
 Associate II - Fraud Analytics Consultant (Senior Consultant)	Guidehouse	0	out|rejected-title
 Associate II Reg Strategy, GRS Oncology	Pfizer	0	out|not-cyber
-Associate Industrial Engineering Technician (Methods Process Analyst)	Boeing	0	out|not-cyber
+Associate Industrial Engineering Technician (Methods Process Analyst)	Boeing	0	out|rejected-title
 Associate Industrial Security Coordinator	Leidos	0	out|rejected-title
 Associate Infrastructure Engineer - Network Automation (On-site)	Truist	0	out|not-cyber
 Associate Instructional Systems Designer / Learning & Development Specialist	KBR	0	out|not-cyber
@@ -2204,11 +2204,11 @@ Associate Manager, Internal Audit	Coinbase	0	out|rejected-title
 Associate Manager, Property Claims (Homeowners)	Allstate	0	out|rejected-title
 Associate Manager, SDM China Lead	Merck	0	out|rejected-title
 Associate Manager, Social Media Operations – Brand & Social Media Team	Prudential	0	out|rejected-title
-Associate Managing Consultant, Advisors & Consulting Services, Deploy	Mastercard	0	out|not-cyber
+Associate Managing Consultant, Advisors & Consulting Services, Deploy	Mastercard	0	out|rejected-title
 Associate Managing Consultant, Advisors & Consulting Services, Marketing	Mastercard	0	out|rejected-title
 Associate Managing Consultant, Advisors & Consulting Services, Marketing Services	Mastercard	0	out|rejected-title
-Associate Managing Consultant, Advisors & Consulting Services, Strategy & Transformation	Mastercard	0	out|not-cyber
-Associate Managing Consultant, Advisors Client Services, Strategy	Mastercard	0	out|not-cyber
+Associate Managing Consultant, Advisors & Consulting Services, Strategy & Transformation	Mastercard	0	out|rejected-title
+Associate Managing Consultant, Advisors Client Services, Strategy	Mastercard	0	out|rejected-title
 Associate Market Development Specialist	Medtronic	0	out|not-cyber
 Associate Market Leader	U.S. Bank	0	out|rejected-title
 Associate Marketing Communications Specialist	Fortra	1	out|rejected-title
@@ -2225,7 +2225,7 @@ Associate or Experienced Assembly, Process and Production Support Engineer	Boein
 Associate or Mid-Level Electronic Design & Analysis Engineer	Boeing	0	out|not-cyber
 Associate or Mid-level Ground Systems Engineer for MILSATCOM Program	Boeing	0	out|not-cyber
 Associate Partner Sales Account Manager, Global OEM – Japan	Red Hat	0	out|rejected-title
-Associate Partner – Insurance / Assurance	DXC Technology	0	out|not-cyber
+Associate Partner – Insurance / Assurance	DXC Technology	0	out|rejected-title
 Associate Payroll Analyst	Medtronic	0	out|rejected-title
 Associate People Business Partner	Anduril	0	out|not-cyber
 Associate Personal Banker - Kalispell, MT	Wells Fargo	0	out|not-cyber
@@ -2319,7 +2319,7 @@ Associate Research Fellow	Pfizer	0	out|rejected-title
 Associate Revenue Operations Manager, India	GitLab	0	out|rejected-title
 Associate Reverse Engineer Researcher	Software Engineering Institute	0	earlycareer|Forensics & IR
 Associate RM	Fifth Third	0	out|not-cyber
-Associate Sales Engineer – Security Solutions & Demo Engineering, Singapore	Cisco	0	earlycareer|Security Engineering
+Associate Sales Engineer – Security Solutions & Demo Engineering, Singapore	Cisco	0	out|non-us-location
 Associate Sales Engineer, SE Desk (French Bilingual)	Samsara	0	out|not-cyber
 Associate Sales Engineer, SE Desk - Mid West	Samsara	0	out|not-cyber
 Associate Sales Engineer, SE Desk - Northeast	Samsara	0	out|not-cyber
@@ -2377,12 +2377,12 @@ Associate Solutions Architect, AGS-Tech, Early Career - 2027	Amazon	0	newgrad|So
 Associate Solutions Consultant (2027 Graduates)	Appian	0	newgrad|Solutions Architecture
 Associate Solutions Engineer	Cisco	0	earlycareer|Solutions Architecture
 Associate Solutions Engineer	Netskope	1	earlycareer|Solutions Architecture
-Associate Solutions Engineer - CSAP - Germany	Cisco	0	earlycareer|Solutions Architecture
-Associate Solutions Engineer - CSAP - Netherlands	Cisco	0	earlycareer|Solutions Architecture
+Associate Solutions Engineer - CSAP - Germany	Cisco	0	out|non-us-location
+Associate Solutions Engineer - CSAP - Netherlands	Cisco	0	out|non-us-location
 Associate Solutions Engineer - Global Accounts	Snowflake	0	earlycareer|Solutions Architecture
 Associate Solutions Engineer - Japan (Cisco Sales Associates Program)	Cisco	0	out|rejected-title
-Associate Solutions Engineer – CSAP - London, UK	Cisco	0	earlycareer|Solutions Architecture
-Associate Solutions Engineer – Korea	Cisco	0	earlycareer|Solutions Architecture
+Associate Solutions Engineer – CSAP - London, UK	Cisco	0	out|non-us-location
+Associate Solutions Engineer – Korea	Cisco	0	out|non-us-location
 Associate Solutions Engineer, Auth0	Okta	1	earlycareer|Solutions Architecture
 Associate Solutions Engineer, Okta	Okta	1	earlycareer|Solutions Architecture
 Associate Solutions Engineer, San Mateo	Verkada	0	earlycareer|Solutions Architecture
@@ -2425,7 +2425,7 @@ Associate Technical Services Engineer II (Cloud)	MongoDB	0	out|not-cyber
 Associate Technical Services Specialist	Medtronic	0	out|not-cyber
 Associate Technical Support Engineer	Dragos	1	earlycareer|Engineering @ Security Co
 Associate Technical Support Engineer	Salesforce	0	out|not-cyber
-Associate Technical Support Engineer - Mexico	Drata	1	earlycareer|Engineering @ Security Co
+Associate Technical Support Engineer - Mexico	Drata	1	out|non-us-location
 Associate Technician, Operations	Merck	0	out|not-cyber
 Associate Test & Evaluation Lab Technician	Boeing	0	out|not-cyber
 Associate Test Resource Manager (TRM)	KBR	0	out|rejected-title
@@ -2433,7 +2433,7 @@ Associate Third-Party Risk Management (TPRM) Risk Analyst	MongoDB	0	out|not-cybe
 Associate Triage Analyst	Proofpoint	1	earlycareer|SOC & Detection
 Associate Trial Lawyer	Allstate	0	out|not-cyber
 Associate TSE II	MongoDB	0	out|not-cyber
-Associate Underwriter	Chubb	0	out|not-cyber
+Associate Underwriter	Chubb	0	out|rejected-title
 Associate Utility Technician	McKesson	0	out|not-cyber
 Associate Vice President, Enterprise Digital Platforms	Humana	0	out|rejected-title
 Associate Vice President, Model & AI Governance	Humana	0	out|rejected-title
@@ -2587,7 +2587,7 @@ Aviation Internship - Summer 2027	Duke Energy	0	out|not-cyber
 Avionics Technician I, MQ-9 (Philippines/Deployable)	Amentum	0	out|not-cyber
 Avionics Technician I, MQ-9 (Yuma, AZ)	Amentum	0	out|not-cyber
 Avionics Technician II	Sierra Nevada Corporation	0	out|not-cyber
-AVP Commercial Banking - Commercial Banking Associate	Citi	0	out|not-cyber
+AVP Commercial Banking - Commercial Banking Associate	Citi	0	out|rejected-title
 AVP, Marketing & Communications, North America Cyber & Property	Chubb	0	out|rejected-title
 AVP, Security Automation Senior Developer (L10)	Synchrony	0	out|rejected-title
 AWM Controls Strategy & Innovation (CSI) – AI Controls Enablement Associate	JPMorgan Chase	0	out|not-cyber
@@ -2684,9 +2684,9 @@ Boeing Summer 2027 Internship Program (PAID) – Finance (Evergreen)	Boeing	0	ou
 Boeing Summer 2027 Internship Program (Paid) – Information Digital Technology & Security (IDT&S)	Boeing	0	intern|Security Engineering
 Boeing Summer 2027 Internship Program (Paid) – Quality Specialist	Boeing	0	out|not-cyber
 Boeing Summer 2027 Internship Program (Paid) – Security & Fire Operation (S&FO)	Boeing	0	out|rejected-title
-Bond & Specialty Insurance Underwriting Professional Development Program (BSI UPDP Intern)	Travelers	0	out|not-cyber
-Bond & Specialty Insurance Underwriting Professional Development Program (BSI UPDP) Internship	Travelers	0	out|not-cyber
-Bond & Specialty Underwriting Professional Development Program (BSI UPDP) Internship	Travelers	0	out|not-cyber
+Bond & Specialty Insurance Underwriting Professional Development Program (BSI UPDP Intern)	Travelers	0	out|rejected-title
+Bond & Specialty Insurance Underwriting Professional Development Program (BSI UPDP) Internship	Travelers	0	out|rejected-title
+Bond & Specialty Underwriting Professional Development Program (BSI UPDP) Internship	Travelers	0	out|rejected-title
 Boston Internal Audit and Financial Advisory Intern - 2027	Protiviti	0	out|rejected-title
 BPO Administrator Jr	Chubb	0	out|not-cyber
 Branch Operations Associate Manager Palms	Wells Fargo	0	out|rejected-title
@@ -2745,7 +2745,7 @@ Business Development Senior Associate	BDO	0	out|rejected-title
 Business Information Security Officer	State Street	0	out|no-level
 Business Insights & Analytics Leadership Development Program (BI&A LDP) Geospatial Intern	Travelers	0	out|not-cyber
 Business Insights & Analytics Leadership Development Program (BI&A LDP) Intern	Travelers	0	out|not-cyber
-Business Insurance Underwriting Professional Development Program (BI UPDP) Internship	Travelers	0	out|not-cyber
+Business Insurance Underwriting Professional Development Program (BI UPDP) Internship	Travelers	0	out|rejected-title
 Business Intelligence Analyst 2	Twilio	0	out|not-cyber
 Business Intelligence Engineer, AWS Compliance & Security Assurance	Amazon	0	out|no-level
 Business Lending Risk Analytics - Senior Associate	JPMorgan Chase	0	out|rejected-title
@@ -2801,7 +2801,7 @@ Campaign Manager, Cybersecurity	NVIDIA	0	out|rejected-title
 Campus - Apprenticeship Programme - Technology Software Engineering - Burgess Hill - 2027 (UK)	American Express	0	out|not-cyber
 Campus - Apprenticeship Programme - Technology Software Engineering - London - 2027 (UK)	American Express	0	out|not-cyber
 Campus - Full Time - AI Engineer - 2027 (UK - Burgess Hill)	American Express	0	out|not-cyber
-Campus - Full Time - Information Security Engineer - 2027 (UK - London/Brighton/Burgess Hill)	American Express	0	newgrad|Security Engineering
+Campus - Full Time - Information Security Engineer - 2027 (UK - London/Brighton/Burgess Hill)	American Express	0	out|non-us-location
 Campus - Full Time - Product Manager - 2027 (UK - Burgess Hill)	American Express	0	out|rejected-title
 Campus - Full Time - Product Manager - 2027 (UK - London)	American Express	0	out|rejected-title
 Campus - Full Time - Software Engineer - 2027 (UK - Burgess Hill)	American Express	0	out|not-cyber
@@ -2982,8 +2982,8 @@ Chase Rewards, Senior Associate	JPMorgan Chase	0	out|rejected-title
 Chemical and Environment Research Internship (Summer 2027)	Battelle	0	out|not-cyber
 Chemical Engineer - Early Career	Lockheed Martin	0	out|rejected-title
 Chemical Engineer II	Honeywell	0	out|rejected-title
-Chemical Engineering - Summer 2027 Intern	Honeywell	0	out|not-cyber
-Chemical Engineering - Summer 2027 Intern (US Person Required)	Honeywell	0	out|not-cyber
+Chemical Engineering - Summer 2027 Intern	Honeywell	0	out|rejected-title
+Chemical Engineering - Summer 2027 Intern (US Person Required)	Honeywell	0	out|rejected-title
 Chemical Operator - Level 1	Honeywell	0	out|not-cyber
 Chemical Operator - Level 2	Honeywell	0	out|not-cyber
 Chicago Business Performance Improvement Consultant - 2027	Protiviti	0	out|not-cyber
@@ -3001,8 +3001,8 @@ Chief Information Security Officer (CISO)	Obsidian Security	1	out|rejected-title
 China Equity Derivatives – Sales Assistant – Analyst/ Associate	JPMorgan Chase	0	out|rejected-title
 China Securities Company - Surveillance Support - Associate	JPMorgan Chase	0	out|not-cyber
 Chronosphere - Domain Consultant	Palo Alto Networks	1	out|no-level
-Chubb Associate, Underwriter - Construction Surety - June 2027	Chubb	0	out|not-cyber
-Chubb Summer Internship Program (Underwriting & Claims)	Chubb	0	out|not-cyber
+Chubb Associate, Underwriter - Construction Surety - June 2027	Chubb	0	out|rejected-title
+Chubb Summer Internship Program (Underwriting & Claims)	Chubb	0	out|rejected-title
 CIB Competitive and Market Trends - Associate	JPMorgan Chase	0	out|not-cyber
 CIB Digital & Platform Services Finance Management Associate	JPMorgan Chase	0	out|rejected-title
 CIB Markets Digital Markets – Equities Product Manager - Associate	JPMorgan Chase	0	out|rejected-title
@@ -3116,7 +3116,7 @@ Cloud Pipeline Data Engineer	CACI	0	out|no-level
 Cloud Platform Architect	Accenture Federal Services	0	out|rejected-title
 Cloud Platform Engineer - API	State Street	0	out|no-level
 Cloud Platform Engineer -AWS	Accenture	0	out|no-level
-Cloud Platform Engineering - Azure Security, AVP	State Street	0	out|no-level
+Cloud Platform Engineering - Azure Security, AVP	State Street	0	out|rejected-title
 Cloud Platforms Engineer	Cardinal Health	0	out|no-level
 Cloud Quality Engineer – Internship	HPE	0	intern|Cloud Engineering
 Cloud Security Engineer	Applied Intuition	0	out|no-level
@@ -3269,9 +3269,9 @@ Construction Management Co-op Rotational Program Spring 2027 (OH)	Duke Energy	0	
 Construction Management Summer Internship 2027 (OH)	Duke Energy	0	out|not-cyber
 Construction Surety Underwriter (Associate Account Executive) - Credit Analyst	Travelers	0	out|rejected-title
 Construction Surety Underwriter / Associate Account Executive (Credit Analyst)	Travelers	0	out|rejected-title
-Consult Associate Partner Banking	Kyndryl	0	out|not-cyber
-Consult Associate Partner Insurance	Kyndryl	0	out|not-cyber
-Consult Associate Partner Travel and Transportation	Kyndryl	0	out|not-cyber
+Consult Associate Partner Banking	Kyndryl	0	out|rejected-title
+Consult Associate Partner Insurance	Kyndryl	0	out|rejected-title
+Consult Associate Partner Travel and Transportation	Kyndryl	0	out|rejected-title
 Consult Associate Partner-Security	Kyndryl	0	out|rejected-title
 Consult Cloud Architect	Kyndryl	0	out|rejected-title
 Consultant - Energy Providers - Campus 2027	Guidehouse	0	out|not-cyber
@@ -3307,7 +3307,7 @@ Consumer Investments - Investment Specialist Trainee (Obtain SIE Series 7 66)	Ba
 Consumer Investments - Investment Specialist Trainee (Obtain SIE, Series 7 & 66)	Bank of America	0	out|not-cyber
 Consumer Marketing Sponsorships & Promotions Senior Consultant II	Allstate	0	out|rejected-title
 Consumer Operations Associate	Stripe	0	out|not-cyber
-Consumer Underwriting Trainee - Home Lending Operations	JPMorgan Chase	0	out|not-cyber
+Consumer Underwriting Trainee - Home Lending Operations	JPMorgan Chase	0	out|rejected-title
 Consumer, Retail & Business Services Payments Sales Associate	JPMorgan Chase	0	out|rejected-title
 Content Design Senior Associate	JPMorgan Chase	0	out|rejected-title
 Content Design Senior Associate - Co-Brand Card	JPMorgan Chase	0	out|rejected-title
@@ -3399,14 +3399,14 @@ Corporate Treasury Operations-Network Management–New York-Associate	Goldman Sa
 Corporate Treasury – Resolution and Recovery Financial Analytics – Capital, Associate	JPMorgan Chase	0	out|rejected-title
 Corporate Treasury, Operations - Settlements, Analyst/Associate, Beijing	Goldman Sachs	0	out|rejected-title
 Cost Estimating Analyst 2	Draper	0	out|not-cyber
-Counter Threat Finance Analyst (CENTCOM - B31)	Amentum	0	out|no-level
-Counter Threat Finance Planner (NORTHCOM - H3)	Amentum	0	out|no-level
+Counter Threat Finance Analyst (CENTCOM - B31)	Amentum	0	out|rejected-title
+Counter Threat Finance Planner (NORTHCOM - H3)	Amentum	0	out|rejected-title
 Counterintelligence & Security Risk Analyst	Anduril	0	out|no-level
 Counterparty Credit Risk - Associate - Stress Testing - NY	JPMorgan Chase	0	out|not-cyber
 Counterparty Credit Risk - Collateral and Margin Associate	JPMorgan Chase	0	out|not-cyber
 Counterparty Risk - Associate	JPMorgan Chase	0	out|not-cyber
 Country Regulatory Compliance Officer – Associate	JPMorgan Chase	0	out|not-cyber
-CPU–SoC Mask Layout Designer (Diploma Level Contract role) - Silicon Engineering Group (SiG)	Intel	0	out|no-level
+CPU–SoC Mask Layout Designer (Diploma Level Contract role) - Silicon Engineering Group (SiG)	Intel	0	out|rejected-title
 Credit Analyst - Internship	HPE	0	out|not-cyber
 Credit Card Collections Specialist I	JPMorgan Chase	0	out|not-cyber
 Credit Card Collections Specialist I Bilingual English and Spanish Required	JPMorgan Chase	0	out|not-cyber
@@ -3671,7 +3671,7 @@ Cybersecurity Systems Engineer	Booz Allen Hamilton	0	out|no-level
 Cybersecurity Systems Engineer (Level 1/2)	Northrop Grumman	0	earlycareer|Security Engineering
 Cybersecurity Test Engineer, Junior	Booz Allen Hamilton	0	earlycareer|Security Engineering
 Cybersecurity Tools Administrator	SAIC	0	out|no-level
-Cybersecurity, AVP	State Street	0	out|no-level
+Cybersecurity, AVP	State Street	0	out|rejected-title
 Cybersecurity, Privacy and Forensics - Threat Detection Response - Experienced Associate	PwC	0	earlycareer|SOC & Detection
 Cybersecurity- CTI SME (Cyber Threat Intelligence)	Kyndryl	0	out|rejected-title
 Cyberspace Intelligence Threat Analyst, Journeyman	Leidos	0	out|no-level
@@ -3998,9 +3998,9 @@ Education Consultant I - Detroit, MI	Fidelity Investments	0	out|not-cyber
 EHS Intern	Medtronic	0	out|not-cyber
 EHS Intern (Summer 2027)	Saronic	0	out|not-cyber
 Electrical /Electronics Engineer (Fresh Graduate)	Motorola Solutions	0	out|not-cyber
-Electrical Design Engineer Graduate	HPE	0	out|not-cyber
-Electrical Design Engineer Intern (Summer 2027)	RTX	0	out|not-cyber
-Electrical Design Engineer Level 2 / 3	Northrop Grumman	0	out|not-cyber
+Electrical Design Engineer Graduate	HPE	0	out|rejected-title
+Electrical Design Engineer Intern (Summer 2027)	RTX	0	out|rejected-title
+Electrical Design Engineer Level 2 / 3	Northrop Grumman	0	out|rejected-title
 Electrical Design Intern (Summer 2027)	RTX	0	out|not-cyber
 Electrical Engineer - Level 2 or 3 (AHT)	Northrop Grumman	0	out|rejected-title
 Electrical Engineer 2	Oracle	0	out|rejected-title
@@ -4018,30 +4018,30 @@ Electrical Engineer II - Interconnect (Onsite)	RTX	0	out|rejected-title
 Electrical Engineer II - Test	RTX	0	out|rejected-title
 Electrical Engineer Intern (Summer 2027)	Saronic	0	out|rejected-title
 Electrical Engineer, Space Emerging Talent	Anduril	0	out|rejected-title
-Electrical Engineering - Summer 2027 Intern	Honeywell	0	out|not-cyber
-Electrical Engineering - Summer 2027 Intern (US Person Required)	Honeywell	0	out|not-cyber
-Electrical Engineering Co-Op	Samsara	0	out|not-cyber
-Electrical Engineering Co-Op (Spring 2027)	Draper	0	out|not-cyber
-Electrical Engineering Co-op (Spring 2027)	Battelle	0	out|not-cyber
-Electrical Engineering Co-op (Winter/Spring 2027)	RTX	0	out|not-cyber
-Electrical Engineering Co-Op, Spring 2027	Johnson & Johnson	0	out|not-cyber
-Electrical Engineering Co-Op, Summer 2027	Johnson & Johnson	0	out|not-cyber
-Electrical Engineering Coop (Spring/Summer 2027), Onsite	BAE Systems	0	out|not-cyber
-Electrical Engineering Coop (Summer/Fall 2027), Onsite	BAE Systems	0	out|not-cyber
-Electrical Engineering Intern	HPE	0	out|not-cyber
-Electrical Engineering INTERN (PhD)	Microsoft	0	out|not-cyber
-Electrical Engineering Intern (Summer 2027)	Battelle	0	out|not-cyber
-Electrical Engineering Intern - Robotics R&D	Johnson & Johnson	0	out|not-cyber
-Electrical Engineering Intern – Summer 2027	CACI	0	out|not-cyber
-Electrical Engineering Intern, Summer 2027	BAE Systems	0	out|not-cyber
-Electrical Engineering Internship (Summer 2027)	Battelle	0	out|not-cyber
-Electrical Engineering Spring Co-op (January 2027) (R4475)	Shield AI	0	out|not-cyber
-Electrical Hardware Engineer Graduate	HPE	0	out|not-cyber
+Electrical Engineering - Summer 2027 Intern	Honeywell	0	out|rejected-title
+Electrical Engineering - Summer 2027 Intern (US Person Required)	Honeywell	0	out|rejected-title
+Electrical Engineering Co-Op	Samsara	0	out|rejected-title
+Electrical Engineering Co-Op (Spring 2027)	Draper	0	out|rejected-title
+Electrical Engineering Co-op (Spring 2027)	Battelle	0	out|rejected-title
+Electrical Engineering Co-op (Winter/Spring 2027)	RTX	0	out|rejected-title
+Electrical Engineering Co-Op, Spring 2027	Johnson & Johnson	0	out|rejected-title
+Electrical Engineering Co-Op, Summer 2027	Johnson & Johnson	0	out|rejected-title
+Electrical Engineering Coop (Spring/Summer 2027), Onsite	BAE Systems	0	out|rejected-title
+Electrical Engineering Coop (Summer/Fall 2027), Onsite	BAE Systems	0	out|rejected-title
+Electrical Engineering Intern	HPE	0	out|rejected-title
+Electrical Engineering INTERN (PhD)	Microsoft	0	out|rejected-title
+Electrical Engineering Intern (Summer 2027)	Battelle	0	out|rejected-title
+Electrical Engineering Intern - Robotics R&D	Johnson & Johnson	0	out|rejected-title
+Electrical Engineering Intern – Summer 2027	CACI	0	out|rejected-title
+Electrical Engineering Intern, Summer 2027	BAE Systems	0	out|rejected-title
+Electrical Engineering Internship (Summer 2027)	Battelle	0	out|rejected-title
+Electrical Engineering Spring Co-op (January 2027) (R4475)	Shield AI	0	out|rejected-title
+Electrical Hardware Engineer Graduate	HPE	0	out|rejected-title
 Electrical Subsystem Wiring Design Engineer - (Level 2/3)	Northrop Grumman	0	out|not-cyber
-Electrical Test Engineer I	RTX	0	out|not-cyber
+Electrical Test Engineer I	RTX	0	out|rejected-title
 Electrician - Level 1	Honeywell	0	out|not-cyber
 Electrician Apprentice	Parsons	0	out|not-cyber
-Electronic & Electrical System Design Engineer (Associate or Mid-Level)	Boeing	0	out|not-cyber
+Electronic & Electrical System Design Engineer (Associate or Mid-Level)	Boeing	0	out|rejected-title
 Electronic Systems Finance Intern III - Summer 2027 (Hybrid)	BAE Systems	0	out|rejected-title
 Electronic Systems Finance Intern III, Summer 2027	BAE Systems	0	out|rejected-title
 Electronic Systems Finance Intern III, Summer 2027 (Hybrid)	BAE Systems	0	out|rejected-title
@@ -4290,7 +4290,7 @@ Event Planner Data Specialist - Associate	JPMorgan Chase	0	out|not-cyber
 Event Planner, LatAm Events - - Associate	JPMorgan Chase	0	out|not-cyber
 Events Management - Senior Associate	JPMorgan Chase	0	out|rejected-title
 Events Management Associate	JPMorgan Chase	0	out|not-cyber
-Exchange & Security Administrator, AVP	State Street	0	out|no-level
+Exchange & Security Administrator, AVP	State Street	0	out|rejected-title
 Executive & Internal Communications Senior Associate	JPMorgan Chase	0	out|rejected-title
 Executive Ambassador Program Operations Associate	JPMorgan Chase	0	out|rejected-title
 Executive Assistant, Senior Associate	State Street	0	out|rejected-title
@@ -4313,7 +4313,7 @@ Experience Designer, Senior Associate	JPMorgan Chase	0	out|rejected-title
 Experience Research Senior Associate	JPMorgan Chase	0	out|rejected-title
 Experience Research Senior Associate- Agentic	JPMorgan Chase	0	out|rejected-title
 Experienced Associate, Business Incentives Group	BDO	0	out|not-cyber
-Experienced Associate, Healthcare Forensics Coder	BDO	0	earlycareer|Forensics & IR
+Experienced Associate, Healthcare Forensics Coder	BDO	0	out|rejected-title
 Experienced Associate, Industry Specialty Services	BDO	0	out|not-cyber
 Experienced Associate, Public Housing Authority	BDO	0	out|not-cyber
 Experienced Associate, Real Estate Valuation	BDO	0	out|not-cyber
@@ -4347,7 +4347,7 @@ Facilities Maintenance Technician II (3rd Shift)	Medtronic	0	out|rejected-title
 Facilities Management Co-Op	Johnson & Johnson	0	out|rejected-title
 Facilities Management Intern	Johnson & Johnson	0	out|rejected-title
 Facilities Project Management Intern (Onsite) Summer 2027	BAE Systems	0	out|rejected-title
-Facility Security Coordinator and Administrator—Albuquerque, NM	MITRE	0	out|no-level
+Facility Security Coordinator and Administrator—Albuquerque, NM	MITRE	0	out|rejected-title
 Facility Security Officer	Amentum	0	out|rejected-title
 Facility Security Officer/CSSO Manager (TS/SCI)	Parsons	0	out|rejected-title
 FAST Labs - Software Engineer - Early Career Levels - Secret	BAE Systems	0	out|not-cyber
@@ -4462,7 +4462,7 @@ Financial Wellness Associate	KeyBank	0	out|not-cyber
 Financial Wellness Associate (Spanish preferred)	KeyBank	0	out|not-cyber
 Financial Wellness Associate - Bilingual Spanish Preferred	KeyBank	0	out|not-cyber
 Financing Solutions, Prime Services - Senior Associate	State Street	0	out|rejected-title
-Fire and Security System Engineer I (m/f/d)	Honeywell	0	earlycareer|Security Engineering
+Fire and Security System Engineer I (m/f/d)	Honeywell	0	out|rejected-title
 Firmware Application Engineer (RDSS Intern)	NVIDIA	0	out|not-cyber
 Firmware Development Undergraduate Engineering Co-op	Intel	0	out|not-cyber
 Firmware Engineer	Yubico	1	out|no-level
@@ -4690,7 +4690,7 @@ Global Banking & Markets Operations-Equities Client Integration-Associate-New Yo
 Global Banking & Markets Operations-Otc & Repo Collateral Mgmt-Salt Lake City-Associate	Goldman Sachs	0	out|not-cyber
 Global Banking & Markets Operations-Salt Lake City-Associate-Prime Brokerage & BD Ops	Goldman Sachs	0	out|not-cyber
 Global Banking & Markets Operations-Transaction Banking-Dallas-Senior Associate-Client Services	Goldman Sachs	0	out|rejected-title
-Global Banking & Markets Private , Corporate Derivatives Underwriting Associate -Dallas	Goldman Sachs	0	out|not-cyber
+Global Banking & Markets Private , Corporate Derivatives Underwriting Associate -Dallas	Goldman Sachs	0	out|rejected-title
 Global Banking & Markets Public, Goldman Sachs Select – Banking and Lending Onboarding Specialist, Analyst / Associate, Salt Lake City	Goldman Sachs	0	out|not-cyber
 Global Banking & Markets – Dallas - Associate, Portfolio Lifecycle Management - 10243260	Goldman Sachs	0	out|not-cyber
 Global Banking & Markets – New York - Senior Associate, Asset Servicing - 10190613	Goldman Sachs	0	out|rejected-title
@@ -4807,7 +4807,7 @@ Global Markets, Account Management & Product Management, Launch Program (Rotatio
 Global Markets, Account Management & Product Management, Summer Internship Program – 2027, Istanbul, Türkiye	Mastercard	0	out|not-cyber
 Global Markets, Graduate Launch Program 2027 - Lisbon, Portugal	Mastercard	0	out|not-cyber
 Global NSE Architect (FCX Certified)	Fortinet	1	out|rejected-title
-Global Operations Military Development Program	Bank of America	0	out|not-cyber
+Global Operations Military Development Program	Bank of America	0	out|rejected-title
 Global Payments Specialist II - Wire M-F 9:45am-6:45pm	Fifth Third	0	out|not-cyber
 Global Pricing Direct Evaluator – Analyst or Associate	JPMorgan Chase	0	out|not-cyber
 Global Private BankTechnology Finance & Business Management- Associate	JPMorgan Chase	0	out|rejected-title
@@ -4847,8 +4847,8 @@ Government Affairs Intern- 12 Months Placement	Boeing	0	out|not-cyber
 Government Contractor Program Security Officer (PSM2) (Government)	AT&T	0	out|rejected-title
 GPC-IPS Performance-Fund Accounting Analyst 2	Citi	0	out|rejected-title
 GPSU Cybersecurity Spring Internship	GuidePoint Security	1	intern|Security Engineering
-GPSU Military - Federal Fellowship (Hybrid)	GuidePoint Security	1	out|not-cyber
-GPSU Military/Military Spouses - Commercial Fellowship	GuidePoint Security	1	out|not-cyber
+GPSU Military - Federal Fellowship (Hybrid)	GuidePoint Security	1	out|rejected-title
+GPSU Military/Military Spouses - Commercial Fellowship	GuidePoint Security	1	out|rejected-title
 GPU & AI Accelerator Hardware Design Undergraduate Intern	Intel	0	out|not-cyber
 GPU Architect - New College Graduate 2027	NVIDIA	0	out|not-cyber
 GPU PCIe and Boot Architect - New College Grad 2026	NVIDIA	0	out|not-cyber
@@ -4878,7 +4878,7 @@ Graduate Commercial Inside Account Executive with Spanish	HP Inc	0	out|rejected-
 Graduate Commercial Inside Account Executive with Swedish	HP Inc	0	out|rejected-title
 Graduate Control Systems Engineer	Northrop Grumman	0	out|not-cyber
 Graduate Data Engineer	HP Inc	0	out|not-cyber
-Graduate Data Scientist - Cyber Analytics (Position located in Cheltenham, United Kingdom)	KnowBe4	1	newgrad|Security Engineering
+Graduate Data Scientist - Cyber Analytics (Position located in Cheltenham, United Kingdom)	KnowBe4	1	out|non-us-location
 Graduate Development Program - Sales Representative	HPE	0	out|rejected-title
 Graduate Engagement Associate	Workday	0	out|not-cyber
 Graduate Engineer	Motorola Solutions	0	out|not-cyber
@@ -4905,7 +4905,7 @@ Graduate Software Cloud Engineer	Cisco	0	newgrad|Cloud Engineering
 Graduate Software Engineer	Autodesk	0	out|not-cyber
 Graduate Software Engineer	Synack	1	newgrad|Engineering @ Security Co
 Graduate Systems Engineer - Mobile MDT	Motorola Solutions	0	out|not-cyber
-Graduate Talent (ISCP SoC Front End Team)	Intel	0	newgrad|SOC & Detection
+Graduate Talent (ISCP SoC Front End Team)	Intel	0	out|not-cyber
 Graduate Talent (Physical Design Engineer)	Intel	0	out|rejected-title
 Graduate Talent (PQE SiD PFA)	Intel	0	out|not-cyber
 Graduate Technology Consultant	HPE	0	out|not-cyber
@@ -5051,7 +5051,7 @@ IC 2027 Systems Architect	Aerospace Corporation	0	out|not-cyber
 ICB Financial Crime Risk Control Manager - Senior Associate	JPMorgan Chase	0	out|rejected-title
 ICB Risk Data Analytics Senior Associate	JPMorgan Chase	0	out|rejected-title
 ICE Graduate Talent	Intel	0	out|not-cyber
-ICM Underwriting Credit Associate - Corporate Credit - REITs/REOCs	Citi	0	out|not-cyber
+ICM Underwriting Credit Associate - Corporate Credit - REITs/REOCs	Citi	0	out|rejected-title
 Identity & Access Management (IAM) Software Engineer/Analyst	State Farm	0	out|no-level
 Identity Access Management (IAM) Architect	GDIT	0	out|rejected-title
 Identity and Access Management Analyst	Kyndryl	0	out|no-level
@@ -5083,10 +5083,10 @@ Industrial Engineer Asc - E1	Lockheed Martin	0	out|rejected-title
 Industrial Engineer Asc - Early Career	Lockheed Martin	0	out|rejected-title
 Industrial Engineer I, Continuous Improvement	AeroVironment	0	out|rejected-title
 Industrial Engineer II	Medtronic	0	out|rejected-title
-Industrial Engineering Co-Op (Spring/Summer 2027)	RTX	0	out|not-cyber
-Industrial Engineering Co-Op (Summer/Fall 2027)	RTX	0	out|not-cyber
-Industrial Engineering Intern (Summer 2027)	RTX	0	out|not-cyber
-Industrial Engineering Intern, Summer 2027	BAE Systems	0	out|not-cyber
+Industrial Engineering Co-Op (Spring/Summer 2027)	RTX	0	out|rejected-title
+Industrial Engineering Co-Op (Summer/Fall 2027)	RTX	0	out|rejected-title
+Industrial Engineering Intern (Summer 2027)	RTX	0	out|rejected-title
+Industrial Engineering Intern, Summer 2027	BAE Systems	0	out|rejected-title
 Industrial Safety/Hygiene Intern - Summer 2027	Idaho National Laboratory	0	out|not-cyber
 Industrial Security Analyst	Northrop Grumman	0	out|rejected-title
 Industrial Security Analyst - Level 3	Northrop Grumman	0	out|rejected-title
@@ -5147,7 +5147,7 @@ Infrared Radiation Effects Laboratory - Engineering Intern, Summer 2027	BAE Syst
 Infrastructure & Cloud Engineer	DXC Technology	0	out|no-level
 Infrastructure Cloud Architect	Kyndryl	0	out|rejected-title
 Infrastructure Cloud Engineer	Booz Allen Hamilton	0	out|no-level
-Infrastructure Engineer - Azure Cloud, AVP	State Street	0	out|no-level
+Infrastructure Engineer - Azure Cloud, AVP	State Street	0	out|rejected-title
 Infrastructure Engineer I - Data Protection	USAA	0	out|not-cyber
 Infrastructure Engineer II (Microsoft 365 and Exchange)	Travelers	0	out|not-cyber
 Infrastructure Engineer II - Managed File Transfer	JPMorgan Chase	0	out|not-cyber
@@ -5164,7 +5164,7 @@ Inside Sales Intern (Summer 2027 Internship)	Motorola Solutions	0	out|rejected-t
 Inside Sales Representative - Graduate Evergreen	HP Inc	0	out|rejected-title
 Inside Territory Manager- Entry level	SonicWall	1	out|rejected-title
 Insider Threat Cyber Analyst I	BAE Systems	0	earlycareer|Security Engineering
-Institutional Client Specialist, Associate/AVP - New York / Purchase	Morgan Stanley	0	out|not-cyber
+Institutional Client Specialist, Associate/AVP - New York / Purchase	Morgan Stanley	0	out|rejected-title
 Institutional Equity Division - Associate, Asia Equity Documentation Negotiator (Mumbai)	Morgan Stanley	0	out|not-cyber
 Institutional Equity Division - Associate, Client Coverage Representative, Prime Brokerage (Sydney)	Morgan Stanley	0	out|not-cyber
 Institutional Equity Division - Associate, FSCAT (Bangalore)	Morgan Stanley	0	out|not-cyber
@@ -5185,8 +5185,8 @@ Integrated Technologies Consultant II - CareAware Device Integration	Oracle	0	ou
 Integration Reliability Engineer Intern, Technical Operations	Stripe	0	out|not-cyber
 Integration Specialist Technician Apprenticeship	Boeing	0	out|not-cyber
 Intel NPU Internship	Intel	0	out|not-cyber
-Intelligence Analyst, Global Security Intelligence	Amazon	0	out|no-level
-Intelligence Security Cooperation and Engagement Planner	Booz Allen Hamilton	0	out|no-level
+Intelligence Analyst, Global Security Intelligence	Amazon	0	out|rejected-title
+Intelligence Security Cooperation and Engagement Planner	Booz Allen Hamilton	0	out|rejected-title
 Intelligence Skillbridge Intern	Flashpoint	1	out|rejected-title
 Intelligent Automation & Analytics Associate (GenAI, Python/SQL)	JPMorgan Chase	0	out|not-cyber
 Interim Associate, Accounting Advisory Services	BDO	0	out|rejected-title
@@ -5199,7 +5199,7 @@ Intern - Federal Civilian Agencies - Campus 2027	Guidehouse	0	out|not-cyber
 Intern - Global Complaint Operation	Merck	0	out|not-cyber
 Intern - GRC Engineer	Palo Alto Networks	1	intern|GRC & Risk
 Intern - Security Researcher - PhD Pipline	Palo Alto Networks	1	intern|Security Engineering
-Intern - Software Developer - 8 months Hybrid in Ottawa	Entrust	1	intern|Engineering @ Security Co
+Intern - Software Developer - 8 months Hybrid in Ottawa	Entrust	1	out|non-us-location
 Intern - Software Engineer	Palo Alto Networks	1	intern|Engineering @ Security Co
 Intern - Threat Intelligence (NATSEC)	Palo Alto Networks	1	intern|Threat Intelligence
 Intern de P&C	Chubb	0	out|not-cyber
@@ -5210,7 +5210,7 @@ Intern Software Developer, Stagiaire en Développement Logiciel	Autodesk	0	out|n
 Intern System Software Development Engineer	Intel	0	out|not-cyber
 Intern Systems Software Development Engineer	Intel	0	out|not-cyber
 Intern to Entry Level Conversion - Engineering (Summer 2026 Intern Program)	Boeing	0	out|rejected-title
-Intern – Software Development - 8 months - Hybrid Ottawa	Entrust	1	intern|Engineering @ Security Co
+Intern – Software Development - 8 months - Hybrid Ottawa	Entrust	1	out|non-us-location
 Intern – State and Local Government – Campus 2027	Guidehouse	0	out|not-cyber
 Intern, AI Data Developer (Winter)	Autodesk	0	out|not-cyber
 Intern, AI Developer/ Stagiaire en développement IA	Autodesk	0	out|not-cyber
@@ -5233,7 +5233,7 @@ Intern, Product Analytics Leadership Development Program	The Hartford	0	out|not-
 Intern, Product Management (Winter 2027)	Autodesk	0	out|not-cyber
 Intern, Product Management, Cairo - Egypt	Mastercard	0	out|not-cyber
 Intern, Product Manager [PSET-Access-PM]	Autodesk	0	out|rejected-title
-Intern, Software Development - Hybrid in Ottawa	Entrust	1	intern|Engineering @ Security Co
+Intern, Software Development - Hybrid in Ottawa	Entrust	1	out|non-us-location
 Intern, Software Development Engineer [PSET - Product Data - Document Management]	Autodesk	0	out|not-cyber
 Intern, Software Development Engineer [PSET-Access-ENG]	Autodesk	0	out|not-cyber
 Intern, Software Development Engineer [PSET-Connected Delivery]	Autodesk	0	out|not-cyber
@@ -5241,7 +5241,7 @@ Intern, Software Development Engineer [PSET-Localization]	Autodesk	0	out|not-cyb
 Intern, Strategy Analyst - Summer 2027	Capital One	0	out|not-cyber
 Intern, Technology - June 2027	Chubb	0	out|not-cyber
 Intern: Graduate( Non-Tech)	Medtronic	0	out|not-cyber
-Intern: Industrial Engineering (Summer 2027)	RTX	0	out|not-cyber
+Intern: Industrial Engineering (Summer 2027)	RTX	0	out|rejected-title
 Intern: Sales Operations & Business Support	Medtronic	0	out|rejected-title
 Intern: Tech Sales & Business Development (Milan | October 2026)	Salesforce	0	out|rejected-title
 Internal Audit Analytics Intern	Coinbase	0	out|rejected-title
@@ -5315,8 +5315,8 @@ Internships in Electrical or Computer Engineering	MITRE	0	out|not-cyber
 Internships in Systems, Mechanical, Aerospace Engineering or Physics	MITRE	0	out|not-cyber
 Intrusion Analyst (Remote, GBR)	CrowdStrike	1	out|no-level
 Inventory Associate, Shipping & Receiving	Anduril	0	out|not-cyber
-Investigator 2, Security	Comcast	0	earlycareer|Security Engineering
-Investigator, Global Security	Lyft	0	out|no-level
+Investigator 2, Security	Comcast	0	out|rejected-title
+Investigator, Global Security	Lyft	0	out|rejected-title
 Investment Analyst Development Program	Travelers	0	out|not-cyber
 Investment Analyst Intern, Robinhood Ventures (Summer 2027)	Robinhood	0	out|not-cyber
 Investment Associate, FINRA Registered - Essex Junction, VT	KeyBank	0	out|not-cyber
@@ -5504,7 +5504,7 @@ Jr. Declassification Analyst	Amentum	0	out|not-cyber
 Jr. DevOps Engineer	Accenture Federal Services	0	out|not-cyber
 Jr. Hardware Design Engineer	SAIC	0	out|not-cyber
 Jr. Information Security Officer (ISSO)	Guidehouse	0	earlycareer|GRC & Risk
-Jr. Mobile Threat to Aerospace Operations (TTAO) Technician Assistant	SAIC	0	earlycareer|Security Engineering
+Jr. Mobile Threat to Aerospace Operations (TTAO) Technician Assistant	SAIC	0	out|not-cyber
 Jr. Net, C#, SQL Developer - Active Top Secret required	GDIT	0	out|not-cyber
 Jr. Pre-Sales Engineer	Motorola Solutions	0	out|not-cyber
 Jr. Process Transformation Consultant	Guidehouse	0	out|not-cyber
@@ -5524,13 +5524,13 @@ Junior All Source Analyst	Amentum	0	out|not-cyber
 Junior Associate AR	Guidehouse	0	out|not-cyber
 Junior Automated Test Engineer	Chubb	0	out|not-cyber
 Junior AV/VTC Engineer	BAE Systems	0	out|not-cyber
-Junior BackEnd Engineer- - São Paulo	Axonius	1	earlycareer|Engineering @ Security Co
+Junior BackEnd Engineer- - São Paulo	Axonius	1	out|non-us-location
 Junior Backend Java Developer- Enterprise Payments and Credit Card	Huntington Bank	0	out|not-cyber
 Junior CEMA Software Engineer	Leidos	0	out|not-cyber
 Junior Characterisation Consultant	Amentum	0	out|not-cyber
 Junior Claims Adjuster	Chubb	0	out|not-cyber
 Junior Cloud Automation Software Engineer - splunk	Cisco	0	earlycareer|Cloud Engineering
-Junior Cloud Engineer in Athens	Accenture	0	earlycareer|Cloud Engineering
+Junior Cloud Engineer in Athens	Accenture	0	out|non-us-location
 Junior Cloud Software Engineer	Cisco	0	earlycareer|Cloud Engineering
 Junior Cloud Systems Administrator	Accenture Federal Services	0	earlycareer|Cloud Engineering
 Junior Cloud/SecDevOps Engineer	Leidos	0	earlycareer|AppSec & ProdSec
@@ -5565,7 +5565,7 @@ Junior Forward Deployed Engineer	Accenture Federal Services	0	out|not-cyber
 Junior Full Stack Engineer | AI & Security	Escape	1	earlycareer|Security Engineering
 Junior FX Trader	BNY	0	out|not-cyber
 Junior Generative AI Application Developer	Citi	0	out|not-cyber
-Junior Genesys Cloud CX Architect	Unisys	0	earlycareer|Cloud Engineering
+Junior Genesys Cloud CX Architect	Unisys	0	out|not-cyber
 Junior Geometric Calibration Engineer	KBR	0	out|not-cyber
 Junior Geospatial / Full-Motion Video (FMV) Analyst	Nightwing	1	out|not-cyber
 Junior GRC Analyst	Leidos	0	earlycareer|GRC & Risk
@@ -5628,14 +5628,14 @@ Junior Solutions Engineer	Trellix	1	earlycareer|Solutions Architecture
 Junior Support Specialist - Fraud Analytics Junior (Consultant)	Guidehouse	0	out|not-cyber
 Junior Systems Administrator	CACI	0	out|not-cyber
 Junior Systems Engineer	Accenture Federal Services	0	out|not-cyber
-Junior Tactical All Source Threat Intelligence Analyst - Overnight Shift (Top Secret Clearance)	GDIT	0	earlycareer|Threat Intelligence
+Junior Tactical All Source Threat Intelligence Analyst - Overnight Shift (Top Secret Clearance)	GDIT	0	out|not-cyber
 Junior Technical Project Manager	Mastercard	0	out|rejected-title
 Junior Telecommunications Technician - Secret Clearance Required	GDIT	0	out|not-cyber
 Junior Territory Sales Executive	Red Hat	0	out|rejected-title
 Junior Threat Analyst	Hoxhunt	1	earlycareer|Engineering @ Security Co
-Junior Underwriter / Underwriter Cyber & Technology, (all*), 80-100%	Chubb	0	earlycareer|Security Engineering
-Junior Underwriter Accident & Health (m/w/d)	Chubb	0	out|not-cyber
-Junior Underwriter Property, (all*), 80-100%	Chubb	0	out|not-cyber
+Junior Underwriter / Underwriter Cyber & Technology, (all*), 80-100%	Chubb	0	out|rejected-title
+Junior Underwriter Accident & Health (m/w/d)	Chubb	0	out|rejected-title
+Junior Underwriter Property, (all*), 80-100%	Chubb	0	out|rejected-title
 Junior Web Scraper	State Street	0	out|not-cyber
 Junior Web Scraper, Associate 1	State Street	0	out|not-cyber
 Junior, Mid-Level, and Senior Level Radar Signals Processing Engineer	KBR	0	out|rejected-title
@@ -5754,7 +5754,7 @@ Lead, Infrastructure Security Engineer - Identity Governance and Administration 
 Lead, Network Security Analyst	Prudential	0	out|rejected-title
 Leadership Development Program - Contracts (June 2027)	RTX	0	out|not-cyber
 Leadership Development Program – Engineering, Aerospace/Mechanical Discipline (Starts June 2027)	RTX	0	out|not-cyber
-Leadership Development Program – Operations, Manufacturing & Industrial Engineering Track (Starts June 2027)	RTX	0	out|not-cyber
+Leadership Development Program – Operations, Manufacturing & Industrial Engineering Track (Starts June 2027)	RTX	0	out|rejected-title
 Leadership Development Program – Operations, Quality Engineering Track (Starts June 2027)	RTX	0	out|not-cyber
 Learning & Development Intern	Coinbase	0	out|not-cyber
 Learning Operations New Associate	Accenture	0	out|not-cyber
@@ -5775,7 +5775,7 @@ Level 2 NOC Systems Administrator – Windows Focus	Unisys	0	out|not-cyber
 Level 2/3 Cyber Systems Engineer - AISR&T Contingent	Northrop Grumman	0	out|no-level
 Licensed Investment Support Specialist II	Fifth Third	0	out|not-cyber
 Licensing & Regulatory Associate (Producer Services)	Chubb	0	out|not-cyber
-Life and Health Underwriter Intern	USAA	0	out|not-cyber
+Life and Health Underwriter Intern	USAA	0	out|rejected-title
 Life Sciences Cyber Intelligence Analyst	Accenture	0	out|no-level
 Life Solutions Specialist Intern	USAA	0	out|not-cyber
 Linux for Edge System Software Engineer (RDSS intern)	NVIDIA	0	out|not-cyber
@@ -5880,14 +5880,14 @@ MANAGER, SECURITY	Walmart	0	out|rejected-title
 Manager, Security Capability Owner – Identity & Access	Nike	0	out|rejected-title
 Manager, Solutions Engineering	Netskope	1	out|rejected-title
 Managing Engineer - Cloud Security Engineering	Allstate	0	out|no-level
-Manufacturing & Industrial Engineering - Summer 2027 Intern	Honeywell	0	out|not-cyber
-Manufacturing & Industrial Engineering - Summer 2027 Intern (US Person Required)	Honeywell	0	out|not-cyber
+Manufacturing & Industrial Engineering - Summer 2027 Intern	Honeywell	0	out|rejected-title
+Manufacturing & Industrial Engineering - Summer 2027 Intern (US Person Required)	Honeywell	0	out|rejected-title
 Manufacturing and Process Development - Intern, Bachelor’s	Intel	0	out|not-cyber
 Manufacturing and Process Development - Intern, Graduate	Intel	0	out|not-cyber
-Manufacturing Development Engineer II	RTX	0	out|not-cyber
-Manufacturing Electrical Engineering Co-Op ( Spring/Summer 2027)	RTX	0	out|not-cyber
-Manufacturing Electrical Engineering Co-Op (Spring/Summer 2027)	RTX	0	out|not-cyber
-Manufacturing Electrical Engineering Co-Op (Summer/Fall 2027)	RTX	0	out|not-cyber
+Manufacturing Development Engineer II	RTX	0	out|rejected-title
+Manufacturing Electrical Engineering Co-Op ( Spring/Summer 2027)	RTX	0	out|rejected-title
+Manufacturing Electrical Engineering Co-Op (Spring/Summer 2027)	RTX	0	out|rejected-title
+Manufacturing Electrical Engineering Co-Op (Summer/Fall 2027)	RTX	0	out|rejected-title
 Manufacturing Engineer - Level 2	Northrop Grumman	0	out|rejected-title
 Manufacturing Engineer Asc - Early Career	Lockheed Martin	0	out|rejected-title
 Manufacturing Engineer Associate	SAIC	0	out|rejected-title
@@ -5897,8 +5897,8 @@ Manufacturing Engineer II (2nd Shift)	RTX	0	out|rejected-title
 Manufacturing Engineer II, Autonomous Airpower	Anduril	0	out|rejected-title
 Manufacturing Engineer Intern (Summer 2027)	Saronic	0	out|rejected-title
 Manufacturing Engineer level 2	Northrop Grumman	0	out|rejected-title
-Manufacturing Engineering Intern (Summer 2027)	Sierra Nevada Corporation	0	out|not-cyber
-Manufacturing Engineering Ops Co-Op (Spring/Summer 2027)	RTX	0	out|not-cyber
+Manufacturing Engineering Intern (Summer 2027)	Sierra Nevada Corporation	0	out|rejected-title
+Manufacturing Engineering Ops Co-Op (Spring/Summer 2027)	RTX	0	out|rejected-title
 Manufacturing Planner Asc - Early Career	Lockheed Martin	0	out|not-cyber
 Manufacturing Technician II	Medtronic	0	out|not-cyber
 Manufacturing Technology Analyst (Associate or Experienced)	Boeing	0	out|not-cyber
@@ -5981,10 +5981,10 @@ MCPP - SHIPBOARD COMMUNICATIONS SECURITY (COMSEC) EQUIPMENT TECHNICIAN	KBR	0	out
 MDR Analyst (Unit 42)	Palo Alto Networks	1	out|no-level
 MDR Analyst Skillbridge Intern (Active Duty Military only)	Blackpoint Cyber	1	out|rejected-title
 Mechanical / Hardware Engineer I Graduate	HPE	0	out|not-cyber
-Mechanical Design Engineer I	Honeywell	0	out|not-cyber
-Mechanical Design Engineer II	Honeywell	0	out|not-cyber
-Mechanical Design Engineering Co-op (Spring 2027)	RTX	0	out|not-cyber
-Mechanical Design Engineers Level 2/3	Northrop Grumman	0	out|not-cyber
+Mechanical Design Engineer I	Honeywell	0	out|rejected-title
+Mechanical Design Engineer II	Honeywell	0	out|rejected-title
+Mechanical Design Engineering Co-op (Spring 2027)	RTX	0	out|rejected-title
+Mechanical Design Engineers Level 2/3	Northrop Grumman	0	out|rejected-title
 Mechanical Engineer (Early Career)	Battelle	0	out|rejected-title
 Mechanical Engineer (Fresh Graduate)	Motorola Solutions	0	out|rejected-title
 Mechanical Engineer - Entry Level	Battelle	0	out|rejected-title
@@ -6008,28 +6008,28 @@ Mechanical Engineer Intern	Nightwing	1	out|rejected-title
 Mechanical Engineer Intern (Summer 2027)	Saronic	0	out|rejected-title
 Mechanical Engineer – PhD/MS New Graduate	HPE	0	out|rejected-title
 Mechanical Engineer, Space Emerging Talent	Anduril	0	out|rejected-title
-Mechanical Engineering & System Packaging Co-Op (Spring 2027)	Draper	0	out|not-cyber
-Mechanical Engineering & System Packaging Intern	Draper	0	out|not-cyber
-Mechanical Engineering & System Packaging Intern (Summer 2027)	Draper	0	out|not-cyber
-Mechanical Engineering - Summer 2027 Intern	Honeywell	0	out|not-cyber
-Mechanical Engineering - Summer 2027 Intern (US Person Required)	Honeywell	0	out|not-cyber
-Mechanical Engineering Co-Op (Spring-Summer 2027)	Battelle	0	out|not-cyber
-Mechanical Engineering Co-Op - Spring/Summer, 2027	BAE Systems	0	out|not-cyber
-Mechanical Engineering Coop (Spring/Summer 2027), Onsite	BAE Systems	0	out|not-cyber
-Mechanical Engineering Coop (Summer/Fall 2027), Onsite	BAE Systems	0	out|not-cyber
-Mechanical Engineering Intern	AeroVironment	0	out|not-cyber
-Mechanical Engineering Intern (Summer 2027)	Sierra Nevada Corporation	0	out|not-cyber
-Mechanical Engineering Intern - Robotics R&D	Johnson & Johnson	0	out|not-cyber
-Mechanical Engineering Intern - Summer 2027	BAE Systems	0	out|not-cyber
-Mechanical Engineering Intern II, Summer 2027 (Onsite)	BAE Systems	0	out|not-cyber
-Mechanical Engineering Intern III, Summer 2027 (Onsite)	BAE Systems	0	out|not-cyber
-Mechanical Engineering Intern, Summer 2027 (Hybrid)	BAE Systems	0	out|not-cyber
-Mechanical Engineering Internship - Summer, 2027	BAE Systems	0	out|not-cyber
-Mechanical Engineering Internship – Summer 2027	Qualcomm	0	out|not-cyber
-Mechanical Hardware Engineer I Graduate	HPE	0	out|not-cyber
-Mechanical Systems Design Engineer – Associate/Experienced	Boeing	0	out|not-cyber
+Mechanical Engineering & System Packaging Co-Op (Spring 2027)	Draper	0	out|rejected-title
+Mechanical Engineering & System Packaging Intern	Draper	0	out|rejected-title
+Mechanical Engineering & System Packaging Intern (Summer 2027)	Draper	0	out|rejected-title
+Mechanical Engineering - Summer 2027 Intern	Honeywell	0	out|rejected-title
+Mechanical Engineering - Summer 2027 Intern (US Person Required)	Honeywell	0	out|rejected-title
+Mechanical Engineering Co-Op (Spring-Summer 2027)	Battelle	0	out|rejected-title
+Mechanical Engineering Co-Op - Spring/Summer, 2027	BAE Systems	0	out|rejected-title
+Mechanical Engineering Coop (Spring/Summer 2027), Onsite	BAE Systems	0	out|rejected-title
+Mechanical Engineering Coop (Summer/Fall 2027), Onsite	BAE Systems	0	out|rejected-title
+Mechanical Engineering Intern	AeroVironment	0	out|rejected-title
+Mechanical Engineering Intern (Summer 2027)	Sierra Nevada Corporation	0	out|rejected-title
+Mechanical Engineering Intern - Robotics R&D	Johnson & Johnson	0	out|rejected-title
+Mechanical Engineering Intern - Summer 2027	BAE Systems	0	out|rejected-title
+Mechanical Engineering Intern II, Summer 2027 (Onsite)	BAE Systems	0	out|rejected-title
+Mechanical Engineering Intern III, Summer 2027 (Onsite)	BAE Systems	0	out|rejected-title
+Mechanical Engineering Intern, Summer 2027 (Hybrid)	BAE Systems	0	out|rejected-title
+Mechanical Engineering Internship - Summer, 2027	BAE Systems	0	out|rejected-title
+Mechanical Engineering Internship – Summer 2027	Qualcomm	0	out|rejected-title
+Mechanical Hardware Engineer I Graduate	HPE	0	out|rejected-title
+Mechanical Systems Design Engineer – Associate/Experienced	Boeing	0	out|rejected-title
 Mechanical Technician 1	Northrop Grumman	0	out|not-cyber
-Mechanical Test Engineer I	RTX	0	out|not-cyber
+Mechanical Test Engineer I	RTX	0	out|rejected-title
 Mechatronics & Systems Integration Intern - R&D	Johnson & Johnson	0	out|not-cyber
 Media Malware Analyst, Senior	Leidos	0	out|rejected-title
 Medical Device Cybersecurity Co-Op	Johnson & Johnson	0	intern|Security Engineering
@@ -6055,21 +6055,21 @@ Mid-Market Inside Sales Representative – Cyber Security	Accenture	0	out|reject
 Middle Office - Senior Associate	State Street	0	out|rejected-title
 Middle Office, Senior Associate	State Street	0	out|rejected-title
 Middleware Software Intern	Kyndryl	0	out|not-cyber
-Military Fellowship Program: Avionics Technician	Sierra Nevada Corporation	0	out|not-cyber
-Military Fellowship Program: Configuration Analyst	Sierra Nevada Corporation	0	out|not-cyber
-Military Fellowship Program: Contracts Administrator	Sierra Nevada Corporation	0	out|not-cyber
-Military Fellowship Program: Cybersecurity Analyst	Sierra Nevada Corporation	0	earlycareer|Security Engineering
+Military Fellowship Program: Avionics Technician	Sierra Nevada Corporation	0	out|rejected-title
+Military Fellowship Program: Configuration Analyst	Sierra Nevada Corporation	0	out|rejected-title
+Military Fellowship Program: Contracts Administrator	Sierra Nevada Corporation	0	out|rejected-title
+Military Fellowship Program: Cybersecurity Analyst	Sierra Nevada Corporation	0	out|rejected-title
 Military Fellowship Program: Electrical Engineer	Sierra Nevada Corporation	0	out|rejected-title
-Military Fellowship Program: Logistics Specialist	Sierra Nevada Corporation	0	out|not-cyber
+Military Fellowship Program: Logistics Specialist	Sierra Nevada Corporation	0	out|rejected-title
 Military Fellowship Program: Manufacturing Engineer	Sierra Nevada Corporation	0	out|rejected-title
 Military Fellowship Program: Mechanical Engineer	Sierra Nevada Corporation	0	out|rejected-title
-Military Fellowship Program: Planner	Sierra Nevada Corporation	0	out|not-cyber
-Military Fellowship Program: Project Engineer	Sierra Nevada Corporation	0	out|not-cyber
-Military Fellowship Program: Software Engineer	Sierra Nevada Corporation	0	out|not-cyber
-Military Fellowship Program: Structural Technician	Sierra Nevada Corporation	0	out|not-cyber
+Military Fellowship Program: Planner	Sierra Nevada Corporation	0	out|rejected-title
+Military Fellowship Program: Project Engineer	Sierra Nevada Corporation	0	out|rejected-title
+Military Fellowship Program: Software Engineer	Sierra Nevada Corporation	0	out|rejected-title
+Military Fellowship Program: Structural Technician	Sierra Nevada Corporation	0	out|rejected-title
 Military Fellowship Program: Supply Chain Manager	Sierra Nevada Corporation	0	out|rejected-title
 Military Fellowship Program: Supply Chain Program Manager	Sierra Nevada Corporation	0	out|rejected-title
-Military Leadership Development Program	Johnson & Johnson	0	out|not-cyber
+Military Leadership Development Program	Johnson & Johnson	0	out|rejected-title
 MIM, Problem, Change Management Advisor - Associate Principal Service Management	Unisys	0	out|rejected-title
 Mineral Property Analyst - Associate	JPMorgan Chase	0	out|not-cyber
 Minneapolis Business Performance Improvement Intern - 2027	Protiviti	0	out|not-cyber
@@ -6096,9 +6096,9 @@ Mobile Associate, Store-in-Store - Retail Sales, Bilingual Spanish Preferred	T-M
 Mobile Associate, Store-in-Store | Retail Hiring Event| October 6!	T-Mobile	0	out|rejected-title
 Mobile Associate, Store-in-Store| Retail Hiring Event| October 7!	T-Mobile	0	out|rejected-title
 Mobile Software Engineering Intern 2027	Verkada	0	out|not-cyber
-Mod Sim System Engineer (Mission Support Threat Engineer - Level 2 or 3)	Northrop Grumman	0	out|no-level
-Model Risk Management – Program Management – Associate	JPMorgan Chase	0	out|not-cyber
-Model Risk Management, AI Risk, Dallas, Analyst/Associate	Goldman Sachs	0	earlycareer|AI Security & Safety
+Mod Sim System Engineer (Mission Support Threat Engineer - Level 2 or 3)	Northrop Grumman	0	out|not-cyber
+Model Risk Management – Program Management – Associate	JPMorgan Chase	0	out|rejected-title
+Model Risk Management, AI Risk, Dallas, Analyst/Associate	Goldman Sachs	0	out|rejected-title
 Modeling, Simulation, and Analysis Intern	MITRE	0	out|not-cyber
 Modular Engineering Internship – Summer 2027	Qualcomm	0	out|not-cyber
 Module Engineering PhD Intern New 2027	Intel	0	out|not-cyber
@@ -6123,7 +6123,7 @@ Multifamily Capital Markets Loan Pricing Associate	Freddie Mac	0	out|not-cyber
 Multifamily Digital Product Analysis Intern – Summer 2027	Freddie Mac	0	out|not-cyber
 Multifamily Graduate Intern - Quantitative - Summer 2027	Freddie Mac	0	out|not-cyber
 Multifamily Software Development Intern – Summer 2027	Freddie Mac	0	out|not-cyber
-Multifamily Underwriting Associate	Freddie Mac	0	out|not-cyber
+Multifamily Underwriting Associate	Freddie Mac	0	out|rejected-title
 Multimedia Engineering Internship – Summer 2027	Qualcomm	0	out|not-cyber
 Multiphysics Engineering Design Intern, Summer 2027	BAE Systems	0	out|not-cyber
 Multiple Openings (Associate), Fund/Client Accounting	BNY	0	out|rejected-title
@@ -6851,7 +6851,7 @@ Portfolio Management Associate Director - CFA	Morgan Stanley	0	out|rejected-titl
 Portfolio Management Senior Associate	Bank of America	0	out|rejected-title
 Portfolio Research & Analytics, Senior Associate	JPMorgan Chase	0	out|rejected-title
 Post Silicon Validation Intern - 2027	NVIDIA	0	out|rejected-title
-Post Undergraduate (Fixed term) Intern – Electrical Engineering	National Laboratory of the Rockies	0	out|not-cyber
+Post Undergraduate (Fixed term) Intern – Electrical Engineering	National Laboratory of the Rockies	0	out|rejected-title
 Post Undergraduate/Graduate Intern – Molecular Biology	National Laboratory of the Rockies	0	out|not-cyber
 Post-Undergraduate Intern (Year-Round) - Separations Engineering	National Laboratory of the Rockies	0	out|not-cyber
 Power Analysis and Optimization Intern - 2027	NVIDIA	0	out|not-cyber
@@ -6989,7 +6989,7 @@ Privacy and Civil Liberties Software Engineer, Internship	Palantir	0	intern|Secu
 Private Bank - Global Families Group - Client Service Associate	JPMorgan Chase	0	out|not-cyber
 Private Bank - Global Families Group - Client Service Associate (Mandarin Fluency Required)	JPMorgan Chase	0	out|not-cyber
 Private Bank, Client Service Associate - emerging market, Geneva	JPMorgan Chase	0	out|not-cyber
-Private Bank, Real Estate Underwriter, Associate, Frankfurt	Goldman Sachs	0	out|not-cyber
+Private Bank, Real Estate Underwriter, Associate, Frankfurt	Goldman Sachs	0	out|rejected-title
 Private Banking: Marketing Business Intelligence Associate	JPMorgan Chase	0	out|rejected-title
 Private Client Project Manager, Senior Associate	JPMorgan Chase	0	out|rejected-title
 Private Equity - Fund Administration - Associate	JPMorgan Chase	0	out|not-cyber
@@ -7241,8 +7241,8 @@ Quant Analytics, Senior Associate - Home Lending	JPMorgan Chase	0	out|rejected-t
 Quant Analytics-Pricing Governance & Control - Senior Associate	JPMorgan Chase	0	out|rejected-title
 Quant Analytics-Senior Associate	JPMorgan Chase	0	out|rejected-title
 Quant Interest Rate Risk - Senior Associate	JPMorgan Chase	0	out|rejected-title
-Quant Model Risk Analyst/Associate - Counterparty Credit Risk	JPMorgan Chase	0	out|not-cyber
-Quant Model Risk Associate - Rates	JPMorgan Chase	0	out|not-cyber
+Quant Model Risk Analyst/Associate - Counterparty Credit Risk	JPMorgan Chase	0	out|rejected-title
+Quant Model Risk Associate - Rates	JPMorgan Chase	0	out|rejected-title
 Quant Model Risk Associate/Vice President - Equities	JPMorgan Chase	0	out|rejected-title
 Quant Model Risk Senior Associate/Vice President - Rates	JPMorgan Chase	0	out|rejected-title
 Quantitative Analyst II (Capital Structuring & Analytics)	Affirm	0	out|not-cyber
@@ -7438,9 +7438,9 @@ RF/Microwave Electrical Engineer I - Production Support (Onsite)	RTX	0	out|rejec
 RF/Microwave Engineering Intern (Summer 2027)	RTX	0	out|not-cyber
 Risk & Compliance Quality Associate	JPMorgan Chase	0	out|not-cyber
 Risk & Underwriting Leadership Development Program Analyst (RULDP) June Class	The Cigna Group	0	out|rejected-title
-Risk & Underwriting Summer Internship Program	The Cigna Group	0	out|not-cyber
+Risk & Underwriting Summer Internship Program	The Cigna Group	0	out|rejected-title
 Risk - Credit Risk - Associate - Bengaluru	Goldman Sachs	0	out|not-cyber
-Risk - Model Risk Governance - Associate - Warsaw	Goldman Sachs	0	out|not-cyber
+Risk - Model Risk Governance - Associate - Warsaw	Goldman Sachs	0	out|rejected-title
 Risk Advisory Intern - Summer 2027	Grant Thornton	0	out|not-cyber
 Risk Analyst Intern	USAA	0	out|not-cyber
 Risk and Compliance Intern	Northern Trust	0	out|not-cyber
@@ -7477,7 +7477,7 @@ Risk, Credit Risk, Associate, Hong Kong	Goldman Sachs	0	out|not-cyber
 Risk, Credit Risk, Associate, Salt Lake City	Goldman Sachs	0	out|not-cyber
 Risk, Credit Risk, Credit Risk (Global Markets), Associate, Salt Lake City	Goldman Sachs	0	out|not-cyber
 Risk, Liquidity Risk, Associate, Frankfurt	Goldman Sachs	0	out|not-cyber
-Risk, Model Risk, Associate, Warsaw	Goldman Sachs	0	out|not-cyber
+Risk, Model Risk, Associate, Warsaw	Goldman Sachs	0	out|rejected-title
 Risk, Operational Risk - Asset & Wealth Management, Associate, London	Goldman Sachs	0	out|not-cyber
 Risk, Operational Risk, Associate, Salt Lake City / Dallas	Goldman Sachs	0	out|not-cyber
 Risk, Risk Divisional Governance, Associate, Dallas	Goldman Sachs	0	out|not-cyber
@@ -7539,7 +7539,7 @@ Sales Engineer - Intern	Palo Alto Networks	1	intern|Engineering @ Security Co
 Sales Engineer - UK	Zscaler	1	out|no-level
 Sales Engineer 2 (Customer Success) - Denver	Datadog	0	out|rejected-title
 Sales Engineer I	ESET	1	earlycareer|Engineering @ Security Co
-Sales Engineer Intern - Singapore	Fortinet	1	intern|Engineering @ Security Co
+Sales Engineer Intern - Singapore	Fortinet	1	out|non-us-location
 Sales Engineer Named Enterprise	Fortinet	1	out|no-level
 Sales Engineer SLED	Fortinet	1	out|no-level
 Sales Engineer, Atlanta	Torq	1	out|no-level
@@ -8254,7 +8254,7 @@ Senior Vulnerability Researcher/Reverse Engineer/CNO Developer (Onsite)	Nightwin
 Senior Wargamer (Level II)	KBR	0	out|rejected-title
 Senior Workplace Technology Engineer – Toronto	1Password	1	out|rejected-title
 Senior/Software Engineer II - Agentic Security	Microsoft	0	out|rejected-title
-Sensor Electrical Engineering Co-op (Spring 2027)	Draper	0	out|not-cyber
+Sensor Electrical Engineering Co-op (Spring 2027)	Draper	0	out|rejected-title
 Sentinel - Associate / Systems Engineer (Security) - 7452-2*	Northrop Grumman	0	earlycareer|Security Engineering
 Sentinel - Associate / Systems Engineer - STPA - SEC - Systems Security	Northrop Grumman	0	earlycareer|Cloud & Infra Security
 Sentinel - Information Assurance Engineer (level 2 or 3) - 18789	Northrop Grumman	0	out|no-level
@@ -8312,7 +8312,7 @@ SMART Business Development Associate	Chubb	0	out|rejected-title
 SME - Network Security Engineer	Unisys	0	out|rejected-title
 Snowflake Data Engineer 1	DXC Technology	0	out|not-cyber
 Snowflake Data Engineer 2	DXC Technology	0	out|not-cyber
-Snr. Site Reliability Engineer (Remote in Brazil)	KnowBe4	1	out|no-level
+Snr. Site Reliability Engineer (Remote in Brazil)	KnowBe4	1	out|rejected-title
 SOC Analyst	Booz Allen Hamilton	0	out|no-level
 SOC Analyst	Cato Networks	1	out|no-level
 SOC Analyst I (Night Shift)	Motorola Solutions	0	earlycareer|SOC & Detection
@@ -8443,7 +8443,7 @@ Software Engineer I	BAE Systems	0	out|not-cyber
 Software Engineer I	Everfox	1	earlycareer|Engineering @ Security Co
 Software Engineer I (Co-op) - United States	Cisco	0	out|not-cyber
 Software Engineer I (Cobol Developer)	TD Bank	0	out|not-cyber
-Software Engineer I (For 2026 Interns Only)	Sierra Nevada Corporation	0	out|not-cyber
+Software Engineer I (For 2026 Interns Only)	Sierra Nevada Corporation	0	out|rejected-title
 Software Engineer I (Hybrid)	RTX	0	out|not-cyber
 Software Engineer I (Intern) - United States	Cisco	0	out|not-cyber
 Software Engineer I (MERN, AWS)	Travelers	0	out|not-cyber
@@ -8487,7 +8487,7 @@ Software Engineer II - AI Infrastructure	Microsoft	0	out|not-cyber
 Software Engineer II - Asset & Wealth Management Technology	JPMorgan Chase	0	out|not-cyber
 Software Engineer II - Automation Tester	JPMorgan Chase	0	out|not-cyber
 Software Engineer II - Backend	Microsoft	0	out|not-cyber
-Software Engineer II - Behavioral Identity Security (Singapore)	Abnormal AI	1	earlycareer|Identity & IAM
+Software Engineer II - Behavioral Identity Security (Singapore)	Abnormal AI	1	out|non-us-location
 Software Engineer II - Blockchain	Mastercard	0	out|not-cyber
 Software Engineer II - C# .Net	JPMorgan Chase	0	out|not-cyber
 Software Engineer II - C#/.Net - Neovest	JPMorgan Chase	0	out|not-cyber
@@ -8611,7 +8611,7 @@ Software Engineer Intern (Winter 2027)	Cohere	0	out|not-cyber
 Software Engineer Intern - Berlin (2026)	Snowflake	0	out|rejected-title
 Software Engineer Intern - Berlin (2027)	Snowflake	0	out|not-cyber
 Software Engineer Intern - Summer 2027	CACI	0	out|not-cyber
-Software Engineer Intern - Warsaw Security	Snowflake	0	intern|Security Engineering
+Software Engineer Intern - Warsaw Security	Snowflake	0	out|non-us-location
 Software Engineer Intern 2027 (USA)	Pinterest	0	out|not-cyber
 Software Engineer Intern, Backend (Summer 2027 - Mexico)	Lyft	0	out|not-cyber
 Software Engineer Intern, Backend (Summer 2027 - Montreal)	Lyft	0	out|not-cyber
@@ -8846,7 +8846,7 @@ Spring 2027 Intern - MAGNet Program @ Georgia Tech OMSA	State Farm	0	out|not-cyb
 Spring 2027 Intern - MAGNet Program @ University of Illinois Urbana-Champaign	State Farm	0	out|not-cyber
 Spring 2027 Software Engineering Co-op	Honeywell	0	out|not-cyber
 Spring 2027 Software Engineering Internship/Co-op	xAI	0	out|not-cyber
-Spring and Summer Electrical Engineering Intern IV (Hybrid)	BAE Systems	0	out|not-cyber
+Spring and Summer Electrical Engineering Intern IV (Hybrid)	BAE Systems	0	out|rejected-title
 Spring Co-op: Digital Money and Payments Research & Development	Federal Reserve System	0	out|not-cyber
 SQL - Alteryx - Transformation Operation - Associate	JPMorgan Chase	0	out|not-cyber
 Sr Actuarial Associate, Enterprise Catastrophe Risk	Nationwide	0	out|rejected-title
@@ -9137,10 +9137,10 @@ Subrogation Specialist II - Injury Demander	USAA	0	out|not-cyber
 Subsidiary Payments Sales Associate	JPMorgan Chase	0	out|rejected-title
 Subsidiary Payments Sales Manager - Senior Associate	JPMorgan Chase	0	out|rejected-title
 Subsystem Design Engineer - Early Career	Lockheed Martin	0	out|not-cyber
-Summer 2027 - Advanced Manufacturing Engineering Intern	Shield AI	0	out|not-cyber
-Summer 2027 - Electrical Engineering Co-op (June 2027)	Shield AI	0	out|not-cyber
-Summer 2027 - Electrical Engineering Intern	Shield AI	0	out|not-cyber
-Summer 2027 - Mechanical Engineering Intern	Shield AI	0	out|not-cyber
+Summer 2027 - Advanced Manufacturing Engineering Intern	Shield AI	0	out|rejected-title
+Summer 2027 - Electrical Engineering Co-op (June 2027)	Shield AI	0	out|rejected-title
+Summer 2027 - Electrical Engineering Intern	Shield AI	0	out|rejected-title
+Summer 2027 - Mechanical Engineering Intern	Shield AI	0	out|rejected-title
 Summer 2027 - Software Engineer Intern	Shield AI	0	out|not-cyber
 Summer 2027 Academic Research Internship	Federal Reserve System	0	out|not-cyber
 Summer 2027 Autonomy & Robotics Engineering Intern	AeroVironment	0	out|not-cyber
@@ -9240,11 +9240,11 @@ Summer 2027 Key Investment Services Internship (Certified Financial Planner Trac
 Summer 2027 Key Investment Services Internship (Certified Financial Planner Track) - Toledo, OH	KeyBank	0	out|not-cyber
 Summer 2027 KeyBank Wealth Management Internship - Client Support & Experience	KeyBank	0	out|not-cyber
 Summer 2027 KeyBank Wealth Management Internship - Investment Research & Analysis	KeyBank	0	out|not-cyber
-Summer 2027 Manufacturing Engineering Intern	AeroVironment	0	out|not-cyber
+Summer 2027 Manufacturing Engineering Intern	AeroVironment	0	out|rejected-title
 Summer 2027 MBA Internship – Primary Care & Clinical Innovation	Humana	0	out|not-cyber
 Summer 2027 MBA Internship – Strategy and Operations	Humana	0	out|not-cyber
 Summer 2027 MBA Internship- MedTech Marketing Leadership Development Program (MLDP)	Johnson & Johnson	0	out|rejected-title
-Summer 2027 MLS Underwriting Intern	Nationwide	0	out|not-cyber
+Summer 2027 MLS Underwriting Intern	Nationwide	0	out|rejected-title
 Summer 2027 Personal Lines Business Insights Intern	Nationwide	0	out|not-cyber
 Summer 2027 Project Management/Business Analyst Internship	GDIT	0	out|not-cyber
 Summer 2027 Social Media Internship	Huntington Bank	0	out|rejected-title
@@ -9267,7 +9267,7 @@ Summer Placement (Bermuda) - Facilities/Administration Intern	Chubb	0	out|reject
 Summer Placement (Bermuda) - Finance Intern	Chubb	0	out|rejected-title
 Summer Placement (Bermuda) - Legal Intern	Chubb	0	out|not-cyber
 Summer Placement (Bermuda) - Sovereign Risk Intern	Chubb	0	out|not-cyber
-Summer Placement (Bermuda) - Underwriting Intern	Chubb	0	out|not-cyber
+Summer Placement (Bermuda) - Underwriting Intern	Chubb	0	out|rejected-title
 Supervising Discipline Engineer 2	Amentum	0	out|not-cyber
 Supply Chain 2027 Co-op/Intern	Johnson & Johnson	0	out|rejected-title
 Supply Chain Data Analyst Internship 2027	Motorola Solutions	0	out|rejected-title
@@ -9291,7 +9291,7 @@ Support Engineer 2, Pharmacy Millennium Solution	Oracle	0	out|not-cyber
 Support Engineer I - Dallas, TX	ExtraHop	1	earlycareer|Engineering @ Security Co
 Support Engineer I - Raleigh, NC	ExtraHop	1	earlycareer|Engineering @ Security Co
 Support Engineer I - Seattle, WA	ExtraHop	1	earlycareer|Engineering @ Security Co
-Support Engineer I - UK	ExtraHop	1	earlycareer|Engineering @ Security Co
+Support Engineer I - UK	ExtraHop	1	out|non-us-location
 Support Specialist I	Brex	0	out|not-cyber
 Surveillance & Navigation Architecture Performance Associate Director	Aerospace Corporation	0	out|rejected-title
 Suscriptor/a Jr de líneas financieras	Chubb	0	out|not-cyber
@@ -9311,7 +9311,7 @@ System Engineer 2	Nightwing	1	earlycareer|Engineering @ Security Co
 System Engineering Co-op (Remote)	RTX	0	out|not-cyber
 System Security Engineer I	BAE Systems	0	earlycareer|Security Engineering
 System Security Practitioner	Accenture	0	out|no-level
-System Software Engineer – GPU and SOC (2027 RDSS Intern)	NVIDIA	0	intern|SOC & Detection
+System Software Engineer – GPU and SOC (2027 RDSS Intern)	NVIDIA	0	out|not-cyber
 System Software Engineer –L2/L3 Packet Forwarding	HPE	0	out|rejected-title
 System Software Engineering - PhD Intern	Intel	0	out|not-cyber
 System Software Engineering Intern	Intel	0	out|not-cyber
@@ -9359,7 +9359,7 @@ Systems Engineer 2	Nightwing	1	earlycareer|Engineering @ Security Co
 Systems Engineer Asc - Early Career	Lockheed Martin	0	out|not-cyber
 Systems Engineer Associate	SAIC	0	out|not-cyber
 Systems Engineer Associate - Early Career	Lockheed Martin	0	out|not-cyber
-Systems Engineer I (For 2026 Interns Only)	Sierra Nevada Corporation	0	out|not-cyber
+Systems Engineer I (For 2026 Interns Only)	Sierra Nevada Corporation	0	out|rejected-title
 Systems Engineer I - Guidance, Navigation, and Control (Onsite)	RTX	0	out|not-cyber
 Systems Engineer II	AeroVironment	0	out|not-cyber
 Systems Engineer II - Air Traffic Solutions (Onsite)	RTX	0	out|not-cyber
@@ -9401,7 +9401,7 @@ Systems Research Engineer Intern - GPU Programming (Winter 2027)	Together AI	0	o
 Systems Security Development Engineer, US ADC Security	Amazon	0	out|no-level
 Systems Security Engineer (Level 2 or 3) (Oklahoma City OK)	Northrop Grumman	0	out|no-level
 Systems Security Engineer I	Proofpoint	1	earlycareer|Cloud & Infra Security
-Systems Security Engineer I (For 2026 Interns Only)	Sierra Nevada Corporation	0	earlycareer|Cloud & Infra Security
+Systems Security Engineer I (For 2026 Interns Only)	Sierra Nevada Corporation	0	out|rejected-title
 Systems Security Engineer I – Anti-Tamper / Program Protection (On-site)	RTX	0	earlycareer|Cloud & Infra Security
 Systems Security Engineer I – Anti-Tamper / Program Protection (Onsite-Tucson, AZ) – P1	RTX	0	earlycareer|Cloud & Infra Security
 Systems Security Engineer II (Anti-Tamper/Program Protection) (Onsite) - P2	RTX	0	earlycareer|Cloud & Infra Security
@@ -9575,7 +9575,7 @@ Technical Support Engineer II	Delinea	1	earlycareer|Engineering @ Security Co
 Technical Support Engineer II, Triage & Discovery	Alloy	1	earlycareer|SOC & Detection
 Technical Support Engineer in Japan (Network, Cybersecurity)	OPSWAT	1	out|no-level
 Technical Support Engineer Intern – Wireless Technologies	HPE	0	out|not-cyber
-Technical Support Engineer Tier 1 - Europe	Action1	1	earlycareer|Engineering @ Security Co
+Technical Support Engineer Tier 1 - Europe	Action1	1	out|non-us-location
 Technical Support Engineer Tier 1 - USA	Action1	1	earlycareer|Engineering @ Security Co
 Technical Support Engineer, Public Sector	SentinelOne	1	out|no-level
 Technical Support Engineer, Zero Trust	Cloudflare	0	out|no-level
@@ -9591,9 +9591,9 @@ Technician, Pharmacy Warehouse L1, Dispensing - A Shift	CVS Health	0	out|not-cyb
 Technician, Pharmacy Warehouse L1, Dispensing - C Shift	CVS Health	0	out|not-cyber
 Technologue - Programme de rotation de nouveaux gradues 2027 / Technologist – New Graduate Rotation Program 2027	RTX	0	out|not-cyber
 Technology & Cyber Risk Lead Analyst, Vice President	Citi	0	out|rejected-title
-Technology & Innovation Organization Electrical Engineering Internship	HP Inc	0	out|not-cyber
+Technology & Innovation Organization Electrical Engineering Internship	HP Inc	0	out|rejected-title
 Technology (IT) Audit Intern – Internal Audit	Rackspace	0	out|rejected-title
-Technology - Cyber Security, Summer Analyst, Warsaw 2027	Citi	0	intern|Security Engineering
+Technology - Cyber Security, Summer Analyst, Warsaw 2027	Citi	0	out|non-us-location
 Technology - Infrastructure, Summer Analyst, Warsaw 2027	Citi	0	out|not-cyber
 Technology 2027 Fall Co-Op	Johnson & Johnson	0	out|not-cyber
 Technology 2027 Spring Co-Op	Johnson & Johnson	0	out|not-cyber
@@ -9690,7 +9690,7 @@ The Core Engineering-L2-Dallas-Vice President-Software Engineering	Goldman Sachs
 Thermal Analyst I (Onsite)	RTX	0	out|not-cyber
 Thermal Analyst II - Hunstville, AL	RTX	0	out|not-cyber
 Thermal Engineering Intern, Summer 2027	BAE Systems	0	out|not-cyber
-Thermal Mechanical Engineering Undergraduate Intern, GPU Platforms	Intel	0	out|not-cyber
+Thermal Mechanical Engineering Undergraduate Intern, GPU Platforms	Intel	0	out|rejected-title
 Threat & Exposure Management Platform Engineer	Citi	0	out|no-level
 Threat Analyst – Junior	KBR	0	earlycareer|Security Engineering
 Threat Hunter, FedCloud (Remote)	CrowdStrike	1	out|no-level
@@ -9817,14 +9817,14 @@ UI/UX Developer	Two Six Technologies	1	out|no-level
 UK Funds Marketing - Senior Associate	JPMorgan Chase	0	out|rejected-title
 Undergraduate (Year-Round) Intern - Analytical Chemistry	National Laboratory of the Rockies	0	out|not-cyber
 Undergraduate/Graduate (3-12 Month, Remote) Intern - Power System/Power Electronics Modeling	National Laboratory of the Rockies	0	out|not-cyber
-Undergraduate/Graduate Intern (year-round) –Chemical Engineering/Biomass conversion/Catalytic upgrading/Organic Chemistry	National Laboratory of the Rockies	0	out|not-cyber
+Undergraduate/Graduate Intern (year-round) –Chemical Engineering/Biomass conversion/Catalytic upgrading/Organic Chemistry	National Laboratory of the Rockies	0	out|rejected-title
 Undergraduate/graduate intern - software and data infrastructure for autonomous thin film experimentation (Year-Round)	National Laboratory of the Rockies	0	out|not-cyber
 Undersea Systems Deputy Cyber Project Manager	Booz Allen Hamilton	0	out|rejected-title
-Underwriter Jr Consumer	Chubb	0	out|not-cyber
-Underwriter Operations Associate - 12 month FTC (German Speaking)	Chubb	0	out|not-cyber
-Underwriting Associate	Fifth Third	0	out|not-cyber
-Underwriting Associate Operations Account Specialist - National Property	Travelers	0	out|not-cyber
-Underwriting New Associate	Accenture	0	out|not-cyber
+Underwriter Jr Consumer	Chubb	0	out|rejected-title
+Underwriter Operations Associate - 12 month FTC (German Speaking)	Chubb	0	out|rejected-title
+Underwriting Associate	Fifth Third	0	out|rejected-title
+Underwriting Associate Operations Account Specialist - National Property	Travelers	0	out|rejected-title
+Underwriting New Associate	Accenture	0	out|rejected-title
 Unified Communications Associate Manager	DXC Technology	0	out|rejected-title
 University - 2027 Summer Games Cyber Security Intern - Annapolis Junction, MD	Booz Allen Hamilton	0	intern|Security Engineering
 University - 2027 Summer Games Cyber Security Intern - Atlanta, GA	Booz Allen Hamilton	0	intern|Security Engineering
@@ -9884,13 +9884,13 @@ Ventures - Associate Principal	SAIC	0	out|rejected-title
 Vet Transition Program-Veterans Transition Program-Technical Relationship Manager, Aladdin – Associate	BlackRock	0	out|rejected-title
 Veteran & Community Engagement Associate	Anduril	0	out|not-cyber
 Veteran Transition Program-Aladdin Client Business Development Associate	BlackRock	0	out|rejected-title
-Veterans Transition Program -Associate, Financial Planning & Analysis	BlackRock	0	out|not-cyber
-Veterans Transition Program Associate, Cyber Operations Engineer	BlackRock	0	earlycareer|Security Engineering
-Veterans Transition Program- Associate, Access & Identity Management Engineer	BlackRock	0	earlycareer|Identity & IAM
-Veterans Transition Program- Associate, Cyber Security Regulatory Support	BlackRock	0	earlycareer|Security Engineering
-Veterans Transition Program-Associate, Corporate Actions	BlackRock	0	out|not-cyber
-Veterans Transition Program-Associate, Platform Enablement Application Engineer	BlackRock	0	out|not-cyber
-Veterans Transition Program-Client Service Associate	BlackRock	0	out|not-cyber
+Veterans Transition Program -Associate, Financial Planning & Analysis	BlackRock	0	out|rejected-title
+Veterans Transition Program Associate, Cyber Operations Engineer	BlackRock	0	out|rejected-title
+Veterans Transition Program- Associate, Access & Identity Management Engineer	BlackRock	0	out|rejected-title
+Veterans Transition Program- Associate, Cyber Security Regulatory Support	BlackRock	0	out|rejected-title
+Veterans Transition Program-Associate, Corporate Actions	BlackRock	0	out|rejected-title
+Veterans Transition Program-Associate, Platform Enablement Application Engineer	BlackRock	0	out|rejected-title
+Veterans Transition Program-Client Service Associate	BlackRock	0	out|rejected-title
 Veterans Transition Program-Technical Relationship Manager, Aladdin – Associate	BlackRock	0	out|rejected-title
 Vice President, AI Vulnerability Operations	Mastercard	0	out|rejected-title
 Vice President, Americas Regional Lead - Early Careers Learning & Development	BlackRock	0	out|rejected-title

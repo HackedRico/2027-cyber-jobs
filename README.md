@@ -24,7 +24,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <details><summary><b>New to cyber recruiting? Start here</b></summary>
 
-**What belongs here.** US or Remote (US) cybersecurity, cloud engineering and solutions architecture roles open to students: internships and co-ops, new-grad programs, and entry-level jobs asking for 0 to 2 years. No senior roles and no roles outside the US.
+**What belongs here.** US or Remote (US) cybersecurity, cloud engineering and solutions architecture roles, plus engineering roles at security companies, open to students: internships and co-ops, new-grad programs, and entry-level jobs asking for 0 to 2 years. No senior roles and no roles outside the US.
 
 **When to apply.** Summer internships post from August to October of the year before, and the big programs fill early, so apply in the fall. New-grad programs post from September to November. Many defense contractors hire on their own cycles, so check back through the spring.
 
@@ -431,7 +431,7 @@ Full-time roles and rotational programs for students in their final year or just
 
 ## 🌱 Early Career & Entry-Level
 
-Roles that don't require prior full-time experience: Analyst I/II, Associate, Junior, SOC Tier 1, and roles whose posting says 0-2 years.
+Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, Junior, SOC Tier 1, and roles with no level in the title whose posting says 0-2 years or calls it an entry-level role or position.
 
 <!-- TABLE_START earlycareer -->
 
@@ -826,8 +826,8 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 ## How it works
 
 1. [`companies.yml`](companies.yml) lists employers with security teams, plus pure-play security companies, whose job boards expose public APIs.
-2. [`scrape_jobs.py`](.github/scripts/scrape_jobs.py) runs twice a day, pulls every posting, and keeps the ones that are cybersecurity roles, at internship, new-grad or early-career level, and located in the US.
+2. [`scrape_jobs.py`](.github/scripts/scrape_jobs.py) runs twice a day, reads each board (on Workday, Eightfold, Phenom, Jibe and Amazon, only what searches for cyber, cloud and student roles return), and keeps the postings that are cybersecurity, cloud engineering or solutions architecture roles, or engineering roles at a security company, at internship, new-grad or early-career level, and located in the US.
 3. New matches land in [`listings.json`](listings.json) and the tables above are rebuilt from it.
-4. A role closes when its posting leaves the employer's board for 3 days or the employer leaves `companies.yml`, or, for community, Amazon and other rows the scraper cannot match to a posting, when a daily [link check](.github/scripts/check_links.py) finds the link gone two days in a row. Closed roles fold under each table for 60 days.
+4. A role closes when its posting leaves the employer's board for 3 days (up to 14 on the largest boards, which the scraper cannot read in full) or the employer leaves `companies.yml`, or, for community and other rows the scraper cannot match to a posting, when a daily [link check](.github/scripts/check_links.py) finds the link gone two days in a row (three for a community page that still loads but no longer shows the posting). The link check visits Amazon rows too, and closes them sooner than the scraper would. A community row also closes 120 days after it was added or last reopened, since no scraper can tell when its posting fills; if the role is still open, submit it again. Closed roles fold under each table for 60 days.
 
 Sources we can't scrape rely on community submissions, so please [contribute](./CONTRIBUTING.md)!

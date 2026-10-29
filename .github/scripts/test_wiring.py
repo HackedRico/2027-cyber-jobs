@@ -11,11 +11,13 @@ read as YAML and the test scripts as Python syntax trees, so a comment can
 neither satisfy a check nor trip one.
 """
 import ast
+import datetime
 import re
+import socket
 import sys
 from pathlib import Path
 
-import testkit  # noqa: F401
+import testkit
 
 SCRIPTS = Path(__file__).parent
 ROOT = SCRIPTS.parent.parent
@@ -59,18 +61,56 @@ def code_lines(step):
     return lines + ([pending] if pending else [])
 
 
+# `set -u +e` and `set -o pipefail +o errexit` turn errexit off as `set +e`
+# does; a pattern that wanted the + right after set passed both.
+ERREXIT_OFF = re.compile(r'\bset\b[^;&|]*?\s\+(?:[A-Za-z]*e|o\s+errexit)')
+# The check alone on its line between `{` and `} 2>&1 | tee log`, or a
+# `} || echo`, stops only the group: the pipe or list eats its status and the
+# commit runs. bash -e with no pipefail reached the next line both ways, and
+# a `fi`, `done` or `esac` closed the same way does the same.
+SWALLOWED = re.compile(r'(?:[})]|(?:fi|done|esac)\b).*(?:\||&&)')
+
+
+def fails_on_error(workflow, job, step):
+    """True when the step always runs and any failing line fails it.
+
+    GitHub runs a step with no shell as `bash -e {0}`, and `shell: bash` adds
+    pipefail. `shell: bash {0}`, a `set +e`, a group closed into a pipe or a
+    list, or continue-on-error run on past a failure, and an if: can skip the
+    step.
+    """
+    shell = (step.get('shell') or ((job.get('defaults') or {}).get('run') or {}).get('shell')
+             or ((workflow.get('defaults') or {}).get('run') or {}).get('shell'))
+    return ('if' not in step and not step.get('continue-on-error')
+            and shell in (None, 'bash')
+            and not any(ERREXIT_OFF.search(line) or SWALLOWED.match(line)
+                        for line in code_lines(step)))
+
+
 # Every test script runs unconditionally in CI on every pull request and push,
 # and is named where AGENTS.md lists the suite. PyYAML reads the 'on' key as True.
-triggers = WORKFLOWS['tests.yml'].get(True) or WORKFLOWS['tests.yml'].get('on') or {}
+# A paths or branches filter, or a step that runs more than its suite, kept
+# this green while CI skipped a suite or passed one that failed.
+tests_yml = WORKFLOWS['tests.yml']
+triggers = tests_yml.get(True) or tests_yml.get('on') or {}
+# `on: [push, pull_request]` names its events with no filters, and crashed
+# this check when it read only the mapping form.
+if not isinstance(triggers, dict):
+    triggers = dict.fromkeys([triggers] if isinstance(triggers, str) else triggers)
+pull_request, push = triggers.get('pull_request') or {}, triggers.get('push') or {}
 check('tests.yml runs on every pull request and every push to main',
-      'pull_request' in triggers and 'push' in triggers)
-ci_steps = [step for _, job in jobs(WORKFLOWS['tests.yml'])
-            if 'if' not in job and not job.get('continue-on-error')
-            for step in job.get('steps') or []
-            if 'if' not in step and not step.get('continue-on-error')]
-ci_runs = {line for step in ci_steps for line in code_lines(step)}
+      'pull_request' in triggers and 'push' in triggers
+      and not {'paths', 'paths-ignore', 'branches', 'branches-ignore', 'types'} & set(pull_request)
+      and not {'paths', 'paths-ignore'} & set(push)
+      # A push with no branches or tags filter runs on every branch.
+      and ('main' in (push.get('branches') or []) if 'branches' in push
+           else not {'branches-ignore', 'tags', 'tags-ignore'} & set(push)))
+ci_runs = {code_lines(step)[0] for _, job in jobs(tests_yml)
+           if 'if' not in job and not job.get('continue-on-error')
+           for step in job.get('steps') or []
+           if fails_on_error(tests_yml, job, step) and len(code_lines(step)) == 1}
 for path in TESTS:
-    check(f'tests.yml runs {path.name} in an unconditional step',
+    check(f'tests.yml runs {path.name} alone in an unconditional step that fails with it',
           f'python .github/scripts/{path.name}' in ci_runs)
     check(f'AGENTS.md names {path.name}', path.name in AGENTS)
 
@@ -92,6 +132,10 @@ for path in TESTS:
     local = [line for line, name in imports if name in LOCAL_MODULES - {'testkit'}]
     check(f'{path.name} imports testkit at top level before the modules it tests',
           bool(pinned) and all(line > pinned[0] for line in local))
+    # `import time as clock` then clock.time() read the real date unflagged.
+    time_names = {alias.asname or 'time' for node in ast.walk(tree)
+                  if isinstance(node, ast.Import) for alias in node.names
+                  if alias.name == 'time'} | {'time'}
     for node in ast.walk(tree):
         if isinstance(node, ast.ImportFrom) and node.module == 'time':
             for alias in node.names:
@@ -100,10 +144,33 @@ for path in TESTS:
         if not (isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute)):
             continue
         attr, owner = node.func.attr, node.func.value
-        on_time = isinstance(owner, ast.Name) and owner.id == 'time'
+        on_time = isinstance(owner, ast.Name) and owner.id in time_names
         if attr in CLOCK_READS or (on_time and attr in WALL_CLOCK):
             check(f'{path.name}:{node.lineno} reads the clock with .{attr}(); use testkit.TODAY',
                   False)
+
+
+# testkit does pin the clock and cut the network. With its two pin lines
+# deleted every suite stayed green until the 2026 cohort titles failed on
+# 1 Jan 2027. Checked by identity, since a test file reads no clock itself.
+def refused(call):
+    try:
+        call()
+    except testkit.NetworkAccess:
+        return True
+    except OSError:
+        pass
+    return False
+
+
+check('testkit pins the date and datetime classes classify.py reads',
+      datetime.date is testkit._PinnedDate and datetime.datetime is testkit._PinnedDatetime
+      and classify.datetime is testkit._PinnedDatetime)
+# TEST-NET-1 and .invalid reach nothing even when the cut is gone.
+check('testkit refuses a connection past loopback',
+      refused(lambda: socket.create_connection(('192.0.2.1', 443), timeout=1).close()))
+check('testkit refuses a DNS lookup',
+      refused(lambda: socket.getaddrinfo('example.invalid', 443)))
 
 # Third-party actions run at a reviewed commit, and installs check hashes.
 PINNED = re.compile(r'[\w.-]+/[\w./-]+@[0-9a-f]{40}|docker://[^@\s]+@sha256:[0-9a-f]{64}')
@@ -119,10 +186,16 @@ for name, workflow in WORKFLOWS.items():
                 if re.search(r'\bpip3? install\b', line):
                     check(f'{name}: {line!r} uses --require-hashes', '--require-hashes' in line)
 
-# A writer is any job that can push. It queues in readme-updates and runs
-# check_outputs.py, unswallowed, before every commit, so no run pushes a
-# charter-breaking row or a mass close.
+# A writer is any job that can push. It queues in readme-updates and, in the
+# step that commits, runs check_outputs.py unswallowed before every commit, so
+# no run pushes a charter-breaking row or a mass close. The line stands alone
+# in its step. `&& echo`, `; true`, `| tee`, an if: on the step, a
+# `shell: bash {0}`, or the check in a step of its own ahead of a commit step
+# under `if: always()` each let the commit run after a failed check, and this
+# check passed them all.
 GIT = r'\bgit\b(?:\s+-c\s+\S+)*\s+'
+CHECK_OUTPUTS = re.compile(r'python \.github/scripts/check_outputs\.py'
+                           r'(?: --baseline "\$RUNNER_TEMP/listings\.base\.json")?')
 for name, workflow in WORKFLOWS.items():
     for job_name, job in jobs(workflow):
         permissions = job.get('permissions', workflow.get('permissions')) or {}
@@ -136,15 +209,17 @@ for name, workflow in WORKFLOWS.items():
         concurrency = job.get('concurrency') or workflow.get('concurrency') or {}
         group = concurrency.get('group') if isinstance(concurrency, dict) else concurrency
         check(f'{name}: writer job {job_name} queues in readme-updates', group == 'readme-updates')
-        checked = False
         for step in steps:
+            checked = False
             for line in code_lines(step):
-                if 'python .github/scripts/check_outputs.py' in line:
+                if 'check_outputs.py' in line:
                     check(f'{name}: {line!r} lets check_outputs.py fail the step',
-                          '||' not in line and not step.get('continue-on-error'))
+                          CHECK_OUTPUTS.fullmatch(line) is not None
+                          and fails_on_error(workflow, job, step))
                     checked = True
                 if re.search(GIT + 'commit', line):
-                    check(f'{name}: {job_name} runs check_outputs.py before {line!r}', checked)
+                    check(f'{name}: {job_name} runs check_outputs.py in the step before {line!r}',
+                          checked)
                     checked = False
 
 # A workflow that follows the writers through workflow_run also runs on a
@@ -158,7 +233,7 @@ for name, workflow in WORKFLOWS.items():
               'that catches up a run lost to a runner outage', 'schedule' in on)
 
 # The issue form offers exactly the categories the classifier can give, and
-# CONTRIBUTING.md names each one.
+# CONTRIBUTING.md's category list names each one.
 categories = set(classify.CATEGORY_NAMES) | set(classify.FALLBACK_CATEGORIES)
 form = yaml.safe_load((ROOT / '.github/ISSUE_TEMPLATE/add-job.yml').read_text())
 offered = {str(option) for field in form.get('body') or []
@@ -167,9 +242,14 @@ offered = {str(option) for field in form.get('body') or []
 check(f'issue form categories match the classifier: '
       f'missing {sorted(categories - offered)}, extra {sorted(offered - categories - {"Not sure"})}',
       offered == categories | {'Not sure'})
-contributing = (ROOT / 'CONTRIBUTING.md').read_text()
+# Read from the list line itself: 'Cloud Engineering' also sits in the 'Cloud
+# Engineering Intern' example, so a list that lost it still passed.
+category_line = next((line for line in (ROOT / 'CONTRIBUTING.md').read_text().splitlines()
+                      if line.startswith('Each row gets one of these categories')), '')
+check('CONTRIBUTING.md has its "Each row gets one of these categories" line',
+      bool(category_line))
 for name in sorted(categories):
-    check(f'CONTRIBUTING.md names the category {name!r}', name in contributing)
+    check(f"CONTRIBUTING.md's category list names {name!r}", name in category_line)
 
 # Every script is named in AGENTS.md, a workflow or a skill, so none goes
 # unexplained.

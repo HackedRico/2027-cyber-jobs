@@ -3,6 +3,7 @@
 
 Run from anywhere: python .github/scripts/test_classification.py
 """
+import re
 import sys
 from datetime import date
 
@@ -135,6 +136,24 @@ CASES = [
     ('SoC Performance Architect (Server CPU) - PhD New Grads Welcome!', 'Santa Clara, CA', '', False, None),
     # The SoC lookahead missed physical design (Micron, Simplify intern list).
     ('HBM SoC Physical Design Engineer Intern', 'Boise, ID', '', False, None),
+    # NVIDIA's chip software teams, and Intel's front-end design team.
+    ('SoC Software Engineer - New College Grad 2027', 'Santa Clara, CA', '', False, None),
+    ('System Software Engineer – GPU and SOC (2027 RDSS Intern)', 'Santa Clara, CA', '', False, None),
+    ('Graduate Talent (ISCP SoC Front End Team)', 'Hillsboro, OR', '', False, None),
+    # Mechanical engineering at a security company is still not security work.
+    ('Mechanical Engineering Co-Op', 'Shakopee, MN', '', True, None),
+    ('Electrical Engineering Intern', 'Shakopee, MN', '', True, None),
+    ('Process Engineering Intern', 'Shakopee, MN', '', True, None),
+    ('Firmware Engineering Co-op', 'Shakopee, MN', '', True, ('intern', 'Engineering @ Security Co')),
+    # ...and so is a discipline with a specialty before the role noun.
+    ('Mechanical Design Engineer I', 'Remote (US)', '', True, None),
+    ('Electrical Test Engineer I', 'Remote (US)', '', True, None),
+    ('Mechanical Systems Design Engineer – Associate/Experienced', 'Remote (US)', '', True, None),
+    # Johnson & Johnson's ACAS is a medical device sales intern.
+    ('Associate Clinical Account Specialist (ACAS) Intern (Summer 2027)', 'Irvine, CA', '', False, None),
+    # Bank model validation under an AI team name.
+    ('Model Risk Management, AI Risk, Dallas, Analyst/Associate', 'Dallas, TX', '', False, None),
+    ('Associate - AI Governance & Reporting - Model Risk', 'New York, NY', '', False, None),
     ('Security (Product, Systems, Cyber) Engineering Internship - Summer 2027', 'San Diego, CA', '', False, ('intern', 'Security Engineering')),
     # ...but a technical support engineer at a security company still counts.
     ('Support Engineer I', 'Dallas, TX', '', True, ('earlycareer', 'Engineering @ Security Co')),
@@ -153,7 +172,17 @@ CASES = [
     ('2026 Intern Conversion:  2027 Return Intern Cybersecurity', 'Bentonville, AR', '', False, None),
     ('2026 Intern Conversion: 2027 FT Penetration Testing Engineer II', 'Bentonville, AR', '', False, None),
     ('Returning Intern - Information Security', 'Bentonville, AR', '', False, None),
+    ('Systems Security Engineer I (For 2026 Interns Only)', 'Lone Tree, CO', '', False, None),
+    ('Systems Security Engineer Intern - Summer 2027 (For SNC Summer 2026 Interns Only)', 'Hagerstown, MD', '', False, None),
     ('Hiring Event - Security Architecture & Engineering - Sep 24-25th 2026', 'McLean, VA; Jersey City, NJ', '', False, None),
+    # Veterans' and transitioning service members' programs.
+    ('Military Fellowship Program: Cybersecurity Analyst', 'Remote (US)', '', False, None),
+    ('Veterans Transition Program- Associate, Access & Identity Management Engineer', 'Remote (US)', '', False, None),
+    ('Veterans Transition Program Associate, Cyber Operations Engineer', 'Remote (US)', '', False, None),
+    ('Veterans Transition Program- Associate, Cyber Security Regulatory Support', 'Remote (US)', '', False, None),
+    # ...but a cyber team that works on military systems stays.
+    ('2027 Internship - Military Systems Cybersecurity Engineer', 'Laurel, MD', '', False,
+     ('intern', 'Security Engineering')),
     # -- should be rejected: sales, support and design at security companies --
     ('Developer Support Associate (New Grad)', 'San Francisco, CA', '', True, None),
     ('Deals Desk Analyst II', 'Draper, UT', '', True, None),
@@ -258,6 +287,28 @@ CASES = [
     ('Junior Security Engineer', 'Remote (Europe)', '', False, None),
     ('SOC Analyst I', 'Pune, IN', '', False, None),
     ('SOC Analyst I', 'Perth, WA', '', False, None),
+    # A title that places the role abroad wins over a remote ATS location.
+    ('ABAD Cyber Security Systems Engineer Associate**This position is located at Ramstein AFB, Germany (International Assignment) **NO REMOTE WORK**',
+     'Remote (US)', '', False, None),
+    ('Support Engineer I - UK', 'Remote', '', True, None),
+    ('Technology - Cyber Security, Summer Analyst, Warsaw 2027', 'Remote (US)', '', False, None),
+    # ...but a title naming a US place, or a foreign city's US namesake, stays.
+    ('Cyber Security Analyst I - Dublin, OH', 'Dublin, OH', '', False, ('earlycareer', 'Security Engineering')),
+    # ...with the state code mid-title or in parentheses, as Northrop writes it.
+    ('Cyber Security Engineer I (Vienna, VA)', 'Vienna, VA', '', False, ('earlycareer', 'Security Engineering')),
+    ('Junior Cyber Analyst - Vienna, VA - Secret Clearance', 'Vienna, VA', '', False,
+     ('earlycareer', 'Security Engineering')),
+    ('2027 Cyber Software Engineer Intern - Melbourne (FL) (Evergreen)', 'Melbourne, FL', '', False,
+     ('intern', 'Security Engineering')),
+    ('Cybersecurity Intern - Athens, GA (Summer 2027)', 'Athens, GA', '', False, ('intern', 'Security Engineering')),
+    # ...but a foreign place's own code in parentheses is still abroad.
+    ('Security Analyst I (Tel Aviv, IL)', 'Remote (US)', '', False, None),
+    ('Cyber Analyst Intern - Toronto (CA)', 'Remote (US)', '', False, None),
+    # 'usa' inside 'Jerusalem' read as a US place and kept this title on.
+    ('Cyber Security Analyst I - Jerusalem', 'Remote (US)', '', False, None),
+    ('Junior Security Analyst (Remote, USA)', 'Remote (US)', '', False, ('earlycareer', 'Security Engineering')),
+    # A non-US token that qualifies a noun does not place the role abroad.
+    ('Cybersecurity Analyst I (Non-US Persons)', 'Remote (US)', '', False, ('earlycareer', 'Security Engineering')),
 
     # -- bug fix: leveled numerals reject only in role-noun context --
     # "III/IV/3/4" no longer bare-match version/layer/standard numbers.
@@ -285,7 +336,12 @@ CASES = [
     ('Cybersecurity Analyst II (Windows Server 2026)', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
 
     # -- bug fix: bare 'safeguards' with a nuclear context is not AI security --
-    ('Radiological Safeguards Analyst', 'Remote (US)', '', False, None),
+    # Leveled, so the nuclear skip is the only rule that rejects them: PNNL and
+    # INL post nonproliferation work, and without 'nuclear' in the title
+    # FUNCTION_REJECT passes it.
+    ('Radiological Safeguards Analyst I', 'Remote (US)', '', False, None),
+    ('Nonproliferation Safeguards Intern', 'Richland, WA', '', False, None),
+    ('IAEA Safeguards Analyst I', 'Richland, WA', '', False, None),
 
     # -- bug fix: requires_experience anchors to a requirement context --
     # incidental "past 5 years" is not an experience requirement (AI role kept).
@@ -381,6 +437,7 @@ CASES = [
     ('Software Engineer II - Windows in Cloud', 'Redmond, WA', '', False, None),
     ('Salesforce Service Cloud Developer, Associate', 'Austin, TX', '', False, None),
     ('Oracle Cloud HCM Developer I', 'Austin, TX', '', False, None),
+    ('Junior Genesys Cloud CX Architect', 'Remote (US)', '', False, None),
     ('Cloud Sales Associate', 'Austin, TX', '', False, None),
     ('Associate Banker, Saint Cloud, MN', 'Saint Cloud, MN', '', False, None),
     ('Senior Cloud Engineer', 'Austin, TX', '', False, None),
@@ -452,6 +509,9 @@ CASES = [
     ('Field Sales Engineer I - HVAC', 'Austin, TX', '', False, None),
     ('Sales Engineer (Field) Intern', 'Austin, TX', '', False, None),
     ('Customer Solutions Engineer I', 'Austin, TX', '', False, None),
+    # A non-technical job on a solutions team: only NON_TECH_ROLE_RE rejects these.
+    ('Solutions Architect Intern, Learning & Development', 'Austin, TX', '', False, None),
+    ('Solutions Consultant Intern - Contracts', 'Austin, TX', '', False, None),
     # A security title on a cloud or presales team keeps its security category.
     ('Cloud Vulnerability Analyst I', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
     ('Vulnerability Solutions Engineer, Associate', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
@@ -534,6 +594,20 @@ CASES = [
     # -- rows the new bank, pharma and Big 4 boards would have added --
     ('Associate, Equity Research - Cybersecurity & Data', 'New York, NY', '', False, None),
     ('2027 Future Talent Program- Forensic Services Laboratory Intern', 'West Point, PA', '', False, None),
+    # ...and with the lab word before 'forensic'.
+    ('Crime Lab Forensic Analyst I', 'Austin, TX', '', False, None),
+    ('DNA Forensic Analyst I', 'Austin, TX', '', False, None),
+    ('Experienced Associate, Healthcare Forensics Coder', 'Remote (US)', '', False, None),
+    ('Junior Underwriter / Underwriter Cyber & Technology, (all*), 80-100%', 'Remote (US)', '', False, None),
+    # 'Threat' in its military senses, unless the title also says cyber.
+    ('Junior Tactical All Source Threat Intelligence Analyst - Overnight Shift (Top Secret Clearance)',
+     'Vienna, VA', '', False, None),
+    ('Jr. Mobile Threat to Aerospace Operations (TTAO) Technician Assistant', 'Remote (US)', '', False, None),
+    ('Counter Threat Finance Analyst (CENTCOM - B31)', 'Tampa, FL',
+     'Open to candidates with 0-2 years of experience.', False, None),
+    ('Cyber All-Source Intelligence Analyst', 'McLean, VA',
+     'Open to candidates with 0-2 years of experience.', False,
+     ('earlycareer', 'Threat Intelligence')),
     (f'Strategic Assurance and SOC Services Associate - Summer {SEASON}', 'Fort Lauderdale, FL', '', False, None),
     ('Digital Forensics Lab Intern', 'Austin, TX', '', False, ('intern', 'Forensics & IR')),
     (f'{SEASON} Future Talent Program - North America Regional Security Team - Intern', 'Rahway, NJ', '', False, None),
@@ -580,12 +654,24 @@ CASES = [
     ('Corporate Security Intern', 'Charlotte, NC', '', False, None),
     ('Security Forces Intern', 'Austin, TX', '', False, None),
     ('Security Badging Intern', 'Austin, TX', '', False, None),
+    # A bank's global security office, and its tradable securities.
+    ('Global Security Investigator - Associate', 'Tampa, FL', '', False, None),
+    ('Investigator, Global Security', 'New York, NY', '', False, None),
+    ('North American Security Settlements- Analyst/ Associate', 'Baltimore, MD', '', False, None),
+    ('Security and Derivatives Intermediate Associate Analyst', 'Tampa, FL', '', False, None),
+    ('Security Master Data Analyst I', 'Pittsburgh, PA', '', False, None),
+    # Building fire and security systems, and a bare security investigator.
+    ('Fire and Security System Engineer I (m/f/d)', 'Remote (US)', '', False, None),
+    ('Investigator 2, Security', 'Baltimore, MD', '', False, None),
     # ...and a bare 'security' before a facility-style role noun.
     ('Security Access Control Technician I', 'Austin, TX', '', False, None),
     ('Security Specialist II', 'Cambridge, MA', '', False, None),
     ('Security Specialist - Administrative (Junior)', 'Falls Church, VA', '', False, None),
     ('Associate Security Specialist', 'Huntsville, AL', '', False, None),
     ('Security Associate', 'Reston, VA', '', False, None),
+    # A guard force's operations center is a SOC too.
+    ('Security Associate- SOC', 'Pittsburgh, PA', '', False, None),
+    ('Cyber Security Associate - SOC', 'Pittsburgh, PA', '', False, ('earlycareer', 'SOC & Detection')),
     # ...while a second cyber term, a technical role noun, or its own cyber
     # term beside the other sense keeps the title.
     ('Security Analyst I', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
@@ -668,6 +754,18 @@ CASES = [
     ('Cyber Analyst II', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
     ('Security Engineer 2', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
     ('Cyber Software Engineer - Level 1/2', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    # Boeing spells its spans in words; at a security company each needs the
+    # same description evidence as a numeral span.
+    ('Systems Engineer (Associate or Mid-Level)', 'Huntsville, AL', '', True, None),
+    ('Full Stack Software Engineer (Associate/Experienced)', 'Huntsville, AL', '', True, None),
+    ('Space Systems Engineer (Associate, Experienced)', 'Huntsville, AL', '', True, None),
+    ('Systems Engineer (Associate or Mid-Level)', 'Huntsville, AL',
+     "Associate: Bachelor's and 2 years of related experience. "
+     "Mid-Level: Bachelor's and 5 years of related experience.", True,
+     ('earlycareer', 'Engineering @ Security Co')),
+    # ...while PwC's 'Experienced Associate' is one level, not a span.
+    ('Cybersecurity, Privacy and Forensics - Threat Detection Response - Experienced Associate',
+     'Remote (US)', '', False, ('earlycareer', 'SOC & Detection')),
 
     # -- keyword gaps --
     ('Identity & Access Management Intern', 'Austin, TX', '', False, ('intern', 'Identity & IAM')),
@@ -734,6 +832,10 @@ NORM = [
     ('Office - USA - VA - Reston', 'Reston, VA'),
     ('Office - USA - CA - Headquarters', 'CA (US)'),
     ('Office - USA - TX', 'TX (US)'),
+    # ...and its Remote and Virtual Location forms stay remote.
+    ('Remote - USA - TX', 'Remote, TX'),
+    ('Remote - USA - VA - Reston', 'Remote - Reston, VA'),
+    ('Virtual Location - USA - CA - Headquarters', 'Remote, CA'),
     ('Virtual Location - Virginia, VA', 'Remote (US)'),
     # Opaque facility codes are dropped; a real city in the same multi-location
     # string survives.
@@ -746,6 +848,16 @@ NORM = [
     ('Shakopee, MN (GHQ)', 'Shakopee, MN'),
     ('HQ - Sunnyvale (Office)', 'Sunnyvale, CA'),
     ('San Francisco Office', 'San Francisco, CA'),
+    # ...and the shape under the tag is still normalized in the same call:
+    # 'Remote (Hybrid)' was stored as 'Remote', renormalized to 'Remote (US)'
+    # a scrape later, and a repost keyed on 'Remote' became an open duplicate.
+    ('Remote (Hybrid)', 'Remote (US)'),
+    ('US - Remote (Hybrid)', 'Remote (US)'),
+    ('Remote - Virginia (Hybrid)', 'Remote, VA'),
+    ('Virginia - Herndon (Hybrid)', 'Herndon, VA'),
+    ('VA-Dahlgren (Hybrid)', 'Dahlgren, VA'),
+    # ...before a bare 'Remote' could fold into a state-scoped one beside it.
+    ('Remote (Hybrid); Remote - California', 'Remote (US); Remote, CA'),
     # Remote spellings without a US token still mean US remote; a region does not.
     ('Remote-Friendly (Travel-Required)', 'Remote (US)'),
     ('Remote (Any State)', 'Remote (US)'),
@@ -763,6 +875,10 @@ NORM = [
     ('HI-Pearl Harbor', 'Pearl Harbor, HI'),
     ('USA_TX_Richardson', 'Richardson, TX'),
     ('(USA) ISD Office - DGTC AR BENTONVILLE Home Office', 'Bentonville, AR'),
+    ('(USA) Maverick Building AR Bentonville Home Office', 'Bentonville, AR'),
+    # A two-capital word in the site name comes before the state.
+    ('(USA) HQ Campus AR BENTONVILLE Home Office', 'Bentonville, AR'),
+    ('(USA) IT Services AR Bentonville Home Office', 'Bentonville, AR'),
     ('US, California, Santa Clara', 'Santa Clara, CA'),
     # Country suffixes, bare states, and unambiguous bare cities.
     ('Austin, Texas, United States of America', 'Austin, TX'),
@@ -782,7 +898,26 @@ NORM = [
     ('High Point, NC; International - Germany', 'High Point, NC'),
     ('Paris, TX; London, UK', 'Paris, TX'),
     ('Perth Amboy, NJ; Perth, WA', 'Perth Amboy, NJ'),
+    # A site abroad given a code that is also a state's still drops.
+    ('Austin, TX; Tbilisi, Georgia', 'Austin, TX'),
+    ('Austin, TX; Georgia - Tbilisi', 'Austin, TX'),
+    ('Austin, TX; Berlin DE', 'Austin, TX'),
+    ('Austin, TX; IL-Haifa', 'Austin, TX'),
+    ('Austin, TX; CA-Vancouver', 'Austin, TX'),
+    ('Hamburg, NY; Hamburg, DE', 'Hamburg, NY'),
     ('London, UK', 'London, UK'),  # nothing US to keep, so nothing is dropped
+    # A remote option abroad is not relabeled Remote (US) on the way, even with
+    # a US token in it, so it drops beside a US site too...
+    ('San Francisco, CA; Remote, India (US Hours)', 'San Francisco, CA'),
+    ('Office - USA - CA - Santa Clara; Virtual Location - Canada', 'Santa Clara, CA'),
+    ('Austin, TX; Remote - Philippines (US shift)', 'Austin, TX'),
+    ('Austin, TX; Remote (Non-US)', 'Austin, TX'),
+    ('Remote - Excluding USA', 'Remote - Excluding USA'),
+    # A US scope shared with another country is still a US remote option.
+    ('Austin, TX; Remote (US & Canada)', 'Austin, TX; Remote (US)'),
+    ('Austin, TX; Remote, India (U.S. business hours)', 'Austin, TX'),
+    # ...while a US city that shares a foreign name keeps its spelled-out state.
+    ('Palm Bay, Florida; Melbourne, Florida', 'Palm Bay, FL; Melbourne, FL'),
     # US territories resolve to their postal code like any state.
     ('San Juan, Puerto Rico', 'San Juan, PR'),
     ('Barrigada, Guam', 'Barrigada, GU'),
@@ -828,6 +963,12 @@ NORM = [
     ('US, WV - Summit Point', 'Summit Point, WV'),
     ('US - Remote (Any Location)', 'Remote (US)'),
     ('CA - YT, Faro', 'CA - YT, Faro'),
+    # A country-coded site abroad drops beside a US one; kept, 'CA - Remote'
+    # read as California and 'IN - Remote' failed the stored-form check.
+    ('US - VA, Centreville; CA - Remote (Any Location)', 'Centreville, VA'),
+    ('US - FL, Melbourne; IN - Remote (Any Location)', 'Melbourne, FL'),
+    ('(USA) ISD Office - DGTC AR BENTONVILLE Home Office; (CAN) ON MISSISSAUGA Home Office',
+     'Bentonville, AR'),
 ]
 for raw, want in NORM:
     got = s.normalize_location(raw)
@@ -860,6 +1001,29 @@ if renorm_n != 1 or renorm_locs != ['Baltimore, MD', 'Austin, TX', 'HQ - Sunnyva
     failures += 1
     print(f'FAIL renormalize_locations: changed={renorm_n}, locations={renorm_locs}')
 
+# RTX posted 'Systems Engineer I, V&V Testing' twice at Aguadilla, stored as
+# 'Aguadilla, Puerto Rico' and 'Aguadilla, PR'. Renormalizing the first onto the
+# second gives two open rows one dedup key, which check_outputs.py fails on
+# every run, so the open row keeps its old string; a closed copy still moves.
+RTX_REQ = 'https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/Aguadilla/X_'
+RENORM_COLLISION = [
+    ({'company': 'RTX', 'role': 'Systems Engineer I, V&V Testing', 'location': 'Aguadilla, Puerto Rico',
+      'source': 'Workday', 'url': RTX_REQ + '01'}, 'Aguadilla, Puerto Rico'),
+    ({'company': 'RTX', 'role': 'Systems Engineer I, V&V Testing', 'location': 'Aguadilla, PR',
+      'source': 'Workday', 'url': RTX_REQ + '02'}, 'Aguadilla, PR'),
+    ({'company': 'RTX', 'role': 'Systems Engineer I, V&V Testing', 'location': 'Aguadilla, Puerto Rico',
+      'source': 'Workday', 'url': '', 'closed': True}, 'Aguadilla, PR'),
+    # Only a key another open row holds blocks the rewrite.
+    ({'company': 'RTX', 'role': 'Systems Engineer I', 'location': 'Aguadilla, Puerto Rico',
+      'source': 'Workday', 'url': RTX_REQ + '03'}, 'Aguadilla, PR'),
+]
+collision_rows = [dict(r) for r, _ in RENORM_COLLISION]
+collision_n = s.renormalize_locations(collision_rows)
+collision_locs = [r['location'] for r in collision_rows]
+if collision_n != 2 or collision_locs != [want for _, want in RENORM_COLLISION]:
+    failures += 1
+    print(f'FAIL renormalize_locations collision: changed={collision_n}, locations={collision_locs}')
+
 # listing_dedup_key: reposts of one req list the same sites in any order and
 # spacing, and must collapse to one row.
 DEDUP = [
@@ -885,6 +1049,7 @@ LEVEL = [
     ('Cyber Analyst I/II/III', 'earlycareer'),
     ('SOC Analyst Tier 1-3', 'earlycareer'),
     ('Cyber Systems Engineer (Level 2 or 3)', 'earlycareer'),
+    ('Systems Engineer (Associate or Mid-Level)', 'earlycareer'),
 ]
 for title, want in LEVEL:
     got = s.classify_level(title)
@@ -974,6 +1139,9 @@ US_LOC = [
     ('Remote (EMEA)', False),
     ('Zürich', False),
     ('Bogotá, Colombia', False),
+    # scrape_pinpoint names the country of a site abroad after its city, and
+    # a city that shares a US name read as US beside a country not listed.
+    ('Cambridge, Lithuania', False),
     ('Office - USA - VA - Reston', True),
     # A US city whose name collides with a foreign one is rescued by ", ST".
     ('Vienna, VA', True),
@@ -1001,6 +1169,14 @@ US_LOC = [
     # word inside an all-caps site string, and BVI is not a US territory.
     ('WORK REMOTE AS NEEDED', False),
     ('Tortola, British Virgin Islands', False),
+    # ...and 'usa' counts only as a word of its own, not inside 'Busan'.
+    ('Busan', False),
+    ('Busan, South Korea', False),
+    ('Jerusalem', False),
+    ('USA_TX_Richardson', True),
+    ('USA-Remote', True),
+    ('(USA)', True),
+    ('United States of America', True),
     # Parsons' ISO prefix: CA is Canada there, so its Yukon mine's 'Security
     # and Mine Rescue Technician I' sat in California. The US prefix keeps a
     # US site, and Tenable's state-first 'MA - Boston' is not a country code.
@@ -1062,6 +1238,19 @@ US_LOC = [
     ('Remote (Virginia)', True),
     ('Remote (Hybrid)', True),
     ('Remote (Any State)', True),
+    # A US token that excludes the US is not a US scope.
+    ('Remote (Non-US)', False),
+    ('Remote, Non-US', False),
+    ('Remote - Excluding USA', False),
+    ('Remote (Outside US)', False),
+    ('Austin, TX; Remote (Non-US)', True),
+    ('Remote (Non-US/EMEA)', False),
+    # A bare Remote beside a part that excludes the US is remote from abroad.
+    ('Remote | Excluding USA', False),
+    ('Remote (US) | Excluding USA', True),
+    # ...but one that excludes part of a US scope leaves it US.
+    ('Remote - US (excluding U.S. territories)', True),
+    ('Remote (US, excluding US territories)', True),
     ('Albuquerque, New Mexico', True),
     # A foreign place's own code is not a US state code...
     ('Bengaluru, Karnataka, IN', False),
@@ -1071,6 +1260,21 @@ US_LOC = [
     ('Goa, GA', False),
     ('Perth, WA', False),
     ('Toronto, Ontario, CA', False),
+    # A country's own ISO code, or the code the normalizer gives the country
+    # Georgia ('Tbilisi, Georgia' was stored as 'Tbilisi, GA').
+    ('Tel Aviv, IL', False),
+    ('Haifa, IL', False),
+    ('IL, Haifa', False),
+    ('IL-Haifa', False),
+    ('Berlin, DE', False),
+    ('Hamburg, DE', False),
+    ('Bogota, CO', False),
+    ('Vancouver, CA', False),
+    ('Mississauga, CA', False),
+    ('Waterloo, CA', False),
+    ('Tbilisi, GA', False),
+    ('Buenos Aires, AR', False),
+    ('Jakarta, ID', False),
     # ...but US towns with foreign names keep their state.
     ('London, KY', True),
     ('Athens, GA', True),
@@ -1078,12 +1282,32 @@ US_LOC = [
     ('Melbourne, FL', True),
     ('Vancouver, WA', True),
     ('Delhi, NY', True),
+    ('Paris, TX', True),
+    ('Vienna, VA', True),
+    ('Dublin, OH', True),
+    ('Hamburg, NY', True),
+    ('Berlin, NH', True),
+    ('Waterloo, IA', True),
+    # ...beside a site abroad too, which the normalizer drops to keep the US one.
+    ('Hamburg, NY; Hamburg, DE', True),
+    ('Melbourne, FL; Haifa, IL', True),
+    ('Paris, TX; London, UK', True),
+    ('Pune, IN; London, UK', False),
+    ('Perth, WA; London, UK', False),
 ]
 for loc, want in US_LOC:
     got = s.is_us_location(loc)
     if got != want:
         failures += 1
         print(f'FAIL is_us_location({loc!r}) = {got!r}, want {want!r}')
+# 'IL, Haifa' reads as abroad only because Haifa is on the foreign list too,
+# so _part_is_us returns before its embedded state-code scan. A place added to
+# FOREIGN_CODE_COLLISIONS alone would put 'IL, <place>' back in Illinois.
+for places, _codes in s.FOREIGN_CODE_COLLISIONS:
+    for place in re.search(r'\(\?:([^)]*)\)', places.pattern).group(1).split('|'):
+        if not s.NON_US_RE.search(place):
+            failures += 1
+            print(f'FAIL FOREIGN_CODE_COLLISIONS names {place!r}, which NON_US_RE misses')
 
 # Normalizing never takes a location off the board: check_outputs.py re-judges
 # the stored form, so a US location that normalizes to a non-US one fails the
@@ -1362,10 +1586,12 @@ if len(reclass_changes) != 1 or reclass_changes[0][0] != 'A' or reclass_changes[
           f"want one A earlycareer->newgrad")
 if ({(e['company'], reason) for e, reason in rejected}
         != {('E', 'rejected-title'), ('F', 'rejected-title')}
-        or [e['company'] for e in kept] != ['A', 'B', 'C', 'D', 'G']):
+        or [(e['company'], e['type']) for e in kept]
+        != [('A', 'newgrad'), ('B', 'intern'), ('C', 'earlycareer'), ('D', 'earlycareer'),
+            ('G', 'earlycareer')]):
     failures += 1
     print(f'FAIL reclassify_listings rejected={[(e["company"], r) for e, r in rejected]}, '
-          f'kept={[e["company"] for e in kept]}')
+          f'kept={[(e["company"], e["type"]) for e in kept]}')
 
 # reclassify_listings with the companies.yml flag map: a title that passed only
 # on a security_company flag goes when the company loses it, even with no live
@@ -1380,6 +1606,12 @@ FLAGGED = [
      'Workday', {'ICF': False}, 'not-cyber'),
     ('Jumio', 'Software Engineer Intern', 'Greenhouse', {'Jumio': False}, 'not-cyber'),
     ('Jumio', 'Software Engineer, New Grad', 'Community', {'Jumio': False}, None),
+    # A stored row whose title places it abroad goes even with its posting
+    # out of the feed, where the full re-judge cannot reach it.
+    ('Parsons', 'ABAD Cyber Security Systems Engineer Associate**This position is located at '
+     'Ramstein AFB, Germany (International Assignment) **NO REMOTE WORK**', 'Workday',
+     {'Parsons': False}, 'non-us-location'),
+    ('ExtraHop', 'Support Engineer I - UK', 'Greenhouse', {}, 'non-us-location'),
 ]
 for company, title, source, flags, want in FLAGGED:
     row = {'company': company, 'role': title, 'type': 'newgrad', 'source': source}
@@ -1406,6 +1638,42 @@ JUDGED = [
      'over-experienced'),
     ('Classified Cybersecurity Analyst 2/3 - Secret', 'Linthicum, MD', '', False, 'no-level'),
     ('Support Engineer I - UK', 'Remote | United Kingdom', '', True, 'non-us-location'),
+    # Ranks and programs the title rules now name, where the title used to
+    # fail a later gate: an AVP, a Snr., a consulting associate partner, a
+    # plural return offer, a guard post, a cleared-site office and DoD
+    # security cooperation.
+    ('Cybersecurity, AVP', 'Boston, MA', '', False, 'rejected-title'),
+    ('Snr. Site Reliability Engineer (Remote in Brazil)', 'Remote (US)', '', True, 'rejected-title'),
+    ('Consult Associate Partner Banking', 'Remote (US)', '', False, 'rejected-title'),
+    ('Associate Consult Partner, Public Sector (Provincial)', 'Remote (US)', '', False,
+     'rejected-title'),
+    ('2027 Aerospace Returning Interns', 'El Segundo, CA', '', False, 'rejected-title'),
+    ('Armed NERC CIP Security Operator', 'Remote (US)', '', False, 'rejected-title'),
+    ('Facility Security Coordinator and Administrator—Albuquerque, NM', 'Albuquerque, NM', '',
+     False, 'rejected-title'),
+    ('Intelligence Security Cooperation and Engagement Planner', 'Remote (US)', '', False,
+     'rejected-title'),
+    # A consulting rank, a returnship and military fellowships, which used to
+    # fail only the cyber check; a hyphen-joined partner rank still rejects.
+    ('Associate Managing Consultant, Advisors & Consulting Services, Deploy', 'New York, NY', '',
+     False, 'rejected-title'),
+    ('Consult Associate Partner-Security', 'Remote (US)', '', False, 'rejected-title'),
+    ('2027 - Returnship Programme – London', 'London, United Kingdom', '', False, 'rejected-title'),
+    ('GPSU Military - Federal Fellowship (Hybrid)', 'Remote (US)', '', True, 'rejected-title'),
+    ('GPSU Military/Military Spouses - Commercial Fellowship', 'Remote (US)', '', True,
+     'rejected-title'),
+    # An engineer on an underwriting team is not an underwriter.
+    ('Machine Learning Engineer II (Underwriting ML)', 'San Francisco, CA', '', False, 'not-cyber'),
+    # Threat simulation for a modeling and simulation team is not cyber work,
+    # even where the Level 2 route passes the experience gate.
+    ('Mod Sim System Engineer (Mission Support Threat Engineer - Level 2 or 3)',
+     'Schriever AFB, CO',
+     "Level 2: Bachelor's degree and 2 years of experience. "
+     "Level 3: Bachelor's degree and 5 years of experience.", False, 'not-cyber'),
+    # Boeing's 'Mid-Career' spelling is a span too: at a security company, no
+    # description is no level.
+    ('X-37B Product Review, Liaison Engineer - Associate or Mid-Career – 2nd Shift', 'Remote (US)',
+     '', True, 'no-level'),
 ]
 for title, loc, desc, sec, want in JUDGED:
     verdict, reason = s.judge_job(title, loc, desc, sec)
@@ -1513,6 +1781,8 @@ RENDER = [
     ('escape_cell escapes angle brackets', rr.escape_cell('<b>') == '&lt;b&gt;'),
     ('apply_btn rejects whitespace in url', rr.apply_btn('https://x/j\n| Fake |') == '🔒'),
     ('apply_btn rejects javascript:', rr.apply_btn('javascript:alert(1)') == '🔒'),
+    ('apply_btn rejects a backslash, which a browser reads as /',
+     rr.apply_btn('https://evil.example\\@crowdstrike.wd5.myworkdayjobs.com/x') == '🔒'),
     ('apply_btn escapes pipe in url', '|' not in rr.apply_btn('https://x/a|b')),
     ('apply_btn renders a clean https url', rr.apply_btn('https://x/job').startswith('<a href="https://x/job"')),
     # GFM autolinks a bare URL, www. and user@host inside a table cell.

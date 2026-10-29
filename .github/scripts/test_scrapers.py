@@ -7,6 +7,7 @@ Exercises the response-shape handling that only broke in production before —
 location extraction, pagination stops, intern hints, schema drift, and the
 retry/backoff fetch layer — without touching the network.
 """
+import html
 import json
 import os
 import sys
@@ -18,6 +19,7 @@ import testkit  # noqa: F401
 
 sys.path.insert(0, str(Path(__file__).parent))
 import check_links  # noqa: E402
+import check_outputs  # noqa: E402
 import check_slugs  # noqa: E402
 import compare_runs  # noqa: E402
 import responses  # noqa: E402
@@ -69,6 +71,7 @@ def test_greenhouse_location_reads_only_location_fields():
 
 
 # --- scrape_greenhouse ---------------------------------------------------------
+# The Job Board API sends `content` HTML-escaped: '&lt;p&gt;' for '<p>'.
 @responses.activate
 def test_greenhouse():
     responses.get(
@@ -76,16 +79,40 @@ def test_greenhouse():
         json={'jobs': [{'id': 1, 'title': 'Security Engineer',
                         'location': {'name': 'Remote'},
                         'offices': [{'name': 'Austin, TX'}],
-                        'absolute_url': 'https://x/1', 'content': 'desc'}]})
+                        'absolute_url': 'https://x/1',
+                        'content': html.escape('<p>desc</p>')}]})
     jobs = sj.scrape_greenhouse('Acme', 'acme')
     check('greenhouse parses one job', len(jobs), 1)
     check('greenhouse uses offices for location', jobs[0]['location'], 'Austin, TX')
     check('greenhouse id', jobs[0]['id'], 'greenhouse_acme_1')
+    check('greenhouse stores the posting html', jobs[0]['description'], '<p>desc</p>')
+
+
+@responses.activate
+def test_greenhouse_entities_reach_the_gates():
+    """'5+&nbsp;years' arrives as '5+&amp;nbsp;years' and read as no floor at all."""
+    def posting(n, title, body):
+        return {'id': n, 'title': title, 'location': {'name': 'Austin, TX'},
+                'absolute_url': GH_JOBS.format('acme', n), 'content': html.escape(body)}
+    responses.get('https://boards-api.greenhouse.io/v1/boards/acme/jobs', json={'jobs': [
+        posting(1, 'Security Engineer I', '<p>Join our detection team.</p>'
+                '<ul><li>5+&nbsp;years of experience in security engineering</li></ul>'),
+        posting(2, 'Security Analyst I', '<p>Entry level SOC role.</p>'
+                '<p>Must be a U.S.&nbsp;citizen.</p>')]})
+    jobs = sj.scrape_greenhouse('Acme', 'acme')
+    added, _ = sj.insert_new_listings([], jobs, {}, {}, '2026-10-29')
+    check('the escaped years floor keeps the 5-year req off the board',
+          [r['role'] for r in added], ['Security Analyst I'])
+    check('the escaped citizenship line sets clearance',
+          [r['clearance'] for r in added], [True])
 
 
 @responses.activate
 def test_greenhouse_http_error_returns_none():
-    responses.get('https://boards-api.greenhouse.io/v1/boards/dead/jobs', status=404)
+    # A real 404 carries a JSON body; a bodiless mock reached None through the
+    # non-JSON retry even with the status check gone.
+    responses.get('https://boards-api.greenhouse.io/v1/boards/dead/jobs', status=404,
+                  json={'status': 404, 'error': 'Job not found'})
     check('greenhouse 404 -> None', sj.scrape_greenhouse('Dead', 'dead'), None)
 
 
@@ -103,11 +130,18 @@ def test_lever():
             {'id': 'c', 'text': 'Security Engineer', 'country': 'US',
              'categories': {'location': 'Remote', 'commitment': 'Internship'},
              'hostedUrl': 'https://jobs.lever.co/acme/c'},
+            {'id': 'd', 'text': 'Security Engineer II', 'country': 'US',
+             'categories': {'location': 'Austin, TX',
+                            'commitment': 'Full-time (Internal Transfer Eligible)'},
+             'hostedUrl': 'https://jobs.lever.co/acme/d'},
+            {'id': 'e', 'text': 'Security Engineer II', 'country': 'US',
+             'categories': {'location': 'Austin, TX', 'commitment': 'International Assignment'},
+             'hostedUrl': 'https://jobs.lever.co/acme/e'},
         ])
     jobs = sj.scrape_lever('Acme', 'acme')
-    check('lever drops non-US', len(jobs), 2)
-    check('lever intern_hint from commitment',
-          [j['intern_hint'] for j in jobs], [False, True])
+    check('lever drops non-US', len(jobs), 4)
+    check('lever intern_hint from commitment, never from Internal or International',
+          [j['intern_hint'] for j in jobs], [False, True, False, False])
 
 
 @responses.activate
@@ -124,15 +158,21 @@ def test_lever_reads_all_locations():
         posting('d', 'DK', 'Remote Denmark', 'Remote Sweden'),
         {'id': 'e', 'text': 'Security Analyst', 'country': 'US',
          'categories': {'location': 'Austin, TX'}, 'hostedUrl': 'x'},
+        # A bare remote names no country, so the GB country decides.
+        posting('f', 'GB', 'Remote'),
+        posting('g', 'CA', 'Flexible / Remote'),
+        posting('h', 'CA', 'Remote', 'Remote (US)'),
+        posting('i', 'US', 'Remote'),
     ])
     jobs = sj.scrape_lever('Acme', 'acme')
     check('lever joins allLocations and skips only a req with no US site',
           [(j['id'], j['location']) for j in jobs],
           [('lever_acme_a', 'Vancouver; Milpitas, California'),
            ('lever_acme_b', 'Wichita Metro Area; San Diego, California; Dallas, Texas'),
-           ('lever_acme_e', 'Austin, TX')])
+           ('lever_acme_e', 'Austin, TX'), ('lever_acme_h', 'Remote; Remote (US)'),
+           ('lever_acme_i', 'Remote')])
     check('each kept req passes the US filter',
-          [sj.is_us_location(j['location']) for j in jobs], [True, True, True])
+          [sj.is_us_location(j['location']) for j in jobs], [True] * 5)
 
 
 # --- scrape_ashby --------------------------------------------------------------
@@ -198,6 +238,41 @@ def test_ashby_falls_back_to_the_postal_address():
           [True, True, True, False, True, True])
 
 
+@responses.activate
+def test_ashby_address_does_not_move_a_foreign_label():
+    """A head-office address in San Francisco put 'EMEA' and 'London, UK' in the US,
+    and a bare 'Remote' beside a Toronto address read as Remote (US). The address's
+    own city is not a foreign place: 'Vienna' in 'Vienna, VA (Hybrid)' read as Austria.
+    A posting remote at both a US and a Toronto address read 'Remote; Remote (Canada)',
+    which is foreign."""
+    sf = _ashby_address('San Francisco', 'California')
+    responses.get('https://api.ashbyhq.com/posting-api/job-board/acme', json={'jobs': [
+        {'id': 'a', 'title': 'Security Engineer', 'location': 'EMEA', 'address': sf},
+        {'id': 'b', 'title': 'Security Engineer', 'location': 'Remote - Canada', 'address': sf},
+        {'id': 'c', 'title': 'Security Engineer', 'location': 'London, UK', 'address': sf},
+        {'id': 'd', 'title': 'Security Engineer Intern', 'location': 'Remote',
+         'isRemote': True, 'address': _ashby_address('Toronto', 'Ontario', 'Canada')},
+        {'id': 'e', 'title': 'Security Engineer', 'location': 'Remote', 'address': sf},
+        {'id': 'f', 'title': 'Security Engineer', 'location': 'Waterloo',
+         'address': _ashby_address('Waterloo', 'Iowa')},
+        {'id': 'g', 'title': 'Security Engineer Intern', 'location': 'Vienna, VA (Hybrid)',
+         'address': _ashby_address('Vienna', 'Virginia')},
+        {'id': 'h', 'title': 'Security Engineer I', 'location': 'Remote',
+         'address': {'postalAddress': {'addressCountry': 'United States'}},
+         'secondaryLocations': [{'location': 'Remote', 'address': _ashby_address(
+             'Toronto', 'Ontario', 'Canada')}]},
+    ]})
+    jobs = sj.scrape_ashby('Acme', 'acme')
+    check('a foreign label keeps its own place and a bare remote takes the country',
+          [j['location'] for j in jobs],
+          ['EMEA', 'Remote - Canada', 'London, UK', 'Remote (Canada)', 'Remote (United States)',
+           'Waterloo, IA', 'Vienna, VA (Hybrid); United States',
+           'Remote (United States); Remote (Canada)'])
+    check('only the US-address remotes and the two US cities pass the US filter',
+          [sj.is_us_location(j['location']) for j in jobs],
+          [False, False, False, False, True, True, True, True])
+
+
 # --- scrape_smartrecruiters (pagination) --------------------------------------
 @responses.activate
 def test_smartrecruiters_pagination_short_page_stops():
@@ -255,7 +330,7 @@ def test_fetch_json_retries_transient():
 
 @responses.activate
 def test_fetch_json_gives_up_on_404():
-    responses.get('https://api.test/y', status=404)
+    responses.get('https://api.test/y', status=404, json={'error': 'Not Found'})
     check('fetch_json 404 -> None', sj.fetch_json('https://api.test/y', label='t'), None)
 
 
@@ -281,6 +356,9 @@ def test_slug_validation_blocks_host_reparenting():
     check('pinpoint rejects a slug with @', sj.scrape_pinpoint('X', 'a@b'), None)
     check('workday rejects a tenant with /', sj.scrape_workday('X', 'evil.com/', 'wd5', 'B'), None)
     check('oracle rejects a host with a path', sj.scrape_oracle('X', 'evil.com/x', 'CX_1'), None)
+    # Outside responses, so a scraper that skips its guard raises NetworkAccess
+    # instead of failing on an unmocked url and returning None anyway.
+    check('jibe rejects a host with a path', sj.scrape_jibe('X', 'evil.com/x'), None)
 
 
 # --- a total failure is None (FAILED), not [] (empty board) -------------------
@@ -288,9 +366,22 @@ def test_slug_validation_blocks_host_reparenting():
 def test_workday_total_failure_returns_none():
     responses.post('https://t.wd5.myworkdayjobs.com/wday/cxs/t/B/jobs', status=500)
     check('workday all-fetch-fail -> None', sj.scrape_workday('X', 't', 'wd5', 'B'), None)
+    # A migrated tenant (Comcast, Walmart in triage-board) answers 410 with a
+    # JSON body, which must read as a failed board, not an empty one.
+    responses.post('https://m.wd5.myworkdayjobs.com/wday/cxs/m/B/jobs', status=410,
+                   json={'errorCode': 'ERR_TENANT_MIGRATED', 'httpStatus': 410})
+    check('workday 410 ERR_TENANT_MIGRATED -> None', sj.scrape_workday('X', 'm', 'wd5', 'B'),
+          None)
 
 
 # --- pagination keeps going when the total field is absent --------------------
+def _at_offset(offset):
+    # responses serves unmatched mocks in order whatever the query, so a pager
+    # that never advanced its offset still read page two. ServiceNow's 449
+    # SmartRecruiters postings take five pages.
+    return [responses.matchers.query_param_matcher({'offset': str(offset)}, strict_match=False)]
+
+
 @responses.activate
 def test_smartrecruiters_missing_total_keeps_paging():
     page1 = {'content': [{'id': str(i), 'name': 'Security Engineer',
@@ -298,8 +389,10 @@ def test_smartrecruiters_missing_total_keeps_paging():
                          for i in range(100)]}  # full page, NO totalFound
     page2 = {'content': [{'id': 'x', 'name': 'Security Analyst',
                           'location': {'country': 'us', 'remote': True}}]}  # short page
-    responses.get('https://api.smartrecruiters.com/v1/companies/Acme/postings', json=page1)
-    responses.get('https://api.smartrecruiters.com/v1/companies/Acme/postings', json=page2)
+    responses.get('https://api.smartrecruiters.com/v1/companies/Acme/postings', json=page1,
+                  match=_at_offset(0))
+    responses.get('https://api.smartrecruiters.com/v1/companies/Acme/postings', json=page2,
+                  match=_at_offset(100))
     jobs = sj.scrape_smartrecruiters('Acme', 'Acme')
     check('smartrecruiters paged past a full first page with no total', len(jobs), 101)
 
@@ -1047,6 +1140,92 @@ def test_partial_workday_sweep_asks_the_detail_endpoint():
     check('only rows missing from the sweep are asked about', len(asked), 3)
 
 
+MS_JOB = 'https://microsoft.eightfold.ai/careers/job/'
+BAE_JOB = 'https://jobs.baesystems.com/global/en/job/'
+
+
+def _cut_short_rows():
+    return [_listing('Microsoft', 'Security Research INTERN', MS_JOB + '1970393556962157',
+                     source='Eightfold'),
+            _listing('BAE Systems', 'System Security Engineer I', BAE_JOB + '128449BR',
+                     source='Phenom')]
+
+
+def _cut_short_feed(*extra):
+    live = [MS_JOB + '1970393556988227', BAE_JOB + '128460BR', *extra]
+    return [{'company': 'Microsoft' if 'eightfold' in url else 'BAE Systems',
+             'board': 'Eightfold' if 'eightfold' in url else 'Phenom',
+             'url': url, 'partial_sweep': True} for url in live]
+
+
+def _no_probe(url):
+    raise AssertionError(f'only Workday rows are probed, not {url}')
+
+
+def test_cut_short_sweep_without_a_probe_retires_after_a_longer_streak():
+    """Microsoft 'Security Research INTERN' stayed open a month after its req closed.
+
+    Microsoft's Eightfold 'security' term matches 970 postings against a 500
+    cap, and BAE's Phenom 'cyber' 1,837 against 200, so every sweep is cut
+    short, and with no detail probe outside Workday their rows never retired.
+    """
+    listings = _cut_short_rows()
+    retired_on = {}
+    for day in range(1, 21):
+        today = f'2026-10-{day:02d}'
+        for entry in sj.retire_vanished_listings(listings, _cut_short_feed(), today,
+                                                 probe=_no_probe):
+            retired_on[entry['role']] = today
+    check('a row missing behind a cut-short sweep retires after PARTIAL_VANISHED_DAYS',
+          retired_on, {'Security Research INTERN': '2026-10-15',
+                       'System Security Engineer I': '2026-10-15'})
+
+    listings = _cut_short_rows()
+    sj.retire_vanished_listings(listings, _cut_short_feed(), '2026-10-01', probe=_no_probe)
+    sightings = _cut_short_feed(MS_JOB + '1970393556962157', BAE_JOB + '128449BR')
+    sj.retire_vanished_listings(listings, sightings, '2026-10-10', probe=_no_probe)
+    check('one sighting clears the streak',
+          [e.get('missing_since') for e in listings], [None, None])
+    check('...so a later miss starts a fresh one',
+          (sj.retire_vanished_listings(listings, _cut_short_feed(), '2026-10-16',
+                                       probe=_no_probe),
+           [e.get('missing_since') for e in listings]),
+          ([], ['2026-10-16', '2026-10-16']))
+
+    listings = [dict(e, missing_since='2026-09-29') for e in _cut_short_rows()]
+    check('a company with a failed board neither retires nor restamps its rows',
+          (sj.retire_vanished_listings(listings, _cut_short_feed(), '2026-10-29',
+                                       probe=_no_probe,
+                                       failed_companies={'Microsoft', 'BAE Systems'}),
+           [e.get('missing_since') for e in listings]),
+          ([], ['2026-09-29', '2026-09-29']))
+    listings = _cut_short_rows()
+    sj.retire_vanished_listings(listings, _cut_short_feed(), '2026-10-29', probe=_no_probe,
+                                failed_companies={'Microsoft', 'BAE Systems'})
+    check('...and stamps no fresh streak', [e.get('missing_since') for e in listings],
+          [None, None])
+
+    import contextlib
+    import io
+    saved = sj.BOARD_BASELINE_FILE
+    out = io.StringIO()
+    with tempfile.TemporaryDirectory() as tmp:
+        try:
+            sj.BOARD_BASELINE_FILE = Path(tmp) / 'board_baseline.json'
+            with contextlib.redirect_stdout(out):
+                sj.report_board_health(
+                    [{'label': 'Microsoft (eightfold/microsoft)', 'status': 'ok',
+                      'count': 500, 'partial': True},
+                     {'label': 'Lockheed Martin (eightfold/lockheedmartin)', 'status': 'ok',
+                      'count': 40, 'partial': False}], '2026-10-29', persist=False)
+        finally:
+            sj.BOARD_BASELINE_FILE = saved
+    check('the run summary names each board whose sweep was cut short',
+          [line for line in out.getvalue().splitlines() if line.startswith('- Cut short')],
+          [f'- Cut short (a missing row retires after {sj.PARTIAL_VANISHED_DAYS} days, '
+           'Workday rows are probed): Microsoft (eightfold/microsoft)'])
+
+
 @responses.activate
 def test_workday_posting_state():
     base = 'https://acme.wd1.myworkdayjobs.com'
@@ -1058,11 +1237,21 @@ def test_workday_posting_state():
     responses.add(responses.GET, api + 'Unknown_R3', status=404,
                   json={'errorCode': 'S21', 'httpStatus': 404})
     responses.add(responses.GET, api + 'Flaky_R4', status=500, json={})
+    responses.add(responses.GET, api + 'Closed_R5',
+                  json={'jobPostingInfo': {'title': 'Cyber Analyst I', 'canApply': False}})
+    responses.add(responses.GET, api + 'Live_R6',
+                  json={'jobPostingInfo': {'title': 'Cyber Analyst I'}})
     public = base + '/Ext/job/Austin-TX/'
     check('a 200 with canApply is live', sj.workday_posting_state(public + 'Live_R1'), 'live')
     check('403 S22 is a closed req', sj.workday_posting_state(public + 'Closed_R2'), 'gone')
     check('404 S21 is an unknown path', sj.workday_posting_state(public + 'Unknown_R3'), 'gone')
     check('a 500 says nothing', sj.workday_posting_state(public + 'Flaky_R4'), None)
+    # Only the detail probe retires a row behind a capped sweep (CVS, RTX and
+    # Northrop hit the cap every run), and a closed req read as live never goes.
+    check('a 200 with canApply false is a closed req',
+          sj.workday_posting_state(public + 'Closed_R5'), 'gone')
+    check('a 200 without canApply is live', sj.workday_posting_state(public + 'Live_R6'),
+          'live')
     check('a locale prefix is skipped',
           sj.workday_posting_state(base + '/en-US/Ext/job/Austin-TX/Live_R1'), 'live')
     check('a non-workday url says nothing',
@@ -1135,13 +1324,72 @@ def test_pinpoint_remote_is_us_only_for_usa_locations():
         {'id': '3', 'title': 'SOC Analyst', 'workplace_type': 'remote',
          'location': {'city': 'Remote', 'province': 'Greater London',
                       'name': 'GBR Remote'}},
+        # City and province alone put Cambridge, England in Massachusetts.
+        {'id': '4', 'title': 'Associate Security Consultant', 'workplace_type': 'hybrid',
+         'location': {'city': 'Cambridge', 'province': 'Cambridgeshire',
+                      'name': 'GBR Cambridge Science Park'}},
+        {'id': '5', 'title': 'Graduate Security Consultant', 'workplace_type': 'onsite',
+         'location': {'city': 'Cambridge', 'province': '', 'name': 'GBR Cambridge'}},
+        {'id': '6', 'title': 'Security Consultant', 'workplace_type': 'onsite',
+         'location': {'city': 'Austin', 'province': 'Texas', 'name': 'USA Austin'}},
+        # A US site can lead with a city's code, which is no country.
+        {'id': '7', 'title': 'Security Consultant I', 'workplace_type': 'onsite',
+         'location': {'city': 'New York', 'province': 'New York', 'name': 'NYC Office'}},
     ]})
     jobs = sj.scrape_pinpoint('Acme', 'acme')
-    check('pinpoint keeps the real location of a non-US remote posting',
+    check('pinpoint names the country of a site outside the USA',
           [j['location'] for j in jobs],
-          ['Manchester, Greater Manchester', 'Remote', 'Remote, Greater London'])
-    check('only the USA remote posting reads as US',
-          [sj.is_us_location(j['location']) for j in jobs], [False, True, False])
+          ['Manchester, Greater Manchester, United Kingdom', 'Remote',
+           'Remote, Greater London, United Kingdom',
+           'Cambridge, Cambridgeshire, United Kingdom', 'Cambridge, United Kingdom',
+           'Austin, Texas', 'New York, New York'])
+    check('only the USA postings read as US',
+          [sj.is_us_location(j['location']) for j in jobs],
+          [False, True, False, False, False, True, True])
+    check('every listed country reads as abroad beside a US city name',
+          [c for c, name in sj.PINPOINT_FOREIGN_COUNTRIES.items()
+           if sj.is_us_location(f'Cambridge, {name}')], [])
+
+
+@responses.activate
+def test_pinpoint_site_abroad_drops_a_row_stored_as_us():
+    """A blank live location is no evidence, so the stored UK row stayed open."""
+    path = '/en/postings/0d6c1b8e-1111-4d4d-8f8f-123456789abc'
+    responses.get('https://nccgroup.pinpointhq.com/postings.json', json={'data': [
+        {'id': '4', 'title': 'Graduate Security Consultant', 'workplace_type': 'hybrid',
+         'path': path, 'location': {'city': 'Cambridge', 'province': 'Cambridgeshire',
+                                    'name': 'GBR Cambridge Science Park'}}]})
+    raw = sj.scrape_pinpoint('NCC Group', 'nccgroup')
+    row = {'company': 'NCC Group', 'role': 'Graduate Security Consultant',
+           'location': 'Cambridge, Cambridgeshire', 'type': 'newgrad',
+           'category': 'Offensive Security', 'clearance': False,
+           'url': f'https://nccgroup.pinpointhq.com{path}', 'source': 'Pinpoint'}
+    _, dropped, _ = _reevaluate([row], raw, {'NCC Group': True})
+    check('a pinpoint row stored at a UK site drops on its live posting', dropped,
+          [('NCC Group', 'Graduate Security Consultant', 'non-us-location')])
+
+
+@responses.activate
+def test_pinpoint_reads_the_requirement_sections():
+    """The intro alone let a leveled NCC Group req past the experience gate."""
+    responses.get('https://nccgroup.pinpointhq.com/postings.json', json={'data': [
+        {'id': '1', 'title': 'Security Consultant II', 'workplace_type': 'onsite',
+         'location': {'city': 'Austin', 'province': 'Texas', 'name': 'USA Austin'},
+         'description': '<p>Join our technical assurance practice.</p>',
+         'key_responsibilities': '<ul><li>Deliver web application tests.</li></ul>',
+         'skills_knowledge_expertise': '<ul><li>4+ years of penetration testing '
+                                       'experience</li></ul>',
+         'benefits': '<p>An extra day of leave after 5 years of service.</p>'}]})
+    job = sj.scrape_pinpoint('NCC Group', 'nccgroup')[0]
+    check('pinpoint joins the intro, responsibilities and skills, not benefits',
+          (job['description'].count('<ul>'), 'years of penetration' in job['description'],
+           'service' in job['description']), (2, True, False))
+    check('the skills floor now reaches the experience gate',
+          sj.evaluate_job(job['title'], job['location'], job['description'], True), None)
+    check('...where the intro alone let the req through',
+          sj.evaluate_job(job['title'], job['location'],
+                          '<p>Join our technical assurance practice.</p>', True)
+          is not None, True)
 
 
 @responses.activate
@@ -1510,6 +1758,25 @@ def test_jibe_paginates_maps_fields_and_keeps_the_crawl_delay():
 
 
 @responses.activate
+def test_jibe_joins_the_qualifications():
+    """An iCIMS posting can file its years floor apart from the overview."""
+    _jb_search('cyber', 1, [_jb_job(
+        61001, 'Cybersecurity Engineer II',
+        description='<p>As a cybersecurity engineer you will harden mission systems.</p>',
+        responsibilities='<ul><li>Perform vulnerability assessments</li></ul>',
+        qualifications='<p>You meet our minimum qualifications if you have a BS and 5+ '
+                       'years of experience in cyber operations.</p>')], 1)
+    for term in sj.JIBE_TERMS[1:]:
+        _jb_search(term, 1, [], 0)
+    job = sj.scrape_jibe('Acme', 'careers.acme.org')[0]
+    check('jibe keeps the overview, responsibilities and qualifications',
+          ('harden mission' in job['description'], 'vulnerability' in job['description'],
+           '5+ years' in job['description']), (True, True, True))
+    check('the qualifications floor reaches the experience gate',
+          sj.evaluate_job(job['title'], job['location'], job['description']), None)
+
+
+@responses.activate
 def test_jibe_none_vs_empty():
     for term in sj.JIBE_TERMS:
         _jb_search(term, 1, [], 0)
@@ -1517,7 +1784,6 @@ def test_jibe_none_vs_empty():
     responses.reset()
     responses.get(JB_API, status=404)
     check('jibe dead host -> None', sj.scrape_jibe('Acme', 'careers.acme.org'), None)
-    check('jibe rejects a host with a path', sj.scrape_jibe('X', 'evil.com/x'), None)
 
 
 @responses.activate
@@ -1624,6 +1890,41 @@ def test_main_writes_run_events_with_inserted_row():
           [('Acme', 'Security Engineering Intern', 'intern')])
     check('events file has no revived or retired rows',
           (events['revived'], events['retired']), ([], []))
+
+
+@responses.activate
+def test_main_stamps_twins_before_the_purge():
+    """Purging RTX's closed Tewksbury twin renumbered the El Segundo and Tucson rows."""
+    responses.get('https://boards-api.greenhouse.io/v1/boards/acme/jobs', json={'jobs': []})
+    twin = {'company': 'RTX', 'role': 'Embedded Security Software Engineer I (Onsite)',
+            'type': 'newgrad', 'category': 'Security Engineering', 'clearance': False,
+            'source': 'Community', 'date_added': '2026-07-10'}
+    rows = [{**twin, 'location': 'Tewksbury, MA', 'url': '', 'closed': True,
+             'closed_date': '2026-07-18'},
+            {**twin, 'location': 'El Segundo, CA', 'url': 'https://rtx.example/job/1'},
+            {**twin, 'location': 'Tucson, AZ', 'url': 'https://rtx.example/job/2'}]
+    saved = (sj.LISTINGS_FILE, sj.SEEN_JOBS_FILE, sj.BOARD_BASELINE_FILE,
+             sj.rebuild_readme.main, sys.argv, os.getcwd())
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        (tmp / 'companies.yml').write_text('greenhouse:\n  - name: Acme\n    slug: acme\n')
+        try:
+            os.chdir(tmp)
+            sj.LISTINGS_FILE = tmp / 'listings.json'
+            sj.LISTINGS_FILE.write_text(json.dumps(rows))
+            sj.SEEN_JOBS_FILE = tmp / 'seen_jobs.json'
+            sj.BOARD_BASELINE_FILE = tmp / 'board_baseline.json'
+            sj.rebuild_readme.main = lambda: None
+            sys.argv = ['scrape_jobs.py', '--board', 'greenhouse']
+            sj.main()
+            stored = json.loads(sj.LISTINGS_FILE.read_text())
+        finally:
+            (sj.LISTINGS_FILE, sj.SEEN_JOBS_FILE, sj.BOARD_BASELINE_FILE,
+             sj.rebuild_readme.main, sys.argv, cwd) = saved
+            os.chdir(cwd)
+    check('the twins left after the purge keep the numbers they had',
+          [(r['location'], r.get('twin')) for r in stored],
+          [('El Segundo, CA', 1), ('Tucson, AZ', 2)])
 
 
 # --- scrape_workable: the widget API has flat fields and locations[] ---------
@@ -1891,6 +2192,99 @@ def test_workday_opt_in_term_hits_fetch_details():
           'description' in by_path['Software-Engineer_JR-009999'], False)
 
 
+# --- a failed detail fetch defers a candidate instead of admitting it -------
+@responses.activate
+def test_a_failed_workday_detail_defers_the_posting():
+    """A 503 on the detail fetch admitted a 6-year 'Security Engineer II' as early career."""
+    path = '/job/Reston-VA/Security-Engineer-II_R9'
+    responses.add_callback(responses.POST, WD_API, callback=_workday_pages({'security': [{
+        'total': 1, 'jobPostings': [{'title': 'Security Engineer II', 'externalPath': path,
+                                     'locationsText': 'Reston, VA'}]}]}))
+    detail = f'https://t.wd5.myworkdayjobs.com/wday/cxs/t/B{path}'
+    responses.get(detail, status=503)
+    jobs = sj.scrape_workday('Acme', 't', 'wd5', 'B')
+    check('the posting stays in the scrape, marked and without a description',
+          [(j['title'], j.get('detail_failed'), 'description' in j) for j in jobs],
+          [('Security Engineer II', True, False)])
+    seen = {}
+    added, _ = sj.insert_new_listings([], jobs, seen, {}, '2026-10-29')
+    check('the posting is neither added nor stamped seen', (added, seen), ([], {}))
+    responses.replace(responses.GET, detail, json={'jobPostingInfo': {
+        'location': 'Reston, VA',
+        'jobDescription': '<p>Requires 6+ years of security engineering experience.</p>'}})
+    jobs = sj.scrape_workday('Acme', 't', 'wd5', 'B')
+    added, _ = sj.insert_new_listings([], jobs, seen, {}, '2026-10-30')
+    check('the next run reads the description and the experience gate keeps it off',
+          ('detail_failed' in jobs[0], added), (False, []))
+
+
+@responses.activate
+def test_a_failed_detail_defers_only_an_unheld_posting():
+    """A req an open row held logged DEFERRED though it could add nothing, and no
+    deferral reached the closing summary, so a detail endpoint failing every run
+    stopped new candidates while its board read 'ok'."""
+    path = '/job/Reston-VA/Security-Engineer-II_R9'
+    url = f'https://t.wd5.myworkdayjobs.com/B{path}'
+    job = {'id': f'workday_t_{path}', 'company': 'Acme', 'title': 'Security Engineer II',
+           'location': 'Reston, VA', 'url': url, 'board': 'Workday', 'detail_failed': True}
+    # The open row holds the req under the location slug Workday moved off.
+    row = {'company': 'Acme', 'role': 'Security Engineer II', 'location': 'Herndon, VA',
+           'type': 'earlycareer', 'category': 'Security Engineering', 'clearance': False,
+           'url': url.replace('Reston-VA', 'Herndon-VA'), 'source': 'Workday',
+           'date_added': '2026-10-01'}
+    other = dict(job, id=job['id'].replace('_R9', '_R10'), url=url.replace('_R9', '_R10'))
+    deferred = []
+    added, _ = sj.insert_new_listings([row], [job, other], {}, {}, '2026-10-29', deferred)
+    check('only the req no row holds is deferred, and nothing is added',
+          ([j['id'] for j in deferred], added), ([other['id']], []))
+
+    responses.get(SR_POSTINGS, json={'totalFound': 1, 'content': [
+        _sr_posting('1', 'Security Analyst I')]})
+    detail = responses.get(f'{SR_POSTINGS}/1', status=502)
+    config = 'smartrecruiters:\n  - name: Kudelski Security\n    slug: KudelskiSecurityInc\n'
+    out, _ = _run_main(config, [], ['--dry-run', '--board', 'smartrecruiters'])
+    check('the closing summary counts the deferral',
+          (compare_runs.parse_log(out).summary or '').endswith(
+              ', deferred 1 on a failed detail fetch'), True)
+    responses.replace(detail.method, detail.url, json={'jobAd': {'sections': {}}})
+    out, _ = _run_main(config, [], ['--dry-run', '--board', 'smartrecruiters'])
+    check('a run with no deferral prints the summary it always has',
+          'deferred' in (compare_runs.parse_log(out).summary or 'deferred'), False)
+
+
+@responses.activate
+def test_failed_detail_fetches_are_marked_on_every_detail_source():
+    host = 'acme.fa.us2.oraclecloud.com'
+    base = f'https://{host}/hcmRestApi/resources/latest/'
+    responses.get(base + 'recruitingCEJobRequisitions', json={'items': [{
+        'TotalJobsCount': 1, 'requisitionList': [
+            {'Id': '1', 'Title': 'Cyber Engineer Associate', 'PrimaryLocation': 'Reston, VA'}]}]})
+    oracle_detail = responses.get(base + 'recruitingCEJobRequisitionDetails', status=500)
+    responses.get(SR_POSTINGS, json={'totalFound': 1, 'content': [
+        _sr_posting('1', 'Security Analyst I')]})
+    responses.get(f'{SR_POSTINGS}/1', status=502)
+    for term in sj.EIGHTFOLD_TERMS:
+        _ef_search(term, 0, json=_ef_page([_ef_pos(1, 'Cyber Analyst I')], 1))
+    responses.get(EF_DETAIL, status=429)
+    for term in sj.PHENOM_TERMS:
+        _ph_search(term, 0, [_ph_job(1, 'Cyber Analyst I')], 1)
+    responses.post(PH_API, match=[responses.matchers.json_params_matcher(
+        {'ddoKey': 'jobDetail'}, strict_match=False)], status=503)
+
+    def flags(jobs):
+        return [(j.get('detail_failed', False), 'description' in j) for j in jobs]
+
+    check('oracle, smartrecruiters, eightfold and phenom mark a failed detail fetch',
+          [flags(sj.scrape_oracle('Acme', host, 'CX_1')),
+           flags(sj.scrape_smartrecruiters('Acme', 'KudelskiSecurityInc')),
+           flags(sj.scrape_eightfold('Acme', 'acme', 'acme.com')),
+           flags(sj.scrape_phenom('Acme', 'careers.acme.org', 'en_us', 'us'))],
+          [[(True, False)]] * 4)
+    responses.replace(oracle_detail.method, oracle_detail.url, json={'items': []})
+    check('an oracle detail with no items is an empty body, not a failure',
+          flags(sj.scrape_oracle('Acme', host, 'CX_1')), [(False, False)])
+
+
 # --- amazon.jobs: loc_query ranks, the country filter restricts --------------
 @responses.activate
 def test_amazon_restricts_to_us_reqs():
@@ -1907,20 +2301,31 @@ def test_smartrecruiters_and_amazon_flag_a_cut_short_sweep():
     full = {'totalFound': 300, 'content': [
         {'id': str(i), 'name': 'Accountant',
          'location': {'country': 'us', 'city': 'Austin', 'region': 'TX'}} for i in range(100)]}
-    responses.get(sr, json=full)
-    responses.get(sr, status=404)
+    responses.get(sr, json=full, match=_at_offset(0))
+    responses.get(sr, status=404, match=_at_offset(100))
     jobs = sj.scrape_smartrecruiters('Acme', 'Acme')
     check('smartrecruiters: a failed second page keeps the first, flagged',
           (len(jobs), _partial_flags(jobs)), (100, [True]))
 
     amazon = 'https://www.amazon.jobs/en/search.json'
-    page = {'hits': 300, 'jobs': [{'id_icims': str(i), 'title': 'Accountant',
-                                   'location': 'US, WA, Seattle'} for i in range(100)]}
-    responses.get(amazon, json=page)
-    responses.get(amazon, status=404)
+
+    def hits(start, count, total=300):
+        return {'hits': total, 'jobs': [{'id_icims': str(i), 'title': 'Accountant',
+                                         'location': 'US, WA, Seattle'}
+                                        for i in range(start, start + count)]}
+    page = hits(0, 100)
+    responses.get(amazon, json=page, match=_at_offset(0))
+    responses.get(amazon, status=404, match=_at_offset(100))
     jobs = sj.scrape_amazon()
     check('amazon: a failed second page keeps the first, flagged',
           (len(jobs), _partial_flags(jobs)), (100, [True]))
+    # Amazon's 324 US reqs span four pages.
+    responses.reset()
+    responses.get(amazon, json=hits(0, 100, 150), match=_at_offset(0))
+    responses.get(amazon, json=hits(100, 50, 150), match=_at_offset(100))
+    jobs = sj.scrape_amazon()
+    check('amazon: a whole sweep pages by offset',
+          (len({j['id'] for j in jobs}), len(jobs), _partial_flags(jobs)), (150, 150, [False]))
 
     responses.reset()
     responses.get(sr, json=full)
@@ -1939,6 +2344,46 @@ def test_smartrecruiters_and_amazon_flag_a_cut_short_sweep():
     responses.get(amazon, status=404)
     check('a first page that fails is still None, not []',
           (sj.scrape_smartrecruiters('Acme', 'Acme'), sj.scrape_amazon()), (None, None))
+
+
+@responses.activate
+def test_oracle_pages_and_flags_a_cut_short_sweep():
+    """JPMorgan's Oracle site CX_1001 lists 7,300 reqs, 200 to a page."""
+    # Every other Oracle mock is one short page, so the offset and the partial
+    # flag on a failed page never ran.
+    host = 'acme.fa.us2.oraclecloud.com'
+    offsets, failing = [], set()
+
+    def reqs(request):
+        finder = parse_qs(urlparse(request.url).query)['finder'][0]
+        offset = int(dict(p.split('=') for p in finder.split(';')[1].split(','))['offset'])
+        offsets.append(offset)
+        if offset in failing:
+            return 500, {}, ''
+        page = [{'Id': str(n), 'Title': 'Accountant', 'PrimaryLocation': 'Austin, TX'}
+                for n in range(offset, min(offset + 200, 400))]
+        return 200, {}, json.dumps({'items': [{'TotalJobsCount': 400, 'requisitionList': page}]})
+    responses.add_callback(responses.GET, f'https://{host}/hcmRestApi/resources/latest/'
+                           'recruitingCEJobRequisitions', callback=reqs)
+    jobs = sj.scrape_oracle('Acme', host, 'CX_1')
+    check('oracle pages by offset through a whole board',
+          (offsets, len({j['id'] for j in jobs}), _partial_flags(jobs)), ([0, 200], 400, [False]))
+    failing.add(200)
+    jobs = sj.scrape_oracle('Acme', host, 'CX_1')
+    check('oracle: a failed second page keeps the first, flagged',
+          (len(jobs), _partial_flags(jobs)), (200, [True]))
+    # With page 200 still failing, a pager that ignored the cap was flagged
+    # for that failure and passed.
+    failing.clear()
+    offsets.clear()
+    original = sj.MAX_PAGES
+    try:
+        sj.MAX_PAGES = 1
+        jobs = sj.scrape_oracle('Acme', host, 'CX_1')
+    finally:
+        sj.MAX_PAGES = original
+    check('oracle: the page cap stops the sweep and flags every posting',
+          (offsets, len(jobs), _partial_flags(jobs)), ([0], 200, [True]))
 
 
 # --- rows whose board left companies.yml --------------------------------------
@@ -1960,7 +2405,9 @@ def test_retire_orphaned_listings():
         _listing('Todyl', 'Already Closed', '', source='Ashby', closed=True),
     ]
     retired, renamed = sj.retire_orphaned_listings(listings, config, '2026-09-28')
-    check('nothing is renamed without a live posting', renamed, [])
+    check('without a live posting only a case-only difference is renamed',
+          [(e['role'], old, e['company']) for e, old in renamed],
+          [('Case Differs', 'ACME', 'Acme')])
     check('rows whose company has no board for their source retire',
           [e['role'] for e in retired], ['Site Reliability Engineer II', 'Moved Off Workday'])
     check('an orphaned row is blanked the way the revive path expects',
@@ -2027,6 +2474,40 @@ def test_check_links_redirect_that_drops_the_req():
           [check_links.SOFT_404, check_links.SOFT_404, 200])
     check('a scraped-row check does not read redirects',
           check_links.fetch_status(search), 200)
+    # The req id is 14391; the 2027 in the slug is the cohort year.
+    bofa = ('https://careers.bankofamerica.com/en-us/students/job-detail/14391/'
+            'global-technology-summer-analyst-2027-cybersecurity-analyst-multiple-locations')
+    retitled = ('https://careers.bankofamerica.com/en-us/students/job-detail/14391/'
+                'global-technology-summer-analyst-cybersecurity-analyst')
+    program = 'https://careers.bankofamerica.com/en-us/students/job-search?q=summer-analyst-2027'
+    responses.get(bofa, status=301, headers={'Location': retitled})
+    responses.get(retitled, status=200, body='<title>Cybersecurity Analyst</title>',
+                  content_type='text/html')
+    responses.get(program, status=200, body='<title>Students</title>', content_type='text/html')
+    statuses = [check_links.fetch_status(bofa, soft_404=True)]
+    responses.replace(responses.GET, bofa, status=301, headers={'Location': program})
+    statuses.append(check_links.fetch_status(bofa, soft_404=True))
+    check('a cohort year in the slug is not read as the req id',
+          statuses, [200, check_links.SOFT_404])
+    check('a four-digit year-shaped id still counts when it is the only one',
+          check_links.lost_req_on_redirect('https://careers.acme.com/job/2024',
+                                           'https://careers.acme.com/search'), True)
+    # Idaho National Laboratory's req id is 2092; 1002 is the Oracle site id.
+    inl = ('https://elhe.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/'
+           'sites/CX_1002/job/2092')
+    requisitions = ('https://elhe.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/'
+                    'sites/CX_1002/requisitions')
+    responses.get(inl, status=302, headers={'Location': requisitions})
+    responses.get(requisitions, status=200, body='<title>Careers</title>',
+                  content_type='text/html')
+    # A Workday req id after '_R' is no slug year, and the zip code is no req.
+    check('a year-shaped req id outside a slug is still the req id',
+          (check_links.fetch_status(inl, soft_404=True),
+           check_links.lost_req_on_redirect(
+               'https://acme.wd5.myworkdayjobs.com/en-US/External/job/McLean-VA-22102/'
+               'Cyber-Analyst_R2045',
+               'https://acme.wd5.myworkdayjobs.com/en-US/External?q=McLean-VA-22102')),
+          (check_links.SOFT_404, True))
 
 
 # --- check_links: a hostile Community page cannot stall the check ------------
@@ -2163,6 +2644,95 @@ def test_check_links_redirect_to_a_private_address_is_never_fetched():
           hosts, [f'careers.acme.com:{port}'])
 
 
+def test_check_links_caps_each_link_in_wall_clock_time():
+    """A header dripped a byte at a time held one fetch for 60 s and still read 200."""
+    import signal
+    import socket
+    import threading
+    import time
+
+    import common
+    from validate_issue import public_session
+
+    page = b'<html><title>SOC Analyst I</title></html>'
+
+    def answer(conn):
+        with conn:
+            request = conn.recv(65536)
+            try:
+                conn.sendall(b'HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n')
+                if b'/drip/' in request:
+                    conn.sendall(b'X-Drip: ')
+                    for _ in range(50):
+                        # time.sleep is stubbed out for this file.
+                        threading.Event().wait(0.1)
+                        conn.sendall(b'a')
+                    conn.sendall(b'\r\n')
+                conn.sendall(b'Content-Length: %d\r\nConnection: close\r\n\r\n'
+                             % len(page) + page)
+            except OSError:
+                pass
+
+    def serve(sock):
+        while True:
+            try:
+                conn, _ = sock.accept()
+            except OSError:
+                return
+            threading.Thread(target=answer, args=(conn,), daemon=True).start()
+
+    sock = socket.socket()
+    sock.bind(('127.0.0.1', 0))
+    sock.listen(4)
+    threading.Thread(target=serve, args=(sock,), daemon=True).start()
+    port = sock.getsockname()[1]
+    saved = common.ALLOWED_PORTS
+    common.ALLOWED_PORTS = saved | {port}
+    session = public_session(resolve=lambda host, p: '127.0.0.1')
+    handler = signal.getsignal(signal.SIGALRM)
+    try:
+        started = time.monotonic()
+        dripped = check_links.fetch_status_within(
+            f'http://careers.acme.com:{port}/drip/job/4412345', soft_404=True,
+            session=session, seconds=1)
+        elapsed = time.monotonic() - started
+        prompt = check_links.fetch_status_within(
+            f'http://careers.acme.com:{port}/job/4412345', soft_404=True,
+            session=session, seconds=1)
+    finally:
+        common.ALLOWED_PORTS = saved
+        sock.close()
+    check('a link over its time budget reads as over budget, not a 200',
+          (dripped, elapsed < 2.5), (check_links.OVER_BUDGET, True))
+    check('a prompt link inside the budget reads as usual', prompt, 200)
+    check('the budget disarms its timer and restores the old handler',
+          (signal.getitimer(signal.ITIMER_REAL), signal.getsignal(signal.SIGALRM)),
+          ((0.0, 0.0), handler))
+
+    calls = []
+    row = {'company': 'Acme', 'role': 'SOC Analyst I', 'source': 'Community',
+           'url': 'https://careers.acme.com/job/4412345', 'date_added': '2026-09-20'}
+    saved = check_links.LISTINGS_FILE, check_links.fetch_status_within
+    with tempfile.TemporaryDirectory() as tmp:
+        check_links.LISTINGS_FILE = Path(tmp) / 'listings.json'
+        check_links.LISTINGS_FILE.write_text(json.dumps([row]))
+        check_links.fetch_status_within = lambda url, soft_404: calls.append(url) or 200
+        try:
+            check_links.main()
+        finally:
+            check_links.LISTINGS_FILE, check_links.fetch_status_within = saved
+    check('the daily check fetches through the budget', calls, [row['url']])
+
+    # A dead page answering 404 only after the budget reset its streak each
+    # day and never closed.
+    slow = dict(row, dead_since='2026-09-27')
+    check('a link over its budget neither resets nor advances the streak',
+          (check_links.record_result(slow, check_links.OVER_BUDGET, '2026-09-28'),
+           slow.get('dead_since')), (False, '2026-09-27'))
+    check('the held streak closes on the next dead answer',
+          check_links.record_result(slow, 404, '2026-09-29'), True)
+
+
 def test_check_links_skip_matches_the_parsed_host():
     urls = ['https://careers.ibm.com/job/1', 'https://www.usajobs.gov/job/1',
             'https://usajobs.gov/job/1', 'https://evil.example/careers.ibm.com/job/1',
@@ -2209,6 +2779,104 @@ def test_compare_runs_reports_retirements():
           compare_runs.diff(before, after),
           ['Existing rows retired only after (1):',
            '  - Todyl — Site Reliability Engineer II [orphaned]', ''])
+
+
+def test_compare_runs_counts_repeats_and_reads_every_event():
+    # 57 stored rows share a company and role with another row, and keyed on
+    # the title one DROP of two same-title rows vanished; REVIVED, RENAMED,
+    # SKIPPED and the count lines were never read. Both pairs exited 0.
+    board = 'Checking Acme (workday/acme)... ok (120 postings, 3.1s)\n'
+    drop = '  DROP [not-cyber] Acme — Security Officer I\n'
+    retire = '  RETIRED [vanished] Acme — SOC Analyst I\n'
+    before = compare_runs.parse_log(board + drop * 2 + retire
+                                    + '  RECLASSIFY [newgrad -> earlycareer] Acme — Analyst\n')
+    after = compare_runs.parse_log(board + drop + retire * 2
+                                   + '  DROP [no-level] Acme — Analyst\n'
+                                   '  REVIVED Acme — Cyber Intern\n'
+                                   '  RENAMED [company] Acme Corp -> Acme — SOC Analyst I\n')
+    check('compare_runs counts repeats and lists revives, renames and changed events',
+          compare_runs.diff(before, after),
+          ['Existing rows dropped only after (1):', '  - Acme — Analyst [no-level]', '',
+           'Existing rows dropped only before (1):',
+           '  - Acme — Security Officer I [not-cyber]', '',
+           'Existing rows retired only after (1):', '  - Acme — SOC Analyst I [vanished]', '',
+           'Existing rows reclassified only before (1):',
+           '  - Acme — Analyst: newgrad -> earlycareer', '',
+           'Closed rows revived only after (1):', '  - Acme — Cyber Intern', '',
+           'Existing rows whose company was renamed only after (1):',
+           '  - Acme Corp -> Acme — SOC Analyst I', ''])
+    reason = '  DROP [{}] Acme — Security Engineer\n'
+    check('compare_runs lists a drop whose reason changed on both sides',
+          compare_runs.diff(compare_runs.parse_log(board + reason.format('over-experienced')),
+                            compare_runs.parse_log(board + reason.format('no-level'))),
+          ['Existing rows dropped only after (1):', '  - Acme — Security Engineer [no-level]', '',
+           'Existing rows dropped only before (1):',
+           '  - Acme — Security Engineer [over-experienced]', ''])
+    # listings.json holds two CrowdStrike "Analyst I, Falcon Complete (Remote)"
+    # rows at one location, so a (title, old location) key repeats too.
+    repair = "  REPAIRED [location] Acme — SOC Analyst I: 'US' -> '{}'\n"
+    check('compare_runs counts repairs of same-title rows at one stored location',
+          compare_runs.diff(
+              compare_runs.parse_log(board + repair.format('Austin, TX')
+                                     + repair.format('Reston, VA')),
+              compare_runs.parse_log(board + repair.format('Reston, VA'))),
+          ['Existing rows whose location was repaired only before (1):',
+           "  - Acme — SOC Analyst I: 'US' -> 'Austin, TX'", ''])
+    deferred = '  DEFERRED [detail] Acme — Cyber Analyst I\n'
+    check('compare_runs lists a posting only one run deferred on a failed detail fetch',
+          compare_runs.diff(compare_runs.parse_log(board + deferred),
+                            compare_runs.parse_log(board)),
+          ['Postings deferred on a failed detail fetch only before (1):',
+           '  - Acme — Cyber Analyst I [detail]', ''])
+    summary = ('\nAdded 1 new listing(s), revived {}, reclassified 0, purged 0, '
+               'repaired 0 location(s) + folded 0 duplicate(s), retired 0 vanished '
+               '(0 more missing) + 0 orphaned, dropped 0 (none), '
+               'refreshed 0 category or clearance field(s)\n')
+    before = compare_runs.parse_log(board + summary.format(0))
+    after = compare_runs.parse_log(
+        board + 'Renormalized 57 location(s)\n'
+        'Stripped control characters from 3 row(s)\n'
+        "  SKIPPED [stored-form] Palo Alto Networks — Solutions Consultant 2 @ 'Narnia'\n"
+        + summary.format(1))
+    report = compare_runs.diff(before, after)
+    check('compare_runs lists a posting only one run skipped at insert',
+          report[:2], ['Postings skipped at insert only after (1):',
+                       "  - Palo Alto Networks — Solutions Consultant 2 @ 'Narnia' [stored-form]"])
+    check('compare_runs lists a changed renormalized count',
+          report[3:6], ['Locations renormalized:', '  - before: 0', '  - after:  57'])
+    check('compare_runs lists a changed control-character count',
+          report[7:10], ['Rows stripped of control characters:', '  - before: 0',
+                         '  - after:  3'])
+    check('compare_runs lists a changed closing summary',
+          [line[:34] for line in report[11:14]],
+          ['Closing summary:', '  - before: Added 1 new listing(s)',
+           '  - after:  Added 1 new listing(s)'])
+    check('compare_runs still reports identical runs as equivalent',
+          compare_runs.diff(after, after), [])
+
+
+@responses.activate
+def test_compare_runs_reads_the_lines_main_prints():
+    responses.get('https://boards-api.greenhouse.io/v1/boards/acme/jobs', json={'jobs': [
+        {'id': 1, 'title': 'SOC Analyst I', 'location': {'name': 'Austin, TX'},
+         'absolute_url': GH_JOBS.format('acme', 1), 'content': 'Entry level.'},
+        {'id': 2, 'title': 'Cyber Security Intern', 'location': {'name': 'Austin, TX'},
+         'absolute_url': GH_JOBS.format('acme', 2), 'content': 'Summer 2027 internship'}]})
+    rows = [_stored('Acme', 'SOC Analyst I', 1),
+            _stored('Acme Corp', 'Cyber Security Intern', 2, url='', closed=True,
+                    closed_date='2026-10-01'),
+            _stored('Acme Corp', 'Cyber Analyst I\x07', 3, url='', closed=True,
+                    closed_date='2026-10-01', location='Austin, Texas')]
+    out, _ = _run_main('greenhouse:\n  - name: Acme Corp\n    slug: acme\n', rows,
+                       ['--dry-run', '--board', 'greenhouse'])
+    run = compare_runs.parse_log(out)
+    check('compare_runs reads the REVIVED, RENAMED, Renormalized and Stripped lines '
+          'main prints',
+          (dict(run.revived), dict(run.renamed), run.renormalized, run.stripped),
+          ({'Acme Corp — Cyber Security Intern': 1},
+           {'Acme -> Acme Corp — SOC Analyst I': 1}, 1, 1))
+    check('compare_runs reads the closing summary main prints',
+          (run.summary or '').startswith('Added 0 new listing(s), revived 1,'), True)
 
 
 # --- Oracle: one host can carry two sites, one site name two hosts ------------
@@ -2402,6 +3070,32 @@ def test_workday_fingerprint_survives_a_location_move():
     check('...and is not inserted again under its new location', added, [])
 
 
+def test_insert_sees_a_community_row_for_the_same_workday_req():
+    """A revived Leidos 'Junior Cyber Analyst' row is Community, so it had no fingerprint,
+    and the scraped req under a moved location slug went on the board beside it."""
+    root = 'https://leidos.wd5.myworkdayjobs.com'
+    community = _listing('Leidos', 'Junior Cyber Analyst',
+                         root + '/en-US/External/job/Fort-Meade-MD/Junior-Cyber-Analyst_R-00183704',
+                         source='Community', location='Fort Meade, MD')
+    job = {'id': 'wd-leidos', 'company': 'Leidos', 'board': 'Workday',
+           'title': 'Junior Cyber Analyst', 'location': 'Annapolis Junction, MD',
+           'url': root + '/External/job/Annapolis-Junction-MD/Junior-Cyber-Analyst_R-00183704'}
+    # At its own site, so the dedup key does not hold it instead.
+    other = dict(job, id='wd-other', location='Chantilly, VA',
+                 url=job['url'].replace('R-00183704', 'R-00183705'))
+    # Workday req ids count only within one tenant.
+    elsewhere = dict(job, id='wd-elsewhere', company='SAIC',
+                     url=job['url'].replace('leidos.', 'saic.'))
+    listings = [community]
+    added, _ = sj.insert_new_listings(listings, [job, other, elsewhere], {}, {}, '2026-10-29')
+    check('the same req is held by the Community row; another req or tenant is not',
+          [(r['company'], r['url'].rsplit('_', 1)[-1]) for r in added],
+          [('Leidos', 'R-00183705'), ('SAIC', 'R-00183704')])
+    check('the Community row stays Community, so the vanished pass leaves it alone',
+          (community['source'], sj.retire_vanished_listings(listings, [job], '2026-10-29')),
+          ('Community', []))
+
+
 def test_insert_keeps_only_rows_check_outputs_accepts():
     """Palo Alto Networks' Cleveland row failed check_outputs.py two runs running."""
     job = {'company': 'Palo Alto Networks', 'board': 'Workday', 'id': 'wd-cle',
@@ -2447,6 +3141,16 @@ def test_reevaluate_keeps_a_row_behind_a_multi_location_placeholder():
            _wd_live('SOC Analyst I', 'R2', 'Entry level.', location='Austin, TX, More...')]
     kept, dropped, _ = _reevaluate(listings, raw)
     check('a multi-location placeholder drops nothing', (dropped, len(kept)), ([], 2))
+    # ...unless the live title places the role abroad, which no placeholder hides.
+    abroad = ('Cyber Security Systems Engineer Associate**This position is located at '
+              'Ramstein AFB, Germany**')
+    listings = [_wd_row('Cyber Security Systems Engineer Associate', 'R3'),
+                _wd_row('Cyber Security Systems Engineer Associate', 'R4')]
+    raw = [_wd_live(abroad, 'R3', 'Entry level.', location='2 Locations'),
+           _wd_live(abroad, 'R4', 'Entry level.', location='')]
+    _, dropped, _ = _reevaluate(listings, raw)
+    check('a live title abroad drops the row behind a placeholder or a blank',
+          [reason for _, _, reason in dropped], ['non-us-location'] * 2)
 
 
 def test_reevaluate_does_not_judge_a_fingerprinted_row_by_a_sibling():
@@ -2545,7 +3249,7 @@ def test_main_probes_each_missed_workday_row_once():
                                   analyst.replace(f'{base}/B', f'{base}/wday/cxs/t/B')]))
     check('the re-judged row logs a DROP line compare_runs reads',
           compare_runs.parse_log(out).dropped,
-          {'X — Security Analyst II': 'facility-security'})
+          {('X — Security Analyst II', 'facility-security'): 1})
     check('a dry run writes nothing', after, rows)
 
 
@@ -2601,22 +3305,66 @@ def test_insert_readds_a_dropped_row_while_its_posting_is_live():
     check('a second pass adds nothing', added, [])
 
 
+def test_insert_keeps_one_row_per_key_in_a_run():
+    # CrowdStrike posted 'Analyst I, Falcon Complete (Remote)' under two reqs
+    # whose locations both stored as Remote (US). Two rows in one run fail
+    # check_outputs and lose the whole scrape.
+    raw = [_live('CrowdStrike', 'Analyst I, Falcon Complete (Remote)', n, location=place)
+           for n, place in ((101, 'USA - Remote'), (102, 'Remote, USA'))]
+    listings = []
+    added, _ = sj.insert_new_listings(listings, raw, {}, {job['id']: True for job in raw},
+                                      '2026-10-01')
+    check('two reqs under one key in one run add one row',
+          [(r['role'], r['location']) for r in added],
+          [('Analyst I, Falcon Complete (Remote)', 'Remote (US)')])
+    check('...which check_outputs accepts', check_outputs.check_listings(listings), [])
+
+
 def test_revive_takes_the_new_source():
     """A company that moved ATS was RETIRED [orphaned] then REVIVED every run."""
     listings = [_stored('Acme', 'SOC Analyst I', 1, url='', closed=True,
-                        closed_date='2026-09-09'),
-                _stored('Acme', 'Cyber Analyst I', 2, url='', closed=True, source='Community')]
+                        closed_date='2026-09-09')]
     ashby = 'https://jobs.ashbyhq.com/acme/b9dee2a0-9bb3-447e-9bce-2b1bed784e5b'
-    raw = [dict(_live('Acme', 'SOC Analyst I', 1, 'Monitor alerts.'), url=ashby, board='Ashby'),
-           _live('Acme', 'Cyber Analyst I', 2, 'Entry level.')]
+    raw = [dict(_live('Acme', 'SOC Analyst I', 1, 'Monitor alerts.'), url=ashby, board='Ashby')]
     _, revived = sj.insert_new_listings(listings, raw, {}, {}, '2026-09-10')
-    check('a revived row takes its new board as its source, a Community row keeps its own',
+    check('a revived row takes its new board as its source',
           [(r['role'], r['url'], r['source']) for r in revived],
-          [('SOC Analyst I', ashby, 'Ashby'),
-           ('Cyber Analyst I', GH_JOBS.format('acme', 2), 'Community')])
+          [('SOC Analyst I', ashby, 'Ashby')])
+    # A revive that kept closed: True gave the row its url and hid it anyway.
+    check('a revived row is open and carries no closed stamp',
+          [(sj.rebuild_readme.is_open(r), {'closed', 'closed_date'} & set(r)) for r in revived],
+          [(True, set())])
     check('the revived row is no orphan under the new config',
           sj.retire_orphaned_listings(listings, {'ashby': [{'name': 'Acme', 'slug': 'acme'}]},
                                       '2026-09-11', raw)[0], [])
+
+
+def test_revive_hands_a_community_row_to_its_board():
+    """A Community row past the 120-day age-out flipped closed and open every day.
+
+    check_links aged it out each morning, the scrape revived it each evening
+    from the live posting and kept it Community, so the next link check aged
+    it out again.
+    """
+    row = {'company': 'Acme', 'role': 'Cybersecurity Intern', 'location': 'Austin, TX',
+           'type': 'intern', 'category': 'Security Engineering', 'clearance': False,
+           'url': GH_JOBS.format('acme', 555), 'source': 'Community',
+           'date_added': '2026-05-20'}
+    listings = [row]
+    today = '2026-10-01'
+    check('the link check ages the Community row out', check_links.is_aged_out(row, today),
+          True)
+    check_links._close(row, today)
+    raw = [_live('Acme', 'Cybersecurity Intern', 555, 'Summer 2027 internship.')]
+    _, revived = sj.insert_new_listings(listings, raw, {}, {}, today)
+    check('a board posting revives the row onto its board',
+          [(r['url'], r['source'], r['date_added']) for r in revived],
+          [(GH_JOBS.format('acme', 555), 'Greenhouse', '2026-05-20')])
+    check('...so the link check leaves it alone',
+          (check_links.is_aged_out(row, today), check_links.is_check_target(row)),
+          (False, False))
+    sj.retire_vanished_listings(listings, [_live('Acme', 'SOC Analyst I', 1)], '2026-10-02')
+    check('...and the vanished pass owns it', row.get('missing_since'), '2026-10-02')
 
 
 def test_revive_skips_a_url_an_open_row_holds():
@@ -2670,6 +3418,64 @@ def test_orphan_pass_renames_a_renamed_company():
     added, _ = sj.insert_new_listings(listings, raw[:1], {'gh-Acme Corp-1': '2026-09-01'},
                                       {}, '2026-09-10')
     check('the insert pass does not add the renamed req again', added, [])
+
+
+def test_orphan_pass_takes_the_configured_spelling():
+    """A 'Crowdstrike' row under a 'CrowdStrike' entry was never judged again.
+
+    The orphan pass compared names casefolded and kept the row, while the
+    re-eval and vanished passes key on the exact name, so a closed req at
+    such a row stayed open and its URL's req id kept check_links away too. A
+    stamp from before the case change, never re-checked while the row was
+    stranded, then retired it on its first miss under the new spelling.
+    """
+    config = {'greenhouse': [{'name': 'CrowdStrike', 'slug': 'crowdstrike',
+                              'security_company': True}]}
+    listings = [_stored('Crowdstrike', 'SOC Analyst I', 111),
+                _stored('Crowdstrike', 'Security Engineer I', 222,
+                        missing_since='2026-09-20'),
+                _stored('CrowdStrike', 'Threat Analyst I', 333)]
+    retired, renamed = sj.retire_orphaned_listings(listings, config, '2026-10-01')
+    check('a case-only rename takes the configured spelling, with no live posting needed',
+          ([e['role'] for e in retired], [(e['role'], old, e['company']) for e, old in renamed]),
+          ([], [('SOC Analyst I', 'Crowdstrike', 'CrowdStrike'),
+                ('Security Engineer I', 'Crowdstrike', 'CrowdStrike')]))
+    check('...dropping the stale stamp, as the other rename paths do',
+          listings[1].get('missing_since'), None)
+    raw = [_live('CrowdStrike', 'SOC Analyst I', 111), _live('CrowdStrike', 'Threat Analyst I', 333)]
+    sj.retire_vanished_listings(listings, raw, '2026-10-01')
+    check('...so the vanished pass judges the renamed rows',
+          listings[1].get('missing_since'), '2026-10-01')
+
+
+def test_rename_on_a_failed_run_revives_instead_of_re_adding():
+    """A rename whose first run hit a failed fetch announced every live req again.
+
+    No live req named an owner, so each row retired as orphaned with its url
+    blanked, and the next run inserted every posting as NEW under the new name.
+    """
+    config = {'greenhouse': [{'name': 'Acme Corp', 'slug': 'acme'}]}
+    listings = [_stored('Acme', 'SOC Analyst I', 1, date_added='2026-09-01'),
+                _stored('Acme', 'Cyber Analyst I', 2, date_added='2026-09-01')]
+    retired, _ = sj.retire_orphaned_listings(listings, config, '2026-10-01', [])
+    check('with the board down the rows retire, keeping last_url',
+          [(e['url'], e.get('closed'), e.get('last_url')) for e in retired],
+          [('', True, GH_JOBS.format('acme', 1)), ('', True, GH_JOBS.format('acme', 2))])
+    raw = [dict(_live('Acme Corp', 'SOC Analyst I', 1, 'Monitor alerts.'),
+                url=GH_JOBS.format('acme', 1)),
+           dict(_live('Acme Corp', 'Cyber Analyst I', 2, 'Entry level.'),
+                url=GH_JOBS.format('acme', 2))]
+    retired, renamed = sj.retire_orphaned_listings(listings, config, '2026-10-02', raw)
+    check('next run the closed rows take the new name',
+          (retired, [(old, e['company'], e.get('closed')) for e, old in renamed]),
+          ([], [('Acme', 'Acme Corp', True), ('Acme', 'Acme Corp', True)]))
+    added, revived = sj.insert_new_listings(listings, raw, {}, {}, '2026-10-02')
+    check('...and come back as revived rows, not new ones',
+          (added, [(r['company'], r['url'], r['date_added']) for r in revived]),
+          ([], [('Acme Corp', GH_JOBS.format('acme', 1), '2026-09-01'),
+                ('Acme Corp', GH_JOBS.format('acme', 2), '2026-09-01')]))
+    check('a renamed row is not renamed again',
+          sj.retire_orphaned_listings(listings, config, '2026-10-03', raw), ([], []))
 
 
 def test_failed_board_holds_its_companys_rows():
@@ -2980,10 +3786,12 @@ def test_check_slugs_reports_who_owns_each_board():
 
 
 for fn in (test_greenhouse_location_reads_only_location_fields,
-           test_greenhouse, test_greenhouse_http_error_returns_none, test_lever,
+           test_greenhouse, test_greenhouse_entities_reach_the_gates,
+           test_greenhouse_http_error_returns_none, test_lever,
            test_lever_reads_all_locations,
            test_ashby, test_ashby_schema_drift_warns,
            test_ashby_falls_back_to_the_postal_address,
+           test_ashby_address_does_not_move_a_foreign_label,
            test_smartrecruiters_pagination_short_page_stops,
            test_check_slugs_flags_unknown_smartrecruiters_id, test_oracle,
            test_fetch_json_retries_transient, test_fetch_json_gives_up_on_404,
@@ -3009,10 +3817,14 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_check_links_closes_after_two_dead_days,
            test_workday_total_only_on_first_page, test_workday_flags_a_cut_short_sweep,
            test_incomplete_sweep_retires_nothing,
-           test_partial_workday_sweep_asks_the_detail_endpoint, test_workday_posting_state,
+           test_partial_workday_sweep_asks_the_detail_endpoint,
+           test_cut_short_sweep_without_a_probe_retires_after_a_longer_streak,
+           test_workday_posting_state,
            test_long_silent_board_retires_its_rows,
            test_greenhouse_remote_keeps_a_remote_label,
            test_pinpoint_remote_is_us_only_for_usa_locations,
+           test_pinpoint_site_abroad_drops_a_row_stored_as_us,
+           test_pinpoint_reads_the_requirement_sections,
            test_oracle_fetches_descriptions_for_candidates,
            test_eightfold_paginates_backs_off_and_gates_levels,
            test_eightfold_none_vs_empty, test_eightfold_gives_up_after_sustained_429,
@@ -3022,18 +3834,25 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_eightfold_prefers_a_city_over_a_state_only_standardized_location,
            test_eightfold_flags_a_cut_short_sweep, test_phenom_flags_a_cut_short_sweep,
            test_jibe_paginates_maps_fields_and_keeps_the_crawl_delay,
+           test_jibe_joins_the_qualifications,
            test_jibe_none_vs_empty, test_jibe_retries_429_and_flags_a_cut_short_sweep,
            test_jibe_caps_pages, test_jibe_plumbs_through_config_and_retirement,
            test_new_boards_validate_config_and_plumb_through,
            test_main_writes_run_events_with_inserted_row,
+           test_main_stamps_twins_before_the_purge,
            test_workable_reads_locations_and_description,
            test_lever_appends_lists_to_description,
            test_smartrecruiters_fetches_descriptions_for_candidates,
            test_oracle_and_smartrecruiters_use_the_security_flag,
            test_workday_more_suffix_fetches_locations,
            test_workday_blank_list_location_fetches_detail,
-           test_workday_opt_in_term_hits_fetch_details, test_amazon_restricts_to_us_reqs,
+           test_workday_opt_in_term_hits_fetch_details,
+           test_a_failed_workday_detail_defers_the_posting,
+           test_a_failed_detail_defers_only_an_unheld_posting,
+           test_failed_detail_fetches_are_marked_on_every_detail_source,
+           test_amazon_restricts_to_us_reqs,
            test_smartrecruiters_and_amazon_flag_a_cut_short_sweep,
+           test_oracle_pages_and_flags_a_cut_short_sweep,
            test_retire_orphaned_listings, test_check_links_soft_404,
            test_check_links_redirect_that_drops_the_req,
            test_check_links_ages_out_old_community_rows,
@@ -3041,9 +3860,12 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_check_links_body_read_has_a_deadline,
            test_check_links_follows_redirects_through_the_guard,
            test_check_links_redirect_to_a_private_address_is_never_fetched,
+           test_check_links_caps_each_link_in_wall_clock_time,
            test_check_links_skip_matches_the_parsed_host,
            test_board_health_forgets_a_removed_board,
            test_compare_runs_reports_retirements,
+           test_compare_runs_counts_repeats_and_reads_every_event,
+           test_compare_runs_reads_the_lines_main_prints,
            test_oracle_ids_and_labels_carry_host_and_site,
            test_second_workday_board_gets_its_own_history,
            test_oracle_ids_differ_across_hosts_on_one_site,
@@ -3051,13 +3873,19 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_main_does_not_re_announce_an_oracle_req_under_its_new_id,
            test_workday_posting_survives_a_non_dict_body,
            test_workday_fingerprint_survives_a_location_move,
+           test_insert_sees_a_community_row_for_the_same_workday_req,
            test_reevaluate_keeps_a_row_behind_a_multi_location_placeholder,
            test_reevaluate_does_not_judge_a_fingerprinted_row_by_a_sibling,
            test_reevaluate_rejudges_a_row_past_the_workday_cap,
            test_main_probes_each_missed_workday_row_once,
            test_insert_readds_a_dropped_row_while_its_posting_is_live,
-           test_revive_takes_the_new_source, test_revive_skips_a_url_an_open_row_holds,
+           test_insert_keeps_one_row_per_key_in_a_run,
+           test_revive_takes_the_new_source,
+           test_revive_hands_a_community_row_to_its_board,
+           test_revive_skips_a_url_an_open_row_holds,
            test_orphan_pass_renames_a_renamed_company,
+           test_orphan_pass_takes_the_configured_spelling,
+           test_rename_on_a_failed_run_revives_instead_of_re_adding,
            test_failed_board_holds_its_companys_rows,
            test_failed_boards_do_not_grow_the_silent_streak,
            test_orphan_pass_covers_jibe_rows,

@@ -15,17 +15,22 @@ scraper reads it.
    postings can still belong to someone else: Ashby `menlo` is Menlo Research, a robotics
    lab, while menlosecurity.com links to `menlosecurity`. The careers URL usually names the
    ATS (`boards.greenhouse.io/acme`, `acme.wd5.myworkdayjobs.com/External`). A branded page
-   such as `careers.acme.com` embeds one: fetch the HTML and search it for `greenhouse.io`, `lever.co`, `ashbyhq.com`,
-   `smartrecruiters.com`, `workable.com`, `recruitee.com`, `pinpointhq.com`,
-   `myworkdayjobs.com` or `oraclecloud.com`. The identifier table in CONTRIBUTING.md maps each
-   URL shape to the fields the entry needs. A company on none of these platforms cannot be
-   scraped; tell the user to submit roles through the issue form instead.
+   such as `careers.acme.com` embeds one: fetch the HTML and search it for every platform in
+   the identifier table in CONTRIBUTING.md, which maps each URL shape to the fields the entry
+   needs: `greenhouse.io`, `lever.co`, `ashbyhq.com`, `smartrecruiters.com`, `workable.com`,
+   `recruitee.com`, `pinpointhq.com`, `myworkdayjobs.com`, `oraclecloud.com` or
+   `eightfold.ai`, or a script from `cdn.phenompeople.com` (Phenom). For iCIMS Jibe, check
+   whether `<careers host>/api/jobs?keywords=cyber` returns JSON with `totalCount`. A company
+   on none of these platforms cannot be scraped; tell the user to submit roles through the
+   issue form instead.
 2. **Decide `security_company`.** Set it to `true` only when security products or services
    are the company's main business, because it admits every engineering title from that
    board. A bank with a security team is not one; a pentest consultancy is.
-3. **Write the entry** under the platform key, alphabetical by name, with exactly the fields
-   the CONTRIBUTING.md table gives for that platform. No comments in this file; the reason
-   for anything unusual goes in the commit message.
+3. **Write the entry** once a search of `companies.yml` for the employer's name finds none; a
+   tracked employer whose board stopped working is `triage-board` work. Put it under the
+   platform key, alphabetical by name, with exactly the fields the CONTRIBUTING.md table
+   gives for that platform. No comments in this file; the reason for anything unusual goes in
+   the commit message.
 4. **Prove it.** Run the platform alone:
 
    ```bash
@@ -44,23 +49,25 @@ scraper reads it.
    the entry's line. The board name must be the employer's, and on Ashby the website must be
    their domain; on Lever and Pinpoint the postings must name them. A line marked `?` means
    stop until the employer's own site confirms a rename. Workday, Oracle, Eightfold, Phenom
-   and Jibe have no owner line, since their host is already the employer's.
+   and Jibe report no owner name, so the page on the employer's own site that links to the
+   board is the proof.
 6. **Commit** as `feat(companies): add Acme`, and fill the company-additions section of the
    PR template with the careers URL, the page on the employer's site that links to it, the
    `Checking` line from step 4 and the owner line from step 5.
 
 ## Example
 
-Careers URL `https://jobs.ashbyhq.com/wiz` is Ashby with slug `wiz`. Wiz sells cloud
-security, so:
+A made-up employer, so the output lines show the shape of a pass, not a real run. Acme's own
+site links to `https://jobs.ashbyhq.com/acme`, which is Ashby with slug `acme`. Acme sells
+endpoint security, so:
 
 ```yaml
 ashby:
-- name: Wiz
-  slug: wiz
+- name: Acme
+  slug: acme
   security_company: true
 ```
 
-`--dry-run --board ashby` then shows `Checking Wiz (ashby/wiz)... ok (84 postings, 1.2s)`,
-and `check_slugs.py --board ashby` shows `ashby/Wiz (wiz): board name "Wiz", website
-https://www.wiz.io/`.
+`--dry-run --board ashby` then shows `Checking Acme (ashby/acme)... ok (N postings, ...)` with
+N above zero, and `check_slugs.py --board ashby` shows `ashby/Acme (acme): board name "Acme",
+website https://www.acme.com/`.

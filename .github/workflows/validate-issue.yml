@@ -49,7 +49,9 @@ jobs:
   # swap the Direct Application Link while the add-listing run waits in the
   # readme-updates queue, and the swapped link would be published.
   # process_approved.py also skips a body edited after approval, in case this
-  # job loses the race.
+  # job loses the race. That skip holds for a maintainer's own edit too, so the
+  # label comes off for every editor rather than staying on an issue the run
+  # will skip.
   revoke-approval:
     if: >-
       github.event.action == 'edited' &&
@@ -61,21 +63,11 @@ jobs:
       issues: write
 
     steps:
-      - name: Remove approved after an edit by someone without write access
+      - name: Remove approved after a body edit
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
-          EDITOR_LOGIN: ${{ github.event.sender.login }}
         run: |
-          # A failed lookup reads as no access, so the label comes off.
-          permission=$(gh api "repos/$GH_REPO/collaborators/$EDITOR_LOGIN/permission" \
-            --jq .permission 2>/dev/null) || permission=none
-          case "$permission" in
-            admin|write)
-              echo "Edited by $EDITOR_LOGIN ($permission), keeping approved"
-              exit 0
-              ;;
-          esac
           gh issue edit "$ISSUE_NUMBER" --remove-label approved
           gh issue comment "$ISSUE_NUMBER" --body "The \`approved\` label came off because the issue changed after approval. A maintainer will review the edit and approve it again."

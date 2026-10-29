@@ -21,16 +21,22 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 from classify import (  # noqa: E402
     CATEGORY_NAMES,
+    DC_SPELLING_RE,
     EMBEDDED_STATE_CODES,
     FALLBACK_CATEGORIES,
-    STATE_NAME_RE,
-    US_STATE_ABBRS,
+    REMOTE_WORD_RE,
+    state_names,
+    twin_ordinals,
 )
 from rebuild_readme import NEW_DAYS, TABLE_TYPES, is_open  # noqa: E402
 
 LISTINGS_FILE = Path('listings.json')
 SITE_SRC = Path('site')
 DEFAULT_OUT = Path('_site')
+# Only a full scrape writes it, so its date is the last full scrape, even one
+# whose boards all failed. pages.yml rebuilds every six hours, and the build's
+# own date moved the page's "Updated" stamp on with no scrape behind it.
+HEALTH_FILE = Path('.github/data/health.json')
 
 SITE_URL = 'https://hackedrico.github.io/2027-cyber-jobs/'
 REPO_URL = 'https://github.com/HackedRico/2027-cyber-jobs'
@@ -55,7 +61,9 @@ PAGE_FIELDS = ('company', 'role', 'location', 'type', 'category', 'clearance', '
                'date_added')
 
 STATE_CODE_RE = re.compile(r'\b([A-Z]{2})\b')
-REMOTE_RE = re.compile(r'\bremote\b', re.IGNORECASE)
+# "Austin, TX (Non-Remote)" read as remote, since the word is in it, and
+# "Not Remote" and "No Remote" say the same.
+NON_REMOTE_RE = re.compile(r'\b(?:non|not|no)[- ]?remote\b', re.IGNORECASE)
 # Characters XML 1.0 forbids: C0 controls but tab and newlines, lone
 # surrogates, U+FFFE and U+FFFF, plus DEL to match common.CONTROL_RE.
 # ElementTree writes them unchecked, so one scraped title carrying one made
@@ -63,7 +71,11 @@ REMOTE_RE = re.compile(r'\bremote\b', re.IGNORECASE)
 # stopped the whole build.
 XML_INVALID_RE = re.compile(
     '[^\t\n\r\x20-\x7e\x80-퟿-�\U00010000-\U0010ffff]')
-HTTP_URL_RE = re.compile(r'^https?://\S+$', re.IGNORECASE)
+# A browser reads a backslash in a link as a slash, so
+# 'https://jobs-crowdstrike.example\@boards.greenhouse.io/...' opens
+# jobs-crowdstrike.example while urlsplit, and every host check built on it,
+# sees boards.greenhouse.io.
+HTTP_URL_RE = re.compile(r'^https?://[^\s\\]+$', re.IGNORECASE)
 
 
 def clean_text(value):
@@ -93,35 +105,36 @@ def row_id(entry, ordinal=0):
 def row_ids(listings):
     """row_id for each row of `listings`, in order.
 
-    Twins are numbered in listings.json order, which only appends and purges,
-    so a location rewrite never moves a row's number.
+    Twins are numbered by classify.twin_ordinals: the `twin` the scraper
+    stamps, else the position in listings.json order, which only appends and
+    purges, so a location rewrite never moves a row's number.
     """
-    seen = {}
-    ids = []
-    for entry in listings:
-        twin = tuple(entry.get(f, '').strip() for f in ('company', 'role', 'date_added'))
-        ids.append(row_id(entry, seen.get(twin, 0)))
-        seen[twin] = seen.get(twin, 0) + 1
-    return ids
+    return [row_id(entry, ordinal)
+            for entry, ordinal in zip(listings, twin_ordinals(listings), strict=True)]
 
 
 def derive_places(location):
     """(states, remote) for a stored location string.
 
     States are postal codes in first-seen order. "Remote, GA" gives both GA and
-    remote, since a student in Georgia filtering by state wants it.
+    remote, since a student in Georgia filtering by state wants it. Both read
+    the words classify reads, so "Telework (US)" is remote and "Washington,
+    D.C." is DC, not Washington state.
     """
     states, remote = [], False
     for part in location.split(';'):
         part = part.strip()
         if not part:
             continue
-        if REMOTE_RE.search(part):
+        if REMOTE_WORD_RE.search(NON_REMOTE_RE.sub(' ', part)):
             remote = True
-        codes = [c for c in STATE_CODE_RE.findall(part) if c in EMBEDDED_STATE_CODES]
+        # The capital's spelling counts beside a coded state too, as in
+        # "Washington, D.C. / Arlington, VA", which stays one part.
+        codes = [c for c in STATE_CODE_RE.findall(DC_SPELLING_RE.sub(' DC ', part))
+                 if c in EMBEDDED_STATE_CODES]
         if not codes:
             # "Hybrid - Massachusetts - Boston, US - ... - Maryland - Columbia"
-            codes = [US_STATE_ABBRS[n.lower()] for n in STATE_NAME_RE.findall(part)]
+            codes = state_names(part)
         for code in codes:
             if code not in states:
                 states.append(code)
@@ -132,6 +145,15 @@ def _parse_date(value):
     try:
         return datetime.strptime(value or '', '%Y-%m-%d').date()
     except ValueError:
+        return None
+
+
+def last_scrape_date(health_file=HEALTH_FILE):
+    """The date in `health_file`, or None when it is missing or unreadable."""
+    try:
+        value = json.loads(Path(health_file).read_text(encoding='utf-8'))['date']
+        return datetime.strptime(value, '%Y-%m-%d').date()
+    except (OSError, ValueError, KeyError, TypeError):
         return None
 
 
@@ -170,12 +192,12 @@ def _newest_first(rows):
                   reverse=True)
 
 
-def page_data(listings, today):
-    """The object written to _site/listings.json."""
+def page_data(listings, today, generated=None):
+    """The object written to _site/listings.json, stamped `generated` or `today`."""
     ids = {id(e): rid for e, rid in zip(listings, row_ids(listings), strict=True)}
     rows = _newest_first(page_row(e, ids[id(e)]) for e in select_rows(listings, today))
     return {
-        'generated': today.isoformat(),
+        'generated': (generated or today).isoformat(),
         'new_days': NEW_DAYS,
         'types': list(TABLE_TYPES),
         'categories': CATEGORY_NAMES + [c for c in FALLBACK_CATEGORIES
@@ -241,11 +263,18 @@ def build_feed(rows, kind=None):
                   + ET.tostring(feed, encoding='unicode') + '\n')
 
 
-def build(out=DEFAULT_OUT, listings_file=LISTINGS_FILE, src=SITE_SRC, today=None):
+def build(out=DEFAULT_OUT, listings_file=LISTINGS_FILE, src=SITE_SRC, today=None,
+          health_file=HEALTH_FILE):
     """Write the whole site to `out`, replacing whatever was there."""
     today = today or date.today()
     listings = json.loads(Path(listings_file).read_text(encoding='utf-8'))
     out = Path(out)
+    # The build empties `out` first: '--out site' deleted the page source and
+    # '--out .' the whole checkout. '--out site/preview' copied the page into
+    # itself and left the build's files in the page source.
+    source, target = Path(src).resolve(), out.resolve()
+    if target in (source, *source.parents) or source in target.parents:
+        raise SystemExit(f'Refusing to build into {out}: it overlaps the page source {src}')
     out.mkdir(parents=True, exist_ok=True)
     # Empty the directory rather than delete it, so a local http.server
     # started inside it keeps serving across rebuilds.
@@ -255,7 +284,7 @@ def build(out=DEFAULT_OUT, listings_file=LISTINGS_FILE, src=SITE_SRC, today=None
         else:
             child.unlink()
     shutil.copytree(src, out, dirs_exist_ok=True)
-    data = page_data(listings, today)
+    data = page_data(listings, today, last_scrape_date(health_file))
     (out / 'listings.json').write_text(
         json.dumps(data, ensure_ascii=False, separators=(',', ':')), encoding='utf-8')
     for kind in (None, *TABLE_TYPES):

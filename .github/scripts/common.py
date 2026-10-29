@@ -14,14 +14,21 @@ from datetime import UTC, datetime
 from pathlib import Path
 from urllib.parse import parse_qs, urlencode, urlparse, urlsplit, urlunparse
 
-from classify import DC_SPELLING_RE, REGION_CODE_RE, US_STATES, normalize_location
+from classify import (
+    DC_SPELLING_RE,
+    REGION_CODE_RE,
+    US_STATES,
+    is_us_location,
+    normalize_location,
+)
 
 # Tracking params stripped before URL comparison so the same posting under
-# different campaign tags dedupes to one listing.
+# different campaign tags dedupes to one listing. A pasted Jibe link carries
+# ?lang=en-us, which the scraper's link does not.
 STRIP_PARAMS = {
     'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term',
     'utm_id', 'source', 'src', 'ref', 'referer', 'lever-source',
-    'lever-origin', 'gh_src',
+    'lever-origin', 'gh_src', 'lang',
 }
 
 # Greenhouse serves the same board under two hostnames; canonicalize so a job
@@ -29,6 +36,12 @@ STRIP_PARAMS = {
 _GREENHOUSE_HOST_RE = re.compile(r'^job-boards\.greenhouse\.io$')
 # Trailing application-step suffixes that don't change the posting identity.
 _TRAILING_STEP_RE = re.compile(r'/(?:apply|application)$', re.IGNORECASE)
+# A Phenom posting path, /{country}/{lang}/job/{req}, and the title slug a
+# pasted link carries after the req: the scraper stores
+# careers.mitre.org/us/en/job/R114937 and a submitter pastes
+# .../job/R114937/<title>, so the two never matched as one posting.
+_PHENOM_SLUG_RE = re.compile(
+    r'^(/[a-z]+/[a-z]{2}(?:[_-][a-z]{2})?/job/[A-Za-z0-9_-]+)/[^/]+$', re.IGNORECASE)
 
 
 def normalize_url(url):
@@ -37,7 +50,7 @@ def normalize_url(url):
         params = {k: v for k, v in parse_qs(p.query, keep_blank_values=True).items()
                   if k.lower() not in STRIP_PARAMS}
         netloc = _GREENHOUSE_HOST_RE.sub('boards.greenhouse.io', p.netloc.lower())
-        path = _TRAILING_STEP_RE.sub('', p.path.rstrip('/'))
+        path = _PHENOM_SLUG_RE.sub(r'\1', _TRAILING_STEP_RE.sub('', p.path.rstrip('/')))
         u = urlunparse(p._replace(
             scheme=p.scheme.lower(),
             netloc=netloc,
@@ -55,7 +68,9 @@ def normalize_url(url):
         return url
 
 
-_AUTOLINK_RE = re.compile(r'\b(https?|ftp)(?=://)|\b(www)(?=\.)', re.IGNORECASE)
+# No \b before either: '_' is a word character and GitHub still links
+# "_www.evil.example" and "_https://evil.example".
+_AUTOLINK_RE = re.compile(r'(https?|ftp)(?=://)|(www)(?=\.)', re.IGNORECASE)
 # Only an & that opens a character reference: "&#64;octocat" rendered as a
 # live @octocat in a release, while "Cloud & Infra" should stay as typed.
 _ENTITY_START_RE = re.compile(r'&(?=#|[A-Za-z][A-Za-z0-9]*;)')
@@ -187,6 +202,20 @@ def public_address(host, port=443):
     return next((a for a in addresses if ':' not in a), addresses[0])
 
 
+# A link the board stores and fetches: http(s), something after the scheme,
+# and no whitespace or backslash. Use with fullmatch. The ingest check and
+# check_outputs once disagreed on a bare "https://", which then failed every
+# later add-listing run.
+HTTP_URL_RE = re.compile(r'https?://[^\s\\]+')
+
+
+def _split_as_browser(url):
+    # Browsers and urllib3 read a backslash as '/' and urlsplit does not:
+    # 'https://evil.example\@crowdstrike.wd5.myworkdayjobs.com/' showed the
+    # Workday host in the verdict and fetched evil.example.
+    return urlsplit(url.replace('\\', '/'))
+
+
 def fetch_target_problem(url):
     """Why an untrusted link must not be fetched, or None when it may be.
 
@@ -194,7 +223,7 @@ def fetch_target_problem(url):
     host is still a way to probe services a job posting never runs on.
     """
     try:
-        parts = urlsplit(url)
+        parts = _split_as_browser(url)
         port = parts.port
     except ValueError:
         return 'the link is not a valid URL'
@@ -205,6 +234,9 @@ def fetch_target_problem(url):
     return None
 
 
+_IDNA_DEVIATIONS = frozenset('\u00df\u03c2\u200c\u200d')
+
+
 def link_host(url):
     """The link's hostname in ASCII, with IDNA labels as punycode.
 
@@ -212,18 +244,24 @@ def link_host(url):
     as xn--greenhuse-52h.io.
     """
     try:
-        host = urlsplit(url or '').hostname or ''
+        host = _split_as_browser(url or '').hostname or ''
     except ValueError:
         return ''
     host = host.rstrip('.')
-    try:
-        return host.encode('idna').decode('ascii')
-    except UnicodeError:
-        # The idna codec is IDNA 2003 and refuses some labels; encode each
-        # non-ASCII label by hand rather than show the raw Unicode.
-        return '.'.join(label if label.isascii()
-                        else 'xn--' + label.encode('punycode').decode('ascii')
-                        for label in host.split('.'))
+    # The idna codec is IDNA 2003, which maps ß, ς, ZWJ and ZWNJ away where
+    # requests and a browser keep them: succeßfactors.com read here as
+    # successfactors.com, an ATS host, while the fetch opened
+    # xn--succefactors-p9a.com.
+    if _IDNA_DEVIATIONS.isdisjoint(host):
+        try:
+            return host.encode('idna').decode('ascii')
+        except UnicodeError:
+            pass
+    # The codec also refuses some labels; encode each non-ASCII label by hand
+    # rather than show the raw Unicode.
+    return '.'.join(label if label.isascii()
+                    else 'xn--' + label.encode('punycode').decode('ascii')
+                    for label in host.split('.'))
 
 
 def host_matches(host, domains):
@@ -260,6 +298,70 @@ def parse_issue_body(body):
     return fields
 
 
+# Raw HTML anywhere in the body: a comment, `<?`, `<!X`, CDATA or a tag. The
+# page drops it, and one left open hides what follows while parse_issue_body
+# still reads the fields inside. Mid-line counts too: a Listing Type ending
+# "<details><summary>SOC &amp; Detection</summary>" folded the form's own
+# Category, Location and link under what read as the Category. "< 2 years"
+# and an autolink such as <https://acme.example> are not HTML.
+_HTML_RE = re.compile(r'<(?:[!?]|/?[A-Za-z][A-Za-z0-9-]*(?=[\s/>]|$))')
+# A line the page renders as a heading, at any level. Matched one line at a
+# time with the closing run of # cut in _headings: a lazy group before an
+# optional closing run backtracked quadratically, and one 64k-character
+# heading line of spaces and tabs took 44 s to check.
+_ATX_HEADING_RE = re.compile(r' {0,3}#{1,6}(?:[ \t]+(.*))?')
+# A run of = or - under a paragraph makes the paragraph a heading, which
+# showed "Direct Application Link" a second time without a "### " line.
+_SETEXT_UNDERLINE_RE = re.compile(r' {0,3}(?:=+|-+)[ \t]*')
+
+
+def _headings(body):
+    paragraph = []
+    for line in body.split('\n'):
+        atx = _ATX_HEADING_RE.fullmatch(line)
+        if atx:
+            paragraph = []
+            # "### Link ###" reads as a second "### Link"; "### C#" keeps its #.
+            text = (atx.group(1) or '').rstrip(' \t')
+            bare = text.rstrip('#')
+            if bare != text and (not bare or bare[-1] in ' \t'):
+                text = bare
+            yield text
+        elif paragraph and _SETEXT_UNDERLINE_RE.fullmatch(line):
+            yield ' '.join(paragraph)
+            paragraph = []
+        elif line.strip():
+            paragraph.append(line)
+        else:
+            paragraph = []
+
+
+def form_body_problem(body):
+    """Why an issue body can show a reviewer other fields than the bot reads, or None.
+
+    The issue form alone did it: a Role of `<!--` and a Notes line of `-->`
+    hid the form's own Location and Direct Application Link, Notes drew a
+    second set, and parse_issue_body took the hidden first copy, so approval
+    stored a link the maintainer never saw. The form itself never writes
+    HTML or a heading twice.
+    """
+    # The page drops a byte-order mark that opens the body, so a heading
+    # right after one still renders.
+    body = re.sub(r'\r\n?', '\n', body or '').removeprefix('\ufeff')
+    if _HTML_RE.search(body):
+        return ('the issue body contains HTML such as `<!--` or `<details>`, which can '
+                'hide text from the reviewer.')
+    seen = set()
+    for text in _headings(body):
+        heading = ' '.join(text.split())
+        if heading.casefold() in seen:
+            return (f'the heading {md_code(heading)} appears more than once in the issue '
+                    'body, and only the first is read.')
+        if heading:
+            seen.add(heading.casefold())
+    return None
+
+
 REMOTE_RE = re.compile(r'^remote\s*(\(us\)|\(usa\)|\(united states\))?$', re.IGNORECASE)
 BARE_COUNTRY_RE = re.compile(r'^(us|usa|united states|nationwide)$', re.IGNORECASE)
 CITY_STATE_RE = re.compile(r'^.+,\s*([A-Z]{2})$')
@@ -268,9 +370,17 @@ SUBMITTED_SPLIT_RE = re.compile(r'[;\n]')
 
 def _fix_typed_spelling(part):
     # normalize_location reads scraper shapes; a person types "Washington,
-    # D.C." and "McLean, Va", which it passes through unchanged.
-    part = DC_SPELLING_RE.sub('Washington, DC', part.strip())
+    # D.C." and "McLean, Va", which it passes through unchanged. Its patterns
+    # also rescan a whitespace run, so a Location of 65k spaces in an issue
+    # body took about 80s per call; one space is all a place name needs.
+    part = DC_SPELLING_RE.sub('Washington, DC', ' '.join(part.split()))
     return REGION_CODE_RE.sub(lambda m: f', {m.group(1).upper()}', part)
+
+
+def typed_location(location):
+    """Return a form location as typed, one place per `;`, with typed spellings fixed."""
+    return '; '.join(_fix_typed_spelling(p) for p in SUBMITTED_SPLIT_RE.split(location or '')
+                     if p.strip())
 
 
 def normalize_submitted_location(location):
@@ -279,9 +389,7 @@ def normalize_submitted_location(location):
     Runs the scraper's normalize_location over the whole string, so a foreign
     option beside a US one is dropped the same way it is for scraped rows.
     """
-    parts = [_fix_typed_spelling(p) for p in SUBMITTED_SPLIT_RE.split(location or '')
-             if p.strip()]
-    return normalize_location('; '.join(parts)) or ''
+    return normalize_location(typed_location(location)) or ''
 
 
 def validate_location(location):
@@ -289,7 +397,8 @@ def validate_location(location):
 
     The location is normalized first, so the spellings the scraper's location
     rules accept for a US place ("Arlington, Virginia", "Arlington VA",
-    "Washington, D.C.") pass here too.
+    "Washington, D.C.") pass here too. The string as typed must also pass
+    is_us_location, as a scraped row's location does.
     """
     parts = [p.strip() for p in normalize_submitted_location(location).split(';')
              if p.strip()]
@@ -312,6 +421,16 @@ def validate_location(location):
                 f'{md_code(part)}: {md_code(m.group(1))} is not a US state code. '
                 f'This board is US-only.'
             )
+    typed = typed_location(location)
+    if not errors and not is_us_location(typed):
+        # Each part alone looks fine once normalize_location has run: it drops
+        # "London, UK" and reads the bare "Remote" left beside it as Remote
+        # (US), and "Toronto, CA" passes as a California city.
+        error = f'{md_code(typed)} does not read as a US location.'
+        if any(m and not m.group(1) for m in map(REMOTE_RE.match, typed.split('; '))):
+            error += (' A bare "Remote" beside a place abroad reads as remote from there, '
+                      'so write "Remote (US)" for a US option.')
+        errors.append(error)
     return errors
 
 

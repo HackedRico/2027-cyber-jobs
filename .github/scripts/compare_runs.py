@@ -6,16 +6,23 @@
     python .github/scripts/compare_runs.py before.log after.log
 
 Reports rows accepted in only one run, rows whose level changed, existing rows
-one run drops, retires, reclassifies, refreshes or has its location repaired
-and the other does not, and boards whose status changed. Exits 1 when anything differs, so a clean
-exit is the equivalence proof for a scraper or classifier change. Run the two
-scrapes minutes apart: postings arrive continuously, so a row that appears in
-only the later log under a title the change does not target is noise, not a
-flip.
+one run drops, retires, reclassifies, refreshes, revives, renames or has its
+location repaired and the other does not, postings one run skips at insert or
+defers on a failed detail fetch, a changed renormalized-location or
+control-character count or closing summary line, and boards whose status
+changed. Event lines are counted, so a run that
+drops one of two same-title rows differs from one that drops both. Exits 1
+when anything differs, so a clean exit is the equivalence proof for a scraper
+or classifier change, with one blind spot: an event line names a stored row by
+company and role only, so two runs that act on different rows of a same-title
+group, as many times each, compare equal. Run the two scrapes minutes apart:
+postings arrive continuously, so a row that appears in only the later log
+under a title the change does not target is noise, not a flip.
 """
 
 import re
 import sys
+from collections import Counter
 from pathlib import Path
 from typing import NamedTuple
 
@@ -31,45 +38,110 @@ REPAIR_RE = re.compile(
 _VALUE = r'''('[^']*'|"[^"]*"|True|False|None)'''
 REFRESH_RE = re.compile(rf'^\s*REFRESHED \[(\w+)\] (.+): {_VALUE} -> {_VALUE}$')
 BOARD_RE = re.compile(r'^Checking (.+?)\.\.\. (ok|zero|FAILED|CRASHED) \((\d+) postings')
+REVIVED_RE = re.compile(r'^\s*REVIVED (.+)$')
+RENAMED_RE = re.compile(r'^\s*RENAMED \[company\] (.+)$')
+SKIPPED_RE = re.compile(r'^\s*SKIPPED \[([\w-]+)\] (.+)$')
+# A 429 or 5xx on a detail fetch defers the posting, so without these lines a
+# title deferred in one run read as accepted only in the other, a false flip.
+DEFERRED_RE = re.compile(r'^\s*DEFERRED \[([\w-]+)\] (.+)$')
+RENORMALIZED_RE = re.compile(r'^Renormalized (\d+) location\(s\)$')
+STRIPPED_RE = re.compile(r'^Stripped control characters from (\d+) row\(s\)$')
+SUMMARY_RE = re.compile(r'^Added \d+ new listing\(s\), .+$')
 
 
 class Run(NamedTuple):
     rows: dict        # "Company — Title @ Location" -> level
-    dropped: dict     # "Company — Title" -> reason
-    reclassified: dict  # "Company — Title" -> (old, new)
-    repaired: dict    # ("Company — Title", old location) -> new location
+    dropped: Counter  # ("Company — Title", reason)
+    reclassified: Counter  # ("Company — Title", old, new)
+    repaired: Counter  # ("Company — Title", old location, new location)
     boards: dict      # label -> (status, count)
-    refreshed: dict   # ("Company — Title", field, old) -> new
-    retired: dict     # "Company — Title" -> reason
+    refreshed: Counter  # ("Company — Title", field, old, new)
+    retired: Counter  # ("Company — Title", reason)
+    revived: Counter  # "Company — Title"
+    renamed: Counter  # "Old Company -> Company — Title"
+    skipped: Counter  # ("Company — Title @ 'location'", reason)
+    deferred: Counter  # ("Company — Title", reason)
+    renormalized: int
+    stripped: int     # rows stripped of control characters
+    summary: str | None  # the closing "Added N new listing(s), ..." line
 
 
 def parse_log(text):
-    rows, dropped, reclassified, repaired, boards, refreshed = {}, {}, {}, {}, {}, {}
-    retired = {}
+    rows, boards = {}, {}
+    # Counted, not keyed by title: 57 stored rows share a company and role
+    # with another row (JPMorgan Chase — Security Engineer II, one per site),
+    # and a dict kept one DROP line of several, so a run that dropped one
+    # more of them still compared equal. Repairs too: listings.json holds two
+    # CrowdStrike "Analyst I, Falcon Complete (Remote)" rows at one location,
+    # so even a (title, old location) key repeats.
+    dropped, reclassified, refreshed, retired = Counter(), Counter(), Counter(), Counter()
+    revived, renamed, skipped, repaired = Counter(), Counter(), Counter(), Counter()
+    deferred = Counter()
+    renormalized, stripped, summary = 0, 0, None
     for line in text.splitlines():
         if m := NEW_RE.match(line):
             rows[m.group(2).strip()] = m.group(1)
         elif m := DROP_RE.match(line):
-            dropped[m.group(2).strip()] = m.group(1)
+            dropped[(m.group(2).strip(), m.group(1))] += 1
         elif m := RETIRED_RE.match(line):
-            retired[m.group(2).strip()] = m.group(1)
+            retired[(m.group(2).strip(), m.group(1))] += 1
         elif m := RECLASSIFY_RE.match(line):
-            reclassified[m.group(3).strip()] = (m.group(1), m.group(2))
+            reclassified[(m.group(3).strip(), m.group(1), m.group(2))] += 1
+        elif m := REVIVED_RE.match(line):
+            revived[m.group(1).strip()] += 1
+        elif m := RENAMED_RE.match(line):
+            renamed[m.group(1).strip()] += 1
+        elif m := SKIPPED_RE.match(line):
+            skipped[(m.group(2).strip(), m.group(1))] += 1
+        elif m := DEFERRED_RE.match(line):
+            deferred[(m.group(2).strip(), m.group(1))] += 1
+        elif m := RENORMALIZED_RE.match(line):
+            renormalized = int(m.group(1))
+        elif m := STRIPPED_RE.match(line):
+            stripped = int(m.group(1))
+        elif m := SUMMARY_RE.match(line):
+            summary = line
         elif m := REPAIR_RE.match(line):
-            # Keyed with the old location too: one title is posted per site,
-            # so same-title repairs must not overwrite each other.
-            repaired[(m.group(1).strip(), m.group(2))] = m.group(3)
+            repaired[(m.group(1).strip(), m.group(2), m.group(3))] += 1
         elif m := REFRESH_RE.match(line):
-            refreshed[(m.group(2).strip(), m.group(1), m.group(3))] = m.group(4)
+            refreshed[(m.group(2).strip(), m.group(1), m.group(3), m.group(4))] += 1
         elif m := BOARD_RE.match(line):
             boards[m.group(1)] = (m.group(2), int(m.group(3)))
-    return Run(rows, dropped, reclassified, repaired, boards, refreshed, retired)
+    return Run(rows, dropped, reclassified, repaired, boards, refreshed, retired,
+               revived, renamed, skipped, deferred, renormalized, stripped, summary)
 
 
 def _section(title, items):
     if not items:
         return []
     return [f'{title} ({len(items)}):'] + [f'  - {item}' for item in items] + ['']
+
+
+def _changed(title, before, after):
+    if before == after:
+        return []
+    return [f'{title}:', f'  - before: {before}', f'  - after:  {after}', '']
+
+
+def _extra(counts, other, fmt):
+    return sorted(fmt(key) for key in (counts - other).elements())
+
+
+def _tagged(key):
+    return f'{key[0]} [{key[1]}]'
+
+
+def _change(key):
+    return f'{key[0]}: {key[1]} -> {key[2]}'
+
+
+def _refresh(key):
+    return f'{key[0]} [{key[1]}]: {key[2]} -> {key[3]}'
+
+
+def _both_ways(title, before, after, fmt):
+    return (_section(f'{title} only after', _extra(after, before, fmt))
+            + _section(f'{title} only before', _extra(before, after, fmt)))
 
 
 def diff(before, after):
@@ -79,26 +151,6 @@ def diff(before, after):
     relevelled = sorted(f'{k}: {before.rows[k]} -> {after.rows[k]}'
                         for k in before.rows if k in after.rows
                         and before.rows[k] != after.rows[k])
-    drops = sorted(f'{k} [{r}]' for k, r in after.dropped.items()
-                   if before.dropped.get(k) != r)
-    undrops = sorted(f'{k} [{r}]' for k, r in before.dropped.items()
-                     if after.dropped.get(k) != r)
-    retires = sorted(f'{k} [{r}]' for k, r in after.retired.items()
-                     if before.retired.get(k) != r)
-    unretires = sorted(f'{k} [{r}]' for k, r in before.retired.items()
-                       if after.retired.get(k) != r)
-    reclass = sorted(f'{k}: {o} -> {n}' for k, (o, n) in after.reclassified.items()
-                     if before.reclassified.get(k) != (o, n))
-    repairs = sorted(f'{k}: {o} -> {n}' for (k, o), n in after.repaired.items()
-                     if before.repaired.get((k, o)) != n)
-    unrepairs = sorted(f'{k}: {o} -> {n}' for (k, o), n in before.repaired.items()
-                       if after.repaired.get((k, o)) != n)
-    refreshes = sorted(f'{k} [{field}]: {o} -> {n}'
-                       for (k, field, o), n in after.refreshed.items()
-                       if before.refreshed.get((k, field, o)) != n)
-    unrefreshes = sorted(f'{k} [{field}]: {o} -> {n}'
-                         for (k, field, o), n in before.refreshed.items()
-                         if after.refreshed.get((k, field, o)) != n)
     boards = sorted(f'{label}: {before.boards[label][0]} ({before.boards[label][1]}) '
                     f'-> {after.boards[label][0]} ({after.boards[label][1]})'
                     for label in before.boards if label in after.boards
@@ -106,15 +158,24 @@ def diff(before, after):
     return (_section('Rows accepted only before', [f'[{before.rows[k]}] {k}' for k in only_before])
             + _section('Rows accepted only after', [f'[{after.rows[k]}] {k}' for k in only_after])
             + _section('Rows whose level changed', relevelled)
-            + _section('Existing rows dropped only after', drops)
-            + _section('Existing rows dropped only before', undrops)
-            + _section('Existing rows retired only after', retires)
-            + _section('Existing rows retired only before', unretires)
-            + _section('Existing rows reclassified only after', reclass)
-            + _section('Existing rows whose location was repaired only after', repairs)
-            + _section('Existing rows whose location was repaired only before', unrepairs)
-            + _section('Existing rows refreshed only after', refreshes)
-            + _section('Existing rows refreshed only before', unrefreshes)
+            + _both_ways('Existing rows dropped', before.dropped, after.dropped, _tagged)
+            + _both_ways('Existing rows retired', before.retired, after.retired, _tagged)
+            + _both_ways('Existing rows reclassified', before.reclassified,
+                         after.reclassified, _change)
+            + _both_ways('Existing rows whose location was repaired', before.repaired,
+                         after.repaired, _change)
+            + _both_ways('Existing rows refreshed', before.refreshed, after.refreshed, _refresh)
+            + _both_ways('Closed rows revived', before.revived, after.revived, str)
+            + _both_ways('Existing rows whose company was renamed', before.renamed,
+                         after.renamed, str)
+            + _both_ways('Postings skipped at insert', before.skipped, after.skipped, _tagged)
+            + _both_ways('Postings deferred on a failed detail fetch', before.deferred,
+                         after.deferred, _tagged)
+            + _changed('Locations renormalized', before.renormalized, after.renormalized)
+            + _changed('Rows stripped of control characters', before.stripped,
+                       after.stripped)
+            + _changed('Closing summary', before.summary or '(none)',
+                       after.summary or '(none)')
             + _section('Boards whose status changed', boards))
 
 

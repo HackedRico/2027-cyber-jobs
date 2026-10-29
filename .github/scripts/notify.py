@@ -11,7 +11,6 @@ Releases, or Subscribe on one alert issue), so this stores nothing about them.
 import argparse
 import json
 import os
-import re
 import sys
 from collections.abc import Callable
 from datetime import UTC, date, datetime, timedelta
@@ -22,7 +21,7 @@ import requests
 
 sys.path.insert(0, str(Path(__file__).parent))
 from classify import is_cyber_title  # noqa: E402
-from common import gh_headers, md_escape, oneline  # noqa: E402
+from common import HTTP_URL_RE, gh_headers, md_escape, oneline  # noqa: E402
 
 LISTINGS_FILE = Path('listings.json')
 API = 'https://api.github.com'
@@ -128,7 +127,7 @@ def find_openers(added, listings, run_at):
 
 
 def _apply_link(url):
-    if not url or not re.match(r'^https?://', url) or re.search(r'\s', url):
+    if not url or not HTTP_URL_RE.fullmatch(url):
         return ''
     safe = (url.replace('(', '%28').replace(')', '%29')
                .replace('<', '%3C').replace('>', '%3E'))

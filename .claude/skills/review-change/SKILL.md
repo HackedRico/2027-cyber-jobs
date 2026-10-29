@@ -32,7 +32,7 @@ finding is **reproduced**, with its input and wrong output, before it is reporte
 5. **Check the live run** when the change touches scraping, search terms, companies or an
    accept rule: a full `--dry-run` on main and on the branch, `compare_runs.py`, and both
    scrape timings. Done when every `NEW`, `DROP` and `REFRESHED` line is called right or a
-   finding, and the scrape phase sits far inside the workflow's 30-minute timeout. A reviewer
+   finding, and the scrape phase sits far inside the scrape step's 25-minute timeout. A reviewer
    without network access reports the live run as not done, and the PR stays a draft until
    its author runs it.
 6. **Report.** Findings ranked by severity, each with `file:line`, the input, the wrong output
