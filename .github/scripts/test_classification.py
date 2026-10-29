@@ -875,6 +875,13 @@ NORM = [
     ('High Point, NC; International - Germany', 'High Point, NC'),
     ('Paris, TX; London, UK', 'Paris, TX'),
     ('Perth Amboy, NJ; Perth, WA', 'Perth Amboy, NJ'),
+    # A site abroad given a code that is also a state's still drops.
+    ('Austin, TX; Tbilisi, Georgia', 'Austin, TX'),
+    ('Austin, TX; Georgia - Tbilisi', 'Austin, TX'),
+    ('Austin, TX; Berlin DE', 'Austin, TX'),
+    ('Austin, TX; IL-Haifa', 'Austin, TX'),
+    ('Austin, TX; CA-Vancouver', 'Austin, TX'),
+    ('Hamburg, NY; Hamburg, DE', 'Hamburg, NY'),
     ('London, UK', 'London, UK'),  # nothing US to keep, so nothing is dropped
     # A remote option abroad is not relabeled Remote (US) on the way, even with
     # a US token in it, so it drops beside a US site too...
@@ -1216,6 +1223,21 @@ US_LOC = [
     ('Goa, GA', False),
     ('Perth, WA', False),
     ('Toronto, Ontario, CA', False),
+    # A country's own ISO code, or the code the normalizer gives the country
+    # Georgia ('Tbilisi, Georgia' was stored as 'Tbilisi, GA').
+    ('Tel Aviv, IL', False),
+    ('Haifa, IL', False),
+    ('IL, Haifa', False),
+    ('IL-Haifa', False),
+    ('Berlin, DE', False),
+    ('Hamburg, DE', False),
+    ('Bogota, CO', False),
+    ('Vancouver, CA', False),
+    ('Mississauga, CA', False),
+    ('Waterloo, CA', False),
+    ('Tbilisi, GA', False),
+    ('Buenos Aires, AR', False),
+    ('Jakarta, ID', False),
     # ...but US towns with foreign names keep their state.
     ('London, KY', True),
     ('Athens, GA', True),
@@ -1223,6 +1245,12 @@ US_LOC = [
     ('Melbourne, FL', True),
     ('Vancouver, WA', True),
     ('Delhi, NY', True),
+    ('Paris, TX', True),
+    ('Vienna, VA', True),
+    ('Dublin, OH', True),
+    ('Hamburg, NY', True),
+    ('Berlin, NH', True),
+    ('Waterloo, IA', True),
 ]
 for loc, want in US_LOC:
     got = s.is_us_location(loc)

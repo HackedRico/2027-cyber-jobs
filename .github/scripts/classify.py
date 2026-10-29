@@ -940,10 +940,11 @@ US_SUBSTRINGS = [
 
 NON_US_SUBSTRINGS = [
     'canada', 'toronto', 'vancouver', 'montreal', 'ottawa', 'calgary',
-    'waterloo', 'ontario', 'british columbia', 'quebec',
+    'waterloo', 'ontario', 'british columbia', 'quebec', 'mississauga',
+    'kitchener', 'kanata', 'burnaby', 'edmonton', 'winnipeg', 'fredericton',
     'london', 'united kingdom', ' uk', '(uk)', 'u.k.', 'scotland',
     'ireland', 'dublin', 'belfast',
-    'germany', 'berlin', 'munich', 'frankfurt',
+    'germany', 'berlin', 'munich', 'frankfurt', 'hamburg',
     # Parsons' 'DE - Ramstein Air Force Base' read DE as Delaware.
     'ramstein',
     'france', 'paris', 'netherlands', 'amsterdam', 'belgium', 'brussels',
@@ -952,9 +953,10 @@ NON_US_SUBSTRINGS = [
     'sweden', 'stockholm', 'norway', 'oslo', 'denmark', 'copenhagen',
     'finland', 'helsinki', 'switzerland', 'zurich', 'austria', 'vienna',
     'estonia', 'tallinn', 'hungary', 'budapest', 'greece', 'athens',
-    'israel', 'tel aviv', 'jerusalem',
+    'israel', 'tel aviv', 'jerusalem', 'haifa', 'herzliya', 'petah tikva',
+    'ramat gan',
     # Named so the country Georgia is not read as the US state.
-    'tbilisi',
+    'tbilisi', 'batumi', 'kutaisi',
     'india', 'bangalore', 'bengaluru', 'hyderabad', 'pune', 'mumbai',
     'delhi', 'chennai', 'noida', 'gurgaon', 'gurugram', 'goa',
     # State names, so 'Mysuru, Karnataka, IN' does not read as Indiana.
@@ -968,8 +970,8 @@ NON_US_SUBSTRINGS = [
     # Continents a remote scope names: "Remote (Europe)", "Remote (Asia)".
     'europe', 'asia', 'latin america',
     'mexico city', ', mexico', 'brazil', 'sao paulo', 'argentina',
-    'buenos aires', 'colombia', 'bogota', 'chile', 'santiago', 'costa rica',
-    'peru', 'uruguay',
+    'buenos aires', 'colombia', 'bogota', 'medellin', 'chile', 'santiago',
+    'costa rica', 'peru', 'uruguay',
     # Named explicitly so it is rejected by rule rather than by the absence of
     # a US signal — 'virgin islands' alone resolves to the US territory.
     'british virgin islands',
@@ -999,9 +1001,13 @@ REGION_CODE_RE = re.compile(r',\s*([A-Za-z]{2})\.?\s*$')
 # Foreign places whose own country or region code is also a US state code.
 # A trailing code rescues "Paris, TX" and "Perth Amboy, NJ", but "Pune, IN"
 # is India, "Chennai, TN" is Tamil Nadu, "Goa, GA" is Goa, "Perth, WA" is
-# Western Australia and "Toronto, Ontario, CA" is Canada. Each place pattern
-# lists only the codes that country uses, so "Athens, GA" and "Melbourne, FL"
-# stay US. Ladakh's LA is left out for Delhi, Louisiana.
+# Western Australia and "Toronto, Ontario, CA" is Canada. A country's own ISO
+# code collides too: "Tel Aviv, IL", "Berlin, DE", "Bogota, CO", "Vancouver,
+# CA", and "Tbilisi, Georgia", which the normalizer stores as "Tbilisi, GA".
+# Each place pattern lists only the codes that country uses, so "Athens, GA",
+# "Melbourne, FL", "Hamburg, NY" and "Waterloo, IA" stay US. Ladakh's LA is
+# left out for Delhi, Louisiana. Every place here is in NON_US_SUBSTRINGS too,
+# which is what drops it beside a US site.
 FOREIGN_CODE_COLLISIONS = [
     (re.compile(r'\b(?:india|bangalore|bengaluru|hyderabad|pune|mumbai|delhi|'
                 r'chennai|noida|gurgaon|gurugram|goa|karnataka|tamil nadu|'
@@ -1012,8 +1018,17 @@ FOREIGN_CODE_COLLISIONS = [
                 r'western australia)\b(?! amboy)'),
      {'WA'}),
     (re.compile(r'\b(?:canada|toronto|montreal|calgary|ottawa|quebec|'
-                r'british columbia)\b'),
+                r'british columbia|vancouver|waterloo|mississauga|kitchener|'
+                r'kanata|burnaby|edmonton|winnipeg|fredericton)\b'),
      {'CA'}),
+    (re.compile(r'\b(?:israel|tel aviv|jerusalem|haifa|herzliya|petah tikva|'
+                r'ramat gan)\b'),
+     {'IL'}),
+    (re.compile(r'\b(?:germany|berlin|munich|frankfurt|hamburg)\b'), {'DE'}),
+    (re.compile(r'\b(?:colombia|bogota|medellin)\b'), {'CO'}),
+    (re.compile(r'\b(?:tbilisi|batumi|kutaisi)\b'), {'GA'}),
+    (re.compile(r'\b(?:argentina|buenos aires)\b'), {'AR'}),
+    (re.compile(r'\b(?:indonesia|jakarta)\b'), {'ID'}),
 ]
 
 
