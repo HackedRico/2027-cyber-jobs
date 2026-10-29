@@ -93,12 +93,18 @@ def fails_on_error(workflow, job, step):
 # this green while CI skipped a suite or passed one that failed.
 tests_yml = WORKFLOWS['tests.yml']
 triggers = tests_yml.get(True) or tests_yml.get('on') or {}
+# `on: [push, pull_request]` names its events with no filters, and crashed
+# this check when it read only the mapping form.
+if not isinstance(triggers, dict):
+    triggers = dict.fromkeys([triggers] if isinstance(triggers, str) else triggers)
 pull_request, push = triggers.get('pull_request') or {}, triggers.get('push') or {}
 check('tests.yml runs on every pull request and every push to main',
       'pull_request' in triggers and 'push' in triggers
       and not {'paths', 'paths-ignore', 'branches', 'branches-ignore', 'types'} & set(pull_request)
       and not {'paths', 'paths-ignore'} & set(push)
-      and 'main' in (push.get('branches') or []))
+      # A push with no branches or tags filter runs on every branch.
+      and ('main' in (push.get('branches') or []) if 'branches' in push
+           else not {'branches-ignore', 'tags', 'tags-ignore'} & set(push)))
 ci_runs = {code_lines(step)[0] for _, job in jobs(tests_yml)
            if 'if' not in job and not job.get('continue-on-error')
            for step in job.get('steps') or []
