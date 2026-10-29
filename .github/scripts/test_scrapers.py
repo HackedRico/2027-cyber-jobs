@@ -2124,6 +2124,65 @@ def test_workday_opt_in_term_hits_fetch_details():
           'description' in by_path['Software-Engineer_JR-009999'], False)
 
 
+# --- a failed detail fetch defers a candidate instead of admitting it -------
+@responses.activate
+def test_a_failed_workday_detail_defers_the_posting():
+    """A 503 on the detail fetch admitted a 6-year 'Security Engineer II' as early career."""
+    path = '/job/Reston-VA/Security-Engineer-II_R9'
+    responses.add_callback(responses.POST, WD_API, callback=_workday_pages({'security': [{
+        'total': 1, 'jobPostings': [{'title': 'Security Engineer II', 'externalPath': path,
+                                     'locationsText': 'Reston, VA'}]}]}))
+    detail = f'https://t.wd5.myworkdayjobs.com/wday/cxs/t/B{path}'
+    responses.get(detail, status=503)
+    jobs = sj.scrape_workday('Acme', 't', 'wd5', 'B')
+    check('the posting stays in the scrape, marked and without a description',
+          [(j['title'], j.get('detail_failed'), 'description' in j) for j in jobs],
+          [('Security Engineer II', True, False)])
+    seen = {}
+    added, _ = sj.insert_new_listings([], jobs, seen, {}, '2026-10-29')
+    check('the posting is neither added nor stamped seen', (added, seen), ([], {}))
+    responses.replace(responses.GET, detail, json={'jobPostingInfo': {
+        'location': 'Reston, VA',
+        'jobDescription': '<p>Requires 6+ years of security engineering experience.</p>'}})
+    jobs = sj.scrape_workday('Acme', 't', 'wd5', 'B')
+    added, _ = sj.insert_new_listings([], jobs, seen, {}, '2026-10-30')
+    check('the next run reads the description and the experience gate keeps it off',
+          ('detail_failed' in jobs[0], added), (False, []))
+
+
+@responses.activate
+def test_failed_detail_fetches_are_marked_on_every_detail_source():
+    host = 'acme.fa.us2.oraclecloud.com'
+    base = f'https://{host}/hcmRestApi/resources/latest/'
+    responses.get(base + 'recruitingCEJobRequisitions', json={'items': [{
+        'TotalJobsCount': 1, 'requisitionList': [
+            {'Id': '1', 'Title': 'Cyber Engineer Associate', 'PrimaryLocation': 'Reston, VA'}]}]})
+    oracle_detail = responses.get(base + 'recruitingCEJobRequisitionDetails', status=500)
+    responses.get(SR_POSTINGS, json={'totalFound': 1, 'content': [
+        _sr_posting('1', 'Security Analyst I')]})
+    responses.get(f'{SR_POSTINGS}/1', status=502)
+    for term in sj.EIGHTFOLD_TERMS:
+        _ef_search(term, 0, json=_ef_page([_ef_pos(1, 'Cyber Analyst I')], 1))
+    responses.get(EF_DETAIL, status=429)
+    for term in sj.PHENOM_TERMS:
+        _ph_search(term, 0, [_ph_job(1, 'Cyber Analyst I')], 1)
+    responses.post(PH_API, match=[responses.matchers.json_params_matcher(
+        {'ddoKey': 'jobDetail'}, strict_match=False)], status=503)
+
+    def flags(jobs):
+        return [(j.get('detail_failed', False), 'description' in j) for j in jobs]
+
+    check('oracle, smartrecruiters, eightfold and phenom mark a failed detail fetch',
+          [flags(sj.scrape_oracle('Acme', host, 'CX_1')),
+           flags(sj.scrape_smartrecruiters('Acme', 'KudelskiSecurityInc')),
+           flags(sj.scrape_eightfold('Acme', 'acme', 'acme.com')),
+           flags(sj.scrape_phenom('Acme', 'careers.acme.org', 'en_us', 'us'))],
+          [[(True, False)]] * 4)
+    responses.replace(oracle_detail.method, oracle_detail.url, json={'items': []})
+    check('an oracle detail with no items is an empty body, not a failure',
+          flags(sj.scrape_oracle('Acme', host, 'CX_1')), [(False, False)])
+
+
 # --- amazon.jobs: loc_query ranks, the country filter restricts --------------
 @responses.activate
 def test_amazon_restricts_to_us_reqs():
@@ -3572,7 +3631,10 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_oracle_and_smartrecruiters_use_the_security_flag,
            test_workday_more_suffix_fetches_locations,
            test_workday_blank_list_location_fetches_detail,
-           test_workday_opt_in_term_hits_fetch_details, test_amazon_restricts_to_us_reqs,
+           test_workday_opt_in_term_hits_fetch_details,
+           test_a_failed_workday_detail_defers_the_posting,
+           test_failed_detail_fetches_are_marked_on_every_detail_source,
+           test_amazon_restricts_to_us_reqs,
            test_smartrecruiters_and_amazon_flag_a_cut_short_sweep,
            test_retire_orphaned_listings, test_check_links_soft_404,
            test_check_links_redirect_that_drops_the_req,

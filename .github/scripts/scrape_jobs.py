@@ -287,7 +287,9 @@ def check_container(data, key, label):
 # ---------------------------------------------------------------------------
 # ATS scrapers — each yields dicts with:
 #   id, company, title, location, url, board, description (optional),
-#   partial_sweep (optional: True when the board's feed was cut short)
+#   partial_sweep (optional: True when the board's feed was cut short),
+#   detail_failed (optional: True when a candidate's detail fetch failed, so
+#   its description is missing rather than empty)
 # Scrapers return None on an unrecoverable fetch failure and a (possibly empty)
 # list otherwise, so the run summary can tell breakage from an empty board.
 # ---------------------------------------------------------------------------
@@ -613,7 +615,9 @@ def scrape_smartrecruiters(company, identifier, security_company=False):
         fetched += 1
         description = fetch_smartrecruiters_description(
             f'{url}/{job["id"].rsplit("_", 1)[-1]}', label=f'{company} SmartRecruiters')
-        if description:
+        if description is None:
+            job['detail_failed'] = True
+        elif description:
             job['description'] = description
         time.sleep(0.3)
     return jobs
@@ -624,9 +628,11 @@ SMARTRECRUITERS_DETAIL_CAP = 30
 
 
 def fetch_smartrecruiters_description(url, label=''):
-    """Return a posting's jobAd sections as one body, or '' on failure."""
+    """Return a posting's jobAd sections as one body, or None on a failed fetch."""
     data = fetch_json(url, label=label)
-    sections = ((data or {}).get('jobAd') or {}).get('sections') or {}
+    if data is None:
+        return None
+    sections = (data.get('jobAd') or {}).get('sections') or {}
     parts = []
     for section in sections.values():
         if not isinstance(section, dict):
@@ -1030,6 +1036,8 @@ def scrape_workday(company, tenant, instance, board, security_company=False,
                            or MULTI_LOCATION_RE.search(job['location'].strip()))
         location, description = fetch_workday_detail(cxs_root, path, wd_headers,
                                                      label=f'{company} Workday')
+        if location is None:
+            job['detail_failed'] = True
         if needs_locations and location:
             job['location'] = location
         if description:
@@ -1044,11 +1052,13 @@ ORACLE_DETAIL_CAP = 30
 
 
 def fetch_oracle_description(host, site, req_id, label=''):
-    """Return a req's external description and qualifications, or '' on failure."""
+    """Return a req's external description and qualifications, or None on a failed fetch."""
     api = f'https://{host}/hcmRestApi/resources/latest/recruitingCEJobRequisitionDetails'
     params = {'onlyData': 'true', 'finder': f'ById;Id="{req_id}",siteNumber={site}'}
     data = fetch_json(api, params=params, label=label)
-    items = (data or {}).get('items') or []
+    if data is None:
+        return None
+    items = data.get('items') or []
     if not items:
         return ''
     fields = (items[0].get('ExternalDescriptionStr'), items[0].get('ExternalQualificationsStr'))
@@ -1127,7 +1137,9 @@ def scrape_oracle(company, host, site, security_company=False):
             continue
         fetched += 1
         description = fetch_oracle_description(host, site, req, label=f'{company} Oracle')
-        if description:
+        if description is None:
+            job['detail_failed'] = True
+        elif description:
             job['description'] = description
         time.sleep(0.3)
     return jobs
@@ -1311,6 +1323,8 @@ def scrape_eightfold(company, tenant, domain, security_company=False,
                                    params={'position_id': pid, 'domain': domain,
                                            'hl': 'en'},
                                    headers=headers, label=f'{company} Eightfold detail')
+        if data is None:
+            job['detail_failed'] = True
         detail = (data or {}).get('data') or {}
         if isinstance(detail, dict) and detail.get('jobDescription'):
             job['description'] = detail['jobDescription']
@@ -1403,6 +1417,8 @@ def scrape_phenom(company, host, lang, country, security_company=False,
                             jobId=job_id, jobSeqNo=seq)
         data = _get_json_patiently(api, method='POST', json=body, headers=headers,
                                    label=f'{company} Phenom detail')
+        if data is None:
+            job['detail_failed'] = True
         detail = ((data or {}).get('jobDetail') or {}).get('data') or {}
         description = (detail.get('job') or {}).get('description', '')
         if description:
@@ -2568,6 +2584,13 @@ def insert_new_listings(listings, raw_jobs, seen, sec_flags, today):
                 or (fingerprint and fingerprint in existing_fps))
         on_board = held or key in existing_keys
         if jid in seen and on_board and key not in blanked:
+            continue
+        # The scraper asks for a candidate's description because its title
+        # alone cannot settle the experience gate, and a 429 or 5xx on that
+        # request admitted a 6-year 'Security Engineer II' as early career.
+        # Left unjudged and unstamped, the posting is fetched again next run.
+        if job.get('detail_failed'):
+            print(f'  DEFERRED [detail] {_oneline(job["company"])} — {_oneline(job["title"])}')
             continue
         verdict = evaluate_job(
             job.get('title', ''), job.get('location', ''),
