@@ -519,6 +519,12 @@ GATES = [
     ('Software Engineer, New Grad', 'Austin, TX', False, 'no cybersecurity keyword'),
     ('Software Engineer, New Grad', 'Austin, TX', True, None),
     ('Security Engineer', 'Austin, TX', False, 'no intern, new grad'),
+    # Title-only gates past the level word, once all named as no level signal.
+    ('Cybersecurity Analyst Intern - London, UK', 'Austin, TX', False, 'places the role outside'),
+    ('Cyber Security Analyst I - Ramstein AFB, Germany', 'Remote (US)', False,
+     'places the role outside'),
+    ('Cybersecurity Engineer (Associate or Mid-Level)', 'Austin, TX', False, 'spans levels'),
+    ('Cyber Analyst II / III', 'Austin, TX', False, 'spans levels'),
     ('Security Analyst Intern', 'London, UK', False, 'not in the US'),
     ('', 'Austin, TX', False, 'no job title'),
 ]

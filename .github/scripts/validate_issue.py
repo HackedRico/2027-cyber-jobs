@@ -23,10 +23,10 @@ sys.path.insert(0, str(Path(__file__).parent))
 from classify import (  # noqa: E402
     CATEGORY_ALLOWLIST,
     classify_level,
-    evaluate_job,
     infer_category,
     is_cyber_title,
     is_us_location,
+    judge_job,
     listing_dedup_key,
     rejected_title_rule,
 )
@@ -124,7 +124,7 @@ def form_errors(fields, body=None):
 
 
 def charter_gate(title, location, security_company=False):
-    """The first evaluate_job gate a title and location fail, or None."""
+    """The first judge_job gate a title and location fail, or None."""
     if not title:
         return 'there is no job title'
     reason = rejected_title_rule(title)
@@ -132,7 +132,17 @@ def charter_gate(title, location, security_company=False):
         return md_escape(reason)
     if not is_cyber_title(title, security_company):
         return 'the title has no cybersecurity keyword'
-    if evaluate_job(title, 'Remote (US)', '', security_company) is None:
+    # The title alone can fail two gates past the level word, and both read as
+    # "no early-career signal" above a Level line that found one: 'Cybersecurity
+    # Analyst Intern - London, UK' places the role abroad, and 'Cybersecurity
+    # Engineer (Associate or Mid-Level)' needs its posting to set the level.
+    _, reason = judge_job(title, 'Remote (US)', '', security_company)
+    if reason == 'non-us-location':
+        return 'the title places the role outside the US'
+    if reason and classify_level(title):
+        return ('the title spans levels that reach III or mid, so it gets in only when '
+                'the posting shows its easiest route asks for 2 years or less')
+    if reason:
         return 'the title has no intern, new grad or early-career signal'
     if not is_us_location(location):
         return 'the location is not in the US'
