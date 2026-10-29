@@ -16,6 +16,7 @@ from pathlib import Path
 import testkit  # noqa: F401
 
 sys.path.insert(0, str(Path(__file__).parent))
+import check_links  # noqa: E402
 import check_outputs as co  # noqa: E402
 import classify  # noqa: E402
 import common  # noqa: E402
@@ -302,12 +303,16 @@ check('ingest outcomes', [(r['number'], r['outcome']) for r in results],
 check('ingest appends only the added row', len(listings), len(EXISTING) + 1)
 check('ingest names the location problem', 'London, UK' in results[3]['detail'], True)
 check('ingest names the url problem', 'http(s)' in results[4]['detail'], True)
-# Dated the day it reopens: the link check ages a Community row out 120 days
+# Stamped the day it reopens: the link check ages a Community row out 120 days
 # after date_added, and this one's old date had it closed again on 2026-11-09.
-check('ingest revives a closed row in place as a Community row dated today', listings[1], {
+# date_added stays, since the board's row id and the feeds key on it.
+check('ingest revives a closed row in place as a Community row reopened today', listings[1], {
     'company': 'Beta', 'role': 'Security Engineer Intern', 'location': 'Reston, VA',
     'url': 'https://beta.example/jobs/2', 'source': 'Community', 'type': 'intern',
-    'date_added': '2026-09-27'})
+    'date_added': '2026-07-12', 'reopened': '2026-09-27'})
+check('...which the link check ages from its reopen date',
+      [check_links.is_aged_out(listings[1], d) for d in ('2026-11-09', '2027-01-25')],
+      [False, True])
 check('ingest calls an open twin of a closed row a duplicate',
       results[7]['detail'], 'Gamma: SOC Analyst Intern, open')
 check('ingest leaves the closed twin closed', listings[2].get('closed'), True)

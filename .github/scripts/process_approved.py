@@ -312,8 +312,10 @@ def _revive(row, url, today):
     row['source'] = 'Community'
     # The link check ages a Community row out 120 days after date_added, so a
     # row revived with its old date (2026-07-12 rows reach 120 days on
-    # 2026-11-09) closed again on its next run.
-    row['date_added'] = today
+    # 2026-11-09) closed again on its next run. date_added stays: the board's
+    # row id and the Atom feeds key on it, so a new date lost the student's
+    # Applied mark and announced the row again.
+    row['reopened'] = today
     for field in ('closed', 'closed_date', 'missing_since', 'dead_since'):
         row.pop(field, None)
 

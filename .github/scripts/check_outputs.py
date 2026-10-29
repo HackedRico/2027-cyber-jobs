@@ -45,7 +45,7 @@ REQUIRED_FIELDS = {
 }
 NONEMPTY_FIELDS = ('company', 'role', 'location', 'type', 'category', 'source', 'date_added')
 TYPES = {'intern', 'newgrad', 'earlycareer'}
-DATE_FIELDS = ('date_added', 'closed_date', 'missing_since')
+DATE_FIELDS = ('date_added', 'closed_date', 'missing_since', 'reopened')
 STATS_RE = re.compile(r'<!-- STATS -->.*?<!-- /STATS -->', re.DOTALL)
 
 # A run that closes or drops more of the open board than this needs a person to

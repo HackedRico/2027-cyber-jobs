@@ -287,10 +287,14 @@ def record_result(entry, status, today):
 
 
 def is_aged_out(entry, today):
-    """True for an open Community row older than COMMUNITY_MAX_AGE_DAYS."""
-    if entry.get('source') != 'Community' or not entry.get('date_added'):
+    """True for an open Community row older than COMMUNITY_MAX_AGE_DAYS.
+
+    Age counts from `reopened` when an approved issue revived the row.
+    """
+    start = entry.get('reopened') or entry.get('date_added')
+    if entry.get('source') != 'Community' or not start:
         return False
-    return _days_between(entry['date_added'], today) >= COMMUNITY_MAX_AGE_DAYS
+    return _days_between(start, today) >= COMMUNITY_MAX_AGE_DAYS
 
 
 def _days_between(start, end):
