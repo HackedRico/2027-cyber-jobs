@@ -289,32 +289,42 @@ def parse_issue_body(body):
     return fields
 
 
-# A line that opens a raw HTML block, at the margin or after a list or quote
-# marker. The page drops a comment, `<?`, `<!X` or CDATA and a tag's
-# attributes, and one left open hides every line below it, while
-# parse_issue_body still reads the fields inside. Only a line start counts:
-# "< 2 years" and an autolink in Notes are honest text.
-_HTML_BLOCK_RE = re.compile(
-    r'^(?:[ \t]*(?:>|[-+*](?=[ \t])|\d{1,9}[.)](?=[ \t])))*[ \t]*'
-    r'<(?:[!?]|/?[A-Za-z][A-Za-z0-9-]*(?=[\s/>]|$))', re.MULTILINE)
+# Raw HTML anywhere in the body: a comment, `<?`, `<!X`, CDATA or a tag. The
+# page drops it, and one left open hides what follows while parse_issue_body
+# still reads the fields inside. Mid-line counts too: a Listing Type ending
+# "<details><summary>SOC &amp; Detection</summary>" folded the form's own
+# Category, Location and link under what read as the Category. "< 2 years"
+# and an autolink such as <https://acme.example> are not HTML.
+_HTML_RE = re.compile(r'<(?:[!?]|/?[A-Za-z][A-Za-z0-9-]*(?=[\s/>]|$))')
 # A line the page renders as a heading, at any level. Matched one line at a
 # time with the closing run of # cut in _headings: a lazy group before an
 # optional closing run backtracked quadratically, and one 64k-character
 # heading line of spaces and tabs took 44 s to check.
 _ATX_HEADING_RE = re.compile(r' {0,3}#{1,6}(?:[ \t]+(.*))?')
+# A run of = or - under a paragraph makes the paragraph a heading, which
+# showed "Direct Application Link" a second time without a "### " line.
+_SETEXT_UNDERLINE_RE = re.compile(r' {0,3}(?:=+|-+)[ \t]*')
 
 
 def _headings(body):
+    paragraph = []
     for line in body.split('\n'):
         atx = _ATX_HEADING_RE.fullmatch(line)
-        if not atx:
-            continue
-        # "### Link ###" reads as a second "### Link"; "### C#" keeps its #.
-        text = (atx.group(1) or '').rstrip(' \t')
-        bare = text.rstrip('#')
-        if bare != text and (not bare or bare[-1] in ' \t'):
-            text = bare
-        yield ' '.join(text.split())
+        if atx:
+            paragraph = []
+            # "### Link ###" reads as a second "### Link"; "### C#" keeps its #.
+            text = (atx.group(1) or '').rstrip(' \t')
+            bare = text.rstrip('#')
+            if bare != text and (not bare or bare[-1] in ' \t'):
+                text = bare
+            yield text
+        elif paragraph and _SETEXT_UNDERLINE_RE.fullmatch(line):
+            yield ' '.join(paragraph)
+            paragraph = []
+        elif line.strip():
+            paragraph.append(line)
+        else:
+            paragraph = []
 
 
 def form_body_problem(body):
@@ -323,15 +333,18 @@ def form_body_problem(body):
     The issue form alone did it: a Role of `<!--` and a Notes line of `-->`
     hid the form's own Location and Direct Application Link, Notes drew a
     second set, and parse_issue_body took the hidden first copy, so approval
-    stored a link the maintainer never saw. The form itself never starts a
-    line with HTML or writes a heading twice.
+    stored a link the maintainer never saw. The form itself never writes
+    HTML or a heading twice.
     """
-    body = re.sub(r'\r\n?', '\n', body or '')
-    if _HTML_BLOCK_RE.search(body):
-        return ('a line of the issue body starts with HTML such as `<!--`, which can '
+    # The page drops a byte-order mark that opens the body, so a heading
+    # right after one still renders.
+    body = re.sub(r'\r\n?', '\n', body or '').removeprefix('\ufeff')
+    if _HTML_RE.search(body):
+        return ('the issue body contains HTML such as `<!--` or `<details>`, which can '
                 'hide text from the reviewer.')
     seen = set()
-    for heading in _headings(body):
+    for text in _headings(body):
+        heading = ' '.join(text.split())
         if heading.casefold() in seen:
             return (f'the heading {md_code(heading)} appears more than once in the issue '
                     'body, and only the first is read.')

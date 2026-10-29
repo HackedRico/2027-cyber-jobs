@@ -73,13 +73,32 @@ for name, body, want in PARSE:
 EVIL_LINK = 'https://evil.example/jobs/2'
 HIDDEN = f'### Direct Application Link\n\n{EVIL_LINK}\n\n'
 HIDDEN_BODY = f'<!--\n{HIDDEN}### x -->\n\n' + form()
+# Only the form, with HTML mid-line: the <details> summary reads as the
+# Category and folds the form's own Category, Location and link, and Notes
+# closes it and draws the link again as a setext heading.
+DECOY = ('Rolling basis. </details>\n\nDirect Application Link\n---\n\n'
+         'https://boards.greenhouse.io/acme/jobs/1')
+DETAILS_BODY = form(listing_type='Internship / Co-op <details><summary>SOC &amp; Detection</summary>',
+                    link=EVIL_LINK, notes=DECOY)
+# The page drops a byte-order mark that opens the body, so this comment still
+# hides the first link, and the form's own link heading is redrawn in setext.
+BOM_BODY = ('\ufeff<!--\n' + HIDDEN + '### x -->\n\n'
+            + form().replace('### Direct Application Link', 'Direct Application Link\n---'))
 BODIES = [
     ('an honest form', form(), False),
     ('an honest form with CRLF line ends', form().replace('\n', '\r\n'), False),
-    ('Notes with "< 2 years", an autolink and inline markup',
-     form(notes='< 2 years of experience\n<https://acme.example/team>\n'
-                'Apply by <b>Friday</b> <!-- rolling -->'), False),
+    ('Notes with "< 2 years" and autolinks',
+     form(notes='< 2 years of experience\n<https://acme.example/team>\n<jobs@acme.example>'),
+     False),
+    # The form never needs HTML, so inline markup is refused with the rest.
+    ('inline HTML in Notes', form(notes='Apply by <b>Friday</b> <!-- rolling -->'), True),
+    ('a <details> opened mid-line in Listing Type', DETAILS_BODY, True),
+    ('a <details> opened mid-line in Role',
+     form(role='Security Analyst Intern <details><summary>Internship / Co-op</summary>',
+          link=EVIL_LINK, notes=DECOY), True),
     ('a comment that hides a first link', HIDDEN_BODY, True),
+    ('a byte-order mark before a comment that hides a first link', BOM_BODY, True),
+    ('a byte-order mark before a repeated heading', '\ufeff' + HIDDEN + form(), True),
     ('a comment that hides a first role',
      '<!--\n### Role / Job Title\n\nSenior Security Engineer\n\n-->\n\n' + form(), True),
     # Only the form: Role opens the comment, Notes closes it and draws the
@@ -95,6 +114,11 @@ BODIES = [
     ('a heading repeated after the form', form() + HIDDEN, True),
     ('a heading repeated at another level and case',
      form() + f'## direct application link ##\n\n{EVIL_LINK}\n', True),
+    ('a heading repeated as a setext heading over two lines',
+     form(link=EVIL_LINK, notes='Direct\nApplication Link\n=====\n\n'
+                                'https://boards.greenhouse.io/acme/jobs/1'), True),
+    ('a thematic break after a blank line', form(notes='Location\n\n---\n\nRolling basis.'),
+     False),
 ]
 for name, body, want in BODIES:
     check(f'form_body_problem flags {name}', common.form_body_problem(body) is not None, want)
@@ -684,14 +708,16 @@ check('build_verdict body has no em or en dashes',
 
 # A hidden first link: the verdict flags the body and shows the link approval
 # would store, and ingest refuses it.
-body, ok = vi.build_verdict(common.parse_issue_body(HIDDEN_BODY), EXISTING, frozenset(), ALIVE,
-                            body=HIDDEN_BODY)
-check('build_verdict flags a body that hides text',
-      (ok, '- ❌ A line of the issue body starts with HTML' in body), (False, True))
-check('build_verdict shows the link approval stores', f'- Link: `{EVIL_LINK}`' in body, True)
-result = pa.ingest([{'number': 1, 'body': HIDDEN_BODY}], [], today='2026-09-27')[0]
-check('ingest skips a body that hides text',
-      (result['outcome'], 'starts with HTML' in result['detail']), ('skipped', True))
+for name, hidden in (('a comment', HIDDEN_BODY), ('a mid-line <details>', DETAILS_BODY),
+                     ('a comment after a byte-order mark', BOM_BODY)):
+    body, ok = vi.build_verdict(common.parse_issue_body(hidden), EXISTING, frozenset(), ALIVE,
+                                body=hidden)
+    check(f'build_verdict flags {name} that hides text',
+          (ok, '- ❌ The issue body contains HTML' in body), (False, True))
+    check(f'build_verdict shows the link {name} hides', f'- Link: `{EVIL_LINK}`' in body, True)
+    result = pa.ingest([{'number': 1, 'body': hidden}], [], today='2026-09-27')[0]
+    check(f'ingest skips {name} that hides text',
+          (result['outcome'], 'contains HTML' in result['detail']), ('skipped', True))
 
 
 # --- escaping echoed fields ----------------------------------------------------
