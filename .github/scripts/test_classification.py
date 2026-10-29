@@ -3,6 +3,7 @@
 
 Run from anywhere: python .github/scripts/test_classification.py
 """
+import re
 import sys
 from datetime import date
 
@@ -1286,6 +1287,14 @@ for loc, want in US_LOC:
     if got != want:
         failures += 1
         print(f'FAIL is_us_location({loc!r}) = {got!r}, want {want!r}')
+# 'IL, Haifa' reads as abroad only because Haifa is on the foreign list too,
+# so _part_is_us returns before its embedded state-code scan. A place added to
+# FOREIGN_CODE_COLLISIONS alone would put 'IL, <place>' back in Illinois.
+for places, _codes in s.FOREIGN_CODE_COLLISIONS:
+    for place in re.search(r'\(\?:([^)]*)\)', places.pattern).group(1).split('|'):
+        if not s.NON_US_RE.search(place):
+            failures += 1
+            print(f'FAIL FOREIGN_CODE_COLLISIONS names {place!r}, which NON_US_RE misses')
 
 # Normalizing never takes a location off the board: check_outputs.py re-judges
 # the stored form, so a US location that normalizes to a non-US one fails the
