@@ -431,9 +431,17 @@ def test_ingest_writes_run_events_for_added_rows():
             pa.rebuild_readme.main = lambda: None
             pa.run_ingest('t', 'o/r')
             events = json.loads(events_file.read_text())
+            saved_rows = json.loads((tmp / 'listings.json').read_text())
         finally:
             del os.environ['RUN_EVENTS_FILE']
             pa.LISTINGS_FILE, pa.load_security_companies, pa.rebuild_readme.main = saved
+    # With the write gone, the run still announced both rows and closed both
+    # issues as added and revived, and nothing reached main.
+    check('ingest saves the added row and the reopened row to listings.json',
+          [(r['company'], r['role'], r['url'], pa.rebuild_readme.is_open(r))
+           for r in [saved_rows[1], *saved_rows[len(EXISTING):]]],
+          [('Beta', 'Security Engineer Intern', 'https://beta.example/jobs/2', True),
+           ('Acme', 'Security Analyst Intern', 'https://boards.greenhouse.io/acme/jobs/1', True)])
     check('ingest events carry the schema notify.py reads',
           sorted(events), ['added', 'retired', 'revived', 'run_at', 'schema_version'])
     check('ingest events list only the added row, not the duplicate',
