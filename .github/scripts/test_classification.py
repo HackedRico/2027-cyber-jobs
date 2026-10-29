@@ -293,6 +293,8 @@ CASES = [
     ('Technology - Cyber Security, Summer Analyst, Warsaw 2027', 'Remote (US)', '', False, None),
     # ...but a title naming a US place, or a foreign city's US namesake, stays.
     ('Cyber Security Analyst I - Dublin, OH', 'Dublin, OH', '', False, ('earlycareer', 'Security Engineering')),
+    # 'usa' inside 'Jerusalem' read as a US place and kept this title on.
+    ('Cyber Security Analyst I - Jerusalem', 'Remote (US)', '', False, None),
     ('Junior Security Analyst (Remote, USA)', 'Remote (US)', '', False, ('earlycareer', 'Security Engineering')),
     # A non-US token that qualifies a noun does not place the role abroad.
     ('Cybersecurity Analyst I (Non-US Persons)', 'Remote (US)', '', False, ('earlycareer', 'Security Engineering')),
@@ -1143,6 +1145,14 @@ US_LOC = [
     # word inside an all-caps site string, and BVI is not a US territory.
     ('WORK REMOTE AS NEEDED', False),
     ('Tortola, British Virgin Islands', False),
+    # ...and 'usa' counts only as a word of its own, not inside 'Busan'.
+    ('Busan', False),
+    ('Busan, South Korea', False),
+    ('Jerusalem', False),
+    ('USA_TX_Richardson', True),
+    ('USA-Remote', True),
+    ('(USA)', True),
+    ('United States of America', True),
     # Parsons' ISO prefix: CA is Canada there, so its Yukon mine's 'Security
     # and Mine Rescue Technician I' sat in California. The US prefix keeps a
     # US site, and Tenable's state-first 'MA - Boston' is not a country code.

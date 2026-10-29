@@ -921,7 +921,7 @@ CA_PROVINCES = {'AB', 'BC', 'MB', 'NB', 'NL', 'NS', 'NT', 'NU', 'ON', 'PE',
                 'QC', 'SK', 'YT'}
 
 US_SUBSTRINGS = [
-    'united states', 'usa', 'u.s.', 'us only', 'us-remote', 'remote - us',
+    'united states', 'u.s.', 'us only', 'us-remote', 'remote - us',
     'remote (us', 'remote, us', 'us remote', 'anywhere in the us',
     'new york', 'san francisco', 'los angeles', 'seattle', 'boston',
     'chicago', 'austin', 'denver', 'atlanta', 'miami', 'dallas', 'houston',
@@ -937,6 +937,14 @@ US_SUBSTRINGS = [
     # "Remote - NYC", "US Remote (New England)".
     'nyc', 'bay area', 'socal', 'new england',
 ]
+# 'usa' as a plain substring sat inside 'Busan' and 'Jerusalem'. An underscore
+# still ends the word, as in 'USA_TX_Richardson'.
+USA_WORD_RE = re.compile(r'(?<![a-z])usa(?![a-z])')
+
+
+def _names_us_place(low):
+    return bool(USA_WORD_RE.search(low)) or any(s in low for s in US_SUBSTRINGS)
+
 
 NON_US_SUBSTRINGS = [
     'canada', 'toronto', 'vancouver', 'montreal', 'ottawa', 'calgary',
@@ -1172,7 +1180,7 @@ def _is_foreign_only(part):
         return False
     # A comma-joined part can name US cities beside a foreign one: "New York
     # City, Toronto, Chicago, or Remote".
-    return not (any(s in low for s in US_SUBSTRINGS) or _has_strong_us_token(part))
+    return not (_names_us_place(low) or _has_strong_us_token(part))
 
 
 def title_places_abroad(title):
@@ -1218,7 +1226,7 @@ def _part_is_us(part):
         return True
     if state_names(p):
         return True
-    return any(s in low for s in US_SUBSTRINGS)
+    return _names_us_place(low)
 
 
 # Split on every delimiter that separates co-equal location options so a US
@@ -1315,7 +1323,7 @@ def is_us_location(location):
         return False
     if _is_us_remote(loc.strip()):
         return True
-    return any(s in loc for s in US_SUBSTRINGS)
+    return _names_us_place(loc)
 
 
 # Opaque Workday facility codes ("CASD14", "TXSA08UNK").
