@@ -233,7 +233,7 @@ for name, workflow in WORKFLOWS.items():
               'that catches up a run lost to a runner outage', 'schedule' in on)
 
 # The issue form offers exactly the categories the classifier can give, and
-# CONTRIBUTING.md names each one.
+# CONTRIBUTING.md's category list names each one.
 categories = set(classify.CATEGORY_NAMES) | set(classify.FALLBACK_CATEGORIES)
 form = yaml.safe_load((ROOT / '.github/ISSUE_TEMPLATE/add-job.yml').read_text())
 offered = {str(option) for field in form.get('body') or []
@@ -242,9 +242,14 @@ offered = {str(option) for field in form.get('body') or []
 check(f'issue form categories match the classifier: '
       f'missing {sorted(categories - offered)}, extra {sorted(offered - categories - {"Not sure"})}',
       offered == categories | {'Not sure'})
-contributing = (ROOT / 'CONTRIBUTING.md').read_text()
+# Read from the list line itself: 'Cloud Engineering' also sits in the 'Cloud
+# Engineering Intern' example, so a list that lost it still passed.
+category_line = next((line for line in (ROOT / 'CONTRIBUTING.md').read_text().splitlines()
+                      if line.startswith('Each row gets one of these categories')), '')
+check('CONTRIBUTING.md has its "Each row gets one of these categories" line',
+      bool(category_line))
 for name in sorted(categories):
-    check(f'CONTRIBUTING.md names the category {name!r}', name in contributing)
+    check(f"CONTRIBUTING.md's category list names {name!r}", name in category_line)
 
 # Every script is named in AGENTS.md, a workflow or a skill, so none goes
 # unexplained.
