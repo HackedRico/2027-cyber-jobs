@@ -2211,6 +2211,98 @@ def test_compare_runs_reports_retirements():
            '  - Todyl — Site Reliability Engineer II [orphaned]', ''])
 
 
+def test_compare_runs_counts_repeats_and_reads_every_event():
+    # 57 stored rows share a company and role with another row, and keyed on
+    # the title one DROP of two same-title rows vanished; REVIVED, RENAMED,
+    # SKIPPED and the count lines were never read. Both pairs exited 0.
+    board = 'Checking Acme (workday/acme)... ok (120 postings, 3.1s)\n'
+    drop = '  DROP [not-cyber] Acme — Security Officer I\n'
+    retire = '  RETIRED [vanished] Acme — SOC Analyst I\n'
+    before = compare_runs.parse_log(board + drop * 2 + retire
+                                    + '  RECLASSIFY [newgrad -> earlycareer] Acme — Analyst\n')
+    after = compare_runs.parse_log(board + drop + retire * 2
+                                   + '  DROP [no-level] Acme — Analyst\n'
+                                   '  REVIVED Acme — Cyber Intern\n'
+                                   '  RENAMED [company] Acme Corp -> Acme — SOC Analyst I\n')
+    check('compare_runs counts repeats and lists revives, renames and changed events',
+          compare_runs.diff(before, after),
+          ['Existing rows dropped only after (1):', '  - Acme — Analyst [no-level]', '',
+           'Existing rows dropped only before (1):',
+           '  - Acme — Security Officer I [not-cyber]', '',
+           'Existing rows retired only after (1):', '  - Acme — SOC Analyst I [vanished]', '',
+           'Existing rows reclassified only before (1):',
+           '  - Acme — Analyst: newgrad -> earlycareer', '',
+           'Closed rows revived only after (1):', '  - Acme — Cyber Intern', '',
+           'Existing rows whose company was renamed only after (1):',
+           '  - Acme Corp -> Acme — SOC Analyst I', ''])
+    reason = '  DROP [{}] Acme — Security Engineer\n'
+    check('compare_runs lists a drop whose reason changed on both sides',
+          compare_runs.diff(compare_runs.parse_log(board + reason.format('over-experienced')),
+                            compare_runs.parse_log(board + reason.format('no-level'))),
+          ['Existing rows dropped only after (1):', '  - Acme — Security Engineer [no-level]', '',
+           'Existing rows dropped only before (1):',
+           '  - Acme — Security Engineer [over-experienced]', ''])
+    # listings.json holds two CrowdStrike "Analyst I, Falcon Complete (Remote)"
+    # rows at one location, so a (title, old location) key repeats too.
+    repair = "  REPAIRED [location] Acme — SOC Analyst I: 'US' -> '{}'\n"
+    check('compare_runs counts repairs of same-title rows at one stored location',
+          compare_runs.diff(
+              compare_runs.parse_log(board + repair.format('Austin, TX')
+                                     + repair.format('Reston, VA')),
+              compare_runs.parse_log(board + repair.format('Reston, VA'))),
+          ['Existing rows whose location was repaired only before (1):',
+           "  - Acme — SOC Analyst I: 'US' -> 'Austin, TX'", ''])
+    summary = ('\nAdded 1 new listing(s), revived {}, reclassified 0, purged 0, '
+               'repaired 0 location(s) + folded 0 duplicate(s), retired 0 vanished '
+               '(0 more missing) + 0 orphaned, dropped 0 (none), '
+               'refreshed 0 category or clearance field(s)\n')
+    before = compare_runs.parse_log(board + summary.format(0))
+    after = compare_runs.parse_log(
+        board + 'Renormalized 57 location(s)\n'
+        'Stripped control characters from 3 row(s)\n'
+        "  SKIPPED [stored-form] Palo Alto Networks — Solutions Consultant 2 @ 'Narnia'\n"
+        + summary.format(1))
+    report = compare_runs.diff(before, after)
+    check('compare_runs lists a posting only one run skipped at insert',
+          report[:2], ['Postings skipped at insert only after (1):',
+                       "  - Palo Alto Networks — Solutions Consultant 2 @ 'Narnia' [stored-form]"])
+    check('compare_runs lists a changed renormalized count',
+          report[3:6], ['Locations renormalized:', '  - before: 0', '  - after:  57'])
+    check('compare_runs lists a changed control-character count',
+          report[7:10], ['Rows stripped of control characters:', '  - before: 0',
+                         '  - after:  3'])
+    check('compare_runs lists a changed closing summary',
+          [line[:34] for line in report[11:14]],
+          ['Closing summary:', '  - before: Added 1 new listing(s)',
+           '  - after:  Added 1 new listing(s)'])
+    check('compare_runs still reports identical runs as equivalent',
+          compare_runs.diff(after, after), [])
+
+
+@responses.activate
+def test_compare_runs_reads_the_lines_main_prints():
+    responses.get('https://boards-api.greenhouse.io/v1/boards/acme/jobs', json={'jobs': [
+        {'id': 1, 'title': 'SOC Analyst I', 'location': {'name': 'Austin, TX'},
+         'absolute_url': GH_JOBS.format('acme', 1), 'content': 'Entry level.'},
+        {'id': 2, 'title': 'Cyber Security Intern', 'location': {'name': 'Austin, TX'},
+         'absolute_url': GH_JOBS.format('acme', 2), 'content': 'Summer 2027 internship'}]})
+    rows = [_stored('Acme', 'SOC Analyst I', 1),
+            _stored('Acme Corp', 'Cyber Security Intern', 2, url='', closed=True,
+                    closed_date='2026-10-01'),
+            _stored('Acme Corp', 'Cyber Analyst I\x07', 3, url='', closed=True,
+                    closed_date='2026-10-01', location='Austin, Texas')]
+    out, _ = _run_main('greenhouse:\n  - name: Acme Corp\n    slug: acme\n', rows,
+                       ['--dry-run', '--board', 'greenhouse'])
+    run = compare_runs.parse_log(out)
+    check('compare_runs reads the REVIVED, RENAMED, Renormalized and Stripped lines '
+          'main prints',
+          (dict(run.revived), dict(run.renamed), run.renormalized, run.stripped),
+          ({'Acme Corp — Cyber Security Intern': 1},
+           {'Acme -> Acme Corp — SOC Analyst I': 1}, 1, 1))
+    check('compare_runs reads the closing summary main prints',
+          (run.summary or '').startswith('Added 0 new listing(s), revived 1,'), True)
+
+
 # --- Oracle: one host can carry two sites, one site name two hosts ------------
 def test_oracle_ids_and_labels_carry_host_and_site():
     config = {'oracle': [
@@ -2545,7 +2637,7 @@ def test_main_probes_each_missed_workday_row_once():
                                   analyst.replace(f'{base}/B', f'{base}/wday/cxs/t/B')]))
     check('the re-judged row logs a DROP line compare_runs reads',
           compare_runs.parse_log(out).dropped,
-          {'X — Security Analyst II': 'facility-security'})
+          {('X — Security Analyst II', 'facility-security'): 1})
     check('a dry run writes nothing', after, rows)
 
 
@@ -3044,6 +3136,8 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_check_links_skip_matches_the_parsed_host,
            test_board_health_forgets_a_removed_board,
            test_compare_runs_reports_retirements,
+           test_compare_runs_counts_repeats_and_reads_every_event,
+           test_compare_runs_reads_the_lines_main_prints,
            test_oracle_ids_and_labels_carry_host_and_site,
            test_second_workday_board_gets_its_own_history,
            test_oracle_ids_differ_across_hosts_on_one_site,
