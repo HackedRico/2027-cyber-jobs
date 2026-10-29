@@ -321,7 +321,12 @@ CASES = [
     ('Cybersecurity Analyst II (Windows Server 2026)', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
 
     # -- bug fix: bare 'safeguards' with a nuclear context is not AI security --
-    ('Radiological Safeguards Analyst', 'Remote (US)', '', False, None),
+    # Leveled, so the nuclear skip is the only rule that rejects them: PNNL and
+    # INL post nonproliferation work, and without 'nuclear' in the title
+    # FUNCTION_REJECT passes it.
+    ('Radiological Safeguards Analyst I', 'Remote (US)', '', False, None),
+    ('Nonproliferation Safeguards Intern', 'Richland, WA', '', False, None),
+    ('IAEA Safeguards Analyst I', 'Richland, WA', '', False, None),
 
     # -- bug fix: requires_experience anchors to a requirement context --
     # incidental "past 5 years" is not an experience requirement (AI role kept).
@@ -489,6 +494,9 @@ CASES = [
     ('Field Sales Engineer I - HVAC', 'Austin, TX', '', False, None),
     ('Sales Engineer (Field) Intern', 'Austin, TX', '', False, None),
     ('Customer Solutions Engineer I', 'Austin, TX', '', False, None),
+    # A non-technical job on a solutions team: only NON_TECH_ROLE_RE rejects these.
+    ('Solutions Architect Intern, Learning & Development', 'Austin, TX', '', False, None),
+    ('Solutions Consultant Intern - Contracts', 'Austin, TX', '', False, None),
     # A security title on a cloud or presales team keeps its security category.
     ('Cloud Vulnerability Analyst I', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
     ('Vulnerability Solutions Engineer, Associate', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
