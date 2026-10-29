@@ -780,10 +780,17 @@ def recruitee_location(job):
 
 # Only a listed code reads as a country: any three leading capitals also put a
 # US site named 'NYC Office' or 'ATL Office' abroad. A site whose code is
-# missing here falls back to its city and province.
-PINPOINT_FOREIGN_CODES = frozenset(
-    'ARE AUS BEL CAN CHE DEU DNK ESP FRA GBR HKG IND IRL ISR ITA JPN LTU MEX NLD NOR '
-    'NZL POL PRT SGP SWE'.split())
+# missing here falls back to its city and province. Each country is named the
+# way NON_US_RE reads it.
+PINPOINT_FOREIGN_COUNTRIES = {
+    'ARE': 'UAE', 'AUS': 'Australia', 'BEL': 'Belgium', 'CAN': 'Canada',
+    'CHE': 'Switzerland', 'DEU': 'Germany', 'DNK': 'Denmark', 'ESP': 'Spain',
+    'FRA': 'France', 'GBR': 'United Kingdom', 'HKG': 'Hong Kong', 'IND': 'India',
+    'IRL': 'Ireland', 'ISR': 'Israel', 'ITA': 'Italy', 'JPN': 'Japan',
+    'LTU': 'Lithuania', 'MEX': 'Mexico', 'NLD': 'Netherlands', 'NOR': 'Norway',
+    'NZL': 'New Zealand', 'POL': 'Poland', 'PRT': 'Portugal', 'SGP': 'Singapore',
+    'SWE': 'Sweden',
+}
 
 
 def scrape_pinpoint(company, slug, apply_hosts=()):
@@ -803,10 +810,13 @@ def scrape_pinpoint(company, slug, apply_hosts=()):
         # location.name leads with the site's ISO-3 country ('GBR Cambridge',
         # 'USA Remote - Central Time'), which city and province leave out: an
         # NCC Group site at 'Cambridge, Cambridgeshire' read as Massachusetts.
-        # A foreign site gets no location, as in recruitee_location.
+        # A foreign site keeps its country, as in _recruitee_part: a blank
+        # location is no evidence to the stored-row pass, so a row stored at
+        # that site before stayed open while its posting was live.
         code = re.match(r'([A-Z]{3})\b', name)
-        if code and code.group(1) in PINPOINT_FOREIGN_CODES:
-            location = ''
+        if code and code.group(1) in PINPOINT_FOREIGN_COUNTRIES:
+            location = ', '.join(p for p in (loc.get('city'), loc.get('province'),
+                                             PINPOINT_FOREIGN_COUNTRIES[code.group(1)]) if p)
         # Pinpoint marks a Manchester-based home worker 'remote' too (NCC Group
         # 'Associate SOC Analyst'), so only a USA location name reads as US.
         elif job.get('workplace_type') == 'remote' and name.upper().startswith('USA'):

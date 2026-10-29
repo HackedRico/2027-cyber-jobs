@@ -1139,6 +1139,9 @@ US_LOC = [
     ('Remote (EMEA)', False),
     ('Zürich', False),
     ('Bogotá, Colombia', False),
+    # scrape_pinpoint names the country of a site abroad after its city, and
+    # a city that shares a US name read as US beside a country not listed.
+    ('Cambridge, Lithuania', False),
     ('Office - USA - VA - Reston', True),
     # A US city whose name collides with a foreign one is rescued by ", ST".
     ('Vienna, VA', True),

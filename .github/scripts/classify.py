@@ -960,7 +960,8 @@ NON_US_SUBSTRINGS = [
     'poland', 'warsaw', 'krakow', 'czech', 'prague', 'romania', 'bucharest',
     'sweden', 'stockholm', 'norway', 'oslo', 'denmark', 'copenhagen',
     'finland', 'helsinki', 'switzerland', 'zurich', 'austria', 'vienna',
-    'estonia', 'tallinn', 'hungary', 'budapest', 'greece', 'athens',
+    'estonia', 'tallinn', 'lithuania', 'vilnius', 'hungary', 'budapest',
+    'greece', 'athens',
     'israel', 'tel aviv', 'jerusalem', 'haifa', 'herzliya', 'petah tikva',
     'ramat gan',
     # Named so the country Georgia is not read as the US state.

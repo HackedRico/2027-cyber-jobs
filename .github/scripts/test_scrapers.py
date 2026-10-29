@@ -1337,12 +1337,36 @@ def test_pinpoint_remote_is_us_only_for_usa_locations():
          'location': {'city': 'New York', 'province': 'New York', 'name': 'NYC Office'}},
     ]})
     jobs = sj.scrape_pinpoint('Acme', 'acme')
-    check('pinpoint gives a site outside the USA no location',
+    check('pinpoint names the country of a site outside the USA',
           [j['location'] for j in jobs],
-          ['', 'Remote', '', '', '', 'Austin, Texas', 'New York, New York'])
+          ['Manchester, Greater Manchester, United Kingdom', 'Remote',
+           'Remote, Greater London, United Kingdom',
+           'Cambridge, Cambridgeshire, United Kingdom', 'Cambridge, United Kingdom',
+           'Austin, Texas', 'New York, New York'])
     check('only the USA postings read as US',
           [sj.is_us_location(j['location']) for j in jobs],
           [False, True, False, False, False, True, True])
+    check('every listed country reads as abroad beside a US city name',
+          [c for c, name in sj.PINPOINT_FOREIGN_COUNTRIES.items()
+           if sj.is_us_location(f'Cambridge, {name}')], [])
+
+
+@responses.activate
+def test_pinpoint_site_abroad_drops_a_row_stored_as_us():
+    """A blank live location is no evidence, so the stored UK row stayed open."""
+    path = '/en/postings/0d6c1b8e-1111-4d4d-8f8f-123456789abc'
+    responses.get('https://nccgroup.pinpointhq.com/postings.json', json={'data': [
+        {'id': '4', 'title': 'Graduate Security Consultant', 'workplace_type': 'hybrid',
+         'path': path, 'location': {'city': 'Cambridge', 'province': 'Cambridgeshire',
+                                    'name': 'GBR Cambridge Science Park'}}]})
+    raw = sj.scrape_pinpoint('NCC Group', 'nccgroup')
+    row = {'company': 'NCC Group', 'role': 'Graduate Security Consultant',
+           'location': 'Cambridge, Cambridgeshire', 'type': 'newgrad',
+           'category': 'Offensive Security', 'clearance': False,
+           'url': f'https://nccgroup.pinpointhq.com{path}', 'source': 'Pinpoint'}
+    _, dropped, _ = _reevaluate([row], raw, {'NCC Group': True})
+    check('a pinpoint row stored at a UK site drops on its live posting', dropped,
+          [('NCC Group', 'Graduate Security Consultant', 'non-us-location')])
 
 
 @responses.activate
@@ -3783,6 +3807,7 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_long_silent_board_retires_its_rows,
            test_greenhouse_remote_keeps_a_remote_label,
            test_pinpoint_remote_is_us_only_for_usa_locations,
+           test_pinpoint_site_abroad_drops_a_row_stored_as_us,
            test_pinpoint_reads_the_requirement_sections,
            test_oracle_fetches_descriptions_for_candidates,
            test_eightfold_paginates_backs_off_and_gates_levels,
