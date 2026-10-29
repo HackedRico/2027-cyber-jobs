@@ -35,4 +35,4 @@
 ## Checklist
 
 - [ ] No senior/staff/manager, non-cyber (outside the charter's cloud, solutions and security-company engineering rules), or non-US listings are introduced by this change
-- [ ] I did not hand-edit `listings.json` or the README tables (they are rebuilt automatically)
+- [ ] I did not hand-edit `listings.json` or the README tables (they are rebuilt automatically), except to close a Community row named in a Report a Listing issue
