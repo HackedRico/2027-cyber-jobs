@@ -77,7 +77,7 @@ So an "Analyst II" posting that asks for 2 years is in, and a "Security Engineer
 The role is in the US or remote within the US. The form accepts:
 
 - `City, ST`, for example `Arlington, VA`
-- a full state name, for example `Arlington, Virginia`
+- a full state name, for example `Arlington, Virginia`. A town that shares a foreign city's name needs its state code: `Hamburg, NY` and `Vienna, VA`, not `Hamburg, New York` or `Vienna, Virginia`.
 - `Arlington VA` and `Washington, D.C.`
 - `Remote (US)` or `Remote`, and `United States`. A remote scope that names another region or leaves out the US, such as `Remote (Europe)`, `Remote (Worldwide)` or `Remote (Non-US)`, is out.
 
