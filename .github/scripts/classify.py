@@ -2404,6 +2404,52 @@ def purge_stale_listings(listings, today, max_age_days=60):
     return kept, removed
 
 
+def _twin_key(entry):
+    return tuple(entry.get(f, '').strip() for f in ('company', 'role', 'date_added'))
+
+
+def twin_ordinals(listings):
+    """Each row's number among its twins, the rows sharing company, role and date_added.
+
+    A row stamped with `twin` keeps that number unless an earlier twin holds
+    it; any other row takes its position among its twins, passing over a
+    number a stamped twin holds.
+    """
+    taken = {}
+    for entry in listings:
+        if isinstance(entry.get('twin'), int):
+            taken.setdefault(_twin_key(entry), set()).add(entry['twin'])
+    positions, held, ordinals = {}, set(), []
+    for entry in listings:
+        key = _twin_key(entry)
+        ordinal = entry.get('twin')
+        # The orphan pass renames a company's rows to the name companies.yml
+        # now uses, which can merge two groups that each stamped a twin 1.
+        if not isinstance(ordinal, int) or (key, ordinal) in held:
+            ordinal = positions.get(key, 0)
+            # A stamped twin can sit at a lower position once an earlier
+            # twin is gone, and two rows must never share an id.
+            while ordinal in taken.get(key, ()):
+                ordinal += 1
+            taken.setdefault(key, set()).add(ordinal)
+        held.add((key, ordinal))
+        positions[key] = positions.get(key, 0) + 1
+        ordinals.append(ordinal)
+    return ordinals
+
+
+def stamp_twins(listings):
+    """Store `twin` on each row twin_ordinals numbers 1 or more, unless it holds that number.
+
+    The board page keys a row and its Applied mark by that number, and while
+    it was only a position, removing an earlier twin renumbered the later ones.
+    A stamp twin_ordinals passed over is rewritten, so the new number sticks.
+    """
+    for entry, ordinal in zip(listings, twin_ordinals(listings), strict=True):
+        if ordinal and entry.get('twin') != ordinal:
+            entry['twin'] = ordinal
+
+
 def prune_seen(seen, today, ttl_days=45):
     """Drop scraper job-ids not refreshed within ttl_days; return a new dict.
 

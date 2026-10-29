@@ -1712,6 +1712,41 @@ def test_main_writes_run_events_with_inserted_row():
           (events['revived'], events['retired']), ([], []))
 
 
+@responses.activate
+def test_main_stamps_twins_before_the_purge():
+    """Purging RTX's closed Tewksbury twin renumbered the El Segundo and Tucson rows."""
+    responses.get('https://boards-api.greenhouse.io/v1/boards/acme/jobs', json={'jobs': []})
+    twin = {'company': 'RTX', 'role': 'Embedded Security Software Engineer I (Onsite)',
+            'type': 'newgrad', 'category': 'Security Engineering', 'clearance': False,
+            'source': 'Community', 'date_added': '2026-07-10'}
+    rows = [{**twin, 'location': 'Tewksbury, MA', 'url': '', 'closed': True,
+             'closed_date': '2026-07-18'},
+            {**twin, 'location': 'El Segundo, CA', 'url': 'https://rtx.example/job/1'},
+            {**twin, 'location': 'Tucson, AZ', 'url': 'https://rtx.example/job/2'}]
+    saved = (sj.LISTINGS_FILE, sj.SEEN_JOBS_FILE, sj.BOARD_BASELINE_FILE,
+             sj.rebuild_readme.main, sys.argv, os.getcwd())
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        (tmp / 'companies.yml').write_text('greenhouse:\n  - name: Acme\n    slug: acme\n')
+        try:
+            os.chdir(tmp)
+            sj.LISTINGS_FILE = tmp / 'listings.json'
+            sj.LISTINGS_FILE.write_text(json.dumps(rows))
+            sj.SEEN_JOBS_FILE = tmp / 'seen_jobs.json'
+            sj.BOARD_BASELINE_FILE = tmp / 'board_baseline.json'
+            sj.rebuild_readme.main = lambda: None
+            sys.argv = ['scrape_jobs.py', '--board', 'greenhouse']
+            sj.main()
+            stored = json.loads(sj.LISTINGS_FILE.read_text())
+        finally:
+            (sj.LISTINGS_FILE, sj.SEEN_JOBS_FILE, sj.BOARD_BASELINE_FILE,
+             sj.rebuild_readme.main, sys.argv, cwd) = saved
+            os.chdir(cwd)
+    check('the twins left after the purge keep the numbers they had',
+          [(r['location'], r.get('twin')) for r in stored],
+          [('El Segundo, CA', 1), ('Tucson, AZ', 2)])
+
+
 # --- scrape_workable: the widget API has flat fields and locations[] ---------
 WORKABLE_API = 'https://apply.workable.com/api/v1/widget/accounts/trailofbits'
 
@@ -3414,6 +3449,7 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_jibe_caps_pages, test_jibe_plumbs_through_config_and_retirement,
            test_new_boards_validate_config_and_plumb_through,
            test_main_writes_run_events_with_inserted_row,
+           test_main_stamps_twins_before_the_purge,
            test_workable_reads_locations_and_description,
            test_lever_appends_lists_to_description,
            test_smartrecruiters_fetches_descriptions_for_candidates,

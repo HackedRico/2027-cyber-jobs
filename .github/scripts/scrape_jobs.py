@@ -45,6 +45,7 @@ from classify import (
     reclassify_listings,
     renormalize_locations,
     requires_clearance,
+    stamp_twins,
     strip_html,
 )
 from common import normalize_url, security_company_flags, write_run_events
@@ -2665,6 +2666,12 @@ def main():
     print(f'\nScraped {len(raw_jobs)} raw postings; filtering...')
 
     listings = load_listings()
+
+    # Before any pass below removes a row. RTX posted 'Embedded Security Software
+    # Engineer I (Onsite)' in Tewksbury, El Segundo and Tucson on one day, and
+    # purging the closed Tewksbury row renumbered the other two, moving a
+    # student's Applied mark on El Segundo onto Tucson.
+    stamp_twins(listings)
 
     # Drop long-closed rows so the board doesn't accumulate dead postings.
     listings, purged = purge_stale_listings(listings, today)

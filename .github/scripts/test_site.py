@@ -3,6 +3,7 @@
 
     python .github/scripts/test_site.py
 """
+import copy
 import json
 import re
 import sys
@@ -15,6 +16,7 @@ import testkit  # noqa: F401
 
 sys.path.insert(0, str(Path(__file__).parent))
 import build_site as bs  # noqa: E402
+import classify  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 TODAY = date(2026, 9, 28)
@@ -124,6 +126,49 @@ check('page_data uses row_ids', sorted(r['id'] for r in data['rows']), sorted(tw
 real = json.loads((ROOT / 'listings.json').read_text(encoding='utf-8'))
 ids = bs.row_ids(real)
 check('row_ids is unique across listings.json', len(ids), len(set(ids)))
+
+# The scraper stamps `twin` on later twins before any pass removes a row.
+stamped = copy.deepcopy(real)
+classify.stamp_twins(stamped)
+check('stamping twins moves no id in listings.json', bs.row_ids(stamped), ids)
+check('stamping twins numbers only later twins',
+      all(e['twin'] >= 1 for e in stamped if 'twin' in e), True)
+
+# Purging the closed Tewksbury twin renumbered the other two by position and
+# moved an Applied mark from El Segundo onto Tucson.
+RTX = [row(company='RTX', role='Embedded Security Software Engineer I (Onsite)',
+           location=place, date_added='2026-10-10', **extra)
+       for place, extra in (('Tewksbury, MA', {'url': '', 'closed': True,
+                                               'closed_date': '2026-10-18'}),
+                            ('El Segundo, CA', {}), ('Tucson, AZ', {}))]
+before = dict(zip((r['location'] for r in RTX), bs.row_ids(RTX), strict=True))
+classify.stamp_twins(RTX)
+kept, _ = classify.purge_stale_listings(RTX, '2026-12-18')
+check('a purged twin leaves the stamped twins their ids',
+      dict(zip((r['location'] for r in kept), bs.row_ids(kept), strict=True)),
+      {'El Segundo, CA': before['El Segundo, CA'], 'Tucson, AZ': before['Tucson, AZ']})
+late = {k: v for k, v in RTX[1].items() if k != 'twin'} | {'location': 'Andover, MA'}
+check('a twin added after the stamp never takes a stamped twin\'s number',
+      len(set(bs.row_ids(kept + [late]))), 3)
+
+# The orphan pass renames rows to the company name companies.yml now uses.
+# Folding 'Acme Federal' into 'Acme' merged two groups that each held a
+# stamped twin 1, and Denver and Columbia shared one id.
+MERGED = [row(company=company, role='Security Analyst I', location=place,
+              date_added='2026-10-01')
+          for company, place in (('Acme', 'Austin, TX'), ('Acme', 'Denver, CO'),
+                                 ('Acme Federal', 'Reston, VA'),
+                                 ('Acme Federal', 'Columbia, MD'))]
+classify.stamp_twins(MERGED)
+denver = bs.row_ids(MERGED)[1]
+for r in MERGED:
+    r['company'] = 'Acme'
+merged_ids = bs.row_ids(MERGED)
+check('a merged group with one stamped number twice gives every row its own id',
+      (len(set(merged_ids)), merged_ids[1]), (4, denver))
+classify.stamp_twins(MERGED)
+check('stamping the merged group rewrites the later stamp and moves no id',
+      ([r.get('twin') for r in MERGED], bs.row_ids(MERGED)), ([None, 1, 2, 3], merged_ids))
 
 
 # --- build and feeds -------------------------------------------------------------

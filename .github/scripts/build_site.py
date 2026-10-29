@@ -26,6 +26,7 @@ from classify import (  # noqa: E402
     FALLBACK_CATEGORIES,
     REMOTE_WORD_RE,
     state_names,
+    twin_ordinals,
 )
 from rebuild_readme import NEW_DAYS, TABLE_TYPES, is_open  # noqa: E402
 
@@ -100,16 +101,12 @@ def row_id(entry, ordinal=0):
 def row_ids(listings):
     """row_id for each row of `listings`, in order.
 
-    Twins are numbered in listings.json order, which only appends and purges,
-    so a location rewrite never moves a row's number.
+    Twins are numbered by classify.twin_ordinals: the `twin` the scraper
+    stamps, else the position in listings.json order, which only appends and
+    purges, so a location rewrite never moves a row's number.
     """
-    seen = {}
-    ids = []
-    for entry in listings:
-        twin = tuple(entry.get(f, '').strip() for f in ('company', 'role', 'date_added'))
-        ids.append(row_id(entry, seen.get(twin, 0)))
-        seen[twin] = seen.get(twin, 0) + 1
-    return ids
+    return [row_id(entry, ordinal)
+            for entry, ordinal in zip(listings, twin_ordinals(listings), strict=True)]
 
 
 def derive_places(location):
