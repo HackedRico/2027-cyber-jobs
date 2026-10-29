@@ -1047,7 +1047,7 @@ DC_SPELLING_RE = re.compile(r'\bwashington\s*,?\s*d\.?\s*c\.?(?![a-z])',
                             re.IGNORECASE)
 
 
-def _state_names(text):
+def state_names(text):
     """Distinct state/territory abbreviations named in full in `text`."""
     found = []
     if DC_SPELLING_RE.search(text):
@@ -1087,7 +1087,7 @@ def _remote_state_scope(location):
     """
     if not REMOTE_WORD_RE.search(location):
         return None
-    names = _state_names(location)
+    names = state_names(location)
     if len(names) != 1:
         return None
     rest = REMOTE_WORD_RE.sub(' ', STATE_NAME_RE.sub(
@@ -1119,7 +1119,7 @@ def _is_us_remote(text):
     if not m:
         return False
     scope = m.group('scope')
-    if scope is None or US_TOKEN_RE.search(scope) or _state_names(scope):
+    if scope is None or US_TOKEN_RE.search(scope) or state_names(scope):
         return True
     if scope.strip().upper() in US_STATES:
         return True
@@ -1140,7 +1140,7 @@ def _is_bare_remote(part):
     # "Remote" or "Remote (Hybrid)", but not "Remote (US)" or "Remote (Texas)".
     low = part.strip().lower()
     return (_is_us_remote(low) and not US_TOKEN_RE.search(low)
-            and not _state_names(part))
+            and not state_names(part))
 
 
 def _is_foreign_only(part):
@@ -1193,7 +1193,7 @@ def _part_is_us(part):
             return True
     if US_TOKEN_RE.search(low):
         return True
-    if _state_names(p):
+    if state_names(p):
         return True
     return any(s in low for s in US_SUBSTRINGS)
 

@@ -21,10 +21,11 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 from classify import (  # noqa: E402
     CATEGORY_NAMES,
+    DC_SPELLING_RE,
     EMBEDDED_STATE_CODES,
     FALLBACK_CATEGORIES,
-    STATE_NAME_RE,
-    US_STATE_ABBRS,
+    REMOTE_WORD_RE,
+    state_names,
 )
 from rebuild_readme import NEW_DAYS, TABLE_TYPES, is_open  # noqa: E402
 
@@ -55,7 +56,9 @@ PAGE_FIELDS = ('company', 'role', 'location', 'type', 'category', 'clearance', '
                'date_added')
 
 STATE_CODE_RE = re.compile(r'\b([A-Z]{2})\b')
-REMOTE_RE = re.compile(r'\bremote\b', re.IGNORECASE)
+# "Austin, TX (Non-Remote)" read as remote, since the word is in it, and
+# "Not Remote" and "No Remote" say the same.
+NON_REMOTE_RE = re.compile(r'\b(?:non|not|no)[- ]?remote\b', re.IGNORECASE)
 # Characters XML 1.0 forbids: C0 controls but tab and newlines, lone
 # surrogates, U+FFFE and U+FFFF, plus DEL to match common.CONTROL_RE.
 # ElementTree writes them unchecked, so one scraped title carrying one made
@@ -109,19 +112,24 @@ def derive_places(location):
     """(states, remote) for a stored location string.
 
     States are postal codes in first-seen order. "Remote, GA" gives both GA and
-    remote, since a student in Georgia filtering by state wants it.
+    remote, since a student in Georgia filtering by state wants it. Both read
+    the words classify reads, so "Telework (US)" is remote and "Washington,
+    D.C." is DC, not Washington state.
     """
     states, remote = [], False
     for part in location.split(';'):
         part = part.strip()
         if not part:
             continue
-        if REMOTE_RE.search(part):
+        if REMOTE_WORD_RE.search(NON_REMOTE_RE.sub(' ', part)):
             remote = True
-        codes = [c for c in STATE_CODE_RE.findall(part) if c in EMBEDDED_STATE_CODES]
+        # The capital's spelling counts beside a coded state too, as in
+        # "Washington, D.C. / Arlington, VA", which stays one part.
+        codes = [c for c in STATE_CODE_RE.findall(DC_SPELLING_RE.sub(' DC ', part))
+                 if c in EMBEDDED_STATE_CODES]
         if not codes:
             # "Hybrid - Massachusetts - Boston, US - ... - Maryland - Columbia"
-            codes = [US_STATE_ABBRS[n.lower()] for n in STATE_NAME_RE.findall(part)]
+            codes = state_names(part)
         for code in codes:
             if code not in states:
                 states.append(code)

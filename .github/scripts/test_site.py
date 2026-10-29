@@ -53,6 +53,19 @@ PLACES = [
     ('Hybrid - Massachusetts - Boston, US - Headquarters - Maryland - Columbia',
      (['MA', 'MD'], False)),
     ('Aguadilla, PR', (['PR'], False)),
+    # The capital's spelling read as Washington state.
+    ('Washington, D.C.', (['DC'], False)),
+    ('Washington D.C.', (['DC'], False)),
+    ('Remote - Washington, D.C.', (['DC'], True)),
+    ('Washington, D.C. / Arlington, VA', (['DC', 'VA'], False)),
+    # The words classify reads as remote missed the Remote filter.
+    ('Virtual (US)', ([], True)),
+    ('Telework (US)', ([], True)),
+    ('Work From Home (US)', ([], True)),
+    ('US Virtual', ([], True)),
+    ('Austin, TX (Non-Remote)', (['TX'], False)),
+    ('Austin, TX (Not Remote)', (['TX'], False)),
+    ('Arlington, VA **NO REMOTE WORK**', (['VA'], False)),
     ('United States', ([], False)),
     ('', ([], False)),
 ]
