@@ -688,6 +688,9 @@ check('md_code shows an empty value', common.md_code('  '), '(empty)')
 check('md_escape breaks a bare url autolink',
       common.md_escape('see https://evil.example or www.evil.example'),
       'see https&#8203;://evil.example or www&#8203;.evil.example')
+check('md_escape breaks an autolink after an underscore',
+      common.md_escape('a_www.evil.example b_https://evil.example'),
+      'a\\_www&#8203;.evil.example b\\_https&#8203;://evil.example')
 
 # A submitted Category of this shape once closed the verdict's code span and
 # rendered a phishing link and @mentions in the bot's comment.

@@ -61,7 +61,9 @@ def normalize_url(url):
         return url
 
 
-_AUTOLINK_RE = re.compile(r'\b(https?|ftp)(?=://)|\b(www)(?=\.)', re.IGNORECASE)
+# No \b before either: '_' is a word character and GitHub still links
+# "_www.evil.example" and "_https://evil.example".
+_AUTOLINK_RE = re.compile(r'(https?|ftp)(?=://)|(www)(?=\.)', re.IGNORECASE)
 # Only an & that opens a character reference: "&#64;octocat" rendered as a
 # live @octocat in a release, while "Cloud & Infra" should stay as typed.
 _ENTITY_START_RE = re.compile(r'&(?=#|[A-Za-z][A-Za-z0-9]*;)')
