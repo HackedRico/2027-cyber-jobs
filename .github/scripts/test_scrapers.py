@@ -355,6 +355,9 @@ def test_slug_validation_blocks_host_reparenting():
     check('pinpoint rejects a slug with @', sj.scrape_pinpoint('X', 'a@b'), None)
     check('workday rejects a tenant with /', sj.scrape_workday('X', 'evil.com/', 'wd5', 'B'), None)
     check('oracle rejects a host with a path', sj.scrape_oracle('X', 'evil.com/x', 'CX_1'), None)
+    # Outside responses, so a scraper that skips its guard raises NetworkAccess
+    # instead of failing on an unmocked url and returning None anyway.
+    check('jibe rejects a host with a path', sj.scrape_jibe('X', 'evil.com/x'), None)
 
 
 # --- a total failure is None (FAILED), not [] (empty board) -------------------
@@ -1756,7 +1759,6 @@ def test_jibe_none_vs_empty():
     responses.reset()
     responses.get(JB_API, status=404)
     check('jibe dead host -> None', sj.scrape_jibe('Acme', 'careers.acme.org'), None)
-    check('jibe rejects a host with a path', sj.scrape_jibe('X', 'evil.com/x'), None)
 
 
 @responses.activate
