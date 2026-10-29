@@ -14,7 +14,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**174** internships · **48** new grad · **190** early career open · **66** added in the last 7 days · **191** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 29, 2026
+**174** internships · **48** new grad · **189** early career open · **66** added in the last 7 days · **191** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 29, 2026
 
 <!-- /STATS -->
 
@@ -580,7 +580,6 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 | SailPoint | Associate Security Software Engineer<br><sub>Security Engineering</sub> | <a href="https://sailpoint.wd1.myworkdayjobs.com/SailPoint/job/Remote-Texas-USA/Associate-Security-Software-Engineer_R013786"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: SailPoint Associate Security Software Engineer"></a> | <details><summary>**2 locations**</summary>Remote (US)<br>United States</details> | Sep 9 |
 | Amazon | Security Engineer II - AMZ9802161<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10487669/security-engineer-ii-amz9802161"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer II - AMZ9802161"></a> | Austin, TX | Sep 5 |
 | ↳ | Security Engineer II, US Amazon Dedicated Cloud Security 🇺🇸<br><sub>Cloud &amp; Infra Security</sub> | <a href="https://www.amazon.jobs/en/jobs/10498424/security-engineer-ii-us-amazon-dedicated-cloud-security"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer II, US Amazon Dedicated Cloud Security"></a> | Jessup, MD | Sep 5 |
-| ↳ | Security Engineer II, Enterprise Protection Program<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10505020/security-engineer-ii-enterprise-protection-program"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer II, Enterprise Protection Program"></a> | Herndon, VA | Sep 5 |
 | Amentum | Cyber Intelligence Analyst – Junior 🇺🇸<br><sub>Threat Intelligence</sub> | <a href="https://pae.wd1.myworkdayjobs.com/Amentum_Careers/job/US-DC-Washington/Cyber-Intelligence-Analyst---Junior_R0165208"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amentum Cyber Intelligence Analyst – Junior"></a> | Washington, DC | Sep 5 |
 | Dragos | Junior OT/ICS Lab Engineer<br><sub>Engineering @ Security Co</sub> | <a href="https://job-boards.greenhouse.io/dragos/jobs/5367349008"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Dragos Junior OT/ICS Lab Engineer"></a> | Hanover, MD | Sep 5 |
 | Fireblocks | Front Line Support Engineer - East Coast<br><sub>Engineering @ Security Co</sub> | <a href="https://www.fireblocks.com/careers/position?gh_jid=4704413006"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Fireblocks Front Line Support Engineer - East Coast"></a> | United States | Sep 5 |
@@ -630,11 +629,12 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 <!-- CLOSED_START earlycareer -->
 
-<details><summary>🔒 178 closed in the last 60 days</summary>
+<details><summary>🔒 179 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
 | Abnormal AI | Software Engineer 1 - Data Platforms | Oct 29 |
+| Amazon | Security Engineer II, Enterprise Protection Program | Oct 29 |
 | Arctic Wolf | Professional Services Engineer 1 | Oct 29 |
 | GDIT | Tier I Security Operations Center (SOC) Analyst | Oct 29 |
 | Northrop Grumman | Associate Classified Cybersecurity Analyst - Secret | Oct 29 |
