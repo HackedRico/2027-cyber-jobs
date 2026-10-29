@@ -59,8 +59,9 @@ behind `main`. Rebase before opening a PR, and take `main` for any conflict in a
   of the charter (cyber under the company's flag, level, experience cap); `evaluate_job` in
   `scrape_jobs.insert_new_listings` judges that before a row is stored. Rerun the writer by
   hand with `allow_mass_close` once the cause is understood.
-- `build_site.py` turns `site/` (plain HTML, CSS and JS, no build step) and `listings.json` into
-  the untracked `_site/`: the Pages board, its trimmed data file and the Atom feeds.
+- `build_site.py` turns `site/` (plain HTML, CSS and JS, no build step), `listings.json` and the
+  last scrape's date in `.github/data/health.json` into the untracked `_site/`: the Pages board,
+  its trimmed data file and the Atom feeds.
   `pages.yml` deploys it after each writer finishes, because a push made with `GITHUB_TOKEN`
   starts no Pages build, and every six hours, because a follow-on run can be lost to a runner
   outage before it starts. `test_site.py` covers it.

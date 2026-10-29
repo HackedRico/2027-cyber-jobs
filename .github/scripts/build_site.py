@@ -32,6 +32,10 @@ from rebuild_readme import NEW_DAYS, TABLE_TYPES, is_open  # noqa: E402
 LISTINGS_FILE = Path('listings.json')
 SITE_SRC = Path('site')
 DEFAULT_OUT = Path('_site')
+# Only a full scrape writes it, so its date is the last full scrape, even one
+# whose boards all failed. pages.yml rebuilds every six hours, and the build's
+# own date moved the page's "Updated" stamp on with no scrape behind it.
+HEALTH_FILE = Path('.github/data/health.json')
 
 SITE_URL = 'https://hackedrico.github.io/2027-cyber-jobs/'
 REPO_URL = 'https://github.com/HackedRico/2027-cyber-jobs'
@@ -143,6 +147,15 @@ def _parse_date(value):
         return None
 
 
+def last_scrape_date(health_file=HEALTH_FILE):
+    """The date in `health_file`, or None when it is missing or unreadable."""
+    try:
+        value = json.loads(Path(health_file).read_text(encoding='utf-8'))['date']
+        return datetime.strptime(value, '%Y-%m-%d').date()
+    except (OSError, ValueError, KeyError, TypeError):
+        return None
+
+
 def select_rows(listings, today):
     """Open rows, plus rows closed in the last CLOSED_WINDOW_DAYS days."""
     cutoff = today - timedelta(days=CLOSED_WINDOW_DAYS)
@@ -178,12 +191,12 @@ def _newest_first(rows):
                   reverse=True)
 
 
-def page_data(listings, today):
-    """The object written to _site/listings.json."""
+def page_data(listings, today, generated=None):
+    """The object written to _site/listings.json, stamped `generated` or `today`."""
     ids = {id(e): rid for e, rid in zip(listings, row_ids(listings), strict=True)}
     rows = _newest_first(page_row(e, ids[id(e)]) for e in select_rows(listings, today))
     return {
-        'generated': today.isoformat(),
+        'generated': (generated or today).isoformat(),
         'new_days': NEW_DAYS,
         'types': list(TABLE_TYPES),
         'categories': CATEGORY_NAMES + [c for c in FALLBACK_CATEGORIES
@@ -249,7 +262,8 @@ def build_feed(rows, kind=None):
                   + ET.tostring(feed, encoding='unicode') + '\n')
 
 
-def build(out=DEFAULT_OUT, listings_file=LISTINGS_FILE, src=SITE_SRC, today=None):
+def build(out=DEFAULT_OUT, listings_file=LISTINGS_FILE, src=SITE_SRC, today=None,
+          health_file=HEALTH_FILE):
     """Write the whole site to `out`, replacing whatever was there."""
     today = today or date.today()
     listings = json.loads(Path(listings_file).read_text(encoding='utf-8'))
@@ -263,7 +277,7 @@ def build(out=DEFAULT_OUT, listings_file=LISTINGS_FILE, src=SITE_SRC, today=None
         else:
             child.unlink()
     shutil.copytree(src, out, dirs_exist_ok=True)
-    data = page_data(listings, today)
+    data = page_data(listings, today, last_scrape_date(health_file))
     (out / 'listings.json').write_text(
         json.dumps(data, ensure_ascii=False, separators=(',', ':')), encoding='utf-8')
     for kind in (None, *TABLE_TYPES):

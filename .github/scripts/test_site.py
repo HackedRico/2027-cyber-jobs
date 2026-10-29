@@ -174,6 +174,30 @@ beta = data['rows'][1]
 check('site data carries states and remote', (beta['states'], beta['remote']), (['VA'], True))
 
 
+# --- the Updated stamp -------------------------------------------------------------
+# pages.yml rebuilds every six hours, and stamping the build's own date said
+# the board was updated with no scrape behind it.
+def generated_with(health_text):
+    with tempfile.TemporaryDirectory() as tmp:
+        src = Path(tmp) / 'listings.json'
+        src.write_text(json.dumps(LISTINGS), encoding='utf-8')
+        health = Path(tmp) / 'health.json'
+        if health_text is not None:
+            health.write_text(health_text, encoding='utf-8')
+        out = Path(tmp) / '_site'
+        bs.build(out, listings_file=src, src=ROOT / 'site', today=TODAY, health_file=health)
+        return json.loads((out / 'listings.json').read_text(encoding='utf-8'))['generated']
+
+
+check('the page is stamped with the last scrape in health.json',
+      generated_with(json.dumps({'date': '2026-09-26', 'boards': 410, 'ok': 396})),
+      '2026-09-26')
+check('the page falls back to today without a readable health.json',
+      [generated_with(text) for text in (None, '{"date": "2026-09', '[]', '{"date": 20260926}',
+                                         '{"boards": 410}')],
+      ['2026-09-28'] * 5)
+
+
 def entries(xml_text):
     feed = ET.fromstring(xml_text)
     check('feed root is an Atom feed', feed.tag, f'{A}feed')
