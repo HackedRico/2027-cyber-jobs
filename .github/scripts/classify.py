@@ -1183,6 +1183,14 @@ def _is_foreign_only(part):
     return not (_names_us_place(re.sub(NOT_US_RE, ' ', low)) or _has_strong_us_token(part))
 
 
+# A title puts the state code mid-string or in parentheses, where the
+# end-anchored _us_region_code misses it: "Cyber Security Engineer I (Vienna,
+# VA)" and Northrop's "2027 Engineering Intern - Melbourne (FL) (Evergreen)"
+# read as abroad and were rejected at their own US site.
+TITLE_STATE_PAREN_RE = re.compile(r'\s*\(([A-Z]{2})\)')
+TITLE_SEGMENT_RE = re.compile(r'\s+[-–—]\s+|[()|•/]|\*\*')
+
+
 def title_places_abroad(title):
     """True when the title names a foreign place and no US one.
 
@@ -1190,7 +1198,11 @@ def title_places_abroad(title):
     'ABAD Cyber Security Systems Engineer Associate**This position is located
     at Ramstein AFB, Germany**' was stored as Remote (US).
     """
-    return _is_foreign_only(' '.join(title.split()))
+    title = ' '.join(title.split())
+    if not _is_foreign_only(title):
+        return False
+    segments = TITLE_SEGMENT_RE.split(TITLE_STATE_PAREN_RE.sub(r', \1', title))
+    return not any(_us_region_code(s.strip()) for s in segments)
 
 
 def _part_is_us(part):

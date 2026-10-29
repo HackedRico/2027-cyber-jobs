@@ -294,6 +294,16 @@ CASES = [
     ('Technology - Cyber Security, Summer Analyst, Warsaw 2027', 'Remote (US)', '', False, None),
     # ...but a title naming a US place, or a foreign city's US namesake, stays.
     ('Cyber Security Analyst I - Dublin, OH', 'Dublin, OH', '', False, ('earlycareer', 'Security Engineering')),
+    # ...with the state code mid-title or in parentheses, as Northrop writes it.
+    ('Cyber Security Engineer I (Vienna, VA)', 'Vienna, VA', '', False, ('earlycareer', 'Security Engineering')),
+    ('Junior Cyber Analyst - Vienna, VA - Secret Clearance', 'Vienna, VA', '', False,
+     ('earlycareer', 'Security Engineering')),
+    ('2027 Cyber Software Engineer Intern - Melbourne (FL) (Evergreen)', 'Melbourne, FL', '', False,
+     ('intern', 'Security Engineering')),
+    ('Cybersecurity Intern - Athens, GA (Summer 2027)', 'Athens, GA', '', False, ('intern', 'Security Engineering')),
+    # ...but a foreign place's own code in parentheses is still abroad.
+    ('Security Analyst I (Tel Aviv, IL)', 'Remote (US)', '', False, None),
+    ('Cyber Analyst Intern - Toronto (CA)', 'Remote (US)', '', False, None),
     # 'usa' inside 'Jerusalem' read as a US place and kept this title on.
     ('Cyber Security Analyst I - Jerusalem', 'Remote (US)', '', False, None),
     ('Junior Security Analyst (Remote, USA)', 'Remote (US)', '', False, ('earlycareer', 'Security Engineering')),
