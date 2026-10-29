@@ -2046,7 +2046,9 @@ def test_retire_orphaned_listings():
         _listing('Todyl', 'Already Closed', '', source='Ashby', closed=True),
     ]
     retired, renamed = sj.retire_orphaned_listings(listings, config, '2026-09-28')
-    check('nothing is renamed without a live posting', renamed, [])
+    check('without a live posting only a case-only difference is renamed',
+          [(e['role'], old, e['company']) for e, old in renamed],
+          [('Case Differs', 'ACME', 'Acme')])
     check('rows whose company has no board for their source retire',
           [e['role'] for e in retired], ['Site Reliability Engineer II', 'Moved Off Workday'])
     check('an orphaned row is blanked the way the revive path expects',
@@ -2875,6 +2877,59 @@ def test_orphan_pass_renames_a_renamed_company():
     check('the insert pass does not add the renamed req again', added, [])
 
 
+def test_orphan_pass_takes_the_configured_spelling():
+    """A 'Crowdstrike' row under a 'CrowdStrike' entry was never judged again.
+
+    The orphan pass compared names casefolded and kept the row, while the
+    re-eval and vanished passes key on the exact name, so a closed req at
+    such a row stayed open and its URL's req id kept check_links away too.
+    """
+    config = {'greenhouse': [{'name': 'CrowdStrike', 'slug': 'crowdstrike',
+                              'security_company': True}]}
+    listings = [_stored('Crowdstrike', 'SOC Analyst I', 111),
+                _stored('Crowdstrike', 'Security Engineer I', 222),
+                _stored('CrowdStrike', 'Threat Analyst I', 333)]
+    retired, renamed = sj.retire_orphaned_listings(listings, config, '2026-10-01')
+    check('a case-only rename takes the configured spelling, with no live posting needed',
+          ([e['role'] for e in retired], [(e['role'], old, e['company']) for e, old in renamed]),
+          ([], [('SOC Analyst I', 'Crowdstrike', 'CrowdStrike'),
+                ('Security Engineer I', 'Crowdstrike', 'CrowdStrike')]))
+    raw = [_live('CrowdStrike', 'SOC Analyst I', 111), _live('CrowdStrike', 'Threat Analyst I', 333)]
+    sj.retire_vanished_listings(listings, raw, '2026-10-01')
+    check('...so the vanished pass judges the renamed rows',
+          listings[1].get('missing_since'), '2026-10-01')
+
+
+def test_rename_on_a_failed_run_revives_instead_of_re_adding():
+    """A rename whose first run hit a failed fetch announced every live req again.
+
+    No live req named an owner, so each row retired as orphaned with its url
+    blanked, and the next run inserted every posting as NEW under the new name.
+    """
+    config = {'greenhouse': [{'name': 'Acme Corp', 'slug': 'acme'}]}
+    listings = [_stored('Acme', 'SOC Analyst I', 1, date_added='2026-09-01'),
+                _stored('Acme', 'Cyber Analyst I', 2, date_added='2026-09-01')]
+    retired, _ = sj.retire_orphaned_listings(listings, config, '2026-10-01', [])
+    check('with the board down the rows retire, keeping last_url',
+          [(e['url'], e.get('closed'), e.get('last_url')) for e in retired],
+          [('', True, GH_JOBS.format('acme', 1)), ('', True, GH_JOBS.format('acme', 2))])
+    raw = [dict(_live('Acme Corp', 'SOC Analyst I', 1, 'Monitor alerts.'),
+                url=GH_JOBS.format('acme', 1)),
+           dict(_live('Acme Corp', 'Cyber Analyst I', 2, 'Entry level.'),
+                url=GH_JOBS.format('acme', 2))]
+    retired, renamed = sj.retire_orphaned_listings(listings, config, '2026-10-02', raw)
+    check('next run the closed rows take the new name',
+          (retired, [(old, e['company'], e.get('closed')) for e, old in renamed]),
+          ([], [('Acme', 'Acme Corp', True), ('Acme', 'Acme Corp', True)]))
+    added, revived = sj.insert_new_listings(listings, raw, {}, {}, '2026-10-02')
+    check('...and come back as revived rows, not new ones',
+          (added, [(r['company'], r['url'], r['date_added']) for r in revived]),
+          ([], [('Acme Corp', GH_JOBS.format('acme', 1), '2026-09-01'),
+                ('Acme Corp', GH_JOBS.format('acme', 2), '2026-09-01')]))
+    check('a renamed row is not renamed again',
+          sj.retire_orphaned_listings(listings, config, '2026-10-03', raw), ([], []))
+
+
 def test_failed_board_holds_its_companys_rows():
     """Idaho National Laboratory has two Oracle sites; one failed, one answered."""
     host = 'https://inl.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/'
@@ -3267,6 +3322,8 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_revive_hands_a_community_row_to_its_board,
            test_revive_skips_a_url_an_open_row_holds,
            test_orphan_pass_renames_a_renamed_company,
+           test_orphan_pass_takes_the_configured_spelling,
+           test_rename_on_a_failed_run_revives_instead_of_re_adding,
            test_failed_board_holds_its_companys_rows,
            test_failed_boards_do_not_grow_the_silent_streak,
            test_orphan_pass_covers_jibe_rows,

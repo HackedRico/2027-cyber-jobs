@@ -1885,7 +1885,14 @@ def retire_orphaned_listings(listings, config, today, raw_jobs=()):
     A company renamed in companies.yml orphans its rows by name while their
     reqs are still live. An open row whose req is in this run's `raw_jobs`
     under another company takes that company's name instead of retiring, so
-    the insert pass does not add the same req again beside a closed copy.
+    the insert pass does not add the same req again beside a closed copy. A
+    rename that lands on a run where the board fails finds no live req, so
+    the rows retire; a retired row keeps `last_url`, and once its req is
+    live again under the new name the row takes that name too, closed, and
+    the insert pass revives it instead of announcing every req as NEW. An
+    open row whose name differs from the configured one only in case takes
+    the configured spelling: every other pass keys on the exact name, so a
+    'Crowdstrike' row under a 'CrowdStrike' entry was never judged again.
 
     Guardrails, all in the keep direction:
       * Community rows and any source outside the config-driven ATSs (Amazon
@@ -1894,19 +1901,30 @@ def retire_orphaned_listings(listings, config, today, raw_jobs=()):
         truncated companies.yml cannot close the board.
     """
     sources = CONFIGURED_SOURCES | {key.lower() for key in config}
-    configured = {(str(entry.get('name', '')).casefold(), kind.lower())
-                  for kind, entries in config.items() if isinstance(entries, list)
-                  for entry in entries if isinstance(entry, dict)}
+    configured, spelling = set(), {}
+    for kind, entries in config.items():
+        for entry in entries if isinstance(entries, list) else ():
+            if isinstance(entry, dict):
+                name = str(entry.get('name', ''))
+                configured.add((name, kind.lower()))
+                spelling.setdefault((name.casefold(), kind.lower()), name)
     if not configured:
         return [], []
     live_owner = None
     retired, renamed = [], []
     for entry in listings:
         source = (entry.get('source') or '').lower()
+        company = entry.get('company', '')
         if (source not in sources or entry.get('source') == 'Community'
-                or entry.get('closed') or not entry.get('url')):
+                or (company, source) in configured):
             continue
-        if (entry.get('company', '').casefold(), source) in configured:
+        is_open = bool(entry.get('url')) and not entry.get('closed')
+        url = entry['url'] if is_open else entry.get('last_url')
+        if not url:
+            continue
+        if is_open and (company.casefold(), source) in spelling:
+            renamed.append((entry, company))
+            entry['company'] = spelling[(company.casefold(), source)]
             continue
         if live_owner is None:
             live_owner = {}
@@ -1914,14 +1932,16 @@ def retire_orphaned_listings(listings, config, today, raw_jobs=()):
                 identity = _req_identity(job.get('board', ''), job.get('url', ''))
                 if identity and job.get('company'):
                     live_owner.setdefault(identity, job['company'])
-        owner = live_owner.get(_req_identity(entry.get('source', ''), entry['url']))
-        if owner and owner != entry.get('company'):
-            renamed.append((entry, entry.get('company', '')))
+        owner = live_owner.get(_req_identity(entry.get('source', ''), url))
+        if owner and owner != company:
+            renamed.append((entry, company))
             entry['company'] = owner
             entry.pop('missing_since', None)
             continue
-        _retire(entry, today)
-        retired.append(entry)
+        if is_open:
+            entry['last_url'] = entry['url']
+            _retire(entry, today)
+            retired.append(entry)
     return retired, renamed
 
 
