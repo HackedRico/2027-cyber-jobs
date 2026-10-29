@@ -1526,6 +1526,20 @@ def normalize_location(location, mark_us=True):
     `mark_us=False` returns the bare form, so a caller can see a stored
     location decay ("Ma, US" -> "Ma") instead of reading the marker as US.
     """
+    # The workplace tag comes off after the shape rules have run, so one pass
+    # stored 'Remote (Hybrid)' as 'Remote' and the next scrape's renormalize
+    # made it 'Remote (US)'. A repost keyed on the first form then landed as a
+    # second open row, and check_outputs.py failed every scrape after it.
+    result = _normalize_pass(location, mark_us)
+    for _ in range(3):
+        again = _normalize_pass(result, mark_us)
+        if not again or again == result:
+            break
+        result = again
+    return result
+
+
+def _normalize_pass(location, mark_us):
     if not location:
         return location
     seen = []

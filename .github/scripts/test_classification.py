@@ -829,6 +829,14 @@ NORM = [
     ('Shakopee, MN (GHQ)', 'Shakopee, MN'),
     ('HQ - Sunnyvale (Office)', 'Sunnyvale, CA'),
     ('San Francisco Office', 'San Francisco, CA'),
+    # ...and the shape under the tag is still normalized in the same call:
+    # 'Remote (Hybrid)' was stored as 'Remote', renormalized to 'Remote (US)'
+    # a scrape later, and a repost keyed on 'Remote' became an open duplicate.
+    ('Remote (Hybrid)', 'Remote (US)'),
+    ('US - Remote (Hybrid)', 'Remote (US)'),
+    ('Remote - Virginia (Hybrid)', 'Remote, VA'),
+    ('Virginia - Herndon (Hybrid)', 'Herndon, VA'),
+    ('VA-Dahlgren (Hybrid)', 'Dahlgren, VA'),
     # Remote spellings without a US token still mean US remote; a region does not.
     ('Remote-Friendly (Travel-Required)', 'Remote (US)'),
     ('Remote (Any State)', 'Remote (US)'),
