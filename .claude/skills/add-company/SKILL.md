@@ -26,9 +26,11 @@ scraper reads it.
 2. **Decide `security_company`.** Set it to `true` only when security products or services
    are the company's main business, because it admits every engineering title from that
    board. A bank with a security team is not one; a pentest consultancy is.
-3. **Write the entry** under the platform key, alphabetical by name, with exactly the fields
-   the CONTRIBUTING.md table gives for that platform. No comments in this file; the reason
-   for anything unusual goes in the commit message.
+3. **Write the entry** once a search of `companies.yml` for the employer's name finds none; a
+   tracked employer whose board stopped working is `triage-board` work. Put it under the
+   platform key, alphabetical by name, with exactly the fields the CONTRIBUTING.md table
+   gives for that platform. No comments in this file; the reason for anything unusual goes in
+   the commit message.
 4. **Prove it.** Run the platform alone:
 
    ```bash
@@ -54,16 +56,17 @@ scraper reads it.
 
 ## Example
 
-Careers URL `https://jobs.ashbyhq.com/wiz` is Ashby with slug `wiz`. Wiz sells cloud
-security, so:
+A made-up employer, so the output lines show the shape of a pass, not a real run. Acme's own
+site links to `https://jobs.ashbyhq.com/acme`, which is Ashby with slug `acme`. Acme sells
+endpoint security, so:
 
 ```yaml
 ashby:
-- name: Wiz
-  slug: wiz
+- name: Acme
+  slug: acme
   security_company: true
 ```
 
-`--dry-run --board ashby` then shows `Checking Wiz (ashby/wiz)... ok (84 postings, 1.2s)`,
-and `check_slugs.py --board ashby` shows `ashby/Wiz (wiz): board name "Wiz", website
-https://www.wiz.io/`.
+`--dry-run --board ashby` then shows `Checking Acme (ashby/acme)... ok (N postings, ...)` with
+N above zero, and `check_slugs.py --board ashby` shows `ashby/Acme (acme): board name "Acme",
+website https://www.acme.com/`.
