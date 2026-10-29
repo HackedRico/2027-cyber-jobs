@@ -1467,13 +1467,18 @@ def _normalize_single_location(location):
         if abbr:
             return f'{m.group(2).strip()}, {abbr}'
     # PANW-style Workday: "Office - USA - CA - Headquarters" / "Office - USA - TX"
-    m = re.fullmatch(r'(?:Office|Remote|Virtual Location)\s*-\s*USA?\s*-\s*'
+    m = re.fullmatch(r'(Office|Remote|Virtual Location)\s*-\s*USA?\s*-\s*'
                      r'([A-Z]{2})(?:\s*-\s*(.+))?', location, flags=re.IGNORECASE)
     if m:
-        state = m.group(1).upper()
-        site = (m.group(2) or '').strip()
-        if site and site.lower() not in ('headquarters', 'hq', 'remote', 'office'):
-            return f'{site}, {state}'
+        state = m.group(2).upper()
+        site = (m.group(3) or '').strip()
+        named = site if site.lower() not in ('headquarters', 'hq', 'remote', 'office') else ''
+        # 'Remote - USA - TX' is a remote role, not an office: it was stored
+        # as 'TX (US)', which the board's Remote filter does not list.
+        if m.group(1).lower() != 'office' and state in US_STATES:
+            return f'Remote - {named}, {state}' if named else f'Remote, {state}'
+        if named:
+            return f'{named}, {state}'
         return f'{state} (US)' if state in US_STATES else (site or 'United States')
     # "Virtual Location - Virginia, VA" / "Virtual Location - Remote" -> remote
     if re.fullmatch(r'Virtual Location\s*-\s*.+', location, flags=re.IGNORECASE):

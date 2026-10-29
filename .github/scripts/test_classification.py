@@ -821,6 +821,10 @@ NORM = [
     ('Office - USA - VA - Reston', 'Reston, VA'),
     ('Office - USA - CA - Headquarters', 'CA (US)'),
     ('Office - USA - TX', 'TX (US)'),
+    # ...and its Remote and Virtual Location forms stay remote.
+    ('Remote - USA - TX', 'Remote, TX'),
+    ('Remote - USA - VA - Reston', 'Remote - Reston, VA'),
+    ('Virtual Location - USA - CA - Headquarters', 'Remote, CA'),
     ('Virtual Location - Virginia, VA', 'Remote (US)'),
     # Opaque facility codes are dropped; a real city in the same multi-location
     # string survives.
