@@ -1179,8 +1179,8 @@ def _is_foreign_only(part):
     if not NON_US_RE.search(low):
         return False
     # A comma-joined part can name US cities beside a foreign one: "New York
-    # City, Toronto, Chicago, or Remote".
-    return not (_names_us_place(low) or _has_strong_us_token(part))
+    # City, Toronto, Chicago, or Remote". The USA in "Excluding USA" is not one.
+    return not (_names_us_place(re.sub(NOT_US_RE, ' ', low)) or _has_strong_us_token(part))
 
 
 def title_places_abroad(title):

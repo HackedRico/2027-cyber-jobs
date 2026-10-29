@@ -1229,6 +1229,9 @@ US_LOC = [
     ('Remote (Outside US)', False),
     ('Austin, TX; Remote (Non-US)', True),
     ('Remote (Non-US/EMEA)', False),
+    # A bare Remote beside a part that excludes the US is remote from abroad.
+    ('Remote | Excluding USA', False),
+    ('Remote (US) | Excluding USA', True),
     # ...but one that excludes part of a US scope leaves it US.
     ('Remote - US (excluding U.S. territories)', True),
     ('Remote (US, excluding US territories)', True),
