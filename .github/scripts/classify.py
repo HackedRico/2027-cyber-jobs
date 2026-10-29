@@ -1202,6 +1202,11 @@ def _part_is_us(part):
     country = _iso_site_country(p)
     if country:
         return country == 'US'
+    # A trailing state code rescues a US town that shares a foreign name, as it
+    # does in _is_foreign_part: 'Hamburg, NY; Hamburg, DE' kept its US site in
+    # the normalizer but read as having none.
+    if _us_region_code(p):
+        return True
     low = p.lower()
     # A part that names a foreign place is not a US part, even if it also says
     # "remote" ("Remote (EMEA)").

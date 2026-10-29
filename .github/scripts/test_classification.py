@@ -1269,6 +1269,12 @@ US_LOC = [
     ('Hamburg, NY', True),
     ('Berlin, NH', True),
     ('Waterloo, IA', True),
+    # ...beside a site abroad too, which the normalizer drops to keep the US one.
+    ('Hamburg, NY; Hamburg, DE', True),
+    ('Melbourne, FL; Haifa, IL', True),
+    ('Paris, TX; London, UK', True),
+    ('Pune, IN; London, UK', False),
+    ('Perth, WA; London, UK', False),
 ]
 for loc, want in US_LOC:
     got = s.is_us_location(loc)
