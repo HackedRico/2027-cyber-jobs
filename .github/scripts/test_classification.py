@@ -142,6 +142,7 @@ CASES = [
     # Mechanical engineering at a security company is still not security work.
     ('Mechanical Engineering Co-Op', 'Shakopee, MN', '', True, None),
     ('Electrical Engineering Intern', 'Shakopee, MN', '', True, None),
+    ('Process Engineering Intern', 'Shakopee, MN', '', True, None),
     ('Firmware Engineering Co-op', 'Shakopee, MN', '', True, ('intern', 'Engineering @ Security Co')),
     # ...and so is a discipline with a specialty before the role noun.
     ('Mechanical Design Engineer I', 'Remote (US)', '', True, None),

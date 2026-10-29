@@ -160,6 +160,7 @@ FUNCTION_REJECT = [
     # 'engineer' allowance then let in: Entrust 'Mechanical Engineering Co-Op'.
     'manufacturing engineering', 'mechanical engineering', 'electrical engineering',
     'chemical engineering', 'industrial engineering', 'civil engineering',
+    'process engineering',
     'photolithography', 'metrology',
     # The SoC lookahead in CYBER_REGEXES has no 'physical', so Micron's 'HBM
     # SoC Physical Design Engineer Intern' read as a SOC analyst intern.
