@@ -145,17 +145,26 @@ FUNCTION_REJECT = [
     'chip design', 'tapeout', 'manufacturing engineer',
     'process engineer', 'mechanical engineer', 'electrical engineer',
     'chemical engineer', 'industrial engineer', 'civil engineer',
+    # The discipline names the terms above miss, which the security-company
+    # 'engineer' allowance then let in: Entrust 'Mechanical Engineering Co-Op'.
+    'manufacturing engineering', 'mechanical engineering', 'electrical engineering',
+    'chemical engineering', 'industrial engineering', 'civil engineering',
     'photolithography', 'metrology',
     # The SoC lookahead in CYBER_REGEXES has no 'physical', so Micron's 'HBM
     # SoC Physical Design Engineer Intern' read as a SOC analyst intern.
     'physical design',
     # Reqs a student cannot apply to: return offers for current interns
-    # (Walmart '2026 Intern Conversion: 2027 Return Intern Cybersecurity'),
+    # (Walmart '2026 Intern Conversion: 2027 Return Intern Cybersecurity',
+    # Sierra Nevada 'Systems Security Engineer I (For 2026 Interns Only)'),
     # DoD SkillBridge slots for active-duty members (Blackpoint Cyber), and
     # dated recruiting events (JPMorgan 'Hiring Event - Security Architecture
     # & Engineering - Sep 24-25th 2026', whose event year read as a cohort).
-    'intern conversion', 'return intern', 'returning intern', 'skillbridge',
-    'active duty', 'hiring event',
+    'intern conversion', 'return intern', 'returning intern', 'interns only',
+    'former intern', 'skillbridge', 'active duty', 'hiring event',
+    # Bank model validation, which an 'AI risk' or 'AI governance' team name
+    # read as AI security: Goldman Sachs 'Model Risk Management, AI Risk,
+    # Dallas, Analyst/Associate'.
+    'model risk',
     # Sales, support and design roles that security-company 'analyst' and
     # 'developer' titles let in: Proofpoint 'Deals Desk Analyst II', Okta
     # 'Developer Support Associate (New Grad)', DigiCert 'Associate
@@ -257,19 +266,28 @@ DEPARTMENT_REJECT_RE = re.compile(
 # Systems Engineer I'. A regional security team and a security resiliency
 # center are corporate security too: Merck '2027 Future Talent Program - North
 # America Regional Security Team - Intern' and '... Global Security Resiliency
-# Center - Intern'.
+# Center - Intern'. So is a bank's global security office: JPMorgan 'Global
+# Security Investigator - Associate', Lyft 'Investigator, Global Security'.
+# A bank's singular 'security' can also be a tradable one: Morgan Stanley
+# 'North American Security Settlements- Analyst/ Associate', Citi 'Security
+# and Derivatives Intermediate Associate Analyst'.
 NON_CYBER_SECURITY_RE = re.compile(
-    r'\b(?:social|food|energy|border|homeland|campus|event|electronic|regional)\s+security\b'
+    r'\b(?:social|food|energy|border|homeland|campus|event|electronic|regional|global)'
+    r'\s+security\b'
     r'|\bsecurity\s+resilien\w*'
     r'|\bcorporate\s+security\b(?!\s+engineer)'
-    r'|\bsecurity\s+(?:forces|badging)\b')
+    r'|\bsecurity\s+(?:forces|badging)\b'
+    r'|\bsecurity\s+(?:and\s+derivatives?|settlements?|master|valuations?|pricing|lending)\b')
 
 # A bare 'security' before these role nouns is usually a facility, badging or
 # guard job: RTX 'Security Specialist II' (COMSEC, NISPOM), SAIC 'Security
 # Associate', KBR 'Associate Security Specialist', GDIT 'Security Specialist -
 # Administrative (Junior)', 'Security Access Control Technician I'. Such a
 # title needs a second cyber term ('Cyber Security Specialist I', 'IT Security
-# Specialist I') or a technical role noun ('Associate Security Analyst').
+# Specialist I') or a technical role noun ('Associate Security Analyst'). A
+# bare SOC is not one, since a guard force runs its own security operations
+# center: PNC 'Security Associate- SOC', posted to its data and operations
+# centers.
 WEAK_SECURITY_ROLE_RE = re.compile(
     r'\b(?:specialist|technician|associate|assistant|coordinator|officer)s?\b')
 TECH_SECURITY_ROLE_RE = re.compile(
@@ -340,16 +358,23 @@ SOC_AUDIT_GUARD = r'(?![\s-]*[12]\b)(?!\s+reporting\b)'
 # 'SOC Services' beside audit 'Assurance' is the same report work: Grant
 # Thornton 'Strategic Assurance and SOC Services Associate'.
 SOC_ASSURANCE_GUARD = r'^(?!.*(?<!information )\bassurance\b.*\bsoc services\b).*'
+# 'SoC' is also a system on a chip. Qualcomm lists it among chip disciplines
+# ("Hardware (CPU, GPU, SoC, Digital Design, DV) Engineering Internship") and
+# as a prefix ("SoC Performance Architect"), and NVIDIA names it beside the GPU
+# ('System Software Engineer – GPU and SOC (2027 RDSS Intern)') and before the
+# software that runs on it ('SoC Software Engineer - New College Grad 2027'),
+# so a processor anywhere in the title, or a chip discipline right after the
+# acronym, rules it out. Intel 'Graduate Talent (ISCP SoC Front End Team)' is
+# a chip design team.
+SOC_CHIP_GUARD = r'^(?!.*\b[cg]pus?\b)'
+SOC_PATTERN = (SOC_CHIP_GUARD + SOC_ASSURANCE_GUARD
+               + r'\bsoc\b(?![\s,/-]+(?:asic|design|digital design|verification|rtl|'
+               r'silicon|power|performance|hardware|software|firmware|front[\s-]?end|'
+               r'validation))' + SOC_AUDIT_GUARD)
 
-# Short acronyms need word boundaries ('soc' is inside 'associate'), and
-# 'SoC' must not match system-on-chip hardware titles. Qualcomm lists SoC among
-# chip disciplines ("Hardware (CPU, GPU, SoC, Digital Design, DV) Engineering
-# Internship") and as a prefix ("SoC Performance Architect"), so a comma-listed
-# neighbour counts as well as a following word.
+# Short acronyms need word boundaries ('soc' is inside 'associate').
 CYBER_REGEXES = [re.compile(p) for p in
-                 (SOC_ASSURANCE_GUARD
-                  + r'(?<!pu, )\bsoc\b(?![\s,/-]+(asic|design|digital design|verification|'
-                  r'rtl|silicon|power|performance|hardware))' + SOC_AUDIT_GUARD,
+                 (SOC_PATTERN,
                   # SOC 2 is the security audit report, so its compliance work
                   # is GRC; SOC 1 covers financial controls and stays out.
                   r'\bsoc[\s-]*2\s+compliance\b',
@@ -361,7 +386,9 @@ CYBER_REGEXES = [re.compile(p) for p in
                   # 'PKI Engineer I'. ACAS X is the FAA's collision-avoidance
                   # system, which MITRE and Leidos staff.
                   r'\b(?:isso|isse|rmf|emass|stigs?|csoc|snoc|cssp|secops|pki|xdr)\b',
-                  r'\bacas\b(?![\s-]*x\b)',
+                  # Johnson & Johnson's ACAS is its sales intern, the
+                  # 'Associate Clinical Account Specialist (ACAS) Intern'.
+                  r'^(?!.*\bclinical account\b).*\bacas\b(?![\s-]*x\b)',
                   # SOAR is also a program name (USAF SOAR, Soar Technology),
                   # so it counts only before a technical role noun.
                   r'\bsoar\s+(?:engineer|analyst|developer|administrator)',
@@ -711,7 +738,7 @@ CATEGORY_RULES = [
                            # Computer network operations: Nightwing 'Junior
                            # CNO Developer'.
                            r'\bcno\b'),
-    ('SOC & Detection', r'\bsoc\b' + SOC_AUDIT_GUARD
+    ('SOC & Detection', SOC_PATTERN
                         + r'|security operations|detection|blue team|'
                         r'incident response|threat hunt|csirt|siem|'
                         r'cyber defense|defensive cyber|triage|'
@@ -1036,6 +1063,16 @@ def _is_foreign_only(part):
     # A comma-joined part can name US cities beside a foreign one: "New York
     # City, Toronto, Chicago, or Remote".
     return not (any(s in low for s in US_SUBSTRINGS) or _has_strong_us_token(part))
+
+
+def title_places_abroad(title):
+    """True when the title names a foreign place and no US one.
+
+    The title can place a role abroad that the ATS lists as remote: Parsons
+    'ABAD Cyber Security Systems Engineer Associate**This position is located
+    at Ramstein AFB, Germany**' was stored as Remote (US).
+    """
+    return _is_foreign_only(' '.join(title.split()))
 
 
 def _part_is_us(part):
@@ -1532,7 +1569,8 @@ def rejected_title_rule(title, today=None):
         return f'"{m.group(0)}" names a department and the title names no security work'
     if re.search(r'\bsecurity\b', _strip_non_cyber_security(t)):
         m = WEAK_SECURITY_ROLE_RE.search(t)
-        if m and not TECH_SECURITY_ROLE_RE.search(t) and not _has_second_cyber_term(t):
+        if (m and not TECH_SECURITY_ROLE_RE.search(t)
+                and not _has_second_cyber_term(re.sub(r'\bsoc\b', ' ', t))):
             return (f'a security "{m.group(0)}" with no other cyber term is usually '
                     'a facility, badging or guard role')
     if _is_stale_intern_title(title, today):
@@ -2189,7 +2227,7 @@ def judge_job(title, location, description='', security_company=False,
     # parser would misread as a floor.
     if level != 'intern' and exceeds_experience_cap(description):
         return None, 'over-experienced'
-    if not is_us_location(location):
+    if not is_us_location(location) or title_places_abroad(title):
         return None, 'non-us-location'
     return (level, infer_category(title, security_company)), None
 
@@ -2270,7 +2308,8 @@ def reclassify_listings(listings, sec_flags=None):
     (company, role, old_type, new_type) re-levelings. `rejected` holds
     (row, reason) pairs: 'rejected-title' when the title now fails
     `is_rejected_title`, 'not-cyber' when it fails `is_cyber_title` under the
-    company's current flag. A seniority or function term added after a row
+    company's current flag, 'non-us-location' when the title places the role
+    abroad (`title_places_abroad`). A seniority or function term added after a row
     landed, or a `security_company` flag its employer lost, then retires the
     row instead of leaving it on the board until its link dies. The same title
     gates run at ingestion, so this never drops a row the scraper would accept
@@ -2301,6 +2340,9 @@ def reclassify_listings(listings, sec_flags=None):
             continue
         if company in sec_flags and not is_cyber_title(role, sec_flags[company]):
             rejected.append((entry, 'not-cyber'))
+            continue
+        if title_places_abroad(role):
+            rejected.append((entry, 'non-us-location'))
             continue
         kept.append(entry)
         if entry.get('type') == 'intern':

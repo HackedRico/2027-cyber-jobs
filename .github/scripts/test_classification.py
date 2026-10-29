@@ -135,6 +135,19 @@ CASES = [
     ('SoC Performance Architect (Server CPU) - PhD New Grads Welcome!', 'Santa Clara, CA', '', False, None),
     # The SoC lookahead missed physical design (Micron, Simplify intern list).
     ('HBM SoC Physical Design Engineer Intern', 'Boise, ID', '', False, None),
+    # NVIDIA's chip software teams, and Intel's front-end design team.
+    ('SoC Software Engineer - New College Grad 2027', 'Santa Clara, CA', '', False, None),
+    ('System Software Engineer – GPU and SOC (2027 RDSS Intern)', 'Santa Clara, CA', '', False, None),
+    ('Graduate Talent (ISCP SoC Front End Team)', 'Hillsboro, OR', '', False, None),
+    # Mechanical engineering at a security company is still not security work.
+    ('Mechanical Engineering Co-Op', 'Shakopee, MN', '', True, None),
+    ('Electrical Engineering Intern', 'Shakopee, MN', '', True, None),
+    ('Firmware Engineering Co-op', 'Shakopee, MN', '', True, ('intern', 'Engineering @ Security Co')),
+    # Johnson & Johnson's ACAS is a medical device sales intern.
+    ('Associate Clinical Account Specialist (ACAS) Intern (Summer 2027)', 'Irvine, CA', '', False, None),
+    # Bank model validation under an AI team name.
+    ('Model Risk Management, AI Risk, Dallas, Analyst/Associate', 'Dallas, TX', '', False, None),
+    ('Associate - AI Governance & Reporting - Model Risk', 'New York, NY', '', False, None),
     ('Security (Product, Systems, Cyber) Engineering Internship - Summer 2027', 'San Diego, CA', '', False, ('intern', 'Security Engineering')),
     # ...but a technical support engineer at a security company still counts.
     ('Support Engineer I', 'Dallas, TX', '', True, ('earlycareer', 'Engineering @ Security Co')),
@@ -153,6 +166,8 @@ CASES = [
     ('2026 Intern Conversion:  2027 Return Intern Cybersecurity', 'Bentonville, AR', '', False, None),
     ('2026 Intern Conversion: 2027 FT Penetration Testing Engineer II', 'Bentonville, AR', '', False, None),
     ('Returning Intern - Information Security', 'Bentonville, AR', '', False, None),
+    ('Systems Security Engineer I (For 2026 Interns Only)', 'Lone Tree, CO', '', False, None),
+    ('Systems Security Engineer Intern - Summer 2027 (For SNC Summer 2026 Interns Only)', 'Hagerstown, MD', '', False, None),
     ('Hiring Event - Security Architecture & Engineering - Sep 24-25th 2026', 'McLean, VA; Jersey City, NJ', '', False, None),
     # -- should be rejected: sales, support and design at security companies --
     ('Developer Support Associate (New Grad)', 'San Francisco, CA', '', True, None),
@@ -258,6 +273,14 @@ CASES = [
     ('Junior Security Engineer', 'Remote (Europe)', '', False, None),
     ('SOC Analyst I', 'Pune, IN', '', False, None),
     ('SOC Analyst I', 'Perth, WA', '', False, None),
+    # A title that places the role abroad wins over a remote ATS location.
+    ('ABAD Cyber Security Systems Engineer Associate**This position is located at Ramstein AFB, Germany (International Assignment) **NO REMOTE WORK**',
+     'Remote (US)', '', False, None),
+    ('Support Engineer I - UK', 'Remote', '', True, None),
+    ('Technology - Cyber Security, Summer Analyst, Warsaw 2027', 'Remote (US)', '', False, None),
+    # ...but a title naming a US place, or a foreign city's US namesake, stays.
+    ('Cyber Security Analyst I - Dublin, OH', 'Dublin, OH', '', False, ('earlycareer', 'Security Engineering')),
+    ('Junior Security Analyst (Remote, USA)', 'Remote (US)', '', False, ('earlycareer', 'Security Engineering')),
 
     # -- bug fix: leveled numerals reject only in role-noun context --
     # "III/IV/3/4" no longer bare-match version/layer/standard numbers.
@@ -580,12 +603,21 @@ CASES = [
     ('Corporate Security Intern', 'Charlotte, NC', '', False, None),
     ('Security Forces Intern', 'Austin, TX', '', False, None),
     ('Security Badging Intern', 'Austin, TX', '', False, None),
+    # A bank's global security office, and its tradable securities.
+    ('Global Security Investigator - Associate', 'Tampa, FL', '', False, None),
+    ('Investigator, Global Security', 'New York, NY', '', False, None),
+    ('North American Security Settlements- Analyst/ Associate', 'Baltimore, MD', '', False, None),
+    ('Security and Derivatives Intermediate Associate Analyst', 'Tampa, FL', '', False, None),
+    ('Security Master Data Analyst I', 'Pittsburgh, PA', '', False, None),
     # ...and a bare 'security' before a facility-style role noun.
     ('Security Access Control Technician I', 'Austin, TX', '', False, None),
     ('Security Specialist II', 'Cambridge, MA', '', False, None),
     ('Security Specialist - Administrative (Junior)', 'Falls Church, VA', '', False, None),
     ('Associate Security Specialist', 'Huntsville, AL', '', False, None),
     ('Security Associate', 'Reston, VA', '', False, None),
+    # A guard force's operations center is a SOC too.
+    ('Security Associate- SOC', 'Pittsburgh, PA', '', False, None),
+    ('Cyber Security Associate - SOC', 'Pittsburgh, PA', '', False, ('earlycareer', 'SOC & Detection')),
     # ...while a second cyber term, a technical role noun, or its own cyber
     # term beside the other sense keeps the title.
     ('Security Analyst I', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
@@ -1380,6 +1412,12 @@ FLAGGED = [
      'Workday', {'ICF': False}, 'not-cyber'),
     ('Jumio', 'Software Engineer Intern', 'Greenhouse', {'Jumio': False}, 'not-cyber'),
     ('Jumio', 'Software Engineer, New Grad', 'Community', {'Jumio': False}, None),
+    # A stored row whose title places it abroad goes even with its posting
+    # out of the feed, where the full re-judge cannot reach it.
+    ('Parsons', 'ABAD Cyber Security Systems Engineer Associate**This position is located at '
+     'Ramstein AFB, Germany (International Assignment) **NO REMOTE WORK**', 'Workday',
+     {'Parsons': False}, 'non-us-location'),
+    ('ExtraHop', 'Support Engineer I - UK', 'Greenhouse', {}, 'non-us-location'),
 ]
 for company, title, source, flags, want in FLAGGED:
     row = {'company': company, 'role': title, 'type': 'newgrad', 'source': source}

@@ -105,21 +105,26 @@ For each new accept path, probe every family its words could reach.
 
 - **Other senses of the word:** medical device reporting (MDR), electronic data recorder
   (EDR), the FAA's ACAS X, SOAR program names, PCI hardware, Northrop's Sentinel, Palo Alto
-  the city, point clouds, cloud seeding, Saint Cloud, Splunk observability.
+  the city, point clouds, cloud seeding, Saint Cloud, Splunk observability, a SoC that is a
+  chip (NVIDIA "SoC Software Engineer"), a clinical account specialist (ACAS).
 - **Products named for the domain:** Salesforce Service Cloud, Oracle Cloud HCM, SAP and
   Workday "Cloud", ServiceNow.
 - **A team name read as the role:** "Junior Scrum Master, Cloud Engineering", "Associate
   Technical Writer, AWS Developer Documentation", "Associate Pricing Analyst, Okta".
 - **Physical and corporate security:** a GSOC watch floor, workplace violence threat
   assessment, electronic security systems, a regional security team, a badge or patient
-  access office.
+  access office, a bank's global security investigators, a guard force's
+  "Security Associate - SOC".
 - **Finance and business:** equity research covering cyber, internal or financial audit,
-  model risk, supplier or credit risk.
+  model risk under an "AI risk" team name, supplier or credit risk, a tradable security
+  ("Security Settlements", "Security and Derivatives").
 - **Industrial lookalikes:** field sales engineers in HVAC, customer engineers who repair
   equipment, forensic chemistry labs.
 - **People who run a program:** "Development Program Specialist", "Academy Instructor".
 - **Level traps:** senior, staff and manager forms, a "2/3" multi-level title, a leveled I or
   II where the rule wants an early-career word, a past summer season, a Big 4 "Associate -
   Summer <year>" start date, a bank's "Summer Associate".
+- **Place in the title:** a foreign city or country in a title whose ATS location reads
+  remote or US, as with Parsons' Ramstein AFB req stored as Remote (US).
 - **Text form:** the title with non-breaking or doubled spaces, in upper case, with "&" for
   "and". `test_corpus.py` holds every accepted title to these.
