@@ -6,6 +6,7 @@
 import contextlib
 import io
 import json
+import re
 import sys
 import tempfile
 from datetime import UTC, datetime, timedelta
@@ -359,7 +360,9 @@ class FakeRuns:
 
     def call(self, method, path, body=None, ok=()):
         self.paths.append(path)
-        return {'workflow_runs': self.runs}
+        # The API answers one page, 30 runs unless per_page asks for more.
+        per_page = int(re.search(r'per_page=(\d+)', path)[1]) if 'per_page=' in path else 30
+        return {'workflow_runs': self.runs[:per_page]}
 
 
 gh = FakeRuns([
@@ -373,6 +376,12 @@ check('the last success skips runs still going', hc.last_successful_scrape(gh),
 check('no request uses the lagging status filter', any('status=' in p for p in gh.paths), False)
 check('the latest writer run skips in-progress and skipped runs',
       {r['conclusion'] for r in hc.latest_writer_runs(gh).values()}, {'success'})
+# Fifteen issue-form submissions, two labels each, put 30 skipped add-listing
+# runs in front of a failed approval run.
+gh = FakeRuns([{'status': 'completed', 'conclusion': 'skipped'}] * 30
+              + [{'status': 'completed', 'conclusion': 'failure'}])
+check('a failed writer run behind 30 skipped runs is still seen',
+      {(r or {}).get('conclusion') for r in hc.latest_writer_runs(gh).values()}, {'failure'})
 
 
 if failures:
