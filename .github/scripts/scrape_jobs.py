@@ -1437,7 +1437,8 @@ def scrape_jibe(company, host, extra_terms=None):
     seen_ids = set()
     any_ok = False
     # Cleared when a page fails or a term hits the page cap, so
-    # retire_vanished_listings does not read a cut-short sweep as closures.
+    # retire_vanished_listings gives a row missing from a cut-short sweep
+    # PARTIAL_VANISHED_DAYS instead of VANISHED_DAYS.
     complete = True
     first_request = True
     for term in terms:
@@ -2290,7 +2291,7 @@ def report_board_health(board_stats, today=None, persist=True):
     cut_short = [b['label'] for b in board_stats if b.get('partial')]
     if cut_short:
         lines.append(f'- Cut short (a missing row retires after {PARTIAL_VANISHED_DAYS} days, '
-                     'Workday rows are probed): ' +', '.join(_oneline(x) for x in cut_short))
+                     'Workday rows are probed): ' + ', '.join(_oneline(x) for x in cut_short))
     if dead:
         # "50 runs" read as 50 requests. Each scrape asks a board once and gets
         # its whole job list back, so the count is scrapes, not calls.
