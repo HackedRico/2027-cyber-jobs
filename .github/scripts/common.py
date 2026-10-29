@@ -14,7 +14,13 @@ from datetime import UTC, datetime
 from pathlib import Path
 from urllib.parse import parse_qs, urlencode, urlparse, urlsplit, urlunparse
 
-from classify import DC_SPELLING_RE, REGION_CODE_RE, US_STATES, normalize_location
+from classify import (
+    DC_SPELLING_RE,
+    REGION_CODE_RE,
+    US_STATES,
+    is_us_location,
+    normalize_location,
+)
 
 # Tracking params stripped before URL comparison so the same posting under
 # different campaign tags dedupes to one listing.
@@ -324,15 +330,18 @@ def _fix_typed_spelling(part):
     return REGION_CODE_RE.sub(lambda m: f', {m.group(1).upper()}', part)
 
 
+def _typed_places(location):
+    return '; '.join(_fix_typed_spelling(p) for p in SUBMITTED_SPLIT_RE.split(location or '')
+                     if p.strip())
+
+
 def normalize_submitted_location(location):
     """Return a form location in the board's "City, ST; Remote (US)" shape.
 
     Runs the scraper's normalize_location over the whole string, so a foreign
     option beside a US one is dropped the same way it is for scraped rows.
     """
-    parts = [_fix_typed_spelling(p) for p in SUBMITTED_SPLIT_RE.split(location or '')
-             if p.strip()]
-    return normalize_location('; '.join(parts)) or ''
+    return normalize_location(_typed_places(location)) or ''
 
 
 def validate_location(location):
@@ -340,7 +349,8 @@ def validate_location(location):
 
     The location is normalized first, so the spellings the scraper's location
     rules accept for a US place ("Arlington, Virginia", "Arlington VA",
-    "Washington, D.C.") pass here too.
+    "Washington, D.C.") pass here too. The string as typed must also pass
+    is_us_location, as a scraped row's location does.
     """
     parts = [p.strip() for p in normalize_submitted_location(location).split(';')
              if p.strip()]
@@ -363,6 +373,16 @@ def validate_location(location):
                 f'{md_code(part)}: {md_code(m.group(1))} is not a US state code. '
                 f'This board is US-only.'
             )
+    typed = _typed_places(location)
+    if not errors and not is_us_location(typed):
+        # Each part alone looks fine once normalize_location has run: it drops
+        # "London, UK" and reads the bare "Remote" left beside it as Remote
+        # (US), and "Toronto, CA" passes as a California city.
+        errors.append(
+            f'{md_code(typed)} does not read as a US location. A bare "Remote" beside '
+            f'a place abroad reads as remote from there, so write "Remote (US)" for a '
+            f'US option.'
+        )
     return errors
 
 

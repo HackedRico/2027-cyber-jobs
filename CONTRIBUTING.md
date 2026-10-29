@@ -80,7 +80,7 @@ The role is in the US or remote within the US. The form accepts:
 - `Arlington VA` and `Washington, D.C.`
 - `Remote (US)` or `Remote`, and `United States`. A remote scope that names another region, such as `Remote (Europe)` or `Remote (Worldwide)`, is out.
 
-Separate several locations with `;` or put one per line. The bot shows the form it will store, such as `Arlington, VA`. A foreign location next to a US one is dropped, and a role with no US location is out, as is one whose title places it abroad ("Support Engineer I - UK", "... located at Ramstein AFB, Germany").
+Separate several locations with `;` or put one per line. The bot shows the form it will store, such as `Arlington, VA`. A foreign location next to a US one is dropped, and a role with no US location is out, as is one whose title places it abroad ("Support Engineer I - UK", "... located at Ramstein AFB, Germany"). A bare `Remote` next to a place abroad reads as remote from there, so `London, UK; Remote` is out; write `Remote (US)` for a US remote option.
 
 The application link must go to the posting itself, not a careers homepage, and open without a login. Paste it as one `http://` or `https://` URL with no spaces or backslashes.
 

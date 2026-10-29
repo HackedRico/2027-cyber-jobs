@@ -136,6 +136,13 @@ LOCATIONS = [
     ('United States', 'United States', True),
     ('Seattle, WA\nAustin, TX', 'Seattle, WA; Austin, TX', True),
     ('Austin, TX; London, UK', 'Austin, TX', True),
+    ('Arlington, Virginia; Remote', 'Arlington, VA; Remote (US)', True),
+    # normalize_location drops the foreign part and calls the bare Remote left
+    # beside it Remote (US), and a foreign city's code can be a state's.
+    ('London, UK; Remote', 'Remote (US)', False),
+    ('Remote (Europe); Remote', 'Remote (US)', False),
+    ('Toronto, CA', 'Toronto, CA', False),
+    ('Mumbai, IN', 'Mumbai, IN', False),
     ('London, UK', 'London, UK', False),
     ('Toronto, ON', 'Toronto, ON', False),
     ('Bangalore, India', 'Bangalore, India', False),
@@ -640,6 +647,20 @@ check('build_verdict shows the category a Not sure row gets',
 body, ok = vi.build_verdict(common.parse_issue_body(form(location='Arlington, Virginia')),
                             EXISTING, frozenset(), ALIVE)
 check('build_verdict shows the stored location', '- Location: `Arlington, VA`' in body, True)
+
+# A location the verdict once passed, or failed while ingest still added it.
+for location, valid in (('London, UK; Remote', False), ('Remote (Europe); Remote', False),
+                        ('Toronto, CA', False), ('Mumbai, IN', False),
+                        ('Arlington, Virginia; Remote', True)):
+    verdict, ok = vi.build_verdict(common.parse_issue_body(form(location=location)),
+                                   EXISTING, frozenset(), ALIVE)
+    check(f'build_verdict on {location!r}',
+          (ok, 'does not read as a US location' in verdict,
+           'the location is not in the US' in verdict),
+          (valid, not valid, not valid))
+    result = pa.ingest([{'number': 1, 'body': form(location=location)}], [],
+                       today='2026-09-27')[0]
+    check(f'ingest on {location!r}', result['outcome'], 'added' if valid else 'skipped')
 check('build_verdict body has no em or en dashes',
       '\u2014' in body or '\u2013' in body, False)
 

@@ -295,7 +295,9 @@ def build_verdict(fields, listings, security_companies=frozenset(), link=None, b
     listing = fields_to_listing(fields, security_companies)
     security_company = listing['company'].lower() in security_companies
     errors = form_errors(fields, body)
-    gate = charter_gate(listing['role'], listing['location'], security_company)
+    # The submitted location, since the stored one has lost any foreign part
+    # and calls a bare "Remote" beside it Remote (US).
+    gate = charter_gate(listing['role'], fields.get('Location', ''), security_company)
     dupes = find_duplicates(listing, listings) if listing['company'] else []
     # process_approved reopens a closed match rather than rejecting it.
     open_dupes = [entry for entry, _ in dupes if is_open(entry)]
