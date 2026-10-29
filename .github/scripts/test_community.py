@@ -219,7 +219,8 @@ EXISTING = [
      'url': 'https://boards.greenhouse.io/acme/jobs/9', 'type': 'earlycareer'},
     {'company': 'Beta', 'role': 'Security Engineer Intern', 'location': 'Reston, VA',
      'url': '', 'closed': True, 'closed_date': '2026-09-01', 'missing_since': '2026-08-20',
-     'dead_since': '2026-08-30', 'source': 'Greenhouse', 'type': 'intern'},
+     'dead_since': '2026-08-30', 'source': 'Greenhouse', 'type': 'intern',
+     'date_added': '2026-07-12'},
     # Closed and open rows under one key: the open one makes it a duplicate.
     {'company': 'Gamma', 'role': 'SOC Analyst Intern', 'location': 'Austin, TX',
      'url': '', 'closed': True, 'type': 'intern'},
@@ -253,9 +254,12 @@ check('ingest outcomes', [(r['number'], r['outcome']) for r in results],
 check('ingest appends only the added row', len(listings), len(EXISTING) + 1)
 check('ingest names the location problem', 'London, UK' in results[3]['detail'], True)
 check('ingest names the url problem', 'http(s)' in results[4]['detail'], True)
-check('ingest revives a closed row in place as a Community row', listings[1], {
+# Dated the day it reopens: the link check ages a Community row out 120 days
+# after date_added, and this one's old date had it closed again on 2026-11-09.
+check('ingest revives a closed row in place as a Community row dated today', listings[1], {
     'company': 'Beta', 'role': 'Security Engineer Intern', 'location': 'Reston, VA',
-    'url': 'https://beta.example/jobs/2', 'source': 'Community', 'type': 'intern'})
+    'url': 'https://beta.example/jobs/2', 'source': 'Community', 'type': 'intern',
+    'date_added': '2026-09-27'})
 check('ingest calls an open twin of a closed row a duplicate',
       results[7]['detail'], 'Gamma: SOC Analyst Intern, open')
 check('ingest leaves the closed twin closed', listings[2].get('closed'), True)
@@ -836,13 +840,13 @@ def test_revive_logs_the_old_and_new_hosts():
            'last_url': 'https://boards.greenhouse.io/beta/jobs/1', 'source': 'Greenhouse'}
     out = io.StringIO()
     with contextlib.redirect_stdout(out):
-        pa._revive(row, 'https://beta-careers.example/jobs/2')
+        pa._revive(row, 'https://beta-careers.example/jobs/2', '2026-09-27')
     check('revive logs the old and new hosts',
           'boards.greenhouse.io -> beta-careers.example' in out.getvalue(), True)
     row = {'company': 'Evil\n::error::x', 'role': 'R', 'url': '', 'closed': True}
     out = io.StringIO()
     with contextlib.redirect_stdout(out):
-        pa._revive(row, 'https://x.example/')
+        pa._revive(row, 'https://x.example/', '2026-09-27')
     check('revive log is one line with no stored link',
           (out.getvalue().count('\n'), '(none) -> x.example' in out.getvalue()), (1, True))
 

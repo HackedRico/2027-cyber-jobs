@@ -283,7 +283,7 @@ def ingest(issues, listings, security_companies=frozenset(), today=None):
 
         row = closed_url.get(url) or closed_key.get(key)
         if row:
-            _revive(row, listing['url'])
+            _revive(row, listing['url'], listing['date_added'])
             for index, k in ((closed_url, url), (closed_key, key)):
                 if index.get(k) is row:
                     del index[k]
@@ -299,7 +299,7 @@ def ingest(issues, listings, security_companies=frozenset(), today=None):
     return results
 
 
-def _revive(row, url):
+def _revive(row, url, today):
     # A submission can point a scraped row at a new domain; the log keeps the
     # switch visible to anyone auditing the run.
     old_host = link_host(row.get('url') or row.get('last_url')) or '(none)'
@@ -310,6 +310,10 @@ def _revive(row, url):
     # or orphan pass. Community rows are exempt from both and go to the daily
     # link check instead.
     row['source'] = 'Community'
+    # The link check ages a Community row out 120 days after date_added, so a
+    # row revived with its old date (2026-07-12 rows reach 120 days on
+    # 2026-11-09) closed again on its next run.
+    row['date_added'] = today
     for field in ('closed', 'closed_date', 'missing_since', 'dead_since'):
         row.pop(field, None)
 
