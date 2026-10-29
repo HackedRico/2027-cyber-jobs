@@ -1608,6 +1608,14 @@ def _normalize_pass(location, mark_us):
         if not raw.strip():
             continue
         norm = _normalize_single_location(raw)
+        # Each part reaches its own fixed point before the bare-city fold below:
+        # 'Remote (Hybrid)' was still a bare 'Remote' there and folded into the
+        # 'Remote, CA' beside it, losing the US-wide option.
+        for _ in range(3):
+            again = _normalize_single_location(norm) if norm else norm
+            if not again or again == norm:
+                break
+            norm = again
         # A remote option abroad keeps its own text, so the domestic filter
         # below drops it: 'Remote, India (US Hours)' and 'Virtual Location -
         # Canada' were relabeled Remote (US) beside a US site.

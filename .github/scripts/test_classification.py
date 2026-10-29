@@ -845,6 +845,8 @@ NORM = [
     ('Remote - Virginia (Hybrid)', 'Remote, VA'),
     ('Virginia - Herndon (Hybrid)', 'Herndon, VA'),
     ('VA-Dahlgren (Hybrid)', 'Dahlgren, VA'),
+    # ...before a bare 'Remote' could fold into a state-scoped one beside it.
+    ('Remote (Hybrid); Remote - California', 'Remote (US); Remote, CA'),
     # Remote spellings without a US token still mean US remote; a region does not.
     ('Remote-Friendly (Travel-Required)', 'Remote (US)'),
     ('Remote (Any State)', 'Remote (US)'),
