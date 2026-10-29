@@ -85,7 +85,10 @@
     return new Date(y, m - 1, d);
   }
 
-  function daysAgo(iso) { return Math.round((today - parseDay(iso)) / 86400000); }
+  // date_added is the runner's UTC date, and the 23:17 UTC scrape lands around
+  // 02:00 UTC, the evening before in the US. Those rows came out at -1 days,
+  // and the pulse chart's age >= 0 dropped the newest batch from its total.
+  function daysAgo(iso) { return Math.max(0, Math.round((today - parseDay(iso)) / 86400000)); }
 
   function shortDate(iso) {
     const d = parseDay(iso);
