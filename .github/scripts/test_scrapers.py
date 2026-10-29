@@ -19,6 +19,7 @@ import testkit  # noqa: F401
 
 sys.path.insert(0, str(Path(__file__).parent))
 import check_links  # noqa: E402
+import check_outputs  # noqa: E402
 import check_slugs  # noqa: E402
 import compare_runs  # noqa: E402
 import responses  # noqa: E402
@@ -3259,6 +3260,21 @@ def test_insert_readds_a_dropped_row_while_its_posting_is_live():
     check('a second pass adds nothing', added, [])
 
 
+def test_insert_keeps_one_row_per_key_in_a_run():
+    # CrowdStrike posted 'Analyst I, Falcon Complete (Remote)' under two reqs
+    # whose locations both stored as Remote (US). Two rows in one run fail
+    # check_outputs and lose the whole scrape.
+    raw = [_live('CrowdStrike', 'Analyst I, Falcon Complete (Remote)', n, location=place)
+           for n, place in ((101, 'USA - Remote'), (102, 'Remote, USA'))]
+    listings = []
+    added, _ = sj.insert_new_listings(listings, raw, {}, {job['id']: True for job in raw},
+                                      '2026-10-01')
+    check('two reqs under one key in one run add one row',
+          [(r['role'], r['location']) for r in added],
+          [('Analyst I, Falcon Complete (Remote)', 'Remote (US)')])
+    check('...which check_outputs accepts', check_outputs.check_listings(listings), [])
+
+
 def test_revive_takes_the_new_source():
     """A company that moved ATS was RETIRED [orphaned] then REVIVED every run."""
     listings = [_stored('Acme', 'SOC Analyst I', 1, url='', closed=True,
@@ -3269,6 +3285,10 @@ def test_revive_takes_the_new_source():
     check('a revived row takes its new board as its source',
           [(r['role'], r['url'], r['source']) for r in revived],
           [('SOC Analyst I', ashby, 'Ashby')])
+    # A revive that kept closed: True gave the row its url and hid it anyway.
+    check('a revived row is open and carries no closed stamp',
+          [(sj.rebuild_readme.is_open(r), {'closed', 'closed_date'} & set(r)) for r in revived],
+          [(True, set())])
     check('the revived row is no orphan under the new config',
           sj.retire_orphaned_listings(listings, {'ashby': [{'name': 'Acme', 'slug': 'acme'}]},
                                       '2026-09-11', raw)[0], [])
@@ -3813,6 +3833,7 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_reevaluate_rejudges_a_row_past_the_workday_cap,
            test_main_probes_each_missed_workday_row_once,
            test_insert_readds_a_dropped_row_while_its_posting_is_live,
+           test_insert_keeps_one_row_per_key_in_a_run,
            test_revive_takes_the_new_source,
            test_revive_hands_a_community_row_to_its_board,
            test_revive_skips_a_url_an_open_row_holds,
