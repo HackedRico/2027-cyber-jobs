@@ -1357,8 +1357,13 @@ SITE_CODE_CITY_ADDRESS_RE = re.compile(r'^(?:[A-Z]\d+\s+)?([A-Za-z .\']+?)\s*-\s
 # "VA-Dahlgren", "HI-Pearl Harbor", "USA_TX_Richardson", "Atlanta GA".
 STATE_DASH_CITY_RE = re.compile(r'^([A-Z]{2})-([A-Za-z .\']+)$')
 USA_UNDERSCORE_RE = re.compile(r'^USA?_([A-Z]{2})_(.+)$')
-# Walmart Workday: "(USA) ISD Office - DGTC AR BENTONVILLE Home Office".
-HOME_OFFICE_RE = re.compile(r'\b([A-Z]{2})\s+([A-Z][A-Z ]+?)\s+Home Office$')
+# Walmart Workday: "(USA) ISD Office - DGTC AR BENTONVILLE Home Office". The
+# city can be mixed case: "(USA) Maverick Building AR Bentonville Home Office"
+# fell through to the office strip and was stored as "... Bentonville Home".
+# A lookahead, so each two-capital word is tried in turn: a site name's own
+# "HQ Campus" or "IT Services" would otherwise end the search before the state.
+# The city's length cap keeps that scan linear on a long issue-form string.
+HOME_OFFICE_RE = re.compile(r"(?=\b([A-Z]{2})\s+([A-Z][A-Za-z .']{0,40}?)\s+Home Office$)")
 CITY_SPACE_STATE_RE = re.compile(r'^([A-Za-z .\']+)\s+([A-Z]{2})$')
 # Workday appends ", More..." when a req lists further sites: "Chicago, IL,
 # More...".
@@ -1483,8 +1488,8 @@ def _normalize_single_location(location):
     m = USA_UNDERSCORE_RE.fullmatch(location)
     if m:
         return f'{m.group(2).strip()}, {m.group(1)}'
-    m = HOME_OFFICE_RE.search(location)
-    if m and m.group(1) in US_STATES:
+    m = next((m for m in HOME_OFFICE_RE.finditer(location) if m.group(1) in US_STATES), None)
+    if m:
         return f'{_title_city(m.group(2))}, {m.group(1)}'
     m = STATE_CITY_ADDRESS_RE.fullmatch(location)
     if m and m.group(1) in US_STATES:

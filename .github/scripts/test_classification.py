@@ -858,6 +858,10 @@ NORM = [
     ('HI-Pearl Harbor', 'Pearl Harbor, HI'),
     ('USA_TX_Richardson', 'Richardson, TX'),
     ('(USA) ISD Office - DGTC AR BENTONVILLE Home Office', 'Bentonville, AR'),
+    ('(USA) Maverick Building AR Bentonville Home Office', 'Bentonville, AR'),
+    # A two-capital word in the site name comes before the state.
+    ('(USA) HQ Campus AR BENTONVILLE Home Office', 'Bentonville, AR'),
+    ('(USA) IT Services AR Bentonville Home Office', 'Bentonville, AR'),
     ('US, California, Santa Clara', 'Santa Clara, CA'),
     # Country suffixes, bare states, and unambiguous bare cities.
     ('Austin, Texas, United States of America', 'Austin, TX'),
