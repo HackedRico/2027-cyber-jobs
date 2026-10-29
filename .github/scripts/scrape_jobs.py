@@ -2529,8 +2529,11 @@ def insert_new_listings(listings, raw_jobs, seen, sec_flags, today):
             row['url'] = url
             # A company that moved ATS revives on its new board; a stale source
             # left the row orphaned again on the next run, RETIRED then REVIVED
-            # every run. A Community row keeps the maintainer's provenance.
-            if row.get('source') != 'Community' and job.get('board'):
+            # every run. A Community row hands over too: left Community, one
+            # past check_links' 120-day age-out was closed every morning and
+            # revived every evening. On its board's source the vanished pass
+            # owns it from here.
+            if job.get('board'):
                 row['source'] = job['board']
             row.pop('closed', None)
             row.pop('closed_date', None)

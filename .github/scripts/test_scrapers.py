@@ -2782,19 +2782,44 @@ def test_insert_readds_a_dropped_row_while_its_posting_is_live():
 def test_revive_takes_the_new_source():
     """A company that moved ATS was RETIRED [orphaned] then REVIVED every run."""
     listings = [_stored('Acme', 'SOC Analyst I', 1, url='', closed=True,
-                        closed_date='2026-09-09'),
-                _stored('Acme', 'Cyber Analyst I', 2, url='', closed=True, source='Community')]
+                        closed_date='2026-09-09')]
     ashby = 'https://jobs.ashbyhq.com/acme/b9dee2a0-9bb3-447e-9bce-2b1bed784e5b'
-    raw = [dict(_live('Acme', 'SOC Analyst I', 1, 'Monitor alerts.'), url=ashby, board='Ashby'),
-           _live('Acme', 'Cyber Analyst I', 2, 'Entry level.')]
+    raw = [dict(_live('Acme', 'SOC Analyst I', 1, 'Monitor alerts.'), url=ashby, board='Ashby')]
     _, revived = sj.insert_new_listings(listings, raw, {}, {}, '2026-09-10')
-    check('a revived row takes its new board as its source, a Community row keeps its own',
+    check('a revived row takes its new board as its source',
           [(r['role'], r['url'], r['source']) for r in revived],
-          [('SOC Analyst I', ashby, 'Ashby'),
-           ('Cyber Analyst I', GH_JOBS.format('acme', 2), 'Community')])
+          [('SOC Analyst I', ashby, 'Ashby')])
     check('the revived row is no orphan under the new config',
           sj.retire_orphaned_listings(listings, {'ashby': [{'name': 'Acme', 'slug': 'acme'}]},
                                       '2026-09-11', raw)[0], [])
+
+
+def test_revive_hands_a_community_row_to_its_board():
+    """A Community row past the 120-day age-out flipped closed and open every day.
+
+    check_links aged it out each morning, the scrape revived it each evening
+    from the live posting and kept it Community, so the next link check aged
+    it out again.
+    """
+    row = {'company': 'Acme', 'role': 'Cybersecurity Intern', 'location': 'Austin, TX',
+           'type': 'intern', 'category': 'Security Engineering', 'clearance': False,
+           'url': GH_JOBS.format('acme', 555), 'source': 'Community',
+           'date_added': '2026-05-20'}
+    listings = [row]
+    today = '2026-10-01'
+    check('the link check ages the Community row out', check_links.is_aged_out(row, today),
+          True)
+    check_links._close(row, today)
+    raw = [_live('Acme', 'Cybersecurity Intern', 555, 'Summer 2027 internship.')]
+    _, revived = sj.insert_new_listings(listings, raw, {}, {}, today)
+    check('a board posting revives the row onto its board',
+          [(r['url'], r['source'], r['date_added']) for r in revived],
+          [(GH_JOBS.format('acme', 555), 'Greenhouse', '2026-05-20')])
+    check('...so the link check leaves it alone',
+          (check_links.is_aged_out(row, today), check_links.is_check_target(row)),
+          (False, False))
+    sj.retire_vanished_listings(listings, [_live('Acme', 'SOC Analyst I', 1)], '2026-10-02')
+    check('...and the vanished pass owns it', row.get('missing_since'), '2026-10-02')
 
 
 def test_revive_skips_a_url_an_open_row_holds():
@@ -3238,7 +3263,9 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_reevaluate_rejudges_a_row_past_the_workday_cap,
            test_main_probes_each_missed_workday_row_once,
            test_insert_readds_a_dropped_row_while_its_posting_is_live,
-           test_revive_takes_the_new_source, test_revive_skips_a_url_an_open_row_holds,
+           test_revive_takes_the_new_source,
+           test_revive_hands_a_community_row_to_its_board,
+           test_revive_skips_a_url_an_open_row_holds,
            test_orphan_pass_renames_a_renamed_company,
            test_failed_board_holds_its_companys_rows,
            test_failed_boards_do_not_grow_the_silent_streak,
