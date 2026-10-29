@@ -1,9 +1,9 @@
 {
   "date": "2026-10-29",
   "boards": 410,
-  "ok": 396,
-  "empty": 14,
+  "ok": 397,
+  "empty": 13,
   "failed": [],
   "regressed": [],
-  "silent": 14
+  "silent": 13
 }

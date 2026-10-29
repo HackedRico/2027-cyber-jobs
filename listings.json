@@ -175,7 +175,8 @@
     "source": "Workday",
     "date_added": "2026-07-12",
     "closed": true,
-    "closed_date": "2026-09-19"
+    "closed_date": "2026-09-19",
+    "twin": 1
   },
   {
     "company": "Leidos",
@@ -863,7 +864,8 @@
     "source": "Greenhouse",
     "date_added": "2026-07-22",
     "closed": true,
-    "closed_date": "2026-09-19"
+    "closed_date": "2026-09-19",
+    "twin": 1
   },
   {
     "company": "Netskope",
@@ -876,7 +878,8 @@
     "source": "Greenhouse",
     "date_added": "2026-07-22",
     "closed": true,
-    "closed_date": "2026-09-19"
+    "closed_date": "2026-09-19",
+    "twin": 2
   },
   {
     "company": "Obsidian Security",
@@ -909,7 +912,8 @@
     "clearance": false,
     "url": "https://job-boards.greenhouse.io/recordedfuture/jobs/8534834002",
     "source": "Greenhouse",
-    "date_added": "2026-07-22"
+    "date_added": "2026-07-22",
+    "twin": 1
   },
   {
     "company": "Recorded Future",
@@ -920,7 +924,8 @@
     "clearance": false,
     "url": "https://job-boards.greenhouse.io/recordedfuture/jobs/8539331002",
     "source": "Greenhouse",
-    "date_added": "2026-07-22"
+    "date_added": "2026-07-22",
+    "twin": 2
   },
   {
     "company": "Two Six Technologies",
@@ -1071,19 +1076,6 @@
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Utah-Roy/Sentinel---Systems-Security-Engineer-2-3---14554-1_R10229441",
     "source": "Workday",
     "date_added": "2026-07-22"
-  },
-  {
-    "company": "Northrop Grumman",
-    "role": "Mod Sim System Engineer (Mission Support Threat Engineer - Level 2 or 3)",
-    "location": "Schriever AFB, CO",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-22",
-    "closed": true,
-    "closed_date": "2026-09-19"
   },
   {
     "company": "RTX",
@@ -2068,19 +2060,6 @@
     "closed_date": "2026-10-29"
   },
   {
-    "company": "Comcast",
-    "role": "Investigator 2, Security",
-    "location": "Baltimore, MD; Waldorf, MD; Washington, DC; Woodbridge, VA; Rockville, MD; Arlington, VA; Silver Spring, MD",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-09-05",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
     "company": "Duke Energy",
     "role": "Digital Forensics Summer Intern - 2027",
     "location": "Charlotte, NC",
@@ -2276,7 +2255,8 @@
     "clearance": false,
     "url": "https://job-boards.greenhouse.io/tanium/jobs/8189328",
     "source": "Greenhouse",
-    "date_added": "2026-09-09"
+    "date_added": "2026-09-09",
+    "twin": 1
   },
   {
     "company": "Immuta",
@@ -2473,19 +2453,6 @@
     "source": "Workday",
     "date_added": "2026-09-11",
     "missing_since": "2026-10-28"
-  },
-  {
-    "company": "Morgan Stanley",
-    "role": "Associate - AI Governance & Reporting - Model Risk",
-    "location": "New York, NY",
-    "type": "earlycareer",
-    "category": "AI Security & Safety",
-    "clearance": false,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-09-11",
-    "closed": true,
-    "closed_date": "2026-09-19"
   },
   {
     "company": "Vanguard",
@@ -3343,7 +3310,8 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-TX-MCKINNEY-513PW--2501-W-University-Dr--PW-BLDG/Software-Security-Engineer-II_01877728",
     "source": "Workday",
-    "date_added": "2026-09-24"
+    "date_added": "2026-09-24",
+    "missing_since": "2026-10-29"
   },
   {
     "company": "JPMorgan Chase",
@@ -3884,7 +3852,8 @@
     "source": "Eightfold",
     "date_added": "2026-09-28",
     "closed": true,
-    "closed_date": "2026-10-11"
+    "closed_date": "2026-10-11",
+    "twin": 1
   },
   {
     "company": "Microsoft",
@@ -3904,10 +3873,9 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://microsoft.eightfold.ai/careers/job/1970393556962157",
+    "url": "https://microsoft.eightfold.ai/careers/job/1970393557044769",
     "source": "Eightfold",
-    "date_added": "2026-09-28",
-    "missing_since": "2026-09-29"
+    "date_added": "2026-09-28"
   },
   {
     "company": "Microsoft",
@@ -3951,7 +3919,8 @@
     "clearance": true,
     "url": "https://jobs.baesystems.com/global/en/job/128449BR",
     "source": "Phenom",
-    "date_added": "2026-09-28"
+    "date_added": "2026-09-28",
+    "missing_since": "2026-10-29"
   },
   {
     "company": "BAE Systems",
@@ -4381,7 +4350,8 @@
     "clearance": true,
     "url": "https://careers.jhuapl.edu/jobs/59779",
     "source": "Jibe",
-    "date_added": "2026-09-29"
+    "date_added": "2026-09-29",
+    "missing_since": "2026-10-29"
   },
   {
     "company": "Johns Hopkins APL",
@@ -4564,7 +4534,8 @@
     "clearance": false,
     "url": "https://microsoft.eightfold.ai/careers/job/1970393556999315",
     "source": "Eightfold",
-    "date_added": "2026-09-30"
+    "date_added": "2026-09-30",
+    "missing_since": "2026-10-29"
   },
   {
     "company": "BAE Systems",
@@ -4575,7 +4546,8 @@
     "clearance": false,
     "url": "https://jobs.baesystems.com/global/en/job/129635BR",
     "source": "Phenom",
-    "date_added": "2026-09-30"
+    "date_added": "2026-09-30",
+    "missing_since": "2026-10-29"
   },
   {
     "company": "MITRE",
@@ -4679,19 +4651,6 @@
     "date_added": "2026-10-01"
   },
   {
-    "company": "Sierra Nevada Corporation",
-    "role": "Systems Security Engineer I (For 2026 Interns Only)",
-    "location": "Lone Tree, CO",
-    "type": "earlycareer",
-    "category": "Cloud & Infra Security",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-10-01",
-    "closed": true,
-    "closed_date": "2026-10-11"
-  },
-  {
     "company": "Trellix",
     "role": "Junior Solutions Engineer",
     "location": "Remote (US)",
@@ -4734,20 +4693,8 @@
     "clearance": false,
     "url": "https://microsoft.eightfold.ai/careers/job/1970393557019490",
     "source": "Eightfold",
-    "date_added": "2026-10-01"
-  },
-  {
-    "company": "GDIT",
-    "role": "Junior Tactical All Source Threat Intelligence Analyst - Overnight Shift  (Top Secret Clearance)",
-    "location": "Vienna, VA",
-    "type": "earlycareer",
-    "category": "Threat Intelligence",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
     "date_added": "2026-10-01",
-    "closed": true,
-    "closed_date": "2026-10-20"
+    "missing_since": "2026-10-29"
   },
   {
     "company": "GDIT",
@@ -4856,7 +4803,8 @@
     "clearance": false,
     "url": "https://microsoft.eightfold.ai/careers/job/1970393556922930",
     "source": "Eightfold",
-    "date_added": "2026-10-01"
+    "date_added": "2026-10-01",
+    "missing_since": "2026-10-29"
   },
   {
     "company": "Johns Hopkins APL",
@@ -4926,7 +4874,8 @@
     "clearance": false,
     "url": "https://microsoft.eightfold.ai/careers/job/1970393556999327",
     "source": "Eightfold",
-    "date_added": "2026-10-02"
+    "date_added": "2026-10-02",
+    "missing_since": "2026-10-29"
   },
   {
     "company": "MITRE",
@@ -4937,7 +4886,8 @@
     "clearance": true,
     "url": "https://careers.mitre.org/us/en/job/R117094",
     "source": "Phenom",
-    "date_added": "2026-10-02"
+    "date_added": "2026-10-02",
+    "missing_since": "2026-10-29"
   },
   {
     "company": "Booz Allen Hamilton",
@@ -5155,7 +5105,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Ohio-Wright-Patterson-AFB/Associate-Cloud-Engineer--Cloud-Engineer_R10241188",
     "source": "Workday",
-    "date_added": "2026-10-03"
+    "date_added": "2026-10-03",
+    "twin": 1
   },
   {
     "company": "U.S. Bank",
@@ -5315,7 +5266,8 @@
     "clearance": false,
     "url": "https://hpe.wd5.myworkdayjobs.com/Jobsathpe/job/Aguadilla-Puerto-Rico-Puerto-Rico/Cloud-Engineer-Graduate_1215862-3",
     "source": "Workday",
-    "date_added": "2026-10-03"
+    "date_added": "2026-10-03",
+    "twin": 1
   },
   {
     "company": "HPE",
@@ -5460,18 +5412,6 @@
     "url": "https://jj.wd5.myworkdayjobs.com/JJ/job/Danvers-Massachusetts-United-States-of-America/Medical-Device-Cybersecurity-Co-Op_R-099388",
     "source": "Workday",
     "date_added": "2026-10-03"
-  },
-  {
-    "company": "Goldman Sachs",
-    "role": "Model Risk Management, AI Risk, Dallas, Analyst/Associate",
-    "location": "Dallas, TX",
-    "type": "earlycareer",
-    "category": "AI Security & Safety",
-    "clearance": false,
-    "url": "https://hdpc.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/LateralHiring/job/152314",
-    "source": "Oracle",
-    "date_added": "2026-10-03",
-    "missing_since": "2026-10-29"
   },
   {
     "company": "Goldman Sachs",
@@ -5869,7 +5809,8 @@
     "clearance": false,
     "url": "https://job-boards.greenhouse.io/huntress/jobs/7974374003",
     "source": "Greenhouse",
-    "date_added": "2026-10-06"
+    "date_added": "2026-10-06",
+    "missing_since": "2026-10-29"
   },
   {
     "company": "Netskope",
@@ -6152,7 +6093,8 @@
     "clearance": true,
     "url": "https://careers.mitre.org/us/en/job/R117424",
     "source": "Phenom",
-    "date_added": "2026-10-08"
+    "date_added": "2026-10-08",
+    "missing_since": "2026-10-29"
   },
   {
     "company": "MITRE",
@@ -6174,7 +6116,8 @@
     "clearance": true,
     "url": "https://careers.mitre.org/us/en/job/R117730",
     "source": "Phenom",
-    "date_added": "2026-10-08"
+    "date_added": "2026-10-08",
+    "missing_since": "2026-10-29"
   },
   {
     "company": "GuidePoint Security",
@@ -6335,7 +6278,8 @@
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-EL-SEGUNDO-R01--2000-E-Imperial-Hwy--BLDG-R01/Embedded-Security-Software-Engineer--Onsite-_01881362",
     "source": "Workday",
     "date_added": "2026-10-10",
-    "missing_since": "2026-10-29"
+    "missing_since": "2026-10-29",
+    "twin": 1
   },
   {
     "company": "RTX",
@@ -6347,7 +6291,8 @@
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-800--1151-E-Hermans-Rd--BLDG-800/Embedded-Security-Software-Engineer-I--Onsite-_01881370",
     "source": "Workday",
     "date_added": "2026-10-10",
-    "missing_since": "2026-10-29"
+    "missing_since": "2026-10-29",
+    "twin": 2
   },
   {
     "company": "RTX",
@@ -6358,7 +6303,8 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-GOLETA-B01--6825-Cortona-Dr--BLDG-B01/Embedded-Security-Software-Engineer-II--Onsite-_01881383",
     "source": "Workday",
-    "date_added": "2026-10-10"
+    "date_added": "2026-10-10",
+    "twin": 1
   },
   {
     "company": "RTX",
@@ -6369,7 +6315,8 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-800--1151-E-Hermans-Rd--BLDG-800/Embedded-Security-Software-Engineer-II--Onsite-_01881372",
     "source": "Workday",
-    "date_added": "2026-10-10"
+    "date_added": "2026-10-10",
+    "twin": 2
   },
   {
     "company": "RTX",
@@ -6439,7 +6386,8 @@
     "clearance": true,
     "url": "https://jobs.baesystems.com/global/en/job/130065BR",
     "source": "Phenom",
-    "date_added": "2026-10-10"
+    "date_added": "2026-10-10",
+    "missing_since": "2026-10-29"
   },
   {
     "company": "MITRE",
@@ -6519,7 +6467,8 @@
     "clearance": false,
     "url": "https://microsoft.eightfold.ai/careers/job/1970393557037856",
     "source": "Eightfold",
-    "date_added": "2026-10-12"
+    "date_added": "2026-10-12",
+    "missing_since": "2026-10-29"
   },
   {
     "company": "Johns Hopkins APL",
@@ -6556,17 +6505,6 @@
     "date_added": "2026-10-13",
     "closed": true,
     "closed_date": "2026-10-19"
-  },
-  {
-    "company": "Citi",
-    "role": "Security and Derivatives Intermediate Associate Analyst",
-    "location": "Tampa Florida United States",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "https://citi.wd5.myworkdayjobs.com/2/job/Tampa-Florida-United-States/Security-and-Derivatives-Intermediate-Associate-Analyst_261000639",
-    "source": "Workday",
-    "date_added": "2026-10-13"
   },
   {
     "company": "Fannie Mae",
@@ -6627,29 +6565,6 @@
     "source": "Workday",
     "date_added": "2026-10-14",
     "missing_since": "2026-10-27"
-  },
-  {
-    "company": "NVIDIA",
-    "role": "SoC Software Engineer - New College Grad 2027",
-    "location": "Santa Clara, CA",
-    "type": "newgrad",
-    "category": "SOC & Detection",
-    "clearance": false,
-    "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/SoC-Software-Engineer---New-College-Grad-2027_JR2026744",
-    "source": "Workday",
-    "date_added": "2026-10-14",
-    "missing_since": "2026-10-28"
-  },
-  {
-    "company": "NVIDIA",
-    "role": "SoC Software Engineer \u2013 New College Graduate 2026",
-    "location": "Santa Clara, CA",
-    "type": "newgrad",
-    "category": "SOC & Detection",
-    "clearance": false,
-    "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/SoC-Software-Engineer---New-College-Graduate-2026_JR2027552-1",
-    "source": "Workday",
-    "date_added": "2026-10-14"
   },
   {
     "company": "GuidePoint Security",
@@ -6806,7 +6721,8 @@
     "clearance": false,
     "url": "https://jobs.ashbyhq.com/1password/a492badd-a02f-4360-aa15-7ea8c6e2c85e",
     "source": "Ashby",
-    "date_added": "2026-10-16"
+    "date_added": "2026-10-16",
+    "missing_since": "2026-10-29"
   },
   {
     "company": "Lawrence Livermore National Laboratory",
@@ -6990,17 +6906,6 @@
   },
   {
     "company": "Entrust",
-    "role": "Mechanical Engineering Co-Op",
-    "location": "Shakopee, MN",
-    "type": "intern",
-    "category": "Engineering @ Security Co",
-    "clearance": false,
-    "url": "https://entrust.wd1.myworkdayjobs.com/EntrustCareers/job/United-States---Shakopee-MN-GHQ/Mechanical-Engineering-Co-Op_R004415",
-    "source": "Workday",
-    "date_added": "2026-10-17"
-  },
-  {
-    "company": "Entrust",
     "role": "Software Engineering Co-op",
     "location": "Shakopee, MN",
     "type": "intern",
@@ -7011,28 +6916,15 @@
     "date_added": "2026-10-17"
   },
   {
-    "company": "Johnson & Johnson",
-    "role": "Associate Clinical Account Specialist (ACAS) Intern (Summer 2027)",
-    "location": "Irvine, CA; Toledo, OH; North Dakota (Any City); Connecticut (Any City); Richmond, VA; Cleveland, OH",
-    "type": "intern",
-    "category": "GRC & Risk",
-    "clearance": false,
-    "url": "https://jj.wd5.myworkdayjobs.com/JJ/job/Irvine-California-United-States-of-America/Associate-Clinical-Account-Specialist--ACAS--Intern--Summer-2027-_R-104405",
-    "source": "Workday",
-    "date_added": "2026-10-17"
-  },
-  {
     "company": "BDO",
     "role": "Assurance Intern, Technology Risk Assurance \u2013 Summer 2027 (New York)",
     "location": "New York, NY",
     "type": "intern",
     "category": "GRC & Risk",
     "clearance": false,
-    "url": "",
+    "url": "https://ebqb.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BDOEntryLevelCareers/job/14411",
     "source": "Oracle",
-    "date_added": "2026-10-17",
-    "closed": true,
-    "closed_date": "2026-10-28"
+    "date_added": "2026-10-17"
   },
   {
     "company": "BDO",
@@ -7067,7 +6959,8 @@
     "clearance": true,
     "url": "https://jobs.baesystems.com/global/en/job/131570BR",
     "source": "Phenom",
-    "date_added": "2026-10-17"
+    "date_added": "2026-10-17",
+    "missing_since": "2026-10-29"
   },
   {
     "company": "Abnormal AI",
@@ -7208,18 +7101,6 @@
     "url": "https://edel.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/24668",
     "source": "Oracle",
     "date_added": "2026-10-20"
-  },
-  {
-    "company": "Parsons",
-    "role": "ABAD Cyber Security Systems Engineer Associate**This position is located at Ramstein AFB, Germany (International Assignment) **NO REMOTE WORK**",
-    "location": "Remote (US)",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "https://parsons.wd5.myworkdayjobs.com/Search/job/US---Remote-Any-Location/ABAD-Cyber-Security-Systems-Engineer-Associate--This-position-is-located-at-Ramstein-AFB--Germany--International-Assignment----NO-REMOTE-WORK--_R187490",
-    "source": "Workday",
-    "date_added": "2026-10-20",
-    "missing_since": "2026-10-29"
   },
   {
     "company": "Illumio",
@@ -7477,7 +7358,8 @@
     "clearance": true,
     "url": "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/McLean-VA/ISSO-Security-Analyst--Junior_R0252137-1",
     "source": "Workday",
-    "date_added": "2026-10-22"
+    "date_added": "2026-10-22",
+    "missing_since": "2026-10-29"
   },
   {
     "company": "GDIT",
@@ -7523,17 +7405,6 @@
     "source": "Workday",
     "date_added": "2026-10-23",
     "missing_since": "2026-10-28"
-  },
-  {
-    "company": "Sierra Nevada Corporation",
-    "role": "Systems Security Engineer Intern - Summer 2027 (For SNC Summer 2026 Interns Only)",
-    "location": "Hagerstown, MD",
-    "type": "intern",
-    "category": "Cloud & Infra Security",
-    "clearance": true,
-    "url": "https://snc.wd1.myworkdayjobs.com/SNC_External_Career_Site/job/Hagerstown-MD/Systems-Security-Engineer-Intern---Summer-2027--For-SNC-Summer-2026-Interns-Only-_R0030540",
-    "source": "Workday",
-    "date_added": "2026-10-23"
   },
   {
     "company": "Fortinet",
@@ -8060,28 +7931,6 @@
     "date_added": "2026-10-29"
   },
   {
-    "company": "Morgan Stanley",
-    "role": "North American Security Settlements- Analyst/ Associate",
-    "location": "Baltimore, MD",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "https://ms.wd5.myworkdayjobs.com/External/job/Baltimore-Maryland-United-States-of-America/North-American-Security-Settlements--Analyst--Associate_PT-JR044931",
-    "source": "Workday",
-    "date_added": "2026-10-29"
-  },
-  {
-    "company": "PNC",
-    "role": "Security Associate- SOC",
-    "location": "Two PNC Plaza (PA374); Denver, CO; Birmingham - Brock (AL112); Strongsville Technology Center (OH537); The Biltmore (AZ050); Cleveland Ops Ctr - North Annex (OH005); Data Center (PA690)",
-    "type": "earlycareer",
-    "category": "SOC & Detection",
-    "clearance": false,
-    "url": "https://pnc.wd5.myworkdayjobs.com/External/job/Two-PNC-Plaza-PA374/Security-Associate--SOC_R233731-1",
-    "source": "Workday",
-    "date_added": "2026-10-29"
-  },
-  {
     "company": "HP Inc",
     "role": "Software Product Security Intern - HP IQ",
     "location": "San Francisco, CA",
@@ -8090,17 +7939,6 @@
     "clearance": false,
     "url": "https://hp.wd5.myworkdayjobs.com/ExternalCareerSite/job/San-Francisco-California-United-States-of-America/Software-Product-Security-Intern---HP-IQ_UNI4810-2",
     "source": "Workday",
-    "date_added": "2026-10-29"
-  },
-  {
-    "company": "JPMorgan Chase",
-    "role": "Global Security Investigator - Associate",
-    "location": "Tampa, FL",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210804485",
-    "source": "Oracle",
     "date_added": "2026-10-29"
   },
   {
