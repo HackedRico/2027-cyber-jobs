@@ -225,7 +225,10 @@
   function highlighter(needles) {
     const alts = [...new Set(needles.map((n) => n.trim()))]
       .sort((a, b) => b.length - a.length)
-      .map((w) => w.replace(/[+#]/g, '\\$&'));
+      // words() leaves only letters, digits, + and #, and of those only + is
+      // special. Under the u flag '\#' is an invalid escape: a search for
+      // "C#" threw here and turned highlighting off.
+      .map((w) => w.replace(/\+/g, '\\+'));
     if (!alts.length) return null;
     try {
       return new RegExp(`(?<![\\p{L}\\p{N}+#])(?:${alts.join('|')})`, 'giu');
