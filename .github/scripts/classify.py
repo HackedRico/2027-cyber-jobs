@@ -985,8 +985,14 @@ ENGLAND_RE = r'(?<!new )\bengland\b'
 # The same lookbehind for "Remote (Mexico)", which ', mexico' missed, without
 # claiming "Albuquerque, New Mexico".
 MEXICO_RE = r'(?<!new )\bmexico\b'
+# A US token that says where the role is not: "Remote (Non-US)" and "Remote -
+# Excluding USA" read as US remote and were stored as Remote (US). The token
+# has to end the scope, so "Remote - US (excluding U.S. territories)" and a
+# title's "(Non-US Persons)" still read as US.
+NOT_US_RE = (r'\b(?:non|outside|excluding|except|ex)[\s-]+(?:of\s+)?(?:the\s+)?'
+             r'(?:u\.?s\.?a?\.?|united states)(?![a-z])(?=\s*(?:[),/;|•\-–]|$))')
 NON_US_RE = re.compile('|'.join([_term_regex(t) for t in NON_US_SUBSTRINGS]
-                                + [ENGLAND_RE, MEXICO_RE]))
+                                + [ENGLAND_RE, MEXICO_RE, NOT_US_RE]))
 
 REGION_CODE_RE = re.compile(r',\s*([A-Za-z]{2})\.?\s*$')
 
@@ -1217,6 +1223,8 @@ def _has_strong_us_token(location):
     hours)"), a mid-string state code followed by a country ("Chennai, TN,
     India"), and a code the named foreign place uses itself ("Pune, IN").
     """
+    # The hyphen in "Remote (Non-US)" left "US)" as a segment of its own.
+    location = re.sub(NOT_US_RE, ' ', location, flags=re.IGNORECASE)
     for seg in SEGMENT_SPLIT_RE.split(location):
         if re.sub(r'[^a-z]', '', seg.strip().lower()) in US_COUNTRY_SEGMENTS:
             return True
@@ -1513,6 +1521,12 @@ def _location_city_key(loc):
     return loc.split(',')[0].strip().lower()
 
 
+# A US scope beside another country ("Remote (US & Canada)") is a US remote
+# option; a US token in an hours or shift phrase ("India (US Hours)") is not.
+US_SCOPE_RE = re.compile(r'\b(?:u\.?s\.?a?\.?|united states)(?![a-z])'
+                         r'(?!\.?\s*(?:[a-z]+\s+)?(?:hours|shift|time))')
+
+
 def normalize_location(location, mark_us=True):
     """Convert "USA - Austin, Texas" -> "Austin, TX"; collapse remote variants.
 
@@ -1547,6 +1561,12 @@ def _normalize_pass(location, mark_us):
         if not raw.strip():
             continue
         norm = _normalize_single_location(raw)
+        # A remote option abroad keeps its own text, so the domestic filter
+        # below drops it: 'Remote, India (US Hours)' and 'Virtual Location -
+        # Canada' were relabeled Remote (US) beside a US site.
+        if (norm == 'Remote (US)' and _is_foreign_part(raw) and not is_us_location(raw)
+                and not US_SCOPE_RE.search(re.sub(NOT_US_RE, ' ', raw.lower()))):
+            norm = raw.strip()
         # Dropping the country must not drop the only US signal: Palo Alto
         # Networks 'Cleveland, United States of America' became 'Cleveland',
         # which check_outputs.py re-judged as not US, failing two scrape runs.

@@ -79,7 +79,7 @@ The role is in the US or remote within the US. The form accepts:
 - `City, ST`, for example `Arlington, VA`
 - a full state name, for example `Arlington, Virginia`
 - `Arlington VA` and `Washington, D.C.`
-- `Remote (US)` or `Remote`, and `United States`. A remote scope that names another region, such as `Remote (Europe)` or `Remote (Worldwide)`, is out.
+- `Remote (US)` or `Remote`, and `United States`. A remote scope that names another region or leaves out the US, such as `Remote (Europe)`, `Remote (Worldwide)` or `Remote (Non-US)`, is out.
 
 Separate several locations with `;` or put one per line. The bot shows the form it will store, such as `Arlington, VA`. A foreign location next to a US one is dropped, and a role with no US location is out, as is one whose title places it abroad ("Support Engineer I - UK", "... located at Ramstein AFB, Germany"). A bare `Remote` beside only places abroad reads as remote from there, so `London, UK; Remote` is out; write `Remote (US)` for a US remote option.
 

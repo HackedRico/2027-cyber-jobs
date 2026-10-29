@@ -294,6 +294,8 @@ CASES = [
     # ...but a title naming a US place, or a foreign city's US namesake, stays.
     ('Cyber Security Analyst I - Dublin, OH', 'Dublin, OH', '', False, ('earlycareer', 'Security Engineering')),
     ('Junior Security Analyst (Remote, USA)', 'Remote (US)', '', False, ('earlycareer', 'Security Engineering')),
+    # A non-US token that qualifies a noun does not place the role abroad.
+    ('Cybersecurity Analyst I (Non-US Persons)', 'Remote (US)', '', False, ('earlycareer', 'Security Engineering')),
 
     # -- bug fix: leveled numerals reject only in role-noun context --
     # "III/IV/3/4" no longer bare-match version/layer/standard numbers.
@@ -874,6 +876,18 @@ NORM = [
     ('Paris, TX; London, UK', 'Paris, TX'),
     ('Perth Amboy, NJ; Perth, WA', 'Perth Amboy, NJ'),
     ('London, UK', 'London, UK'),  # nothing US to keep, so nothing is dropped
+    # A remote option abroad is not relabeled Remote (US) on the way, even with
+    # a US token in it, so it drops beside a US site too...
+    ('San Francisco, CA; Remote, India (US Hours)', 'San Francisco, CA'),
+    ('Office - USA - CA - Santa Clara; Virtual Location - Canada', 'Santa Clara, CA'),
+    ('Austin, TX; Remote - Philippines (US shift)', 'Austin, TX'),
+    ('Austin, TX; Remote (Non-US)', 'Austin, TX'),
+    ('Remote - Excluding USA', 'Remote - Excluding USA'),
+    # A US scope shared with another country is still a US remote option.
+    ('Austin, TX; Remote (US & Canada)', 'Austin, TX; Remote (US)'),
+    ('Austin, TX; Remote, India (U.S. business hours)', 'Austin, TX'),
+    # ...while a US city that shares a foreign name keeps its spelled-out state.
+    ('Palm Bay, Florida; Melbourne, Florida', 'Palm Bay, FL; Melbourne, FL'),
     # US territories resolve to their postal code like any state.
     ('San Juan, Puerto Rico', 'San Juan, PR'),
     ('Barrigada, Guam', 'Barrigada, GU'),
@@ -1177,6 +1191,16 @@ US_LOC = [
     ('Remote (Virginia)', True),
     ('Remote (Hybrid)', True),
     ('Remote (Any State)', True),
+    # A US token that excludes the US is not a US scope.
+    ('Remote (Non-US)', False),
+    ('Remote, Non-US', False),
+    ('Remote - Excluding USA', False),
+    ('Remote (Outside US)', False),
+    ('Austin, TX; Remote (Non-US)', True),
+    ('Remote (Non-US/EMEA)', False),
+    # ...but one that excludes part of a US scope leaves it US.
+    ('Remote - US (excluding U.S. territories)', True),
+    ('Remote (US, excluding US territories)', True),
     ('Albuquerque, New Mexico', True),
     # A foreign place's own code is not a US state code...
     ('Bengaluru, Karnataka, IN', False),
