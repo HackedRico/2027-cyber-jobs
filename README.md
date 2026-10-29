@@ -431,7 +431,7 @@ Full-time roles and rotational programs for students in their final year or just
 
 ## 🌱 Early Career & Entry-Level
 
-Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, Junior, SOC Tier 1, and roles with no level in the title whose posting says 0-2 years or entry level.
+Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, Junior, SOC Tier 1, and roles with no level in the title whose posting says 0-2 years or calls it an entry-level role or position.
 
 <!-- TABLE_START earlycareer -->
 
