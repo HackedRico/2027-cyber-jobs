@@ -74,7 +74,8 @@ One checklist per area, then the probe families. Each line is a trap a past chan
 `.github/workflows/`.
 
 - Writers share `concurrency: group: readme-updates` with `queue: max`, and each runs
-  `check_outputs.py` before every commit. Some linters reject `queue:`; GitHub accepts it.
+  `check_outputs.py`, alone on its line in the step that commits, before every commit. Some
+  linters reject `queue:`; GitHub accepts it.
 - A push made with `GITHUB_TOKEN` starts no workflow, so Pages and the health check follow the
   writers through `workflow_run`. Each also runs on a schedule, since a hosted-runner outage
   can drop a follow-on run before it starts and leave the page or the health issue stale.
@@ -85,11 +86,12 @@ One checklist per area, then the probe families. Each line is a trap a past chan
 
 `testkit.py`, the `test_*.py` suites, `fixtures/`, `refresh_corpus.py`.
 
-- **Determinism.** A suite reads no clock and no network: `testkit.py` pins `datetime` and
-  cuts sockets, DNS and proxies, and `test_wiring.py` proves each suite imports it first and
-  reads no clock itself, `time.time()` included. Run a
-  changed suite twice with different `PYTHONHASHSEED` values and with the OS clock moved a
-  year ahead; the output should not change.
+- **Determinism.** A suite reads no clock and no network: `testkit.py` pins `datetime`,
+  cuts sockets, DNS and proxies, and clears the runner variables the writers read
+  (`ALLOW_MASS_CLOSE`, `GITHUB_STEP_SUMMARY`, `GITHUB_OUTPUT`). `test_wiring.py` proves the
+  pins hold and that each suite imports testkit first and reads no clock itself,
+  `time.time()` included. Run a changed suite twice with different `PYTHONHASHSEED` values
+  and with the OS clock moved a year ahead; the output should not change.
 - **A check that can fail.** Break the thing a new check guards, in a scratch copy, and
   watch it fail. An invariant that holds by construction, such as a category drawn from the
   set it is checked against, tests nothing.

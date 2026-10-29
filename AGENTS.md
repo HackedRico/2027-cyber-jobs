@@ -70,9 +70,10 @@ behind `main`. Rebase before opening a PR, and take `main` for any conflict in a
 - `test_corpus.py` snapshots the title rules over `fixtures/title_corpus.tsv`, the titles of
   a full scrape plus every stored row, and holds each accepted title to invariants such as
   "a senior prefix rejects". `refresh_corpus.py` rebuilds that title list from a live scrape.
-  `test_wiring.py` checks the wiring: CI runs every suite, actions pin a commit SHA, writers
-  run `check_outputs.py`, follow-on workflows have a schedule, the issue form offers exactly
-  the classifier's categories.
+  `test_wiring.py` checks the wiring: CI runs each suite alone in a step that fails with it,
+  testkit really pins the clock and cuts the network, actions pin a commit SHA, writers run
+  `check_outputs.py` unswallowed in the step that commits, follow-on workflows have a
+  schedule, the issue form offers exactly the classifier's categories.
 
 ## Changing the classifier
 
@@ -144,8 +145,10 @@ root. Beyond what the linter enforces:
   `test_*` functions over mocked HTTP, each registered in the tuple at the bottom of the
   file. Add a row or a function in the same shape.
 - Every test script imports `testkit.py` before the modules it tests. It pins the clock to
-  the date the fixtures were written and refuses the network past loopback, so a suite gives
-  the same result on any day and machine. A test passes `today=` to cover a date rollover.
+  the date the fixtures were written, refuses the network past loopback and clears the runner
+  variables the writers read (`ALLOW_MASS_CLOSE`, `GITHUB_STEP_SUMMARY`, `GITHUB_OUTPUT`), so
+  a suite gives the same result on any day and machine. A test passes `today=` to cover a
+  date rollover.
 - Reshape a suite, an invariant or a review checklist when the code moves, and keep what
   makes them trustworthy: `test_classification.py` stays tables of real titles, every suite
   stays offline on the pinned clock, and the corpus diff stays the record of what a rule
