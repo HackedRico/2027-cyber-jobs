@@ -1301,6 +1301,29 @@ def test_pinpoint_remote_is_us_only_for_usa_locations():
 
 
 @responses.activate
+def test_pinpoint_reads_the_requirement_sections():
+    """The intro alone let a leveled NCC Group req past the experience gate."""
+    responses.get('https://nccgroup.pinpointhq.com/postings.json', json={'data': [
+        {'id': '1', 'title': 'Security Consultant II', 'workplace_type': 'onsite',
+         'location': {'city': 'Austin', 'province': 'Texas', 'name': 'USA Austin'},
+         'description': '<p>Join our technical assurance practice.</p>',
+         'key_responsibilities': '<ul><li>Deliver web application tests.</li></ul>',
+         'skills_knowledge_expertise': '<ul><li>4+ years of penetration testing '
+                                       'experience</li></ul>',
+         'benefits': '<p>An extra day of leave after 5 years of service.</p>'}]})
+    job = sj.scrape_pinpoint('NCC Group', 'nccgroup')[0]
+    check('pinpoint joins the intro, responsibilities and skills, not benefits',
+          (job['description'].count('<ul>'), 'years of penetration' in job['description'],
+           'service' in job['description']), (2, True, False))
+    check('the skills floor now reaches the experience gate',
+          sj.evaluate_job(job['title'], job['location'], job['description'], True), None)
+    check('...where the intro alone let the req through',
+          sj.evaluate_job(job['title'], job['location'],
+                          '<p>Join our technical assurance practice.</p>', True)
+          is not None, True)
+
+
+@responses.activate
 def test_oracle_fetches_descriptions_for_candidates():
     host = 'acme.fa.us2.oraclecloud.com'
     base = f'https://{host}/hcmRestApi/resources/latest/'
@@ -1663,6 +1686,25 @@ def test_jibe_paginates_maps_fields_and_keeps_the_crawl_delay():
           [sj.JIBE_REQUEST_DELAY] * len(sj.JIBE_TERMS))
     check('jibe sweep that finished is not partial',
           any(j.get('partial_sweep') for j in jobs), False)
+
+
+@responses.activate
+def test_jibe_joins_the_qualifications():
+    """An iCIMS posting can file its years floor apart from the overview."""
+    _jb_search('cyber', 1, [_jb_job(
+        61001, 'Cybersecurity Engineer II',
+        description='<p>As a cybersecurity engineer you will harden mission systems.</p>',
+        responsibilities='<ul><li>Perform vulnerability assessments</li></ul>',
+        qualifications='<p>You meet our minimum qualifications if you have a BS and 5+ '
+                       'years of experience in cyber operations.</p>')], 1)
+    for term in sj.JIBE_TERMS[1:]:
+        _jb_search(term, 1, [], 0)
+    job = sj.scrape_jibe('Acme', 'careers.acme.org')[0]
+    check('jibe keeps the overview, responsibilities and qualifications',
+          ('harden mission' in job['description'], 'vulnerability' in job['description'],
+           '5+ years' in job['description']), (True, True, True))
+    check('the qualifications floor reaches the experience gate',
+          sj.evaluate_job(job['title'], job['location'], job['description']), None)
 
 
 @responses.activate
@@ -3508,6 +3550,7 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_long_silent_board_retires_its_rows,
            test_greenhouse_remote_keeps_a_remote_label,
            test_pinpoint_remote_is_us_only_for_usa_locations,
+           test_pinpoint_reads_the_requirement_sections,
            test_oracle_fetches_descriptions_for_candidates,
            test_eightfold_paginates_backs_off_and_gates_levels,
            test_eightfold_none_vs_empty, test_eightfold_gives_up_after_sustained_429,
@@ -3517,6 +3560,7 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_eightfold_prefers_a_city_over_a_state_only_standardized_location,
            test_eightfold_flags_a_cut_short_sweep, test_phenom_flags_a_cut_short_sweep,
            test_jibe_paginates_maps_fields_and_keeps_the_crawl_delay,
+           test_jibe_joins_the_qualifications,
            test_jibe_none_vs_empty, test_jibe_retries_429_and_flags_a_cut_short_sweep,
            test_jibe_caps_pages, test_jibe_plumbs_through_config_and_retirement,
            test_new_boards_validate_config_and_plumb_through,

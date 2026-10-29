@@ -803,7 +803,13 @@ def scrape_pinpoint(company, slug, apply_hosts=()):
             'location': location,
             'url': links.pick(job.get('url', ''), f'https://{slug}.pinpointhq.com{path}'),
             'board': 'Pinpoint',
-            'description': job.get('description', ''),
+            # The requirement sections sit beside the intro, as Recruitee's do,
+            # so a years floor in skills_knowledge_expertise never reached the
+            # experience gate. 'benefits' stays out: service-year perks could
+            # read as a floor.
+            'description': '\n'.join(filter(None, (job.get('description'),
+                                                   job.get('key_responsibilities'),
+                                                   job.get('skills_knowledge_expertise')))),
         })
     links.report()
     return jobs
@@ -1502,7 +1508,11 @@ def scrape_jibe(company, host, extra_terms=None):
                     'location': location,
                     'url': f'https://{host}/jobs/{slug}',
                     'board': 'Jibe',
-                    'description': info.get('description') or info.get('qualifications') or '',
+                    # Keeping only the first non-empty field dropped a years
+                    # floor or clearance line filed under qualifications.
+                    'description': '\n\n'.join(filter(None, (
+                        info.get('description'), info.get('responsibilities'),
+                        info.get('qualifications')))),
                     'intern_hint': _jibe_intern_hint(info),
                 })
             total = data.get('totalCount')
