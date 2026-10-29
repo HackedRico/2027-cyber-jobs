@@ -362,6 +362,13 @@ def test_workday_total_failure_returns_none():
 
 
 # --- pagination keeps going when the total field is absent --------------------
+def _at_offset(offset):
+    # responses serves unmatched mocks in order whatever the query, so a pager
+    # that never advanced its offset still read page two. ServiceNow's 449
+    # SmartRecruiters postings take five pages.
+    return [responses.matchers.query_param_matcher({'offset': str(offset)}, strict_match=False)]
+
+
 @responses.activate
 def test_smartrecruiters_missing_total_keeps_paging():
     page1 = {'content': [{'id': str(i), 'name': 'Security Engineer',
@@ -369,8 +376,10 @@ def test_smartrecruiters_missing_total_keeps_paging():
                          for i in range(100)]}  # full page, NO totalFound
     page2 = {'content': [{'id': 'x', 'name': 'Security Analyst',
                           'location': {'country': 'us', 'remote': True}}]}  # short page
-    responses.get('https://api.smartrecruiters.com/v1/companies/Acme/postings', json=page1)
-    responses.get('https://api.smartrecruiters.com/v1/companies/Acme/postings', json=page2)
+    responses.get('https://api.smartrecruiters.com/v1/companies/Acme/postings', json=page1,
+                  match=_at_offset(0))
+    responses.get('https://api.smartrecruiters.com/v1/companies/Acme/postings', json=page2,
+                  match=_at_offset(100))
     jobs = sj.scrape_smartrecruiters('Acme', 'Acme')
     check('smartrecruiters paged past a full first page with no total', len(jobs), 101)
 
@@ -2246,20 +2255,31 @@ def test_smartrecruiters_and_amazon_flag_a_cut_short_sweep():
     full = {'totalFound': 300, 'content': [
         {'id': str(i), 'name': 'Accountant',
          'location': {'country': 'us', 'city': 'Austin', 'region': 'TX'}} for i in range(100)]}
-    responses.get(sr, json=full)
-    responses.get(sr, status=404)
+    responses.get(sr, json=full, match=_at_offset(0))
+    responses.get(sr, status=404, match=_at_offset(100))
     jobs = sj.scrape_smartrecruiters('Acme', 'Acme')
     check('smartrecruiters: a failed second page keeps the first, flagged',
           (len(jobs), _partial_flags(jobs)), (100, [True]))
 
     amazon = 'https://www.amazon.jobs/en/search.json'
-    page = {'hits': 300, 'jobs': [{'id_icims': str(i), 'title': 'Accountant',
-                                   'location': 'US, WA, Seattle'} for i in range(100)]}
-    responses.get(amazon, json=page)
-    responses.get(amazon, status=404)
+
+    def hits(start, count, total=300):
+        return {'hits': total, 'jobs': [{'id_icims': str(i), 'title': 'Accountant',
+                                         'location': 'US, WA, Seattle'}
+                                        for i in range(start, start + count)]}
+    page = hits(0, 100)
+    responses.get(amazon, json=page, match=_at_offset(0))
+    responses.get(amazon, status=404, match=_at_offset(100))
     jobs = sj.scrape_amazon()
     check('amazon: a failed second page keeps the first, flagged',
           (len(jobs), _partial_flags(jobs)), (100, [True]))
+    # Amazon's 324 US reqs span four pages.
+    responses.reset()
+    responses.get(amazon, json=hits(0, 100, 150), match=_at_offset(0))
+    responses.get(amazon, json=hits(100, 50, 150), match=_at_offset(100))
+    jobs = sj.scrape_amazon()
+    check('amazon: a whole sweep pages by offset',
+          (len({j['id'] for j in jobs}), len(jobs), _partial_flags(jobs)), (150, 150, [False]))
 
     responses.reset()
     responses.get(sr, json=full)
@@ -2278,6 +2298,41 @@ def test_smartrecruiters_and_amazon_flag_a_cut_short_sweep():
     responses.get(amazon, status=404)
     check('a first page that fails is still None, not []',
           (sj.scrape_smartrecruiters('Acme', 'Acme'), sj.scrape_amazon()), (None, None))
+
+
+@responses.activate
+def test_oracle_pages_and_flags_a_cut_short_sweep():
+    """JPMorgan's Oracle site CX_1001 lists 7,300 reqs, 200 to a page."""
+    # Every other Oracle mock is one short page, so the offset and the partial
+    # flag on a failed page never ran.
+    host = 'acme.fa.us2.oraclecloud.com'
+    offsets, failing = [], set()
+
+    def reqs(request):
+        finder = parse_qs(urlparse(request.url).query)['finder'][0]
+        offset = int(dict(p.split('=') for p in finder.split(';')[1].split(','))['offset'])
+        offsets.append(offset)
+        if offset in failing:
+            return 500, {}, ''
+        page = [{'Id': str(n), 'Title': 'Accountant', 'PrimaryLocation': 'Austin, TX'}
+                for n in range(offset, min(offset + 200, 400))]
+        return 200, {}, json.dumps({'items': [{'TotalJobsCount': 400, 'requisitionList': page}]})
+    responses.add_callback(responses.GET, f'https://{host}/hcmRestApi/resources/latest/'
+                           'recruitingCEJobRequisitions', callback=reqs)
+    jobs = sj.scrape_oracle('Acme', host, 'CX_1')
+    check('oracle pages by offset through a whole board',
+          (offsets, len({j['id'] for j in jobs}), _partial_flags(jobs)), ([0, 200], 400, [False]))
+    failing.add(200)
+    jobs = sj.scrape_oracle('Acme', host, 'CX_1')
+    check('oracle: a failed second page keeps the first, flagged',
+          (len(jobs), _partial_flags(jobs)), (200, [True]))
+    original = sj.MAX_PAGES
+    try:
+        sj.MAX_PAGES = 1
+        jobs = sj.scrape_oracle('Acme', host, 'CX_1')
+    finally:
+        sj.MAX_PAGES = original
+    check('oracle: the page cap flags every posting', _partial_flags(jobs), [True])
 
 
 # --- rows whose board left companies.yml --------------------------------------
@@ -3710,6 +3765,7 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_failed_detail_fetches_are_marked_on_every_detail_source,
            test_amazon_restricts_to_us_reqs,
            test_smartrecruiters_and_amazon_flag_a_cut_short_sweep,
+           test_oracle_pages_and_flags_a_cut_short_sweep,
            test_retire_orphaned_listings, test_check_links_soft_404,
            test_check_links_redirect_that_drops_the_req,
            test_check_links_ages_out_old_community_rows,
