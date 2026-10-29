@@ -1553,17 +1553,34 @@ def renormalize_locations(listings):
     A row keeps the string the normalizer produced when it landed, so a rule
     added later never reaches the board without this pass. Community rows stay
     as the maintainer wrote them, and a result that would blank the location
-    (an opaque facility code alone) keeps the old value.
+    (an opaque facility code alone) keeps the old value. An open row also keeps
+    it when the new one would give it the (company, role, location) key another
+    open row holds: RTX posted 'Systems Engineer I, V&V Testing' twice at
+    Aguadilla, stored as 'Aguadilla, Puerto Rico' and 'Aguadilla, PR', and two
+    open rows with one key fail check_outputs.py on every run.
     """
+    def key(entry, location):
+        return listing_dedup_key(entry.get('company', ''), entry.get('role', ''), location)
+
+    def is_open(entry):
+        return bool(entry.get('url')) and not entry.get('closed')
+
+    held = {key(e, e.get('location', '')) for e in listings if is_open(e)}
     changed = 0
     for entry in listings:
         if entry.get('source') == 'Community':
             continue
         before = entry.get('location', '')
         after = normalize_location(before)
-        if after and after != before:
-            entry['location'] = after
-            changed += 1
+        if not after or after == before:
+            continue
+        if is_open(entry):
+            new_key = key(entry, after)
+            if new_key != key(entry, before) and new_key in held:
+                continue
+            held.add(new_key)
+        entry['location'] = after
+        changed += 1
     return changed
 
 

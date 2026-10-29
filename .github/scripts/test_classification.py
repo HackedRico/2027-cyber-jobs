@@ -931,6 +931,29 @@ if renorm_n != 1 or renorm_locs != ['Baltimore, MD', 'Austin, TX', 'HQ - Sunnyva
     failures += 1
     print(f'FAIL renormalize_locations: changed={renorm_n}, locations={renorm_locs}')
 
+# RTX posted 'Systems Engineer I, V&V Testing' twice at Aguadilla, stored as
+# 'Aguadilla, Puerto Rico' and 'Aguadilla, PR'. Renormalizing the first onto the
+# second gives two open rows one dedup key, which check_outputs.py fails on
+# every run, so the open row keeps its old string; a closed copy still moves.
+RTX_REQ = 'https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/Aguadilla/X_'
+RENORM_COLLISION = [
+    ({'company': 'RTX', 'role': 'Systems Engineer I, V&V Testing', 'location': 'Aguadilla, Puerto Rico',
+      'source': 'Workday', 'url': RTX_REQ + '01'}, 'Aguadilla, Puerto Rico'),
+    ({'company': 'RTX', 'role': 'Systems Engineer I, V&V Testing', 'location': 'Aguadilla, PR',
+      'source': 'Workday', 'url': RTX_REQ + '02'}, 'Aguadilla, PR'),
+    ({'company': 'RTX', 'role': 'Systems Engineer I, V&V Testing', 'location': 'Aguadilla, Puerto Rico',
+      'source': 'Workday', 'url': '', 'closed': True}, 'Aguadilla, PR'),
+    # Only a key another open row holds blocks the rewrite.
+    ({'company': 'RTX', 'role': 'Systems Engineer I', 'location': 'Aguadilla, Puerto Rico',
+      'source': 'Workday', 'url': RTX_REQ + '03'}, 'Aguadilla, PR'),
+]
+collision_rows = [dict(r) for r, _ in RENORM_COLLISION]
+collision_n = s.renormalize_locations(collision_rows)
+collision_locs = [r['location'] for r in collision_rows]
+if collision_n != 2 or collision_locs != [want for _, want in RENORM_COLLISION]:
+    failures += 1
+    print(f'FAIL renormalize_locations collision: changed={collision_n}, locations={collision_locs}')
+
 # listing_dedup_key: reposts of one req list the same sites in any order and
 # spacing, and must collapse to one row.
 DEDUP = [
