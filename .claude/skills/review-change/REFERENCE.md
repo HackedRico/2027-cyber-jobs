@@ -50,7 +50,7 @@ One checklist per area, then the probe families. Each line is a trap a past chan
 - **Workday cxs** sorts results by date, matches any word of a term and ignores quotes. A term
   past 15 pages marks the sweep partial, which sends retirement to the detail endpoint.
 - **Cost.** Each Workday term costs up to 15 requests on every tenant. Time the full dry run:
-  the workflow stops at 30 minutes, and a cancelled run drops the whole scrape.
+  the scrape step stops at 25 minutes, and a timed-out run fails and drops the whole scrape.
 - **amazon.jobs** takes `OR` and quoted phrases. Read `hits` for each phrase: a bare
   "solutions architect" added thousands of senior postings.
 - **None and empty.** A scraper returns `None` for a broken fetch and `[]` for an empty board;

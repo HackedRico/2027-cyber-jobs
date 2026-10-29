@@ -107,9 +107,9 @@ never inside a rule change.
    then `compare_runs.py before.log after.log`. A clean exit is the equivalence proof; the
    flipped rows it prints are the example titles the PR names.
 
-Workday tenants are most of the wall clock, the workflow times out at 30 minutes, and a
-cancelled run drops the whole scrape. Anything new that runs per Workday job needs the full
-dry-run timing before merge.
+Workday tenants are most of the wall clock. The scrape step stops at 25 minutes (the job at
+30), and a timed-out scrape fails the run and drops the whole scrape. Anything new that runs per
+Workday job needs the full dry-run timing before merge.
 
 ## Adding or repairing a board
 
