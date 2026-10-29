@@ -282,8 +282,17 @@ for kind, want in (('intern', ['Acme: Security Intern']),
     check(f'feed-{kind}.xml carries its type only',
           [e.find(f'{A}title').text for e in items], want)
 
-_, items = entries(bs.build_feed(bs.page_data(real, TODAY)['rows'])[1])
+# The cap is checked on rows of its own: listings.json is a bot output, and a
+# board under 50 open rows would have failed every PR with no code change.
+MANY = [row(role=f'SOC Analyst {i}', url=f'https://boards.greenhouse.io/acme/jobs/{i}')
+        for i in range(60)]
+_, items = entries(bs.build_feed(bs.page_data(MANY, TODAY)['rows'])[1])
 check('feed.xml caps at 50 entries', len(items), bs.FEED_SIZE)
+check('feed entry ids are unique', len({e.find(f'{A}id').text for e in items}), len(items))
+real_rows = bs.page_data(real, TODAY)['rows']
+_, items = entries(bs.build_feed(real_rows)[1])
+check('the real feed holds the newest open rows up to the cap', len(items),
+      min(bs.FEED_SIZE, sum(not r.get('closed') for r in real_rows)))
 check('real feed entry ids are unique', len({e.find(f'{A}id').text for e in items}), len(items))
 
 
