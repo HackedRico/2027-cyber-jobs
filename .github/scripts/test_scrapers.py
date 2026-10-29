@@ -2348,13 +2348,18 @@ def test_oracle_pages_and_flags_a_cut_short_sweep():
     jobs = sj.scrape_oracle('Acme', host, 'CX_1')
     check('oracle: a failed second page keeps the first, flagged',
           (len(jobs), _partial_flags(jobs)), (200, [True]))
+    # With page 200 still failing, a pager that ignored the cap was flagged
+    # for that failure and passed.
+    failing.clear()
+    offsets.clear()
     original = sj.MAX_PAGES
     try:
         sj.MAX_PAGES = 1
         jobs = sj.scrape_oracle('Acme', host, 'CX_1')
     finally:
         sj.MAX_PAGES = original
-    check('oracle: the page cap flags every posting', _partial_flags(jobs), [True])
+    check('oracle: the page cap stops the sweep and flags every posting',
+          (offsets, len(jobs), _partial_flags(jobs)), ([0], 200, [True]))
 
 
 # --- rows whose board left companies.yml --------------------------------------
