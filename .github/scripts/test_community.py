@@ -166,6 +166,7 @@ LOCATIONS = [
     ('McLean, Va', 'McLean, VA', True),
     ('Reston, va.', 'Reston, VA', True),
     ('Arlington VA', 'Arlington, VA', True),
+    ('Fort  Meade, MD', 'Fort Meade, MD', True),
     ('New York, New York', 'New York, NY', True),
     ('San Juan, PR', 'San Juan, PR', True),
     ('Remote (US)', 'Remote (US)', True),
@@ -203,6 +204,10 @@ for submitted, stored, valid in LOCATIONS:
     if not classify.is_us_location(submitted):
         check(f'is_us_location rejects, so validate_location must too: {submitted!r}',
               bool(errors), True)
+# normalize_location's patterns rescan a whitespace run, so a Location of 65k
+# spaces in an issue body cost about 80s a call until the form path collapsed it.
+check('normalize_submitted_location collapses a long whitespace run',
+      common.normalize_submitted_location('Fort' + ' ' * 10_000 + 'Meade, MD'), 'Fort Meade, MD')
 # "Mumbai, IN" was told to fix a bare "Remote" it never had.
 check('validate_location names a bare Remote only when one was typed',
       ['bare "Remote"' in ' '.join(common.validate_location(location))

@@ -370,8 +370,10 @@ SUBMITTED_SPLIT_RE = re.compile(r'[;\n]')
 
 def _fix_typed_spelling(part):
     # normalize_location reads scraper shapes; a person types "Washington,
-    # D.C." and "McLean, Va", which it passes through unchanged.
-    part = DC_SPELLING_RE.sub('Washington, DC', part.strip())
+    # D.C." and "McLean, Va", which it passes through unchanged. Its patterns
+    # also rescan a whitespace run, so a Location of 65k spaces in an issue
+    # body took about 80s per call; one space is all a place name needs.
+    part = DC_SPELLING_RE.sub('Washington, DC', ' '.join(part.split()))
     return REGION_CODE_RE.sub(lambda m: f', {m.group(1).upper()}', part)
 
 
