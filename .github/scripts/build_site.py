@@ -71,7 +71,11 @@ NON_REMOTE_RE = re.compile(r'\b(?:non|not|no)[- ]?remote\b', re.IGNORECASE)
 # stopped the whole build.
 XML_INVALID_RE = re.compile(
     '[^\t\n\r\x20-\x7e\x80-퟿-�\U00010000-\U0010ffff]')
-HTTP_URL_RE = re.compile(r'^https?://\S+$', re.IGNORECASE)
+# A browser reads a backslash in a link as a slash, so
+# 'https://jobs-crowdstrike.example\@boards.greenhouse.io/...' opens
+# jobs-crowdstrike.example while urlsplit, and every host check built on it,
+# sees boards.greenhouse.io.
+HTTP_URL_RE = re.compile(r'^https?://[^\s\\]+$', re.IGNORECASE)
 
 
 def clean_text(value):

@@ -350,6 +350,15 @@ check('the page data drops the same characters',
       [('Acme', 'SOC[31m Analyst I'), ('Beta', 'Security Intern'),
        ('Gamma', 'Cyber Analyst I')])
 
+# A browser opens jobs-crowdstrike.example; urlsplit sees boards.greenhouse.io.
+SPOOF = 'https://jobs-crowdstrike.example\\@boards.greenhouse.io/crowdstrike/jobs/7012345'
+_, items = entries(bs.build_feed([bs.page_row(row(url=SPOOF))])[1])
+check('a feed never links to a url holding a backslash',
+      items[0].find(f'{A}link').get('href'), bs.SITE_URL)
+check('the feed link rule needs a host and takes any case',
+      [bool(bs.HTTP_URL_RE.match(u)) for u in ('https://', 'HTTPS://acme.example/jobs/1')],
+      [False, True])
+
 
 if failures:
     print(f'\n{failures} site test(s) failed')

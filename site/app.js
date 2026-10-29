@@ -102,7 +102,9 @@
   const ESC = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
   function esc(text) { return String(text).replace(/[&<>"']/g, (c) => ESC[c]); }
 
-  function safeUrl(url) { return /^https?:\/\/\S+$/.test(url || '') ? url : ''; }
+  // No backslash: a browser reads it as a slash, so a link whose host check
+  // saw an allowed host after a '\@' would open the host before it.
+  function safeUrl(url) { return /^https?:\/\/[^\s\\]+$/i.test(url || '') ? url : ''; }
 
   function plural(n, one, many) { return `${n} ${n === 1 ? one : many}`; }
 
