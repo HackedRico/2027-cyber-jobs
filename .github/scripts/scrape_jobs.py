@@ -1650,6 +1650,17 @@ def reevaluate_stored_listings(listings, raw_jobs, sec_flags, probe=None,
 # enough that a student is not sent to a req that closed last week.
 VANISHED_DAYS = 3
 
+# Behind a sweep cut short by a page cap or a failed page, absence is weaker
+# evidence, so a non-Workday row (which has no detail probe) waits this long
+# instead. A live req that ranking pushes past the cap is usually seen again
+# within two weeks, and any sighting clears the streak; the revive path brings
+# back one that reappears later. Holding such rows outright kept Microsoft
+# 'Security Research INTERN' open a month after its req closed, since
+# Microsoft's 'security' term matches 970 postings against a 500 cap every run,
+# and the charter counts a dead row shown forever as worse than a live one
+# hidden.
+PARTIAL_VANISHED_DAYS = 14
+
 # Per source, the part of an apply URL that identifies the requisition. Both a
 # stored row and a freshly scraped posting are reduced through these, so the
 # vanished check compares like with like without parsing the scraper's internal
@@ -1768,14 +1779,18 @@ def retire_vanished_listings(listings, raw_jobs, today, silent_boards=frozenset(
         so a broken slug, a failed fetch, or a `--board`/`--limit` subset can
         never retire anything it did not actually look at;
       * a board whose sweep was cut short (postings flagged `partial_sweep`,
-        from a page cap or a failed page) retires nothing on absence alone,
-        since the missing req may sit past the cut. A Workday row there is
-        asked about directly through `probe`, and only a 'gone' answer counts
-        as a miss; the big tenants (CVS, RTX, Northrop) cut short every run;
+        from a page cap or a failed page) may have missed a live req past the
+        cut. A Workday row there is asked about directly through `probe`, and
+        only a 'gone' answer counts as a miss; the big tenants (CVS, RTX,
+        Northrop) cut short every run. Any other row there must be missing for
+        PARTIAL_VANISHED_DAYS: Microsoft (Eightfold), BAE and MITRE (Phenom)
+        are cut short every run too, and retiring nothing there kept their
+        closed reqs open for weeks;
       * a company in `failed_companies` had a board fail or crash this run, so
-        all its rows are treated as behind a partial sweep. Idaho National
-        Laboratory has two Oracle sites, and one failing while the other
-        answered used to stamp the failed site's rows missing;
+        its Workday rows are probed as above and its other rows keep their
+        streak as it was. Idaho National Laboratory has two Oracle sites, and
+        one failing while the other answered used to stamp the failed site's
+        rows missing;
       * a row must be missing for VANISHED_DAYS before it goes, so one partial
         fetch that went unnoticed costs a re-check rather than the listings;
       * Community rows carry a maintainer's judgment and never appear in
@@ -1814,17 +1829,23 @@ def retire_vanished_listings(listings, raw_jobs, today, silent_boards=frozenset(
             # out of one page never accumulates its way to retirement.
             entry.pop('missing_since', None)
             continue
-        if (company, source) in partial or company in failed_companies:
-            state = probe(entry['url']) if source == 'Workday' else None
+        grace = VANISHED_DAYS
+        cut_short = (company, source) in partial
+        if source == 'Workday' and (cut_short or company in failed_companies):
+            state = probe(entry['url'])
             if state == 'live':
                 entry.pop('missing_since', None)
             if state != 'gone':
                 continue
+        elif company in failed_companies:
+            continue
+        elif cut_short:
+            grace = PARTIAL_VANISHED_DAYS
         first_missed = entry.get('missing_since')
         if not first_missed:
             entry['missing_since'] = today
             continue
-        if _days_since(first_missed, today) < VANISHED_DAYS:
+        if _days_since(first_missed, today) < grace:
             continue
         _retire(entry, today)
         retired.append(entry)
@@ -2241,6 +2262,12 @@ def report_board_health(board_stats, today=None, persist=True):
     if regressed:
         lines.append('- ⚠️ Regressed to zero: '
                      + ', '.join(_oneline(label) for label, _ in regressed))
+    # Names the boards where retire_vanished_listings runs slow, so a board that
+    # stays on this line is visibly holding closed reqs longer than the rest.
+    cut_short = [b['label'] for b in board_stats if b.get('partial')]
+    if cut_short:
+        lines.append(f'- Cut short (a missing row retires after {PARTIAL_VANISHED_DAYS} days, '
+                     'Workday rows are probed): ' +', '.join(_oneline(x) for x in cut_short))
     if dead:
         # "50 runs" read as 50 requests. Each scrape asks a board once and gets
         # its whole job list back, so the count is scrapes, not calls.
@@ -2599,7 +2626,8 @@ def main():
             # Amazon has no companies.yml entry to read.
             company_flags.setdefault(job['company'], result['security_company'])
         raw_jobs.extend(result['jobs'])
-        board_stats.append({key: result[key] for key in ('label', 'status', 'count')})
+        board_stats.append({**{key: result[key] for key in ('label', 'status', 'count')},
+                            'partial': any(job.get('partial_sweep') for job in result['jobs'])})
     print(f'\nScraped {len(tasks)} board(s) in {time.monotonic() - started:.0f}s')
 
     # Only a full run may roll the baseline — a --board/--limit run holds counts

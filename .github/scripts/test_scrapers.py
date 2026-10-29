@@ -1047,6 +1047,92 @@ def test_partial_workday_sweep_asks_the_detail_endpoint():
     check('only rows missing from the sweep are asked about', len(asked), 3)
 
 
+MS_JOB = 'https://microsoft.eightfold.ai/careers/job/'
+BAE_JOB = 'https://jobs.baesystems.com/global/en/job/'
+
+
+def _cut_short_rows():
+    return [_listing('Microsoft', 'Security Research INTERN', MS_JOB + '1970393556962157',
+                     source='Eightfold'),
+            _listing('BAE Systems', 'System Security Engineer I', BAE_JOB + '128449BR',
+                     source='Phenom')]
+
+
+def _cut_short_feed(*extra):
+    live = [MS_JOB + '1970393556988227', BAE_JOB + '128460BR', *extra]
+    return [{'company': 'Microsoft' if 'eightfold' in url else 'BAE Systems',
+             'board': 'Eightfold' if 'eightfold' in url else 'Phenom',
+             'url': url, 'partial_sweep': True} for url in live]
+
+
+def _no_probe(url):
+    raise AssertionError(f'only Workday rows are probed, not {url}')
+
+
+def test_cut_short_sweep_without_a_probe_retires_after_a_longer_streak():
+    """Microsoft 'Security Research INTERN' stayed open a month after its req closed.
+
+    Microsoft's Eightfold 'security' term matches 970 postings against a 500
+    cap, and BAE's Phenom 'cyber' 1,837 against 200, so every sweep is cut
+    short, and with no detail probe outside Workday their rows never retired.
+    """
+    listings = _cut_short_rows()
+    retired_on = {}
+    for day in range(1, 21):
+        today = f'2026-10-{day:02d}'
+        for entry in sj.retire_vanished_listings(listings, _cut_short_feed(), today,
+                                                 probe=_no_probe):
+            retired_on[entry['role']] = today
+    check('a row missing behind a cut-short sweep retires after PARTIAL_VANISHED_DAYS',
+          retired_on, {'Security Research INTERN': '2026-10-15',
+                       'System Security Engineer I': '2026-10-15'})
+
+    listings = _cut_short_rows()
+    sj.retire_vanished_listings(listings, _cut_short_feed(), '2026-10-01', probe=_no_probe)
+    sightings = _cut_short_feed(MS_JOB + '1970393556962157', BAE_JOB + '128449BR')
+    sj.retire_vanished_listings(listings, sightings, '2026-10-10', probe=_no_probe)
+    check('one sighting clears the streak',
+          [e.get('missing_since') for e in listings], [None, None])
+    check('...so a later miss starts a fresh one',
+          (sj.retire_vanished_listings(listings, _cut_short_feed(), '2026-10-16',
+                                       probe=_no_probe),
+           [e.get('missing_since') for e in listings]),
+          ([], ['2026-10-16', '2026-10-16']))
+
+    listings = [dict(e, missing_since='2026-09-29') for e in _cut_short_rows()]
+    check('a company with a failed board neither retires nor restamps its rows',
+          (sj.retire_vanished_listings(listings, _cut_short_feed(), '2026-10-29',
+                                       probe=_no_probe,
+                                       failed_companies={'Microsoft', 'BAE Systems'}),
+           [e.get('missing_since') for e in listings]),
+          ([], ['2026-09-29', '2026-09-29']))
+    listings = _cut_short_rows()
+    sj.retire_vanished_listings(listings, _cut_short_feed(), '2026-10-29', probe=_no_probe,
+                                failed_companies={'Microsoft', 'BAE Systems'})
+    check('...and stamps no fresh streak', [e.get('missing_since') for e in listings],
+          [None, None])
+
+    import contextlib
+    import io
+    saved = sj.BOARD_BASELINE_FILE
+    out = io.StringIO()
+    with tempfile.TemporaryDirectory() as tmp:
+        try:
+            sj.BOARD_BASELINE_FILE = Path(tmp) / 'board_baseline.json'
+            with contextlib.redirect_stdout(out):
+                sj.report_board_health(
+                    [{'label': 'Microsoft (eightfold/microsoft)', 'status': 'ok',
+                      'count': 500, 'partial': True},
+                     {'label': 'Lockheed Martin (eightfold/lockheedmartin)', 'status': 'ok',
+                      'count': 40, 'partial': False}], '2026-10-29', persist=False)
+        finally:
+            sj.BOARD_BASELINE_FILE = saved
+    check('the run summary names each board whose sweep was cut short',
+          [line for line in out.getvalue().splitlines() if line.startswith('- Cut short')],
+          [f'- Cut short (a missing row retires after {sj.PARTIAL_VANISHED_DAYS} days, '
+           'Workday rows are probed): Microsoft (eightfold/microsoft)'])
+
+
 @responses.activate
 def test_workday_posting_state():
     base = 'https://acme.wd1.myworkdayjobs.com'
@@ -3101,7 +3187,9 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_check_links_closes_after_two_dead_days,
            test_workday_total_only_on_first_page, test_workday_flags_a_cut_short_sweep,
            test_incomplete_sweep_retires_nothing,
-           test_partial_workday_sweep_asks_the_detail_endpoint, test_workday_posting_state,
+           test_partial_workday_sweep_asks_the_detail_endpoint,
+           test_cut_short_sweep_without_a_probe_retires_after_a_longer_streak,
+           test_workday_posting_state,
            test_long_silent_board_retires_its_rows,
            test_greenhouse_remote_keeps_a_remote_label,
            test_pinpoint_remote_is_us_only_for_usa_locations,
