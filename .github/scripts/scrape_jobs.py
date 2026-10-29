@@ -51,6 +51,7 @@ from classify import (
     requires_clearance,
     stamp_twins,
     strip_html,
+    title_places_abroad,
 )
 from common import normalize_url, security_company_flags, write_run_events
 
@@ -1666,8 +1667,9 @@ def reevaluate_stored_listings(listings, raw_jobs, sec_flags, probe=None,
         for candidate titles) is not evidence: a 'no-level' verdict, the one
         gate an empty body trips alone, keeps the row with its stored type, and
         `clearance` only turns on from the title;
-      * a blank live location never drops a row, nor does Workday's list-view
-        placeholder ("2 Locations") left behind by a failed detail fetch;
+      * a blank live location never fails the location gate, nor does
+        Workday's list-view placeholder ("2 Locations") left behind by a
+        failed detail fetch, though a live title placed abroad still drops;
       * intern rows stay interns: their level may come from an ATS hint, and
         the experience gate exempts them, as it does at insert.
     """
@@ -1704,8 +1706,11 @@ def reevaluate_stored_listings(listings, raw_jobs, sec_flags, probe=None,
             if reason == 'no-level' and not described:
                 continue
             live_location = (job.get('location') or '').strip()
-            if reason == 'non-us-location' and (
-                    not live_location or MULTI_LOCATION_RE.search(live_location)):
+            # The waiver is for the location gate only: a live retitle to
+            # Parsons' '...located at Ramstein AFB, Germany**' stayed open
+            # behind a '2 Locations' placeholder.
+            if (reason == 'non-us-location' and not title_places_abroad(job.get('title', ''))
+                    and (not live_location or MULTI_LOCATION_RE.search(live_location))):
                 continue
             dropped.append((entry, reason))
             continue

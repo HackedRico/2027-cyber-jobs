@@ -3135,6 +3135,16 @@ def test_reevaluate_keeps_a_row_behind_a_multi_location_placeholder():
            _wd_live('SOC Analyst I', 'R2', 'Entry level.', location='Austin, TX, More...')]
     kept, dropped, _ = _reevaluate(listings, raw)
     check('a multi-location placeholder drops nothing', (dropped, len(kept)), ([], 2))
+    # ...unless the live title places the role abroad, which no placeholder hides.
+    abroad = ('Cyber Security Systems Engineer Associate**This position is located at '
+              'Ramstein AFB, Germany**')
+    listings = [_wd_row('Cyber Security Systems Engineer Associate', 'R3'),
+                _wd_row('Cyber Security Systems Engineer Associate', 'R4')]
+    raw = [_wd_live(abroad, 'R3', 'Entry level.', location='2 Locations'),
+           _wd_live(abroad, 'R4', 'Entry level.', location='')]
+    _, dropped, _ = _reevaluate(listings, raw)
+    check('a live title abroad drops the row behind a placeholder or a blank',
+          [reason for _, _, reason in dropped], ['non-us-location'] * 2)
 
 
 def test_reevaluate_does_not_judge_a_fingerprinted_row_by_a_sibling():
