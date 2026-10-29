@@ -1469,10 +1469,12 @@ if len(reclass_changes) != 1 or reclass_changes[0][0] != 'A' or reclass_changes[
           f"want one A earlycareer->newgrad")
 if ({(e['company'], reason) for e, reason in rejected}
         != {('E', 'rejected-title'), ('F', 'rejected-title')}
-        or [e['company'] for e in kept] != ['A', 'B', 'C', 'D', 'G']):
+        or [(e['company'], e['type']) for e in kept]
+        != [('A', 'newgrad'), ('B', 'intern'), ('C', 'earlycareer'), ('D', 'earlycareer'),
+            ('G', 'earlycareer')]):
     failures += 1
     print(f'FAIL reclassify_listings rejected={[(e["company"], r) for e, r in rejected]}, '
-          f'kept={[e["company"] for e in kept]}')
+          f'kept={[(e["company"], e["type"]) for e in kept]}')
 
 # reclassify_listings with the companies.yml flag map: a title that passed only
 # on a security_company flag goes when the company loses it, even with no live
