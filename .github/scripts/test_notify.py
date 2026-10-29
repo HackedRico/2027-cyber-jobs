@@ -289,6 +289,9 @@ def test_markdown_escaping():
           'see #&#8203;12 and HackedRico/2027-cyber-jobs#&#8203;3, not C# or #tag')
     check('_apply_link drops a non-http url', notify._apply_link('javascript:alert(1)'), '')
     check('_apply_link drops a url with whitespace', notify._apply_link('https://x/a b'), '')
+    check('_apply_link drops a url a browser reads with another host',
+          notify._apply_link('https://evil.example\\@boards.greenhouse.io/x/jobs/1'), '')
+    check('_apply_link drops a bare scheme', notify._apply_link('https://'), '')
     check('_apply_link keeps an https url', notify._apply_link('https://x/a'),
           ' · [Apply](https://x/a)')
 
