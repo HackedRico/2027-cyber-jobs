@@ -61,18 +61,29 @@ def code_lines(step):
     return lines + ([pending] if pending else [])
 
 
+# `set -u +e` and `set -o pipefail +o errexit` turn errexit off as `set +e`
+# does; a pattern that wanted the + right after set passed both.
+ERREXIT_OFF = re.compile(r'\bset\b[^;&|]*?\s\+(?:[A-Za-z]*e|o\s+errexit)')
+# The check alone on its line between `{` and `} 2>&1 | tee log`, or a
+# `} || echo`, stops only the group: the pipe or list eats its status and the
+# commit runs. bash -e with no pipefail reached the next line both ways, and
+# a `fi`, `done` or `esac` closed the same way does the same.
+SWALLOWED = re.compile(r'(?:[})]|(?:fi|done|esac)\b).*(?:\||&&)')
+
+
 def fails_on_error(workflow, job, step):
     """True when the step always runs and any failing line fails it.
 
     GitHub runs a step with no shell as `bash -e {0}`, and `shell: bash` adds
-    pipefail. `shell: bash {0}`, a `set +e` or continue-on-error run on past a
-    failure, and an if: can skip the step.
+    pipefail. `shell: bash {0}`, a `set +e`, a group closed into a pipe or a
+    list, or continue-on-error run on past a failure, and an if: can skip the
+    step.
     """
     shell = (step.get('shell') or ((job.get('defaults') or {}).get('run') or {}).get('shell')
              or ((workflow.get('defaults') or {}).get('run') or {}).get('shell'))
     return ('if' not in step and not step.get('continue-on-error')
             and shell in (None, 'bash')
-            and not any(re.search(r'\bset\s+\+(?:\w*e|o\s+errexit)', line)
+            and not any(ERREXIT_OFF.search(line) or SWALLOWED.match(line)
                         for line in code_lines(step)))
 
 
