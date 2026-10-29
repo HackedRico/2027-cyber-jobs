@@ -21,7 +21,7 @@ Employers with open roles on the board today.
 | Lawrence Livermore National Laboratory | 6 |  |  |
 | Palo Alto Networks | 4 | 1 | 3 |
 | Aerospace Corporation | 5 |  |  |
-| Leidos | 4 |  | 7 |
+| Leidos | 4 |  | 8 |
 | GuidePoint Security | 4 |  | 1 |
 | NVIDIA | 1 | 3 | 1 |
 | Federal Reserve System | 4 |  |  |
@@ -34,9 +34,11 @@ Employers with open roles on the board today.
 | HP Inc | 3 |  |  |
 | Idaho National Laboratory | 3 |  |  |
 | Palantir | 2 | 1 |  |
+| Northrop Grumman |  | 2 | 12 |
 | Citi | 1 | 1 | 2 |
 | Appian | 1 | 1 | 1 |
 | CACI | 2 |  | 1 |
+| Cisco | 2 |  | 1 |
 | Honeywell | 2 |  | 1 |
 | ID.me |  | 2 | 1 |
 | Sierra Nevada Corporation | 2 |  | 1 |
@@ -51,15 +53,14 @@ Employers with open roles on the board today.
 | Together AI | 1 | 1 |  |
 | Visa | 2 |  |  |
 | Walmart | 2 |  |  |
-| RTX | 1 |  | 14 |
-| Northrop Grumman |  | 1 | 12 |
+| RTX | 1 |  | 15 |
 | Nightwing | 1 |  | 8 |
-| GDIT | 1 |  | 2 |
+| GDIT | 1 |  | 3 |
 | Lockheed Martin | 1 |  | 2 |
 | Pinterest | 1 |  | 2 |
-| Cisco | 1 |  | 1 |
 | Draper | 1 |  | 1 |
 | Motorola Solutions | 1 |  | 1 |
+| Two Six Technologies | 1 |  | 1 |
 | Verkada | 1 |  | 1 |
 | Adobe | 1 |  |  |
 | Bank of America | 1 |  |  |
@@ -129,7 +130,6 @@ Employers with open roles on the board today.
 | The Home Depot |  |  | 1 |
 | Tines |  |  | 1 |
 | Trellix |  |  | 1 |
-| Two Six Technologies |  |  | 1 |
 
 ## Every tracked board (404)
 

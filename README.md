@@ -14,7 +14,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**174** internships · **48** new grad · **189** early career open · **66** added in the last 7 days · **191** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 29, 2026
+**176** internships · **49** new grad · **192** early career open · **71** added in the last 7 days · **196** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 29, 2026
 
 <!-- /STATS -->
 
@@ -73,6 +73,7 @@ Cybersecurity internships and co-ops for current students.
 | ------- | ---- | ----- | -------- | ----- |
 | Figma | 🆕 PhD Intern, Security Engineer (2027)<br><sub>Security Engineering</sub> | <a href="https://boards.greenhouse.io/figma/jobs/6238015004?gh_jid=6238015004"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Figma PhD Intern, Security Engineer (2027)"></a> | San Francisco, CA • New York, NY | Oct 29 |
 | HP Inc | 🆕 Software Product Security Intern - HP IQ<br><sub>AppSec &amp; ProdSec</sub> | <a href="https://hp.wd5.myworkdayjobs.com/ExternalCareerSite/job/San-Francisco-California-United-States-of-America/Software-Product-Security-Intern---HP-IQ_UNI4810-2"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: HP Inc Software Product Security Intern - HP IQ"></a> | San Francisco, CA | Oct 29 |
+| Two Six Technologies | 🆕 Systems Software Engineering Intern 🇺🇸<br><sub>Engineering @ Security Co</sub> | <a href="https://job-boards.greenhouse.io/twosixtechnologies/jobs/6236518004"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Two Six Technologies Systems Software Engineering Intern"></a> | Arlington, VA | Oct 29 |
 | HP Inc | 🆕 Cloud Engineering Intern - HP IQ<br><sub>Cloud Engineering</sub> | <a href="https://hp.wd5.myworkdayjobs.com/ExternalCareerSite/job/San-Francisco-California-United-States-of-America/Cloud-Engineering-Intern_UNI4799-1"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: HP Inc Cloud Engineering Intern - HP IQ"></a> | San Francisco, CA | Oct 28 |
 | Leidos | 🆕 Cybersecurity Analyst Intern 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://leidos.wd5.myworkdayjobs.com/External/job/Pearl-Harbor-HI/Cybersecurity-Analyst-Intern_R-00195607"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Leidos Cybersecurity Analyst Intern"></a> | Pearl Harbor, HI | Oct 28 |
 | Trace3 | 🆕 Solutions Architect Intern<br><sub>Solutions Architecture</sub> | <a href="https://job-boards.greenhouse.io/trace3/jobs/8328124"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Trace3 Solutions Architect Intern"></a> | Dallas, TX | Oct 28 |
@@ -234,6 +235,7 @@ Cybersecurity internships and co-ops for current students.
 | Tanium | Technical Support Engineer (TSE) Intern<br><sub>Engineering @ Security Co</sub> | <a href="https://job-boards.greenhouse.io/tanium/jobs/8176322"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Tanium Technical Support Engineer (TSE) Intern"></a> | Addison, TX | Sep 9 |
 | ↳ | Technical Support Engineer (TSE) Intern<br><sub>Engineering @ Security Co</sub> | <a href="https://job-boards.greenhouse.io/tanium/jobs/8189328"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Tanium Technical Support Engineer (TSE) Intern"></a> | <details><summary>**2 locations**</summary>Bellevue, WA<br>Emeryville, CA</details> | Sep 9 |
 | Semgrep | Software Engineer Intern, Cloud Platform<br><sub>Engineering @ Security Co</sub> | <a href="https://jobs.ashbyhq.com/semgrep/8e64dc7f-e925-4361-86d5-b01ee518c987"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Semgrep Software Engineer Intern, Cloud Platform"></a> | San Francisco, CA | Sep 8 |
+| Cisco | Security Consulting Engineer I (Intern) - United States<br><sub>Security Engineering</sub> | <a href="https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/RTP-North-Carolina-US/Security-Consulting-Engineer-I--Intern----United-States_2024817"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Cisco Security Consulting Engineer I (Intern) - United States"></a> | RTP, NC | Sep 5 |
 | Palantir | Information Security Engineer, Internship 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://jobs.lever.co/palantir/ef725594-42dd-4f0d-ba8e-df8179dbc6cb"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Palantir Information Security Engineer, Internship"></a> | New York, NY | Sep 5 |
 | Prophet Security | Software Engineer, Backend Intern<br><sub>Engineering @ Security Co</sub> | <a href="https://jobs.ashbyhq.com/prophet-security/6319cd03-3d5f-47b9-815b-0f8b0d184612"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Prophet Security Software Engineer, Backend Intern"></a> | Palo Alto, CA | Sep 5 |
 | Vanguard | College to Corporate IT Internship - Risk &amp; Security - Engineer<br><sub>GRC &amp; Risk</sub> | <a href="https://vanguard.wd5.myworkdayjobs.com/vanguard_external/job/DallasFt-Worth-TX/College-to-Corporate-IT-Internship---Risk---Security---Engineer_181851"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Vanguard College to Corporate IT Internship - Risk &amp; Security - Engineer"></a> | Dallas/Ft. Worth, TX | Sep 5 |
@@ -250,7 +252,7 @@ Cybersecurity internships and co-ops for current students.
 
 <!-- CLOSED_START intern -->
 
-<details><summary>🔒 67 closed in the last 60 days</summary>
+<details><summary>🔒 66 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
@@ -263,7 +265,6 @@ Cybersecurity internships and co-ops for current students.
 | BDO | Assurance Intern, Technology Risk Assurance – Summer 2027 (New York) | Oct 28 |
 | Northrop Grumman | 2027 Cyber Software Engineer Intern - San Antonio TX | Oct 28 |
 | Boeing | Boeing Summer 2027 Internship Program (Paid) – Information Digital Technology &amp; Security (IDT&amp;S) | Oct 26 |
-| Cisco | Security Consulting Engineer I (Intern) - United States | Oct 26 |
 | Lockheed Martin | Software Engineer (Cyber) - Intern | Oct 26 |
 | Northrop Grumman | 2027 Cyber Systems Engineer Intern-Tampa FL | Oct 26 |
 | Software Engineering Institute | AI Security Software Engineer Intern – Summer 2027 | Oct 26 |
@@ -336,6 +337,7 @@ Full-time roles and rotational programs for students in their final year or just
 
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
+| Northrop Grumman | 🆕 2027 Associate Cyber Software Engineer - Pathways Program - Aurora CO 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Colorado-Aurora/XMLNAME-2027-Associate-Cyber-Software-Engineer---Pathways-Program---Aurora-CO_R10258279"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Northrop Grumman 2027 Associate Cyber Software Engineer - Pathways Program - Aurora CO"></a> | Aurora, CO | Oct 29 |
 | Johns Hopkins APL | 🆕 2027 Graduate - Cyber Engineer/Scientist - Resilient Military Systems 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://careers.jhuapl.edu/jobs/59353"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Johns Hopkins APL 2027 Graduate - Cyber Engineer/Scientist - Resilient Military Systems"></a> | Laurel, MD | Oct 28 |
 | Johns Hopkins APL | 🆕 2027 Graduate – Cybersecurity Engineer - Critical Infrastructure Protection 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://careers.jhuapl.edu/jobs/60384"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Johns Hopkins APL 2027 Graduate – Cybersecurity Engineer - Critical Infrastructure Protection"></a> | Laurel, MD | Oct 27 |
 | Guidehouse | 🆕 IT Cybersecurity Compliance Technical Associate- Campus 2027 🇺🇸<br><sub>GRC &amp; Risk</sub> | <a href="https://guidehouse.wd1.myworkdayjobs.com/External/job/US---VA-McLean/IT-Cybersecurity-Compliance-Technical-Associate--Campus-2027_45899"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Guidehouse IT Cybersecurity Compliance Technical Associate- Campus 2027"></a> | <details><summary>**4 locations**</summary>McLean, VA<br>Remote (US)<br>GH Office: Chicago, IL (Green St)<br>Arlington, VA</details> | Oct 26 |
@@ -438,8 +440,10 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 | Boeing | 🆕 Advanced Information Technologist – Associate Cloud Engineer 🇺🇸<br><sub>Cloud Engineering</sub> | <a href="https://boeing.wd1.myworkdayjobs.com/EXTERNAL_CAREERS/job/USA---Hazelwood-MO/Advanced-Information-Technologist---Associate-Cloud-Engineer_JR2026494282"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Boeing Advanced Information Technologist – Associate Cloud Engineer"></a> | Hazelwood, MO | Oct 29 |
 | ↳ | 🆕 Advanced Technologist - Associate Cloud Engineer 🇺🇸<br><sub>Cloud Engineering</sub> | <a href="https://boeing.wd1.myworkdayjobs.com/EXTERNAL_CAREERS/job/USA---Hazelwood-MO/Advanced-Technologist---Associate-Cloud-Engineer_JR2026520164-1"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Boeing Advanced Technologist - Associate Cloud Engineer"></a> | Hazelwood, MO | Oct 29 |
 | JPMorgan Chase | 🆕 Global Security Investigator - Associate<br><sub>Security Engineering</sub> | <a href="https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210804485"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: JPMorgan Chase Global Security Investigator - Associate"></a> | Tampa, FL | Oct 29 |
+| Leidos | 🆕 Jr. Offensive Cyber Engineer 🇺🇸<br><sub>Offensive Security</sub> | <a href="https://leidos.wd5.myworkdayjobs.com/External/job/Lawton-OK/Jr-Offensive-Cyber-Engineer_R-00195810"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Leidos Jr. Offensive Cyber Engineer"></a> | Lawton, OK | Oct 29 |
 | Morgan Stanley | 🆕 North American Security Settlements- Analyst/ Associate 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://ms.wd5.myworkdayjobs.com/External/job/Baltimore-Maryland-United-States-of-America/North-American-Security-Settlements--Analyst--Associate_PT-JR044931"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Morgan Stanley North American Security Settlements- Analyst/ Associate"></a> | Baltimore, MD | Oct 29 |
 | PNC | 🆕 Security Associate- SOC<br><sub>SOC &amp; Detection</sub> | <a href="https://pnc.wd5.myworkdayjobs.com/External/job/Two-PNC-Plaza-PA374/Security-Associate--SOC_R233731-1"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: PNC Security Associate- SOC"></a> | <details><summary>**7 locations**</summary>Two PNC Plaza (PA374)<br>Denver, CO<br>Birmingham - Brock (AL112)<br>Strongsville Technology Center (OH537)<br>The Biltmore (AZ050)<br>Cleveland Ops Ctr - North Annex (OH005)<br>Data Center (PA690)</details> | Oct 29 |
+| RTX | 🆕 Software Security Engineer I 🇺🇸<br><sub>AppSec &amp; ProdSec</sub> | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-EL-SEGUNDO-E01--2000-E-El-Segundo-Blvd--BLDG-E01/Software-Security-Engineer-I_01885443"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: RTX Software Security Engineer I"></a> | El Segundo, CA | Oct 29 |
 | Amentum | 🆕 Jr. Cyber Defense Analyst MDX - SSFB/HSV 🇺🇸<br><sub>SOC &amp; Detection</sub> | <a href="https://pae.wd1.myworkdayjobs.com/Amentum_Careers/job/US-CO-Colorado-Springs/Jr-Cyber-Defense-Analyst-MDX---SSFB-HSV_R0174104"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amentum Jr. Cyber Defense Analyst MDX - SSFB/HSV"></a> | <details><summary>**2 locations**</summary>Colorado Springs, CO<br>Redstone Arsenal, AL</details> | Oct 28 |
 | Leidos | 🆕 Junior Offensive Cyber Engineer 🇺🇸<br><sub>Offensive Security</sub> | <a href="https://leidos.wd5.myworkdayjobs.com/External/job/Lawton-OK/Junior-Offensive-Cyber-Engineer_R-00195608"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Leidos Junior Offensive Cyber Engineer"></a> | Lawton, OK | Oct 28 |
 | Nightwing | 🆕 Jr. Computational Engineer 🇺🇸<br><sub>Engineering @ Security Co</sub> | <a href="https://nwis.wd12.myworkdayjobs.com/NW/job/Annapolis-Junction-MD/Jr-Computational-Engineer_JR102201"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Nightwing Jr. Computational Engineer"></a> | Annapolis Junction, MD | Oct 28 |
@@ -465,6 +469,7 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 | ↳ | 🆕 Security Engineer I, Secure Third Party Tools (S3T)<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10585308/security-engineer-i-secure-third-party-tools-s3t"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer I, Secure Third Party Tools (S3T)"></a> | Arlington, VA | Oct 22 |
 | BDO | 🆕 Assurance Experienced Associate, Technology Risk Assurance<br><sub>GRC &amp; Risk</sub> | <a href="https://ebqb.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BDOEntryLevelCareers/job/14467"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: BDO Assurance Experienced Associate, Technology Risk Assurance"></a> | <details><summary>**3 locations**</summary>Los Angeles, CA<br>Costa Mesa, CA<br>San Diego, CA</details> | Oct 22 |
 | Booz Allen Hamilton | 🆕 ISSO Security Analyst, Junior 🇺🇸<br><sub>GRC &amp; Risk</sub> | <a href="https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/McLean-VA/ISSO-Security-Analyst--Junior_R0252137-1"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Booz Allen Hamilton ISSO Security Analyst, Junior"></a> | McLean, VA | Oct 22 |
+| GDIT | 🆕 Tier I Security Operations Center (SOC) Analyst 🇺🇸<br><sub>SOC &amp; Detection</sub> | <a href="https://gdit.wd5.myworkdayjobs.com/External_Career_Site/job/USA-LA-Bossier-City/Tier-I-Security-Operations-Center--SOC--Analyst_RQ230985-2"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: GDIT Tier I Security Operations Center (SOC) Analyst"></a> | Bossier City, LA | Oct 22 |
 | Honeywell | Cyber Security Engineer I-Penetration Tester 🇺🇸<br><sub>Offensive Security</sub> | <a href="https://ibqbjb.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/160406"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Honeywell Cyber Security Engineer I-Penetration Tester"></a> | Plymouth, MN | Oct 21 |
 | Cisco | Information Security Engineer II (Full-Time) – United States<br><sub>Security Engineering</sub> | <a href="https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/RTP-North-Carolina-US/Information-Security-Engineer-II--Full-Time----United-States_2028339"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Cisco Information Security Engineer II (Full-Time) – United States"></a> | RTP, NC | Oct 20 |
 | Fortinet | Early Careers: Software Development Engineer<br><sub>Engineering @ Security Co</sub> | <a href="https://edel.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/24668"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Fortinet Early Careers: Software Development Engineer"></a> | Sunnyvale, CA | Oct 20 |
@@ -629,14 +634,13 @@ Roles that don't require prior full-time experience: Analyst I/II, Associate, Ju
 
 <!-- CLOSED_START earlycareer -->
 
-<details><summary>🔒 179 closed in the last 60 days</summary>
+<details><summary>🔒 178 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
 | Abnormal AI | Software Engineer 1 - Data Platforms | Oct 29 |
 | Amazon | Security Engineer II, Enterprise Protection Program | Oct 29 |
 | Arctic Wolf | Professional Services Engineer 1 | Oct 29 |
-| GDIT | Tier I Security Operations Center (SOC) Analyst | Oct 29 |
 | Northrop Grumman | Associate Classified Cybersecurity Analyst - Secret | Oct 29 |
 | RTX | Systems Security Engineer I – Anti-Tamper / Program Protection (On-site) | Oct 29 |
 | Amazon | Security Engineer I , Stores Security- Healthcare Security | Oct 28 |
