@@ -2115,6 +2115,40 @@ def test_check_links_redirect_that_drops_the_req():
           [check_links.SOFT_404, check_links.SOFT_404, 200])
     check('a scraped-row check does not read redirects',
           check_links.fetch_status(search), 200)
+    # The req id is 14391; the 2027 in the slug is the cohort year.
+    bofa = ('https://careers.bankofamerica.com/en-us/students/job-detail/14391/'
+            'global-technology-summer-analyst-2027-cybersecurity-analyst-multiple-locations')
+    retitled = ('https://careers.bankofamerica.com/en-us/students/job-detail/14391/'
+                'global-technology-summer-analyst-cybersecurity-analyst')
+    program = 'https://careers.bankofamerica.com/en-us/students/job-search?q=summer-analyst-2027'
+    responses.get(bofa, status=301, headers={'Location': retitled})
+    responses.get(retitled, status=200, body='<title>Cybersecurity Analyst</title>',
+                  content_type='text/html')
+    responses.get(program, status=200, body='<title>Students</title>', content_type='text/html')
+    statuses = [check_links.fetch_status(bofa, soft_404=True)]
+    responses.replace(responses.GET, bofa, status=301, headers={'Location': program})
+    statuses.append(check_links.fetch_status(bofa, soft_404=True))
+    check('a cohort year in the slug is not read as the req id',
+          statuses, [200, check_links.SOFT_404])
+    check('a four-digit year-shaped id still counts when it is the only one',
+          check_links.lost_req_on_redirect('https://careers.acme.com/job/2024',
+                                           'https://careers.acme.com/search'), True)
+    # Idaho National Laboratory's req id is 2092; 1002 is the Oracle site id.
+    inl = ('https://elhe.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/'
+           'sites/CX_1002/job/2092')
+    requisitions = ('https://elhe.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/'
+                    'sites/CX_1002/requisitions')
+    responses.get(inl, status=302, headers={'Location': requisitions})
+    responses.get(requisitions, status=200, body='<title>Careers</title>',
+                  content_type='text/html')
+    # A Workday req id after '_R' is no slug year, and the zip code is no req.
+    check('a year-shaped req id outside a slug is still the req id',
+          (check_links.fetch_status(inl, soft_404=True),
+           check_links.lost_req_on_redirect(
+               'https://acme.wd5.myworkdayjobs.com/en-US/External/job/McLean-VA-22102/'
+               'Cyber-Analyst_R2045',
+               'https://acme.wd5.myworkdayjobs.com/en-US/External?q=McLean-VA-22102')),
+          (check_links.SOFT_404, True))
 
 
 # --- check_links: a hostile Community page cannot stall the check ------------

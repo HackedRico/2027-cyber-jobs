@@ -56,6 +56,15 @@ SOFT_DEAD_DAYS = 3
 COMMUNITY_MAX_AGE_DAYS = 120
 
 REQ_TOKEN_RE = re.compile(r'\d{4,}')
+# A cohort year in the slug is no req id: Bank of America's
+# '.../job-detail/14391/global-technology-summer-analyst-2027-cybersecurity-analyst-...'
+# read as req 2027, so a move to a retitled slug looked lost and a redirect to
+# a search page naming the 2027 program looked live. Only a year joined to a
+# slug word by '-' or '_' is passed over: Idaho National Laboratory's Oracle
+# '.../sites/CX_1002/job/2092' has a year-shaped req id, and skipping it read
+# the site id 1002 as the req.
+SLUG_YEAR_RE = re.compile(
+    r'(?<=[A-Za-z][-_])(?:19|20)\d\d(?!\d)|(?<!\d)(?:19|20)\d\d(?=[-_][A-Za-z])')
 
 REQUEST_DELAY = 0.75
 REQUEST_TIMEOUT = 12
@@ -158,7 +167,9 @@ def lost_req_on_redirect(url, final_url):
     if 'error=true' in urlsplit(final_url).query.lower():
         return True
     parts = urlsplit(url)
-    tokens = REQ_TOKEN_RE.findall(parts.path + '?' + parts.query)
+    text = parts.path + '?' + parts.query
+    # A slug year still counts when the URL has no other number.
+    tokens = REQ_TOKEN_RE.findall(SLUG_YEAR_RE.sub('/', text)) or REQ_TOKEN_RE.findall(text)
     return bool(tokens) and tokens[-1] not in final_url
 
 
