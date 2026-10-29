@@ -2560,21 +2560,27 @@ def scrape_boards(tasks, workers=SCRAPE_WORKERS):
         yield from pool.map(run_board, tasks)
 
 
-def insert_new_listings(listings, raw_jobs, seen, sec_flags, today):
+def insert_new_listings(listings, raw_jobs, seen, sec_flags, today, deferred=None):
     """Add each accepted posting that no row holds yet, and revive blanked rows.
 
     Mutates `listings` and `seen` and returns (added_rows, revived_rows).
     `sec_flags` maps a posting id to its board's `security_company` flag.
+    Each posting deferred for a failed detail fetch is appended to `deferred`
+    when one is given.
 
     A seen posting is skipped only while a row already holds its normalized
-    URL, dedup key or fingerprint. Skipping every seen id, as this once did,
-    meant a row that the stored-row pass dropped or the orphan pass retired
-    never came back while its posting stayed live, since each run re-stamped
-    the id. Such a posting goes back through `evaluate_job` instead. That is
-    stable: a row the re-eval pass drops this run fails the same gates here,
-    since `evaluate_job` is `judge_job` without the intern and flag leniency
-    the re-eval pass adds, and a row the repair pass folded carries the key
-    of the row it folded into.
+    URL, dedup key or fingerprint, or, for a Workday posting, an open
+    Community row lists its req id (`_community_req`). Skipping every seen
+    id, as this once did, meant a row that the stored-row pass dropped or
+    the orphan pass retired never came back while its posting stayed live,
+    since each run re-stamped the id. Such a posting goes back through
+    `evaluate_job` instead. That is stable: a row the re-eval pass drops
+    this run fails the same gates here, since `evaluate_job` is `judge_job`
+    without the intern and flag leniency the re-eval pass adds, and a row
+    the repair pass folded carries the key of the row it folded into.
+
+    A posting whose detail fetch failed and that no row holds is deferred:
+    neither judged nor stamped seen, so the next run fetches it again.
     """
     existing_urls = {normalize_url(e.get('url', '')) for e in listings if e.get('url')}
     # Secondary key catches the same role reposted per-location under distinct
@@ -2620,8 +2626,11 @@ def insert_new_listings(listings, raw_jobs, seen, sec_flags, today):
         # alone cannot settle the experience gate, and a 429 or 5xx on that
         # request admitted a 6-year 'Security Engineer II' as early career.
         # Left unjudged and unstamped, the posting is fetched again next run.
-        if job.get('detail_failed'):
+        # A held posting adds nothing either way, so it needs no deferral.
+        if job.get('detail_failed') and not held:
             print(f'  DEFERRED [detail] {_oneline(job["company"])} — {_oneline(job["title"])}')
+            if deferred is not None:
+                deferred.append(job)
             continue
         verdict = evaluate_job(
             job.get('title', ''), job.get('location', ''),
@@ -2846,7 +2855,9 @@ def main():
         print(f'  RENAMED [company] {_oneline(old)} -> {_oneline(entry.get("company", ""))} — '
               f'{_oneline(entry.get("role", ""))}')
 
-    added_rows, revived_rows = insert_new_listings(listings, raw_jobs, seen, sec_flags, today)
+    deferred = []
+    added_rows, revived_rows = insert_new_listings(listings, raw_jobs, seen, sec_flags, today,
+                                                   deferred)
 
     # Refresh last-seen for every still-live id, then expire the stale ones.
     for job in raw_jobs:
@@ -2863,12 +2874,16 @@ def main():
                or renormalized or scrubbed or repaired or folded or vanished or orphaned
                or renamed or pending)
     dropped_by = ', '.join(f'{n} {reason}' for reason, n in sorted(drop_counts.items()))
+    # A detail endpoint that fails every run while the list endpoint answers
+    # stops every new candidate and leaves its board 'ok', so the summary
+    # counts deferrals. Left off at zero, a run with none prints its usual line.
+    deferral = f', deferred {len(deferred)} on a failed detail fetch' if deferred else ''
     print(f'\nAdded {added} new listing(s), revived {revived}, '
           f'reclassified {reclassified}, purged {purged}, '
           f'repaired {len(repaired)} location(s) + folded {len(folded)} duplicate(s), '
           f'retired {len(vanished)} vanished ({pending} more missing) + {len(orphaned)} orphaned, '
           f'dropped {len(drops)} ({dropped_by or "none"}), '
-          f'refreshed {len(refreshed) - relevelled} category or clearance field(s)')
+          f'refreshed {len(refreshed) - relevelled} category or clearance field(s){deferral}')
 
     if args.dry_run:
         print('[dry-run] no files written; skipping README rebuild')

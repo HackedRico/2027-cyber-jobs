@@ -2164,6 +2164,40 @@ def test_a_failed_workday_detail_defers_the_posting():
 
 
 @responses.activate
+def test_a_failed_detail_defers_only_an_unheld_posting():
+    """A req an open row held logged DEFERRED though it could add nothing, and no
+    deferral reached the closing summary, so a detail endpoint failing every run
+    stopped new candidates while its board read 'ok'."""
+    path = '/job/Reston-VA/Security-Engineer-II_R9'
+    url = f'https://t.wd5.myworkdayjobs.com/B{path}'
+    job = {'id': f'workday_t_{path}', 'company': 'Acme', 'title': 'Security Engineer II',
+           'location': 'Reston, VA', 'url': url, 'board': 'Workday', 'detail_failed': True}
+    # The open row holds the req under the location slug Workday moved off.
+    row = {'company': 'Acme', 'role': 'Security Engineer II', 'location': 'Herndon, VA',
+           'type': 'earlycareer', 'category': 'Security Engineering', 'clearance': False,
+           'url': url.replace('Reston-VA', 'Herndon-VA'), 'source': 'Workday',
+           'date_added': '2026-10-01'}
+    other = dict(job, id=job['id'].replace('_R9', '_R10'), url=url.replace('_R9', '_R10'))
+    deferred = []
+    added, _ = sj.insert_new_listings([row], [job, other], {}, {}, '2026-10-29', deferred)
+    check('only the req no row holds is deferred, and nothing is added',
+          ([j['id'] for j in deferred], added), ([other['id']], []))
+
+    responses.get(SR_POSTINGS, json={'totalFound': 1, 'content': [
+        _sr_posting('1', 'Security Analyst I')]})
+    detail = responses.get(f'{SR_POSTINGS}/1', status=502)
+    config = 'smartrecruiters:\n  - name: Kudelski Security\n    slug: KudelskiSecurityInc\n'
+    out, _ = _run_main(config, [], ['--dry-run', '--board', 'smartrecruiters'])
+    check('the closing summary counts the deferral',
+          (compare_runs.parse_log(out).summary or '').endswith(
+              ', deferred 1 on a failed detail fetch'), True)
+    responses.replace(detail.method, detail.url, json={'jobAd': {'sections': {}}})
+    out, _ = _run_main(config, [], ['--dry-run', '--board', 'smartrecruiters'])
+    check('a run with no deferral prints the summary it always has',
+          'deferred' in (compare_runs.parse_log(out).summary or 'deferred'), False)
+
+
+@responses.activate
 def test_failed_detail_fetches_are_marked_on_every_detail_source():
     host = 'acme.fa.us2.oraclecloud.com'
     base = f'https://{host}/hcmRestApi/resources/latest/'
@@ -3672,6 +3706,7 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_workday_blank_list_location_fetches_detail,
            test_workday_opt_in_term_hits_fetch_details,
            test_a_failed_workday_detail_defers_the_posting,
+           test_a_failed_detail_defers_only_an_unheld_posting,
            test_failed_detail_fetches_are_marked_on_every_detail_source,
            test_amazon_restricts_to_us_reqs,
            test_smartrecruiters_and_amazon_flag_a_cut_short_sweep,
