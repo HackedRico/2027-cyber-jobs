@@ -169,11 +169,13 @@ for name, workflow in WORKFLOWS.items():
                 if re.search(r'\bpip3? install\b', line):
                     check(f'{name}: {line!r} uses --require-hashes', '--require-hashes' in line)
 
-# A writer is any job that can push. It queues in readme-updates and runs
-# check_outputs.py, unswallowed, before every commit, so no run pushes a
-# charter-breaking row or a mass close. The line stands alone in its step:
-# `&& echo`, `; true`, `| tee`, an if: on the step or a `shell: bash {0}` each
-# let the commit run after a failed check, and this check passed them all.
+# A writer is any job that can push. It queues in readme-updates and, in the
+# step that commits, runs check_outputs.py unswallowed before every commit, so
+# no run pushes a charter-breaking row or a mass close. The line stands alone
+# in its step. `&& echo`, `; true`, `| tee`, an if: on the step, a
+# `shell: bash {0}`, or the check in a step of its own ahead of a commit step
+# under `if: always()` each let the commit run after a failed check, and this
+# check passed them all.
 GIT = r'\bgit\b(?:\s+-c\s+\S+)*\s+'
 CHECK_OUTPUTS = re.compile(r'python \.github/scripts/check_outputs\.py'
                            r'(?: --baseline "\$RUNNER_TEMP/listings\.base\.json")?')
@@ -190,8 +192,8 @@ for name, workflow in WORKFLOWS.items():
         concurrency = job.get('concurrency') or workflow.get('concurrency') or {}
         group = concurrency.get('group') if isinstance(concurrency, dict) else concurrency
         check(f'{name}: writer job {job_name} queues in readme-updates', group == 'readme-updates')
-        checked = False
         for step in steps:
+            checked = False
             for line in code_lines(step):
                 if 'check_outputs.py' in line:
                     check(f'{name}: {line!r} lets check_outputs.py fail the step',
@@ -199,7 +201,8 @@ for name, workflow in WORKFLOWS.items():
                           and fails_on_error(workflow, job, step))
                     checked = True
                 if re.search(GIT + 'commit', line):
-                    check(f'{name}: {job_name} runs check_outputs.py before {line!r}', checked)
+                    check(f'{name}: {job_name} runs check_outputs.py in the step before {line!r}',
+                          checked)
                     checked = False
 
 # A workflow that follows the writers through workflow_run also runs on a
