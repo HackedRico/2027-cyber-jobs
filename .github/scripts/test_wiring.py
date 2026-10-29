@@ -11,11 +11,13 @@ read as YAML and the test scripts as Python syntax trees, so a comment can
 neither satisfy a check nor trip one.
 """
 import ast
+import datetime
 import re
+import socket
 import sys
 from pathlib import Path
 
-import testkit  # noqa: F401
+import testkit
 
 SCRIPTS = Path(__file__).parent
 ROOT = SCRIPTS.parent.parent
@@ -113,6 +115,10 @@ for path in TESTS:
     local = [line for line, name in imports if name in LOCAL_MODULES - {'testkit'}]
     check(f'{path.name} imports testkit at top level before the modules it tests',
           bool(pinned) and all(line > pinned[0] for line in local))
+    # `import time as clock` then clock.time() read the real date unflagged.
+    time_names = {alias.asname or 'time' for node in ast.walk(tree)
+                  if isinstance(node, ast.Import) for alias in node.names
+                  if alias.name == 'time'} | {'time'}
     for node in ast.walk(tree):
         if isinstance(node, ast.ImportFrom) and node.module == 'time':
             for alias in node.names:
@@ -121,10 +127,33 @@ for path in TESTS:
         if not (isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute)):
             continue
         attr, owner = node.func.attr, node.func.value
-        on_time = isinstance(owner, ast.Name) and owner.id == 'time'
+        on_time = isinstance(owner, ast.Name) and owner.id in time_names
         if attr in CLOCK_READS or (on_time and attr in WALL_CLOCK):
             check(f'{path.name}:{node.lineno} reads the clock with .{attr}(); use testkit.TODAY',
                   False)
+
+
+# testkit does pin the clock and cut the network. With its two pin lines
+# deleted every suite stayed green until the 2026 cohort titles failed on
+# 1 Jan 2027. Checked by identity, since a test file reads no clock itself.
+def refused(call):
+    try:
+        call()
+    except testkit.NetworkAccess:
+        return True
+    except OSError:
+        pass
+    return False
+
+
+check('testkit pins the date and datetime classes classify.py reads',
+      datetime.date is testkit._PinnedDate and datetime.datetime is testkit._PinnedDatetime
+      and classify.datetime is testkit._PinnedDatetime)
+# TEST-NET-1 and .invalid reach nothing even when the cut is gone.
+check('testkit refuses a connection past loopback',
+      refused(lambda: socket.create_connection(('192.0.2.1', 443), timeout=1).close()))
+check('testkit refuses a DNS lookup',
+      refused(lambda: socket.getaddrinfo('example.invalid', 443)))
 
 # Third-party actions run at a reviewed commit, and installs check hashes.
 PINNED = re.compile(r'[\w.-]+/[\w./-]+@[0-9a-f]{40}|docker://[^@\s]+@sha256:[0-9a-f]{64}')
