@@ -408,6 +408,13 @@ def scrape_greenhouse(company, slug, apply_hosts=()):
     return jobs
 
 
+# An ATS label naming the intern track: Lever's commitment 'Internship', Jibe
+# tenants' custom fields (APL's tags9 'Internship', PNNL's tags2 'University
+# Internships', Exelon's category 'Intern/Co-Op'). The word boundary keeps
+# 'International' and 'Internal Transfer Eligible' out.
+_INTERN_LABEL_RE = re.compile(r'\bintern(?:ships?|s)?\b', re.IGNORECASE)
+
+
 def scrape_lever(company, slug, apply_hosts=()):
     url = f'https://api.lever.co/v0/postings/{slug}?mode=json'
     data = fetch_json(url, label=f'{company} Lever')
@@ -433,7 +440,7 @@ def scrape_lever(company, slug, apply_hosts=()):
             continue
         # Lever's commitment category ("Internship", "Intern") flags intern
         # reqs whose titles omit the word.
-        commitment = (cats.get('commitment') or '').lower()
+        commitment = cats.get('commitment') or ''
         jobs.append({
             'id': f'lever_{slug}_{job["id"]}',
             'company': company,
@@ -443,7 +450,7 @@ def scrape_lever(company, slug, apply_hosts=()):
                               f'https://jobs.lever.co/{slug}/{job["id"]}'),
             'board': 'Lever',
             'description': _lever_description(job),
-            'intern_hint': 'intern' in commitment,
+            'intern_hint': bool(_INTERN_LABEL_RE.search(commitment)),
         })
     links.report()
     return jobs
@@ -1394,11 +1401,6 @@ JIBE_MAX_PAGES = 5
 # crawl-delay: 5 in robots.txt.
 JIBE_REQUEST_DELAY = 5
 
-# Each tenant files the student track in its own custom field: APL's tags9
-# 'Internship', PNNL's tags2 'University Internships', Exelon's category
-# 'Intern/Co-Op'. The word boundary keeps 'International' out.
-_JIBE_INTERN_RE = re.compile(r'\bintern(?:ships?|s)?\b', re.IGNORECASE)
-
 
 def _jibe_place(place):
     city, state = place.get('city') or '', place.get('state') or ''
@@ -1425,7 +1427,7 @@ def _jibe_intern_hint(data):
     for key, value in data.items():
         if key.startswith('tags') and isinstance(value, list):
             labels += [str(v) for v in value]
-    return any(_JIBE_INTERN_RE.search(label) for label in labels)
+    return any(_INTERN_LABEL_RE.search(label) for label in labels)
 
 
 def scrape_jibe(company, host, extra_terms=None):

@@ -126,11 +126,18 @@ def test_lever():
             {'id': 'c', 'text': 'Security Engineer', 'country': 'US',
              'categories': {'location': 'Remote', 'commitment': 'Internship'},
              'hostedUrl': 'https://jobs.lever.co/acme/c'},
+            {'id': 'd', 'text': 'Security Engineer II', 'country': 'US',
+             'categories': {'location': 'Austin, TX',
+                            'commitment': 'Full-time (Internal Transfer Eligible)'},
+             'hostedUrl': 'https://jobs.lever.co/acme/d'},
+            {'id': 'e', 'text': 'Security Engineer II', 'country': 'US',
+             'categories': {'location': 'Austin, TX', 'commitment': 'International Assignment'},
+             'hostedUrl': 'https://jobs.lever.co/acme/e'},
         ])
     jobs = sj.scrape_lever('Acme', 'acme')
-    check('lever drops non-US', len(jobs), 2)
-    check('lever intern_hint from commitment',
-          [j['intern_hint'] for j in jobs], [False, True])
+    check('lever drops non-US', len(jobs), 4)
+    check('lever intern_hint from commitment, never from Internal or International',
+          [j['intern_hint'] for j in jobs], [False, True, False, False])
 
 
 @responses.activate
