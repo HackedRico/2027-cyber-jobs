@@ -1,5 +1,5 @@
 name: Add Job Listing
-description: Submit a new-grad, internship, or early-career cybersecurity, cloud engineering or solutions architecture role (US) to be added to the list.
+description: Submit a new-grad, internship, or early-career cybersecurity, cloud engineering or solutions architecture role, or an engineering role at a security company (US), to be added to the list.
 title: "[JOB] <Company>: <Role>"
 labels: ["new listing", "needs review"]
 body:
@@ -8,7 +8,7 @@ body:
       value: |
         Thank you for submitting a job listing! Please fill out all required fields as accurately as possible.
 
-        > ⚠️ This repository is **exclusively for new-grad, internship, and early-career cybersecurity, cloud engineering and solutions architecture roles located in the United States** (or Remote-US). Senior roles and international-only roles will not be added.
+        > ⚠️ This repository is **exclusively for new-grad, internship, and early-career cybersecurity, cloud engineering and solutions architecture roles, and engineering roles at security companies, located in the United States** (or Remote-US). Senior roles and international-only roles will not be added.
 
   - type: input
     id: company

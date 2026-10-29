@@ -34,5 +34,5 @@
 
 ## Checklist
 
-- [ ] No senior/staff/manager, non-cyber (outside the charter's cloud and solutions rules), or non-US listings are introduced by this change
+- [ ] No senior/staff/manager, non-cyber (outside the charter's cloud, solutions and security-company engineering rules), or non-US listings are introduced by this change
 - [ ] I did not hand-edit `listings.json` or the README tables (they are rebuilt automatically)
