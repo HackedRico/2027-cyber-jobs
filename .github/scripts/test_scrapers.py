@@ -234,6 +234,31 @@ def test_ashby_falls_back_to_the_postal_address():
           [True, True, True, False, True, True])
 
 
+@responses.activate
+def test_ashby_address_does_not_move_a_foreign_label():
+    """A head-office address in San Francisco put 'EMEA' and 'London, UK' in the US,
+    and a bare 'Remote' beside a Toronto address read as Remote (US)."""
+    sf = _ashby_address('San Francisco', 'California')
+    responses.get('https://api.ashbyhq.com/posting-api/job-board/acme', json={'jobs': [
+        {'id': 'a', 'title': 'Security Engineer', 'location': 'EMEA', 'address': sf},
+        {'id': 'b', 'title': 'Security Engineer', 'location': 'Remote - Canada', 'address': sf},
+        {'id': 'c', 'title': 'Security Engineer', 'location': 'London, UK', 'address': sf},
+        {'id': 'd', 'title': 'Security Engineer Intern', 'location': 'Remote',
+         'isRemote': True, 'address': _ashby_address('Toronto', 'Ontario', 'Canada')},
+        {'id': 'e', 'title': 'Security Engineer', 'location': 'Remote', 'address': sf},
+        {'id': 'f', 'title': 'Security Engineer', 'location': 'Waterloo',
+         'address': _ashby_address('Waterloo', 'Iowa')},
+    ]})
+    jobs = sj.scrape_ashby('Acme', 'acme')
+    check('a foreign label keeps its own place and a bare remote takes the country',
+          [j['location'] for j in jobs],
+          ['EMEA', 'Remote - Canada', 'London, UK', 'Remote (Canada)', 'Remote',
+           'Waterloo, IA'])
+    check('only the US-address remote and the Iowa city pass the US filter',
+          [sj.is_us_location(j['location']) for j in jobs],
+          [False, False, False, False, True, True])
+
+
 # --- scrape_smartrecruiters (pagination) --------------------------------------
 @responses.activate
 def test_smartrecruiters_pagination_short_page_stops():
@@ -3442,6 +3467,7 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_lever_reads_all_locations,
            test_ashby, test_ashby_schema_drift_warns,
            test_ashby_falls_back_to_the_postal_address,
+           test_ashby_address_does_not_move_a_foreign_label,
            test_smartrecruiters_pagination_short_page_stops,
            test_check_slugs_flags_unknown_smartrecruiters_id, test_oracle,
            test_fetch_json_retries_transient, test_fetch_json_gives_up_on_404,

@@ -32,6 +32,7 @@ from classify import (
     AI_CATEGORY_RE,
     LOCATION_SPLIT_RE,
     US_STATE_ABBRS,
+    US_TOKEN_RE,
     _is_bare_remote,
     _is_foreign_part,
     classify_level,
@@ -513,18 +514,25 @@ def _ashby_place(label, address):
     # 'Oakland', or 'North America', all of which fail the US check, while
     # the structured address beside them says United States. 105 postings
     # across the Ashby boards read that way. The label wins whenever it
-    # already reads as US.
+    # already reads as US, except a bare 'Remote', which names no country:
+    # beside a Toronto address it is 'Remote (Canada)', not Remote (US).
+    postal = (address or {}).get('postalAddress') or {}
+    country = (postal.get('addressCountry') or '').strip()
+    if label and country and country.lower() not in US_COUNTRY_NAMES and _is_bare_remote(label):
+        return f'{label.strip()} ({country})'
     if label and is_us_location(label):
         return label
-    postal = (address or {}).get('postalAddress') or {}
-    if (postal.get('addressCountry') or '').strip().lower() not in US_COUNTRY_NAMES:
+    if country.lower() not in US_COUNTRY_NAMES:
         return label
     city = (postal.get('addressLocality') or '').strip()
     region = (postal.get('addressRegion') or '').strip()
     if label and label.strip().lower() != city.lower():
         # A scope label is not the address, which is often the head office:
         # WorkOS's 'United States & Canada' roles carry San Francisco, so
-        # the scope stays and only the country is added.
+        # the scope stays and only the country is added. For the same reason
+        # an 'EMEA' or 'London, UK' label beside that address is not in the US.
+        if _is_foreign_part(label) and not US_TOKEN_RE.search(label.lower()):
+            return label
         return f'{label}; United States'
     if not region or region.lower() in US_COUNTRY_NAMES:
         # 'San Mateo, United States' normalizes back to the bare city.
