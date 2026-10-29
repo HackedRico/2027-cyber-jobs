@@ -2882,18 +2882,23 @@ def test_orphan_pass_takes_the_configured_spelling():
 
     The orphan pass compared names casefolded and kept the row, while the
     re-eval and vanished passes key on the exact name, so a closed req at
-    such a row stayed open and its URL's req id kept check_links away too.
+    such a row stayed open and its URL's req id kept check_links away too. A
+    stamp from before the case change, never re-checked while the row was
+    stranded, then retired it on its first miss under the new spelling.
     """
     config = {'greenhouse': [{'name': 'CrowdStrike', 'slug': 'crowdstrike',
                               'security_company': True}]}
     listings = [_stored('Crowdstrike', 'SOC Analyst I', 111),
-                _stored('Crowdstrike', 'Security Engineer I', 222),
+                _stored('Crowdstrike', 'Security Engineer I', 222,
+                        missing_since='2026-09-20'),
                 _stored('CrowdStrike', 'Threat Analyst I', 333)]
     retired, renamed = sj.retire_orphaned_listings(listings, config, '2026-10-01')
     check('a case-only rename takes the configured spelling, with no live posting needed',
           ([e['role'] for e in retired], [(e['role'], old, e['company']) for e, old in renamed]),
           ([], [('SOC Analyst I', 'Crowdstrike', 'CrowdStrike'),
                 ('Security Engineer I', 'Crowdstrike', 'CrowdStrike')]))
+    check('...dropping the stale stamp, as the other rename paths do',
+          listings[1].get('missing_since'), None)
     raw = [_live('CrowdStrike', 'SOC Analyst I', 111), _live('CrowdStrike', 'Threat Analyst I', 333)]
     sj.retire_vanished_listings(listings, raw, '2026-10-01')
     check('...so the vanished pass judges the renamed rows',

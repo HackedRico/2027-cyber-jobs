@@ -1925,6 +1925,9 @@ def retire_orphaned_listings(listings, config, today, raw_jobs=()):
         if is_open and (company.casefold(), source) in spelling:
             renamed.append((entry, company))
             entry['company'] = spelling[(company.casefold(), source)]
+            # A stamp from before the case change went unchecked while the
+            # row was stranded, so one miss on the next run retired it.
+            entry.pop('missing_since', None)
             continue
         if live_owner is None:
             live_owner = {}
