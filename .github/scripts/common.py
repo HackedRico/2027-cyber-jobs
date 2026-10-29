@@ -23,11 +23,12 @@ from classify import (
 )
 
 # Tracking params stripped before URL comparison so the same posting under
-# different campaign tags dedupes to one listing.
+# different campaign tags dedupes to one listing. A pasted Jibe link carries
+# ?lang=en-us, which the scraper's link does not.
 STRIP_PARAMS = {
     'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term',
     'utm_id', 'source', 'src', 'ref', 'referer', 'lever-source',
-    'lever-origin', 'gh_src',
+    'lever-origin', 'gh_src', 'lang',
 }
 
 # Greenhouse serves the same board under two hostnames; canonicalize so a job
@@ -35,6 +36,12 @@ STRIP_PARAMS = {
 _GREENHOUSE_HOST_RE = re.compile(r'^job-boards\.greenhouse\.io$')
 # Trailing application-step suffixes that don't change the posting identity.
 _TRAILING_STEP_RE = re.compile(r'/(?:apply|application)$', re.IGNORECASE)
+# A Phenom posting path, /{country}/{lang}/job/{req}, and the title slug a
+# pasted link carries after the req: the scraper stores
+# careers.mitre.org/us/en/job/R114937 and a submitter pastes
+# .../job/R114937/<title>, so the two never matched as one posting.
+_PHENOM_SLUG_RE = re.compile(
+    r'^(/[a-z]+/[a-z]{2}(?:[_-][a-z]{2})?/job/[A-Za-z0-9_-]+)/[^/]+$', re.IGNORECASE)
 
 
 def normalize_url(url):
@@ -43,7 +50,7 @@ def normalize_url(url):
         params = {k: v for k, v in parse_qs(p.query, keep_blank_values=True).items()
                   if k.lower() not in STRIP_PARAMS}
         netloc = _GREENHOUSE_HOST_RE.sub('boards.greenhouse.io', p.netloc.lower())
-        path = _TRAILING_STEP_RE.sub('', p.path.rstrip('/'))
+        path = _PHENOM_SLUG_RE.sub(r'\1', _TRAILING_STEP_RE.sub('', p.path.rstrip('/')))
         u = urlunparse(p._replace(
             scheme=p.scheme.lower(),
             netloc=netloc,

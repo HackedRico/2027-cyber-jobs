@@ -111,6 +111,13 @@ URLS = [
     ('a Workday link with a lowercase locale',
      'https://nwis.wd12.myworkdayjobs.com/en-us/NW/job/Springfield-VA/X_JR1/apply', WORKDAY),
     ('a bare Workday link', WORKDAY, WORKDAY),
+    ('a Phenom link with the title slug after the req',
+     'https://careers.mitre.org/us/en/job/R114937/Cybersecurity-Engineer-Intern',
+     'https://careers.mitre.org/us/en/job/R114937'),
+    ('the scraper Phenom link', 'https://careers.mitre.org/us/en/job/R114937',
+     'https://careers.mitre.org/us/en/job/R114937'),
+    ('a Jibe link with a lang param', 'https://careers.jhuapl.edu/jobs/59772?lang=en-us',
+     'https://careers.jhuapl.edu/jobs/59772'),
 ]
 for name, url, want in URLS:
     check(f'normalize_url {name}', common.normalize_url(url), want)
