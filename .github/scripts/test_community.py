@@ -813,6 +813,9 @@ HOSTS = [
     ('https://boards.greenhouse.io/acme/jobs/1', 'boards.greenhouse.io'),
     ('https://Careers.ACME.com./x', 'careers.acme.com'),
     ('https://bücher.example/x', 'xn--bcher-kva.example'),
+    # requests and a browser keep the ß that IDNA 2003 maps to "ss".
+    ('https://career5.succeßfactors.com/careers?career_job_req_id=1',
+     'career5.xn--succefactors-p9a.com'),
     ('https://user@jobs.example:443/x', 'jobs.example'),
     ('https://evil.example\\@crowdstrike.wd5.myworkdayjobs.com/x', 'evil.example'),
     ('javascript:alert(1)', ''),

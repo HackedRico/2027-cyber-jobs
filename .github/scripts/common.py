@@ -234,6 +234,9 @@ def fetch_target_problem(url):
     return None
 
 
+_IDNA_DEVIATIONS = frozenset('\u00df\u03c2\u200c\u200d')
+
+
 def link_host(url):
     """The link's hostname in ASCII, with IDNA labels as punycode.
 
@@ -245,14 +248,20 @@ def link_host(url):
     except ValueError:
         return ''
     host = host.rstrip('.')
-    try:
-        return host.encode('idna').decode('ascii')
-    except UnicodeError:
-        # The idna codec is IDNA 2003 and refuses some labels; encode each
-        # non-ASCII label by hand rather than show the raw Unicode.
-        return '.'.join(label if label.isascii()
-                        else 'xn--' + label.encode('punycode').decode('ascii')
-                        for label in host.split('.'))
+    # The idna codec is IDNA 2003, which maps ß, ς, ZWJ and ZWNJ away where
+    # requests and a browser keep them: succeßfactors.com read here as
+    # successfactors.com, an ATS host, while the fetch opened
+    # xn--succefactors-p9a.com.
+    if _IDNA_DEVIATIONS.isdisjoint(host):
+        try:
+            return host.encode('idna').decode('ascii')
+        except UnicodeError:
+            pass
+    # The codec also refuses some labels; encode each non-ASCII label by hand
+    # rather than show the raw Unicode.
+    return '.'.join(label if label.isascii()
+                    else 'xn--' + label.encode('punycode').decode('ascii')
+                    for label in host.split('.'))
 
 
 def host_matches(host, domains):
