@@ -237,7 +237,8 @@ def test_ashby_falls_back_to_the_postal_address():
 @responses.activate
 def test_ashby_address_does_not_move_a_foreign_label():
     """A head-office address in San Francisco put 'EMEA' and 'London, UK' in the US,
-    and a bare 'Remote' beside a Toronto address read as Remote (US)."""
+    and a bare 'Remote' beside a Toronto address read as Remote (US). The address's
+    own city is not a foreign place: 'Vienna' in 'Vienna, VA (Hybrid)' read as Austria."""
     sf = _ashby_address('San Francisco', 'California')
     responses.get('https://api.ashbyhq.com/posting-api/job-board/acme', json={'jobs': [
         {'id': 'a', 'title': 'Security Engineer', 'location': 'EMEA', 'address': sf},
@@ -248,15 +249,17 @@ def test_ashby_address_does_not_move_a_foreign_label():
         {'id': 'e', 'title': 'Security Engineer', 'location': 'Remote', 'address': sf},
         {'id': 'f', 'title': 'Security Engineer', 'location': 'Waterloo',
          'address': _ashby_address('Waterloo', 'Iowa')},
+        {'id': 'g', 'title': 'Security Engineer Intern', 'location': 'Vienna, VA (Hybrid)',
+         'address': _ashby_address('Vienna', 'Virginia')},
     ]})
     jobs = sj.scrape_ashby('Acme', 'acme')
     check('a foreign label keeps its own place and a bare remote takes the country',
           [j['location'] for j in jobs],
           ['EMEA', 'Remote - Canada', 'London, UK', 'Remote (Canada)', 'Remote',
-           'Waterloo, IA'])
-    check('only the US-address remote and the Iowa city pass the US filter',
+           'Waterloo, IA', 'Vienna, VA (Hybrid); United States'])
+    check('only the US-address remote and the two US cities pass the US filter',
           [sj.is_us_location(j['location']) for j in jobs],
-          [False, False, False, False, True, True])
+          [False, False, False, False, True, True, True])
 
 
 # --- scrape_smartrecruiters (pagination) --------------------------------------

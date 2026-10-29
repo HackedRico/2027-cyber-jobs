@@ -533,7 +533,11 @@ def _ashby_place(label, address):
         # WorkOS's 'United States & Canada' roles carry San Francisco, so
         # the scope stays and only the country is added. For the same reason
         # an 'EMEA' or 'London, UK' label beside that address is not in the US.
-        if _is_foreign_part(label) and not US_TOKEN_RE.search(label.lower()):
+        # The address's own city is not that foreign place: 'Vienna, VA
+        # (Hybrid)' at a Vienna, Virginia address fails the US check only for
+        # its tag, and 'Vienna' read as Austria.
+        rest = re.sub(rf'\b{re.escape(city)}\b', '', label, flags=re.IGNORECASE) if city else label
+        if _is_foreign_part(rest) and not US_TOKEN_RE.search(label.lower()):
             return label
         return f'{label}; United States'
     if not region or region.lower() in US_COUNTRY_NAMES:
