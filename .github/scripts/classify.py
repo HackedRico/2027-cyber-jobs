@@ -39,6 +39,17 @@ SENIORITY_REJECT = [
     # Supervisor", "Data & AI Governance Leader, MD". 'leader' is word-bounded
     # so "Cyber Leadership Development Program" (a new-grad cohort) survives.
     r'\bsupervisor\b', r'\bleader\b',
+    # Bank and consulting ranks the terms above miss: State Street
+    # 'Cybersecurity, AVP' (an assistant vice president), Kyndryl 'Consult
+    # Associate Partner Banking' and 'Associate Consult Partner, Public Sector',
+    # Mastercard 'Associate Managing Consultant, Advisors & Consulting
+    # Services, Deploy' (a manager-level rank), and KnowBe4's 'Snr. Site
+    # Reliability Engineer'. A partner engineer is channel presales (Wiz
+    # 'Partner Solutions Engineer, Israel', Ping Identity 'Partner Sales
+    # Engineer (France)'), so an associate partner before an engineer or
+    # architect noun is that role's entry rung, not the rank.
+    r'\bavp\b', r'\bmanaging consultant\b', r'\bsnr\b',
+    r'\bassociate (?:consult )?partner\b(?!(?: [a-z]+){0,2} (?:engineer|architect)s?\b)',
 ]
 # Seniority words inside a level name or an org unit, not the role: Anthropic
 # 'Member of Technical Staff, Security - New Grad', MIT Lincoln Laboratory
@@ -159,8 +170,22 @@ FUNCTION_REJECT = [
     # DoD SkillBridge slots for active-duty members (Blackpoint Cyber), and
     # dated recruiting events (JPMorgan 'Hiring Event - Security Architecture
     # & Engineering - Sep 24-25th 2026', whose event year read as a cohort).
-    'intern conversion', 'return intern', 'returning intern', 'interns only',
-    'former intern', 'skillbridge', 'active duty', 'hiring event',
+    'intern conversion', 'return intern', 'returning intern', 'returning interns',
+    'interns only', 'former intern', 'skillbridge', 'active duty', 'hiring event',
+    # A returnship is for professionals back from a career break: Goldman
+    # Sachs '2027 - Returnship Programme – London'.
+    'returnship',
+    # Programs reserved for service members, veterans and military spouses,
+    # which the 'fellowship' and 'associate' level words read as student
+    # cohorts: BlackRock 'Veterans Transition Program- Associate, Access &
+    # Identity Management Engineer' and 'Vet Transition Program-...', Goldman
+    # Sachs '2027 - Veterans Integration Programme - London', Bank of America
+    # 'Corporate Security Military Development Program' and Johnson & Johnson
+    # 'Military Leadership Development Program'. The military fellowships are
+    # guarded below. The Aerospace Corporation's '2027 Aerospace Returning
+    # Interns' is a return offer.
+    'military development program', 'military leadership development program',
+    'veterans transition', 'veteran transition', 'vet transition', 'veterans integration',
     # Bank model validation, which an 'AI risk' or 'AI governance' team name
     # read as AI security: Goldman Sachs 'Model Risk Management, AI Risk,
     # Dallas, Analyst/Associate'.
@@ -215,9 +240,35 @@ GUARDED_FUNCTION_REJECTS = [
     r'^(?!.*\b(?:(?:it|technology) audit(?:or)?|cyber\w*|information security)\b)'
     r'.*\binternal audit\b',
     # A crime or pharma lab, not digital forensics: Merck '2027 Future Talent
-    # Program- Forensic Services Laboratory Intern'.
+    # Program- Forensic Services Laboratory Intern'. Healthcare forensics is
+    # medical billing review: BDO 'Experienced Associate, Healthcare Forensics
+    # Coder'. Only the phrase counts, since a security team can serve a
+    # healthcare business (Amazon 'Security Engineer II, Stores Security -
+    # HealthCare') and a forensics analyst can review code.
     r'^(?!.*\b(?:digital|computer|cyber\w*|mobile|network|malware)\b)'
-    r'.*\bforensic\w*\b.*\b(?:lab|laboratory|chemist\w*|toxicolog\w*|dna|biolog\w*)\b',
+    r'.*(?:\bforensic\w*\b.*\b(?:lab|laboratory|chemist\w*|toxicolog\w*|dna|biolog\w*)\b'
+    r'|\bhealth ?care forensic|\bforensic\w* coders?\b)',
+    # Insurance underwriting, where 'cyber' names the line of cover: Chubb
+    # 'Junior Underwriter / Underwriter Cyber & Technology, (all*), 80-100%'.
+    # Underwriters Laboratories is a product-safety and security test house.
+    r'\bunderwriters?\b(?! laborator)',
+    # Underwriting is insurance or credit work: Chubb 'Chubb Summer Internship
+    # Program (Underwriting & Claims)', JPMorgan 'Consumer Underwriting Trainee
+    # - Home Lending Operations'. It also names the team an engineer builds
+    # for (Affirm 'Machine Learning Engineer II (Underwriting ML)'), so an
+    # engineering role noun, a security analyst or an IT or information
+    # security title spares it. A bare 'cyber' does not, since that names the
+    # line of cover.
+    r'^(?!.*\b(?:engineer(?:s|ing)?|developers?|architects?|administrators?|sre|devops|'
+    r'security (?:[a-z]+ )?analysts?|(?:it|information|network|application|cloud|product|data)'
+    r' security)\b).*\bunderwriting\b',
+    # GuidePoint Security's 'GPSU Military - Federal Fellowship (Hybrid)' and
+    # 'GPSU Military/Military Spouses - Commercial Fellowship', Sierra Nevada
+    # 'Military Fellowship Program: Cybersecurity Analyst' and Oracle
+    # 'SkillBridge NetSuite Military Fellowship' are for service members,
+    # veterans and their spouses. At most one word may sit between, so a
+    # 'Military Systems Cybersecurity' team keeps its fellowships.
+    r'\bmilitary(?:/military spouses?| spouses?)?(?: ?[-–:])?(?: [a-z]+)? fellowships?\b',
     r'\bsales\b(?!\s+(?:solutions?\s+)?engineer)',
     r'(?<!data )\bloss prevention\b',
     # Hourly shift posts: Walmart 'Asset Protection / Security Associate,
@@ -227,6 +278,15 @@ GUARDED_FUNCTION_REJECTS = [
     r'\$\d+(?:\.\d+)?\s*/\s*(?:hr|hour)\b',
     r'\bsecurity associate, manufacturing\b',
     r'^(?!.*\b(?:cyber\w*|information|ai|ml|model|agents?|llm)\b).*\bsafety and security\b',
+    # A hardware discipline with a specialty between it and the role noun,
+    # which 'mechanical engineer' misses and a security company's 'engineer'
+    # allowance would admit: Honeywell 'Mechanical Design Engineer I', RTX
+    # 'Electrical Test Engineer I', HPE 'Mechanical Hardware Engineer I
+    # Graduate', Boeing 'Mechanical Systems Design Engineer – Associate/
+    # Experienced', RTX 'Manufacturing Development Engineer II'. The specialty
+    # is listed, so Palantir 'Privacy & Civil Liberties Engineer' stays.
+    r'\b(?:mechanical|electrical|chemical|industrial|civil|manufacturing)\s+(?:systems?\s+)?'
+    r'(?:design|test|hardware|development|optimization)\s+engineer(?:s|ing)?\b',
 ]
 
 FUNCTION_REJECT_RE = re.compile(
@@ -271,12 +331,17 @@ DEPARTMENT_REJECT_RE = re.compile(
 # A bank's singular 'security' can also be a tradable one: Morgan Stanley
 # 'North American Security Settlements- Analyst/ Associate', Citi 'Security
 # and Derivatives Intermediate Associate Analyst'.
+# Fire and security is building systems (Honeywell 'Fire and Security System
+# Engineer I (m/f/d)'), facility security is the cleared-site office (MITRE
+# 'Facility Security Coordinator and Administrator—Albuquerque, NM'), and
+# security cooperation is the DoD's work with partner militaries (Booz Allen
+# 'Intelligence Security Cooperation and Engagement Planner').
 NON_CYBER_SECURITY_RE = re.compile(
-    r'\b(?:social|food|energy|border|homeland|campus|event|electronic|regional|global)'
-    r'\s+security\b'
+    r'\b(?:social|food|energy|border|homeland|campus|event|electronic|regional|global|'
+    r'fire and|facility)\s+security\b'
     r'|\bsecurity\s+resilien\w*'
     r'|\bcorporate\s+security\b(?!\s+engineer)'
-    r'|\bsecurity\s+(?:forces|badging)\b'
+    r'|\bsecurity\s+(?:forces|badging|cooperation)\b'
     r'|\bsecurity\s+(?:and\s+derivatives?|settlements?|master|valuations?|pricing|lending)\b')
 
 # A bare 'security' before these role nouns is usually a facility, badging or
@@ -287,18 +352,22 @@ NON_CYBER_SECURITY_RE = re.compile(
 # Specialist I') or a technical role noun ('Associate Security Analyst'). A
 # bare SOC is not one, since a guard force runs its own security operations
 # center: PNC 'Security Associate- SOC', posted to its data and operations
-# centers.
+# centers. A bare security investigator is the corporate kind (Comcast
+# 'Investigator 2, Security') and a bare security operator a guard post
+# (Southern Company 'Armed NERC CIP Security Operator'), so both need the
+# second term too, as TD Bank's 'Lead Insider Threat Investigator (US)' has.
 WEAK_SECURITY_ROLE_RE = re.compile(
-    r'\b(?:specialist|technician|associate|assistant|coordinator|officer)s?\b')
+    r'\b(?:specialist|technician|associate|assistant|coordinator|officer|investigator|'
+    r'operator)s?\b')
 TECH_SECURITY_ROLE_RE = re.compile(
     r'\b(?:analyst|engineer|engineering|consultant|administrator|developer|tester|'
-    r'responder|investigator|researcher|scientist|architect|auditor|hunter)s?\b')
+    r'responder|researcher|scientist|architect|auditor|hunter)s?\b')
 # The role noun has to follow the word 'security' closely for a department
 # title to count as security work: 'Silicon Security Researcher' does,
 # 'Revenue Platform Engineer, Security' does not.
 SECURITY_ROLE_RE = re.compile(
     r'\bsecurity\s+(?:[a-z]+\s+)?(?:analyst|engineer|consultant|administrator|'
-    r'developer|tester|responder|investigator|researcher|scientist|architect|'
+    r'developer|tester|responder|researcher|scientist|architect|'
     r'auditor|hunter)s?\b')
 # A word that makes 'security' information security by itself.
 INFOSEC_QUALIFIER_RE = re.compile(
@@ -487,7 +556,8 @@ CLOUD_ENGINEERING_RE = re.compile(
     r'engineer(?:ing)?s?|sre)\b.{0,40}\b(?:aws|azure|gcp|cloud)\b')
 # Product suites named 'Cloud' are CRM, ERP and SaaS configuration work, not
 # cloud infrastructure: 'Salesforce Service Cloud Developer', 'Oracle Cloud HCM
-# Developer', 'Associate SAP Cloud Developer', 'Workday Cloud Administrator I'.
+# Developer', 'Associate SAP Cloud Developer', 'Workday Cloud Administrator I',
+# and contact-centre suites (Unisys 'Junior Genesys Cloud CX Architect').
 # Cost and data-centre work is facilities and finance ('Cloud FinOps Analyst',
 # 'DCO Technician I, AWS Data Center Operations'), server hardware is chip and
 # board design (Amazon 'Cloud Hardware Development Engineer I, Annapurna
@@ -497,7 +567,7 @@ CLOUD_PRODUCT_RE = re.compile(
     r'industries|financial services|nonprofit|education|analytics|public sector|'
     r'manufacturing) cloud\b'
     r'|\b(?:hcm|erp|epm|scm|fusion|financials|netsuite|sap|workday|servicenow|tableau|'
-    r'dynamics|guidewire|veeva|cpq)\b|\boracle cloud\b(?!\s+infrastructure)'
+    r'dynamics|guidewire|veeva|cpq|genesys)\b|\boracle cloud\b(?!\s+infrastructure)'
     r'|\bfinops\b|\bcost\b|\bkitchen\b|\bcontact cent(?:er|re)\b'
     r'|\bdata cent(?:er|re)\b|\b(?:saint|st\.?) cloud\b|\bhardware\b'
     r'|\b(?:point|word) clouds?\b|\bcloud (?:physics|seeding|9|nine)\b')
@@ -639,10 +709,27 @@ MULTI_LEVEL_RE = re.compile(
     r'(' + _LEVEL_TOKEN + r'(?:(?:\s*/\s*|[-–]|\s+(?:or|to|through|and)\s+|\s*&\s*)'
     + _LEVEL_TOKEN + r')+)\b')
 _SENIOR_LEVEL_TOKEN_RE = re.compile(r'\b(?:iii|iv|[3-9])\b')
+# Boeing spells its spans in words: 'Systems Engineer (Associate or
+# Mid-Level)', 'Full Stack Software Engineer (Associate/Experienced)', 'Space
+# Systems Engineer (Associate, Experienced)', 'X-37B Industrial Engineer,
+# Associate or Mid-Career', 'Boeing Engineering Entry-level, Associate and
+# Mid-level Positions', as do KBR ('Junior, Mid-Level, and Senior Level Radar
+# Signals Processing Engineer') and Booz Allen ('Digital Forensic Examiner,
+# Mid'). The low word levels the title, so the span needs the same
+# description evidence as a numeral one, in either order. A word must join
+# the two: PwC's 'Experienced Associate' names one level and is no span. A
+# bare 'mid' is a level only when no hyphen follows, so JPMorgan's 'Associate
+# – Mid-Cap Financial Sponsors Group' is no span either.
+_SPAN_LOW = r'(?:associate|junior|jr|entry[- ]?level)'
+_SPAN_HIGH = r'(?:mid[- ]?(?:level|career)|mid(?![-\w])|experienced)'
+_SPAN_JOIN = r'(?:\s*[,/&–-]\s*|\s+(?:or|and|to|through)\s+)'
+WORD_LEVEL_SPAN_RE = re.compile(
+    rf'\b(?:{_SPAN_LOW}\.?{_SPAN_JOIN}{_SPAN_HIGH}|{_SPAN_HIGH}{_SPAN_JOIN}{_SPAN_LOW})\b')
 
 
 def _spans_senior_level(t):
-    return any(_SENIOR_LEVEL_TOKEN_RE.search(m.group(1)) for m in MULTI_LEVEL_RE.finditer(t))
+    return (any(_SENIOR_LEVEL_TOKEN_RE.search(m.group(1)) for m in MULTI_LEVEL_RE.finditer(t))
+            or bool(WORD_LEVEL_SPAN_RE.search(t)))
 
 # Strong phrases in a job description that mark a role as early career.
 # Deliberately tight — descriptions are noisy (boilerplate like "from early
@@ -1572,7 +1659,7 @@ def rejected_title_rule(title, today=None):
         if (m and not TECH_SECURITY_ROLE_RE.search(t)
                 and not _has_second_cyber_term(re.sub(r'\bsoc\b', ' ', t))):
             return (f'a security "{m.group(0)}" with no other cyber term is usually '
-                    'a facility, badging or guard role')
+                    'a facility, badging, guard or corporate security role')
     if _is_stale_intern_title(title, today):
         return (f'the internship season in the title has passed; the earliest one '
                 f'still recruiting is {first_open_season(today)}')
@@ -1610,6 +1697,17 @@ SECURITY_CLEARANCE_RE = re.compile(r'\bsecurity clearance\b')
 # Security]' and KBR 'National Security Solutions (NSS) Semiconductor Research
 # Internship' matched 'security'. A title that also says 'cyber' keeps it.
 NATIONAL_SECURITY_RE = re.compile(r'\bnational security(?: solutions)?\b')
+# 'Threat' in its military senses: GDIT 'Junior Tactical All Source Threat
+# Intelligence Analyst - Overnight Shift (Top Secret Clearance)' is military
+# intelligence, Amentum 'Counter Threat Finance Analyst (CENTCOM - B31)' traces
+# an adversary's money, and SAIC 'Jr. Mobile Threat to Aerospace Operations
+# (TTAO) Technician Assistant' names a threat to aircraft, and Northrop 'Mod
+# Sim System Engineer (Mission Support Threat Engineer - Level 2 or 3)' models
+# an adversary's weapons for a simulation. Only the phrase is stripped, so a
+# cyber word elsewhere in the title still counts.
+NON_CYBER_THREAT_RE = re.compile(
+    r'\ball[- ]source\s+threat\b|\bcounter[- ]?threat\s+finance\b|\bthreats?\s+to\s+aerospace\b'
+    r'|\bmission\s+support\s+threat\b')
 
 
 def _strip_non_cyber_security(t):
@@ -1619,7 +1717,8 @@ def _strip_non_cyber_security(t):
 
 def _has_cyber_keyword(t):
     # 'Identity & Access Management Intern' reads as 'identity and access'.
-    t = re.sub(r'\s+', ' ', _strip_non_cyber_security(t).replace('&', ' and '))
+    t = NON_CYBER_THREAT_RE.sub(' ', _strip_non_cyber_security(t))
+    t = re.sub(r'\s+', ' ', t.replace('&', ' and '))
     return _is_cyber_keyword_hit(t) or any(p.search(t) for p in CYBER_REGEXES)
 
 

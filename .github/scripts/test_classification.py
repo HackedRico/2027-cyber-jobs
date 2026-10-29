@@ -143,6 +143,10 @@ CASES = [
     ('Mechanical Engineering Co-Op', 'Shakopee, MN', '', True, None),
     ('Electrical Engineering Intern', 'Shakopee, MN', '', True, None),
     ('Firmware Engineering Co-op', 'Shakopee, MN', '', True, ('intern', 'Engineering @ Security Co')),
+    # ...and so is a discipline with a specialty before the role noun.
+    ('Mechanical Design Engineer I', 'Remote (US)', '', True, None),
+    ('Electrical Test Engineer I', 'Remote (US)', '', True, None),
+    ('Mechanical Systems Design Engineer – Associate/Experienced', 'Remote (US)', '', True, None),
     # Johnson & Johnson's ACAS is a medical device sales intern.
     ('Associate Clinical Account Specialist (ACAS) Intern (Summer 2027)', 'Irvine, CA', '', False, None),
     # Bank model validation under an AI team name.
@@ -169,6 +173,14 @@ CASES = [
     ('Systems Security Engineer I (For 2026 Interns Only)', 'Lone Tree, CO', '', False, None),
     ('Systems Security Engineer Intern - Summer 2027 (For SNC Summer 2026 Interns Only)', 'Hagerstown, MD', '', False, None),
     ('Hiring Event - Security Architecture & Engineering - Sep 24-25th 2026', 'McLean, VA; Jersey City, NJ', '', False, None),
+    # Veterans' and transitioning service members' programs.
+    ('Military Fellowship Program: Cybersecurity Analyst', 'Remote (US)', '', False, None),
+    ('Veterans Transition Program- Associate, Access & Identity Management Engineer', 'Remote (US)', '', False, None),
+    ('Veterans Transition Program Associate, Cyber Operations Engineer', 'Remote (US)', '', False, None),
+    ('Veterans Transition Program- Associate, Cyber Security Regulatory Support', 'Remote (US)', '', False, None),
+    # ...but a cyber team that works on military systems stays.
+    ('2027 Internship - Military Systems Cybersecurity Engineer', 'Laurel, MD', '', False,
+     ('intern', 'Security Engineering')),
     # -- should be rejected: sales, support and design at security companies --
     ('Developer Support Associate (New Grad)', 'San Francisco, CA', '', True, None),
     ('Deals Desk Analyst II', 'Draper, UT', '', True, None),
@@ -404,6 +416,7 @@ CASES = [
     ('Software Engineer II - Windows in Cloud', 'Redmond, WA', '', False, None),
     ('Salesforce Service Cloud Developer, Associate', 'Austin, TX', '', False, None),
     ('Oracle Cloud HCM Developer I', 'Austin, TX', '', False, None),
+    ('Junior Genesys Cloud CX Architect', 'Remote (US)', '', False, None),
     ('Cloud Sales Associate', 'Austin, TX', '', False, None),
     ('Associate Banker, Saint Cloud, MN', 'Saint Cloud, MN', '', False, None),
     ('Senior Cloud Engineer', 'Austin, TX', '', False, None),
@@ -557,6 +570,17 @@ CASES = [
     # -- rows the new bank, pharma and Big 4 boards would have added --
     ('Associate, Equity Research - Cybersecurity & Data', 'New York, NY', '', False, None),
     ('2027 Future Talent Program- Forensic Services Laboratory Intern', 'West Point, PA', '', False, None),
+    ('Experienced Associate, Healthcare Forensics Coder', 'Remote (US)', '', False, None),
+    ('Junior Underwriter / Underwriter Cyber & Technology, (all*), 80-100%', 'Remote (US)', '', False, None),
+    # 'Threat' in its military senses, unless the title also says cyber.
+    ('Junior Tactical All Source Threat Intelligence Analyst - Overnight Shift (Top Secret Clearance)',
+     'Vienna, VA', '', False, None),
+    ('Jr. Mobile Threat to Aerospace Operations (TTAO) Technician Assistant', 'Remote (US)', '', False, None),
+    ('Counter Threat Finance Analyst (CENTCOM - B31)', 'Tampa, FL',
+     'Open to candidates with 0-2 years of experience.', False, None),
+    ('Cyber All-Source Intelligence Analyst', 'McLean, VA',
+     'Open to candidates with 0-2 years of experience.', False,
+     ('earlycareer', 'Threat Intelligence')),
     (f'Strategic Assurance and SOC Services Associate - Summer {SEASON}', 'Fort Lauderdale, FL', '', False, None),
     ('Digital Forensics Lab Intern', 'Austin, TX', '', False, ('intern', 'Forensics & IR')),
     (f'{SEASON} Future Talent Program - North America Regional Security Team - Intern', 'Rahway, NJ', '', False, None),
@@ -609,6 +633,9 @@ CASES = [
     ('North American Security Settlements- Analyst/ Associate', 'Baltimore, MD', '', False, None),
     ('Security and Derivatives Intermediate Associate Analyst', 'Tampa, FL', '', False, None),
     ('Security Master Data Analyst I', 'Pittsburgh, PA', '', False, None),
+    # Building fire and security systems, and a bare security investigator.
+    ('Fire and Security System Engineer I (m/f/d)', 'Remote (US)', '', False, None),
+    ('Investigator 2, Security', 'Baltimore, MD', '', False, None),
     # ...and a bare 'security' before a facility-style role noun.
     ('Security Access Control Technician I', 'Austin, TX', '', False, None),
     ('Security Specialist II', 'Cambridge, MA', '', False, None),
@@ -700,6 +727,18 @@ CASES = [
     ('Cyber Analyst II', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
     ('Security Engineer 2', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
     ('Cyber Software Engineer - Level 1/2', 'Austin, TX', '', False, ('earlycareer', 'Security Engineering')),
+    # Boeing spells its spans in words; at a security company each needs the
+    # same description evidence as a numeral span.
+    ('Systems Engineer (Associate or Mid-Level)', 'Huntsville, AL', '', True, None),
+    ('Full Stack Software Engineer (Associate/Experienced)', 'Huntsville, AL', '', True, None),
+    ('Space Systems Engineer (Associate, Experienced)', 'Huntsville, AL', '', True, None),
+    ('Systems Engineer (Associate or Mid-Level)', 'Huntsville, AL',
+     "Associate: Bachelor's and 2 years of related experience. "
+     "Mid-Level: Bachelor's and 5 years of related experience.", True,
+     ('earlycareer', 'Engineering @ Security Co')),
+    # ...while PwC's 'Experienced Associate' is one level, not a span.
+    ('Cybersecurity, Privacy and Forensics - Threat Detection Response - Experienced Associate',
+     'Remote (US)', '', False, ('earlycareer', 'SOC & Detection')),
 
     # -- keyword gaps --
     ('Identity & Access Management Intern', 'Austin, TX', '', False, ('intern', 'Identity & IAM')),
@@ -917,6 +956,7 @@ LEVEL = [
     ('Cyber Analyst I/II/III', 'earlycareer'),
     ('SOC Analyst Tier 1-3', 'earlycareer'),
     ('Cyber Systems Engineer (Level 2 or 3)', 'earlycareer'),
+    ('Systems Engineer (Associate or Mid-Level)', 'earlycareer'),
 ]
 for title, want in LEVEL:
     got = s.classify_level(title)
@@ -1444,6 +1484,42 @@ JUDGED = [
      'over-experienced'),
     ('Classified Cybersecurity Analyst 2/3 - Secret', 'Linthicum, MD', '', False, 'no-level'),
     ('Support Engineer I - UK', 'Remote | United Kingdom', '', True, 'non-us-location'),
+    # Ranks and programs the title rules now name, where the title used to
+    # fail a later gate: an AVP, a Snr., a consulting associate partner, a
+    # plural return offer, a guard post, a cleared-site office and DoD
+    # security cooperation.
+    ('Cybersecurity, AVP', 'Boston, MA', '', False, 'rejected-title'),
+    ('Snr. Site Reliability Engineer (Remote in Brazil)', 'Remote (US)', '', True, 'rejected-title'),
+    ('Consult Associate Partner Banking', 'Remote (US)', '', False, 'rejected-title'),
+    ('Associate Consult Partner, Public Sector (Provincial)', 'Remote (US)', '', False,
+     'rejected-title'),
+    ('2027 Aerospace Returning Interns', 'El Segundo, CA', '', False, 'rejected-title'),
+    ('Armed NERC CIP Security Operator', 'Remote (US)', '', False, 'rejected-title'),
+    ('Facility Security Coordinator and Administrator—Albuquerque, NM', 'Albuquerque, NM', '',
+     False, 'rejected-title'),
+    ('Intelligence Security Cooperation and Engagement Planner', 'Remote (US)', '', False,
+     'rejected-title'),
+    # A consulting rank, a returnship and military fellowships, which used to
+    # fail only the cyber check; a hyphen-joined partner rank still rejects.
+    ('Associate Managing Consultant, Advisors & Consulting Services, Deploy', 'New York, NY', '',
+     False, 'rejected-title'),
+    ('Consult Associate Partner-Security', 'Remote (US)', '', False, 'rejected-title'),
+    ('2027 - Returnship Programme – London', 'London, United Kingdom', '', False, 'rejected-title'),
+    ('GPSU Military - Federal Fellowship (Hybrid)', 'Remote (US)', '', True, 'rejected-title'),
+    ('GPSU Military/Military Spouses - Commercial Fellowship', 'Remote (US)', '', True,
+     'rejected-title'),
+    # An engineer on an underwriting team is not an underwriter.
+    ('Machine Learning Engineer II (Underwriting ML)', 'San Francisco, CA', '', False, 'not-cyber'),
+    # Threat simulation for a modeling and simulation team is not cyber work,
+    # even where the Level 2 route passes the experience gate.
+    ('Mod Sim System Engineer (Mission Support Threat Engineer - Level 2 or 3)',
+     'Schriever AFB, CO',
+     "Level 2: Bachelor's degree and 2 years of experience. "
+     "Level 3: Bachelor's degree and 5 years of experience.", False, 'not-cyber'),
+    # Boeing's 'Mid-Career' spelling is a span too: at a security company, no
+    # description is no level.
+    ('X-37B Product Review, Liaison Engineer - Associate or Mid-Career – 2nd Shift', 'Remote (US)',
+     '', True, 'no-level'),
 ]
 for title, loc, desc, sec, want in JUDGED:
     verdict, reason = s.judge_job(title, loc, desc, sec)

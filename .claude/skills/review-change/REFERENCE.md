@@ -15,6 +15,11 @@ One checklist per area, then the probe families. Each line is a trap a past chan
   keyword addition: "watch floor" as a keyword let "GSOC Watch Floor Analyst I" back in.
 - **Narrow accept paths.** The security-team, tool, cloud and solutions rules live in
   `is_cyber_title` and unlock none of those guards. A term with other senses belongs there.
+- **Reject reach.** A new reject term also hits every title that names it as a team,
+  industry or channel: a bare "underwriting" dropped "Application Security Engineer I,
+  Underwriting Systems", "healthcare" anywhere in a forensics title dropped a healthcare IR
+  analyst, and "associate partner" dropped "Associate Partner Solutions Engineer". Probe each
+  new reject with security, cloud and engineering titles that carry its words as a team name.
 - **Text form.** Every title rule reads `fold_title(title)`: lowercased, whitespace collapsed,
   a spaced `&` read as `and`. `_has_cyber_keyword` also reads an unspaced `&` as `and`.
   `NEWGRAD_SIGNALS` match as substrings, so "analyst program" matched "Analyst Programmer";
@@ -106,24 +111,38 @@ For each new accept path, probe every family its words could reach.
 - **Other senses of the word:** medical device reporting (MDR), electronic data recorder
   (EDR), the FAA's ACAS X, SOAR program names, PCI hardware, Northrop's Sentinel, Palo Alto
   the city, point clouds, cloud seeding, Saint Cloud, Splunk observability, a SoC that is a
-  chip (NVIDIA "SoC Software Engineer"), a clinical account specialist (ACAS).
+  chip (NVIDIA "SoC Software Engineer"), a clinical account specialist (ACAS), a military
+  threat (GDIT "Tactical All Source Threat Intelligence Analyst", Amentum "Counter Threat
+  Finance Analyst", SAIC "Mobile Threat to Aerospace Operations", Northrop "Mission Support
+  Threat Engineer"), healthcare forensics coding (BDO "Healthcare Forensics Coder").
 - **Products named for the domain:** Salesforce Service Cloud, Oracle Cloud HCM, SAP and
-  Workday "Cloud", ServiceNow.
+  Workday "Cloud", ServiceNow, Genesys Cloud ("Junior Genesys Cloud CX Architect").
 - **A team name read as the role:** "Junior Scrum Master, Cloud Engineering", "Associate
   Technical Writer, AWS Developer Documentation", "Associate Pricing Analyst, Okta".
 - **Physical and corporate security:** a GSOC watch floor, workplace violence threat
   assessment, electronic security systems, a regional security team, a badge or patient
   access office, a bank's global security investigators, a guard force's
-  "Security Associate - SOC".
+  "Security Associate - SOC", a bare security investigator or operator (Comcast
+  "Investigator 2, Security"), fire and security building systems, a facility security
+  office, DoD security cooperation.
 - **Finance and business:** equity research covering cyber, internal or financial audit,
   model risk under an "AI risk" team name, supplier or credit risk, a tradable security
-  ("Security Settlements", "Security and Derivatives").
+  ("Security Settlements", "Security and Derivatives"), cyber insurance underwriting (Chubb
+  "Underwriter Cyber & Technology"), a consulting rank (Mastercard "Associate Managing
+  Consultant").
 - **Industrial lookalikes:** field sales engineers in HVAC, customer engineers who repair
-  equipment, forensic chemistry labs.
+  equipment, forensic chemistry labs, a discipline with a specialty before the role
+  ("Mechanical Design Engineer I") at a security company.
+- **Programs most students cannot join:** return offers, returnships, SkillBridge, and
+  programs for service members, veterans and spouses (Sierra Nevada "Military Fellowship
+  Program: Cybersecurity Analyst", GuidePoint "GPSU Military - Federal Fellowship", BlackRock
+  "Veterans Transition Program- Associate, ...").
 - **People who run a program:** "Development Program Specialist", "Academy Instructor".
 - **Level traps:** senior, staff and manager forms, a "2/3" multi-level title, a leveled I or
   II where the rule wants an early-career word, a past summer season, a Big 4 "Associate -
-  Summer <year>" start date, a bank's "Summer Associate".
+  Summer <year>" start date, a bank's "Summer Associate", a span in words in either order
+  (Boeing "(Associate or Mid-Level)", "Associate/Experienced", "Associate or Mid-Career"),
+  bank and consulting ranks (AVP, Kyndryl's "Consult Associate Partner"), "Snr".
 - **Place in the title:** a foreign city or country in a title whose ATS location reads
   remote or US, as with Parsons' Ramstein AFB req stored as Remote (US).
 - **Text form:** the title with non-breaking or doubled spaces, in upper case, with "&" for
