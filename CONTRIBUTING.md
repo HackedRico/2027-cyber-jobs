@@ -126,15 +126,21 @@ curl -s "https://boards-api.greenhouse.io/v1/boards/acme/jobs" | head -c 200
 
 The filtering logic lives in [`classify.py`](.github/scripts/classify.py): the keyword taxonomy (cyber keywords, new-grad/early-career signals, seniority rejects) and the US location rules. It is dependency-free and fully covered by `test_classification.py`, so add a case there for any change. The ATS scrapers, persistence, and orchestration live in [`scrape_jobs.py`](.github/scripts/scrape_jobs.py). PRs that tighten precision or add coverage are welcome. Include a few example titles the change affects, and update section 1 of this file when a rule a submitter reads changes.
 
+`test_corpus.py` judges the titles of a full scrape and every stored row, and fails when a rule change moves any of their verdicts. If the moves are intended, rerun it with `--update` to rewrite `fixtures/title_corpus.tsv`, read every changed line, and name the moved titles in the PR. `test_corpus.py --base origin/main` lists the same moves without touching the file.
+
 ## Testing locally
 
 ```bash
 pip install --require-hashes -r requirements-dev.txt
 ruff check .github/scripts                            # lint
 python .github/scripts/test_classification.py         # classification spot checks (run after keyword changes)
+python .github/scripts/test_corpus.py                 # title-verdict snapshot of a full scrape; --update after an intended move
 python .github/scripts/test_scrapers.py               # offline ATS-parser tests
 python .github/scripts/test_community.py              # issue forms, submission checks, approval flow
 python .github/scripts/test_health.py                 # output checks and the scraper health alarm
+python .github/scripts/test_site.py                   # the Pages board and its feeds
+python .github/scripts/test_notify.py                 # release notes and alert-issue comments
+python .github/scripts/test_wiring.py                 # CI runs every suite, pinned actions, form categories
 python .github/scripts/check_outputs.py               # validate listings.json and the README tables
 python .github/scripts/scrape_jobs.py --dry-run       # full scrape + classify, writes NOTHING
 python .github/scripts/scrape_jobs.py --dry-run --board greenhouse --limit 3  # fast single-board iteration
