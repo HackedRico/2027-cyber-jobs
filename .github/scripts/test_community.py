@@ -407,18 +407,15 @@ def test_notify_revived_and_held():
     check('notify leaves a revived issue open when the push failed', len(responses.calls), 0)
 
 
-@responses.activate
-def test_ingest_writes_run_events_for_added_rows():
-    responses.get('https://api.github.com/repos/o/r/issues', json=[
-        {'number': 1, 'body': form()},
-        {'number': 2, 'body': form(link='https://boards.greenhouse.io/acme/jobs/9')},
-        {'number': 3, 'body': form(company='Beta', role='Security Engineer Intern',
-                                   location='Reston, VA', link='https://beta.example/jobs/2')},
-        # Edited after approval, so its new link never reaches the board.
-        {'number': 4, 'body': form(role='Swapped Link Intern', link='https://evil.example/')},
-    ])
+BETA_ISSUE = {'number': 3, 'body': form(company='Beta', role='Security Engineer Intern',
+                                         location='Reston, VA',
+                                         link='https://beta.example/jobs/2')}
+
+
+def _run_ingest(issues, edits):
+    responses.get('https://api.github.com/repos/o/r/issues', json=issues)
     responses.get('https://api.github.com/repos/o/r/issues', json=[])
-    _mock_approval({1: None, 2: None, 3: None, 4: '2026-09-27T10:05:00Z'})
+    _mock_approval(edits)
     saved = (pa.LISTINGS_FILE, pa.load_security_companies, pa.rebuild_readme.main)
     with tempfile.TemporaryDirectory() as tmp:
         tmp = Path(tmp)
@@ -435,6 +432,18 @@ def test_ingest_writes_run_events_for_added_rows():
         finally:
             del os.environ['RUN_EVENTS_FILE']
             pa.LISTINGS_FILE, pa.load_security_companies, pa.rebuild_readme.main = saved
+    return events, saved_rows
+
+
+@responses.activate
+def test_ingest_writes_run_events_for_added_rows():
+    events, saved_rows = _run_ingest([
+        {'number': 1, 'body': form()},
+        {'number': 2, 'body': form(link='https://boards.greenhouse.io/acme/jobs/9')},
+        BETA_ISSUE,
+        # Edited after approval, so its new link never reaches the board.
+        {'number': 4, 'body': form(role='Swapped Link Intern', link='https://evil.example/')},
+    ], {1: None, 2: None, 3: None, 4: '2026-09-27T10:05:00Z'})
     # With the write gone, the run still announced both rows and closed both
     # issues as added and revived, and nothing reached main.
     check('ingest saves the added row and the reopened row to listings.json',
@@ -454,6 +463,17 @@ def test_ingest_writes_run_events_for_added_rows():
           (events['schema_version'], events['retired']), (1, []))
     check('ingest never adds the link from an edit made after approval',
           'Swapped Link Intern' in json.dumps(events), False)
+
+
+@responses.activate
+def test_ingest_saves_a_run_that_only_revives():
+    # With the write gated on added rows, this run announced Beta's row and
+    # closed issue 3 as revived while listings.json kept the row closed.
+    events, saved_rows = _run_ingest([BETA_ISSUE], {3: None})
+    check('ingest saves the reopened row when it adds none',
+          ([r['url'] for r in events['revived']], len(saved_rows), saved_rows[1]['url'],
+           pa.rebuild_readme.is_open(saved_rows[1])),
+          (['https://beta.example/jobs/2'], len(EXISTING), 'https://beta.example/jobs/2', True))
 
 
 @responses.activate
@@ -951,6 +971,7 @@ def test_ingest_log_is_one_line_per_issue():
 for fn in (test_notify_after_push, test_notify_leaves_added_issue_open_when_push_failed,
            test_notify_reports_api_failure, test_screen_edited_skips_an_issue_edited_after_approval,
            test_notify_revived_and_held, test_ingest_writes_run_events_for_added_rows,
+           test_ingest_saves_a_run_that_only_revives,
            test_adapter_connects_to_the_checked_address,
            test_session_sends_the_hostname_to_the_pinned_address,
            test_revive_logs_the_old_and_new_hosts, test_logs_flatten_untrusted_text,
