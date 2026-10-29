@@ -59,18 +59,39 @@ def code_lines(step):
     return lines + ([pending] if pending else [])
 
 
+def fails_on_error(workflow, job, step):
+    """True when the step always runs and any failing line fails it.
+
+    GitHub runs a step with no shell as `bash -e {0}`, and `shell: bash` adds
+    pipefail. `shell: bash {0}`, a `set +e` or continue-on-error run on past a
+    failure, and an if: can skip the step.
+    """
+    shell = (step.get('shell') or ((job.get('defaults') or {}).get('run') or {}).get('shell')
+             or ((workflow.get('defaults') or {}).get('run') or {}).get('shell'))
+    return ('if' not in step and not step.get('continue-on-error')
+            and shell in (None, 'bash')
+            and not any(re.search(r'\bset\s+\+(?:\w*e|o\s+errexit)', line)
+                        for line in code_lines(step)))
+
+
 # Every test script runs unconditionally in CI on every pull request and push,
 # and is named where AGENTS.md lists the suite. PyYAML reads the 'on' key as True.
-triggers = WORKFLOWS['tests.yml'].get(True) or WORKFLOWS['tests.yml'].get('on') or {}
+# A paths or branches filter, or a step that runs more than its suite, kept
+# this green while CI skipped a suite or passed one that failed.
+tests_yml = WORKFLOWS['tests.yml']
+triggers = tests_yml.get(True) or tests_yml.get('on') or {}
+pull_request, push = triggers.get('pull_request') or {}, triggers.get('push') or {}
 check('tests.yml runs on every pull request and every push to main',
-      'pull_request' in triggers and 'push' in triggers)
-ci_steps = [step for _, job in jobs(WORKFLOWS['tests.yml'])
-            if 'if' not in job and not job.get('continue-on-error')
-            for step in job.get('steps') or []
-            if 'if' not in step and not step.get('continue-on-error')]
-ci_runs = {line for step in ci_steps for line in code_lines(step)}
+      'pull_request' in triggers and 'push' in triggers
+      and not {'paths', 'paths-ignore', 'branches', 'branches-ignore', 'types'} & set(pull_request)
+      and not {'paths', 'paths-ignore'} & set(push)
+      and 'main' in (push.get('branches') or []))
+ci_runs = {code_lines(step)[0] for _, job in jobs(tests_yml)
+           if 'if' not in job and not job.get('continue-on-error')
+           for step in job.get('steps') or []
+           if fails_on_error(tests_yml, job, step) and len(code_lines(step)) == 1}
 for path in TESTS:
-    check(f'tests.yml runs {path.name} in an unconditional step',
+    check(f'tests.yml runs {path.name} alone in an unconditional step that fails with it',
           f'python .github/scripts/{path.name}' in ci_runs)
     check(f'AGENTS.md names {path.name}', path.name in AGENTS)
 
@@ -121,8 +142,12 @@ for name, workflow in WORKFLOWS.items():
 
 # A writer is any job that can push. It queues in readme-updates and runs
 # check_outputs.py, unswallowed, before every commit, so no run pushes a
-# charter-breaking row or a mass close.
+# charter-breaking row or a mass close. The line stands alone in its step:
+# `&& echo`, `; true`, `| tee`, an if: on the step or a `shell: bash {0}` each
+# let the commit run after a failed check, and this check passed them all.
 GIT = r'\bgit\b(?:\s+-c\s+\S+)*\s+'
+CHECK_OUTPUTS = re.compile(r'python \.github/scripts/check_outputs\.py'
+                           r'(?: --baseline "\$RUNNER_TEMP/listings\.base\.json")?')
 for name, workflow in WORKFLOWS.items():
     for job_name, job in jobs(workflow):
         permissions = job.get('permissions', workflow.get('permissions')) or {}
@@ -139,9 +164,10 @@ for name, workflow in WORKFLOWS.items():
         checked = False
         for step in steps:
             for line in code_lines(step):
-                if 'python .github/scripts/check_outputs.py' in line:
+                if 'check_outputs.py' in line:
                     check(f'{name}: {line!r} lets check_outputs.py fail the step',
-                          '||' not in line and not step.get('continue-on-error'))
+                          CHECK_OUTPUTS.fullmatch(line) is not None
+                          and fails_on_error(workflow, job, step))
                     checked = True
                 if re.search(GIT + 'commit', line):
                     check(f'{name}: {job_name} runs check_outputs.py before {line!r}', checked)
