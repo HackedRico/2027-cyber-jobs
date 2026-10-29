@@ -17,7 +17,8 @@ executable version, and the two must agree.
 
 Bots own these on `main`: `listings.json`, the README tables and stats block, `companies.md`,
 and `.github/data/`. Change the board by changing its inputs (`companies.yml`, the scripts, or
-an approved issue), never by editing the outputs.
+an approved issue), never by editing the outputs. The one exception: a maintainer closes a
+bad Community row in `listings.json` from a Report a Listing issue, since no rule re-judges it.
 
 Three workflows share the `readme-updates` concurrency group and commit as
 `github-actions[bot]`: the scrape at 11:17 and 23:17 UTC, the link check at 09:43 UTC that
