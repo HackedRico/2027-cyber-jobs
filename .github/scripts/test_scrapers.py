@@ -2285,6 +2285,95 @@ def test_check_links_redirect_to_a_private_address_is_never_fetched():
           hosts, [f'careers.acme.com:{port}'])
 
 
+def test_check_links_caps_each_link_in_wall_clock_time():
+    """A header dripped a byte at a time held one fetch for 60 s and still read 200."""
+    import signal
+    import socket
+    import threading
+    import time
+
+    import common
+    from validate_issue import public_session
+
+    page = b'<html><title>SOC Analyst I</title></html>'
+
+    def answer(conn):
+        with conn:
+            request = conn.recv(65536)
+            try:
+                conn.sendall(b'HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n')
+                if b'/drip/' in request:
+                    conn.sendall(b'X-Drip: ')
+                    for _ in range(50):
+                        # time.sleep is stubbed out for this file.
+                        threading.Event().wait(0.1)
+                        conn.sendall(b'a')
+                    conn.sendall(b'\r\n')
+                conn.sendall(b'Content-Length: %d\r\nConnection: close\r\n\r\n'
+                             % len(page) + page)
+            except OSError:
+                pass
+
+    def serve(sock):
+        while True:
+            try:
+                conn, _ = sock.accept()
+            except OSError:
+                return
+            threading.Thread(target=answer, args=(conn,), daemon=True).start()
+
+    sock = socket.socket()
+    sock.bind(('127.0.0.1', 0))
+    sock.listen(4)
+    threading.Thread(target=serve, args=(sock,), daemon=True).start()
+    port = sock.getsockname()[1]
+    saved = common.ALLOWED_PORTS
+    common.ALLOWED_PORTS = saved | {port}
+    session = public_session(resolve=lambda host, p: '127.0.0.1')
+    handler = signal.getsignal(signal.SIGALRM)
+    try:
+        started = time.monotonic()
+        dripped = check_links.fetch_status_within(
+            f'http://careers.acme.com:{port}/drip/job/4412345', soft_404=True,
+            session=session, seconds=1)
+        elapsed = time.monotonic() - started
+        prompt = check_links.fetch_status_within(
+            f'http://careers.acme.com:{port}/job/4412345', soft_404=True,
+            session=session, seconds=1)
+    finally:
+        common.ALLOWED_PORTS = saved
+        sock.close()
+    check('a link over its time budget reads as over budget, not a 200',
+          (dripped, elapsed < 2.5), (check_links.OVER_BUDGET, True))
+    check('a prompt link inside the budget reads as usual', prompt, 200)
+    check('the budget disarms its timer and restores the old handler',
+          (signal.getitimer(signal.ITIMER_REAL), signal.getsignal(signal.SIGALRM)),
+          ((0.0, 0.0), handler))
+
+    calls = []
+    row = {'company': 'Acme', 'role': 'SOC Analyst I', 'source': 'Community',
+           'url': 'https://careers.acme.com/job/4412345', 'date_added': '2026-09-20'}
+    saved = check_links.LISTINGS_FILE, check_links.fetch_status_within
+    with tempfile.TemporaryDirectory() as tmp:
+        check_links.LISTINGS_FILE = Path(tmp) / 'listings.json'
+        check_links.LISTINGS_FILE.write_text(json.dumps([row]))
+        check_links.fetch_status_within = lambda url, soft_404: calls.append(url) or 200
+        try:
+            check_links.main()
+        finally:
+            check_links.LISTINGS_FILE, check_links.fetch_status_within = saved
+    check('the daily check fetches through the budget', calls, [row['url']])
+
+    # A dead page answering 404 only after the budget reset its streak each
+    # day and never closed.
+    slow = dict(row, dead_since='2026-09-27')
+    check('a link over its budget neither resets nor advances the streak',
+          (check_links.record_result(slow, check_links.OVER_BUDGET, '2026-09-28'),
+           slow.get('dead_since')), (False, '2026-09-27'))
+    check('the held streak closes on the next dead answer',
+          check_links.record_result(slow, 404, '2026-09-29'), True)
+
+
 def test_check_links_skip_matches_the_parsed_host():
     urls = ['https://careers.ibm.com/job/1', 'https://www.usajobs.gov/job/1',
             'https://usajobs.gov/job/1', 'https://evil.example/careers.ibm.com/job/1',
@@ -3340,6 +3429,7 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_check_links_body_read_has_a_deadline,
            test_check_links_follows_redirects_through_the_guard,
            test_check_links_redirect_to_a_private_address_is_never_fetched,
+           test_check_links_caps_each_link_in_wall_clock_time,
            test_check_links_skip_matches_the_parsed_host,
            test_board_health_forgets_a_removed_board,
            test_compare_runs_reports_retirements,

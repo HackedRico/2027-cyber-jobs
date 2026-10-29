@@ -11,6 +11,7 @@ amazon.jobs rows, which this check closes the same day the posting goes.
 import html
 import json
 import re
+import signal
 import time
 from datetime import date, datetime
 from pathlib import Path
@@ -81,6 +82,16 @@ BLOCKED = 'blocked'
 # 30-minute job timeout. A <title> sits in the first few KB of a real page.
 MAX_BODY_BYTES = 256 * 1024
 BODY_SECONDS = 20
+# REQUEST_TIMEOUT bounds each socket read, not the request: a server dripping
+# one header byte every 4 s held a fetch for 60 s and still answered 200, and
+# eleven hops of that would run the job past its 30-minute timeout, cancelling
+# the day's closures. An honest page needs a connect, a first byte and at most
+# BODY_SECONDS of body, well inside this.
+URL_SECONDS = 60
+# A link over its budget says nothing about the posting, so it holds a dead
+# streak where it is: a dead page answering 404 only after the budget reset
+# its streak each day and never closed.
+OVER_BUDGET = 'over-budget'
 
 # Some career sites answer 200 for a job id that does not exist: Bank of
 # America serves "404 Page not found" as the page title, and HII's
@@ -228,15 +239,39 @@ def fetch_status(url, soft_404=False, session=None):
     return None
 
 
+class _OverBudget(Exception):
+    pass
+
+
+def _over_budget(signum, frame):
+    raise _OverBudget
+
+
+def fetch_status_within(url, soft_404=False, session=None, seconds=URL_SECONDS):
+    """fetch_status, or OVER_BUDGET once `seconds` have passed."""
+    previous = signal.signal(signal.SIGALRM, _over_budget)
+    signal.setitimer(signal.ITIMER_REAL, seconds)
+    try:
+        return fetch_status(url, soft_404=soft_404, session=session)
+    except _OverBudget:
+        print(f'  Over {seconds}s: {oneline(url)}')
+        return OVER_BUDGET
+    finally:
+        signal.setitimer(signal.ITIMER_REAL, 0)
+        signal.signal(signal.SIGALRM, previous)
+
+
 def record_result(entry, status, today):
     """Update one row's dead streak; return True when this result closes it.
 
     A dead status must repeat on a later day before the row closes, so one bad
     deploy on an employer's careers site does not padlock a live posting. A
     SOFT_404 must hold across SOFT_DEAD_DAYS distinct days, and BLOCKED
-    counts as a dead status. Any other answer, a network error included,
-    resets the streak.
+    counts as a dead status. OVER_BUDGET leaves the streak as it is. Any
+    other answer, a network error included, resets the streak.
     """
+    if status == OVER_BUDGET:
+        return False
     if status not in DEAD_STATUSES and status not in (SOFT_404, BLOCKED):
         entry.pop('dead_since', None)
         return False
@@ -296,7 +331,7 @@ def main():
             continue
         # Only Community links point at arbitrary career sites; amazon.jobs
         # answers a real 404 for a closed req.
-        status = fetch_status(url, soft_404=entry.get('source') == 'Community')
+        status = fetch_status_within(url, soft_404=entry.get('source') == 'Community')
         if record_result(entry, status, today):
             closed += 1
             print(f'  CLOSED {status}: {oneline(url)}')
