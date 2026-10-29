@@ -571,6 +571,9 @@ CASES = [
     # -- rows the new bank, pharma and Big 4 boards would have added --
     ('Associate, Equity Research - Cybersecurity & Data', 'New York, NY', '', False, None),
     ('2027 Future Talent Program- Forensic Services Laboratory Intern', 'West Point, PA', '', False, None),
+    # ...and with the lab word before 'forensic'.
+    ('Crime Lab Forensic Analyst I', 'Austin, TX', '', False, None),
+    ('DNA Forensic Analyst I', 'Austin, TX', '', False, None),
     ('Experienced Associate, Healthcare Forensics Coder', 'Remote (US)', '', False, None),
     ('Junior Underwriter / Underwriter Cyber & Technology, (all*), 80-100%', 'Remote (US)', '', False, None),
     # 'Threat' in its military senses, unless the title also says cyber.

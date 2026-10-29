@@ -241,14 +241,15 @@ GUARDED_FUNCTION_REJECTS = [
     r'^(?!.*\b(?:(?:it|technology) audit(?:or)?|cyber\w*|information security)\b)'
     r'.*\binternal audit\b',
     # A crime or pharma lab, not digital forensics: Merck '2027 Future Talent
-    # Program- Forensic Services Laboratory Intern'. Healthcare forensics is
-    # medical billing review: BDO 'Experienced Associate, Healthcare Forensics
-    # Coder'. Only the phrase counts, since a security team can serve a
-    # healthcare business (Amazon 'Security Engineer II, Stores Security -
-    # HealthCare') and a forensics analyst can review code.
+    # Program- Forensic Services Laboratory Intern'. A lab title can name the
+    # lab first ('DNA Forensic Analyst'), so word order does not matter here.
+    # Healthcare forensics is medical billing review: BDO 'Experienced
+    # Associate, Healthcare Forensics Coder'. Only the phrase counts, since a
+    # security team can serve a healthcare business (Amazon 'Security Engineer
+    # II, Stores Security - HealthCare') and a forensics analyst can review code.
     r'^(?!.*\b(?:digital|computer|cyber\w*|mobile|network|malware)\b)'
-    r'.*(?:\bforensic\w*\b.*\b(?:lab|laboratory|chemist\w*|toxicolog\w*|dna|biolog\w*)\b'
-    r'|\bhealth ?care forensic|\bforensic\w* coders?\b)',
+    r'(?:(?=.*\bforensic\w*\b).*\b(?:lab|laboratory|chemist\w*|toxicolog\w*|dna|biolog\w*)\b'
+    r'|.*\bhealth ?care forensic|.*\bforensic\w* coders?\b)',
     # Insurance underwriting, where 'cyber' names the line of cover: Chubb
     # 'Junior Underwriter / Underwriter Cyber & Technology, (all*), 80-100%'.
     # Underwriters Laboratories is a product-safety and security test house.
