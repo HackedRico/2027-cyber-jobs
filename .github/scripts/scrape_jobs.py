@@ -1928,6 +1928,16 @@ def _req_identity(source, url):
     return (source, fingerprint[2], host)
 
 
+def _community_req(url):
+    # A Community row has no ATS source, so job_fingerprint reads no req id
+    # off it, and Workday moves a live req's location slug (Chantilly-VA to
+    # Reston-VA), so a resubmitted Workday link and the posting the scraper
+    # finds next can share only the req id.
+    if not _host_of(url).endswith('.myworkdayjobs.com'):
+        return None
+    return _req_identity('Workday', normalize_url(url))
+
+
 def retire_orphaned_listings(listings, config, today, raw_jobs=()):
     """Close open rows whose company no longer has a board for their source.
 
@@ -2559,6 +2569,8 @@ def insert_new_listings(listings, raw_jobs, seen, sec_flags, today):
                                        e.get('location', '')) for e in listings}
     existing_fps = {job_fingerprint(e.get('company', ''), e.get('source', ''), e['url'])
                     for e in listings if e.get('url')} - {None}
+    community_reqs = {_community_req(e['url']) for e in listings
+                      if e.get('url') and e.get('source') == 'Community'} - {None}
     # Rows a dead-link sweep blanked; a still-live posting revives them so a
     # 403/transient false positive self-heals instead of staying 🔒 forever.
     blanked = {listing_dedup_key(e.get('company', ''), e.get('role', ''),
@@ -2581,7 +2593,10 @@ def insert_new_listings(listings, raw_jobs, seen, sec_flags, today):
         # moved, which neither the URL nor the key can see.
         fingerprint = job_fingerprint(job['company'], job.get('board', ''), url)
         held = ((url and normalize_url(url) in existing_urls)
-                or (fingerprint and fingerprint in existing_fps))
+                or (fingerprint and fingerprint in existing_fps)
+                or (community_reqs and url
+                    and _req_identity(job.get('board', ''), normalize_url(url))
+                    in community_reqs))
         on_board = held or key in existing_keys
         if jid in seen and on_board and key not in blanked:
             continue

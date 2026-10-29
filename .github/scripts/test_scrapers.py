@@ -2911,6 +2911,32 @@ def test_workday_fingerprint_survives_a_location_move():
     check('...and is not inserted again under its new location', added, [])
 
 
+def test_insert_sees_a_community_row_for_the_same_workday_req():
+    """A revived Leidos 'Junior Cyber Analyst' row is Community, so it had no fingerprint,
+    and the scraped req under a moved location slug went on the board beside it."""
+    root = 'https://leidos.wd5.myworkdayjobs.com'
+    community = _listing('Leidos', 'Junior Cyber Analyst',
+                         root + '/en-US/External/job/Fort-Meade-MD/Junior-Cyber-Analyst_R-00183704',
+                         source='Community', location='Fort Meade, MD')
+    job = {'id': 'wd-leidos', 'company': 'Leidos', 'board': 'Workday',
+           'title': 'Junior Cyber Analyst', 'location': 'Annapolis Junction, MD',
+           'url': root + '/External/job/Annapolis-Junction-MD/Junior-Cyber-Analyst_R-00183704'}
+    # At its own site, so the dedup key does not hold it instead.
+    other = dict(job, id='wd-other', location='Chantilly, VA',
+                 url=job['url'].replace('R-00183704', 'R-00183705'))
+    # Workday req ids count only within one tenant.
+    elsewhere = dict(job, id='wd-elsewhere', company='SAIC',
+                     url=job['url'].replace('leidos.', 'saic.'))
+    listings = [community]
+    added, _ = sj.insert_new_listings(listings, [job, other, elsewhere], {}, {}, '2026-10-29')
+    check('the same req is held by the Community row; another req or tenant is not',
+          [(r['company'], r['url'].rsplit('_', 1)[-1]) for r in added],
+          [('Leidos', 'R-00183705'), ('SAIC', 'R-00183704')])
+    check('the Community row stays Community, so the vanished pass leaves it alone',
+          (community['source'], sj.retire_vanished_listings(listings, [job], '2026-10-29')),
+          ('Community', []))
+
+
 def test_insert_keeps_only_rows_check_outputs_accepts():
     """Palo Alto Networks' Cleveland row failed check_outputs.py two runs running."""
     job = {'company': 'Palo Alto Networks', 'board': 'Workday', 'id': 'wd-cle',
@@ -3656,6 +3682,7 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_main_does_not_re_announce_an_oracle_req_under_its_new_id,
            test_workday_posting_survives_a_non_dict_body,
            test_workday_fingerprint_survives_a_location_move,
+           test_insert_sees_a_community_row_for_the_same_workday_req,
            test_reevaluate_keeps_a_row_behind_a_multi_location_placeholder,
            test_reevaluate_does_not_judge_a_fingerprinted_row_by_a_sibling,
            test_reevaluate_rejudges_a_row_past_the_workday_cap,
