@@ -79,11 +79,16 @@ behind `main`. Rebase before opening a PR, and take `main` for any conflict in a
 Every keyword or location change lands with a case in `test_classification.py`, and the PR
 names the example titles that flip. Rejects are cheap. An accept rule costs precision, so it
 needs a real title the current rules miss and a reason no existing rule should catch it.
-Every rule reaches existing rows on the next scrape. Each row gets the title rules under its
-company's current `security_company` flag, and a row whose posting is still in the feed also
-goes through the full `judge_job` pipeline, which drops it or refreshes its type, category and
-🇺🇸 flag. A missing description never drops a row. A new category is added in `CATEGORY_RULES` and in the issue template
-dropdown together.
+Every rule reaches existing scraped rows on the next scrape. Community rows keep the
+maintainer's verdict and are never re-judged, so no input closes a bad one: the link check
+closes it once its link dies or it turns 120 days old, or a maintainer closes it in
+`listings.json` from a Report a Listing issue, the maintainer's exception to "Who writes what".
+Each scraped row gets the title rules under its company's current `security_company` flag, and
+a row whose posting is still in the feed also goes through the full `judge_job` pipeline, which
+drops it or refreshes its type, category and 🇺🇸 flag. A missing description never drops a
+row. A new category is added in `CATEGORY_RULES`, the issue template dropdown, the category
+list in CONTRIBUTING.md and `rebuild_readme.CATEGORY_BLURBS` together; `test_wiring.py` and
+`test_classification.py` check all four.
 
 A moved verdict fails `test_corpus.py` until `--update` rewrites the snapshot. That diff is
 the change's blast radius: the PR names the titles it moves, and a reviewer reads every
