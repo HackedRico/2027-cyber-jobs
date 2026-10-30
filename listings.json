@@ -2079,10 +2079,11 @@
     "type": "earlycareer",
     "category": "Offensive Security",
     "clearance": false,
-    "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210758538",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-09-05",
-    "missing_since": "2026-10-27"
+    "closed": true,
+    "closed_date": "2026-10-30"
   },
   {
     "company": "Amazon",
@@ -2509,10 +2510,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://gdit.wd5.myworkdayjobs.com/External_Career_Site/job/USA-VA-Arlington/Cybersecurity-Exercise-Planner--Junior-_RQ230639",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-14",
-    "missing_since": "2026-10-27"
+    "closed": true,
+    "closed_date": "2026-10-30"
   },
   {
     "company": "Leidos",
@@ -4657,10 +4659,11 @@
     "type": "earlycareer",
     "category": "Solutions Architecture",
     "clearance": false,
-    "url": "https://trellix.wd1.myworkdayjobs.com/EnterpriseCareers/job/Remote-United-States/Junior-Solutions-Engineer_JR0037944",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-01",
-    "missing_since": "2026-10-27"
+    "closed": true,
+    "closed_date": "2026-10-30"
   },
   {
     "company": "ESET",
@@ -4953,10 +4956,11 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://job-boards.greenhouse.io/extrahopnetworks/jobs/6216038004",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-10-03",
-    "missing_since": "2026-10-27"
+    "closed": true,
+    "closed_date": "2026-10-30"
   },
   {
     "company": "ExtraHop",
@@ -5713,10 +5717,11 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://job-boards.greenhouse.io/extrahopnetworks/jobs/6211107004",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-10-05",
-    "missing_since": "2026-10-27"
+    "closed": true,
+    "closed_date": "2026-10-30"
   },
   {
     "company": "Intel",
@@ -6561,10 +6566,11 @@
     "type": "earlycareer",
     "category": "Cloud Engineering",
     "clearance": true,
-    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-Redondo-Beach/Associate-Cloud-Software-Engineer--Level-1-_R10255928",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-14",
-    "missing_since": "2026-10-27"
+    "closed": true,
+    "closed_date": "2026-10-30"
   },
   {
     "company": "GuidePoint Security",
@@ -6924,7 +6930,8 @@
     "clearance": false,
     "url": "https://ebqb.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BDOEntryLevelCareers/job/14411",
     "source": "Oracle",
-    "date_added": "2026-10-17"
+    "date_added": "2026-10-17",
+    "missing_since": "2026-10-30"
   },
   {
     "company": "BDO",
@@ -7198,10 +7205,11 @@
     "type": "intern",
     "category": "Cloud & Infra Security",
     "clearance": false,
-    "url": "https://tmobile.wd1.myworkdayjobs.com/External/job/Atlanta-Georgia/Summer-2027-Software-Engineer---Cloud-Security-Summer-Internship_REQ379190",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-21",
-    "missing_since": "2026-10-27"
+    "closed": true,
+    "closed_date": "2026-10-30"
   },
   {
     "company": "Duke Energy",
@@ -7606,10 +7614,11 @@
     "type": "newgrad",
     "category": "GRC & Risk",
     "clearance": true,
-    "url": "https://guidehouse.wd1.myworkdayjobs.com/External/job/US---VA-McLean/IT-Cybersecurity-Compliance-Technical-Associate--Campus-2027_45899",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-26",
-    "missing_since": "2026-10-27"
+    "closed": true,
+    "closed_date": "2026-10-30"
   },
   {
     "company": "Booz Allen Hamilton",

@@ -4,7 +4,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **404 companies tracked.**
 
-## Hiring students now (117)
+## Hiring students now (114)
 
 Employers with open roles on the board today.
 
@@ -32,7 +32,7 @@ Employers with open roles on the board today.
 | HP Inc | 3 |  |  |
 | Idaho National Laboratory | 3 |  |  |
 | Palantir | 2 | 1 |  |
-| Northrop Grumman |  | 2 | 12 |
+| Northrop Grumman |  | 2 | 11 |
 | Appian | 1 | 1 | 1 |
 | CACI | 2 |  | 1 |
 | Cisco | 2 |  | 1 |
@@ -53,7 +53,7 @@ Employers with open roles on the board today.
 | Walmart | 2 |  |  |
 | RTX | 1 |  | 15 |
 | Nightwing | 1 |  | 8 |
-| GDIT | 1 |  | 3 |
+| GDIT | 1 |  | 2 |
 | Lockheed Martin | 1 |  | 2 |
 | Pinterest | 1 |  | 2 |
 | Draper | 1 |  | 1 |
@@ -69,7 +69,6 @@ Employers with open roles on the board today.
 | Fifth Third | 1 |  |  |
 | Figma | 1 |  |  |
 | Grant Thornton |  | 1 |  |
-| Guidehouse |  | 1 |  |
 | ICF | 1 |  |  |
 | Johnson &amp; Johnson | 1 |  |  |
 | KeyBank |  | 1 |  |
@@ -80,7 +79,6 @@ Employers with open roles on the board today.
 | Sardine | 1 |  |  |
 | Saviynt | 1 |  |  |
 | Semgrep | 1 |  |  |
-| T-Mobile | 1 |  |  |
 | Trace3 | 1 |  |  |
 | TRM Labs |  | 1 |  |
 | Wells Fargo | 1 |  |  |
@@ -90,14 +88,12 @@ Employers with open roles on the board today.
 | Fortinet |  |  | 5 |
 | KBR |  |  | 5 |
 | Amentum |  |  | 4 |
-| ExtraHop |  |  | 3 |
 | Kyndryl |  |  | 3 |
 | Recorded Future |  |  | 3 |
 | Abnormal AI |  |  | 2 |
 | Battelle |  |  | 2 |
 | Boeing |  |  | 2 |
 | Fortra |  |  | 2 |
-| JPMorgan Chase |  |  | 2 |
 | PwC |  |  | 2 |
 | Salt Security |  |  | 2 |
 | STR |  |  | 2 |
@@ -112,9 +108,11 @@ Employers with open roles on the board today.
 | DXC Technology |  |  | 1 |
 | ESET |  |  | 1 |
 | Everfox |  |  | 1 |
+| ExtraHop |  |  | 1 |
 | Fireblocks |  |  | 1 |
 | HII |  |  | 1 |
 | Huntress |  |  | 1 |
+| JPMorgan Chase |  |  | 1 |
 | Mastercard |  |  | 1 |
 | MIT Lincoln Laboratory |  |  | 1 |
 | Obsidian Security |  |  | 1 |
@@ -126,7 +124,6 @@ Employers with open roles on the board today.
 | Tenable |  |  | 1 |
 | The Home Depot |  |  | 1 |
 | Tines |  |  | 1 |
-| Trellix |  |  | 1 |
 
 ## Every tracked board (404)
 
