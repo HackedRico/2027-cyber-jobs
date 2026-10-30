@@ -2257,7 +2257,8 @@
     "url": "https://job-boards.greenhouse.io/tanium/jobs/8189328",
     "source": "Greenhouse",
     "date_added": "2026-09-09",
-    "twin": 1
+    "twin": 1,
+    "missing_since": "2026-10-30"
   },
   {
     "company": "Immuta",
@@ -4521,11 +4522,9 @@
     "type": "earlycareer",
     "category": "AppSec & ProdSec",
     "clearance": true,
-    "url": "",
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Embedded-Software-Security-Engineer-I---S3E_01878692",
     "source": "Workday",
-    "date_added": "2026-09-30",
-    "closed": true,
-    "closed_date": "2026-10-06"
+    "date_added": "2026-09-30"
   },
   {
     "company": "Microsoft",
@@ -5415,7 +5414,8 @@
     "clearance": false,
     "url": "https://jj.wd5.myworkdayjobs.com/JJ/job/Danvers-Massachusetts-United-States-of-America/Medical-Device-Cybersecurity-Co-Op_R-099388",
     "source": "Workday",
-    "date_added": "2026-10-03"
+    "date_added": "2026-10-03",
+    "missing_since": "2026-10-30"
   },
   {
     "company": "Goldman Sachs",
@@ -5708,7 +5708,8 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Embedded-Software-Security-Engineer-II---S3E_01879899",
     "source": "Workday",
-    "date_added": "2026-10-05"
+    "date_added": "2026-10-05",
+    "missing_since": "2026-10-30"
   },
   {
     "company": "ExtraHop",
@@ -5989,7 +5990,8 @@
     "clearance": false,
     "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/Machine-Learning-Engineer--AI-Safety_JR2021784-1",
     "source": "Workday",
-    "date_added": "2026-10-08"
+    "date_added": "2026-10-08",
+    "missing_since": "2026-10-30"
   },
   {
     "company": "Palo Alto Networks",
@@ -6978,7 +6980,8 @@
     "clearance": false,
     "url": "https://abnormal.ai/careers/jobs/8015179003?gh_jid=8015179003",
     "source": "Greenhouse",
-    "date_added": "2026-10-17"
+    "date_added": "2026-10-17",
+    "missing_since": "2026-10-30"
   },
   {
     "company": "Cisco",
@@ -7993,5 +7996,82 @@
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-EL-SEGUNDO-E01--2000-E-El-Segundo-Blvd--BLDG-E01/Software-Security-Engineer-I_01885443",
     "source": "Workday",
     "date_added": "2026-10-29"
+  },
+  {
+    "company": "Socure",
+    "role": "Associate Solution Consultant",
+    "location": "Hub - New York; Hub - San Francisco; Hub - Miami; Hub - Washington DC; Hub - Seattle; Hub - Austin",
+    "type": "earlycareer",
+    "category": "Solutions Architecture",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/socure/f2330d9e-1c1d-493e-adb7-e7602efc789f",
+    "source": "Ashby",
+    "date_added": "2026-10-30"
+  },
+  {
+    "company": "Proofpoint",
+    "role": "Associate Triage Analyst",
+    "location": "Saipan, MP",
+    "type": "earlycareer",
+    "category": "SOC & Detection",
+    "clearance": false,
+    "url": "https://proofpoint.wd5.myworkdayjobs.com/proofpointcareers/job/Saipan-Northern-Mariana-Islands/Associate-Triage-Analyst_R14923-1",
+    "source": "Workday",
+    "date_added": "2026-10-30"
+  },
+  {
+    "company": "RTX",
+    "role": "Cyber Software Engineer II",
+    "location": "Anaheim, CA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-ANAHEIM-406--160-N-Riverview-Dr--BLDG-406-Ste-150/Cyber-Software-Engineer-II_01885961",
+    "source": "Workday",
+    "date_added": "2026-10-30"
+  },
+  {
+    "company": "RTX",
+    "role": "Software Engineer II (Cybersecurity | Networking)",
+    "location": "Annapolis Junction, MD",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MD-ANNAPOLIS-JUNCTION-339--306-Sentinel-Dr--339-BLDG/Software-Engineer-II--Cybersecurity---Networking-_01885972",
+    "source": "Workday",
+    "date_added": "2026-10-30"
+  },
+  {
+    "company": "RTX",
+    "role": "Software Security Engineer II",
+    "location": "El Segundo, CA",
+    "type": "earlycareer",
+    "category": "AppSec & ProdSec",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-EL-SEGUNDO-E01--2000-E-El-Segundo-Blvd--BLDG-E01/Software-Security-Engineer-II_01886280",
+    "source": "Workday",
+    "date_added": "2026-10-30"
+  },
+  {
+    "company": "RTX",
+    "role": "Embedded Software Security Engineer II (S3E)",
+    "location": "Tucson, AZ",
+    "type": "earlycareer",
+    "category": "AppSec & ProdSec",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Embedded-Software-Security-Engineer-II--S3E-_01886152",
+    "source": "Workday",
+    "date_added": "2026-10-30"
+  },
+  {
+    "company": "Software Engineering Institute",
+    "role": "Cyber Range Development Intern",
+    "location": "Pittsburgh, PA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://cmu.wd115.myworkdayjobs.com/SEI/job/Pittsburgh-PA/Cyber-Range-Development-Intern_2025291-1",
+    "source": "Workday",
+    "date_added": "2026-10-30"
   }
 ]

@@ -14,7 +14,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**173** internships · **46** new grad · **180** early career open · **53** added in the last 7 days · **189** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 30, 2026
+**174** internships · **46** new grad · **187** early career open · **60** added in the last 7 days · **194** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 30, 2026
 
 <!-- /STATS -->
 
@@ -71,6 +71,7 @@ Cybersecurity internships and co-ops for current students.
 
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
+| Software Engineering Institute | 🆕 Cyber Range Development Intern<br><sub>Security Engineering</sub> | <a href="https://cmu.wd115.myworkdayjobs.com/SEI/job/Pittsburgh-PA/Cyber-Range-Development-Intern_2025291-1"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Software Engineering Institute Cyber Range Development Intern"></a> | Pittsburgh, PA | Oct 30 |
 | Figma | 🆕 PhD Intern, Security Engineer (2027)<br><sub>Security Engineering</sub> | <a href="https://boards.greenhouse.io/figma/jobs/6238015004?gh_jid=6238015004"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Figma PhD Intern, Security Engineer (2027)"></a> | San Francisco, CA • New York, NY | Oct 29 |
 | HP Inc | 🆕 Software Product Security Intern - HP IQ<br><sub>AppSec &amp; ProdSec</sub> | <a href="https://hp.wd5.myworkdayjobs.com/ExternalCareerSite/job/San-Francisco-California-United-States-of-America/Software-Product-Security-Intern---HP-IQ_UNI4810-2"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: HP Inc Software Product Security Intern - HP IQ"></a> | San Francisco, CA | Oct 29 |
 | Two Six Technologies | 🆕 Systems Software Engineering Intern 🇺🇸<br><sub>Engineering @ Security Co</sub> | <a href="https://job-boards.greenhouse.io/twosixtechnologies/jobs/6236518004"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Two Six Technologies Systems Software Engineering Intern"></a> | Arlington, VA | Oct 29 |
@@ -432,6 +433,12 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
+| Proofpoint | 🆕 Associate Triage Analyst<br><sub>SOC &amp; Detection</sub> | <a href="https://proofpoint.wd5.myworkdayjobs.com/proofpointcareers/job/Saipan-Northern-Mariana-Islands/Associate-Triage-Analyst_R14923-1"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Proofpoint Associate Triage Analyst"></a> | Saipan, MP | Oct 30 |
+| RTX | 🆕 Cyber Software Engineer II 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-ANAHEIM-406--160-N-Riverview-Dr--BLDG-406-Ste-150/Cyber-Software-Engineer-II_01885961"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: RTX Cyber Software Engineer II"></a> | Anaheim, CA | Oct 30 |
+| ↳ | 🆕 Software Engineer II (Cybersecurity \| Networking) 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MD-ANNAPOLIS-JUNCTION-339--306-Sentinel-Dr--339-BLDG/Software-Engineer-II--Cybersecurity---Networking-_01885972"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: RTX Software Engineer II (Cybersecurity &#124; Networking)"></a> | Annapolis Junction, MD | Oct 30 |
+| ↳ | 🆕 Software Security Engineer II 🇺🇸<br><sub>AppSec &amp; ProdSec</sub> | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-EL-SEGUNDO-E01--2000-E-El-Segundo-Blvd--BLDG-E01/Software-Security-Engineer-II_01886280"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: RTX Software Security Engineer II"></a> | El Segundo, CA | Oct 30 |
+| ↳ | 🆕 Embedded Software Security Engineer II (S3E) 🇺🇸<br><sub>AppSec &amp; ProdSec</sub> | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Embedded-Software-Security-Engineer-II--S3E-_01886152"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: RTX Embedded Software Security Engineer II (S3E)"></a> | Tucson, AZ | Oct 30 |
+| Socure | 🆕 Associate Solution Consultant<br><sub>Solutions Architecture</sub> | <a href="https://jobs.ashbyhq.com/socure/f2330d9e-1c1d-493e-adb7-e7602efc789f"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Socure Associate Solution Consultant"></a> | <details><summary>**6 locations**</summary>Hub - New York<br>Hub - San Francisco<br>Hub - Miami<br>Hub - Washington DC<br>Hub - Seattle<br>Hub - Austin</details> | Oct 30 |
 | Boeing | 🆕 Advanced Information Technologist – Associate Cloud Engineer 🇺🇸<br><sub>Cloud Engineering</sub> | <a href="https://boeing.wd1.myworkdayjobs.com/EXTERNAL_CAREERS/job/USA---Hazelwood-MO/Advanced-Information-Technologist---Associate-Cloud-Engineer_JR2026494282"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Boeing Advanced Information Technologist – Associate Cloud Engineer"></a> | Hazelwood, MO | Oct 29 |
 | ↳ | 🆕 Advanced Technologist - Associate Cloud Engineer 🇺🇸<br><sub>Cloud Engineering</sub> | <a href="https://boeing.wd1.myworkdayjobs.com/EXTERNAL_CAREERS/job/USA---Hazelwood-MO/Advanced-Technologist---Associate-Cloud-Engineer_JR2026520164-1"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Boeing Advanced Technologist - Associate Cloud Engineer"></a> | Hazelwood, MO | Oct 29 |
 | Leidos | 🆕 Jr. Offensive Cyber Engineer 🇺🇸<br><sub>Offensive Security</sub> | <a href="https://leidos.wd5.myworkdayjobs.com/External/job/Lawton-OK/Jr-Offensive-Cyber-Engineer_R-00195810"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Leidos Jr. Offensive Cyber Engineer"></a> | Lawton, OK | Oct 29 |
@@ -527,7 +534,8 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 | BAE Systems | Insider Threat Cyber Analyst I<br><sub>Security Engineering</sub> | <a href="https://jobs.baesystems.com/global/en/job/129635BR"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: BAE Systems Insider Threat Cyber Analyst I"></a> | Falls Church, VA | Sep 30 |
 | Fortinet | Jr. QC Engineer<br><sub>Engineering @ Security Co</sub> | <a href="https://edel.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/21624"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Fortinet Jr. QC Engineer"></a> | Union City, CA | Sep 30 |
 | MITRE | Associate Embedded Security Engineer 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://careers.mitre.org/us/en/job/R115645"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: MITRE Associate Embedded Security Engineer"></a> | <details><summary>**3 locations**</summary>Bedford, MA<br>Albuquerque, NM<br>McLean, VA</details> | Sep 30 |
-| RTX | Software Security Engineer - II, Onsite 🇺🇸<br><sub>AppSec &amp; ProdSec</sub> | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-GOLETA-H03--6380-Hollister-Ave--BLDG-H03/Software-Security-Engineer---II--Onsite_01876900"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: RTX Software Security Engineer - II, Onsite"></a> | Goleta, CA | Sep 30 |
+| RTX | Embedded Software Security Engineer I - S3E 🇺🇸<br><sub>AppSec &amp; ProdSec</sub> | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Embedded-Software-Security-Engineer-I---S3E_01878692"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: RTX Embedded Software Security Engineer I - S3E"></a> | Tucson, AZ | Sep 30 |
+| ↳ | Software Security Engineer - II, Onsite 🇺🇸<br><sub>AppSec &amp; ProdSec</sub> | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-GOLETA-H03--6380-Hollister-Ave--BLDG-H03/Software-Security-Engineer---II--Onsite_01876900"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: RTX Software Security Engineer - II, Onsite"></a> | Goleta, CA | Sep 30 |
 | Software Engineering Institute | Associate Cybersecurity Operations Researcher 🇺🇸<br><sub>SOC &amp; Detection</sub> | <a href="https://cmu.wd115.myworkdayjobs.com/SEI/job/Pittsburgh-PA/Associate-Cybersecurity-Operations-Researcher_2024322-2"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Software Engineering Institute Associate Cybersecurity Operations Researcher"></a> | Pittsburgh, PA | Sep 29 |
 | ↳ | Associate AI Red Team Engineer 🇺🇸<br><sub>AI Security &amp; Safety</sub> | <a href="https://cmu.wd115.myworkdayjobs.com/SEI/job/Pittsburgh-PA/Associate-AI-Red-Team-Engineer_2025255-1"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Software Engineering Institute Associate AI Red Team Engineer"></a> | Pittsburgh, PA | Sep 29 |
 | ↳ | Associate AI Security Researcher 🇺🇸<br><sub>AI Security &amp; Safety</sub> | <a href="https://cmu.wd115.myworkdayjobs.com/SEI/job/Pittsburgh-PA/Associate-AI-Security-Researcher_2024456-1"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Software Engineering Institute Associate AI Security Researcher"></a> | Pittsburgh, PA | Sep 29 |
@@ -617,7 +625,7 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 
 <!-- CLOSED_START earlycareer -->
 
-<details><summary>🔒 179 closed in the last 60 days</summary>
+<details><summary>🔒 178 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
@@ -682,7 +690,6 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 | Netskope | Associate Solutions Engineer | Oct 10 |
 | Nightwing | Multidisciplinary Engineer II | Oct 10 |
 | Amazon | Cloud Systems Engineer I, ADC System Security Engineering | Oct 9 |
-| RTX | Embedded Software Security Engineer I - S3E | Oct 6 |
 | Lockheed Martin | Cyber Systems Security Engineering Associate - Early Career | Oct 5 |
 | Abnormal AI | Software Engineer II - Full Stack | Oct 4 |
 | JPMorgan Chase | Cyber Intelligence Associate-Brand Protection Associate | Oct 4 |

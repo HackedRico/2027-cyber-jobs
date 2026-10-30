@@ -4,7 +4,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **404 companies tracked.**
 
-## Hiring students now (114)
+## Hiring students now (116)
 
 Employers with open roles on the board today.
 
@@ -22,12 +22,12 @@ Employers with open roles on the board today.
 | Palo Alto Networks | 4 | 1 | 3 |
 | Aerospace Corporation | 5 |  |  |
 | Leidos | 4 |  | 8 |
+| Software Engineering Institute | 4 |  | 6 |
 | BDO | 3 | 1 | 1 |
 | GuidePoint Security | 4 |  | 1 |
 | Federal Reserve System | 4 |  |  |
 | Intel | 4 |  |  |
 | Tanium | 4 |  |  |
-| Software Engineering Institute | 3 |  | 6 |
 | Goldman Sachs | 3 |  |  |
 | HP Inc | 3 |  |  |
 | Idaho National Laboratory | 3 |  |  |
@@ -51,7 +51,7 @@ Employers with open roles on the board today.
 | Together AI | 1 | 1 |  |
 | Visa | 2 |  |  |
 | Walmart | 2 |  |  |
-| RTX | 1 |  | 15 |
+| RTX | 1 |  | 20 |
 | Nightwing | 1 |  | 8 |
 | GDIT | 1 |  | 2 |
 | Lockheed Martin | 1 |  | 2 |
@@ -117,10 +117,12 @@ Employers with open roles on the board today.
 | MIT Lincoln Laboratory |  |  | 1 |
 | Obsidian Security |  |  | 1 |
 | Praetorian |  |  | 1 |
+| Proofpoint |  |  | 1 |
 | ReliaQuest |  |  | 1 |
 | SAIC |  |  | 1 |
 | SailPoint |  |  | 1 |
 | Shift5 |  |  | 1 |
+| Socure |  |  | 1 |
 | Tenable |  |  | 1 |
 | The Home Depot |  |  | 1 |
 | Tines |  |  | 1 |
