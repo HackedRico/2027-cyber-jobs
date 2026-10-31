@@ -1547,10 +1547,11 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://job-boards.greenhouse.io/dragos/jobs/5367349008",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-09-05",
-    "missing_since": "2026-10-28"
+    "closed": true,
+    "closed_date": "2026-10-31"
   },
   {
     "company": "Fireblocks",
@@ -1603,10 +1604,11 @@
     "type": "earlycareer",
     "category": "SOC & Detection",
     "clearance": false,
-    "url": "https://job-boards.greenhouse.io/idme/jobs/7808011003",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-09-05",
-    "missing_since": "2026-10-28"
+    "closed": true,
+    "closed_date": "2026-10-31"
   },
   {
     "company": "ExtraHop",
@@ -2280,10 +2282,11 @@
     "type": "intern",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://jobs.lever.co/immuta/3c4cb235-6138-4a50-add2-666a5216427e",
+    "url": "",
     "source": "Lever",
     "date_added": "2026-09-09",
-    "missing_since": "2026-10-28"
+    "closed": true,
+    "closed_date": "2026-10-31"
   },
   {
     "company": "Immuta",
@@ -2451,10 +2454,11 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": true,
-    "url": "https://evergreenix.wd1.myworkdayjobs.com/external-careers2/job/USA_TX_Richardson/Software-Engineer-I_JR500927",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-11",
-    "missing_since": "2026-10-28"
+    "closed": true,
+    "closed_date": "2026-10-31"
   },
   {
     "company": "Vanguard",
@@ -3432,7 +3436,8 @@
     "clearance": true,
     "url": "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/El-Segundo-CA/University---2027-Summer-Games-Cyber-Security-Intern---El-Segundo--CA_R0248047",
     "source": "Workday",
-    "date_added": "2026-09-28"
+    "date_added": "2026-09-28",
+    "missing_since": "2026-10-31"
   },
   {
     "company": "Booz Allen Hamilton",
@@ -3443,7 +3448,8 @@
     "clearance": true,
     "url": "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/McLean-VA/University---2027-Summer-Games-Cyber-Security-Intern---McLean--VA_R0248034",
     "source": "Workday",
-    "date_added": "2026-09-28"
+    "date_added": "2026-09-28",
+    "missing_since": "2026-10-31"
   },
   {
     "company": "Booz Allen Hamilton",
@@ -3454,7 +3460,8 @@
     "clearance": true,
     "url": "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/San-Diego-CA/University--2027-Summer-Games-Cyber-Security-Intern_R0248043",
     "source": "Workday",
-    "date_added": "2026-09-28"
+    "date_added": "2026-09-28",
+    "missing_since": "2026-10-31"
   },
   {
     "company": "Booz Allen Hamilton",
@@ -3476,7 +3483,8 @@
     "clearance": true,
     "url": "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Charleston-SC/University---2027-Summer-Games-Cyber-Security-Intern---Charleston--SC_R0248136",
     "source": "Workday",
-    "date_added": "2026-09-28"
+    "date_added": "2026-09-28",
+    "missing_since": "2026-10-31"
   },
   {
     "company": "Booz Allen Hamilton",
@@ -3487,7 +3495,8 @@
     "clearance": true,
     "url": "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Rome-NY/University--2027-Summer-Games-Cyber-Security-Intern_R0248142",
     "source": "Workday",
-    "date_added": "2026-09-28"
+    "date_added": "2026-09-28",
+    "missing_since": "2026-10-31"
   },
   {
     "company": "Booz Allen Hamilton",
@@ -3544,7 +3553,8 @@
     "clearance": true,
     "url": "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Annapolis-Junction-MD/University---2027-Summer-Games-Cyber-Security-Intern---Annapolis-Junction--MD_R0248414",
     "source": "Workday",
-    "date_added": "2026-09-28"
+    "date_added": "2026-09-28",
+    "missing_since": "2026-10-31"
   },
   {
     "company": "Booz Allen Hamilton",
@@ -3555,7 +3565,8 @@
     "clearance": true,
     "url": "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Fort-Walton-Beach-FL/University---2027-Summer-Games-Cyber-Security-Intern---Ft-Walton-Beach--FL_R0248416",
     "source": "Workday",
-    "date_added": "2026-09-28"
+    "date_added": "2026-09-28",
+    "missing_since": "2026-10-31"
   },
   {
     "company": "Booz Allen Hamilton",
@@ -4486,10 +4497,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://careers.jhuapl.edu/jobs/60041",
+    "url": "",
     "source": "Jibe",
     "date_added": "2026-09-29",
-    "missing_since": "2026-10-28"
+    "closed": true,
+    "closed_date": "2026-10-31"
   },
   {
     "company": "Johns Hopkins APL",
@@ -5192,7 +5204,8 @@
     "clearance": true,
     "url": "https://dxctechnology.wd1.myworkdayjobs.com/DXCJobs/job/USA---DE---NEWARK/Cybersecurity-Analyst---Tier-2_51581546",
     "source": "Workday",
-    "date_added": "2026-10-03"
+    "date_added": "2026-10-03",
+    "missing_since": "2026-10-31"
   },
   {
     "company": "Federal Reserve System",
@@ -5893,10 +5906,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://caci.wd1.myworkdayjobs.com/External/job/Ashburn-VA-US/Cyber-Analyst-Intern---Summer-2027_333161",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-06",
-    "missing_since": "2026-10-28"
+    "closed": true,
+    "closed_date": "2026-10-31"
   },
   {
     "company": "Northrop Grumman",
@@ -6460,10 +6474,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://lockheedmartin.eightfold.ai/careers/job/996477335927",
+    "url": "",
     "source": "Eightfold",
     "date_added": "2026-10-12",
-    "missing_since": "2026-10-28"
+    "closed": true,
+    "closed_date": "2026-10-31"
   },
   {
     "company": "Microsoft",
@@ -6495,10 +6510,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://draper.wd5.myworkdayjobs.com/Draper_Careers/job/Cambridge-MA/Classified-Cybersecurity-IT-Internship--Summer-2027-_JR003021",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-13",
-    "missing_since": "2026-10-28"
+    "closed": true,
+    "closed_date": "2026-10-31"
   },
   {
     "company": "BlackRock",
@@ -6715,10 +6731,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://jobs.ashbyhq.com/1password/49f0fe51-fcdc-46d8-a046-35f357b0cf6e",
+    "url": "",
     "source": "Ashby",
     "date_added": "2026-10-16",
-    "missing_since": "2026-10-28"
+    "closed": true,
+    "closed_date": "2026-10-31"
   },
   {
     "company": "1Password",
@@ -6807,7 +6824,8 @@
     "clearance": false,
     "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Analyst-I--Falcon-Complete--Hybrid--San-Antonio-_R30220",
     "source": "Workday",
-    "date_added": "2026-10-16"
+    "date_added": "2026-10-16",
+    "missing_since": "2026-10-31"
   },
   {
     "company": "CrowdStrike",
@@ -7072,10 +7090,11 @@
     "type": "intern",
     "category": "Cloud Engineering",
     "clearance": true,
-    "url": "https://aero.wd5.myworkdayjobs.com/External/job/El-Segundo-CA/XMLNAME-2027-Cloud-Solutions-Engineer---Site-Reliability-Undergrad-Intern_R016936",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-20",
-    "missing_since": "2026-10-28"
+    "closed": true,
+    "closed_date": "2026-10-31"
   },
   {
     "company": "Fortra",
@@ -7243,10 +7262,11 @@
     "type": "earlycareer",
     "category": "GRC & Risk",
     "clearance": false,
-    "url": "https://ebqb.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BDOEntryLevelCareers/job/14467",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-10-22",
-    "missing_since": "2026-10-28"
+    "closed": true,
+    "closed_date": "2026-10-31"
   },
   {
     "company": "Microsoft",
@@ -7412,10 +7432,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Colorado-Boulder/Cyber-Systems-Engineer---Level-2_R10257349-1",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-23",
-    "missing_since": "2026-10-28"
+    "closed": true,
+    "closed_date": "2026-10-31"
   },
   {
     "company": "Fortinet",
@@ -7501,10 +7522,11 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://job-boards.greenhouse.io/beyondtrust/jobs/8300876",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-10-24",
-    "missing_since": "2026-10-28"
+    "closed": true,
+    "closed_date": "2026-10-31"
   },
   {
     "company": "Sardine",
@@ -7580,10 +7602,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://hpe.wd5.myworkdayjobs.com/Jobsathpe/job/Spring-Texas-United-States-of-America/Cybersecurity-Engineering-Intern_1216080",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-24",
-    "missing_since": "2026-10-28"
+    "closed": true,
+    "closed_date": "2026-10-31"
   },
   {
     "company": "Fortinet",

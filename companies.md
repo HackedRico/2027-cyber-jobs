@@ -4,27 +4,27 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **404 companies tracked.**
 
-## Hiring students now (116)
+## Hiring students now (113)
 
 Employers with open roles on the board today.
 
 | Company | Internships | New grad | Early career |
 | ------- | ----------- | -------- | ------------ |
-| Johns Hopkins APL | 12 | 15 |  |
+| Johns Hopkins APL | 11 | 15 |  |
 | Booz Allen Hamilton | 17 |  | 4 |
 | Vanguard | 5 | 6 |  |
 | Microsoft | 9 |  | 6 |
-| 1Password | 9 |  | 2 |
+| 1Password | 9 |  | 1 |
 | MITRE | 7 | 1 | 5 |
 | American Express | 4 | 4 |  |
-| HPE | 4 | 2 | 1 |
 | Lawrence Livermore National Laboratory | 6 |  |  |
 | Palo Alto Networks | 4 | 1 | 3 |
-| Aerospace Corporation | 5 |  |  |
+| HPE | 3 | 2 | 1 |
 | Leidos | 4 |  | 8 |
 | Software Engineering Institute | 4 |  | 6 |
-| BDO | 3 | 1 | 1 |
 | GuidePoint Security | 4 |  | 1 |
+| Aerospace Corporation | 4 |  |  |
+| BDO | 3 | 1 |  |
 | Federal Reserve System | 4 |  |  |
 | Intel | 4 |  |  |
 | Tanium | 4 |  |  |
@@ -32,19 +32,17 @@ Employers with open roles on the board today.
 | HP Inc | 3 |  |  |
 | Idaho National Laboratory | 3 |  |  |
 | Palantir | 2 | 1 |  |
-| Northrop Grumman |  | 2 | 11 |
+| Northrop Grumman |  | 2 | 10 |
 | Appian | 1 | 1 | 1 |
-| CACI | 2 |  | 1 |
 | Cisco | 2 |  | 1 |
 | Citi | 1 | 1 | 1 |
 | Honeywell | 2 |  | 1 |
-| ID.me |  | 2 | 1 |
 | NVIDIA | 1 | 1 | 1 |
 | Applied Intuition |  | 2 |  |
 | Elevance Health | 2 |  |  |
 | Entrust | 2 |  |  |
+| ID.me |  | 2 |  |
 | Illumio | 2 |  |  |
-| Immuta | 2 |  |  |
 | National Laboratory of the Rockies | 2 |  |  |
 | Qualcomm | 2 |  |  |
 | Salesforce | 2 |  |  |
@@ -54,9 +52,8 @@ Employers with open roles on the board today.
 | RTX | 1 |  | 20 |
 | Nightwing | 1 |  | 8 |
 | GDIT | 1 |  | 2 |
-| Lockheed Martin | 1 |  | 2 |
 | Pinterest | 1 |  | 2 |
-| Draper | 1 |  | 1 |
+| CACI | 1 |  | 1 |
 | Motorola Solutions | 1 |  | 1 |
 | Sierra Nevada Corporation | 1 |  | 1 |
 | Two Six Technologies | 1 |  | 1 |
@@ -70,6 +67,7 @@ Employers with open roles on the board today.
 | Figma | 1 |  |  |
 | Grant Thornton |  | 1 |  |
 | ICF | 1 |  |  |
+| Immuta | 1 |  |  |
 | Johnson &amp; Johnson | 1 |  |  |
 | KeyBank |  | 1 |  |
 | Lumen | 1 |  |  |
@@ -94,6 +92,7 @@ Employers with open roles on the board today.
 | Battelle |  |  | 2 |
 | Boeing |  |  | 2 |
 | Fortra |  |  | 2 |
+| Lockheed Martin |  |  | 2 |
 | PwC |  |  | 2 |
 | Salt Security |  |  | 2 |
 | STR |  |  | 2 |
@@ -101,13 +100,11 @@ Employers with open roles on the board today.
 | Accenture Federal Services |  |  | 1 |
 | AeroVironment |  |  | 1 |
 | Anthropic |  |  | 1 |
-| BeyondTrust |  |  | 1 |
 | Corelight |  |  | 1 |
 | Delinea |  |  | 1 |
-| Dragos |  |  | 1 |
+| Draper |  |  | 1 |
 | DXC Technology |  |  | 1 |
 | ESET |  |  | 1 |
-| Everfox |  |  | 1 |
 | ExtraHop |  |  | 1 |
 | Fireblocks |  |  | 1 |
 | HII |  |  | 1 |
