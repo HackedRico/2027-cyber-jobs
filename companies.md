@@ -4,7 +4,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **404 companies tracked.**
 
-## Hiring students now (113)
+## Hiring students now (114)
 
 Employers with open roles on the board today.
 
@@ -100,6 +100,7 @@ Employers with open roles on the board today.
 | Accenture Federal Services |  |  | 1 |
 | AeroVironment |  |  | 1 |
 | Anthropic |  |  | 1 |
+| Cobalt |  |  | 1 |
 | Corelight |  |  | 1 |
 | Delinea |  |  | 1 |
 | Draper |  |  | 1 |

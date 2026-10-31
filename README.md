@@ -14,7 +14,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**167** internships · **46** new grad · **180** early career open · **48** added in the last 7 days · **187** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 31, 2026
+**167** internships · **46** new grad · **181** early career open · **49** added in the last 7 days · **187** need a clearance or U.S. citizenship 🇺🇸 · updated Oct 31, 2026
 
 <!-- /STATS -->
 
@@ -433,6 +433,7 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
+| Cobalt | 🆕 Associate Security Researcher<br><sub>Security Engineering</sub> | <a href="https://job-boards.greenhouse.io/cobaltio/jobs/8924332002"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Cobalt Associate Security Researcher"></a> | Remote (US) | Oct 31 |
 | Proofpoint | 🆕 Associate Triage Analyst<br><sub>SOC &amp; Detection</sub> | <a href="https://proofpoint.wd5.myworkdayjobs.com/proofpointcareers/job/Saipan-Northern-Mariana-Islands/Associate-Triage-Analyst_R14923-1"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Proofpoint Associate Triage Analyst"></a> | Saipan, MP | Oct 30 |
 | RTX | 🆕 Cyber Software Engineer II 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-ANAHEIM-406--160-N-Riverview-Dr--BLDG-406-Ste-150/Cyber-Software-Engineer-II_01885961"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: RTX Cyber Software Engineer II"></a> | Anaheim, CA | Oct 30 |
 | ↳ | 🆕 Software Engineer II (Cybersecurity \| Networking) 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MD-ANNAPOLIS-JUNCTION-339--306-Sentinel-Dr--339-BLDG/Software-Engineer-II--Cybersecurity---Networking-_01885972"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: RTX Software Engineer II (Cybersecurity &#124; Networking)"></a> | Annapolis Junction, MD | Oct 30 |

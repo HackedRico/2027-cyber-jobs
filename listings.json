@@ -5227,7 +5227,8 @@
     "clearance": true,
     "url": "https://rb.wd5.myworkdayjobs.com/FRS/job/Cleveland-OH/TS---Application-Security-Intern---2027_R-0000033625",
     "source": "Workday",
-    "date_added": "2026-10-03"
+    "date_added": "2026-10-03",
+    "missing_since": "2026-10-31"
   },
   {
     "company": "Federal Reserve System",
@@ -7242,7 +7243,8 @@
     "clearance": true,
     "url": "https://dukeenergy.wd1.myworkdayjobs.com/Search/job/Hartsville-SC/Nuclear-Cybersecurity-2027-Summer-Internship_R42099",
     "source": "Workday",
-    "date_added": "2026-10-21"
+    "date_added": "2026-10-21",
+    "missing_since": "2026-10-31"
   },
   {
     "company": "Intel",
@@ -7864,7 +7866,8 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Systems-Security-Engineer-I---Anti-Tamper---Program-Protection--On-site--_01883946",
     "source": "Workday",
-    "date_added": "2026-10-28"
+    "date_added": "2026-10-28",
+    "missing_since": "2026-10-31"
   },
   {
     "company": "Amentum",
@@ -8096,5 +8099,16 @@
     "url": "https://cmu.wd115.myworkdayjobs.com/SEI/job/Pittsburgh-PA/Cyber-Range-Development-Intern_2025291-1",
     "source": "Workday",
     "date_added": "2026-10-30"
+  },
+  {
+    "company": "Cobalt",
+    "role": "Associate Security Researcher",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/cobaltio/jobs/8924332002",
+    "source": "Greenhouse",
+    "date_added": "2026-10-31"
   }
 ]
