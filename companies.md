@@ -4,17 +4,17 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **404 companies tracked.**
 
-## Hiring students now (114)
+## Hiring students now (113)
 
 Employers with open roles on the board today.
 
 | Company | Internships | New grad | Early career |
 | ------- | ----------- | -------- | ------------ |
-| Johns Hopkins APL | 11 | 15 |  |
-| Booz Allen Hamilton | 17 |  | 4 |
+| Johns Hopkins APL | 10 | 15 |  |
+| Booz Allen Hamilton | 17 |  | 3 |
 | Vanguard | 5 | 6 |  |
 | Microsoft | 9 |  | 6 |
-| 1Password | 9 |  | 1 |
+| 1Password | 9 |  |  |
 | MITRE | 7 | 1 | 5 |
 | American Express | 4 | 4 |  |
 | Lawrence Livermore National Laboratory | 6 |  |  |
@@ -25,31 +25,30 @@ Employers with open roles on the board today.
 | GuidePoint Security | 4 |  | 1 |
 | Aerospace Corporation | 4 |  |  |
 | BDO | 3 | 1 |  |
-| Federal Reserve System | 4 |  |  |
 | Intel | 4 |  |  |
 | Tanium | 4 |  |  |
+| Federal Reserve System | 3 |  |  |
 | Goldman Sachs | 3 |  |  |
 | HP Inc | 3 |  |  |
 | Idaho National Laboratory | 3 |  |  |
 | Palantir | 2 | 1 |  |
 | Northrop Grumman |  | 2 | 10 |
 | Appian | 1 | 1 | 1 |
-| Cisco | 2 |  | 1 |
 | Citi | 1 | 1 | 1 |
 | Honeywell | 2 |  | 1 |
 | NVIDIA | 1 | 1 | 1 |
 | Applied Intuition |  | 2 |  |
+| Cisco | 2 |  |  |
 | Elevance Health | 2 |  |  |
 | Entrust | 2 |  |  |
 | ID.me |  | 2 |  |
 | Illumio | 2 |  |  |
 | National Laboratory of the Rockies | 2 |  |  |
 | Qualcomm | 2 |  |  |
-| Salesforce | 2 |  |  |
 | Together AI | 1 | 1 |  |
 | Visa | 2 |  |  |
 | Walmart | 2 |  |  |
-| RTX | 1 |  | 20 |
+| RTX | 1 |  | 16 |
 | Nightwing | 1 |  | 8 |
 | GDIT | 1 |  | 2 |
 | Pinterest | 1 |  | 2 |
@@ -74,6 +73,7 @@ Employers with open roles on the board today.
 | OPSWAT | 1 |  |  |
 | Prophet Security | 1 |  |  |
 | Rubrik |  | 1 |  |
+| Salesforce | 1 |  |  |
 | Sardine | 1 |  |  |
 | Saviynt | 1 |  |  |
 | Semgrep | 1 |  |  |
@@ -109,7 +109,6 @@ Employers with open roles on the board today.
 | ExtraHop |  |  | 1 |
 | Fireblocks |  |  | 1 |
 | HII |  |  | 1 |
-| Huntress |  |  | 1 |
 | JPMorgan Chase |  |  | 1 |
 | Mastercard |  |  | 1 |
 | MIT Lincoln Laboratory |  |  | 1 |
