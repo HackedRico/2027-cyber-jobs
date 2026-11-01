@@ -4126,7 +4126,8 @@
     "clearance": false,
     "url": "https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26013319",
     "source": "Oracle",
-    "date_added": "2026-09-29"
+    "date_added": "2026-09-29",
+    "missing_since": "2026-11-01"
   },
   {
     "company": "American Express",
@@ -4137,7 +4138,8 @@
     "clearance": false,
     "url": "https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26013354",
     "source": "Oracle",
-    "date_added": "2026-09-29"
+    "date_added": "2026-09-29",
+    "missing_since": "2026-11-01"
   },
   {
     "company": "American Express",
@@ -4148,7 +4150,8 @@
     "clearance": false,
     "url": "https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26013352",
     "source": "Oracle",
-    "date_added": "2026-09-29"
+    "date_added": "2026-09-29",
+    "missing_since": "2026-11-01"
   },
   {
     "company": "American Express",
@@ -4159,7 +4162,8 @@
     "clearance": false,
     "url": "https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26013356",
     "source": "Oracle",
-    "date_added": "2026-09-29"
+    "date_added": "2026-09-29",
+    "missing_since": "2026-11-01"
   },
   {
     "company": "American Express",
@@ -4183,7 +4187,8 @@
     "clearance": false,
     "url": "https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26011893",
     "source": "Oracle",
-    "date_added": "2026-09-29"
+    "date_added": "2026-09-29",
+    "missing_since": "2026-11-01"
   },
   {
     "company": "American Express",
@@ -4207,7 +4212,8 @@
     "clearance": false,
     "url": "https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26011913",
     "source": "Oracle",
-    "date_added": "2026-09-29"
+    "date_added": "2026-09-29",
+    "missing_since": "2026-11-01"
   },
   {
     "company": "American Express",
@@ -4231,7 +4237,8 @@
     "clearance": false,
     "url": "https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26012444",
     "source": "Oracle",
-    "date_added": "2026-09-29"
+    "date_added": "2026-09-29",
+    "missing_since": "2026-11-01"
   },
   {
     "company": "American Express",
@@ -4255,7 +4262,8 @@
     "clearance": false,
     "url": "https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26012462",
     "source": "Oracle",
-    "date_added": "2026-09-29"
+    "date_added": "2026-09-29",
+    "missing_since": "2026-11-01"
   },
   {
     "company": "Honeywell",
@@ -4819,8 +4827,7 @@
     "clearance": false,
     "url": "https://microsoft.eightfold.ai/careers/job/1970393556922930",
     "source": "Eightfold",
-    "date_added": "2026-10-01",
-    "missing_since": "2026-10-29"
+    "date_added": "2026-10-01"
   },
   {
     "company": "Johns Hopkins APL",
