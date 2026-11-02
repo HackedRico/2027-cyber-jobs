@@ -100,7 +100,7 @@ One checklist per area, then the probe families. Each line is a trap a past chan
 
 ## Docs and skills
 
-AGENTS.md, CONTRIBUTING.md, `.claude/skills/`.
+AGENTS.md, CONTRIBUTING.md, `.agents/skills/`.
 
 - CONTRIBUTING.md and AGENTS.md state what the code does now; check every claim a change
   touches against the code.

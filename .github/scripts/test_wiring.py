@@ -253,7 +253,15 @@ for name in sorted(categories):
 
 # Every script is named in AGENTS.md, a workflow or a skill, so none goes
 # unexplained.
-skills = ' '.join(p.read_text() for p in (ROOT / '.claude/skills').rglob('*.md'))
+skills = ' '.join(p.read_text() for p in (ROOT / '.agents/skills').rglob('*.md'))
+
+# Skills live once in .agents/skills, the path Codex, Cursor and Gemini CLI read.
+# Claude Code reads only .claude/skills and Copilot's agent only .github/skills,
+# so each is a link to the one copy; a real directory there would drift from it.
+for link in ('.claude/skills', '.github/skills'):
+    path = ROOT / link
+    check(f'{link} links to .agents/skills',
+          path.is_symlink() and path.readlink() == Path('../.agents/skills'))
 workflow_text = ' '.join(p.read_text() for p in (ROOT / '.github/workflows').glob('*.yml'))
 mentioned = AGENTS + workflow_text + skills
 for path in sorted(SCRIPTS.glob('*.py')):

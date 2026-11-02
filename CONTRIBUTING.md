@@ -156,7 +156,12 @@ python .github/scripts/compare_runs.py before.log after.log  # what a change fli
 ## Working with an AI coding agent
 
 [AGENTS.md](AGENTS.md) is the agent-facing map of the repo: who writes which files, how to
-verify a change, and the rules for classifier edits. The skills under
-[`.claude/skills/`](.claude/skills/) walk an agent through adding a company, repairing a board
+verify a change, and the rules for classifier edits. Codex, Cursor and Copilot read it
+directly, Gemini CLI once its `context.fileName` setting names it, and `CLAUDE.md` imports it
+for Claude Code. The skills under
+[`.agents/skills/`](.agents/skills/) walk an agent through adding a company, repairing a board
 that stopped returning postings and reviewing a change; they work as checklists for humans
 too. A fourth, find-jobs, is for students: it searches the open roles with `find_jobs.py`.
+`.claude/skills` and `.github/skills` are links to the same folder, so Claude Code and
+Copilot's agent find them too. On Windows, clone with `git clone -c core.symlinks=true` for
+the links to work.
