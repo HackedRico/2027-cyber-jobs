@@ -3,7 +3,9 @@
 
     python .github/scripts/test_site.py
 """
+import contextlib
 import copy
+import io
 import json
 import os
 import re
@@ -19,6 +21,7 @@ import testkit  # noqa: F401
 sys.path.insert(0, str(Path(__file__).parent))
 import build_site as bs  # noqa: E402
 import classify  # noqa: E402
+import find_jobs as fj  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 TODAY = date(2026, 9, 28)
@@ -219,6 +222,67 @@ check('site data holds open rows and recent closed rows',
 check('site data lists every category', 'Engineering @ Security Co' in data['categories'], True)
 beta = data['rows'][1]
 check('site data carries states and remote', (beta['states'], beta['remote']), (['VA'], True))
+
+# A student's assistant reads llms.txt to learn the data file and its fields,
+# since a fetch of the page itself gets the empty table JavaScript fills.
+llms = first['llms.txt']
+check('llms.txt opens with the board name and a summary',
+      llms.splitlines()[:3], ['# 2027 Cyber Jobs', '', llms.splitlines()[2]])
+check('llms.txt counts the open rows by type', '1 internships, 1 new grad and 1 early career open'
+      in llms, True)
+check('llms.txt links the data file', f'({bs.SITE_URL}listings.json)' in llms, True)
+check('llms.txt names every field a page row carries',
+      [f for f in (*bs.PAGE_FIELDS, 'id', 'states', 'remote', 'closed', 'closed_date')
+       if f'`{f}`' not in llms], [])
+check('llms.txt names every top-level key of the data file',
+      [k for k in data if f'`{k}`' not in llms], [])
+check('llms.txt describes every category',
+      [c for c in data['categories'] if f'- **{c}**: ' not in llms], [])
+
+
+# --- find_jobs -----------------------------------------------------------------------
+# The search a student's assistant runs in a clone, over the same page rows.
+def found(**filters):
+    return [r['company'] for r in fj.search(data['rows'], today=TODAY, **filters)]
+
+
+check('find_jobs skips closed rows', found(), ['Acme', 'Beta & Co', 'Gamma'])
+check('find_jobs matches any of several types', found(types=('intern', 'newgrad')),
+      ['Acme', 'Beta & Co'])
+check('find_jobs reads --state and --remote as either', found(states=['TX'], remote=True),
+      ['Acme', 'Beta & Co', 'Gamma'])
+check('find_jobs --remote alone keeps remote rows', found(remote=True), ['Beta & Co'])
+check('find_jobs drops clearance rows on request', found(no_clearance=True), ['Acme', 'Gamma'])
+check('find_jobs matches a keyword at the start of a title word', found(keywords=['analy']),
+      ['Beta & Co', 'Gamma'])
+# Word starts only, so a search for "intern" skips "International".
+check('find_jobs never matches a keyword mid-word', found(keywords=['tern']), [])
+check('find_jobs matches a keyword in the category', found(keywords=['detection']),
+      ['Acme', 'Beta & Co', 'Gamma'])
+check('find_jobs --since counts back from today', found(since_days=4), ['Acme', 'Beta & Co'])
+check('find_jobs matches part of a company name', found(companies=['gam']), ['Gamma'])
+check('find_jobs resolves part of a category name',
+      fj.resolve_categories(['soc', 'CLOUD'], data['categories']),
+      ['SOC & Detection', 'Cloud & Infra Security', 'Cloud Engineering'])
+check('find_jobs resolves codes and state names', fj.resolve_states(['va', 'New York']),
+      ['VA', 'NY'])
+for bad in (lambda: fj.resolve_categories(['nope'], data['categories']),
+            lambda: fj.resolve_states(['XX']), lambda: fj.resolve_states(['Narnia'])):
+    try:
+        bad()
+        check('find_jobs refuses a name it cannot resolve', 'accepted', 'ValueError')
+    except ValueError:
+        pass
+# A title holding '|' split a delimited line into the wrong columns.
+check('find_jobs prints the title whole on its own line',
+      fj.format_row(bs.page_row(row(role='2027 | Americas | Summer Analyst'))).splitlines()[0],
+      'Acme: 2027 | Americas | Summer Analyst')
+out = io.StringIO()
+with contextlib.redirect_stdout(out), contextlib.redirect_stderr(io.StringIO()):
+    fj.main(['--json', '--limit', '0'], today=TODAY)
+printed = json.loads(out.getvalue())
+check('find_jobs --json prints open rows of the real listings.json',
+      (len(printed) > 0, all(r['url'] and not r.get('closed') for r in printed)), (True, True))
 
 
 # --- the Updated stamp -------------------------------------------------------------

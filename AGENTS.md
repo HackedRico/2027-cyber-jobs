@@ -5,6 +5,15 @@ tables and `companies.md` are rebuilt from it, and GitHub Actions do all the wri
 The audience is cybersecurity students, so the intern and new-grad tables come first and a
 change is judged by what a student sees. A wrong row on the board costs more than a missed one.
 
+## Who you are helping
+
+- **A student looking for a role**: run [find-jobs](.claude/skills/find-jobs/SKILL.md). It
+  searches the open roles with `find_jobs.py`, and needs nothing below this list.
+- **A contributor with a missed role or a wrong row**: CONTRIBUTING.md states what qualifies,
+  and the Add Job and Report a Listing issue forms take it from there. Give them the form link
+  to open.
+- **A developer changing the board**: the rest of this file.
+
 ## Charter
 
 A row belongs only if it is all three: a cybersecurity role (or any engineering role at a
@@ -64,10 +73,11 @@ behind `main`. Rebase before opening a PR, and take `main` for any conflict in a
   hand with `allow_mass_close` once the cause is understood.
 - `build_site.py` turns `site/` (plain HTML, CSS and JS, no build step), `listings.json` and the
   last scrape's date in `.github/data/health.json` into the untracked `_site/`: the Pages board,
-  its trimmed data file and the Atom feeds.
+  its trimmed data file, the Atom feeds, and `llms.txt`, which tells a student's AI assistant
+  how to search that data file. `find_jobs.py` runs the same search over a clone's rows.
   `pages.yml` deploys it after each writer finishes, because a push made with `GITHUB_TOKEN`
   starts no Pages build, and every six hours, because a follow-on run can be lost to a runner
-  outage before it starts. `test_site.py` covers it.
+  outage before it starts. `test_site.py` covers both.
 - `test_corpus.py` snapshots the title rules over `fixtures/title_corpus.tsv`, the titles of
   a full scrape plus every stored row, and holds each accepted title to invariants such as
   "a senior prefix rejects". `refresh_corpus.py` rebuilds that title list from a live scrape.

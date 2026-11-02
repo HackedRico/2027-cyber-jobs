@@ -4,6 +4,8 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 **[🔎 Search and filter the board](https://hackedrico.github.io/2027-cyber-jobs/)** by category, state, remote, date added, or hide the 🇺🇸 roles.
 
+🤖 **Searching with an AI assistant?** Give it this repo's link and ask for what you want, such as "a cloud security internship in Virginia with no clearance". [llms.txt](https://hackedrico.github.io/2027-cyber-jobs/llms.txt) points it at the data file, the fields and the categories, so it does not have to read these tables. In a clone, `python3 .github/scripts/find_jobs.py --help` does the same search offline.
+
 ⭐ **If this board helps your search, star the repo** so more students find it.
 
 🤝 **Help keep it accurate:** [submit a role](../../issues/new?template=add-job.yml) we missed, [report a listing](../../issues/new?template=report-listing.yml) that is closed or wrong, or [request a company](../../issues/new?template=request-company.yml) to track. Code changes are welcome too; see [CONTRIBUTING.md](./CONTRIBUTING.md).
