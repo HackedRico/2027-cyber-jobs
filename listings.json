@@ -2256,11 +2256,12 @@
     "type": "intern",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://job-boards.greenhouse.io/tanium/jobs/8189328",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-09-09",
     "twin": 1,
-    "missing_since": "2026-10-30"
+    "closed": true,
+    "closed_date": "2026-11-02"
   },
   {
     "company": "Immuta",
@@ -5435,10 +5436,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://jj.wd5.myworkdayjobs.com/JJ/job/Danvers-Massachusetts-United-States-of-America/Medical-Device-Cybersecurity-Co-Op_R-099388",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-03",
-    "missing_since": "2026-10-30"
+    "closed": true,
+    "closed_date": "2026-11-02"
   },
   {
     "company": "Goldman Sachs",
@@ -5729,10 +5731,11 @@
     "type": "earlycareer",
     "category": "AppSec & ProdSec",
     "clearance": true,
-    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Embedded-Software-Security-Engineer-II---S3E_01879899",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-05",
-    "missing_since": "2026-10-30"
+    "closed": true,
+    "closed_date": "2026-11-02"
   },
   {
     "company": "ExtraHop",
@@ -6013,10 +6016,11 @@
     "type": "earlycareer",
     "category": "AI Security & Safety",
     "clearance": false,
-    "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/Machine-Learning-Engineer--AI-Safety_JR2021784-1",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-08",
-    "missing_since": "2026-10-30"
+    "closed": true,
+    "closed_date": "2026-11-02"
   },
   {
     "company": "Palo Alto Networks",
@@ -6963,10 +6967,11 @@
     "type": "intern",
     "category": "GRC & Risk",
     "clearance": false,
-    "url": "https://ebqb.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BDOEntryLevelCareers/job/14411",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-10-17",
-    "missing_since": "2026-10-30"
+    "closed": true,
+    "closed_date": "2026-11-02"
   },
   {
     "company": "BDO",
@@ -7011,10 +7016,11 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://abnormal.ai/careers/jobs/8015179003?gh_jid=8015179003",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-10-17",
-    "missing_since": "2026-10-30"
+    "closed": true,
+    "closed_date": "2026-11-02"
   },
   {
     "company": "Cisco",
@@ -8128,5 +8134,27 @@
     "url": "https://job-boards.greenhouse.io/cobaltio/jobs/8924332002",
     "source": "Greenhouse",
     "date_added": "2026-10-31"
+  },
+  {
+    "company": "KnowBe4",
+    "role": "Software Engineer Summer Internship",
+    "location": "Clearwater, FL",
+    "type": "intern",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/knowbe4/jobs/8919280002",
+    "source": "Greenhouse",
+    "date_added": "2026-11-02"
+  },
+  {
+    "company": "Guidehouse",
+    "role": "Consultant - Defense & Security - IT Controls - Campus 2027",
+    "location": "McLean, VA",
+    "type": "newgrad",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://guidehouse.wd1.myworkdayjobs.com/External/job/US---VA-McLean/Consultant---Defense---Security---IT-Controls---Campus-2027_46116-1",
+    "source": "Workday",
+    "date_added": "2026-11-02"
   }
 ]

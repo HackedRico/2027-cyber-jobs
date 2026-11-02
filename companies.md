@@ -4,7 +4,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **404 companies tracked.**
 
-## Hiring students now (113)
+## Hiring students now (114)
 
 Employers with open roles on the board today.
 
@@ -24,19 +24,18 @@ Employers with open roles on the board today.
 | Software Engineering Institute | 4 |  | 6 |
 | GuidePoint Security | 4 |  | 1 |
 | Aerospace Corporation | 4 |  |  |
-| BDO | 3 | 1 |  |
 | Intel | 4 |  |  |
-| Tanium | 4 |  |  |
+| BDO | 2 | 1 |  |
 | Federal Reserve System | 3 |  |  |
 | Goldman Sachs | 3 |  |  |
 | HP Inc | 3 |  |  |
 | Idaho National Laboratory | 3 |  |  |
 | Palantir | 2 | 1 |  |
+| Tanium | 3 |  |  |
 | Northrop Grumman |  | 2 | 10 |
 | Appian | 1 | 1 | 1 |
 | Citi | 1 | 1 | 1 |
 | Honeywell | 2 |  | 1 |
-| NVIDIA | 1 | 1 | 1 |
 | Applied Intuition |  | 2 |  |
 | Cisco | 2 |  |  |
 | Elevance Health | 2 |  |  |
@@ -44,11 +43,12 @@ Employers with open roles on the board today.
 | ID.me |  | 2 |  |
 | Illumio | 2 |  |  |
 | National Laboratory of the Rockies | 2 |  |  |
+| NVIDIA | 1 | 1 |  |
 | Qualcomm | 2 |  |  |
 | Together AI | 1 | 1 |  |
 | Visa | 2 |  |  |
 | Walmart | 2 |  |  |
-| RTX | 1 |  | 16 |
+| RTX | 1 |  | 15 |
 | Nightwing | 1 |  | 8 |
 | GDIT | 1 |  | 2 |
 | Pinterest | 1 |  | 2 |
@@ -65,10 +65,11 @@ Employers with open roles on the board today.
 | Fifth Third | 1 |  |  |
 | Figma | 1 |  |  |
 | Grant Thornton |  | 1 |  |
+| Guidehouse |  | 1 |  |
 | ICF | 1 |  |  |
 | Immuta | 1 |  |  |
-| Johnson &amp; Johnson | 1 |  |  |
 | KeyBank |  | 1 |  |
+| KnowBe4 | 1 |  |  |
 | Lumen | 1 |  |  |
 | OPSWAT | 1 |  |  |
 | Prophet Security | 1 |  |  |
@@ -88,7 +89,6 @@ Employers with open roles on the board today.
 | Amentum |  |  | 4 |
 | Kyndryl |  |  | 3 |
 | Recorded Future |  |  | 3 |
-| Abnormal AI |  |  | 2 |
 | Battelle |  |  | 2 |
 | Boeing |  |  | 2 |
 | Fortra |  |  | 2 |
@@ -97,6 +97,7 @@ Employers with open roles on the board today.
 | Salt Security |  |  | 2 |
 | STR |  |  | 2 |
 | Trail of Bits |  |  | 2 |
+| Abnormal AI |  |  | 1 |
 | Accenture Federal Services |  |  | 1 |
 | AeroVironment |  |  | 1 |
 | Anthropic |  |  | 1 |
