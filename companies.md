@@ -20,13 +20,15 @@ Employers with open roles on the board today.
 | Lawrence Livermore National Laboratory | 6 |  |  |
 | Palo Alto Networks | 4 | 1 | 3 |
 | HPE | 3 | 2 | 1 |
+| RTX | 4 |  | 16 |
 | Leidos | 4 |  | 8 |
 | Software Engineering Institute | 4 |  | 6 |
 | GuidePoint Security | 4 |  | 1 |
 | Aerospace Corporation | 4 |  |  |
+| Federal Reserve System | 4 |  |  |
 | Intel | 4 |  |  |
 | BDO | 2 | 1 |  |
-| Federal Reserve System | 3 |  |  |
+| Entrust | 3 |  |  |
 | Goldman Sachs | 3 |  |  |
 | HP Inc | 3 |  |  |
 | Idaho National Laboratory | 3 |  |  |
@@ -34,12 +36,12 @@ Employers with open roles on the board today.
 | Tanium | 3 |  |  |
 | Northrop Grumman |  | 2 | 10 |
 | Appian | 1 | 1 | 1 |
+| Cisco | 2 |  | 1 |
 | Citi | 1 | 1 | 1 |
 | Honeywell | 2 |  | 1 |
+| Motorola Solutions | 2 |  | 1 |
 | Applied Intuition |  | 2 |  |
-| Cisco | 2 |  |  |
 | Elevance Health | 2 |  |  |
-| Entrust | 2 |  |  |
 | ID.me |  | 2 |  |
 | Illumio | 2 |  |  |
 | National Laboratory of the Rockies | 2 |  |  |
@@ -48,12 +50,12 @@ Employers with open roles on the board today.
 | Together AI | 1 | 1 |  |
 | Visa | 2 |  |  |
 | Walmart | 2 |  |  |
-| RTX | 1 |  | 15 |
 | Nightwing | 1 |  | 8 |
 | GDIT | 1 |  | 2 |
+| Lockheed Martin | 1 |  | 2 |
 | Pinterest | 1 |  | 2 |
+| STR | 1 |  | 2 |
 | CACI | 1 |  | 1 |
-| Motorola Solutions | 1 |  | 1 |
 | Sierra Nevada Corporation | 1 |  | 1 |
 | Two Six Technologies | 1 |  | 1 |
 | Verkada | 1 |  | 1 |
@@ -83,8 +85,8 @@ Employers with open roles on the board today.
 | Wells Fargo | 1 |  |  |
 | Amazon |  |  | 15 |
 | CrowdStrike |  |  | 8 |
-| BAE Systems |  |  | 6 |
-| Fortinet |  |  | 5 |
+| BAE Systems |  |  | 7 |
+| Fortinet |  |  | 7 |
 | KBR |  |  | 5 |
 | Amentum |  |  | 4 |
 | Kyndryl |  |  | 3 |
@@ -92,16 +94,13 @@ Employers with open roles on the board today.
 | Battelle |  |  | 2 |
 | Boeing |  |  | 2 |
 | Fortra |  |  | 2 |
-| Lockheed Martin |  |  | 2 |
 | PwC |  |  | 2 |
 | Salt Security |  |  | 2 |
-| STR |  |  | 2 |
 | Trail of Bits |  |  | 2 |
 | Abnormal AI |  |  | 1 |
 | Accenture Federal Services |  |  | 1 |
 | AeroVironment |  |  | 1 |
 | Anthropic |  |  | 1 |
-| Cobalt |  |  | 1 |
 | Corelight |  |  | 1 |
 | Delinea |  |  | 1 |
 | Draper |  |  | 1 |
@@ -110,6 +109,7 @@ Employers with open roles on the board today.
 | ExtraHop |  |  | 1 |
 | Fireblocks |  |  | 1 |
 | HII |  |  | 1 |
+| Instacart |  |  | 1 |
 | JPMorgan Chase |  |  | 1 |
 | Mastercard |  |  | 1 |
 | MIT Lincoln Laboratory |  |  | 1 |

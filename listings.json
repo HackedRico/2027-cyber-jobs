@@ -1186,11 +1186,9 @@
     "type": "earlycareer",
     "category": "SOC & Detection",
     "clearance": false,
-    "url": "",
+    "url": "https://instacart.careers/job/?gh_jid=8080512",
     "source": "Greenhouse",
-    "date_added": "2026-07-22",
-    "closed": true,
-    "closed_date": "2026-09-19"
+    "date_added": "2026-07-22"
   },
   {
     "company": "Netskope",
@@ -1730,7 +1728,8 @@
     "clearance": false,
     "url": "https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/RTP-North-Carolina-US/Security-Consulting-Engineer-I--Intern----United-States_2024817",
     "source": "Workday",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "missing_since": "2026-11-02"
   },
   {
     "company": "Leidos",
@@ -2666,7 +2665,8 @@
     "clearance": false,
     "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Associate-Analyst--Falcon-Complete_R30082",
     "source": "Workday",
-    "date_added": "2026-09-16"
+    "date_added": "2026-09-16",
+    "missing_since": "2026-11-02"
   },
   {
     "company": "CrowdStrike",
@@ -2751,11 +2751,9 @@
     "type": "intern",
     "category": "Cloud & Infra Security",
     "clearance": true,
-    "url": "",
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MA-WOBURN-WB2--225-Presidential-Way--GODDARD-BLDG/Internship---Raytheon-Systems-Security-Engineer--Onsite_01874703",
     "source": "Workday",
-    "date_added": "2026-09-16",
-    "closed": true,
-    "closed_date": "2026-10-13"
+    "date_added": "2026-09-16"
   },
   {
     "company": "The Home Depot",
@@ -3392,7 +3390,8 @@
     "clearance": false,
     "url": "https://boards.greenhouse.io/guidepointsecurity/jobs/6148707004?gh_jid=6148707004",
     "source": "Greenhouse",
-    "date_added": "2026-09-28"
+    "date_added": "2026-09-28",
+    "missing_since": "2026-11-02"
   },
   {
     "company": "STR",
@@ -3891,7 +3890,8 @@
     "clearance": false,
     "url": "https://microsoft.eightfold.ai/careers/job/1970393557044769",
     "source": "Eightfold",
-    "date_added": "2026-09-28"
+    "date_added": "2026-09-28",
+    "missing_since": "2026-11-02"
   },
   {
     "company": "Microsoft",
@@ -4319,7 +4319,8 @@
     "clearance": false,
     "url": "https://jobs.exeloncorp.com/jobs/30147",
     "source": "Jibe",
-    "date_added": "2026-09-29"
+    "date_added": "2026-09-29",
+    "missing_since": "2026-11-02"
   },
   {
     "company": "Johns Hopkins APL",
@@ -5049,7 +5050,8 @@
     "clearance": true,
     "url": "https://boards.greenhouse.io/accenturefederalservices/jobs/4688938006?gh_jid=4688938006",
     "source": "Greenhouse",
-    "date_added": "2026-10-03"
+    "date_added": "2026-10-03",
+    "missing_since": "2026-11-02"
   },
   {
     "company": "Applied Intuition",
@@ -6195,11 +6197,9 @@
     "type": "intern",
     "category": "Cloud & Infra Security",
     "clearance": true,
-    "url": "",
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-FULLERTON-675--1801-Hughes-Dr--BLDG-675/Systems-Security-Engineering-Intern--Summer-2027-_01886260",
     "source": "Workday",
-    "date_added": "2026-10-08",
-    "closed": true,
-    "closed_date": "2026-10-16"
+    "date_added": "2026-10-08"
   },
   {
     "company": "KeyBank",
@@ -6285,11 +6285,9 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "",
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MA-TEWKSBURY-TB1--50-Apple-Hill-Dr--ASSABET-BLDG/Embedded-Security-Software-Engineer-I--Onsite-_01881440",
     "source": "Workday",
-    "date_added": "2026-10-10",
-    "closed": true,
-    "closed_date": "2026-10-18"
+    "date_added": "2026-10-10"
   },
   {
     "company": "RTX",
@@ -6389,7 +6387,8 @@
     "clearance": false,
     "url": "https://cmu.wd115.myworkdayjobs.com/SEI/job/Pittsburgh-PA/AI-Security-Research-Intern---Summer-2027_2025199-1",
     "source": "Workday",
-    "date_added": "2026-10-10"
+    "date_added": "2026-10-10",
+    "missing_since": "2026-11-02"
   },
   {
     "company": "USAA",
@@ -7347,7 +7346,8 @@
     "clearance": false,
     "url": "https://jobs.ashbyhq.com/1password/8af1359a-c8a2-492b-b567-ae8ae184a8a1",
     "source": "Ashby",
-    "date_added": "2026-10-22"
+    "date_added": "2026-10-22",
+    "missing_since": "2026-11-02"
   },
   {
     "company": "1Password",
@@ -7358,7 +7358,8 @@
     "clearance": false,
     "url": "https://jobs.ashbyhq.com/1password/6a6869a7-98d2-43e3-b9b5-b68fa4daeb9f",
     "source": "Ashby",
-    "date_added": "2026-10-22"
+    "date_added": "2026-10-22",
+    "missing_since": "2026-11-02"
   },
   {
     "company": "1Password",
@@ -7369,7 +7370,8 @@
     "clearance": false,
     "url": "https://jobs.ashbyhq.com/1password/b2726ac7-dd0d-42f3-93a5-139e18c90779",
     "source": "Ashby",
-    "date_added": "2026-10-22"
+    "date_added": "2026-10-22",
+    "missing_since": "2026-11-02"
   },
   {
     "company": "1Password",
@@ -7391,7 +7393,8 @@
     "clearance": false,
     "url": "https://jobs.ashbyhq.com/1password/c5289ef1-e919-4672-85c5-ee3112f9ddb9",
     "source": "Ashby",
-    "date_added": "2026-10-22"
+    "date_added": "2026-10-22",
+    "missing_since": "2026-11-02"
   },
   {
     "company": "1Password",
@@ -7402,7 +7405,8 @@
     "clearance": false,
     "url": "https://jobs.ashbyhq.com/1password/71a3afd1-12b3-4f55-a3bd-fc4e7c46ee37",
     "source": "Ashby",
-    "date_added": "2026-10-22"
+    "date_added": "2026-10-22",
+    "missing_since": "2026-11-02"
   },
   {
     "company": "Booz Allen Hamilton",
@@ -7448,7 +7452,8 @@
     "clearance": false,
     "url": "https://jobs.ashbyhq.com/1password/7f1732a6-5317-4319-82b9-67c62e88d491",
     "source": "Ashby",
-    "date_added": "2026-10-23"
+    "date_added": "2026-10-23",
+    "missing_since": "2026-11-02"
   },
   {
     "company": "Northrop Grumman",
@@ -7483,7 +7488,8 @@
     "clearance": false,
     "url": "https://elhe.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1002/job/2242",
     "source": "Oracle",
-    "date_added": "2026-10-23"
+    "date_added": "2026-10-23",
+    "missing_since": "2026-11-02"
   },
   {
     "company": "Lockheed Martin",
@@ -7516,7 +7522,8 @@
     "clearance": false,
     "url": "https://jobs.ashbyhq.com/1password/67bfbd8b-aba9-42b1-a8a8-833367888fba",
     "source": "Ashby",
-    "date_added": "2026-10-23"
+    "date_added": "2026-10-23",
+    "missing_since": "2026-11-02"
   },
   {
     "company": "1Password",
@@ -7527,7 +7534,8 @@
     "clearance": false,
     "url": "https://jobs.ashbyhq.com/1password/00f861d4-2b4a-4159-b6dc-8aed0cde6e39",
     "source": "Ashby",
-    "date_added": "2026-10-23"
+    "date_added": "2026-10-23",
+    "missing_since": "2026-11-02"
   },
   {
     "company": "Amentum",
@@ -7835,7 +7843,8 @@
     "clearance": false,
     "url": "https://fifththird.wd5.myworkdayjobs.com/53careers/job/Cincinnati-OH/IT-Audit-Co-op---Spring-2027_R74518",
     "source": "Workday",
-    "date_added": "2026-10-27"
+    "date_added": "2026-10-27",
+    "missing_since": "2026-11-02"
   },
   {
     "company": "BAE Systems",
@@ -7846,7 +7855,8 @@
     "clearance": true,
     "url": "https://jobs.baesystems.com/global/en/job/131921BR",
     "source": "Phenom",
-    "date_added": "2026-10-27"
+    "date_added": "2026-10-27",
+    "missing_since": "2026-11-02"
   },
   {
     "company": "Johns Hopkins APL",
@@ -8125,17 +8135,6 @@
     "date_added": "2026-10-30"
   },
   {
-    "company": "Cobalt",
-    "role": "Associate Security Researcher",
-    "location": "Remote (US)",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "https://job-boards.greenhouse.io/cobaltio/jobs/8924332002",
-    "source": "Greenhouse",
-    "date_added": "2026-10-31"
-  },
-  {
     "company": "KnowBe4",
     "role": "Software Engineer Summer Internship",
     "location": "Clearwater, FL",
@@ -8155,6 +8154,116 @@
     "clearance": true,
     "url": "https://guidehouse.wd1.myworkdayjobs.com/External/job/US---VA-McLean/Consultant---Defense---Security---IT-Controls---Campus-2027_46116-1",
     "source": "Workday",
+    "date_added": "2026-11-02"
+  },
+  {
+    "company": "STR",
+    "role": "5G SA O-RAN Test Bed Co-Op (Engineering Co-Op)",
+    "location": "Woburn, MA",
+    "type": "intern",
+    "category": "Engineering @ Security Co",
+    "clearance": true,
+    "url": "https://job-boards.greenhouse.io/systemstechnologyresearch/jobs/4726405006",
+    "source": "Greenhouse",
+    "date_added": "2026-11-02"
+  },
+  {
+    "company": "Cisco",
+    "role": "Associate Solutions Engineer (Full Time) \u2013 United States",
+    "location": "RTP, NC",
+    "type": "earlycareer",
+    "category": "Solutions Architecture",
+    "clearance": false,
+    "url": "https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/RTP-North-Carolina-US/Associate-Solutions-Engineer---United-States_2017853",
+    "source": "Workday",
+    "date_added": "2026-11-02"
+  },
+  {
+    "company": "Motorola Solutions",
+    "role": "Software Engineer Cybersecurity Services - 2027 Summer Internship",
+    "location": "Remote, VA; Remote, MN; Remote, MS; Remote, MO; Remote, NH; Remote, NJ; Remote, AL; Remote, NY; Remote, AR; Remote, NC; Chicago, IL; Ashburn, VA; Remote, OH; Remote, OK; Remote, PA; Remote, CT; Remote, DE; Remote, RI; Remote, DC; Remote, SC; Remote, TN; Remote, FL; Remote, TX; Remote, GA; Remote, IL; Remote, VT; Remote, IN; Remote, IA; Remote, KS; Remote, KY; Remote, LA; Plantation, FL; Remote, WV; Remote, ME; Remote, WI; Remote, MD; Remote, MA; Remote, MI; Schaumburg, IL; Salt Lake City, UT (UT17)",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://motorolasolutions.wd5.myworkdayjobs.com/Careers/job/Virginia-Remote-Work/Software-Engineer-Cybersecurity-Services---2027-Summer-Internship_R69250",
+    "source": "Workday",
+    "date_added": "2026-11-02"
+  },
+  {
+    "company": "RTX",
+    "role": "Internship \u2013 Raytheon Systems Security Engineer (Onsite)",
+    "location": "Woburn, MA",
+    "type": "intern",
+    "category": "Cloud & Infra Security",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MA-WOBURN-WB2--225-Presidential-Way--GODDARD-BLDG/Internship---Raytheon-Systems-Security-Engineer--Onsite-_01886045",
+    "source": "Workday",
+    "date_added": "2026-11-02"
+  },
+  {
+    "company": "Entrust",
+    "role": "AI Developer Intern",
+    "location": "Shakopee, MN",
+    "type": "intern",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://entrust.wd1.myworkdayjobs.com/EntrustCareers/job/United-States---Shakopee-MN-GHQ/AI-Developer-Intern_R004397",
+    "source": "Workday",
+    "date_added": "2026-11-02"
+  },
+  {
+    "company": "Federal Reserve System",
+    "role": "2027 Summer Internship Program - Supervision & Regulation (Cybersecurity)",
+    "location": "Atlanta, GA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://rb.wd5.myworkdayjobs.com/FRS/job/Atlanta-GA/XMLNAME-2027-Summer-Internship-Program---Supervision---Regulation--Cybersecurity-_R-0000033866",
+    "source": "Workday",
+    "date_added": "2026-11-02"
+  },
+  {
+    "company": "Fortinet",
+    "role": "Software Dev QA Engineer (Early Career/NPI)",
+    "location": "Sunnyvale, CA",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://edel.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/24851",
+    "source": "Oracle",
+    "date_added": "2026-11-02"
+  },
+  {
+    "company": "Fortinet",
+    "role": "Early Careers: Embedded Software Developer",
+    "location": "Sunnyvale, CA",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://edel.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/24852",
+    "source": "Oracle",
+    "date_added": "2026-11-02"
+  },
+  {
+    "company": "Lockheed Martin",
+    "role": "Cyber Engineer Intern - Summer 2027",
+    "location": "Colorado Springs, CO",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://lockheedmartin.eightfold.ai/careers/job/996477502700",
+    "source": "Eightfold",
+    "date_added": "2026-11-02"
+  },
+  {
+    "company": "BAE Systems",
+    "role": "Cyber Analyst II \u2013 ISSO",
+    "location": "Westminster, CO",
+    "type": "earlycareer",
+    "category": "GRC & Risk",
+    "clearance": true,
+    "url": "https://jobs.baesystems.com/global/en/job/131787BR",
+    "source": "Phenom",
     "date_added": "2026-11-02"
   }
 ]
