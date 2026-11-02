@@ -4,7 +4,8 @@
     python .github/scripts/build_site.py [--out _site] [--today YYYY-MM-DD]
 
 Copies the static page, writes a trimmed _site/listings.json for it to fetch,
-and writes Atom feeds: feed.xml for every type and one per type.
+Atom feeds (feed.xml for every type and one per type), and llms.txt, which
+tells a student's AI assistant how to search that data file.
 """
 
 import argparse
@@ -28,7 +29,7 @@ from classify import (  # noqa: E402
     state_names,
     twin_ordinals,
 )
-from rebuild_readme import NEW_DAYS, TABLE_TYPES, is_open  # noqa: E402
+from rebuild_readme import CATEGORY_BLURBS, NEW_DAYS, TABLE_TYPES, is_open  # noqa: E402
 
 LISTINGS_FILE = Path('listings.json')
 SITE_SRC = Path('site')
@@ -263,6 +264,96 @@ def build_feed(rows, kind=None):
                   + ET.tostring(feed, encoding='unicode') + '\n')
 
 
+def build_llms_txt(data):
+    """llms.txt for `data`: what the board holds and how an agent searches it.
+
+    The page draws its rows with JavaScript, so an assistant that fetches it
+    gets an empty table, and the README is too long to read whole. This points
+    it at the data file instead. Counts and categories come from `data`, so it
+    can never disagree with the board.
+    """
+    open_rows = [r for r in data['rows'] if not r.get('closed')]
+    counts = {kind: sum(1 for r in open_rows if r['type'] == kind) for kind in TABLE_TYPES}
+    categories = '\n'.join(f'- **{name}**: {CATEGORY_BLURBS[name]}'
+                           for name in data['categories'] if name in CATEGORY_BLURBS)
+    pathways = 'https://www.usajobs.gov/help/working-in-government/unique-hiring-paths/students/'
+    return f"""# 2027 Cyber Jobs
+
+> US cybersecurity internships, new-grad roles and early-career jobs asking 0 to 2 years, \
+for students. Scraped twice a day from hundreds of employers' job boards. Last scrape \
+{data['generated']}: {counts['intern']} internships, {counts['newgrad']} new grad and \
+{counts['earlycareer']} early career open.
+
+Every row is a cybersecurity role, a cloud engineering or early-career solutions \
+architecture role at any employer, or an engineering role at a security company, \
+located in the US or Remote (US). Senior roles and roles outside the US never appear.
+
+## Data
+
+- [listings.json]({SITE_URL}listings.json): every open role plus roles closed in the \
+last {CLOSED_WINDOW_DAYS} days, one JSON object. `generated` is the last scrape's date, \
+`types` and `categories` the values rows take, `new_days` the days a row counts as new on \
+the search page, and `rows` the roles, newest first.
+
+Each row has:
+
+- `id`: a short stable key for the row
+- `company`, `role`: the employer and the job title as posted
+- `type`: `intern` (internships and co-ops), `newgrad` (new-grad and university \
+programs) or `earlycareer` (entry level, 0 to 2 years)
+- `category`: one of the categories below
+- `location`: as posted; several places are separated by `;`
+- `states`: postal codes the location names, as in `["VA", "DC"]`, territories such as \
+`PR` included
+- `remote`: true when any of the listed places is remote within the US
+- `clearance`: true when the posting mentions a security clearance, a public trust \
+investigation or U.S. citizenship
+- `url`: the apply link
+- `date_added`: the day the board first saw the posting, `YYYY-MM-DD`, which can trail \
+the employer's own posting date
+- `closed`, `closed_date`: present when the role has closed; its `url` is then empty
+
+## How to answer a request
+
+1. Fetch listings.json and drop rows where `closed` is true.
+2. Turn the request into filters: `type` for the level (`newgrad` and `earlycareer` \
+both for "new grad or entry level"), `category` for the kind of work, `states` or \
+`remote` for the place, `clearance` false for a student on a visa.
+3. Match what the person wants to do against both `category` and `role`. A row holds \
+the title only, not the job description, so "detection engineering" matches the SOC & \
+Detection category and titles naming detection. Security Engineering is the catch-all, \
+so search its titles too: cloud security work there names AWS, Azure or cloud.
+4. List each match with company, role, location and url, newest first, and give the \
+`generated` date. The title alone can mislead, so read the posting at `url` before \
+calling a role a strong fit.
+
+## Categories
+
+{categories}
+
+## Reading the rows
+
+- `clearance` true usually needs U.S. citizenship, so F-1, OPT and H-1B holders can \
+skip those rows. A row with `clearance` false can still decline visa sponsorship.
+- Summer internships post from August to October of the year before; new-grad \
+programs from September to November.
+- Federal and intelligence roles post on their own sites and are not here: \
+[USAJOBS Pathways]({pathways}), \
+[NSA student programs](https://www.nsa.gov/Careers/Opportunities-for-Students/), \
+[IntelligenceCareers.gov](https://www.intelligencecareers.gov/) and \
+[CyberCorps Scholarship for Service](https://sfs.opm.gov/).
+
+## Optional
+
+- [Search page]({SITE_URL}): the same rows with filters, for a person
+- [Repository]({REPO_URL}): the README tables, the inclusion rules in CONTRIBUTING.md, \
+and `find_jobs.py`, a search script for an assistant working in a clone
+- [Atom feed]({SITE_URL}feed.xml): the {FEED_SIZE} newest open roles
+- [Submit a missing role]({REPO_URL}/issues/new?template=add-job.yml) or \
+[report a wrong one]({REPO_URL}/issues/new?template=report-listing.yml)
+"""
+
+
 def build(out=DEFAULT_OUT, listings_file=LISTINGS_FILE, src=SITE_SRC, today=None,
           health_file=HEALTH_FILE):
     """Write the whole site to `out`, replacing whatever was there."""
@@ -290,6 +381,7 @@ def build(out=DEFAULT_OUT, listings_file=LISTINGS_FILE, src=SITE_SRC, today=None
     for kind in (None, *TABLE_TYPES):
         name, xml = build_feed(data['rows'], kind)
         (out / name).write_text(xml, encoding='utf-8')
+    (out / 'llms.txt').write_text(build_llms_txt(data), encoding='utf-8')
     return data
 
 

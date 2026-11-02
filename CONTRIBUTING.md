@@ -156,6 +156,7 @@ python .github/scripts/compare_runs.py before.log after.log  # what a change fli
 ## Working with an AI coding agent
 
 [AGENTS.md](AGENTS.md) is the agent-facing map of the repo: who writes which files, how to
-verify a change, and the rules for classifier edits. Two skills under
-[`.claude/skills/`](.claude/skills/) walk an agent through adding a company and through
-repairing a board that stopped returning postings; both work as checklists for humans too.
+verify a change, and the rules for classifier edits. The skills under
+[`.claude/skills/`](.claude/skills/) walk an agent through adding a company, repairing a board
+that stopped returning postings and reviewing a change; they work as checklists for humans
+too. A fourth, find-jobs, is for students: it searches the open roles with `find_jobs.py`.
