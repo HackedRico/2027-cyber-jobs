@@ -7,7 +7,7 @@ change is judged by what a student sees. A wrong row on the board costs more tha
 
 ## Who you are helping
 
-- **A student looking for a role**: run [find-jobs](.claude/skills/find-jobs/SKILL.md). It
+- **A student looking for a role**: run [find-jobs](.agents/skills/find-jobs/SKILL.md). It
   searches the open roles with `find_jobs.py`, and needs nothing below this list.
 - **A contributor with a missed role or a wrong row**: CONTRIBUTING.md states what qualifies,
   and the Add Job and Report a Listing issue forms take it from there. Give them the form link
@@ -126,18 +126,25 @@ Workday job needs the full dry-run timing before merge.
 ## Adding or repairing a board
 
 `companies.yml` carries no comments; the reason for a slug fix or drop goes in the commit
-message. Two skills under `.claude/skills/` hold the procedures, and each ends on a `Checking
+message. Two skills under `.agents/skills/` hold the procedures, and each ends on a `Checking
 <board>... ok (N postings` line as its proof:
 
-- [add-company](.claude/skills/add-company/SKILL.md) takes a careers URL to a verified entry.
-- [triage-board](.claude/skills/triage-board/SKILL.md) takes a failed, regressed or silent
+- [add-company](.agents/skills/add-company/SKILL.md) takes a careers URL to a verified entry.
+- [triage-board](.agents/skills/triage-board/SKILL.md) takes a failed, regressed or silent
   board to a repaired or dropped entry. It holds what each ATS status code means.
 
 ## Reviewing a change
 
-[review-change](.claude/skills/review-change/SKILL.md) is the review procedure: the gates,
+[review-change](.agents/skills/review-change/SKILL.md) is the review procedure: the gates,
 the corpus diff, probes of every new accept path, the live dry run, and a ranked report of
 reproduced findings. Use it for every code review here.
+
+## Skills
+
+A skill lives once, in `.agents/skills/<name>/SKILL.md`, the shared Agent Skills path that
+Codex, Cursor and Gemini CLI read. `.claude/skills` and `.github/skills` link to that
+directory for Claude Code and Copilot's agent, and `test_wiring.py` keeps them links. Add or
+edit a skill under `.agents/skills/` only.
 
 ## Code and test style
 

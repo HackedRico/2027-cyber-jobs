@@ -192,7 +192,7 @@ def render_body(problems, now):
              'The automation that keeps the board current has problems. This issue '
              'updates itself: it gets a comment when the set of problems changes and '
              'closes when they clear. The board repair procedures are in '
-             '`.claude/skills/triage-board`.',
+             '`.agents/skills/triage-board`.',
              '',
              f'Checked {now.strftime("%Y-%m-%d %H:%M UTC")}:',
              '']
