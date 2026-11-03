@@ -15,31 +15,32 @@ Employers with open roles on the board today.
 | Booz Allen Hamilton | 10 |  | 3 |
 | Microsoft | 9 |  | 6 |
 | 1Password | 9 |  |  |
+| American Express | 5 | 4 |  |
 | MITRE | 7 | 1 | 5 |
-| American Express | 4 | 4 |  |
 | Lawrence Livermore National Laboratory | 6 |  |  |
 | Palo Alto Networks | 4 | 1 | 3 |
 | HPE | 3 | 2 | 1 |
-| RTX | 4 |  | 15 |
+| RTX | 4 |  | 16 |
 | Leidos | 4 |  | 8 |
 | Software Engineering Institute | 4 |  | 6 |
 | GuidePoint Security | 4 |  | 1 |
 | Aerospace Corporation | 4 |  |  |
+| BDO | 3 | 1 |  |
 | Intel | 4 |  |  |
+| Northrop Grumman | 1 | 2 | 10 |
 | Idaho National Laboratory | 3 |  | 1 |
-| BDO | 2 | 1 |  |
 | Entrust | 3 |  |  |
 | Federal Reserve System | 3 |  |  |
 | Goldman Sachs | 3 |  |  |
 | HP Inc | 3 |  |  |
 | Palantir | 2 | 1 |  |
 | Tanium | 3 |  |  |
-| Northrop Grumman |  | 2 | 10 |
 | Appian | 1 | 1 | 1 |
 | Cisco | 2 |  | 1 |
 | Citi | 1 | 1 | 1 |
 | Honeywell | 2 |  | 1 |
 | Motorola Solutions | 2 |  | 1 |
+| Two Six Technologies | 2 |  | 1 |
 | Applied Intuition |  | 2 |  |
 | Elevance Health | 2 |  |  |
 | ID.me |  | 2 |  |
@@ -57,7 +58,6 @@ Employers with open roles on the board today.
 | STR | 1 |  | 2 |
 | CACI | 1 |  | 1 |
 | Sierra Nevada Corporation | 1 |  | 1 |
-| Two Six Technologies | 1 |  | 1 |
 | Verkada | 1 |  | 1 |
 | Adobe | 1 |  |  |
 | Bank of America | 1 |  |  |

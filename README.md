@@ -16,7 +16,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**161** internships · **47** new grad · **173** early career open · **47** added in the last 7 days · **179** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 3, 2026
+**165** internships · **47** new grad · **174** early career open · **50** added in the last 7 days · **182** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 3, 2026
 
 <!-- /STATS -->
 
@@ -73,6 +73,9 @@ Cybersecurity internships and co-ops for current students.
 
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
+| American Express | 🆕 Campus Undergraduate Summer Internship Program - 2027 Cybersecurity AI Engineer, Enterprise Technology Services- Phoenix, AZ<br><sub>Security Engineering</sub> | <a href="https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26016065"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: American Express Campus Undergraduate Summer Internship Program - 2027 Cybersecurity AI Engineer, Enterprise Technology Services- Phoenix, AZ"></a> | Phoenix, AZ | Nov 3 |
+| BDO | 🆕 Advisory Intern, Forensics, Claims Recovery - Summer 2027 (Chicago, Dallas, Grand Rapids)<br><sub>Forensics &amp; IR</sub> | <a href="https://ebqb.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BDOEntryLevelCareers/job/13676"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: BDO Advisory Intern, Forensics, Claims Recovery - Summer 2027 (Chicago, Dallas, Grand Rapids)"></a> | <details><summary>**3 locations**</summary>Chicago, IL<br>Dallas, TX<br>Grand Rapids, MI</details> | Nov 3 |
+| Two Six Technologies | 🆕 Security Operations Intern 🇺🇸<br><sub>SOC &amp; Detection</sub> | <a href="https://job-boards.greenhouse.io/twosixtechnologies/jobs/6142957004"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Two Six Technologies Security Operations Intern"></a> | Arlington, VA | Nov 3 |
 | Entrust | 🆕 AI Developer Intern<br><sub>Engineering @ Security Co</sub> | <a href="https://entrust.wd1.myworkdayjobs.com/EntrustCareers/job/United-States---Shakopee-MN-GHQ/AI-Developer-Intern_R004397"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Entrust AI Developer Intern"></a> | Shakopee, MN | Nov 2 |
 | Federal Reserve System | 🆕 2027 Summer Internship Program - Supervision &amp; Regulation (Cybersecurity) 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://rb.wd5.myworkdayjobs.com/FRS/job/Atlanta-GA/XMLNAME-2027-Summer-Internship-Program---Supervision---Regulation--Cybersecurity-_R-0000033866"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Federal Reserve System 2027 Summer Internship Program - Supervision &amp; Regulation (Cybersecurity)"></a> | Atlanta, GA | Nov 2 |
 | KnowBe4 | 🆕 Software Engineer Summer Internship<br><sub>Engineering @ Security Co</sub> | <a href="https://job-boards.greenhouse.io/knowbe4/jobs/8919280002"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: KnowBe4 Software Engineer Summer Internship"></a> | Clearwater, FL | Nov 2 |
@@ -216,6 +219,7 @@ Cybersecurity internships and co-ops for current students.
 | Tanium | Cloud Security Intern<br><sub>Cloud &amp; Infra Security</sub> | <a href="https://job-boards.greenhouse.io/tanium/jobs/8176398"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Tanium Cloud Security Intern"></a> | Durham, NC | Sep 22 |
 | Motorola Solutions | Cyber Security - 2027 Summer Internship (Chicago Hybrid)<br><sub>Security Engineering</sub> | <a href="https://motorolasolutions.wd5.myworkdayjobs.com/Careers/job/Chicago-IL/Cyber-Security---2027-Summer-Internship--Chicago-Hybrid-_R68369"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Motorola Solutions Cyber Security - 2027 Summer Internship (Chicago Hybrid)"></a> | Chicago, IL | Sep 18 |
 | RTX | Internship – Raytheon Systems Security Engineer- Onsite 🇺🇸<br><sub>Cloud &amp; Infra Security</sub> | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MA-WOBURN-WB2--225-Presidential-Way--GODDARD-BLDG/Internship---Raytheon-Systems-Security-Engineer--Onsite_01874703"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: RTX Internship – Raytheon Systems Security Engineer- Onsite"></a> | Woburn, MA | Sep 16 |
+| Northrop Grumman | 2027 Cyber Systems Engineer Intern - Roy UT 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Utah-Roy/XMLNAME-2027-Cyber-Systems-Engineer-Intern---Roy-UT_R10249471"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Northrop Grumman 2027 Cyber Systems Engineer Intern - Roy UT"></a> | Roy, UT | Sep 15 |
 | Walmart | Summer 2027 Intern: Cybersecurity Undergrad<br><sub>Security Engineering</sub> | <a href="https://walmart.wd504.myworkdayjobs.com/WalmartExternal/job/USA-ISD-Office---DGTC-AR-BENTONVILLE-Home-Office/Summer-2027-Intern--Cybersecurity-Undergrad_R-2630025"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Walmart Summer 2027 Intern: Cybersecurity Undergrad"></a> | Bentonville, AR | Sep 15 |
 | ↳ | Summer 2027 Intern: Cybersecurity Masters<br><sub>Security Engineering</sub> | <a href="https://walmart.wd504.myworkdayjobs.com/WalmartExternal/job/USA-ISD-Office---DGTC-AR-BENTONVILLE-Home-Office/Summer-2027-Intern--Cybersecurity-Masters_R-2630026"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Walmart Summer 2027 Intern: Cybersecurity Masters"></a> | Bentonville, AR | Sep 15 |
 | Tanium | Software Engineering Intern – Summer 2027<br><sub>Engineering @ Security Co</sub> | <a href="https://job-boards.greenhouse.io/tanium/jobs/8181017"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Tanium Software Engineering Intern – Summer 2027"></a> | <details><summary>**2 locations**</summary>Durham, NC<br>Emeryville, CA</details> | Sep 10 |
@@ -239,7 +243,7 @@ Cybersecurity internships and co-ops for current students.
 
 <!-- CLOSED_START intern -->
 
-<details><summary>🔒 86 closed in the last 60 days</summary>
+<details><summary>🔒 85 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
@@ -324,7 +328,6 @@ Cybersecurity internships and co-ops for current students.
 | Snowflake | Software Engineer Intern (Core, Infrastructure &amp; Security) — Spring 2027 | Oct 3 |
 | Northrop Grumman | 2027 Intern - Systems Security/Cybersecurity Engineer | Sep 29 |
 | Amazon | Security Engineer Internship – 2027 (US) | Sep 25 |
-| Northrop Grumman | 2027 Cyber Systems Engineer Intern - Roy UT | Sep 22 |
 | Northrop Grumman | 2027 Spring Co-op Cyber Software Engineer Intern - Cincinnati OH | Sep 20 |
 | Duke Energy | Digital Forensics Summer Intern - 2027 | Sep 19 |
 | Nightwing | Software / Hardware Engineering - Intern | Sep 19 |
@@ -493,6 +496,7 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 | Leidos | Tier 2 Security Operations Center (SOC) Analyst 🇺🇸<br><sub>SOC &amp; Detection</sub> | <a href="https://leidos.wd5.myworkdayjobs.com/External/job/Alexandria-VA/Tier-2-Security-Operations-Center--SOC--Analyst_R-00194216"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Leidos Tier 2 Security Operations Center (SOC) Analyst"></a> | Alexandria, VA | Oct 10 |
 | RTX | Systems Security Cyber Engineer II - Contingent (Onsite - Aurora, CO) TS/SCI required 🇺🇸<br><sub>Cloud &amp; Infra Security</sub> | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CO-AURORA-S76--16430-E-Hughes-Dr--BLDG-S76/Systems-Security-Cyber-Engineer-II---Contingent--Onsite---Aurora--CO--TS-SCI-required_01881403"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: RTX Systems Security Cyber Engineer II - Contingent (Onsite - Aurora, CO) TS/SCI required"></a> | Aurora, CO | Oct 10 |
 | ↳ | Embedded Security Software Engineer I (Onsite) 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MA-TEWKSBURY-TB1--50-Apple-Hill-Dr--ASSABET-BLDG/Embedded-Security-Software-Engineer-I--Onsite-_01881440"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: RTX Embedded Security Software Engineer I (Onsite)"></a> | Tewksbury, MA | Oct 10 |
+| ↳ | Embedded Security Software Engineer I (Onsite) 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-EL-SEGUNDO-R01--2000-E-Imperial-Hwy--BLDG-R01/Embedded-Security-Software-Engineer-I--Onsite-_01881355"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: RTX Embedded Security Software Engineer I (Onsite)"></a> | El Segundo, CA | Oct 10 |
 | ↳ | Embedded Security Software Engineer II (Onsite) 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-GOLETA-B01--6825-Cortona-Dr--BLDG-B01/Embedded-Security-Software-Engineer-II--Onsite-_01881383"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: RTX Embedded Security Software Engineer II (Onsite)"></a> | Goleta, CA | Oct 10 |
 | ↳ | Embedded Security Software Engineer II (Onsite) 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-800--1151-E-Hermans-Rd--BLDG-800/Embedded-Security-Software-Engineer-II--Onsite-_01881372"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: RTX Embedded Security Software Engineer II (Onsite)"></a> | Tucson, AZ | Oct 10 |
 | ↳ | Embedded Security Software Engineer II (Onsite) 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-EL-SEGUNDO-R01--2000-E-Imperial-Hwy--BLDG-R01/Embedded-Security-Software--Engineer-II--Onsite-_01881357"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: RTX Embedded Security Software Engineer II (Onsite)"></a> | El Segundo, CA | Oct 10 |
@@ -621,7 +625,7 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 
 <!-- CLOSED_START earlycareer -->
 
-<details><summary>🔒 197 closed in the last 60 days</summary>
+<details><summary>🔒 196 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
@@ -636,7 +640,6 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 | Cisco | Information Security Engineer II (Full-Time) – United States | Nov 1 |
 | Huntress | Sales Engineer II, Mid-Market | Nov 1 |
 | RTX | Software Security Engineer II | Nov 1 |
-| ↳ | Embedded Security Software Engineer I (Onsite) | Nov 1 |
 | ↳ | Embedded Security Software Engineer I (Onsite) | Nov 1 |
 | ↳ | Embedded Software Security Engineer I | Nov 1 |
 | 1Password | Junior Security Engineer | Oct 31 |
