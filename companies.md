@@ -4,15 +4,15 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **404 companies tracked.**
 
-## Hiring students now (114)
+## Hiring students now (112)
 
 Employers with open roles on the board today.
 
 | Company | Internships | New grad | Early career |
 | ------- | ----------- | -------- | ------------ |
 | Johns Hopkins APL | 10 | 15 |  |
-| Booz Allen Hamilton | 17 |  | 3 |
 | Vanguard | 5 | 6 |  |
+| Booz Allen Hamilton | 10 |  | 3 |
 | Microsoft | 9 |  | 6 |
 | 1Password | 9 |  |  |
 | MITRE | 7 | 1 | 5 |
@@ -20,18 +20,18 @@ Employers with open roles on the board today.
 | Lawrence Livermore National Laboratory | 6 |  |  |
 | Palo Alto Networks | 4 | 1 | 3 |
 | HPE | 3 | 2 | 1 |
-| RTX | 4 |  | 16 |
+| RTX | 4 |  | 15 |
 | Leidos | 4 |  | 8 |
 | Software Engineering Institute | 4 |  | 6 |
 | GuidePoint Security | 4 |  | 1 |
 | Aerospace Corporation | 4 |  |  |
-| Federal Reserve System | 4 |  |  |
 | Intel | 4 |  |  |
+| Idaho National Laboratory | 3 |  | 1 |
 | BDO | 2 | 1 |  |
 | Entrust | 3 |  |  |
+| Federal Reserve System | 3 |  |  |
 | Goldman Sachs | 3 |  |  |
 | HP Inc | 3 |  |  |
-| Idaho National Laboratory | 3 |  |  |
 | Palantir | 2 | 1 |  |
 | Tanium | 3 |  |  |
 | Northrop Grumman |  | 2 | 10 |
@@ -62,7 +62,6 @@ Employers with open roles on the board today.
 | Adobe | 1 |  |  |
 | Bank of America | 1 |  |  |
 | Deloitte |  | 1 |  |
-| Duke Energy | 1 |  |  |
 | Exelon | 1 |  |  |
 | Fifth Third | 1 |  |  |
 | Figma | 1 |  |  |
@@ -84,8 +83,8 @@ Employers with open roles on the board today.
 | TRM Labs |  | 1 |  |
 | Wells Fargo | 1 |  |  |
 | Amazon |  |  | 15 |
-| CrowdStrike |  |  | 8 |
 | BAE Systems |  |  | 7 |
+| CrowdStrike |  |  | 7 |
 | Fortinet |  |  | 7 |
 | KBR |  |  | 5 |
 | Amentum |  |  | 4 |
@@ -104,7 +103,6 @@ Employers with open roles on the board today.
 | Corelight |  |  | 1 |
 | Delinea |  |  | 1 |
 | Draper |  |  | 1 |
-| DXC Technology |  |  | 1 |
 | ESET |  |  | 1 |
 | ExtraHop |  |  | 1 |
 | Fireblocks |  |  | 1 |
