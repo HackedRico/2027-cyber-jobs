@@ -15,7 +15,6 @@ Employers with open roles on the board today.
 | Booz Allen Hamilton | 10 |  | 3 |
 | Microsoft | 9 |  | 6 |
 | 1Password | 9 |  |  |
-| American Express | 5 | 4 |  |
 | MITRE | 7 | 1 | 5 |
 | Lawrence Livermore National Laboratory | 6 |  |  |
 | Palo Alto Networks | 4 | 1 | 3 |
@@ -41,6 +40,7 @@ Employers with open roles on the board today.
 | Honeywell | 2 |  | 1 |
 | Motorola Solutions | 2 |  | 1 |
 | Two Six Technologies | 2 |  | 1 |
+| Walmart | 2 |  | 1 |
 | Applied Intuition |  | 2 |  |
 | Elevance Health | 2 |  |  |
 | ID.me |  | 2 |  |
@@ -50,7 +50,6 @@ Employers with open roles on the board today.
 | Qualcomm | 2 |  |  |
 | Together AI | 1 | 1 |  |
 | Visa | 2 |  |  |
-| Walmart | 2 |  |  |
 | Nightwing | 1 |  | 8 |
 | GDIT | 1 |  | 2 |
 | Lockheed Martin | 1 |  | 2 |
@@ -60,6 +59,7 @@ Employers with open roles on the board today.
 | Sierra Nevada Corporation | 1 |  | 1 |
 | Verkada | 1 |  | 1 |
 | Adobe | 1 |  |  |
+| American Express | 1 |  |  |
 | Bank of America | 1 |  |  |
 | Deloitte |  | 1 |  |
 | Exelon | 1 |  |  |
@@ -95,6 +95,7 @@ Employers with open roles on the board today.
 | Fortra |  |  | 2 |
 | PwC |  |  | 2 |
 | Salt Security |  |  | 2 |
+| Socure |  |  | 2 |
 | Trail of Bits |  |  | 2 |
 | Abnormal AI |  |  | 1 |
 | Accenture Federal Services |  |  | 1 |
@@ -118,7 +119,6 @@ Employers with open roles on the board today.
 | SAIC |  |  | 1 |
 | SailPoint |  |  | 1 |
 | Shift5 |  |  | 1 |
-| Socure |  |  | 1 |
 | Tenable |  |  | 1 |
 | The Home Depot |  |  | 1 |
 | Tines |  |  | 1 |

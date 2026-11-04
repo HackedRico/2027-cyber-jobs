@@ -1574,7 +1574,8 @@
     "clearance": false,
     "url": "https://www.pinterestcareers.com/jobs/?gh_jid=8162046",
     "source": "Greenhouse",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "missing_since": "2026-11-04"
   },
   {
     "company": "Two Six Technologies",
@@ -4133,10 +4134,11 @@
     "type": "newgrad",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26013319",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-09-29",
-    "missing_since": "2026-11-01"
+    "closed": true,
+    "closed_date": "2026-11-04"
   },
   {
     "company": "American Express",
@@ -4145,10 +4147,11 @@
     "type": "newgrad",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26013354",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-09-29",
-    "missing_since": "2026-11-01"
+    "closed": true,
+    "closed_date": "2026-11-04"
   },
   {
     "company": "American Express",
@@ -4157,10 +4160,11 @@
     "type": "newgrad",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26013352",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-09-29",
-    "missing_since": "2026-11-01"
+    "closed": true,
+    "closed_date": "2026-11-04"
   },
   {
     "company": "American Express",
@@ -4169,10 +4173,11 @@
     "type": "newgrad",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26013356",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-09-29",
-    "missing_since": "2026-11-01"
+    "closed": true,
+    "closed_date": "2026-11-04"
   },
   {
     "company": "American Express",
@@ -4194,10 +4199,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26011893",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-09-29",
-    "missing_since": "2026-11-01"
+    "closed": true,
+    "closed_date": "2026-11-04"
   },
   {
     "company": "American Express",
@@ -4219,10 +4225,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26011913",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-09-29",
-    "missing_since": "2026-11-01"
+    "closed": true,
+    "closed_date": "2026-11-04"
   },
   {
     "company": "American Express",
@@ -4244,10 +4251,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26012444",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-09-29",
-    "missing_since": "2026-11-01"
+    "closed": true,
+    "closed_date": "2026-11-04"
   },
   {
     "company": "American Express",
@@ -4269,10 +4277,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26012462",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-09-29",
-    "missing_since": "2026-11-01"
+    "closed": true,
+    "closed_date": "2026-11-04"
   },
   {
     "company": "Honeywell",
@@ -4615,7 +4624,8 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-GOLETA-H03--6380-Hollister-Ave--BLDG-H03/Software-Security-Engineer---II--Onsite_01876900",
     "source": "Workday",
-    "date_added": "2026-09-30"
+    "date_added": "2026-09-30",
+    "missing_since": "2026-11-04"
   },
   {
     "company": "Fortinet",
@@ -6784,7 +6794,8 @@
     "clearance": true,
     "url": "https://jobs.smartrecruiters.com/LLNL/3743990016165636",
     "source": "SmartRecruiters",
-    "date_added": "2026-10-16"
+    "date_added": "2026-10-16",
+    "missing_since": "2026-11-04"
   },
   {
     "company": "Lawrence Livermore National Laboratory",
@@ -6795,7 +6806,8 @@
     "clearance": true,
     "url": "https://jobs.smartrecruiters.com/LLNL/3743990016165586",
     "source": "SmartRecruiters",
-    "date_added": "2026-10-16"
+    "date_added": "2026-10-16",
+    "missing_since": "2026-11-04"
   },
   {
     "company": "Lawrence Livermore National Laboratory",
@@ -6839,7 +6851,8 @@
     "clearance": true,
     "url": "https://jobs.smartrecruiters.com/LLNL/3743990016164366",
     "source": "SmartRecruiters",
-    "date_added": "2026-10-16"
+    "date_added": "2026-10-16",
+    "missing_since": "2026-11-04"
   },
   {
     "company": "CrowdStrike",
@@ -8326,5 +8339,27 @@
     "url": "https://ebqb.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BDOEntryLevelCareers/job/13676",
     "source": "Oracle",
     "date_added": "2026-11-03"
+  },
+  {
+    "company": "Socure",
+    "role": "Associate Solution Consultant, SLED",
+    "location": "Hub - San Francisco; Remote, CA; Remote, CO",
+    "type": "earlycareer",
+    "category": "Solutions Architecture",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/socure/7a5e6026-eb48-4b5b-937e-3319259cd023",
+    "source": "Ashby",
+    "date_added": "2026-11-04"
+  },
+  {
+    "company": "Walmart",
+    "role": "(USA) Software Engineer II, Information Security",
+    "location": "Bentonville, AR",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://walmart.wd504.myworkdayjobs.com/WalmartExternal/job/USA-ISD-Office---DGTC-AR-BENTONVILLE-Home-Office/XMLNAME--USA--Software-Engineer-II--Information-Security_R-2696019-1",
+    "source": "Workday",
+    "date_added": "2026-11-04"
   }
 ]
