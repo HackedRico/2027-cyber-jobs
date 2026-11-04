@@ -16,7 +16,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**161** internships · **43** new grad · **176** early career open · **41** added in the last 7 days · **182** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 4, 2026
+**162** internships · **44** new grad · **176** early career open · **42** added in the last 7 days · **183** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 4, 2026
 
 <!-- /STATS -->
 
@@ -73,6 +73,7 @@ Cybersecurity internships and co-ops for current students.
 
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
+| Northrop Grumman | 🆕 2027 Cybersecurity Software Engineering Intern - Roy UT 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Utah-Clearfield/XMLNAME-2027-Cybersecurity-Software-Engineering-Intern---Roy-UT_R10259177"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Northrop Grumman 2027 Cybersecurity Software Engineering Intern - Roy UT"></a> | Clearfield, UT | Nov 4 |
 | American Express | 🆕 Campus Undergraduate Summer Internship Program - 2027 Cybersecurity AI Engineer, Enterprise Technology Services- Phoenix, AZ<br><sub>Security Engineering</sub> | <a href="https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26016065"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: American Express Campus Undergraduate Summer Internship Program - 2027 Cybersecurity AI Engineer, Enterprise Technology Services- Phoenix, AZ"></a> | Phoenix, AZ | Nov 3 |
 | BDO | 🆕 Advisory Intern, Forensics, Claims Recovery - Summer 2027 (Chicago, Dallas, Grand Rapids)<br><sub>Forensics &amp; IR</sub> | <a href="https://ebqb.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BDOEntryLevelCareers/job/13676"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: BDO Advisory Intern, Forensics, Claims Recovery - Summer 2027 (Chicago, Dallas, Grand Rapids)"></a> | <details><summary>**3 locations**</summary>Chicago, IL<br>Dallas, TX<br>Grand Rapids, MI</details> | Nov 3 |
 | Two Six Technologies | 🆕 Security Operations Intern 🇺🇸<br><sub>SOC &amp; Detection</sub> | <a href="https://job-boards.greenhouse.io/twosixtechnologies/jobs/6142957004"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Two Six Technologies Security Operations Intern"></a> | Arlington, VA | Nov 3 |
@@ -347,6 +348,7 @@ Full-time roles and rotational programs for students in their final year or just
 
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
+| McKesson | 🆕 Graduate Cyber Security Analyst (Cyber Academy)<br><sub>Security Engineering</sub> | <a href="https://mckesson.wd3.myworkdayjobs.com/External_Careers/job/USA-TX-Irving/Graduate-Cyber-Security-Analyst--Cyber-Academy-_JR0155879"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: McKesson Graduate Cyber Security Analyst (Cyber Academy)"></a> | Irving, TX | Nov 4 |
 | Guidehouse | 🆕 Consultant - Defense &amp; Security - IT Controls - Campus 2027 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://guidehouse.wd1.myworkdayjobs.com/External/job/US---VA-McLean/Consultant---Defense---Security---IT-Controls---Campus-2027_46116-1"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Guidehouse Consultant - Defense &amp; Security - IT Controls - Campus 2027"></a> | McLean, VA | Nov 2 |
 | Northrop Grumman | 🆕 2027 Associate Cyber Software Engineer - Pathways Program - Aurora CO 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Colorado-Aurora/XMLNAME-2027-Associate-Cyber-Software-Engineer---Pathways-Program---Aurora-CO_R10258279"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Northrop Grumman 2027 Associate Cyber Software Engineer - Pathways Program - Aurora CO"></a> | Aurora, CO | Oct 29 |
 | Johns Hopkins APL | 🆕 2027 Graduate - Cyber Engineer/Scientist - Resilient Military Systems 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://careers.jhuapl.edu/jobs/59353"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Johns Hopkins APL 2027 Graduate - Cyber Engineer/Scientist - Resilient Military Systems"></a> | Laurel, MD | Oct 28 |
@@ -446,7 +448,6 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
-| Socure | 🆕 Associate Solution Consultant, SLED<br><sub>Solutions Architecture</sub> | <a href="https://jobs.ashbyhq.com/socure/7a5e6026-eb48-4b5b-937e-3319259cd023"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Socure Associate Solution Consultant, SLED"></a> | <details><summary>**3 locations**</summary>Hub - San Francisco<br>Remote, CA<br>Remote, CO</details> | Nov 4 |
 | Walmart | 🆕 (USA) Software Engineer II, Information Security<br><sub>Security Engineering</sub> | <a href="https://walmart.wd504.myworkdayjobs.com/WalmartExternal/job/USA-ISD-Office---DGTC-AR-BENTONVILLE-Home-Office/XMLNAME--USA--Software-Engineer-II--Information-Security_R-2696019-1"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Walmart (USA) Software Engineer II, Information Security"></a> | Bentonville, AR | Nov 4 |
 | Idaho National Laboratory | 🆕 Safeguards Materials Management Specialist 🇺🇸<br><sub>AI Security &amp; Safety</sub> | <a href="https://elhe.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/2272"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Idaho National Laboratory Safeguards Materials Management Specialist"></a> | Idaho Falls, ID | Nov 3 |
 | BAE Systems | 🆕 Cyber Analyst II – ISSO 🇺🇸<br><sub>GRC &amp; Risk</sub> | <a href="https://jobs.baesystems.com/global/en/job/131787BR"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: BAE Systems Cyber Analyst II – ISSO"></a> | Westminster, CO | Nov 2 |
@@ -486,6 +487,7 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 | Honeywell | Cyber Security Engineer I-Penetration Tester 🇺🇸<br><sub>Offensive Security</sub> | <a href="https://ibqbjb.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/160406"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Honeywell Cyber Security Engineer I-Penetration Tester"></a> | Plymouth, MN | Oct 21 |
 | Fortinet | Early Careers: Software Development Engineer<br><sub>Engineering @ Security Co</sub> | <a href="https://edel.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/24668"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Fortinet Early Careers: Software Development Engineer"></a> | Sunnyvale, CA | Oct 20 |
 | Fortra | Associate Solutions Engineer<br><sub>Solutions Architecture</sub> | <a href="https://fortra.wd12.myworkdayjobs.com/FortraCareers/job/United-States/Associate-Solutions-Engineer_R26-0421"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Fortra Associate Solutions Engineer"></a> | <details><summary>**8 locations**</summary>United States<br>TX (US)<br>GA (US)<br>CT (US)<br>UT (US)<br>NY (US)<br>NJ (US)<br>AZ (US)</details> | Oct 20 |
+| JPMorgan Chase | Security Engineer II -Python Developer<br><sub>Security Engineering</sub> | <a href="https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210799827"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: JPMorgan Chase Security Engineer II -Python Developer"></a> | Jersey City, NJ | Oct 20 |
 | Shift5 | Junior Data Solutions Architect 🇺🇸<br><sub>Solutions Architecture</sub> | <a href="https://job-boards.greenhouse.io/shift5/jobs/6228485004"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Shift5 Junior Data Solutions Architect"></a> | Rosslyn, VA or Remote | Oct 20 |
 | CrowdStrike | Software Engineer II - Engine Team, LogScale (Hybrid) 🇺🇸<br><sub>Engineering @ Security Co</sub> | <a href="https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Austin-TX/Software-Engineer-II---Engine-Team--LogScale--Hybrid-_R30387"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: CrowdStrike Software Engineer II - Engine Team, LogScale (Hybrid)"></a> | Austin, TX | Oct 19 |
 | BAE Systems | Cyber Analyst II - ISSO 🇺🇸<br><sub>GRC &amp; Risk</sub> | <a href="https://jobs.baesystems.com/global/en/job/131570BR"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: BAE Systems Cyber Analyst II - ISSO"></a> | <details><summary>**2 locations**</summary>Broomfield, CO<br>Boulder, CO</details> | Oct 17 |
@@ -627,7 +629,7 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 
 <!-- CLOSED_START earlycareer -->
 
-<details><summary>🔒 196 closed in the last 60 days</summary>
+<details><summary>🔒 195 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
@@ -672,7 +674,6 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 | Amentum | Cyber Security Analyst 1 | Oct 25 |
 | Chainalysis | Software Engineer II, Gov Systems | Oct 25 |
 | Rapid7 | Security Operations Analyst II | Oct 25 |
-| JPMorgan Chase | Security Engineer II -Python Developer | Oct 24 |
 | Northrop Grumman | Sentinel - Associate / Systems Engineer - STPA - SEC - Systems Security | Oct 24 |
 | Fannie Mae | Jr. Cloud Automation Engineer | Oct 23 |
 | State Street | Junior SIEM Data Engineer | Oct 23 |

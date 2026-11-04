@@ -801,7 +801,8 @@
     "clearance": false,
     "url": "https://mastercard.wd1.myworkdayjobs.com/CorporateCareers/job/OFallon-Missouri/Corporate-Security-Operations-Analyst-II_R-292111-1",
     "source": "Workday",
-    "date_added": "2026-07-21"
+    "date_added": "2026-07-21",
+    "missing_since": "2026-11-04"
   },
   {
     "company": "Optiv",
@@ -3415,7 +3416,8 @@
     "clearance": true,
     "url": "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Suffolk-VA/Cyber-Technical-Specialist--Junior_R0249897",
     "source": "Workday",
-    "date_added": "2026-09-28"
+    "date_added": "2026-09-28",
+    "missing_since": "2026-11-04"
   },
   {
     "company": "Booz Allen Hamilton",
@@ -3681,7 +3683,8 @@
     "clearance": true,
     "url": "https://draper.wd5.myworkdayjobs.com/Draper_Careers/job/Cambridge-MA/IS-Security-Officer-2_JR002755",
     "source": "Workday",
-    "date_added": "2026-09-28"
+    "date_added": "2026-09-28",
+    "missing_since": "2026-11-04"
   },
   {
     "company": "KBR",
@@ -4068,7 +4071,8 @@
     "clearance": false,
     "url": "https://cmu.wd115.myworkdayjobs.com/SEI/job/Pittsburgh-PA/AI-Security-Research-Intern---Sept-2026---May-2027-_2025068-2",
     "source": "Workday",
-    "date_added": "2026-09-29"
+    "date_added": "2026-09-29",
+    "missing_since": "2026-11-04"
   },
   {
     "company": "Software Engineering Institute",
@@ -6453,7 +6457,8 @@
     "clearance": true,
     "url": "https://careers.mitre.org/us/en/job/R117487",
     "source": "Phenom",
-    "date_added": "2026-10-10"
+    "date_added": "2026-10-10",
+    "missing_since": "2026-11-04"
   },
   {
     "company": "Johns Hopkins APL",
@@ -6818,7 +6823,8 @@
     "clearance": true,
     "url": "https://jobs.smartrecruiters.com/LLNL/3743990016165506",
     "source": "SmartRecruiters",
-    "date_added": "2026-10-16"
+    "date_added": "2026-10-16",
+    "missing_since": "2026-11-04"
   },
   {
     "company": "Lawrence Livermore National Laboratory",
@@ -6829,7 +6835,8 @@
     "clearance": true,
     "url": "https://jobs.smartrecruiters.com/LLNL/3743990016165496",
     "source": "SmartRecruiters",
-    "date_added": "2026-10-16"
+    "date_added": "2026-10-16",
+    "missing_since": "2026-11-04"
   },
   {
     "company": "Lawrence Livermore National Laboratory",
@@ -6840,7 +6847,8 @@
     "clearance": true,
     "url": "https://jobs.smartrecruiters.com/LLNL/3743990016164416",
     "source": "SmartRecruiters",
-    "date_added": "2026-10-16"
+    "date_added": "2026-10-16",
+    "missing_since": "2026-11-04"
   },
   {
     "company": "Lawrence Livermore National Laboratory",
@@ -7158,11 +7166,9 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "",
+    "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210799827",
     "source": "Oracle",
-    "date_added": "2026-10-20",
-    "closed": true,
-    "closed_date": "2026-10-24"
+    "date_added": "2026-10-20"
   },
   {
     "company": "Fortinet",
@@ -7454,7 +7460,8 @@
     "clearance": true,
     "url": "https://gdit.wd5.myworkdayjobs.com/External_Career_Site/job/USA-LA-Bossier-City/Tier-I-Security-Operations-Center--SOC--Analyst_RQ230985-2",
     "source": "Workday",
-    "date_added": "2026-10-22"
+    "date_added": "2026-10-22",
+    "missing_since": "2026-11-04"
   },
   {
     "company": "Salt Security",
@@ -7792,7 +7799,8 @@
     "clearance": false,
     "url": "https://pwc.wd3.myworkdayjobs.com/US_Experienced_Careers/job/FL-Tampa/Cyber-Defense---Resilience---Incident-Response---Experienced-Associate_770111WD",
     "source": "Workday",
-    "date_added": "2026-10-27"
+    "date_added": "2026-10-27",
+    "missing_since": "2026-11-04"
   },
   {
     "company": "Fortinet",
@@ -8071,7 +8079,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Colorado-Aurora/XMLNAME-2027-Associate-Cyber-Software-Engineer---Pathways-Program---Aurora-CO_R10258279",
     "source": "Workday",
-    "date_added": "2026-10-29"
+    "date_added": "2026-10-29",
+    "missing_since": "2026-11-04"
   },
   {
     "company": "RTX",
@@ -8138,7 +8147,8 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-EL-SEGUNDO-E01--2000-E-El-Segundo-Blvd--BLDG-E01/Software-Security-Engineer-II_01886280",
     "source": "Workday",
-    "date_added": "2026-10-30"
+    "date_added": "2026-10-30",
+    "missing_since": "2026-11-04"
   },
   {
     "company": "RTX",
@@ -8183,8 +8193,7 @@
     "clearance": true,
     "url": "https://guidehouse.wd1.myworkdayjobs.com/External/job/US---VA-McLean/Consultant---Defense---Security---IT-Controls---Campus-2027_46116-1",
     "source": "Workday",
-    "date_added": "2026-11-02",
-    "missing_since": "2026-11-03"
+    "date_added": "2026-11-02"
   },
   {
     "company": "STR",
@@ -8341,17 +8350,6 @@
     "date_added": "2026-11-03"
   },
   {
-    "company": "Socure",
-    "role": "Associate Solution Consultant, SLED",
-    "location": "Hub - San Francisco; Remote, CA; Remote, CO",
-    "type": "earlycareer",
-    "category": "Solutions Architecture",
-    "clearance": false,
-    "url": "https://jobs.ashbyhq.com/socure/7a5e6026-eb48-4b5b-937e-3319259cd023",
-    "source": "Ashby",
-    "date_added": "2026-11-04"
-  },
-  {
     "company": "Walmart",
     "role": "(USA) Software Engineer II, Information Security",
     "location": "Bentonville, AR",
@@ -8359,6 +8357,28 @@
     "category": "Security Engineering",
     "clearance": false,
     "url": "https://walmart.wd504.myworkdayjobs.com/WalmartExternal/job/USA-ISD-Office---DGTC-AR-BENTONVILLE-Home-Office/XMLNAME--USA--Software-Engineer-II--Information-Security_R-2696019-1",
+    "source": "Workday",
+    "date_added": "2026-11-04"
+  },
+  {
+    "company": "Northrop Grumman",
+    "role": "2027 Cybersecurity Software Engineering Intern - Roy UT",
+    "location": "Clearfield, UT",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Utah-Clearfield/XMLNAME-2027-Cybersecurity-Software-Engineering-Intern---Roy-UT_R10259177",
+    "source": "Workday",
+    "date_added": "2026-11-04"
+  },
+  {
+    "company": "McKesson",
+    "role": "Graduate Cyber Security Analyst (Cyber Academy)",
+    "location": "Irving, TX",
+    "type": "newgrad",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://mckesson.wd3.myworkdayjobs.com/External_Careers/job/USA-TX-Irving/Graduate-Cyber-Security-Analyst--Cyber-Academy-_JR0155879",
     "source": "Workday",
     "date_added": "2026-11-04"
   }

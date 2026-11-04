@@ -4,7 +4,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **404 companies tracked.**
 
-## Hiring students now (112)
+## Hiring students now (113)
 
 Employers with open roles on the board today.
 
@@ -20,13 +20,13 @@ Employers with open roles on the board today.
 | Palo Alto Networks | 4 | 1 | 3 |
 | HPE | 3 | 2 | 1 |
 | RTX | 4 |  | 16 |
+| Northrop Grumman | 2 | 2 | 10 |
 | Leidos | 4 |  | 8 |
 | Software Engineering Institute | 4 |  | 6 |
 | GuidePoint Security | 4 |  | 1 |
 | Aerospace Corporation | 4 |  |  |
 | BDO | 3 | 1 |  |
 | Intel | 4 |  |  |
-| Northrop Grumman | 1 | 2 | 10 |
 | Idaho National Laboratory | 3 |  | 1 |
 | Entrust | 3 |  |  |
 | Federal Reserve System | 3 |  |  |
@@ -72,6 +72,7 @@ Employers with open roles on the board today.
 | KeyBank |  | 1 |  |
 | KnowBe4 | 1 |  |  |
 | Lumen | 1 |  |  |
+| McKesson |  | 1 |  |
 | OPSWAT | 1 |  |  |
 | Prophet Security | 1 |  |  |
 | Rubrik |  | 1 |  |
@@ -93,9 +94,9 @@ Employers with open roles on the board today.
 | Battelle |  |  | 2 |
 | Boeing |  |  | 2 |
 | Fortra |  |  | 2 |
+| JPMorgan Chase |  |  | 2 |
 | PwC |  |  | 2 |
 | Salt Security |  |  | 2 |
-| Socure |  |  | 2 |
 | Trail of Bits |  |  | 2 |
 | Abnormal AI |  |  | 1 |
 | Accenture Federal Services |  |  | 1 |
@@ -109,7 +110,6 @@ Employers with open roles on the board today.
 | Fireblocks |  |  | 1 |
 | HII |  |  | 1 |
 | Instacart |  |  | 1 |
-| JPMorgan Chase |  |  | 1 |
 | Mastercard |  |  | 1 |
 | MIT Lincoln Laboratory |  |  | 1 |
 | Obsidian Security |  |  | 1 |
@@ -119,6 +119,7 @@ Employers with open roles on the board today.
 | SAIC |  |  | 1 |
 | SailPoint |  |  | 1 |
 | Shift5 |  |  | 1 |
+| Socure |  |  | 1 |
 | Tenable |  |  | 1 |
 | The Home Depot |  |  | 1 |
 | Tines |  |  | 1 |
