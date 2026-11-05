@@ -4,7 +4,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **404 companies tracked.**
 
-## Hiring students now (113)
+## Hiring students now (110)
 
 Employers with open roles on the board today.
 
@@ -14,7 +14,6 @@ Employers with open roles on the board today.
 | Vanguard | 5 | 6 |  |
 | Booz Allen Hamilton | 10 |  | 3 |
 | Microsoft | 9 |  | 6 |
-| 1Password | 9 |  |  |
 | MITRE | 7 | 1 | 5 |
 | Lawrence Livermore National Laboratory | 6 |  |  |
 | Palo Alto Networks | 4 | 1 | 3 |
@@ -22,12 +21,11 @@ Employers with open roles on the board today.
 | RTX | 4 |  | 16 |
 | Northrop Grumman | 2 | 2 | 10 |
 | Leidos | 4 |  | 8 |
-| Software Engineering Institute | 4 |  | 6 |
-| GuidePoint Security | 4 |  | 1 |
 | Aerospace Corporation | 4 |  |  |
 | BDO | 3 | 1 |  |
 | Intel | 4 |  |  |
-| Idaho National Laboratory | 3 |  | 1 |
+| Software Engineering Institute | 3 |  | 6 |
+| GuidePoint Security | 3 |  | 1 |
 | Entrust | 3 |  |  |
 | Federal Reserve System | 3 |  |  |
 | Goldman Sachs | 3 |  |  |
@@ -35,9 +33,9 @@ Employers with open roles on the board today.
 | Palantir | 2 | 1 |  |
 | Tanium | 3 |  |  |
 | Appian | 1 | 1 | 1 |
-| Cisco | 2 |  | 1 |
 | Citi | 1 | 1 | 1 |
 | Honeywell | 2 |  | 1 |
+| Idaho National Laboratory | 2 |  | 1 |
 | Motorola Solutions | 2 |  | 1 |
 | Two Six Technologies | 2 |  | 1 |
 | Walmart | 2 |  | 1 |
@@ -51,6 +49,7 @@ Employers with open roles on the board today.
 | Together AI | 1 | 1 |  |
 | Visa | 2 |  |  |
 | Nightwing | 1 |  | 8 |
+| Cisco | 1 |  | 2 |
 | GDIT | 1 |  | 2 |
 | Lockheed Martin | 1 |  | 2 |
 | Pinterest | 1 |  | 2 |
@@ -58,12 +57,11 @@ Employers with open roles on the board today.
 | CACI | 1 |  | 1 |
 | Sierra Nevada Corporation | 1 |  | 1 |
 | Verkada | 1 |  | 1 |
+| 1Password | 1 |  |  |
 | Adobe | 1 |  |  |
 | American Express | 1 |  |  |
 | Bank of America | 1 |  |  |
 | Deloitte |  | 1 |  |
-| Exelon | 1 |  |  |
-| Fifth Third | 1 |  |  |
 | Figma | 1 |  |  |
 | Grant Thornton |  | 1 |  |
 | Guidehouse |  | 1 |  |
@@ -83,7 +81,7 @@ Employers with open roles on the board today.
 | Trace3 | 1 |  |  |
 | TRM Labs |  | 1 |  |
 | Wells Fargo | 1 |  |  |
-| Amazon |  |  | 15 |
+| Amazon |  |  | 16 |
 | BAE Systems |  |  | 7 |
 | CrowdStrike |  |  | 7 |
 | Fortinet |  |  | 7 |
@@ -95,11 +93,11 @@ Employers with open roles on the board today.
 | Boeing |  |  | 2 |
 | Fortra |  |  | 2 |
 | JPMorgan Chase |  |  | 2 |
+| Proofpoint |  |  | 2 |
 | PwC |  |  | 2 |
 | Salt Security |  |  | 2 |
 | Trail of Bits |  |  | 2 |
 | Abnormal AI |  |  | 1 |
-| Accenture Federal Services |  |  | 1 |
 | AeroVironment |  |  | 1 |
 | Anthropic |  |  | 1 |
 | Corelight |  |  | 1 |
@@ -114,7 +112,6 @@ Employers with open roles on the board today.
 | MIT Lincoln Laboratory |  |  | 1 |
 | Obsidian Security |  |  | 1 |
 | Praetorian |  |  | 1 |
-| Proofpoint |  |  | 1 |
 | ReliaQuest |  |  | 1 |
 | SAIC |  |  | 1 |
 | SailPoint |  |  | 1 |

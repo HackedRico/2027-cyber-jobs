@@ -1564,7 +1564,8 @@
     "clearance": false,
     "url": "https://www.fireblocks.com/careers/position?gh_jid=4704413006",
     "source": "Greenhouse",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "missing_since": "2026-11-05"
   },
   {
     "company": "Pinterest",
@@ -1731,10 +1732,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/RTP-North-Carolina-US/Security-Consulting-Engineer-I--Intern----United-States_2024817",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-05",
-    "missing_since": "2026-11-02"
+    "closed": true,
+    "closed_date": "2026-11-05"
   },
   {
     "company": "Leidos",
@@ -2666,10 +2668,9 @@
     "type": "earlycareer",
     "category": "SOC & Detection",
     "clearance": false,
-    "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Associate-Analyst--Falcon-Complete_R30082",
+    "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Analyst-I--Falcon-Complete--Remote--PST-MST-_R30575",
     "source": "Workday",
-    "date_added": "2026-09-16",
-    "missing_since": "2026-11-02"
+    "date_added": "2026-09-16"
   },
   {
     "company": "CrowdStrike",
@@ -3391,10 +3392,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://boards.greenhouse.io/guidepointsecurity/jobs/6148707004?gh_jid=6148707004",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-09-28",
-    "missing_since": "2026-11-02"
+    "closed": true,
+    "closed_date": "2026-11-05"
   },
   {
     "company": "STR",
@@ -4338,10 +4340,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://jobs.exeloncorp.com/jobs/30147",
+    "url": "",
     "source": "Jibe",
     "date_added": "2026-09-29",
-    "missing_since": "2026-11-02"
+    "closed": true,
+    "closed_date": "2026-11-05"
   },
   {
     "company": "Johns Hopkins APL",
@@ -5070,10 +5073,11 @@
     "type": "earlycareer",
     "category": "Cloud Engineering",
     "clearance": true,
-    "url": "https://boards.greenhouse.io/accenturefederalservices/jobs/4688938006?gh_jid=4688938006",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-10-03",
-    "missing_since": "2026-11-02"
+    "closed": true,
+    "closed_date": "2026-11-05"
   },
   {
     "company": "Applied Intuition",
@@ -6057,7 +6061,8 @@
     "clearance": false,
     "url": "https://paloaltonetworks.wd5.myworkdayjobs.com/panwexternalcareers/job/Cleveland-United-States-of-America/Solutions-Consultant-2---Strategic-Accounts_JR-023272-1",
     "source": "Workday",
-    "date_added": "2026-10-08"
+    "date_added": "2026-10-08",
+    "missing_since": "2026-11-05"
   },
   {
     "company": "Proofpoint",
@@ -6407,10 +6412,11 @@
     "type": "intern",
     "category": "AI Security & Safety",
     "clearance": false,
-    "url": "https://cmu.wd115.myworkdayjobs.com/SEI/job/Pittsburgh-PA/AI-Security-Research-Intern---Summer-2027_2025199-1",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-10",
-    "missing_since": "2026-11-02"
+    "closed": true,
+    "closed_date": "2026-11-05"
   },
   {
     "company": "USAA",
@@ -6932,7 +6938,8 @@
     "clearance": false,
     "url": "https://job-boards.greenhouse.io/togetherai/jobs/5238469007",
     "source": "Greenhouse",
-    "date_added": "2026-10-16"
+    "date_added": "2026-10-16",
+    "missing_since": "2026-11-05"
   },
   {
     "company": "Together AI",
@@ -6943,7 +6950,8 @@
     "clearance": false,
     "url": "https://job-boards.greenhouse.io/togetherai/jobs/5238471007",
     "source": "Greenhouse",
-    "date_added": "2026-10-16"
+    "date_added": "2026-10-16",
+    "missing_since": "2026-11-05"
   },
   {
     "company": "Leidos",
@@ -7341,7 +7349,8 @@
     "clearance": false,
     "url": "https://www.amazon.jobs/en/jobs/10585501/security-engineer-i-aws-proactive-security-team",
     "source": "Amazon Jobs",
-    "date_added": "2026-10-22"
+    "date_added": "2026-10-22",
+    "missing_since": "2026-11-05"
   },
   {
     "company": "Amazon",
@@ -7374,10 +7383,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://jobs.ashbyhq.com/1password/8af1359a-c8a2-492b-b567-ae8ae184a8a1",
+    "url": "",
     "source": "Ashby",
     "date_added": "2026-10-22",
-    "missing_since": "2026-11-02"
+    "closed": true,
+    "closed_date": "2026-11-05"
   },
   {
     "company": "1Password",
@@ -7386,10 +7396,11 @@
     "type": "intern",
     "category": "Identity & IAM",
     "clearance": false,
-    "url": "https://jobs.ashbyhq.com/1password/6a6869a7-98d2-43e3-b9b5-b68fa4daeb9f",
+    "url": "",
     "source": "Ashby",
     "date_added": "2026-10-22",
-    "missing_since": "2026-11-02"
+    "closed": true,
+    "closed_date": "2026-11-05"
   },
   {
     "company": "1Password",
@@ -7398,10 +7409,11 @@
     "type": "intern",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://jobs.ashbyhq.com/1password/b2726ac7-dd0d-42f3-93a5-139e18c90779",
+    "url": "",
     "source": "Ashby",
     "date_added": "2026-10-22",
-    "missing_since": "2026-11-02"
+    "closed": true,
+    "closed_date": "2026-11-05"
   },
   {
     "company": "1Password",
@@ -7421,10 +7433,11 @@
     "type": "intern",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://jobs.ashbyhq.com/1password/c5289ef1-e919-4672-85c5-ee3112f9ddb9",
+    "url": "",
     "source": "Ashby",
     "date_added": "2026-10-22",
-    "missing_since": "2026-11-02"
+    "closed": true,
+    "closed_date": "2026-11-05"
   },
   {
     "company": "1Password",
@@ -7433,10 +7446,11 @@
     "type": "intern",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://jobs.ashbyhq.com/1password/71a3afd1-12b3-4f55-a3bd-fc4e7c46ee37",
+    "url": "",
     "source": "Ashby",
     "date_added": "2026-10-22",
-    "missing_since": "2026-11-02"
+    "closed": true,
+    "closed_date": "2026-11-05"
   },
   {
     "company": "Booz Allen Hamilton",
@@ -7481,10 +7495,11 @@
     "type": "intern",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://jobs.ashbyhq.com/1password/7f1732a6-5317-4319-82b9-67c62e88d491",
+    "url": "",
     "source": "Ashby",
     "date_added": "2026-10-23",
-    "missing_since": "2026-11-02"
+    "closed": true,
+    "closed_date": "2026-11-05"
   },
   {
     "company": "Northrop Grumman",
@@ -7517,10 +7532,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://elhe.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1002/job/2242",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-10-23",
-    "missing_since": "2026-11-02"
+    "closed": true,
+    "closed_date": "2026-11-05"
   },
   {
     "company": "Lockheed Martin",
@@ -7551,10 +7567,11 @@
     "type": "intern",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://jobs.ashbyhq.com/1password/67bfbd8b-aba9-42b1-a8a8-833367888fba",
+    "url": "",
     "source": "Ashby",
     "date_added": "2026-10-23",
-    "missing_since": "2026-11-02"
+    "closed": true,
+    "closed_date": "2026-11-05"
   },
   {
     "company": "1Password",
@@ -7563,10 +7580,11 @@
     "type": "intern",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://jobs.ashbyhq.com/1password/00f861d4-2b4a-4159-b6dc-8aed0cde6e39",
+    "url": "",
     "source": "Ashby",
     "date_added": "2026-10-23",
-    "missing_since": "2026-11-02"
+    "closed": true,
+    "closed_date": "2026-11-05"
   },
   {
     "company": "Amentum",
@@ -7875,10 +7893,11 @@
     "type": "intern",
     "category": "GRC & Risk",
     "clearance": false,
-    "url": "https://fifththird.wd5.myworkdayjobs.com/53careers/job/Cincinnati-OH/IT-Audit-Co-op---Spring-2027_R74518",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-27",
-    "missing_since": "2026-11-02"
+    "closed": true,
+    "closed_date": "2026-11-05"
   },
   {
     "company": "BAE Systems",
@@ -8381,5 +8400,38 @@
     "url": "https://mckesson.wd3.myworkdayjobs.com/External_Careers/job/USA-TX-Irving/Graduate-Cyber-Security-Analyst--Cyber-Academy-_JR0155879",
     "source": "Workday",
     "date_added": "2026-11-04"
+  },
+  {
+    "company": "Cisco",
+    "role": "Cloud Engineer II (Full Time) - United States",
+    "location": "Milpitas, CA",
+    "type": "earlycareer",
+    "category": "Cloud Engineering",
+    "clearance": false,
+    "url": "https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/Milpitas-California-US/Cloud-Engineer_2018124",
+    "source": "Workday",
+    "date_added": "2026-11-05"
+  },
+  {
+    "company": "Proofpoint",
+    "role": "Associate Triage Analyst",
+    "location": "CO (US)",
+    "type": "earlycareer",
+    "category": "SOC & Detection",
+    "clearance": false,
+    "url": "https://proofpoint.wd5.myworkdayjobs.com/proofpointcareers/job/Colorado/Associate-Triage-Analyst_R14848-1",
+    "source": "Workday",
+    "date_added": "2026-11-05"
+  },
+  {
+    "company": "Amazon",
+    "role": "Software Dev Engineer I, Security Platform",
+    "location": "San Francisco, CA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10597112/software-dev-engineer-i-security-platform",
+    "source": "Amazon Jobs",
+    "date_added": "2026-11-05"
   }
 ]
