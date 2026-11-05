@@ -16,7 +16,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**148** internships · **44** new grad · **178** early career open · **37** added in the last 7 days · **182** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 5, 2026
+**152** internships · **45** new grad · **178** early career open · **40** added in the last 7 days · **185** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 5, 2026
 
 <!-- /STATS -->
 
@@ -73,6 +73,8 @@ Cybersecurity internships and co-ops for current students.
 
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
+| Federal Reserve System | 🆕 2027 Summer Internship Program - Information Security Intern<br><sub>Security Engineering</sub> | <a href="https://rb.wd5.myworkdayjobs.com/FRS/job/Atlanta-GA/XMLNAME-2027-Summer-Internship-Program---Information-Security-Intern_R-0000033910"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Federal Reserve System 2027 Summer Internship Program - Information Security Intern"></a> | Atlanta, GA | Nov 5 |
+| PayPal | 🆕 Cybersecurity Intern - Summer 2027<br><sub>Security Engineering</sub> | <a href="https://paypal.wd1.myworkdayjobs.com/jobs/job/San-Jose-California-United-States-of-America/Cybersecurity-Intern---Summer-2027_R0138587"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: PayPal Cybersecurity Intern - Summer 2027"></a> | <details><summary>**4 locations**</summary>San Jose, CA<br>Chicago, IL<br>Scottsdale, AZ<br>Austin, TX</details> | Nov 5 |
 | Northrop Grumman | 🆕 2027 Cybersecurity Software Engineering Intern - Roy UT 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Utah-Clearfield/XMLNAME-2027-Cybersecurity-Software-Engineering-Intern---Roy-UT_R10259177"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Northrop Grumman 2027 Cybersecurity Software Engineering Intern - Roy UT"></a> | Clearfield, UT | Nov 4 |
 | American Express | 🆕 Campus Undergraduate Summer Internship Program - 2027 Cybersecurity AI Engineer, Enterprise Technology Services- Phoenix, AZ<br><sub>Security Engineering</sub> | <a href="https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26016065"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: American Express Campus Undergraduate Summer Internship Program - 2027 Cybersecurity AI Engineer, Enterprise Technology Services- Phoenix, AZ"></a> | Phoenix, AZ | Nov 3 |
 | BDO | 🆕 Advisory Intern, Forensics, Claims Recovery - Summer 2027 (Chicago, Dallas, Grand Rapids)<br><sub>Forensics &amp; IR</sub> | <a href="https://ebqb.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BDOEntryLevelCareers/job/13676"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: BDO Advisory Intern, Forensics, Claims Recovery - Summer 2027 (Chicago, Dallas, Grand Rapids)"></a> | <details><summary>**3 locations**</summary>Chicago, IL<br>Dallas, TX<br>Grand Rapids, MI</details> | Nov 3 |
@@ -185,6 +187,7 @@ Cybersecurity internships and co-ops for current students.
 | Software Engineering Institute | AI Security Research Intern (Sept 2026 - May 2027)<br><sub>AI Security &amp; Safety</sub> | <a href="https://cmu.wd115.myworkdayjobs.com/SEI/job/Pittsburgh-PA/AI-Security-Research-Intern---Sept-2026---May-2027-_2025068-2"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Software Engineering Institute AI Security Research Intern (Sept 2026 - May 2027)"></a> | Pittsburgh, PA | Sep 29 |
 | Booz Allen Hamilton | University, 2027 Summer Games Cyber Security Intern - Colorado Springs, CO 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Colorado-Springs-CO/University--2027-Summer-Games-Cybersecurity-Intern_R0248131"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Booz Allen Hamilton University, 2027 Summer Games Cyber Security Intern - Colorado Springs, CO"></a> | Colorado Springs, CO | Sep 28 |
 | ↳ | University - 2027 Summer Games Cyber Security Intern - Atlanta, GA 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Atlanta-GA/University---2027-Summer-Games-Cyber-Security-Intern---Atlanta--GA_R0248139"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Booz Allen Hamilton University - 2027 Summer Games Cyber Security Intern - Atlanta, GA"></a> | Atlanta, GA | Sep 28 |
+| ↳ | University – Summer 27, Cybersecurity Analyst Intern 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/McLean-VA/University---Summer-27--Cybersecurity-Analyst-Intern_R0248214"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Booz Allen Hamilton University – Summer 27, Cybersecurity Analyst Intern"></a> | McLean, VA | Sep 28 |
 | ↳ | University - 2027 Summer Games Cyber Security Intern - Honolulu, HI 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Honolulu-HI/University---2027-Summer-Games-Cyber-Security-Intern---Honolulu--HI_R0248411"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Booz Allen Hamilton University - 2027 Summer Games Cyber Security Intern - Honolulu, HI"></a> | Honolulu, HI | Sep 28 |
 | ↳ | University - 2027 Summer Games Cyber Security Intern - Huntsville, AL 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Huntsville-AL/University---2027-Summer-Games-Cyber-Security-Intern---Huntsville--AL_R0248412"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Booz Allen Hamilton University - 2027 Summer Games Cyber Security Intern - Huntsville, AL"></a> | Huntsville, AL | Sep 28 |
 | ↳ | University – Summer 27, Enterprise Cybersecurity Vulnerability Intern 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/McLean-VA/University---Summer-27--Enterprise-Cybersecurity-Vulnerability-Intern_R0249085"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Booz Allen Hamilton University – Summer 27, Enterprise Cybersecurity Vulnerability Intern"></a> | McLean, VA | Sep 28 |
@@ -202,7 +205,8 @@ Cybersecurity internships and co-ops for current students.
 | Nightwing | Multidisciplinary Engineer Intern 🇺🇸<br><sub>Engineering @ Security Co</sub> | <a href="https://nwis.wd12.myworkdayjobs.com/NW/job/Springfield-VA/Multidisciplinary-Engineer-Intern_JR102090"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Nightwing Multidisciplinary Engineer Intern"></a> | Springfield, VA | Sep 22 |
 | Tanium | Cloud Security Intern<br><sub>Cloud &amp; Infra Security</sub> | <a href="https://job-boards.greenhouse.io/tanium/jobs/8176398"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Tanium Cloud Security Intern"></a> | Durham, NC | Sep 22 |
 | Motorola Solutions | Cyber Security - 2027 Summer Internship (Chicago Hybrid)<br><sub>Security Engineering</sub> | <a href="https://motorolasolutions.wd5.myworkdayjobs.com/Careers/job/Chicago-IL/Cyber-Security---2027-Summer-Internship--Chicago-Hybrid-_R68369"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Motorola Solutions Cyber Security - 2027 Summer Internship (Chicago Hybrid)"></a> | Chicago, IL | Sep 18 |
-| RTX | Internship – Raytheon Systems Security Engineer- Onsite 🇺🇸<br><sub>Cloud &amp; Infra Security</sub> | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MA-WOBURN-WB2--225-Presidential-Way--GODDARD-BLDG/Internship---Raytheon-Systems-Security-Engineer--Onsite_01874703"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: RTX Internship – Raytheon Systems Security Engineer- Onsite"></a> | Woburn, MA | Sep 16 |
+| RTX | Internship – Raytheon Systems Security Engineer -Onsite 🇺🇸<br><sub>Cloud &amp; Infra Security</sub> | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MA-TEWKSBURY-TB1--50-Apple-Hill-Dr--ASSABET-BLDG/Internship---Raytheon-Systems-Security-Engineer--Onsite_01874702"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: RTX Internship – Raytheon Systems Security Engineer -Onsite"></a> | Tewksbury, MA | Sep 16 |
+| ↳ | Internship – Raytheon Systems Security Engineer- Onsite 🇺🇸<br><sub>Cloud &amp; Infra Security</sub> | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MA-WOBURN-WB2--225-Presidential-Way--GODDARD-BLDG/Internship---Raytheon-Systems-Security-Engineer--Onsite_01874703"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: RTX Internship – Raytheon Systems Security Engineer- Onsite"></a> | Woburn, MA | Sep 16 |
 | Northrop Grumman | 2027 Cyber Systems Engineer Intern - Roy UT 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Utah-Roy/XMLNAME-2027-Cyber-Systems-Engineer-Intern---Roy-UT_R10249471"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Northrop Grumman 2027 Cyber Systems Engineer Intern - Roy UT"></a> | Roy, UT | Sep 15 |
 | Walmart | Summer 2027 Intern: Cybersecurity Undergrad<br><sub>Security Engineering</sub> | <a href="https://walmart.wd504.myworkdayjobs.com/WalmartExternal/job/USA-ISD-Office---DGTC-AR-BENTONVILLE-Home-Office/Summer-2027-Intern--Cybersecurity-Undergrad_R-2630025"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Walmart Summer 2027 Intern: Cybersecurity Undergrad"></a> | Bentonville, AR | Sep 15 |
 | ↳ | Summer 2027 Intern: Cybersecurity Masters<br><sub>Security Engineering</sub> | <a href="https://walmart.wd504.myworkdayjobs.com/WalmartExternal/job/USA-ISD-Office---DGTC-AR-BENTONVILLE-Home-Office/Summer-2027-Intern--Cybersecurity-Masters_R-2630026"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Walmart Summer 2027 Intern: Cybersecurity Masters"></a> | Bentonville, AR | Sep 15 |
@@ -226,7 +230,7 @@ Cybersecurity internships and co-ops for current students.
 
 <!-- CLOSED_START intern -->
 
-<details><summary>🔒 103 closed in the last 60 days</summary>
+<details><summary>🔒 101 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
@@ -282,7 +286,6 @@ Cybersecurity internships and co-ops for current students.
 | Lockheed Martin | Software Engineer (Cyber) - Intern | Oct 26 |
 | Northrop Grumman | 2027 Cyber Systems Engineer Intern-Tampa FL | Oct 26 |
 | Software Engineering Institute | AI Security Software Engineer Intern – Summer 2027 | Oct 26 |
-| Booz Allen Hamilton | University – Summer 27, Cybersecurity Analyst Intern | Oct 25 |
 | Immuta | Full-Stack Engineering Internship - Summer 2027 | Oct 25 |
 | Sierra Nevada Corporation | Systems Security Engineering Intern (Summer 2027) | Oct 23 |
 | Northrop Grumman | 2027 S/W Cybersecurity Intern – Annapolis MD | Oct 20 |
@@ -308,8 +311,7 @@ Cybersecurity internships and co-ops for current students.
 | Duke Energy | PGO Cybersecurity Spring 2027 Co-op | Oct 13 |
 | Fifth Third | Information Security Co-op – Code Security – Spring 2027 | Oct 13 |
 | ↳ | Information Security Co-op – Identity &amp; Access Management – Spring 2027 | Oct 13 |
-| RTX | Internship – Raytheon Systems Security Engineer -Onsite | Oct 13 |
-| ↳ | Internship – Raytheon Systems Security Engineer-Onsite | Oct 13 |
+| RTX | Internship – Raytheon Systems Security Engineer-Onsite | Oct 13 |
 | ↳ | Internship – Raytheon Systems Security Engineer -Onsite | Oct 13 |
 | Entrust | Software Engineer Co-op | Oct 11 |
 | Lockheed Martin | Cybersecurity Intern | Oct 11 |
@@ -348,6 +350,7 @@ Full-time roles and rotational programs for students in their final year or just
 
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
+| Northrop Grumman | 🆕 2027 Associate Cyber Systems Engineer - Roy UT 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Utah-Roy/XMLNAME-2027-Associate-Cyber-Systems-Engineer---Roy-UT_R10259435"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Northrop Grumman 2027 Associate Cyber Systems Engineer - Roy UT"></a> | Roy, UT | Nov 5 |
 | McKesson | 🆕 Graduate Cyber Security Analyst (Cyber Academy)<br><sub>Security Engineering</sub> | <a href="https://mckesson.wd3.myworkdayjobs.com/External_Careers/job/USA-TX-Irving/Graduate-Cyber-Security-Analyst--Cyber-Academy-_JR0155879"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: McKesson Graduate Cyber Security Analyst (Cyber Academy)"></a> | Irving, TX | Nov 4 |
 | Guidehouse | 🆕 Consultant - Defense &amp; Security - IT Controls - Campus 2027 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://guidehouse.wd1.myworkdayjobs.com/External/job/US---VA-McLean/Consultant---Defense---Security---IT-Controls---Campus-2027_46116-1"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Guidehouse Consultant - Defense &amp; Security - IT Controls - Campus 2027"></a> | McLean, VA | Nov 2 |
 | Northrop Grumman | 🆕 2027 Associate Cyber Software Engineer - Pathways Program - Aurora CO 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Colorado-Aurora/XMLNAME-2027-Associate-Cyber-Software-Engineer---Pathways-Program---Aurora-CO_R10258279"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Northrop Grumman 2027 Associate Cyber Software Engineer - Pathways Program - Aurora CO"></a> | Aurora, CO | Oct 29 |

@@ -4,30 +4,30 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **404 companies tracked.**
 
-## Hiring students now (110)
+## Hiring students now (111)
 
 Employers with open roles on the board today.
 
 | Company | Internships | New grad | Early career |
 | ------- | ----------- | -------- | ------------ |
 | Johns Hopkins APL | 10 | 15 |  |
+| Booz Allen Hamilton | 11 |  | 3 |
 | Vanguard | 5 | 6 |  |
-| Booz Allen Hamilton | 10 |  | 3 |
 | Microsoft | 9 |  | 6 |
 | MITRE | 7 | 1 | 5 |
 | Lawrence Livermore National Laboratory | 6 |  |  |
+| RTX | 5 |  | 16 |
+| Northrop Grumman | 2 | 3 | 10 |
 | Palo Alto Networks | 4 | 1 | 3 |
 | HPE | 3 | 2 | 1 |
-| RTX | 4 |  | 16 |
-| Northrop Grumman | 2 | 2 | 10 |
 | Leidos | 4 |  | 8 |
 | Aerospace Corporation | 4 |  |  |
 | BDO | 3 | 1 |  |
+| Federal Reserve System | 4 |  |  |
 | Intel | 4 |  |  |
 | Software Engineering Institute | 3 |  | 6 |
 | GuidePoint Security | 3 |  | 1 |
 | Entrust | 3 |  |  |
-| Federal Reserve System | 3 |  |  |
 | Goldman Sachs | 3 |  |  |
 | HP Inc | 3 |  |  |
 | Palantir | 2 | 1 |  |
@@ -72,6 +72,7 @@ Employers with open roles on the board today.
 | Lumen | 1 |  |  |
 | McKesson |  | 1 |  |
 | OPSWAT | 1 |  |  |
+| PayPal | 1 |  |  |
 | Prophet Security | 1 |  |  |
 | Rubrik |  | 1 |  |
 | Salesforce | 1 |  |  |
