@@ -16,7 +16,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**151** internships · **45** new grad · **175** early career open · **35** added in the last 7 days · **184** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 6, 2026
+**151** internships · **45** new grad · **174** early career open · **35** added in the last 7 days · **184** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 6, 2026
 
 <!-- /STATS -->
 
@@ -488,8 +488,7 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 | Lockheed Martin | Software Engineer (Combat Systems DevSecOps) - Early Career 🇺🇸<br><sub>AppSec &amp; ProdSec</sub> | <a href="https://lockheedmartin.eightfold.ai/careers/job/996477330857"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Lockheed Martin Software Engineer (Combat Systems DevSecOps) - Early Career"></a> | Mt Laurel Township, NJ | Oct 23 |
 | Microsoft | Software Engineer 2 - Microsoft Red Team<br><sub>Offensive Security</sub> | <a href="https://microsoft.eightfold.ai/careers/job/1970393557044699"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Microsoft Software Engineer 2 - Microsoft Red Team"></a> | Redmond, WA | Oct 23 |
 | Salt Security | Technical Support Engineer (1)<br><sub>Engineering @ Security Co</sub> | <a href="https://salt.security/job-board?gh_jid=5273021007"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Salt Security Technical Support Engineer (1)"></a> | WEST (US) | Oct 23 |
-| Amazon | Security Engineer I, AWS Proactive Security Team<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10585501/security-engineer-i-aws-proactive-security-team"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer I, AWS Proactive Security Team"></a> | Seattle, WA | Oct 22 |
-| ↳ | Security Engineer I, Secure Third Party Tools (S3T)<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10585308/security-engineer-i-secure-third-party-tools-s3t"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer I, Secure Third Party Tools (S3T)"></a> | Arlington, VA | Oct 22 |
+| Amazon | Security Engineer I, Secure Third Party Tools (S3T)<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10585308/security-engineer-i-secure-third-party-tools-s3t"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer I, Secure Third Party Tools (S3T)"></a> | Arlington, VA | Oct 22 |
 | GDIT | Tier I Security Operations Center (SOC) Analyst 🇺🇸<br><sub>SOC &amp; Detection</sub> | <a href="https://gdit.wd5.myworkdayjobs.com/External_Career_Site/job/USA-LA-Bossier-City/Tier-I-Security-Operations-Center--SOC--Analyst_RQ230985-2"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: GDIT Tier I Security Operations Center (SOC) Analyst"></a> | Bossier City, LA | Oct 22 |
 | Honeywell | Cyber Security Engineer I-Penetration Tester 🇺🇸<br><sub>Offensive Security</sub> | <a href="https://ibqbjb.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/160406"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Honeywell Cyber Security Engineer I-Penetration Tester"></a> | Plymouth, MN | Oct 21 |
 | Fortinet | Early Careers: Software Development Engineer<br><sub>Engineering @ Security Co</sub> | <a href="https://edel.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/24668"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Fortinet Early Careers: Software Development Engineer"></a> | Sunnyvale, CA | Oct 20 |
@@ -631,10 +630,11 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 
 <!-- CLOSED_START earlycareer -->
 
-<details><summary>🔒 203 closed in the last 60 days</summary>
+<details><summary>🔒 204 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
+| Amazon | Security Engineer I, AWS Proactive Security Team | Nov 6 |
 | Amentum | Junior Information Systems Security Officer (ISSO) MDX - SSFB/HSV | Nov 6 |
 | Lockheed Martin | DevSecOps Software Engineer-Early Career | Nov 6 |
 | Recorded Future | Fraud Analyst | Nov 6 |

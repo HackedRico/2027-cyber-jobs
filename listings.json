@@ -2516,7 +2516,8 @@
     "clearance": false,
     "url": "https://www.amazon.jobs/en/jobs/10537510/security-engineer-i-aws-security-incident-response",
     "source": "Amazon Jobs",
-    "date_added": "2026-09-11"
+    "date_added": "2026-09-11",
+    "dead_since": "2026-11-06"
   },
   {
     "company": "GDIT",
@@ -7353,11 +7354,12 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10585501/security-engineer-i-aws-proactive-security-team",
+    "url": "",
     "source": "Amazon Jobs",
     "date_added": "2026-10-22",
-    "missing_since": "2026-11-05",
-    "dead_since": "2026-11-05"
+    "last_url": "https://www.amazon.jobs/en/jobs/10585501/security-engineer-i-aws-proactive-security-team",
+    "closed": true,
+    "closed_date": "2026-11-06"
   },
   {
     "company": "Amazon",

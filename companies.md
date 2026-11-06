@@ -81,7 +81,7 @@ Employers with open roles on the board today.
 | Trace3 | 1 |  |  |
 | TRM Labs |  | 1 |  |
 | Wells Fargo | 1 |  |  |
-| Amazon |  |  | 16 |
+| Amazon |  |  | 15 |
 | BAE Systems |  |  | 7 |
 | CrowdStrike |  |  | 7 |
 | Fortinet |  |  | 7 |
