@@ -1,9 +1,14 @@
 {
   "date": "2026-11-06",
   "boards": 410,
-  "ok": 398,
-  "empty": 12,
+  "ok": 397,
+  "empty": 13,
   "failed": [],
-  "regressed": [],
+  "regressed": [
+    {
+      "board": "Sophos (lever/sophos)",
+      "had": 17
+    }
+  ],
   "silent": 12
 }

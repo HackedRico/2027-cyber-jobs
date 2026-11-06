@@ -4,7 +4,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **404 companies tracked.**
 
-## Hiring students now (109)
+## Hiring students now (110)
 
 Employers with open roles on the board today.
 
@@ -48,18 +48,19 @@ Employers with open roles on the board today.
 | Qualcomm | 2 |  |  |
 | Together AI | 1 | 1 |  |
 | Visa | 2 |  |  |
+| Amazon |  | 1 | 16 |
 | Nightwing | 1 |  | 8 |
 | Cisco | 1 |  | 2 |
 | GDIT | 1 |  | 2 |
 | Pinterest | 1 |  | 2 |
 | STR | 1 |  | 2 |
+| American Express | 1 |  | 1 |
 | CACI | 1 |  | 1 |
 | Lockheed Martin | 1 |  | 1 |
 | Sierra Nevada Corporation | 1 |  | 1 |
 | Verkada | 1 |  | 1 |
 | 1Password | 1 |  |  |
 | Adobe | 1 |  |  |
-| American Express | 1 |  |  |
 | Bank of America | 1 |  |  |
 | Deloitte |  | 1 |  |
 | Figma | 1 |  |  |
@@ -81,7 +82,6 @@ Employers with open roles on the board today.
 | Trace3 | 1 |  |  |
 | TRM Labs |  | 1 |  |
 | Wells Fargo | 1 |  |  |
-| Amazon |  |  | 15 |
 | BAE Systems |  |  | 7 |
 | CrowdStrike |  |  | 7 |
 | Fortinet |  |  | 7 |
@@ -114,6 +114,7 @@ Employers with open roles on the board today.
 | Praetorian |  |  | 1 |
 | ReliaQuest |  |  | 1 |
 | SailPoint |  |  | 1 |
+| Samsara |  |  | 1 |
 | Socure |  |  | 1 |
 | TD Bank |  |  | 1 |
 | Tenable |  |  | 1 |

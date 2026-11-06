@@ -2517,7 +2517,8 @@
     "url": "https://www.amazon.jobs/en/jobs/10537510/security-engineer-i-aws-security-incident-response",
     "source": "Amazon Jobs",
     "date_added": "2026-09-11",
-    "dead_since": "2026-11-06"
+    "dead_since": "2026-11-06",
+    "missing_since": "2026-11-06"
   },
   {
     "company": "GDIT",
@@ -2602,7 +2603,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Utah-Roy/XMLNAME-2027-Cyber-Systems-Engineer-Intern---Roy-UT_R10249471",
     "source": "Workday",
-    "date_added": "2026-09-15"
+    "date_added": "2026-09-15",
+    "missing_since": "2026-11-06"
   },
   {
     "company": "Northrop Grumman",
@@ -3522,7 +3524,8 @@
     "clearance": true,
     "url": "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Atlanta-GA/University---2027-Summer-Games-Cyber-Security-Intern---Atlanta--GA_R0248139",
     "source": "Workday",
-    "date_added": "2026-09-28"
+    "date_added": "2026-09-28",
+    "missing_since": "2026-11-06"
   },
   {
     "company": "Booz Allen Hamilton",
@@ -3555,7 +3558,8 @@
     "clearance": true,
     "url": "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Huntsville-AL/University---2027-Summer-Games-Cyber-Security-Intern---Huntsville--AL_R0248412",
     "source": "Workday",
-    "date_added": "2026-09-28"
+    "date_added": "2026-09-28",
+    "missing_since": "2026-11-06"
   },
   {
     "company": "Booz Allen Hamilton",
@@ -7556,7 +7560,8 @@
     "clearance": true,
     "url": "https://lockheedmartin.eightfold.ai/careers/job/996477330857",
     "source": "Eightfold",
-    "date_added": "2026-10-23"
+    "date_added": "2026-10-23",
+    "missing_since": "2026-11-06"
   },
   {
     "company": "Microsoft",
@@ -7761,7 +7766,8 @@
     "clearance": true,
     "url": "https://aero.wd5.myworkdayjobs.com/External/job/El-Segundo-CA/XMLNAME-2027-Cloud-Solutions-Engineer---Site-Reliability-Grad-Intern_R016715",
     "source": "Workday",
-    "date_added": "2026-10-26"
+    "date_added": "2026-10-26",
+    "missing_since": "2026-11-06"
   },
   {
     "company": "Wells Fargo",
@@ -7897,7 +7903,8 @@
     "clearance": false,
     "url": "https://visa.wd5.myworkdayjobs.com/Visa/job/US---Ashburn-VA/Network-and-Security-Engineering-Intern---2027--Ashburn--VA_REF089778W",
     "source": "Workday",
-    "date_added": "2026-10-27"
+    "date_added": "2026-10-27",
+    "missing_since": "2026-11-06"
   },
   {
     "company": "Fifth Third",
@@ -7991,7 +7998,8 @@
     "clearance": false,
     "url": "https://hp.wd5.myworkdayjobs.com/ExternalCareerSite/job/San-Francisco-California-United-States-of-America/Cloud-Engineering-Intern_UNI4799-1",
     "source": "Workday",
-    "date_added": "2026-10-28"
+    "date_added": "2026-10-28",
+    "missing_since": "2026-11-06"
   },
   {
     "company": "Johns Hopkins APL",
@@ -8527,6 +8535,50 @@
     "clearance": false,
     "url": "https://microsoft.eightfold.ai/careers/job/1970393557053887",
     "source": "Eightfold",
+    "date_added": "2026-11-06"
+  },
+  {
+    "company": "Samsara",
+    "role": "Security Operations Engineer I",
+    "location": "Remote - CA",
+    "type": "earlycareer",
+    "category": "SOC & Detection",
+    "clearance": false,
+    "url": "https://www.samsara.com/company/careers/roles/8353283?gh_jid=8353283",
+    "source": "Greenhouse",
+    "date_added": "2026-11-06"
+  },
+  {
+    "company": "American Express",
+    "role": "Associate - Cryptographic Payment Key Management",
+    "location": "Phoenix, AZ",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26016025",
+    "source": "Oracle",
+    "date_added": "2026-11-06"
+  },
+  {
+    "company": "Amazon",
+    "role": "Associate Solutions Architect, AWS National Security Solutions Architecture Team",
+    "location": "Herndon, VA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://www.amazon.jobs/en/jobs/10598790/associate-solutions-architect-aws-national-security-solutions-architecture-team",
+    "source": "Amazon Jobs",
+    "date_added": "2026-11-06"
+  },
+  {
+    "company": "Amazon",
+    "role": "Solutions Architect AGS-Tech, Early Career - 2027 (US)",
+    "location": "Seattle, WA",
+    "type": "newgrad",
+    "category": "Solutions Architecture",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10581072/solutions-architect-ags-tech-early-career-2027-us",
+    "source": "Amazon Jobs",
     "date_added": "2026-11-06"
   }
 ]
