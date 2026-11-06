@@ -900,10 +900,11 @@
     "type": "earlycareer",
     "category": "Threat Intelligence",
     "clearance": false,
-    "url": "https://job-boards.greenhouse.io/recordedfuture/jobs/8539329002",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-07-22",
-    "missing_since": "2026-11-03"
+    "closed": true,
+    "closed_date": "2026-11-06"
   },
   {
     "company": "Recorded Future",
@@ -912,11 +913,12 @@
     "type": "earlycareer",
     "category": "Threat Intelligence",
     "clearance": false,
-    "url": "https://job-boards.greenhouse.io/recordedfuture/jobs/8534834002",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-07-22",
     "twin": 1,
-    "missing_since": "2026-11-03"
+    "closed": true,
+    "closed_date": "2026-11-06"
   },
   {
     "company": "Recorded Future",
@@ -925,11 +927,12 @@
     "type": "earlycareer",
     "category": "Threat Intelligence",
     "clearance": false,
-    "url": "https://job-boards.greenhouse.io/recordedfuture/jobs/8539331002",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-07-22",
     "twin": 2,
-    "missing_since": "2026-11-03"
+    "closed": true,
+    "closed_date": "2026-11-06"
   },
   {
     "company": "Two Six Technologies",
@@ -7115,10 +7118,11 @@
     "type": "earlycareer",
     "category": "Solutions Architecture",
     "clearance": true,
-    "url": "https://job-boards.greenhouse.io/shift5/jobs/6228485004",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-10-20",
-    "missing_since": "2026-11-03"
+    "closed": true,
+    "closed_date": "2026-11-06"
   },
   {
     "company": "Cisco",
@@ -7622,7 +7626,8 @@
     "clearance": false,
     "url": "https://jobs.ashbyhq.com/sardine/b25449a4-c78c-4b1a-b5b2-74b45981a37a",
     "source": "Ashby",
-    "date_added": "2026-10-24"
+    "date_added": "2026-10-24",
+    "missing_since": "2026-11-06"
   },
   {
     "company": "RTX",
@@ -7644,10 +7649,11 @@
     "type": "earlycareer",
     "category": "Cloud & Infra Security",
     "clearance": true,
-    "url": "https://pae.wd1.myworkdayjobs.com/Amentum_Careers/job/US-CO-Colorado-Springs/Junior-Information-Systems-Security-Officer--ISSO--MDX---SSFB-HSV_R0173893",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-24",
-    "missing_since": "2026-11-03"
+    "closed": true,
+    "closed_date": "2026-11-06"
   },
   {
     "company": "Aerospace Corporation",
@@ -7773,10 +7779,11 @@
     "type": "earlycareer",
     "category": "AppSec & ProdSec",
     "clearance": false,
-    "url": "https://lockheedmartin.eightfold.ai/careers/job/996476578145",
+    "url": "",
     "source": "Eightfold",
     "date_added": "2026-10-26",
-    "missing_since": "2026-11-03"
+    "closed": true,
+    "closed_date": "2026-11-06"
   },
   {
     "company": "Amazon",
@@ -8113,10 +8120,11 @@
     "type": "earlycareer",
     "category": "AppSec & ProdSec",
     "clearance": true,
-    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-EL-SEGUNDO-E01--2000-E-El-Segundo-Blvd--BLDG-E01/Software-Security-Engineer-I_01885443",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-29",
-    "missing_since": "2026-11-03"
+    "closed": true,
+    "closed_date": "2026-11-06"
   },
   {
     "company": "Socure",
@@ -8203,10 +8211,11 @@
     "type": "intern",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://job-boards.greenhouse.io/knowbe4/jobs/8919280002",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-11-02",
-    "missing_since": "2026-11-03"
+    "closed": true,
+    "closed_date": "2026-11-06"
   },
   {
     "company": "Guidehouse",
@@ -8473,5 +8482,49 @@
     "url": "https://rb.wd5.myworkdayjobs.com/FRS/job/Atlanta-GA/XMLNAME-2027-Summer-Internship-Program---Information-Security-Intern_R-0000033910",
     "source": "Workday",
     "date_added": "2026-11-05"
+  },
+  {
+    "company": "Leidos",
+    "role": "Junior Exploitation Specialist/Photogrammetrist",
+    "location": "St. Louis, MO",
+    "type": "earlycareer",
+    "category": "Offensive Security",
+    "clearance": true,
+    "url": "https://leidos.wd5.myworkdayjobs.com/External/job/St-Louis-MO/Junior-Exploitation-Specialist-Photogrammetrist_R-00194949",
+    "source": "Workday",
+    "date_added": "2026-11-06"
+  },
+  {
+    "company": "TD Bank",
+    "role": "Information Security Analyst I (US) - Cybersecurity Incident & Forensics",
+    "location": "Mount Laurel, NJ",
+    "type": "earlycareer",
+    "category": "Forensics & IR",
+    "clearance": false,
+    "url": "https://td.wd3.myworkdayjobs.com/TD_Bank_Careers/job/Mount-Laurel-New-Jersey/Information-Security-Analyst-I--US----Cybersecurity-Incident---Forensics_R_1516793",
+    "source": "Workday",
+    "date_added": "2026-11-06"
+  },
+  {
+    "company": "SAIC",
+    "role": "Junior Azure Cloud Administrator",
+    "location": "Rockville, MD",
+    "type": "earlycareer",
+    "category": "Cloud Engineering",
+    "clearance": true,
+    "url": "https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2618864",
+    "source": "Oracle",
+    "date_added": "2026-11-06"
+  },
+  {
+    "company": "Microsoft",
+    "role": "Security Engineer II - Red Team",
+    "location": "Redmond, WA",
+    "type": "earlycareer",
+    "category": "Offensive Security",
+    "clearance": false,
+    "url": "https://microsoft.eightfold.ai/careers/job/1970393557053887",
+    "source": "Eightfold",
+    "date_added": "2026-11-06"
   }
 ]

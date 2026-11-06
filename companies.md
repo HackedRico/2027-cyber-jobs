@@ -4,7 +4,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **404 companies tracked.**
 
-## Hiring students now (111)
+## Hiring students now (109)
 
 Employers with open roles on the board today.
 
@@ -13,14 +13,14 @@ Employers with open roles on the board today.
 | Johns Hopkins APL | 10 | 15 |  |
 | Booz Allen Hamilton | 11 |  | 3 |
 | Vanguard | 5 | 6 |  |
-| Microsoft | 9 |  | 6 |
+| Microsoft | 9 |  | 7 |
 | MITRE | 7 | 1 | 5 |
 | Lawrence Livermore National Laboratory | 6 |  |  |
-| RTX | 5 |  | 16 |
+| RTX | 5 |  | 15 |
 | Northrop Grumman | 2 | 3 | 10 |
 | Palo Alto Networks | 4 | 1 | 3 |
 | HPE | 3 | 2 | 1 |
-| Leidos | 4 |  | 8 |
+| Leidos | 4 |  | 9 |
 | Aerospace Corporation | 4 |  |  |
 | BDO | 3 | 1 |  |
 | Federal Reserve System | 4 |  |  |
@@ -51,10 +51,10 @@ Employers with open roles on the board today.
 | Nightwing | 1 |  | 8 |
 | Cisco | 1 |  | 2 |
 | GDIT | 1 |  | 2 |
-| Lockheed Martin | 1 |  | 2 |
 | Pinterest | 1 |  | 2 |
 | STR | 1 |  | 2 |
 | CACI | 1 |  | 1 |
+| Lockheed Martin | 1 |  | 1 |
 | Sierra Nevada Corporation | 1 |  | 1 |
 | Verkada | 1 |  | 1 |
 | 1Password | 1 |  |  |
@@ -68,7 +68,6 @@ Employers with open roles on the board today.
 | ICF | 1 |  |  |
 | Immuta | 1 |  |  |
 | KeyBank |  | 1 |  |
-| KnowBe4 | 1 |  |  |
 | Lumen | 1 |  |  |
 | McKesson |  | 1 |  |
 | OPSWAT | 1 |  |  |
@@ -87,15 +86,15 @@ Employers with open roles on the board today.
 | CrowdStrike |  |  | 7 |
 | Fortinet |  |  | 7 |
 | KBR |  |  | 5 |
-| Amentum |  |  | 4 |
+| Amentum |  |  | 3 |
 | Kyndryl |  |  | 3 |
-| Recorded Future |  |  | 3 |
 | Battelle |  |  | 2 |
 | Boeing |  |  | 2 |
 | Fortra |  |  | 2 |
 | JPMorgan Chase |  |  | 2 |
 | Proofpoint |  |  | 2 |
 | PwC |  |  | 2 |
+| SAIC |  |  | 2 |
 | Salt Security |  |  | 2 |
 | Trail of Bits |  |  | 2 |
 | Abnormal AI |  |  | 1 |
@@ -114,10 +113,9 @@ Employers with open roles on the board today.
 | Obsidian Security |  |  | 1 |
 | Praetorian |  |  | 1 |
 | ReliaQuest |  |  | 1 |
-| SAIC |  |  | 1 |
 | SailPoint |  |  | 1 |
-| Shift5 |  |  | 1 |
 | Socure |  |  | 1 |
+| TD Bank |  |  | 1 |
 | Tenable |  |  | 1 |
 | The Home Depot |  |  | 1 |
 | Tines |  |  | 1 |
