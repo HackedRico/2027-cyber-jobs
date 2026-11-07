@@ -49,7 +49,7 @@ Employers with open roles on the board today.
 | Salesforce | 1 | 1 |  |
 | Together AI | 1 | 1 |  |
 | Visa | 2 |  |  |
-| Amazon |  | 1 | 16 |
+| Amazon |  | 1 | 15 |
 | Nightwing | 1 |  | 8 |
 | CrowdStrike | 1 |  | 7 |
 | Cisco | 1 |  | 2 |

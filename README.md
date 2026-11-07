@@ -16,7 +16,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**151** internships · **47** new grad · **174** early career open · **39** added in the last 7 days · **179** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 7, 2026
+**151** internships · **47** new grad · **173** early career open · **39** added in the last 7 days · **179** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 7, 2026
 
 <!-- /STATS -->
 
@@ -586,7 +586,6 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 | RTX | Systems Security Engineer II – Anti-Tamper / Program Protection (On-site) 🇺🇸<br><sub>Cloud &amp; Infra Security</sub> | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Systems-Security-Engineer-II---Anti-Tamper---Program-Protection--On-site-_01874758"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: RTX Systems Security Engineer II – Anti-Tamper / Program Protection (On-site)"></a> | Tucson, AZ | Sep 14 |
 | Abnormal AI | Software Engineer II - Insider Risk<br><sub>GRC &amp; Risk</sub> | <a href="https://abnormal.ai/careers/jobs/7992780003?gh_jid=7992780003"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Abnormal AI Software Engineer II - Insider Risk"></a> | Hybrid - San Francisco, CA | Sep 11 |
 | Amazon | Security Engineer II, Amazon GuardDuty<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10537429/security-engineer-ii-amazon-guardduty"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer II, Amazon GuardDuty"></a> | Seattle, WA | Sep 11 |
-| ↳ | Security Engineer I, AWS Security Incident Response<br><sub>SOC &amp; Detection</sub> | <a href="https://www.amazon.jobs/en/jobs/10537510/security-engineer-i-aws-security-incident-response"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer I, AWS Security Incident Response"></a> | Seattle, WA | Sep 11 |
 | Northrop Grumman | Level 2/3 Cyber Systems Engineer - AISR&amp;T Contingent 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-San-Diego/Level-2-3-Cyber-Systems-Engineer---AISR-T-Contingent_R10249593"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Northrop Grumman Level 2/3 Cyber Systems Engineer - AISR&amp;T Contingent"></a> | San Diego, CA | Sep 10 |
 | SailPoint | Associate Security Software Engineer<br><sub>Security Engineering</sub> | <a href="https://sailpoint.wd1.myworkdayjobs.com/SailPoint/job/Remote-Texas-USA/Associate-Security-Software-Engineer_R013786"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: SailPoint Associate Security Software Engineer"></a> | <details><summary>**2 locations**</summary>Remote (US)<br>United States</details> | Sep 9 |
 | Amazon | Security Engineer II - AMZ9802161<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10487669/security-engineer-ii-amz9802161"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer II - AMZ9802161"></a> | Austin, TX | Sep 5 |
@@ -634,10 +633,11 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 
 <!-- CLOSED_START earlycareer -->
 
-<details><summary>🔒 211 closed in the last 60 days</summary>
+<details><summary>🔒 212 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
+| Amazon | Security Engineer I, AWS Security Incident Response | Nov 7 |
 | Booz Allen Hamilton | Cyber Technical Specialist, Junior | Nov 7 |
 | Draper | IS Security Officer 1 | Nov 7 |
 | GDIT | Tier I Security Operations Center (SOC) Analyst | Nov 7 |

@@ -1498,7 +1498,8 @@
     "clearance": false,
     "url": "https://careers.bankofamerica.com/en-us/students/job-detail/14391/global-technology-summer-analyst-2027-cybersecurity-analyst-multiple-locations",
     "source": "Community",
-    "date_added": "2026-08-02"
+    "date_added": "2026-08-02",
+    "dead_since": "2026-11-07"
   },
   {
     "company": "Deloitte",
@@ -2117,7 +2118,8 @@
     "url": "https://www.amazon.jobs/en/jobs/10498424/security-engineer-ii-us-amazon-dedicated-cloud-security",
     "source": "Amazon Jobs",
     "date_added": "2026-09-05",
-    "missing_since": "2026-11-07"
+    "missing_since": "2026-11-07",
+    "dead_since": "2026-11-07"
   },
   {
     "company": "Amazon",
@@ -2515,11 +2517,12 @@
     "type": "earlycareer",
     "category": "SOC & Detection",
     "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10537510/security-engineer-i-aws-security-incident-response",
+    "url": "",
     "source": "Amazon Jobs",
     "date_added": "2026-09-11",
-    "dead_since": "2026-11-06",
-    "missing_since": "2026-11-06"
+    "last_url": "https://www.amazon.jobs/en/jobs/10537510/security-engineer-i-aws-security-incident-response",
+    "closed": true,
+    "closed_date": "2026-11-07"
   },
   {
     "company": "GDIT",
