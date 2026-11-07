@@ -799,10 +799,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://mastercard.wd1.myworkdayjobs.com/CorporateCareers/job/OFallon-Missouri/Corporate-Security-Operations-Analyst-II_R-292111-1",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-07-21",
-    "missing_since": "2026-11-04"
+    "closed": true,
+    "closed_date": "2026-11-07"
   },
   {
     "company": "Optiv",
@@ -1577,10 +1578,9 @@
     "type": "earlycareer",
     "category": "AI Security & Safety",
     "clearance": false,
-    "url": "https://www.pinterestcareers.com/jobs/?gh_jid=8162046",
+    "url": "https://www.pinterestcareers.com/jobs/?gh_jid=7697137",
     "source": "Greenhouse",
-    "date_added": "2026-09-05",
-    "missing_since": "2026-11-04"
+    "date_added": "2026-09-05"
   },
   {
     "company": "Two Six Technologies",
@@ -2116,7 +2116,8 @@
     "clearance": true,
     "url": "https://www.amazon.jobs/en/jobs/10498424/security-engineer-ii-us-amazon-dedicated-cloud-security",
     "source": "Amazon Jobs",
-    "date_added": "2026-09-05"
+    "date_added": "2026-09-05",
+    "missing_since": "2026-11-07"
   },
   {
     "company": "Amazon",
@@ -3421,10 +3422,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Suffolk-VA/Cyber-Technical-Specialist--Junior_R0249897",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-28",
-    "missing_since": "2026-11-04"
+    "closed": true,
+    "closed_date": "2026-11-07"
   },
   {
     "company": "Booz Allen Hamilton",
@@ -3688,10 +3690,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://draper.wd5.myworkdayjobs.com/Draper_Careers/job/Cambridge-MA/IS-Security-Officer-2_JR002755",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-28",
-    "missing_since": "2026-11-04"
+    "closed": true,
+    "closed_date": "2026-11-07"
   },
   {
     "company": "KBR",
@@ -4076,10 +4079,11 @@
     "type": "intern",
     "category": "AI Security & Safety",
     "clearance": false,
-    "url": "https://cmu.wd115.myworkdayjobs.com/SEI/job/Pittsburgh-PA/AI-Security-Research-Intern---Sept-2026---May-2027-_2025068-2",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-29",
-    "missing_since": "2026-11-04"
+    "closed": true,
+    "closed_date": "2026-11-07"
   },
   {
     "company": "Software Engineering Institute",
@@ -4635,10 +4639,11 @@
     "type": "earlycareer",
     "category": "AppSec & ProdSec",
     "clearance": true,
-    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-GOLETA-H03--6380-Hollister-Ave--BLDG-H03/Software-Security-Engineer---II--Onsite_01876900",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-30",
-    "missing_since": "2026-11-04"
+    "closed": true,
+    "closed_date": "2026-11-07"
   },
   {
     "company": "Fortinet",
@@ -5035,7 +5040,8 @@
     "clearance": false,
     "url": "https://paloaltonetworks.wd5.myworkdayjobs.com/panwexternalcareers/job/Columbus-United-States-of-America/Domain-Consultant-2_JR-020326",
     "source": "Workday",
-    "date_added": "2026-10-03"
+    "date_added": "2026-10-03",
+    "missing_since": "2026-11-07"
   },
   {
     "company": "PNNL",
@@ -6812,10 +6818,9 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://jobs.smartrecruiters.com/LLNL/3743990016165636",
+    "url": "https://jobs.smartrecruiters.com/LLNL/3743990016610186",
     "source": "SmartRecruiters",
-    "date_added": "2026-10-16",
-    "missing_since": "2026-11-04"
+    "date_added": "2026-10-16"
   },
   {
     "company": "Lawrence Livermore National Laboratory",
@@ -6824,10 +6829,9 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://jobs.smartrecruiters.com/LLNL/3743990016165586",
+    "url": "https://jobs.smartrecruiters.com/LLNL/3743990016610101",
     "source": "SmartRecruiters",
-    "date_added": "2026-10-16",
-    "missing_since": "2026-11-04"
+    "date_added": "2026-10-16"
   },
   {
     "company": "Lawrence Livermore National Laboratory",
@@ -6836,10 +6840,9 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://jobs.smartrecruiters.com/LLNL/3743990016165506",
+    "url": "https://jobs.smartrecruiters.com/LLNL/3743990016610436",
     "source": "SmartRecruiters",
-    "date_added": "2026-10-16",
-    "missing_since": "2026-11-04"
+    "date_added": "2026-10-16"
   },
   {
     "company": "Lawrence Livermore National Laboratory",
@@ -6848,10 +6851,9 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://jobs.smartrecruiters.com/LLNL/3743990016165496",
+    "url": "https://jobs.smartrecruiters.com/LLNL/3743990016610426",
     "source": "SmartRecruiters",
-    "date_added": "2026-10-16",
-    "missing_since": "2026-11-04"
+    "date_added": "2026-10-16"
   },
   {
     "company": "Lawrence Livermore National Laboratory",
@@ -6860,10 +6862,9 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://jobs.smartrecruiters.com/LLNL/3743990016164416",
+    "url": "https://jobs.smartrecruiters.com/LLNL/3743990016610446",
     "source": "SmartRecruiters",
-    "date_added": "2026-10-16",
-    "missing_since": "2026-11-04"
+    "date_added": "2026-10-16"
   },
   {
     "company": "Lawrence Livermore National Laboratory",
@@ -6872,10 +6873,9 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://jobs.smartrecruiters.com/LLNL/3743990016164366",
+    "url": "https://jobs.smartrecruiters.com/LLNL/3743990016610216",
     "source": "SmartRecruiters",
-    "date_added": "2026-10-16",
-    "missing_since": "2026-11-04"
+    "date_added": "2026-10-16"
   },
   {
     "company": "CrowdStrike",
@@ -7485,10 +7485,11 @@
     "type": "earlycareer",
     "category": "SOC & Detection",
     "clearance": true,
-    "url": "https://gdit.wd5.myworkdayjobs.com/External_Career_Site/job/USA-LA-Bossier-City/Tier-I-Security-Operations-Center--SOC--Analyst_RQ230985-2",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-22",
-    "missing_since": "2026-11-04"
+    "closed": true,
+    "closed_date": "2026-11-07"
   },
   {
     "company": "Salt Security",
@@ -7833,10 +7834,11 @@
     "type": "earlycareer",
     "category": "SOC & Detection",
     "clearance": false,
-    "url": "https://pwc.wd3.myworkdayjobs.com/US_Experienced_Careers/job/FL-Tampa/Cyber-Defense---Resilience---Incident-Response---Experienced-Associate_770111WD",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-27",
-    "missing_since": "2026-11-04"
+    "closed": true,
+    "closed_date": "2026-11-07"
   },
   {
     "company": "Fortinet",
@@ -7880,7 +7882,8 @@
     "clearance": true,
     "url": "https://snc.wd1.myworkdayjobs.com/SNC_External_Career_Site/job/Sparks-NV/Cybersecurity-Analyst-Intern_R0031269",
     "source": "Workday",
-    "date_added": "2026-10-27"
+    "date_added": "2026-10-27",
+    "missing_since": "2026-11-07"
   },
   {
     "company": "Visa",
@@ -8118,10 +8121,11 @@
     "type": "newgrad",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Colorado-Aurora/XMLNAME-2027-Associate-Cyber-Software-Engineer---Pathways-Program---Aurora-CO_R10258279",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-29",
-    "missing_since": "2026-11-04"
+    "closed": true,
+    "closed_date": "2026-11-07"
   },
   {
     "company": "RTX",
@@ -8187,10 +8191,11 @@
     "type": "earlycareer",
     "category": "AppSec & ProdSec",
     "clearance": true,
-    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-EL-SEGUNDO-E01--2000-E-El-Segundo-Blvd--BLDG-E01/Software-Security-Engineer-II_01886280",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-30",
-    "missing_since": "2026-11-04"
+    "closed": true,
+    "closed_date": "2026-11-07"
   },
   {
     "company": "RTX",
@@ -8580,5 +8585,82 @@
     "url": "https://www.amazon.jobs/en/jobs/10581072/solutions-architect-ags-tech-early-career-2027-us",
     "source": "Amazon Jobs",
     "date_added": "2026-11-06"
+  },
+  {
+    "company": "Abnormal AI",
+    "role": "Software Engineer II, Attack Detection",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "SOC & Detection",
+    "clearance": false,
+    "url": "https://abnormal.ai/careers/jobs/8197230003?gh_jid=8197230003",
+    "source": "Greenhouse",
+    "date_added": "2026-11-07"
+  },
+  {
+    "company": "Scale AI",
+    "role": "AI Safety Residency - SLPreP",
+    "location": "United States",
+    "type": "earlycareer",
+    "category": "AI Security & Safety",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/scaleai/jobs/4744402005",
+    "source": "Greenhouse",
+    "date_added": "2026-11-07"
+  },
+  {
+    "company": "Keyfactor",
+    "role": "Associate Software Engineer",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/keyfactorinc/jobs/6242660004",
+    "source": "Greenhouse",
+    "date_added": "2026-11-07"
+  },
+  {
+    "company": "CrowdStrike",
+    "role": "Professional Services Pathfinder Intern - Red Team - Summer 2027",
+    "location": "Arlington, VA",
+    "type": "intern",
+    "category": "Offensive Security",
+    "clearance": false,
+    "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Arlington-VA/Professional-Services-Pathfinder-Intern---Red-Team---Summer-2027_R30780",
+    "source": "Workday",
+    "date_added": "2026-11-07"
+  },
+  {
+    "company": "NVIDIA",
+    "role": "Research Scientist, AI and Systems Security - PhD New College Grad 2026",
+    "location": "Westford, MA; Santa Clara, CA",
+    "type": "newgrad",
+    "category": "Cloud & Infra Security",
+    "clearance": false,
+    "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-MA-Westford/Research-Scientist--AI-and-Systems-Security---PhD-New-College-Grad-2026_JR2025894",
+    "source": "Workday",
+    "date_added": "2026-11-07"
+  },
+  {
+    "company": "Salesforce",
+    "role": "Associate Security Consultant- PSSA, Early Talent",
+    "location": "Seattle, WA; Chicago, IL; Washington - Seattle Metro - Remote; Bellevue, WA",
+    "type": "newgrad",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/Washington---Seattle/Associate-Security-Consultant--PSSA--Early-Talent_JR367671",
+    "source": "Workday",
+    "date_added": "2026-11-07"
+  },
+  {
+    "company": "Fortinet",
+    "role": "Early Careers: Software Engineer \u2013 Cloud Platform (FortiSIEM)",
+    "location": "Santa Clara, CA",
+    "type": "earlycareer",
+    "category": "SOC & Detection",
+    "clearance": false,
+    "url": "https://edel.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/23620",
+    "source": "Oracle",
+    "date_added": "2026-11-07"
   }
 ]

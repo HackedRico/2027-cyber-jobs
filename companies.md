@@ -11,27 +11,28 @@ Employers with open roles on the board today.
 | Company | Internships | New grad | Early career |
 | ------- | ----------- | -------- | ------------ |
 | Johns Hopkins APL | 10 | 15 |  |
-| Booz Allen Hamilton | 11 |  | 3 |
+| Booz Allen Hamilton | 11 |  | 2 |
 | Vanguard | 5 | 6 |  |
 | Microsoft | 9 |  | 7 |
 | MITRE | 7 | 1 | 5 |
 | Lawrence Livermore National Laboratory | 6 |  |  |
-| RTX | 5 |  | 15 |
-| Northrop Grumman | 2 | 3 | 10 |
+| RTX | 5 |  | 13 |
 | Palo Alto Networks | 4 | 1 | 3 |
 | HPE | 3 | 2 | 1 |
+| Northrop Grumman | 2 | 2 | 10 |
 | Leidos | 4 |  | 9 |
 | Aerospace Corporation | 4 |  |  |
 | BDO | 3 | 1 |  |
 | Federal Reserve System | 4 |  |  |
 | Intel | 4 |  |  |
-| Software Engineering Institute | 3 |  | 6 |
 | GuidePoint Security | 3 |  | 1 |
 | Entrust | 3 |  |  |
 | Goldman Sachs | 3 |  |  |
 | HP Inc | 3 |  |  |
+| NVIDIA | 1 | 2 |  |
 | Palantir | 2 | 1 |  |
 | Tanium | 3 |  |  |
+| Software Engineering Institute | 2 |  | 6 |
 | Appian | 1 | 1 | 1 |
 | Citi | 1 | 1 | 1 |
 | Honeywell | 2 |  | 1 |
@@ -44,18 +45,19 @@ Employers with open roles on the board today.
 | ID.me |  | 2 |  |
 | Illumio | 2 |  |  |
 | National Laboratory of the Rockies | 2 |  |  |
-| NVIDIA | 1 | 1 |  |
 | Qualcomm | 2 |  |  |
+| Salesforce | 1 | 1 |  |
 | Together AI | 1 | 1 |  |
 | Visa | 2 |  |  |
 | Amazon |  | 1 | 16 |
 | Nightwing | 1 |  | 8 |
+| CrowdStrike | 1 |  | 7 |
 | Cisco | 1 |  | 2 |
-| GDIT | 1 |  | 2 |
 | Pinterest | 1 |  | 2 |
 | STR | 1 |  | 2 |
 | American Express | 1 |  | 1 |
 | CACI | 1 |  | 1 |
+| GDIT | 1 |  | 1 |
 | Lockheed Martin | 1 |  | 1 |
 | Sierra Nevada Corporation | 1 |  | 1 |
 | Verkada | 1 |  | 1 |
@@ -75,46 +77,44 @@ Employers with open roles on the board today.
 | PayPal | 1 |  |  |
 | Prophet Security | 1 |  |  |
 | Rubrik |  | 1 |  |
-| Salesforce | 1 |  |  |
 | Sardine | 1 |  |  |
 | Saviynt | 1 |  |  |
 | Semgrep | 1 |  |  |
 | Trace3 | 1 |  |  |
 | TRM Labs |  | 1 |  |
 | Wells Fargo | 1 |  |  |
+| Fortinet |  |  | 8 |
 | BAE Systems |  |  | 7 |
-| CrowdStrike |  |  | 7 |
-| Fortinet |  |  | 7 |
 | KBR |  |  | 5 |
 | Amentum |  |  | 3 |
 | Kyndryl |  |  | 3 |
+| Abnormal AI |  |  | 2 |
 | Battelle |  |  | 2 |
 | Boeing |  |  | 2 |
 | Fortra |  |  | 2 |
 | JPMorgan Chase |  |  | 2 |
 | Proofpoint |  |  | 2 |
-| PwC |  |  | 2 |
 | SAIC |  |  | 2 |
 | Salt Security |  |  | 2 |
 | Trail of Bits |  |  | 2 |
-| Abnormal AI |  |  | 1 |
 | AeroVironment |  |  | 1 |
 | Anthropic |  |  | 1 |
 | Corelight |  |  | 1 |
 | Delinea |  |  | 1 |
-| Draper |  |  | 1 |
 | ESET |  |  | 1 |
 | ExtraHop |  |  | 1 |
 | Fireblocks |  |  | 1 |
 | HII |  |  | 1 |
 | Instacart |  |  | 1 |
-| Mastercard |  |  | 1 |
+| Keyfactor |  |  | 1 |
 | MIT Lincoln Laboratory |  |  | 1 |
 | Obsidian Security |  |  | 1 |
 | Praetorian |  |  | 1 |
+| PwC |  |  | 1 |
 | ReliaQuest |  |  | 1 |
 | SailPoint |  |  | 1 |
 | Samsara |  |  | 1 |
+| Scale AI |  |  | 1 |
 | Socure |  |  | 1 |
 | TD Bank |  |  | 1 |
 | Tenable |  |  | 1 |
