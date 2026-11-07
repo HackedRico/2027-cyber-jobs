@@ -5472,7 +5472,8 @@
     "clearance": false,
     "url": "https://elevancehealth.wd1.myworkdayjobs.com/ANT/job/IN-INDIANAPOLIS-220-VIRGINIA-AVE/Information-Security-Co-Op-Internship---2027_JR205939",
     "source": "Workday",
-    "date_added": "2026-10-03"
+    "date_added": "2026-10-03",
+    "missing_since": "2026-11-07"
   },
   {
     "company": "Johnson & Johnson",
@@ -7044,7 +7045,8 @@
     "clearance": false,
     "url": "https://lumen.eightfold.ai/careers/job/1133916380525",
     "source": "Eightfold",
-    "date_added": "2026-10-17"
+    "date_added": "2026-10-17",
+    "missing_since": "2026-11-07"
   },
   {
     "company": "BAE Systems",
@@ -8422,7 +8424,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Utah-Clearfield/XMLNAME-2027-Cybersecurity-Software-Engineering-Intern---Roy-UT_R10259177",
     "source": "Workday",
-    "date_added": "2026-11-04"
+    "date_added": "2026-11-04",
+    "missing_since": "2026-11-07"
   },
   {
     "company": "McKesson",
@@ -8444,7 +8447,8 @@
     "clearance": false,
     "url": "https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/Milpitas-California-US/Cloud-Engineer_2018124",
     "source": "Workday",
-    "date_added": "2026-11-05"
+    "date_added": "2026-11-05",
+    "missing_since": "2026-11-07"
   },
   {
     "company": "Proofpoint",
