@@ -16,7 +16,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**145** internships · **45** new grad · **168** early career open · **37** added in the last 7 days · **173** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 8, 2026
+**144** internships · **45** new grad · **167** early career open · **37** added in the last 7 days · **172** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 8, 2026
 
 <!-- /STATS -->
 
@@ -213,7 +213,6 @@ Cybersecurity internships and co-ops for current students.
 | ↳ | College to Corporate IT Internship - Risk &amp; Security - Analyst (PA)<br><sub>GRC &amp; Risk</sub> | <a href="https://vanguard.wd5.myworkdayjobs.com/vanguard_external/job/Malvern-PA/College-to-Corporate-IT-Internship---Risk---Security---Analyst---PA-_181762"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Vanguard College to Corporate IT Internship - Risk &amp; Security - Analyst (PA)"></a> | Malvern, PA | Sep 5 |
 | ↳ | College to Corporate IT Internship - Risk &amp; Security - Analyst (NC)<br><sub>GRC &amp; Risk</sub> | <a href="https://vanguard.wd5.myworkdayjobs.com/vanguard_external/job/Charlotte-NC/College-to-Corporate-IT-Internship---Risk---Security---Analyst---NC-_181764"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Vanguard College to Corporate IT Internship - Risk &amp; Security - Analyst (NC)"></a> | Charlotte, NC | Sep 5 |
 | Verkada | Security Software Engineering Intern 2027<br><sub>Security Engineering</sub> | <a href="https://job-boards.greenhouse.io/verkada/jobs/5213881007"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Verkada Security Software Engineering Intern 2027"></a> | San Mateo, CA | Sep 5 |
-| Bank of America | Global Technology Summer Analyst 2027 - Cybersecurity Analyst<br><sub>Security Engineering</sub> | <a href="https://careers.bankofamerica.com/en-us/students/job-detail/14391/global-technology-summer-analyst-2027-cybersecurity-analyst-multiple-locations"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Bank of America Global Technology Summer Analyst 2027 - Cybersecurity Analyst"></a> | <details><summary>**4 locations**</summary>Charlotte, NC<br>Dallas, TX<br>Denver, CO<br>Washington, DC</details> | Aug 2 |
 | Appian | Information Security Engineer Intern<br><sub>Security Engineering</sub> | <a href="https://job-boards.greenhouse.io/appian/jobs/8088496"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Appian Information Security Engineer Intern"></a> | McLean, VA | Jul 27 |
 | Palo Alto Networks | Intern - Software Engineer<br><sub>Engineering @ Security Co</sub> | <a href="https://paloaltonetworks.wd5.myworkdayjobs.com/panwexternalcareers/job/Office---USA---CA---Headquarters/Intern---Software-Engineer_JR-011570"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Palo Alto Networks Intern - Software Engineer"></a> | CA (US) | Jul 12 |
 | ↳ | Intern - Security Researcher - PhD Pipline<br><sub>Security Engineering</sub> | <a href="https://paloaltonetworks.wd5.myworkdayjobs.com/panwexternalcareers/job/Office---USA---CA---Headquarters/Intern---Security-Researcher---PhD-Pipline_JR-010192"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Palo Alto Networks Intern - Security Researcher - PhD Pipline"></a> | CA (US) | Jul 12 |
@@ -223,10 +222,11 @@ Cybersecurity internships and co-ops for current students.
 
 <!-- CLOSED_START intern -->
 
-<details><summary>🔒 109 closed in the last 60 days</summary>
+<details><summary>🔒 110 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
+| Bank of America | Global Technology Summer Analyst 2027 - Cybersecurity Analyst | Nov 8 |
 | OPSWAT | Support Engineering Intern (AI &amp; Automation Focus) | Nov 8 |
 | RTX | Internship – Raytheon Systems Security Engineer- Onsite | Nov 8 |
 | ↳ | Systems Security Engineering Intern (Summer 2027) | Nov 8 |
@@ -585,7 +585,6 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 | Northrop Grumman | Level 2/3 Cyber Systems Engineer - AISR&amp;T Contingent 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-San-Diego/Level-2-3-Cyber-Systems-Engineer---AISR-T-Contingent_R10249593"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Northrop Grumman Level 2/3 Cyber Systems Engineer - AISR&amp;T Contingent"></a> | San Diego, CA | Sep 10 |
 | SailPoint | Associate Security Software Engineer<br><sub>Security Engineering</sub> | <a href="https://sailpoint.wd1.myworkdayjobs.com/SailPoint/job/Remote-Texas-USA/Associate-Security-Software-Engineer_R013786"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: SailPoint Associate Security Software Engineer"></a> | <details><summary>**2 locations**</summary>Remote (US)<br>United States</details> | Sep 9 |
 | Amazon | Security Engineer II - AMZ9802161<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10487669/security-engineer-ii-amz9802161"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer II - AMZ9802161"></a> | Austin, TX | Sep 5 |
-| ↳ | Security Engineer II, US Amazon Dedicated Cloud Security 🇺🇸<br><sub>Cloud &amp; Infra Security</sub> | <a href="https://www.amazon.jobs/en/jobs/10498424/security-engineer-ii-us-amazon-dedicated-cloud-security"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer II, US Amazon Dedicated Cloud Security"></a> | Jessup, MD | Sep 5 |
 | Amentum | Cyber Intelligence Analyst – Junior 🇺🇸<br><sub>Threat Intelligence</sub> | <a href="https://pae.wd1.myworkdayjobs.com/Amentum_Careers/job/US-DC-Washington/Cyber-Intelligence-Analyst---Junior_R0165208"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amentum Cyber Intelligence Analyst – Junior"></a> | Washington, DC | Sep 5 |
 | Motorola Solutions | SOC Analyst I (Night Shift) 🇺🇸<br><sub>SOC &amp; Detection</sub> | <a href="https://motorolasolutions.wd5.myworkdayjobs.com/Careers/job/Schaumburg-IL/SOC-Analyst-I--Night-Shift-_R66933"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Motorola Solutions SOC Analyst I (Night Shift)"></a> | Schaumburg, IL | Sep 5 |
 | Nightwing | Vulnerability Researcher/ CNO Developer II (Onsite) 🇺🇸<br><sub>Offensive Security</sub> | <a href="https://nwis.wd12.myworkdayjobs.com/NW/job/San-Antonio-TX/Vulnerability-Researcher-II_JR100412"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Nightwing Vulnerability Researcher/ CNO Developer II (Onsite)"></a> | San Antonio, TX | Sep 5 |
@@ -628,10 +627,11 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 
 <!-- CLOSED_START earlycareer -->
 
-<details><summary>🔒 217 closed in the last 60 days</summary>
+<details><summary>🔒 218 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
+| Amazon | Security Engineer II, US Amazon Dedicated Cloud Security | Nov 8 |
 | Amentum | Jr. Cyber Defense Analyst MDX - SSFB/HSV | Nov 8 |
 | Fireblocks | Front Line Support Engineer - East Coast | Nov 8 |
 | JPMorgan Chase | Security Engineer II -Python Developer | Nov 8 |

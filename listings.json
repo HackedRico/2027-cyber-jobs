@@ -1496,10 +1496,12 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://careers.bankofamerica.com/en-us/students/job-detail/14391/global-technology-summer-analyst-2027-cybersecurity-analyst-multiple-locations",
+    "url": "",
     "source": "Community",
     "date_added": "2026-08-02",
-    "dead_since": "2026-11-07"
+    "last_url": "https://careers.bankofamerica.com/en-us/students/job-detail/14391/global-technology-summer-analyst-2027-cybersecurity-analyst-multiple-locations",
+    "closed": true,
+    "closed_date": "2026-11-08"
   },
   {
     "company": "Deloitte",
@@ -2116,11 +2118,12 @@
     "type": "earlycareer",
     "category": "Cloud & Infra Security",
     "clearance": true,
-    "url": "https://www.amazon.jobs/en/jobs/10498424/security-engineer-ii-us-amazon-dedicated-cloud-security",
+    "url": "",
     "source": "Amazon Jobs",
     "date_added": "2026-09-05",
-    "missing_since": "2026-11-07",
-    "dead_since": "2026-11-07"
+    "last_url": "https://www.amazon.jobs/en/jobs/10498424/security-engineer-ii-us-amazon-dedicated-cloud-security",
+    "closed": true,
+    "closed_date": "2026-11-08"
   },
   {
     "company": "Amazon",

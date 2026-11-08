@@ -4,7 +4,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **404 companies tracked.**
 
-## Hiring students now (106)
+## Hiring students now (105)
 
 Employers with open roles on the board today.
 
@@ -47,7 +47,7 @@ Employers with open roles on the board today.
 | National Laboratory of the Rockies | 2 |  |  |
 | Qualcomm | 2 |  |  |
 | Salesforce | 1 | 1 |  |
-| Amazon |  | 1 | 15 |
+| Amazon |  | 1 | 14 |
 | Nightwing | 1 |  | 8 |
 | CrowdStrike | 1 |  | 7 |
 | Cisco | 1 |  | 2 |
@@ -61,7 +61,6 @@ Employers with open roles on the board today.
 | Verkada | 1 |  | 1 |
 | 1Password | 1 |  |  |
 | Adobe | 1 |  |  |
-| Bank of America | 1 |  |  |
 | Deloitte |  | 1 |  |
 | Figma | 1 |  |  |
 | Grant Thornton |  | 1 |  |
