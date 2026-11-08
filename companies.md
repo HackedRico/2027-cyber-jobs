@@ -4,7 +4,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **404 companies tracked.**
 
-## Hiring students now (110)
+## Hiring students now (106)
 
 Employers with open roles on the board today.
 
@@ -16,8 +16,7 @@ Employers with open roles on the board today.
 | Microsoft | 9 |  | 7 |
 | MITRE | 7 | 1 | 5 |
 | Lawrence Livermore National Laboratory | 6 |  |  |
-| RTX | 5 |  | 13 |
-| Palo Alto Networks | 4 | 1 | 3 |
+| Palo Alto Networks | 4 | 1 | 2 |
 | HPE | 3 | 2 | 1 |
 | Northrop Grumman | 2 | 2 | 10 |
 | Leidos | 4 |  | 9 |
@@ -32,6 +31,7 @@ Employers with open roles on the board today.
 | NVIDIA | 1 | 2 |  |
 | Palantir | 2 | 1 |  |
 | Tanium | 3 |  |  |
+| RTX | 2 |  | 12 |
 | Software Engineering Institute | 2 |  | 6 |
 | Appian | 1 | 1 | 1 |
 | Citi | 1 | 1 | 1 |
@@ -47,8 +47,6 @@ Employers with open roles on the board today.
 | National Laboratory of the Rockies | 2 |  |  |
 | Qualcomm | 2 |  |  |
 | Salesforce | 1 | 1 |  |
-| Together AI | 1 | 1 |  |
-| Visa | 2 |  |  |
 | Amazon |  | 1 | 15 |
 | Nightwing | 1 |  | 8 |
 | CrowdStrike | 1 |  | 7 |
@@ -67,13 +65,11 @@ Employers with open roles on the board today.
 | Deloitte |  | 1 |  |
 | Figma | 1 |  |  |
 | Grant Thornton |  | 1 |  |
-| Guidehouse |  | 1 |  |
 | ICF | 1 |  |  |
 | Immuta | 1 |  |  |
 | KeyBank |  | 1 |  |
 | Lumen | 1 |  |  |
 | McKesson |  | 1 |  |
-| OPSWAT | 1 |  |  |
 | PayPal | 1 |  |  |
 | Prophet Security | 1 |  |  |
 | Rubrik |  | 1 |  |
@@ -82,17 +78,17 @@ Employers with open roles on the board today.
 | Semgrep | 1 |  |  |
 | Trace3 | 1 |  |  |
 | TRM Labs |  | 1 |  |
+| Visa | 1 |  |  |
 | Wells Fargo | 1 |  |  |
 | Fortinet |  |  | 8 |
 | BAE Systems |  |  | 7 |
 | KBR |  |  | 5 |
-| Amentum |  |  | 3 |
 | Kyndryl |  |  | 3 |
 | Abnormal AI |  |  | 2 |
+| Amentum |  |  | 2 |
 | Battelle |  |  | 2 |
 | Boeing |  |  | 2 |
 | Fortra |  |  | 2 |
-| JPMorgan Chase |  |  | 2 |
 | Proofpoint |  |  | 2 |
 | SAIC |  |  | 2 |
 | Salt Security |  |  | 2 |
@@ -103,9 +99,9 @@ Employers with open roles on the board today.
 | Delinea |  |  | 1 |
 | ESET |  |  | 1 |
 | ExtraHop |  |  | 1 |
-| Fireblocks |  |  | 1 |
 | HII |  |  | 1 |
 | Instacart |  |  | 1 |
+| JPMorgan Chase |  |  | 1 |
 | Keyfactor |  |  | 1 |
 | MIT Lincoln Laboratory |  |  | 1 |
 | Obsidian Security |  |  | 1 |

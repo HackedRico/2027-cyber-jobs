@@ -1567,10 +1567,11 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://www.fireblocks.com/careers/position?gh_jid=4704413006",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-09-05",
-    "missing_since": "2026-11-05"
+    "closed": true,
+    "closed_date": "2026-11-08"
   },
   {
     "company": "Pinterest",
@@ -2763,10 +2764,11 @@
     "type": "intern",
     "category": "Cloud & Infra Security",
     "clearance": true,
-    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MA-WOBURN-WB2--225-Presidential-Way--GODDARD-BLDG/Internship---Raytheon-Systems-Security-Engineer--Onsite_01874703",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-16",
-    "missing_since": "2026-11-05"
+    "closed": true,
+    "closed_date": "2026-11-08"
   },
   {
     "company": "The Home Depot",
@@ -4582,10 +4584,11 @@
     "type": "earlycareer",
     "category": "AppSec & ProdSec",
     "clearance": true,
-    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Embedded-Software-Security-Engineer-I---S3E_01878692",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-30",
-    "missing_since": "2026-11-05"
+    "closed": true,
+    "closed_date": "2026-11-08"
   },
   {
     "company": "Microsoft",
@@ -6028,10 +6031,11 @@
     "type": "intern",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://www.opswat.com/jobs/4740022005?gh_jid=4740022005",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-10-08",
-    "missing_since": "2026-11-05"
+    "closed": true,
+    "closed_date": "2026-11-08"
   },
   {
     "company": "Cisco",
@@ -6077,10 +6081,11 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://paloaltonetworks.wd5.myworkdayjobs.com/panwexternalcareers/job/Cleveland-United-States-of-America/Solutions-Consultant-2---Strategic-Accounts_JR-023272-1",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-08",
-    "missing_since": "2026-11-05"
+    "closed": true,
+    "closed_date": "2026-11-08"
   },
   {
     "company": "Proofpoint",
@@ -6244,10 +6249,11 @@
     "type": "intern",
     "category": "Cloud & Infra Security",
     "clearance": true,
-    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-FULLERTON-675--1801-Hughes-Dr--BLDG-675/Systems-Security-Engineering-Intern--Summer-2027-_01886260",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-08",
-    "missing_since": "2026-11-05"
+    "closed": true,
+    "closed_date": "2026-11-08"
   },
   {
     "company": "KeyBank",
@@ -6949,10 +6955,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://job-boards.greenhouse.io/togetherai/jobs/5238469007",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-10-16",
-    "missing_since": "2026-11-05"
+    "closed": true,
+    "closed_date": "2026-11-08"
   },
   {
     "company": "Together AI",
@@ -6961,10 +6968,11 @@
     "type": "newgrad",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://job-boards.greenhouse.io/togetherai/jobs/5238471007",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-10-16",
-    "missing_since": "2026-11-05"
+    "closed": true,
+    "closed_date": "2026-11-08"
   },
   {
     "company": "Leidos",
@@ -7189,10 +7197,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210799827",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-10-20",
-    "missing_since": "2026-11-05"
+    "closed": true,
+    "closed_date": "2026-11-08"
   },
   {
     "company": "Fortinet",
@@ -7897,10 +7906,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://visa.wd5.myworkdayjobs.com/Visa/job/US---Denver-CO/Network-and-Security-Engineering-Intern---2027--Highlands-Ranch--CO_REF089779W-1",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-27",
-    "missing_since": "2026-11-05"
+    "closed": true,
+    "closed_date": "2026-11-08"
   },
   {
     "company": "Visa",
@@ -7992,10 +8002,11 @@
     "type": "earlycareer",
     "category": "SOC & Detection",
     "clearance": true,
-    "url": "https://pae.wd1.myworkdayjobs.com/Amentum_Careers/job/US-CO-Colorado-Springs/Jr-Cyber-Defense-Analyst-MDX---SSFB-HSV_R0174104",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-28",
-    "missing_since": "2026-11-05"
+    "closed": true,
+    "closed_date": "2026-11-08"
   },
   {
     "company": "HP Inc",
@@ -8244,10 +8255,11 @@
     "type": "newgrad",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://guidehouse.wd1.myworkdayjobs.com/External/job/US---VA-McLean/Consultant---Defense---Security---IT-Controls---Campus-2027_46116-1",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-11-02",
-    "missing_since": "2026-11-05"
+    "closed": true,
+    "closed_date": "2026-11-08"
   },
   {
     "company": "STR",
@@ -8289,10 +8301,11 @@
     "type": "intern",
     "category": "Cloud & Infra Security",
     "clearance": true,
-    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MA-WOBURN-WB2--225-Presidential-Way--GODDARD-BLDG/Internship---Raytheon-Systems-Security-Engineer--Onsite-_01886045",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-11-02",
-    "missing_since": "2026-11-05"
+    "closed": true,
+    "closed_date": "2026-11-08"
   },
   {
     "company": "Entrust",
