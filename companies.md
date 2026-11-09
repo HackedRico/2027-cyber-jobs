@@ -4,30 +4,29 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **404 companies tracked.**
 
-## Hiring students now (105)
+## Hiring students now (103)
 
 Employers with open roles on the board today.
 
 | Company | Internships | New grad | Early career |
 | ------- | ----------- | -------- | ------------ |
 | Johns Hopkins APL | 10 | 15 |  |
-| Booz Allen Hamilton | 11 |  | 2 |
 | Vanguard | 5 | 6 |  |
 | Microsoft | 9 |  | 7 |
+| Booz Allen Hamilton | 9 |  | 2 |
 | MITRE | 7 | 1 | 5 |
 | Lawrence Livermore National Laboratory | 6 |  |  |
 | Palo Alto Networks | 4 | 1 | 2 |
 | HPE | 3 | 2 | 1 |
-| Northrop Grumman | 2 | 2 | 10 |
 | Leidos | 4 |  | 9 |
-| Aerospace Corporation | 4 |  |  |
 | BDO | 3 | 1 |  |
 | Federal Reserve System | 4 |  |  |
 | Intel | 4 |  |  |
+| Northrop Grumman | 1 | 2 | 10 |
 | GuidePoint Security | 3 |  | 1 |
+| Aerospace Corporation | 3 |  |  |
 | Entrust | 3 |  |  |
 | Goldman Sachs | 3 |  |  |
-| HP Inc | 3 |  |  |
 | NVIDIA | 1 | 2 |  |
 | Palantir | 2 | 1 |  |
 | Tanium | 3 |  |  |
@@ -42,6 +41,7 @@ Employers with open roles on the board today.
 | Walmart | 2 |  | 1 |
 | Applied Intuition |  | 2 |  |
 | Elevance Health | 2 |  |  |
+| HP Inc | 2 |  |  |
 | ID.me |  | 2 |  |
 | Illumio | 2 |  |  |
 | National Laboratory of the Rockies | 2 |  |  |
@@ -56,7 +56,6 @@ Employers with open roles on the board today.
 | American Express | 1 |  | 1 |
 | CACI | 1 |  | 1 |
 | GDIT | 1 |  | 1 |
-| Lockheed Martin | 1 |  | 1 |
 | Sierra Nevada Corporation | 1 |  | 1 |
 | Verkada | 1 |  | 1 |
 | 1Password | 1 |  |  |
@@ -67,17 +66,16 @@ Employers with open roles on the board today.
 | ICF | 1 |  |  |
 | Immuta | 1 |  |  |
 | KeyBank |  | 1 |  |
+| Lockheed Martin | 1 |  |  |
 | Lumen | 1 |  |  |
 | McKesson |  | 1 |  |
 | PayPal | 1 |  |  |
 | Prophet Security | 1 |  |  |
 | Rubrik |  | 1 |  |
-| Sardine | 1 |  |  |
 | Saviynt | 1 |  |  |
 | Semgrep | 1 |  |  |
 | Trace3 | 1 |  |  |
 | TRM Labs |  | 1 |  |
-| Visa | 1 |  |  |
 | Wells Fargo | 1 |  |  |
 | Fortinet |  |  | 8 |
 | BAE Systems |  |  | 7 |

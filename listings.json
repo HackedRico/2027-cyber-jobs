@@ -2609,10 +2609,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Utah-Roy/XMLNAME-2027-Cyber-Systems-Engineer-Intern---Roy-UT_R10249471",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-15",
-    "missing_since": "2026-11-06"
+    "closed": true,
+    "closed_date": "2026-11-09"
   },
   {
     "company": "Northrop Grumman",
@@ -3532,10 +3533,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Atlanta-GA/University---2027-Summer-Games-Cyber-Security-Intern---Atlanta--GA_R0248139",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-28",
-    "missing_since": "2026-11-06"
+    "closed": true,
+    "closed_date": "2026-11-09"
   },
   {
     "company": "Booz Allen Hamilton",
@@ -3566,10 +3568,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Huntsville-AL/University---2027-Summer-Games-Cyber-Security-Intern---Huntsville--AL_R0248412",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-28",
-    "missing_since": "2026-11-06"
+    "closed": true,
+    "closed_date": "2026-11-09"
   },
   {
     "company": "Booz Allen Hamilton",
@@ -7576,10 +7579,11 @@
     "type": "earlycareer",
     "category": "AppSec & ProdSec",
     "clearance": true,
-    "url": "https://lockheedmartin.eightfold.ai/careers/job/996477330857",
+    "url": "",
     "source": "Eightfold",
     "date_added": "2026-10-23",
-    "missing_since": "2026-11-06"
+    "closed": true,
+    "closed_date": "2026-11-09"
   },
   {
     "company": "Microsoft",
@@ -7649,10 +7653,11 @@
     "type": "intern",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://jobs.ashbyhq.com/sardine/b25449a4-c78c-4b1a-b5b2-74b45981a37a",
+    "url": "",
     "source": "Ashby",
     "date_added": "2026-10-24",
-    "missing_since": "2026-11-06"
+    "closed": true,
+    "closed_date": "2026-11-09"
   },
   {
     "company": "RTX",
@@ -7782,10 +7787,11 @@
     "type": "intern",
     "category": "Cloud Engineering",
     "clearance": true,
-    "url": "https://aero.wd5.myworkdayjobs.com/External/job/El-Segundo-CA/XMLNAME-2027-Cloud-Solutions-Engineer---Site-Reliability-Grad-Intern_R016715",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-26",
-    "missing_since": "2026-11-06"
+    "closed": true,
+    "closed_date": "2026-11-09"
   },
   {
     "company": "Wells Fargo",
@@ -7922,10 +7928,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://visa.wd5.myworkdayjobs.com/Visa/job/US---Ashburn-VA/Network-and-Security-Engineering-Intern---2027--Ashburn--VA_REF089778W",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-27",
-    "missing_since": "2026-11-06"
+    "closed": true,
+    "closed_date": "2026-11-09"
   },
   {
     "company": "Fifth Third",
@@ -8018,10 +8025,11 @@
     "type": "intern",
     "category": "Cloud Engineering",
     "clearance": false,
-    "url": "https://hp.wd5.myworkdayjobs.com/ExternalCareerSite/job/San-Francisco-California-United-States-of-America/Cloud-Engineering-Intern_UNI4799-1",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-28",
-    "missing_since": "2026-11-06"
+    "closed": true,
+    "closed_date": "2026-11-09"
   },
   {
     "company": "Johns Hopkins APL",
