@@ -1539,19 +1539,6 @@
     "date_added": "2026-08-02"
   },
   {
-    "company": "Abnormal AI",
-    "role": "Software Engineer II - Data Security",
-    "location": "Remote (US)",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "",
-    "source": "Greenhouse",
-    "date_added": "2026-09-05",
-    "closed": true,
-    "closed_date": "2026-09-10"
-  },
-  {
     "company": "Dragos",
     "role": "Junior OT/ICS Lab Engineer",
     "location": "Hanover, MD",
@@ -5053,10 +5040,11 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://paloaltonetworks.wd5.myworkdayjobs.com/panwexternalcareers/job/Columbus-United-States-of-America/Domain-Consultant-2_JR-020326",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-03",
-    "missing_since": "2026-11-07"
+    "closed": true,
+    "closed_date": "2026-11-10"
   },
   {
     "company": "PNNL",
@@ -5482,10 +5470,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://elevancehealth.wd1.myworkdayjobs.com/ANT/job/IN-INDIANAPOLIS-220-VIRGINIA-AVE/Information-Security-Co-Op-Internship---2027_JR205939",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-03",
-    "missing_since": "2026-11-07"
+    "closed": true,
+    "closed_date": "2026-11-10"
   },
   {
     "company": "Johnson & Johnson",
@@ -5960,7 +5949,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-Redondo-Beach/Cloud-Software-Engineer--Level-2----AHT_R10249870",
     "source": "Workday",
-    "date_added": "2026-10-06"
+    "date_added": "2026-10-06",
+    "missing_since": "2026-11-10"
   },
   {
     "company": "HPE",
@@ -7062,10 +7052,11 @@
     "type": "intern",
     "category": "GRC & Risk",
     "clearance": false,
-    "url": "https://lumen.eightfold.ai/careers/job/1133916380525",
+    "url": "",
     "source": "Eightfold",
     "date_added": "2026-10-17",
-    "missing_since": "2026-11-07"
+    "closed": true,
+    "closed_date": "2026-11-10"
   },
   {
     "company": "BAE Systems",
@@ -7908,10 +7899,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://snc.wd1.myworkdayjobs.com/SNC_External_Career_Site/job/Sparks-NV/Cybersecurity-Analyst-Intern_R0031269",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-27",
-    "missing_since": "2026-11-07"
+    "closed": true,
+    "closed_date": "2026-11-10"
   },
   {
     "company": "Visa",
@@ -8385,7 +8377,8 @@
     "clearance": true,
     "url": "https://jobs.baesystems.com/global/en/job/131787BR",
     "source": "Phenom",
-    "date_added": "2026-11-02"
+    "date_added": "2026-11-02",
+    "missing_since": "2026-11-10"
   },
   {
     "company": "Idaho National Laboratory",
@@ -8450,10 +8443,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Utah-Clearfield/XMLNAME-2027-Cybersecurity-Software-Engineering-Intern---Roy-UT_R10259177",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-11-04",
-    "missing_since": "2026-11-07"
+    "closed": true,
+    "closed_date": "2026-11-10"
   },
   {
     "company": "McKesson",
@@ -8473,10 +8467,11 @@
     "type": "earlycareer",
     "category": "Cloud Engineering",
     "clearance": false,
-    "url": "https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/Milpitas-California-US/Cloud-Engineer_2018124",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-11-05",
-    "missing_since": "2026-11-07"
+    "closed": true,
+    "closed_date": "2026-11-10"
   },
   {
     "company": "Proofpoint",
@@ -8727,7 +8722,7 @@
     "location": "Bend, OR",
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
-    "clearance": false,
+    "clearance": true,
     "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Bend-OR/Engineer-II--Systems-Integration_R30851-1",
     "source": "Workday",
     "date_added": "2026-11-09"
@@ -8808,5 +8803,49 @@
     "url": "https://jobs.baesystems.com/global/en/job/132321BR",
     "source": "Phenom",
     "date_added": "2026-11-09"
+  },
+  {
+    "company": "Illumio",
+    "role": "Engineering Intern, SRE",
+    "location": "Sunnyvale, California - HQ",
+    "type": "intern",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/illumio/2bcba5c3-c6e7-407c-92b2-73027594789e",
+    "source": "Ashby",
+    "date_added": "2026-11-10"
+  },
+  {
+    "company": "Aerospace Corporation",
+    "role": "2027 Defensive Cyber Operations Grad Intern",
+    "location": "El Segundo, CA",
+    "type": "intern",
+    "category": "SOC & Detection",
+    "clearance": true,
+    "url": "https://aero.wd5.myworkdayjobs.com/External/job/El-Segundo-CA/XMLNAME-2027-Defensive-Cyber-Operations-Grad-Intern_R017106",
+    "source": "Workday",
+    "date_added": "2026-11-10"
+  },
+  {
+    "company": "Honeywell",
+    "role": "Cyber AI Engineer II",
+    "location": "Minneapolis, MN",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://ibqbjb.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/157740",
+    "source": "Oracle",
+    "date_added": "2026-11-10"
+  },
+  {
+    "company": "Lockheed Martin",
+    "role": "Cybersecurity Intern",
+    "location": "Uniondale, NY",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://lockheedmartin.eightfold.ai/careers/job/996477848074",
+    "source": "Eightfold",
+    "date_added": "2026-11-10"
   }
 ]
