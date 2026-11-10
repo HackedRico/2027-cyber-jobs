@@ -16,7 +16,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**140** internships · **46** new grad · **173** early career open · **40** added in the last 7 days · **177** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 10, 2026
+**141** internships · **46** new grad · **176** early career open · **41** added in the last 7 days · **177** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 10, 2026
 
 <!-- /STATS -->
 
@@ -115,6 +115,7 @@ Cybersecurity internships and co-ops for current students.
 | MITRE | Trustworthy AI Intern 🇺🇸<br><sub>AI Security &amp; Safety</sub> | <a href="https://careers.mitre.org/us/en/job/R117833"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: MITRE Trustworthy AI Intern"></a> | McLean, VA | Oct 21 |
 | Salesforce | Summer 2027 Intern - Software Engineer (Security/Government) 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/California---San-Francisco/Summer-2027-Intern---Software-Engineer--Security-Government-_JR364911-1"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Salesforce Summer 2027 Intern - Software Engineer (Security/Government)"></a> | <details><summary>**2 locations**</summary>San Francisco, CA<br>Bellevue, WA</details> | Oct 20 |
 | Entrust | Software Engineering Co-op<br><sub>Engineering @ Security Co</sub> | <a href="https://entrust.wd1.myworkdayjobs.com/EntrustCareers/job/United-States---Shakopee-MN-GHQ/Software-Engineering-Co-op_R004425"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Entrust Software Engineering Co-op"></a> | Shakopee, MN | Oct 17 |
+| Lumen | Cybersecurity, Risk &amp; Digital Trust - Summer 2027 Internship Pathway<br><sub>GRC &amp; Risk</sub> | <a href="https://lumen.eightfold.ai/careers/job/1133916380525"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Lumen Cybersecurity, Risk &amp; Digital Trust - Summer 2027 Internship Pathway"></a> | Remote (US) | Oct 17 |
 | ICF | 2027 Summer Intern, Cloud Engineer (AWS/Azure) (Reston, VA) 🇺🇸<br><sub>Cloud Engineering</sub> | <a href="https://icf.wd5.myworkdayjobs.com/ICFExternal_Career_Site/job/Reston-VA/XMLNAME-2027-Summer-Intern--Cloud-Engineer--AWS-Azure---Reston--VA-_R2603554"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: ICF 2027 Summer Intern, Cloud Engineer (AWS/Azure) (Reston, VA)"></a> | Reston, VA | Oct 16 |
 | Lawrence Livermore National Laboratory | Cybersecurity Undergraduate Intern - Cyber and Critical Infrastructure Summer Institute - Summer 2027 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://jobs.smartrecruiters.com/LLNL/3743990016610186"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Lawrence Livermore National Laboratory Cybersecurity Undergraduate Intern - Cyber and Critical Infrastructure Summer Institute - Summer 2027"></a> | Livermore, CA | Oct 16 |
 | ↳ | Cybersecurity Graduate Intern - Cyber and Critical Infrastructure Summer Institute - Summer 2027 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://jobs.smartrecruiters.com/LLNL/3743990016610101"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Lawrence Livermore National Laboratory Cybersecurity Graduate Intern - Cyber and Critical Infrastructure Summer Institute - Summer 2027"></a> | Livermore, CA | Oct 16 |
@@ -218,12 +219,11 @@ Cybersecurity internships and co-ops for current students.
 
 <!-- CLOSED_START intern -->
 
-<details><summary>🔒 120 closed in the last 60 days</summary>
+<details><summary>🔒 119 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
 | Elevance Health | Information Security Co-Op Internship – 2027 | Nov 10 |
-| Lumen | Cybersecurity, Risk &amp; Digital Trust - Summer 2027 Internship Pathway | Nov 10 |
 | Northrop Grumman | 2027 Cybersecurity Software Engineering Intern - Roy UT | Nov 10 |
 | Sierra Nevada Corporation | Cybersecurity Analyst Intern | Nov 10 |
 | Aerospace Corporation | 2027 Cloud Solutions Engineer / Site Reliability Grad Intern | Nov 9 |
@@ -463,6 +463,7 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
 | Honeywell | 🆕 Cyber AI Engineer II 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://ibqbjb.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/157740"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Honeywell Cyber AI Engineer II"></a> | Minneapolis, MN | Nov 10 |
+| PwC | 🆕 Google Cloud Engineer, Experienced Associate<br><sub>Cloud Engineering</sub> | <a href="https://pwc.wd3.myworkdayjobs.com/US_Experienced_Careers/job/IL-Chicago/Google-Cloud-Engineer--Experienced-Associate_773194WD"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: PwC Google Cloud Engineer, Experienced Associate"></a> | <details><summary>**64 locations**</summary>Chicago, IL<br>Raleigh, NC<br>Charlotte, NC<br>Cincinnati, OH<br>Cleveland, OH<br>Columbia, SC<br>Columbus, OH<br>Dallas, TX<br>Baltimore, MD<br>Richmond, VA<br>Rochester, NY<br>Rosemont, IL<br>Sacramento, CA<br>Boston, MA<br>St. Louis, MO<br>Salt Lake City, UT<br>San Antonio, TX<br>San Diego, CA<br>San Francisco, CA<br>Silicon Valley, CA<br>Seattle, WA<br>Spartanburg, SC<br>Stamford, CT<br>Tampa, FL<br>Atlanta, GA<br>Toledo, OH<br>Austin, TX<br>Tulsa, OK<br>Washington, DC<br>Denver, CO<br>Des Moines, IA<br>Detroit, MI<br>Boca Raton, FL<br>Buffalo, NY<br>Florham Park, NJ<br>Fort Worth, TX<br>Greensboro, NC<br>Hartford, CT<br>Houston, TX<br>Grand Rapids, MI<br>Indianapolis, IN<br>Irvine, CA<br>Jacksonville, FL<br>Kansas City, MO<br>Las Vegas, NV<br>Little Rock, AR<br>Los Angeles, CA<br>Louisville, KY<br>Birmingham, AL<br>Fayetteville, AR<br>Melville, NY<br>Miami, FL<br>Milwaukee, WI<br>Minneapolis, MN<br>Montpelier, VT<br>Nashville, TN<br>New Orleans, LA<br>New York, NY<br>Oklahoma City, OK<br>Orlando, FL<br>Philadelphia, PA<br>Phoenix, AZ<br>Pittsburgh, PA<br>Portland, OR</details> | Nov 10 |
 | BAE Systems | 🆕 Cyber Analyst II - Information System Security Officer 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://jobs.baesystems.com/global/en/job/132321BR"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: BAE Systems Cyber Analyst II - Information System Security Officer"></a> | <details><summary>**2 locations**</summary>Broomfield, CO<br>Boulder, CO</details> | Nov 9 |
 | CrowdStrike | 🆕 Data Center Capacity Engineer II (Remote) 🇺🇸<br><sub>Engineering @ Security Co</sub> | <a href="https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Data-Center-Capacity-Engineer-II---Remote-_R30720"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: CrowdStrike Data Center Capacity Engineer II (Remote)"></a> | Remote (US) | Nov 9 |
 | ↳ | 🆕 Engineer II, Systems Integration 🇺🇸<br><sub>Engineering @ Security Co</sub> | <a href="https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Bend-OR/Engineer-II--Systems-Integration_R30851-1"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: CrowdStrike Engineer II, Systems Integration"></a> | Bend, OR | Nov 9 |
@@ -513,6 +514,7 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 | Fortinet | Early Careers: Software Development Engineer<br><sub>Engineering @ Security Co</sub> | <a href="https://edel.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/24668"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Fortinet Early Careers: Software Development Engineer"></a> | Sunnyvale, CA | Oct 20 |
 | Fortra | Associate Solutions Engineer<br><sub>Solutions Architecture</sub> | <a href="https://fortra.wd12.myworkdayjobs.com/FortraCareers/job/United-States/Associate-Solutions-Engineer_R26-0421"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Fortra Associate Solutions Engineer"></a> | <details><summary>**8 locations**</summary>United States<br>TX (US)<br>GA (US)<br>CT (US)<br>UT (US)<br>NY (US)<br>NJ (US)<br>AZ (US)</details> | Oct 20 |
 | CrowdStrike | Software Engineer II - Engine Team, LogScale (Hybrid) 🇺🇸<br><sub>Engineering @ Security Co</sub> | <a href="https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Austin-TX/Software-Engineer-II---Engine-Team--LogScale--Hybrid-_R30387"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: CrowdStrike Software Engineer II - Engine Team, LogScale (Hybrid)"></a> | Austin, TX | Oct 19 |
+| Abnormal AI | Software Engineer 1 - Cloud Infrastructure<br><sub>Engineering @ Security Co</sub> | <a href="https://abnormal.ai/careers/jobs/8015179003?gh_jid=8015179003"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Abnormal AI Software Engineer 1 - Cloud Infrastructure"></a> | Remote (US) | Oct 17 |
 | BAE Systems | Cyber Analyst II - ISSO 🇺🇸<br><sub>GRC &amp; Risk</sub> | <a href="https://jobs.baesystems.com/global/en/job/131570BR"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: BAE Systems Cyber Analyst II - ISSO"></a> | <details><summary>**2 locations**</summary>Broomfield, CO<br>Boulder, CO</details> | Oct 17 |
 | Corelight | Associate Escalation Engineer<br><sub>Engineering @ Security Co</sub> | <a href="https://boards.greenhouse.io/corelight/jobs/8287269?gh_jid=8287269"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Corelight Associate Escalation Engineer"></a> | United States | Oct 17 |
 | CrowdStrike | Analyst I, Falcon Complete (Hybrid, San Antonio)<br><sub>SOC &amp; Detection</sub> | <a href="https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Analyst-I--Falcon-Complete--Hybrid--San-Antonio-_R30220"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: CrowdStrike Analyst I, Falcon Complete (Hybrid, San Antonio)"></a> | <details><summary>**2 locations**</summary>Remote (US)<br>San Antonio, TX</details> | Oct 16 |
@@ -583,6 +585,7 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 | MITRE | AI Security Engineer 🇺🇸<br><sub>AI Security &amp; Safety</sub> | <a href="https://careers.mitre.org/us/en/job/R116626"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: MITRE AI Security Engineer"></a> | <details><summary>**2 locations**</summary>McLean, VA<br>Bedford, MA</details> | Sep 28 |
 | STR | Associate Software Reverse Engineer 🇺🇸<br><sub>Forensics &amp; IR</sub> | <a href="https://job-boards.greenhouse.io/systemstechnologyresearch/jobs/4703289006"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: STR Associate Software Reverse Engineer"></a> | Woburn, MA | Sep 28 |
 | CrowdStrike | Engineer II - Virtualization (Remote) 🇺🇸<br><sub>Engineering @ Security Co</sub> | <a href="https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Engineer-II---Virtualization--Remote-_R30160"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: CrowdStrike Engineer II - Virtualization (Remote)"></a> | Remote (US) | Sep 24 |
+| Expel | Associate SOC Analyst<br><sub>SOC &amp; Detection</sub> | <a href="https://expel.com/about/career-listing/8936554002?gh_jid=8936554002"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Expel Associate SOC Analyst"></a> | Remote (US) | Sep 24 |
 | RTX | Systems Security Engineer II - P2 (Onsite - McKinney, TX) 🇺🇸<br><sub>Cloud &amp; Infra Security</sub> | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-TX-MCKINNEY-513WC--2501-W-University-Dr--WING-C-BLDG/Systems-Security-Engineer-II---P2--Onsite---McKinney--TX-_01877893-1"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: RTX Systems Security Engineer II - P2 (Onsite - McKinney, TX)"></a> | McKinney, TX | Sep 24 |
 | Delinea | Advanced Support Engineer I<br><sub>Engineering @ Security Co</sub> | <a href="https://jobs.ashbyhq.com/delinea/544e1b85-1961-4269-86dd-a4b011f34948"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Delinea Advanced Support Engineer I"></a> | Remote (US) | Sep 23 |
 | CACI | Junior Cyber Software Engineer 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://caci.wd1.myworkdayjobs.com/External/job/Aberdeen-Proving-Ground-MD-US/Junior-Cyber-Software-Engineer_332339"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: CACI Junior Cyber Software Engineer"></a> | Aberdeen Proving Ground, MD | Sep 21 |
@@ -640,7 +643,7 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 
 <!-- CLOSED_START earlycareer -->
 
-<details><summary>🔒 218 closed in the last 60 days</summary>
+<details><summary>🔒 216 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
@@ -672,7 +675,6 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 | Accenture Federal Services | Junior Cloud Systems Administrator | Nov 5 |
 | DXC Technology | Cybersecurity Analyst - Tier 2 | Nov 3 |
 | RTX | Systems Security Engineer I – Anti-Tamper / Program Protection (On-site ) | Nov 3 |
-| Abnormal AI | Software Engineer 1 - Cloud Infrastructure | Nov 2 |
 | NVIDIA | Machine Learning Engineer, AI Safety | Nov 2 |
 | RTX | Embedded Software Security Engineer II - S3E | Nov 2 |
 | 1Password | Junior Developer | Nov 1 |
@@ -736,7 +738,6 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 | Cisco | Security Engineer I (Full Time) - United States | Oct 13 |
 | ↳ | Cloud Engineer II (Full Time) - United States | Oct 13 |
 | CrowdStrike | Analyst I, Falcon Complete (Hybrid, San Antonio) | Oct 13 |
-| Expel | Associate SOC Analyst | Oct 13 |
 | Freddie Mac | IT Risk Associate II | Oct 13 |
 | Illumio | Site Reliability Engineer II | Oct 13 |
 | Northrop Grumman | Cyber Operator/Field Engineer – Level 2 (AHT) | Oct 11 |

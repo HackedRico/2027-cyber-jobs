@@ -2303,7 +2303,8 @@
     "clearance": false,
     "url": "https://jobs.lever.co/immuta/bf3c9d23-8da9-4a11-adf6-ecb7bce82ad4",
     "source": "Lever",
-    "date_added": "2026-09-09"
+    "date_added": "2026-09-09",
+    "missing_since": "2026-11-10"
   },
   {
     "company": "Northrop Grumman",
@@ -2451,7 +2452,8 @@
     "clearance": false,
     "url": "https://abnormal.ai/careers/jobs/7992780003?gh_jid=7992780003",
     "source": "Greenhouse",
-    "date_added": "2026-09-11"
+    "date_added": "2026-09-11",
+    "missing_since": "2026-11-10"
   },
   {
     "company": "Everfox",
@@ -3275,11 +3277,9 @@
     "type": "earlycareer",
     "category": "SOC & Detection",
     "clearance": false,
-    "url": "",
+    "url": "https://expel.com/about/career-listing/8936554002?gh_jid=8936554002",
     "source": "Greenhouse",
-    "date_added": "2026-09-24",
-    "closed": true,
-    "closed_date": "2026-10-13"
+    "date_added": "2026-09-24"
   },
   {
     "company": "CrowdStrike",
@@ -3538,7 +3538,8 @@
     "clearance": true,
     "url": "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/McLean-VA/University---Summer-27--Cybersecurity-Analyst-Intern_R0248214",
     "source": "Workday",
-    "date_added": "2026-09-28"
+    "date_added": "2026-09-28",
+    "missing_since": "2026-11-10"
   },
   {
     "company": "Booz Allen Hamilton",
@@ -5372,7 +5373,8 @@
     "clearance": false,
     "url": "https://kyndryl.wd5.myworkdayjobs.com/KyndrylEarlyCareers/job/Dallas-USDALFRI-Frisco-AI-HUB/Early-Career-Consult-Program---Cybersecurity-Defense-Associate_R-67301-1",
     "source": "Workday",
-    "date_added": "2026-10-03"
+    "date_added": "2026-10-03",
+    "missing_since": "2026-11-10"
   },
   {
     "company": "Kyndryl",
@@ -5383,7 +5385,8 @@
     "clearance": false,
     "url": "https://kyndryl.wd5.myworkdayjobs.com/KyndrylEarlyCareers/job/Dallas-USDALFRI-Frisco-AI-HUB/Early-Career-Consult-Program---Cybersecurity-Infrastructure-Associate_R-67375-2",
     "source": "Workday",
-    "date_added": "2026-10-03"
+    "date_added": "2026-10-03",
+    "missing_since": "2026-11-10"
   },
   {
     "company": "TD Bank",
@@ -5596,7 +5599,8 @@
     "clearance": false,
     "url": "https://ebqb.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BDOEntryLevelCareers/job/13197",
     "source": "Oracle",
-    "date_added": "2026-10-03"
+    "date_added": "2026-10-03",
+    "missing_since": "2026-11-10"
   },
   {
     "company": "Grant Thornton",
@@ -7052,11 +7056,9 @@
     "type": "intern",
     "category": "GRC & Risk",
     "clearance": false,
-    "url": "",
+    "url": "https://lumen.eightfold.ai/careers/job/1133916380525",
     "source": "Eightfold",
-    "date_added": "2026-10-17",
-    "closed": true,
-    "closed_date": "2026-11-10"
+    "date_added": "2026-10-17"
   },
   {
     "company": "BAE Systems",
@@ -7077,11 +7079,9 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "",
+    "url": "https://abnormal.ai/careers/jobs/8015179003?gh_jid=8015179003",
     "source": "Greenhouse",
-    "date_added": "2026-10-17",
-    "closed": true,
-    "closed_date": "2026-11-02"
+    "date_added": "2026-10-17"
   },
   {
     "company": "Cisco",
@@ -7271,7 +7271,8 @@
     "clearance": true,
     "url": "https://ibqbjb.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/160406",
     "source": "Oracle",
-    "date_added": "2026-10-21"
+    "date_added": "2026-10-21",
+    "missing_since": "2026-11-10"
   },
   {
     "company": "MITRE",
@@ -7798,7 +7799,8 @@
     "clearance": false,
     "url": "https://wf.wd1.myworkdayjobs.com/WellsFargoJobs/job/CHARLOTTE-NC/XMLNAME-2027-Technology-Summer-Internship---Early-Careers--Cybersecurity-_R-583417",
     "source": "Workday",
-    "date_added": "2026-10-26"
+    "date_added": "2026-10-26",
+    "missing_since": "2026-11-10"
   },
   {
     "company": "Lockheed Martin",
@@ -8458,7 +8460,8 @@
     "clearance": false,
     "url": "https://mckesson.wd3.myworkdayjobs.com/External_Careers/job/USA-TX-Irving/Graduate-Cyber-Security-Analyst--Cyber-Academy-_JR0155879",
     "source": "Workday",
-    "date_added": "2026-11-04"
+    "date_added": "2026-11-04",
+    "missing_since": "2026-11-10"
   },
   {
     "company": "Cisco",
@@ -8504,7 +8507,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Utah-Roy/XMLNAME-2027-Associate-Cyber-Systems-Engineer---Roy-UT_R10259435",
     "source": "Workday",
-    "date_added": "2026-11-05"
+    "date_added": "2026-11-05",
+    "missing_since": "2026-11-10"
   },
   {
     "company": "PayPal",
@@ -8648,7 +8652,8 @@
     "clearance": false,
     "url": "https://job-boards.greenhouse.io/keyfactorinc/jobs/6242660004",
     "source": "Greenhouse",
-    "date_added": "2026-11-07"
+    "date_added": "2026-11-07",
+    "missing_since": "2026-11-10"
   },
   {
     "company": "CrowdStrike",
@@ -8846,6 +8851,17 @@
     "clearance": true,
     "url": "https://lockheedmartin.eightfold.ai/careers/job/996477848074",
     "source": "Eightfold",
+    "date_added": "2026-11-10"
+  },
+  {
+    "company": "PwC",
+    "role": "Google Cloud Engineer, Experienced Associate",
+    "location": "Chicago, IL; Raleigh, NC; Charlotte, NC; Cincinnati, OH; Cleveland, OH; Columbia, SC; Columbus, OH; Dallas, TX; Baltimore, MD; Richmond, VA; Rochester, NY; Rosemont, IL; Sacramento, CA; Boston, MA; St. Louis, MO; Salt Lake City, UT; San Antonio, TX; San Diego, CA; San Francisco, CA; Silicon Valley, CA; Seattle, WA; Spartanburg, SC; Stamford, CT; Tampa, FL; Atlanta, GA; Toledo, OH; Austin, TX; Tulsa, OK; Washington, DC; Denver, CO; Des Moines, IA; Detroit, MI; Boca Raton, FL; Buffalo, NY; Florham Park, NJ; Fort Worth, TX; Greensboro, NC; Hartford, CT; Houston, TX; Grand Rapids, MI; Indianapolis, IN; Irvine, CA; Jacksonville, FL; Kansas City, MO; Las Vegas, NV; Little Rock, AR; Los Angeles, CA; Louisville, KY; Birmingham, AL; Fayetteville, AR; Melville, NY; Miami, FL; Milwaukee, WI; Minneapolis, MN; Montpelier, VT; Nashville, TN; New Orleans, LA; New York, NY; Oklahoma City, OK; Orlando, FL; Philadelphia, PA; Phoenix, AZ; Pittsburgh, PA; Portland, OR",
+    "type": "earlycareer",
+    "category": "Cloud Engineering",
+    "clearance": false,
+    "url": "https://pwc.wd3.myworkdayjobs.com/US_Experienced_Careers/job/IL-Chicago/Google-Cloud-Engineer--Experienced-Associate_773194WD",
+    "source": "Workday",
     "date_added": "2026-11-10"
   }
 ]

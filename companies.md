@@ -4,7 +4,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **404 companies tracked.**
 
-## Hiring students now (102)
+## Hiring students now (104)
 
 Employers with open roles on the board today.
 
@@ -66,6 +66,7 @@ Employers with open roles on the board today.
 | ICF | 1 |  |  |
 | Immuta | 1 |  |  |
 | KeyBank |  | 1 |  |
+| Lumen | 1 |  |  |
 | McKesson |  | 1 |  |
 | PayPal | 1 |  |  |
 | Prophet Security | 1 |  |  |
@@ -78,13 +79,14 @@ Employers with open roles on the board today.
 | BAE Systems |  |  | 8 |
 | Fortinet |  |  | 8 |
 | KBR |  |  | 5 |
+| Abnormal AI |  |  | 3 |
 | Kyndryl |  |  | 3 |
-| Abnormal AI |  |  | 2 |
 | Amentum |  |  | 2 |
 | Battelle |  |  | 2 |
 | Boeing |  |  | 2 |
 | Fortra |  |  | 2 |
 | Proofpoint |  |  | 2 |
+| PwC |  |  | 2 |
 | SAIC |  |  | 2 |
 | Salt Security |  |  | 2 |
 | Trail of Bits |  |  | 2 |
@@ -93,6 +95,7 @@ Employers with open roles on the board today.
 | Corelight |  |  | 1 |
 | Delinea |  |  | 1 |
 | ESET |  |  | 1 |
+| Expel |  |  | 1 |
 | ExtraHop |  |  | 1 |
 | HII |  |  | 1 |
 | Instacart |  |  | 1 |
@@ -101,7 +104,6 @@ Employers with open roles on the board today.
 | MIT Lincoln Laboratory |  |  | 1 |
 | Obsidian Security |  |  | 1 |
 | Praetorian |  |  | 1 |
-| PwC |  |  | 1 |
 | ReliaQuest |  |  | 1 |
 | SailPoint |  |  | 1 |
 | Samsara |  |  | 1 |
