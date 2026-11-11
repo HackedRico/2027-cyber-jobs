@@ -16,7 +16,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**141** internships · **48** new grad · **180** early career open · **42** added in the last 7 days · **181** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 11, 2026
+**142** internships · **48** new grad · **180** early career open · **43** added in the last 7 days · **182** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 11, 2026
 
 <!-- /STATS -->
 
@@ -73,6 +73,7 @@ Cybersecurity internships and co-ops for current students.
 
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
+| Lockheed Martin | 🆕 Cyber Software Engineer Intern - Summer 2027 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://lockheedmartin.eightfold.ai/careers/job/996477642584"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Lockheed Martin Cyber Software Engineer Intern - Summer 2027"></a> | Herndon, VA | Nov 11 |
 | Aerospace Corporation | 🆕 2027 Defensive Cyber Operations Grad Intern 🇺🇸<br><sub>SOC &amp; Detection</sub> | <a href="https://aero.wd5.myworkdayjobs.com/External/job/El-Segundo-CA/XMLNAME-2027-Defensive-Cyber-Operations-Grad-Intern_R017106"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Aerospace Corporation 2027 Defensive Cyber Operations Grad Intern"></a> | El Segundo, CA | Nov 10 |
 | Illumio | 🆕 Engineering Intern, SRE<br><sub>Engineering @ Security Co</sub> | <a href="https://jobs.ashbyhq.com/illumio/2bcba5c3-c6e7-407c-92b2-73027594789e"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Illumio Engineering Intern, SRE"></a> | Sunnyvale, California - HQ | Nov 10 |
 | Lockheed Martin | 🆕 Cybersecurity Intern 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://lockheedmartin.eightfold.ai/careers/job/996477848074"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Lockheed Martin Cybersecurity Intern"></a> | Uniondale, NY | Nov 10 |

@@ -18,12 +18,12 @@ Employers with open roles on the board today.
 | Lawrence Livermore National Laboratory | 6 |  |  |
 | HPE | 3 | 2 | 1 |
 | Palo Alto Networks | 4 | 1 | 1 |
+| Lockheed Martin | 5 |  |  |
 | Leidos | 4 |  | 9 |
 | Aerospace Corporation | 4 |  |  |
 | BDO | 3 | 1 |  |
 | Federal Reserve System | 4 |  |  |
 | Intel | 4 |  |  |
-| Lockheed Martin | 4 |  |  |
 | Northrop Grumman |  | 3 | 10 |
 | GuidePoint Security | 3 |  | 1 |
 | Entrust | 3 |  |  |

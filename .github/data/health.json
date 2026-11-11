@@ -1,9 +1,16 @@
 {
   "date": "2026-11-11",
   "boards": 410,
-  "ok": 397,
+  "ok": 396,
   "empty": 13,
-  "failed": [],
-  "regressed": [],
+  "failed": [
+    "Arkose Labs (greenhouse/arkoselabs)"
+  ],
+  "regressed": [
+    {
+      "board": "Arkose Labs (greenhouse/arkoselabs)",
+      "had": 1
+    }
+  ],
   "silent": 13
 }

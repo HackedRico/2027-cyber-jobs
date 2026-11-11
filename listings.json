@@ -336,7 +336,8 @@
     "url": "https://www.amazon.jobs/en/jobs/10428283/security-engineer-i-threat-hunting-security-incident-response-team-sirt",
     "source": "Amazon Jobs",
     "date_added": "2026-07-12",
-    "dead_since": "2026-11-11"
+    "dead_since": "2026-11-11",
+    "missing_since": "2026-11-11"
   },
   {
     "company": "Amazon",
@@ -6387,7 +6388,8 @@
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-800--1151-E-Hermans-Rd--BLDG-800/Embedded-Security-Software-Engineer-I--Onsite-_01881370",
     "source": "Workday",
     "date_added": "2026-10-10",
-    "twin": 2
+    "twin": 2,
+    "missing_since": "2026-11-11"
   },
   {
     "company": "RTX",
@@ -6399,7 +6401,8 @@
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-GOLETA-B01--6825-Cortona-Dr--BLDG-B01/Embedded-Security-Software-Engineer-II--Onsite-_01881383",
     "source": "Workday",
     "date_added": "2026-10-10",
-    "twin": 1
+    "twin": 1,
+    "missing_since": "2026-11-11"
   },
   {
     "company": "RTX",
@@ -6411,7 +6414,8 @@
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-800--1151-E-Hermans-Rd--BLDG-800/Embedded-Security-Software-Engineer-II--Onsite-_01881372",
     "source": "Workday",
     "date_added": "2026-10-10",
-    "twin": 2
+    "twin": 2,
+    "missing_since": "2026-11-11"
   },
   {
     "company": "RTX",
@@ -6422,7 +6426,8 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-EL-SEGUNDO-R01--2000-E-Imperial-Hwy--BLDG-R01/Embedded-Security-Software--Engineer-II--Onsite-_01881357",
     "source": "Workday",
-    "date_added": "2026-10-10"
+    "date_added": "2026-10-10",
+    "missing_since": "2026-11-11"
   },
   {
     "company": "Software Engineering Institute",
@@ -7456,7 +7461,8 @@
     "clearance": false,
     "url": "https://jobs.ashbyhq.com/1password/aac7eea6-ed7c-4871-bbf2-7cb2d5138847",
     "source": "Ashby",
-    "date_added": "2026-10-22"
+    "date_added": "2026-10-22",
+    "missing_since": "2026-11-11"
   },
   {
     "company": "1Password",
@@ -8093,7 +8099,8 @@
     "clearance": true,
     "url": "https://boeing.wd1.myworkdayjobs.com/EXTERNAL_CAREERS/job/USA---Hazelwood-MO/Advanced-Information-Technologist---Associate-Cloud-Engineer_JR2026494282",
     "source": "Workday",
-    "date_added": "2026-10-29"
+    "date_added": "2026-10-29",
+    "missing_since": "2026-11-11"
   },
   {
     "company": "Boeing",
@@ -8104,7 +8111,8 @@
     "clearance": true,
     "url": "https://boeing.wd1.myworkdayjobs.com/EXTERNAL_CAREERS/job/USA---Hazelwood-MO/Advanced-Technologist---Associate-Cloud-Engineer_JR2026520164-1",
     "source": "Workday",
-    "date_added": "2026-10-29"
+    "date_added": "2026-10-29",
+    "missing_since": "2026-11-11"
   },
   {
     "company": "HP Inc",
@@ -8414,7 +8422,8 @@
     "clearance": false,
     "url": "https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26016065",
     "source": "Oracle",
-    "date_added": "2026-11-03"
+    "date_added": "2026-11-03",
+    "missing_since": "2026-11-11"
   },
   {
     "company": "BDO",
@@ -8620,7 +8629,8 @@
     "url": "https://www.amazon.jobs/en/jobs/10581072/solutions-architect-ags-tech-early-career-2027-us",
     "source": "Amazon Jobs",
     "date_added": "2026-11-06",
-    "dead_since": "2026-11-11"
+    "dead_since": "2026-11-11",
+    "missing_since": "2026-11-11"
   },
   {
     "company": "Abnormal AI",
@@ -8753,7 +8763,8 @@
     "clearance": true,
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Texas-San-Antonio/XMLNAME-2027----Associate-Cyber-Software-Engineer---San-Antonio-TX_R10259762",
     "source": "Workday",
-    "date_added": "2026-11-09"
+    "date_added": "2026-11-09",
+    "missing_since": "2026-11-11"
   },
   {
     "company": "RTX",
@@ -8918,6 +8929,17 @@
     "clearance": false,
     "url": "https://www.amazon.jobs/en/jobs/10601784/security-engineer-ii-amz011502",
     "source": "Amazon Jobs",
+    "date_added": "2026-11-11"
+  },
+  {
+    "company": "Lockheed Martin",
+    "role": "Cyber Software Engineer Intern - Summer 2027",
+    "location": "Herndon, VA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://lockheedmartin.eightfold.ai/careers/job/996477642584",
+    "source": "Eightfold",
     "date_added": "2026-11-11"
   }
 ]
