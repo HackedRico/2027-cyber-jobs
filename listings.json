@@ -335,7 +335,8 @@
     "clearance": true,
     "url": "https://www.amazon.jobs/en/jobs/10428283/security-engineer-i-threat-hunting-security-incident-response-team-sirt",
     "source": "Amazon Jobs",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "dead_since": "2026-11-11"
   },
   {
     "company": "Amazon",
@@ -8618,7 +8619,8 @@
     "clearance": false,
     "url": "https://www.amazon.jobs/en/jobs/10581072/solutions-architect-ags-tech-early-career-2027-us",
     "source": "Amazon Jobs",
-    "date_added": "2026-11-06"
+    "date_added": "2026-11-06",
+    "dead_since": "2026-11-11"
   },
   {
     "company": "Abnormal AI",
