@@ -1300,7 +1300,8 @@
     "clearance": false,
     "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/Security-Architect---New-College-Grad-2026_JR2026387-1",
     "source": "Workday",
-    "date_added": "2026-07-25"
+    "date_added": "2026-07-25",
+    "missing_since": "2026-11-11"
   },
   {
     "company": "Affirm",
@@ -4559,7 +4560,8 @@
     "clearance": true,
     "url": "https://careers.jhuapl.edu/jobs/59991",
     "source": "Jibe",
-    "date_added": "2026-09-29"
+    "date_added": "2026-09-29",
+    "missing_since": "2026-11-11"
   },
   {
     "company": "Johns Hopkins APL",
@@ -4816,11 +4818,9 @@
     "type": "newgrad",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "",
+    "url": "https://boeing.wd1.myworkdayjobs.com/INTERN/job/USA---Seattle-WA/Information-Digital-Technology---Security-Career-Foundation-Program---2027-Cohort_JR2026522914",
     "source": "Workday",
-    "date_added": "2026-10-01",
-    "closed": true,
-    "closed_date": "2026-10-28"
+    "date_added": "2026-10-01"
   },
   {
     "company": "Microsoft",
@@ -6541,7 +6541,8 @@
     "clearance": false,
     "url": "https://ebqb.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BDOEntryLevelCareers/job/14355",
     "source": "Oracle",
-    "date_added": "2026-10-12"
+    "date_added": "2026-10-12",
+    "missing_since": "2026-11-11"
   },
   {
     "company": "Lockheed Martin",
@@ -7955,8 +7956,7 @@
     "clearance": true,
     "url": "https://jobs.baesystems.com/global/en/job/131921BR",
     "source": "Phenom",
-    "date_added": "2026-10-27",
-    "missing_since": "2026-11-02"
+    "date_added": "2026-10-27"
   },
   {
     "company": "Johns Hopkins APL",
@@ -8391,8 +8391,7 @@
     "clearance": true,
     "url": "https://elhe.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/2272",
     "source": "Oracle",
-    "date_added": "2026-11-03",
-    "missing_since": "2026-11-09"
+    "date_added": "2026-11-03"
   },
   {
     "company": "Two Six Technologies",
@@ -8863,5 +8862,60 @@
     "url": "https://pwc.wd3.myworkdayjobs.com/US_Experienced_Careers/job/IL-Chicago/Google-Cloud-Engineer--Experienced-Associate_773194WD",
     "source": "Workday",
     "date_added": "2026-11-10"
+  },
+  {
+    "company": "Anduril",
+    "role": "2027 New Grad Information Security Engineer",
+    "location": "Costa Mesa, CA",
+    "type": "newgrad",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://boards.greenhouse.io/andurilindustries/jobs/5270839007?gh_jid=5270839007",
+    "source": "Greenhouse",
+    "date_added": "2026-11-11"
+  },
+  {
+    "company": "Dragos",
+    "role": "Associate Technical Support Engineer - Federal",
+    "location": "United States",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": true,
+    "url": "https://job-boards.greenhouse.io/dragos/jobs/5439079008",
+    "source": "Greenhouse",
+    "date_added": "2026-11-11"
+  },
+  {
+    "company": "Cisco",
+    "role": "Cloud Engineer II (Full Time) - United States",
+    "location": "RTP, NC; Richardson, TX",
+    "type": "earlycareer",
+    "category": "Cloud Engineering",
+    "clearance": false,
+    "url": "https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/RTP-North-Carolina-US/Cloud-Engineer-II--Full-Time----United-States_2031378",
+    "source": "Workday",
+    "date_added": "2026-11-11"
+  },
+  {
+    "company": "SAIC",
+    "role": "Junior Penetration Tester",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "Offensive Security",
+    "clearance": true,
+    "url": "https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2619023",
+    "source": "Oracle",
+    "date_added": "2026-11-11"
+  },
+  {
+    "company": "Amazon",
+    "role": "Security Engineer II\u2013AMZ011502",
+    "location": "Austin, TX",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10601784/security-engineer-ii-amz011502",
+    "source": "Amazon Jobs",
+    "date_added": "2026-11-11"
   }
 ]

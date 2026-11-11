@@ -4,7 +4,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **404 companies tracked.**
 
-## Hiring students now (104)
+## Hiring students now (106)
 
 Employers with open roles on the board today.
 
@@ -48,17 +48,19 @@ Employers with open roles on the board today.
 | National Laboratory of the Rockies | 2 |  |  |
 | Qualcomm | 2 |  |  |
 | Salesforce | 1 | 1 |  |
-| Amazon |  | 1 | 14 |
+| Amazon |  | 1 | 15 |
 | CrowdStrike | 1 |  | 10 |
 | Nightwing | 1 |  | 8 |
+| Boeing |  | 1 | 2 |
+| Cisco | 1 |  | 2 |
 | GDIT | 1 |  | 2 |
 | Pinterest | 1 |  | 2 |
 | STR | 1 |  | 2 |
 | American Express | 1 |  | 1 |
-| Cisco | 1 |  | 1 |
 | Verkada | 1 |  | 1 |
 | 1Password | 1 |  |  |
 | Adobe | 1 |  |  |
+| Anduril |  | 1 |  |
 | Deloitte |  | 1 |  |
 | Elevance Health | 1 |  |  |
 | Figma | 1 |  |  |
@@ -81,19 +83,19 @@ Employers with open roles on the board today.
 | KBR |  |  | 5 |
 | Abnormal AI |  |  | 3 |
 | Kyndryl |  |  | 3 |
+| SAIC |  |  | 3 |
 | Amentum |  |  | 2 |
 | Battelle |  |  | 2 |
-| Boeing |  |  | 2 |
 | Fortra |  |  | 2 |
 | Proofpoint |  |  | 2 |
 | PwC |  |  | 2 |
-| SAIC |  |  | 2 |
 | Salt Security |  |  | 2 |
 | Trail of Bits |  |  | 2 |
 | AeroVironment |  |  | 1 |
 | Anthropic |  |  | 1 |
 | Corelight |  |  | 1 |
 | Delinea |  |  | 1 |
+| Dragos |  |  | 1 |
 | ESET |  |  | 1 |
 | Expel |  |  | 1 |
 | ExtraHop |  |  | 1 |
