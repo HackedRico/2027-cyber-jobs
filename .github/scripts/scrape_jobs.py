@@ -1454,6 +1454,83 @@ def scrape_phenom(company, host, lang, country, security_company=False,
     return jobs
 
 
+_EIGHTFOLD_JOB_URL_RE = re.compile(
+    r'^https://([A-Za-z0-9_-]+)\.eightfold\.ai/careers/job/(\d+)$')
+
+
+def eightfold_posting_state(url):
+    """Ask Eightfold's detail endpoint whether one posting has closed.
+
+    Returns 'gone', or None when the answer says nothing. A closed or unknown
+    req is 404 with the message 'Position not found' (Microsoft
+    1970393556999315, 'Penetration Testing INTERN'), an open one 200. The
+    endpoint needs no `domain`, which a stored row does not carry.
+
+    A 200 is not read as 'live'. Every 200 seen was an open req, but a closed
+    one answering 200 would then hold its row open for good, and a row left
+    unanswered still retires after PARTIAL_VANISHED_DAYS.
+    """
+    m = _EIGHTFOLD_JOB_URL_RE.match(url or '')
+    if not m:
+        return None
+    tenant, pid = m.groups()
+    api = f'https://{tenant}.eightfold.ai/api/pcsx/position_details'
+    label = f'Eightfold detail {tenant}'
+    status, raw = None, None
+    for delay in (*RATE_LIMIT_DELAYS, None):
+        try:
+            with _session().get(api, params={'position_id': pid, 'hl': 'en'},
+                                headers={'Accept': 'application/json'},
+                                timeout=REQUEST_TIMEOUT, stream=True) as resp:
+                if _left_host(api, resp, label):
+                    return None
+                status = resp.status_code
+                raw = _read_capped(resp, label) if status == 404 else None
+        except requests.RequestException:
+            return None
+        if status not in (429, 503) or delay is None:
+            break
+        time.sleep(delay)
+    time.sleep(EIGHTFOLD_PAGE_DELAY)
+    if status != 404 or raw is None:
+        return None
+    try:
+        body = json.loads(raw)
+    except ValueError:
+        return None
+    # A bare 404 is what a renamed endpoint would answer for every row at once.
+    error = body.get('error') if isinstance(body, dict) else None
+    message = error.get('message') if isinstance(error, dict) else None
+    return 'gone' if message == 'Position not found' else None
+
+
+def phenom_posting_state(url):
+    """Ask a Phenom careers site whether one job page has closed.
+
+    Returns 'gone', or None when the answer says nothing. MITRE, BAE and
+    Battelle answer 410 for a closed or unknown req (MITRE R117094, 'Cyber
+    Defense Intern') and 200 for an open one. A 200 is not read as 'live',
+    for the reason `eightfold_posting_state` gives, and a redirect is not
+    followed, since it leaves the page the row links to.
+    """
+    if not (url or '').startswith('https://') or not _valid_host(_host_of(url)):
+        return None
+    try:
+        with _session().get(url, timeout=REQUEST_TIMEOUT, stream=True,
+                            allow_redirects=False) as resp:
+            status = resp.status_code
+    except requests.RequestException:
+        return None
+    time.sleep(0.3)
+    return 'gone' if status in (404, 410) else None
+
+
+# The platforms besides Workday that answer for one posting. Microsoft, MITRE
+# and BAE are cut short every run, and on 2026-11-11 they showed 15 closed reqs
+# as open, 12 of them for 13 days, each one already answering 404 or 410.
+GONE_PROBES = {'Eightfold': eightfold_posting_state, 'Phenom': phenom_posting_state}
+
+
 # Jibe search matches descriptions as well as titles, so these stay small:
 # JHU APL answers 58 for 'cyber', 71 for 'cybersecurity' and 73 for 'intern',
 # against 503 for 'security'. 'cyber' alone misses APL's '2027 Internship -
@@ -1738,14 +1815,14 @@ def reevaluate_stored_listings(listings, raw_jobs, sec_flags, probe=None,
 VANISHED_DAYS = 3
 
 # Behind a sweep cut short by a page cap or a failed page, absence is weaker
-# evidence, so a non-Workday row (which has no detail probe) waits this long
-# instead. A live req that ranking pushes past the cap is usually seen again
-# within two weeks, and any sighting clears the streak; the revive path brings
-# back one that reappears later. Holding such rows outright kept Microsoft
-# 'Security Research INTERN' open a month after its req closed, since
-# Microsoft's 'security' term matches 970 postings against a 500 cap every run,
-# and the charter counts a dead row shown forever as worse than a live one
-# hidden.
+# evidence, so a row waits this long instead unless its platform says the req
+# is gone (Workday's probe, GONE_PROBES). A live req that ranking pushes past
+# the cap is usually seen again within two weeks, and any sighting clears the
+# streak; the revive path brings back one that reappears later. Holding such
+# rows outright kept Microsoft 'Security Research INTERN' open a month after
+# its req closed, since Microsoft's 'security' term matches 970 postings
+# against a 500 cap every run, and the charter counts a dead row shown forever
+# as worse than a live one hidden.
 PARTIAL_VANISHED_DAYS = 14
 
 # Per source, the part of an apply URL that identifies the requisition. Both a
@@ -1848,7 +1925,8 @@ def long_silent_boards(board_stats, history):
 
 
 def retire_vanished_listings(listings, raw_jobs, today, silent_boards=frozenset(),
-                             probe=workday_posting_state, failed_companies=frozenset()):
+                             probe=workday_posting_state, failed_companies=frozenset(),
+                             gone_probes=GONE_PROBES):
     """Close rows whose requisition has left its own board's feed.
 
     Mutates and returns the rows it retired. A posting that stops appearing
@@ -1869,10 +1947,12 @@ def retire_vanished_listings(listings, raw_jobs, today, silent_boards=frozenset(
         from a page cap or a failed page) may have missed a live req past the
         cut. A Workday row there is asked about directly through `probe`, and
         only a 'gone' answer counts as a miss; the big tenants (CVS, RTX,
-        Northrop) cut short every run. Any other row there must be missing for
-        PARTIAL_VANISHED_DAYS: Microsoft (Eightfold), BAE and MITRE (Phenom)
-        are cut short every run too, and retiring nothing there kept their
-        closed reqs open for weeks;
+        Northrop) cut short every run. A row there on a platform in
+        `gone_probes` is asked about the same way: Microsoft (Eightfold), BAE
+        and MITRE (Phenom) are cut short every run too. A 'gone' answer puts
+        it on the VANISHED_DAYS streak. Without one, or on any other
+        platform, it must be missing for PARTIAL_VANISHED_DAYS, since
+        retiring nothing there kept closed reqs open for weeks;
       * a company in `failed_companies` had a board fail or crash this run, so
         its Workday rows are probed as above and its other rows keep their
         streak as it was. Idaho National Laboratory has two Oracle sites, and
@@ -1927,7 +2007,9 @@ def retire_vanished_listings(listings, raw_jobs, today, silent_boards=frozenset(
         elif company in failed_companies:
             continue
         elif cut_short:
-            grace = PARTIAL_VANISHED_DAYS
+            ask = gone_probes.get(source)
+            if ask is None or ask(entry['url']) != 'gone':
+                grace = PARTIAL_VANISHED_DAYS
         first_missed = entry.get('missing_since')
         if not first_missed:
             entry['missing_since'] = today
@@ -2386,8 +2468,9 @@ def report_board_health(board_stats, today=None, persist=True):
     # stays on this line is visibly holding closed reqs longer than the rest.
     cut_short = [b['label'] for b in board_stats if b.get('partial')]
     if cut_short:
-        lines.append(f'- Cut short (a missing row retires after {PARTIAL_VANISHED_DAYS} days, '
-                     'Workday rows are probed): ' + ', '.join(_oneline(x) for x in cut_short))
+        lines.append('- Cut short (Workday, Eightfold and Phenom rows are probed, any other '
+                     f'missing row retires after {PARTIAL_VANISHED_DAYS} days): '
+                     + ', '.join(_oneline(x) for x in cut_short))
     if dead:
         # "50 runs" read as 50 requests. Each scrape asks a board once and gets
         # its whole job list back, so the count is scrapes, not calls.

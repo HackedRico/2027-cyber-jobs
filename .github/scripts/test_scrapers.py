@@ -1159,7 +1159,12 @@ def _cut_short_feed(*extra):
 
 
 def _no_probe(url):
-    raise AssertionError(f'only Workday rows are probed, not {url}')
+    raise AssertionError(f'the Workday probe was asked about {url}')
+
+
+# A cut-short sweep on a platform with no gone probe, the way every one was
+# before Eightfold and Phenom got theirs.
+_UNPROBED = {'probe': _no_probe, 'gone_probes': {}}
 
 
 def test_cut_short_sweep_without_a_probe_retires_after_a_longer_streak():
@@ -1168,39 +1173,40 @@ def test_cut_short_sweep_without_a_probe_retires_after_a_longer_streak():
     Microsoft's Eightfold 'security' term matches 970 postings against a 500
     cap, and BAE's Phenom 'cyber' 1,837 against 200, so every sweep is cut
     short, and with no detail probe outside Workday their rows never retired.
+    A platform with no gone probe still waits out this longer streak.
     """
     listings = _cut_short_rows()
     retired_on = {}
     for day in range(1, 21):
         today = f'2026-10-{day:02d}'
         for entry in sj.retire_vanished_listings(listings, _cut_short_feed(), today,
-                                                 probe=_no_probe):
+                                                 **_UNPROBED):
             retired_on[entry['role']] = today
     check('a row missing behind a cut-short sweep retires after PARTIAL_VANISHED_DAYS',
           retired_on, {'Security Research INTERN': '2026-10-15',
                        'System Security Engineer I': '2026-10-15'})
 
     listings = _cut_short_rows()
-    sj.retire_vanished_listings(listings, _cut_short_feed(), '2026-10-01', probe=_no_probe)
+    sj.retire_vanished_listings(listings, _cut_short_feed(), '2026-10-01', **_UNPROBED)
     sightings = _cut_short_feed(MS_JOB + '1970393556962157', BAE_JOB + '128449BR')
-    sj.retire_vanished_listings(listings, sightings, '2026-10-10', probe=_no_probe)
+    sj.retire_vanished_listings(listings, sightings, '2026-10-10', **_UNPROBED)
     check('one sighting clears the streak',
           [e.get('missing_since') for e in listings], [None, None])
     check('...so a later miss starts a fresh one',
           (sj.retire_vanished_listings(listings, _cut_short_feed(), '2026-10-16',
-                                       probe=_no_probe),
+                                       **_UNPROBED),
            [e.get('missing_since') for e in listings]),
           ([], ['2026-10-16', '2026-10-16']))
 
     listings = [dict(e, missing_since='2026-09-29') for e in _cut_short_rows()]
     check('a company with a failed board neither retires nor restamps its rows',
           (sj.retire_vanished_listings(listings, _cut_short_feed(), '2026-10-29',
-                                       probe=_no_probe,
+                                       **_UNPROBED,
                                        failed_companies={'Microsoft', 'BAE Systems'}),
            [e.get('missing_since') for e in listings]),
           ([], ['2026-09-29', '2026-09-29']))
     listings = _cut_short_rows()
-    sj.retire_vanished_listings(listings, _cut_short_feed(), '2026-10-29', probe=_no_probe,
+    sj.retire_vanished_listings(listings, _cut_short_feed(), '2026-10-29', **_UNPROBED,
                                 failed_companies={'Microsoft', 'BAE Systems'})
     check('...and stamps no fresh streak', [e.get('missing_since') for e in listings],
           [None, None])
@@ -1222,8 +1228,146 @@ def test_cut_short_sweep_without_a_probe_retires_after_a_longer_streak():
             sj.BOARD_BASELINE_FILE = saved
     check('the run summary names each board whose sweep was cut short',
           [line for line in out.getvalue().splitlines() if line.startswith('- Cut short')],
-          [f'- Cut short (a missing row retires after {sj.PARTIAL_VANISHED_DAYS} days, '
-           'Workday rows are probed): Microsoft (eightfold/microsoft)'])
+          ['- Cut short (Workday, Eightfold and Phenom rows are probed, any other missing '
+           f'row retires after {sj.PARTIAL_VANISHED_DAYS} days): '
+           'Microsoft (eightfold/microsoft)'])
+
+
+def test_cut_short_sweep_asks_eightfold_and_phenom_about_a_missing_row():
+    """Microsoft, MITRE and BAE showed 15 closed reqs as open on 2026-11-11.
+
+    Their sweeps are cut short every run, so each missing row waited out
+    PARTIAL_VANISHED_DAYS, while Eightfold's detail endpoint answered 404 and
+    the Phenom job page 410 for every one of them.
+    """
+    answers = {}
+    asked = []
+
+    def ask(url):
+        asked.append(url)
+        return answers.get(url)
+
+    probes = {'probe': _no_probe, 'gone_probes': {'Eightfold': ask, 'Phenom': ask}}
+
+    def retire_dates(listings, days):
+        retired_on = {}
+        for day in range(1, days + 1):
+            today = f'2026-10-{day:02d}'
+            for entry in sj.retire_vanished_listings(listings, _cut_short_feed(), today,
+                                                     **probes):
+                retired_on[entry['role']] = today
+        return retired_on
+
+    answers.update({MS_JOB + '1970393556962157': 'gone', BAE_JOB + '128449BR': 'gone'})
+    check('a gone answer retires a missing row after VANISHED_DAYS',
+          retire_dates(_cut_short_rows(), 10),
+          {'Security Research INTERN': '2026-10-04',
+           'System Security Engineer I': '2026-10-04'})
+
+    answers.clear()
+    check('an answer that says nothing leaves the row on the longer streak',
+          retire_dates(_cut_short_rows(), 20),
+          {'Security Research INTERN': '2026-10-15',
+           'System Security Engineer I': '2026-10-15'})
+
+    asked.clear()
+    sightings = _cut_short_feed(MS_JOB + '1970393556962157', BAE_JOB + '128449BR')
+    sj.retire_vanished_listings(_cut_short_rows(), sightings, '2026-10-01', **probes)
+    check('a row the sweep still lists is not asked about', asked, [])
+    sj.retire_vanished_listings(_cut_short_rows(), _cut_short_feed(), '2026-10-01',
+                                failed_companies={'Microsoft', 'BAE Systems'}, **probes)
+    check('nor is a row at a company with a failed board', asked, [])
+    complete = [dict(job, partial_sweep=False) for job in _cut_short_feed()]
+    sj.retire_vanished_listings(_cut_short_rows(), complete, '2026-10-01', **probes)
+    check('nor is a row behind a complete sweep, which absence alone retires', asked, [])
+
+    jibe = 'https://careers.jhuapl.edu/jobs/'
+    listings = [_listing('Johns Hopkins APL', 'Cyber Intern', jibe + '100', source='Jibe')]
+    feed = [{'company': 'Johns Hopkins APL', 'board': 'Jibe', 'url': jibe + '200',
+             'partial_sweep': True}]
+    check('a platform with no gone probe is not asked',
+          (sj.retire_vanished_listings(listings, feed, '2026-10-01', **probes), asked),
+          ([], []))
+
+
+@responses.activate
+def test_retire_asks_the_real_eightfold_and_phenom_probes_by_default():
+    responses.get('https://microsoft.eightfold.ai/api/pcsx/position_details', status=404,
+                  json={'status': 404, 'error': {'message': 'Position not found'},
+                        'data': {}, 'metadata': None})
+    responses.get(BAE_JOB + '128449BR', status=410)
+    listings = [dict(e, missing_since='2026-10-01') for e in _cut_short_rows()]
+    retired = sj.retire_vanished_listings(listings, _cut_short_feed(), '2026-10-04',
+                                          probe=_no_probe)
+    check('a 404 from Eightfold and a 410 from Phenom retire their rows',
+          [e['role'] for e in retired],
+          ['Security Research INTERN', 'System Security Engineer I'])
+
+
+@responses.activate
+def test_eightfold_posting_state():
+    api = 'https://microsoft.eightfold.ai/api/pcsx/position_details'
+    gone = {'status': 404, 'error': {'message': 'Position not found'}, 'data': {},
+            'metadata': None}
+
+    def answer(pid, *replies):
+        for status, body in replies:
+            responses.get(api, status=status, json=body, match=[
+                responses.matchers.query_param_matcher({'position_id': pid, 'hl': 'en'})])
+
+    answer('1', (404, gone))
+    answer('2', (200, {'status': 200, 'data': {'id': 2, 'name': 'Security Engineer II'}}))
+    answer('3', (404, {'message': 'Not Found'}))
+    answer('4', (429, {}), (429, {}), (404, gone))
+    answer('5', *[(429, {})] * (len(sj.RATE_LIMIT_DELAYS) + 1))
+    answer('6', (500, {}))
+    responses.get(api, status=404, body='<html>Not Found</html>', match=[
+        responses.matchers.query_param_matcher({'position_id': '7', 'hl': 'en'})])
+    check("404 'Position not found' is a closed req",
+          sj.eightfold_posting_state(MS_JOB + '1'), 'gone')
+    # A 200 has only been seen for an open req, but one closed req answering
+    # 200 would then hold its row open for good.
+    check('a 200 says nothing', sj.eightfold_posting_state(MS_JOB + '2'), None)
+    check("a 404 without Eightfold's own message says nothing",
+          sj.eightfold_posting_state(MS_JOB + '3'), None)
+    check('a rate limit is waited out', sj.eightfold_posting_state(MS_JOB + '4'), 'gone')
+    check('a rate limit that never clears says nothing',
+          sj.eightfold_posting_state(MS_JOB + '5'), None)
+    check('a 500 says nothing', sj.eightfold_posting_state(MS_JOB + '6'), None)
+    check('a 404 page that is not JSON says nothing',
+          sj.eightfold_posting_state(MS_JOB + '7'), None)
+    before = len(responses.calls)
+    check('a url off eightfold.ai says nothing',
+          (sj.eightfold_posting_state(BAE_JOB + '128449BR'),
+           sj.eightfold_posting_state('https://evil.example/careers/job/1'),
+           len(responses.calls) - before), (None, None, 0))
+
+
+@responses.activate
+def test_phenom_posting_state():
+    responses.get(BAE_JOB + '128449BR', status=410)
+    responses.get(BAE_JOB + '1BR', status=404)
+    responses.get(BAE_JOB + '2BR', body='<title>Cyber Analyst II</title>')
+    responses.get(BAE_JOB + '3BR', status=302,
+                  headers={'Location': 'https://jobs.baesystems.com/global/en/search-results'})
+    responses.get(BAE_JOB + '4BR', status=503)
+    responses.get(BAE_JOB + '5BR', body=sj.requests.ConnectionError('reset'))
+    check('410 is a closed req', sj.phenom_posting_state(BAE_JOB + '128449BR'), 'gone')
+    check('404 is an unknown req', sj.phenom_posting_state(BAE_JOB + '1BR'), 'gone')
+    check('a 200 says nothing', sj.phenom_posting_state(BAE_JOB + '2BR'), None)
+    before = len(responses.calls)
+    check('a redirect says nothing and is not followed',
+          (sj.phenom_posting_state(BAE_JOB + '3BR'), len(responses.calls) - before),
+          (None, 1))
+    check('a 503 says nothing', sj.phenom_posting_state(BAE_JOB + '4BR'), None)
+    check('a dropped connection says nothing', sj.phenom_posting_state(BAE_JOB + '5BR'), None)
+    before = len(responses.calls)
+    check('a url that is not an https job page on a real host is never fetched',
+          ([sj.phenom_posting_state(url) for url in (
+              '', 'http://jobs.baesystems.com/global/en/job/128449BR',
+              'https://127.0.0.1/global/en/job/128449BR',
+              'https://localhost/global/en/job/128449BR')],
+           len(responses.calls) - before), ([None] * 4, 0))
 
 
 @responses.activate
@@ -3819,6 +3963,10 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_incomplete_sweep_retires_nothing,
            test_partial_workday_sweep_asks_the_detail_endpoint,
            test_cut_short_sweep_without_a_probe_retires_after_a_longer_streak,
+           test_cut_short_sweep_asks_eightfold_and_phenom_about_a_missing_row,
+           test_retire_asks_the_real_eightfold_and_phenom_probes_by_default,
+           test_eightfold_posting_state,
+           test_phenom_posting_state,
            test_workday_posting_state,
            test_long_silent_board_retires_its_rows,
            test_greenhouse_remote_keeps_a_remote_label,
