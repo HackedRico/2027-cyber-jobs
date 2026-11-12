@@ -333,11 +333,12 @@
     "type": "earlycareer",
     "category": "SOC & Detection",
     "clearance": true,
-    "url": "https://www.amazon.jobs/en/jobs/10428283/security-engineer-i-threat-hunting-security-incident-response-team-sirt",
+    "url": "",
     "source": "Amazon Jobs",
     "date_added": "2026-07-12",
-    "dead_since": "2026-11-11",
-    "missing_since": "2026-11-11"
+    "last_url": "https://www.amazon.jobs/en/jobs/10428283/security-engineer-i-threat-hunting-security-incident-response-team-sirt",
+    "closed": true,
+    "closed_date": "2026-11-12"
   },
   {
     "company": "Amazon",
@@ -2506,7 +2507,8 @@
     "clearance": false,
     "url": "https://www.amazon.jobs/en/jobs/10537429/security-engineer-ii-amazon-guardduty",
     "source": "Amazon Jobs",
-    "date_added": "2026-09-11"
+    "date_added": "2026-09-11",
+    "dead_since": "2026-11-12"
   },
   {
     "company": "Amazon",
@@ -8639,7 +8641,8 @@
     "url": "https://www.amazon.jobs/en/jobs/10598790/associate-solutions-architect-aws-national-security-solutions-architecture-team",
     "source": "Amazon Jobs",
     "date_added": "2026-11-06",
-    "missing_since": "2026-11-12"
+    "missing_since": "2026-11-12",
+    "dead_since": "2026-11-12"
   },
   {
     "company": "Amazon",
@@ -8648,11 +8651,12 @@
     "type": "newgrad",
     "category": "Solutions Architecture",
     "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10581072/solutions-architect-ags-tech-early-career-2027-us",
+    "url": "",
     "source": "Amazon Jobs",
     "date_added": "2026-11-06",
-    "dead_since": "2026-11-11",
-    "missing_since": "2026-11-11"
+    "last_url": "https://www.amazon.jobs/en/jobs/10581072/solutions-architect-ags-tech-early-career-2027-us",
+    "closed": true,
+    "closed_date": "2026-11-12"
   },
   {
     "company": "Abnormal AI",

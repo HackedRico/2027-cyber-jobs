@@ -16,7 +16,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**141** internships · **46** new grad · **169** early career open · **46** added in the last 7 days · **174** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 12, 2026
+**141** internships · **45** new grad · **168** early career open · **45** added in the last 7 days · **173** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 12, 2026
 
 <!-- /STATS -->
 
@@ -368,7 +368,6 @@ Full-time roles and rotational programs for students in their final year or just
 | Northrop Grumman | 🆕 2027 - Associate Cyber Software Engineer - San Antonio TX 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Texas-San-Antonio/XMLNAME-2027----Associate-Cyber-Software-Engineer---San-Antonio-TX_R10259762"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Northrop Grumman 2027 - Associate Cyber Software Engineer - San Antonio TX"></a> | San Antonio, TX | Nov 9 |
 | NVIDIA | 🆕 Research Scientist, AI and Systems Security - PhD New College Grad 2026<br><sub>Cloud &amp; Infra Security</sub> | <a href="https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-MA-Westford/Research-Scientist--AI-and-Systems-Security---PhD-New-College-Grad-2026_JR2025894"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: NVIDIA Research Scientist, AI and Systems Security - PhD New College Grad 2026"></a> | <details><summary>**2 locations**</summary>Westford, MA<br>Santa Clara, CA</details> | Nov 7 |
 | Salesforce | 🆕 Associate Security Consultant- PSSA, Early Talent<br><sub>Security Engineering</sub> | <a href="https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/Washington---Seattle/Associate-Security-Consultant--PSSA--Early-Talent_JR367671"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Salesforce Associate Security Consultant- PSSA, Early Talent"></a> | <details><summary>**4 locations**</summary>Seattle, WA<br>Chicago, IL<br>Washington - Seattle Metro - Remote<br>Bellevue, WA</details> | Nov 7 |
-| Amazon | 🆕 Solutions Architect AGS-Tech, Early Career - 2027 (US)<br><sub>Solutions Architecture</sub> | <a href="https://www.amazon.jobs/en/jobs/10581072/solutions-architect-ags-tech-early-career-2027-us"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Solutions Architect AGS-Tech, Early Career - 2027 (US)"></a> | Seattle, WA | Nov 6 |
 | Northrop Grumman | 🆕 2027 Associate Cyber Systems Engineer - Roy UT 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Utah-Roy/XMLNAME-2027-Associate-Cyber-Systems-Engineer---Roy-UT_R10259435"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Northrop Grumman 2027 Associate Cyber Systems Engineer - Roy UT"></a> | Roy, UT | Nov 5 |
 | McKesson | Graduate Cyber Security Analyst (Cyber Academy)<br><sub>Security Engineering</sub> | <a href="https://mckesson.wd3.myworkdayjobs.com/External_Careers/job/USA-TX-Irving/Graduate-Cyber-Security-Analyst--Cyber-Academy-_JR0155879"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: McKesson Graduate Cyber Security Analyst (Cyber Academy)"></a> | Irving, TX | Nov 4 |
 | Johns Hopkins APL | 2027 Graduate - Cyber Engineer/Scientist - Resilient Military Systems 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://careers.jhuapl.edu/jobs/59353"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Johns Hopkins APL 2027 Graduate - Cyber Engineer/Scientist - Resilient Military Systems"></a> | Laurel, MD | Oct 28 |
@@ -415,10 +414,11 @@ Full-time roles and rotational programs for students in their final year or just
 
 <!-- CLOSED_START newgrad -->
 
-<details><summary>🔒 36 closed in the last 60 days</summary>
+<details><summary>🔒 37 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
+| Amazon | Solutions Architect AGS-Tech, Early Career - 2027 (US) | Nov 12 |
 | ID.me | Software Engineer II, Developer Portal (New Grad / Early Career) | Nov 12 |
 | Johns Hopkins APL | 2027 Graduate – Software Engineer; Data Scientist; Ontologist – Threat Analytic Systems | Nov 12 |
 | Guidehouse | Consultant - Defense &amp; Security - IT Controls - Campus 2027 | Nov 8 |
@@ -629,7 +629,6 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 | Amazon | Security Engineer II - AMZ27587.1<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10464931/security-engineer-ii-amz27587-1"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer II - AMZ27587.1"></a> | Minneapolis, MN | Jul 12 |
 | ↳ | Security Engineer II, Security Incident Response Team (SIRT)<br><sub>SOC &amp; Detection</sub> | <a href="https://www.amazon.jobs/en/jobs/10471418/security-engineer-ii-security-incident-response-team-sirt"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer II, Security Incident Response Team (SIRT)"></a> | Arlington, VA | Jul 12 |
 | ↳ | Security Engineer II, Amazon Stores Security Healthcare<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10444035/security-engineer-ii-amazon-stores-security-healthcare"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer II, Amazon Stores Security Healthcare"></a> | Austin, TX | Jul 12 |
-| ↳ | Security Engineer I, Threat Hunting, Security Incident Response Team (SIRT) 🇺🇸<br><sub>SOC &amp; Detection</sub> | <a href="https://www.amazon.jobs/en/jobs/10428283/security-engineer-i-threat-hunting-security-incident-response-team-sirt"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer I, Threat Hunting, Security Incident Response Team (SIRT)"></a> | Arlington, VA | Jul 12 |
 | Leidos | Junior Cyber Analyst 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://leidos.wd5.myworkdayjobs.com/External/job/Fort-Meade-MD/Junior-Cyber-Analyst_R-00183704"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Leidos Junior Cyber Analyst"></a> | Fort Meade, MD | Jul 12 |
 | Nightwing | Cyber Network Defense Analyst II 🇺🇸<br><sub>SOC &amp; Detection</sub> | <a href="https://nwis.wd12.myworkdayjobs.com/NW/job/Sterling-VA/Cyber-Network-Defense-Analyst-II_JR100581"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Nightwing Cyber Network Defense Analyst II"></a> | Sterling, VA | Jul 12 |
 | ↳ | Cyber Host Forensic Analyst II 🇺🇸<br><sub>Forensics &amp; IR</sub> | <a href="https://nwis.wd12.myworkdayjobs.com/NW/job/Arlington-VA/Cyber-Host-Forensic-Analyst-II_JR101459"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Nightwing Cyber Host Forensic Analyst II"></a> | Arlington, VA | Jul 12 |
@@ -644,10 +643,11 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 
 <!-- CLOSED_START earlycareer -->
 
-<details><summary>🔒 227 closed in the last 60 days</summary>
+<details><summary>🔒 228 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
+| Amazon | Security Engineer I, Threat Hunting, Security Incident Response Team (SIRT) | Nov 12 |
 | BAE Systems | System Security Engineer I | Nov 12 |
 | ↳ | Insider Threat Cyber Analyst I | Nov 12 |
 | ↳ | System Security Engineer II | Nov 12 |
