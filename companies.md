@@ -13,19 +13,20 @@ Employers with open roles on the board today.
 | Johns Hopkins APL | 10 | 14 |  |
 | Vanguard | 5 | 6 |  |
 | Booz Allen Hamilton | 9 |  | 2 |
-| MITRE | 6 | 1 | 3 |
+| MITRE | 6 | 1 | 4 |
+| Lockheed Martin | 6 |  | 1 |
 | Lawrence Livermore National Laboratory | 6 |  |  |
-| Lockheed Martin | 6 |  |  |
 | Microsoft | 5 |  | 8 |
 | HPE | 3 | 2 | 1 |
 | Palo Alto Networks | 4 | 1 | 1 |
 | Leidos | 4 |  | 9 |
+| BDO | 3 | 1 | 1 |
 | Aerospace Corporation | 4 |  |  |
-| BDO | 3 | 1 |  |
 | Federal Reserve System | 4 |  |  |
 | Intel | 4 |  |  |
 | ServiceNow | 4 |  |  |
 | Northrop Grumman |  | 3 | 10 |
+| Idaho National Laboratory | 3 |  | 1 |
 | Entrust | 3 |  |  |
 | Goldman Sachs | 3 |  |  |
 | HP Inc | 3 |  |  |
@@ -33,13 +34,13 @@ Employers with open roles on the board today.
 | NVIDIA | 1 | 2 |  |
 | Palantir | 2 | 1 |  |
 | Tanium | 3 |  |  |
-| RTX | 2 |  | 13 |
+| RTX | 2 |  | 14 |
 | Software Engineering Institute | 2 |  | 6 |
 | Honeywell | 2 |  | 2 |
+| American Express | 1 | 1 | 1 |
 | Appian | 1 | 1 | 1 |
 | CACI | 2 |  | 1 |
 | Citi | 1 | 1 | 1 |
-| Idaho National Laboratory | 2 |  | 1 |
 | Motorola Solutions | 2 |  | 1 |
 | Two Six Technologies | 2 |  | 1 |
 | Walmart | 2 |  | 1 |
@@ -48,14 +49,13 @@ Employers with open roles on the board today.
 | National Laboratory of the Rockies | 2 |  |  |
 | Qualcomm | 2 |  |  |
 | Salesforce | 1 | 1 |  |
-| CrowdStrike | 1 |  | 8 |
+| CrowdStrike | 1 |  | 9 |
 | Nightwing | 1 |  | 8 |
+| GDIT | 1 |  | 3 |
 | Boeing |  | 1 | 2 |
 | Cisco | 1 |  | 2 |
-| GDIT | 1 |  | 2 |
 | Pinterest | 1 |  | 2 |
 | STR | 1 |  | 2 |
-| American Express | 1 |  | 1 |
 | GuidePoint Security | 1 |  | 1 |
 | Verkada | 1 |  | 1 |
 | 1Password | 1 |  |  |

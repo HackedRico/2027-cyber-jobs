@@ -16,7 +16,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**141** internships · **45** new grad · **168** early career open · **45** added in the last 7 days · **173** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 12, 2026
+**142** internships · **46** new grad · **174** early career open · **50** added in the last 7 days · **178** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 12, 2026
 
 <!-- /STATS -->
 
@@ -74,6 +74,7 @@ Cybersecurity internships and co-ops for current students.
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
 | Grant Thornton | 🆕 Cybersecurity and Privacy Intern - Summer 2027<br><sub>Security Engineering</sub> | <a href="https://ehzq.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/115637"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Grant Thornton Cybersecurity and Privacy Intern - Summer 2027"></a> | New York, NY | Nov 12 |
+| Idaho National Laboratory | 🆕 Cybersecurity Vulnerability Assessment Internship - Summer 2027<br><sub>Security Engineering</sub> | <a href="https://elhe.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1002/job/2328"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Idaho National Laboratory Cybersecurity Vulnerability Assessment Internship - Summer 2027"></a> | Idaho Falls, ID | Nov 12 |
 | Lockheed Martin | 🆕 DevSecOps Intern - Summer 2027 🇺🇸<br><sub>AppSec &amp; ProdSec</sub> | <a href="https://lockheedmartin.eightfold.ai/careers/job/996477633691"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Lockheed Martin DevSecOps Intern - Summer 2027"></a> | King of Prussia, PA | Nov 12 |
 | ServiceNow | 🆕 Assoc Detection Engineering Intern<br><sub>SOC &amp; Detection</sub> | <a href="https://jobs.smartrecruiters.com/ServiceNow/744000161210069"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: ServiceNow Assoc Detection Engineering Intern"></a> | Kirkland, WA | Nov 12 |
 | ↳ | 🆕 Assoc Security Engineering &amp; Automation Intern<br><sub>Security Engineering</sub> | <a href="https://jobs.smartrecruiters.com/ServiceNow/744000161209810"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: ServiceNow Assoc Security Engineering &amp; Automation Intern"></a> | Santa Clara, CA | Nov 12 |
@@ -389,6 +390,7 @@ Full-time roles and rotational programs for students in their final year or just
 | Boeing | Information Digital Technology &amp; Security Career Foundation Program - 2027 Cohort 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://boeing.wd1.myworkdayjobs.com/INTERN/job/USA---Seattle-WA/Information-Digital-Technology---Security-Career-Foundation-Program---2027-Cohort_JR2026522914"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Boeing Information Digital Technology &amp; Security Career Foundation Program - 2027 Cohort"></a> | <details><summary>**3 locations**</summary>Seattle, WA<br>Hazelwood, MO<br>North Charleston, SC</details> | Oct 1 |
 | Palantir | Privacy &amp; Civil Liberties Engineer - New Grad<br><sub>Security Engineering</sub> | <a href="https://jobs.lever.co/palantir/95e0d2b0-437a-4096-a5c6-0f247f426c90"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Palantir Privacy &amp; Civil Liberties Engineer - New Grad"></a> | New York, NY | Oct 1 |
 | Palo Alto Networks | Software Engineer<br><sub>Engineering @ Security Co</sub> | <a href="https://paloaltonetworks.wd5.myworkdayjobs.com/panwexternalcareers/job/Office---USA---CA---Headquarters/Software-Engineer_JR-011497"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Palo Alto Networks Software Engineer"></a> | CA (US) | Oct 1 |
+| American Express | Campus Undergraduate Full-Time Associate - 2027 Cybersecurity Analyst, Enterprise Technology Services- New York, NY<br><sub>Security Engineering</sub> | <a href="https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26013354"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: American Express Campus Undergraduate Full-Time Associate - 2027 Cybersecurity Analyst, Enterprise Technology Services- New York, NY"></a> | New York, NY | Sep 29 |
 | Johns Hopkins APL | 2027 Graduate - Cybersecurity Engineer - Constrained Cyber Solutions 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://careers.jhuapl.edu/jobs/59212"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Johns Hopkins APL 2027 Graduate - Cybersecurity Engineer - Constrained Cyber Solutions"></a> | Laurel, MD | Sep 29 |
 | ↳ | 2027 PhD Graduate - Cyber Researcher - Capabilities Development 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://careers.jhuapl.edu/jobs/59919"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Johns Hopkins APL 2027 PhD Graduate - Cyber Researcher - Capabilities Development"></a> | Laurel, MD | Sep 29 |
 | ↳ | 2027 Graduate - Developer - Cyber-Physical Systems 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://careers.jhuapl.edu/jobs/60022"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Johns Hopkins APL 2027 Graduate - Developer - Cyber-Physical Systems"></a> | Laurel, MD | Sep 29 |
@@ -414,7 +416,7 @@ Full-time roles and rotational programs for students in their final year or just
 
 <!-- CLOSED_START newgrad -->
 
-<details><summary>🔒 37 closed in the last 60 days</summary>
+<details><summary>🔒 36 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
@@ -425,7 +427,6 @@ Full-time roles and rotational programs for students in their final year or just
 | Together AI | Hardware Security Engineer, New Grad (2027) | Nov 8 |
 | Northrop Grumman | 2027 Associate Cyber Software Engineer - Pathways Program - Aurora CO | Nov 7 |
 | American Express | Campus Undergraduate Full-Time Associate - 2027 Cybersecurity Analyst, Enterprise Technology Services- Atlanta, GA | Nov 4 |
-| ↳ | Campus Undergraduate Full-Time Associate - 2027 Cybersecurity Analyst, Enterprise Technology Services- New York, NY | Nov 4 |
 | ↳ | Campus Undergraduate Full-Time Associate - 2027 Cybersecurity Analyst, Enterprise Technology Services- Phoenix, AZ | Nov 4 |
 | ↳ | Campus Undergraduate Full-Time Associate - 2027 Cybersecurity Analyst, Enterprise Technology Services- Sunrise, FL | Nov 4 |
 | Guidehouse | IT Cybersecurity Compliance Technical Associate- Campus 2027 | Oct 30 |
@@ -470,6 +471,10 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
+| BDO | 🆕 Experienced Associate, Cyber<br><sub>Security Engineering</sub> | <a href="https://ebqb.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BDOEntryLevelCareers/job/14747"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: BDO Experienced Associate, Cyber"></a> | <details><summary>**10 locations**</summary>Chicago, IL<br>Atlanta, GA<br>Dallas, TX<br>Houston, TX<br>McLean, VA<br>Minneapolis, MN<br>New York, NY<br>Washington, DC<br>Pittsburgh, PA<br>Nashville, TN</details> | Nov 12 |
+| CrowdStrike | 🆕 Engineer II - SDET, NG-SIEM (Hybrid) 🇺🇸<br><sub>SOC &amp; Detection</sub> | <a href="https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Austin-TX/Sr-Engineer-II---SDET--NG-SIEM--Hybrid-_R29401"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: CrowdStrike Engineer II - SDET, NG-SIEM (Hybrid)"></a> | Austin, TX | Nov 12 |
+| GDIT | 🆕 Security Analyst II - TS/SCI w/Poly 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://gdit.wd5.myworkdayjobs.com/External_Career_Site/job/USA-VA-Chantilly/Security-Analyst-II----TS-SCI-w-Poly_RQ232248-1"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: GDIT Security Analyst II - TS/SCI w/Poly"></a> | Chantilly, VA | Nov 12 |
+| Lockheed Martin | 🆕 Cyber Systems Security Engineering Asc - Early Career 🇺🇸<br><sub>Cloud &amp; Infra Security</sub> | <a href="https://lockheedmartin.eightfold.ai/careers/job/996477730520"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Lockheed Martin Cyber Systems Security Engineering Asc - Early Career"></a> | Fort Worth, TX | Nov 12 |
 | Amazon | 🆕 Security Engineer II–AMZ011502<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10601784/security-engineer-ii-amz011502"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer II–AMZ011502"></a> | Austin, TX | Nov 11 |
 | Cisco | 🆕 Cloud Engineer II (Full Time) - United States<br><sub>Cloud Engineering</sub> | <a href="https://cisco.wd5.myworkdayjobs.com/Cisco_Careers/job/RTP-North-Carolina-US/Cloud-Engineer-II--Full-Time----United-States_2031378"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Cisco Cloud Engineer II (Full Time) - United States"></a> | <details><summary>**2 locations**</summary>RTP, NC<br>Richardson, TX</details> | Nov 11 |
 | Dragos | 🆕 Associate Technical Support Engineer - Federal 🇺🇸<br><sub>Engineering @ Security Co</sub> | <a href="https://job-boards.greenhouse.io/dragos/jobs/5439079008"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Dragos Associate Technical Support Engineer - Federal"></a> | United States | Nov 11 |
@@ -538,7 +543,8 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 | ↳ | Embedded Security Software Engineer II (Onsite) 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-GOLETA-B01--6825-Cortona-Dr--BLDG-B01/Embedded-Security-Software-Engineer-II--Onsite-_01881383"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: RTX Embedded Security Software Engineer II (Onsite)"></a> | Goleta, CA | Oct 10 |
 | ↳ | Embedded Security Software Engineer II (Onsite) 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-800--1151-E-Hermans-Rd--BLDG-800/Embedded-Security-Software-Engineer-II--Onsite-_01881372"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: RTX Embedded Security Software Engineer II (Onsite)"></a> | Tucson, AZ | Oct 10 |
 | ↳ | Embedded Security Software Engineer II (Onsite) 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-EL-SEGUNDO-R01--2000-E-Imperial-Hwy--BLDG-R01/Embedded-Security-Software--Engineer-II--Onsite-_01881357"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: RTX Embedded Security Software Engineer II (Onsite)"></a> | El Segundo, CA | Oct 10 |
-| MITRE | Associate Wireless Security Engineer 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://careers.mitre.org/us/en/job/R116389"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: MITRE Associate Wireless Security Engineer"></a> | <details><summary>**2 locations**</summary>Bedford, MA<br>McLean, VA</details> | Oct 8 |
+| MITRE | Associate Cloud Developer 🇺🇸<br><sub>Cloud Engineering</sub> | <a href="https://careers.mitre.org/us/en/job/R117424"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: MITRE Associate Cloud Developer"></a> | McLean, VA | Oct 8 |
+| ↳ | Associate Wireless Security Engineer 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://careers.mitre.org/us/en/job/R116389"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: MITRE Associate Wireless Security Engineer"></a> | <details><summary>**2 locations**</summary>Bedford, MA<br>McLean, VA</details> | Oct 8 |
 | Tines | Technical Support Engineer I<br><sub>Engineering @ Security Co</sub> | <a href="https://job-boards.greenhouse.io/tines/jobs/6220150004"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Tines Technical Support Engineer I"></a> | Boston, MA | Oct 8 |
 | Microsoft | Security Analyst II<br><sub>Security Engineering</sub> | <a href="https://microsoft.eightfold.ai/careers/job/1970393557023143"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Microsoft Security Analyst II"></a> | Redmond, WA | Oct 6 |
 | Northrop Grumman | Cloud Software Engineer (Level 2) - AHT 🇺🇸<br><sub>Cloud Engineering</sub> | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-Redondo-Beach/Cloud-Software-Engineer--Level-2----AHT_R10249870"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Northrop Grumman Cloud Software Engineer (Level 2) - AHT"></a> | Redondo Beach, CA | Oct 6 |
@@ -569,6 +575,7 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 | Tenable | Associate Services Architect<br><sub>Engineering @ Security Co</sub> | <a href="https://job-boards.greenhouse.io/tenableinc/jobs/5418662008"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Tenable Associate Services Architect"></a> | MA - Boston - Office, US - Headquarters - Maryland - Columbia | Oct 1 |
 | Fortinet | Jr. QC Engineer<br><sub>Engineering @ Security Co</sub> | <a href="https://edel.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/21624"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Fortinet Jr. QC Engineer"></a> | Union City, CA | Sep 30 |
 | MITRE | Associate Embedded Security Engineer 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://careers.mitre.org/us/en/job/R115645"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: MITRE Associate Embedded Security Engineer"></a> | <details><summary>**3 locations**</summary>Bedford, MA<br>Albuquerque, NM<br>McLean, VA</details> | Sep 30 |
+| RTX | Embedded Software Security Engineer I - S3E 🇺🇸<br><sub>AppSec &amp; ProdSec</sub> | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Embedded-Software-Security-Engineer-I---S3E_01878692"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: RTX Embedded Software Security Engineer I - S3E"></a> | Tucson, AZ | Sep 30 |
 | Software Engineering Institute | Associate Cybersecurity Operations Researcher 🇺🇸<br><sub>SOC &amp; Detection</sub> | <a href="https://cmu.wd115.myworkdayjobs.com/SEI/job/Pittsburgh-PA/Associate-Cybersecurity-Operations-Researcher_2024322-2"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Software Engineering Institute Associate Cybersecurity Operations Researcher"></a> | Pittsburgh, PA | Sep 29 |
 | ↳ | Associate AI Red Team Engineer 🇺🇸<br><sub>AI Security &amp; Safety</sub> | <a href="https://cmu.wd115.myworkdayjobs.com/SEI/job/Pittsburgh-PA/Associate-AI-Red-Team-Engineer_2025255-1"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Software Engineering Institute Associate AI Red Team Engineer"></a> | Pittsburgh, PA | Sep 29 |
 | ↳ | Associate AI Security Researcher 🇺🇸<br><sub>AI Security &amp; Safety</sub> | <a href="https://cmu.wd115.myworkdayjobs.com/SEI/job/Pittsburgh-PA/Associate-AI-Security-Researcher_2024456-1"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Software Engineering Institute Associate AI Security Researcher"></a> | Pittsburgh, PA | Sep 29 |
@@ -643,7 +650,7 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 
 <!-- CLOSED_START earlycareer -->
 
-<details><summary>🔒 228 closed in the last 60 days</summary>
+<details><summary>🔒 226 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
@@ -654,8 +661,7 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 | ↳ | Cyber Analyst II - ISSO | Nov 12 |
 | CrowdStrike | Engineer II, Software Assurance, Product Security (Remote) | Nov 12 |
 | ↳ | Analyst I, Falcon Complete GovCloud (Hybrid, St Louis) | Nov 12 |
-| MITRE | Associate Cloud Developer | Nov 12 |
-| ↳ | Associate AI Solutions Architect | Nov 12 |
+| MITRE | Associate AI Solutions Architect | Nov 12 |
 | RTX | Embedded Security Software Engineer I (Onsite) | Nov 12 |
 | Salt Security | Associate Solutions Architect | Nov 12 |
 | TD Bank | Information Security Analyst I (US) - Cybersecurity Incident &amp; Forensics | Nov 12 |
@@ -667,7 +673,6 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 | Fireblocks | Front Line Support Engineer - East Coast | Nov 8 |
 | JPMorgan Chase | Security Engineer II -Python Developer | Nov 8 |
 | Palo Alto Networks | Solutions Consultant 2 - Strategic Accounts | Nov 8 |
-| RTX | Embedded Software Security Engineer I - S3E | Nov 8 |
 | Amazon | Security Engineer I, AWS Security Incident Response | Nov 7 |
 | Booz Allen Hamilton | Cyber Technical Specialist, Junior | Nov 7 |
 | Draper | IS Security Officer 1 | Nov 7 |

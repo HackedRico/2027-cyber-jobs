@@ -2508,7 +2508,8 @@
     "url": "https://www.amazon.jobs/en/jobs/10537429/security-engineer-ii-amazon-guardduty",
     "source": "Amazon Jobs",
     "date_added": "2026-09-11",
-    "dead_since": "2026-11-12"
+    "dead_since": "2026-11-12",
+    "missing_since": "2026-11-12"
   },
   {
     "company": "Amazon",
@@ -2744,7 +2745,8 @@
     "clearance": true,
     "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MA-TEWKSBURY-TB1--50-Apple-Hill-Dr--ASSABET-BLDG/Internship---Raytheon-Systems-Security-Engineer--Onsite_01874702",
     "source": "Workday",
-    "date_added": "2026-09-16"
+    "date_added": "2026-09-16",
+    "missing_since": "2026-11-12"
   },
   {
     "company": "RTX",
@@ -3285,7 +3287,8 @@
     "clearance": false,
     "url": "https://expel.com/about/career-listing/8936554002?gh_jid=8936554002",
     "source": "Greenhouse",
-    "date_added": "2026-09-24"
+    "date_added": "2026-09-24",
+    "missing_since": "2026-11-12"
   },
   {
     "company": "CrowdStrike",
@@ -4080,7 +4083,8 @@
     "clearance": true,
     "url": "https://cmu.wd115.myworkdayjobs.com/SEI/job/Pittsburgh-PA/Associate-Cybersecurity-Operations-Researcher_2024322-2",
     "source": "Workday",
-    "date_added": "2026-09-29"
+    "date_added": "2026-09-29",
+    "missing_since": "2026-11-12"
   },
   {
     "company": "Software Engineering Institute",
@@ -4172,11 +4176,9 @@
     "type": "newgrad",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "",
+    "url": "https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26013354",
     "source": "Oracle",
-    "date_added": "2026-09-29",
-    "closed": true,
-    "closed_date": "2026-11-04"
+    "date_added": "2026-09-29"
   },
   {
     "company": "American Express",
@@ -4590,11 +4592,9 @@
     "type": "earlycareer",
     "category": "AppSec & ProdSec",
     "clearance": true,
-    "url": "",
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Embedded-Software-Security-Engineer-I---S3E_01878692",
     "source": "Workday",
-    "date_added": "2026-09-30",
-    "closed": true,
-    "closed_date": "2026-11-08"
+    "date_added": "2026-09-30"
   },
   {
     "company": "Microsoft",
@@ -4830,7 +4830,8 @@
     "clearance": true,
     "url": "https://boeing.wd1.myworkdayjobs.com/INTERN/job/USA---Seattle-WA/Information-Digital-Technology---Security-Career-Foundation-Program---2027-Cohort_JR2026522914",
     "source": "Workday",
-    "date_added": "2026-10-01"
+    "date_added": "2026-10-01",
+    "missing_since": "2026-11-12"
   },
   {
     "company": "Microsoft",
@@ -6201,11 +6202,9 @@
     "type": "earlycareer",
     "category": "Cloud Engineering",
     "clearance": true,
-    "url": "",
+    "url": "https://careers.mitre.org/us/en/job/R117424",
     "source": "Phenom",
-    "date_added": "2026-10-08",
-    "closed": true,
-    "closed_date": "2026-11-12"
+    "date_added": "2026-10-08"
   },
   {
     "company": "MITRE",
@@ -8467,7 +8466,8 @@
     "clearance": false,
     "url": "https://walmart.wd504.myworkdayjobs.com/WalmartExternal/job/USA-ISD-Office---DGTC-AR-BENTONVILLE-Home-Office/XMLNAME--USA--Software-Engineer-II--Information-Security_R-2696019-1",
     "source": "Workday",
-    "date_added": "2026-11-04"
+    "date_added": "2026-11-04",
+    "missing_since": "2026-11-12"
   },
   {
     "company": "Northrop Grumman",
@@ -8922,7 +8922,8 @@
     "clearance": true,
     "url": "https://job-boards.greenhouse.io/dragos/jobs/5439079008",
     "source": "Greenhouse",
-    "date_added": "2026-11-11"
+    "date_added": "2026-11-11",
+    "missing_since": "2026-11-12"
   },
   {
     "company": "Cisco",
@@ -9031,6 +9032,61 @@
     "category": "AppSec & ProdSec",
     "clearance": true,
     "url": "https://lockheedmartin.eightfold.ai/careers/job/996477633691",
+    "source": "Eightfold",
+    "date_added": "2026-11-12"
+  },
+  {
+    "company": "CrowdStrike",
+    "role": "Engineer II - SDET, NG-SIEM (Hybrid)",
+    "location": "Austin, TX",
+    "type": "earlycareer",
+    "category": "SOC & Detection",
+    "clearance": true,
+    "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Austin-TX/Sr-Engineer-II---SDET--NG-SIEM--Hybrid-_R29401",
+    "source": "Workday",
+    "date_added": "2026-11-12"
+  },
+  {
+    "company": "GDIT",
+    "role": "Security Analyst II -  TS/SCI w/Poly",
+    "location": "Chantilly, VA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://gdit.wd5.myworkdayjobs.com/External_Career_Site/job/USA-VA-Chantilly/Security-Analyst-II----TS-SCI-w-Poly_RQ232248-1",
+    "source": "Workday",
+    "date_added": "2026-11-12"
+  },
+  {
+    "company": "Idaho National Laboratory",
+    "role": "Cybersecurity Vulnerability Assessment Internship - Summer 2027",
+    "location": "Idaho Falls, ID",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://elhe.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1002/job/2328",
+    "source": "Oracle",
+    "date_added": "2026-11-12"
+  },
+  {
+    "company": "BDO",
+    "role": "Experienced Associate, Cyber",
+    "location": "Chicago, IL; Atlanta, GA; Dallas, TX; Houston, TX; McLean, VA; Minneapolis, MN; New York, NY; Washington, DC; Pittsburgh, PA; Nashville, TN",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://ebqb.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BDOEntryLevelCareers/job/14747",
+    "source": "Oracle",
+    "date_added": "2026-11-12"
+  },
+  {
+    "company": "Lockheed Martin",
+    "role": "Cyber Systems Security Engineering Asc - Early Career",
+    "location": "Fort Worth, TX",
+    "type": "earlycareer",
+    "category": "Cloud & Infra Security",
+    "clearance": true,
+    "url": "https://lockheedmartin.eightfold.ai/careers/job/996477730520",
     "source": "Eightfold",
     "date_added": "2026-11-12"
   }
