@@ -10,22 +10,22 @@ Employers with open roles on the board today.
 
 | Company | Internships | New grad | Early career |
 | ------- | ----------- | -------- | ------------ |
-| Johns Hopkins APL | 10 | 15 |  |
+| Johns Hopkins APL | 10 | 14 |  |
 | Vanguard | 5 | 6 |  |
-| Microsoft | 9 |  | 8 |
 | Booz Allen Hamilton | 9 |  | 2 |
-| MITRE | 7 | 1 | 5 |
+| MITRE | 6 | 1 | 3 |
 | Lawrence Livermore National Laboratory | 6 |  |  |
+| Lockheed Martin | 6 |  |  |
+| Microsoft | 5 |  | 8 |
 | HPE | 3 | 2 | 1 |
 | Palo Alto Networks | 4 | 1 | 1 |
-| Lockheed Martin | 5 |  |  |
 | Leidos | 4 |  | 9 |
 | Aerospace Corporation | 4 |  |  |
 | BDO | 3 | 1 |  |
 | Federal Reserve System | 4 |  |  |
 | Intel | 4 |  |  |
+| ServiceNow | 4 |  |  |
 | Northrop Grumman |  | 3 | 10 |
-| GuidePoint Security | 3 |  | 1 |
 | Entrust | 3 |  |  |
 | Goldman Sachs | 3 |  |  |
 | HP Inc | 3 |  |  |
@@ -33,7 +33,7 @@ Employers with open roles on the board today.
 | NVIDIA | 1 | 2 |  |
 | Palantir | 2 | 1 |  |
 | Tanium | 3 |  |  |
-| RTX | 2 |  | 14 |
+| RTX | 2 |  | 13 |
 | Software Engineering Institute | 2 |  | 6 |
 | Honeywell | 2 |  | 2 |
 | Appian | 1 | 1 | 1 |
@@ -44,12 +44,12 @@ Employers with open roles on the board today.
 | Two Six Technologies | 2 |  | 1 |
 | Walmart | 2 |  | 1 |
 | Applied Intuition |  | 2 |  |
-| ID.me |  | 2 |  |
+| Grant Thornton | 1 | 1 |  |
 | National Laboratory of the Rockies | 2 |  |  |
 | Qualcomm | 2 |  |  |
 | Salesforce | 1 | 1 |  |
 | Amazon |  | 1 | 15 |
-| CrowdStrike | 1 |  | 10 |
+| CrowdStrike | 1 |  | 8 |
 | Nightwing | 1 |  | 8 |
 | Boeing |  | 1 | 2 |
 | Cisco | 1 |  | 2 |
@@ -57,6 +57,7 @@ Employers with open roles on the board today.
 | Pinterest | 1 |  | 2 |
 | STR | 1 |  | 2 |
 | American Express | 1 |  | 1 |
+| GuidePoint Security | 1 |  | 1 |
 | Verkada | 1 |  | 1 |
 | 1Password | 1 |  |  |
 | Adobe | 1 |  |  |
@@ -64,8 +65,8 @@ Employers with open roles on the board today.
 | Deloitte |  | 1 |  |
 | Elevance Health | 1 |  |  |
 | Figma | 1 |  |  |
-| Grant Thornton |  | 1 |  |
 | ICF | 1 |  |  |
+| ID.me |  | 1 |  |
 | Immuta | 1 |  |  |
 | KeyBank |  | 1 |  |
 | Lumen | 1 |  |  |
@@ -78,9 +79,9 @@ Employers with open roles on the board today.
 | Trace3 | 1 |  |  |
 | TRM Labs |  | 1 |  |
 | Wells Fargo | 1 |  |  |
-| BAE Systems |  |  | 8 |
 | Fortinet |  |  | 8 |
 | KBR |  |  | 5 |
+| BAE Systems |  |  | 4 |
 | Abnormal AI |  |  | 3 |
 | Kyndryl |  |  | 3 |
 | SAIC |  |  | 3 |
@@ -89,7 +90,6 @@ Employers with open roles on the board today.
 | Fortra |  |  | 2 |
 | Proofpoint |  |  | 2 |
 | PwC |  |  | 2 |
-| Salt Security |  |  | 2 |
 | Trail of Bits |  |  | 2 |
 | AeroVironment |  |  | 1 |
 | Anthropic |  |  | 1 |
@@ -108,11 +108,11 @@ Employers with open roles on the board today.
 | Praetorian |  |  | 1 |
 | ReliaQuest |  |  | 1 |
 | SailPoint |  |  | 1 |
+| Salt Security |  |  | 1 |
 | Samsara |  |  | 1 |
 | Scale AI |  |  | 1 |
 | Sierra Nevada Corporation |  |  | 1 |
 | Socure |  |  | 1 |
-| TD Bank |  |  | 1 |
 | Tenable |  |  | 1 |
 | The Home Depot |  |  | 1 |
 | Tines |  |  | 1 |

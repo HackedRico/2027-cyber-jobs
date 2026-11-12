@@ -653,10 +653,9 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Rome-NY/Cybersecurity-Analyst--Junior_R0227512",
+    "url": "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Rome-NY/Cybersecurity-Analyst--Junior_R0252510",
     "source": "Workday",
-    "date_added": "2026-07-17",
-    "missing_since": "2026-11-09"
+    "date_added": "2026-07-17"
   },
   {
     "company": "CrowdStrike",
@@ -739,10 +738,11 @@
     "type": "earlycareer",
     "category": "AppSec & ProdSec",
     "clearance": false,
-    "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Engineer-II--Software-Assurance--Product-Security--Remote-_R29328",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-07-20",
-    "missing_since": "2026-11-09"
+    "closed": true,
+    "closed_date": "2026-11-12"
   },
   {
     "company": "CrowdStrike",
@@ -2701,10 +2701,11 @@
     "type": "earlycareer",
     "category": "SOC & Detection",
     "clearance": true,
-    "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Analyst-I--Falcon-Complete-GovCloud--Hybrid--St-Louis-_R29933-1",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-16",
-    "missing_since": "2026-11-09"
+    "closed": true,
+    "closed_date": "2026-11-12"
   },
   {
     "company": "CrowdStrike",
@@ -3929,7 +3930,8 @@
     "clearance": true,
     "url": "https://microsoft.eightfold.ai/careers/job/1970393556988203",
     "source": "Eightfold",
-    "date_added": "2026-09-28"
+    "date_added": "2026-09-28",
+    "missing_since": "2026-11-12"
   },
   {
     "company": "Microsoft",
@@ -3960,10 +3962,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://jobs.baesystems.com/global/en/job/128449BR",
+    "url": "",
     "source": "Phenom",
     "date_added": "2026-09-28",
-    "missing_since": "2026-10-29"
+    "closed": true,
+    "closed_date": "2026-11-12"
   },
   {
     "company": "BAE Systems",
@@ -4598,10 +4601,11 @@
     "type": "intern",
     "category": "Offensive Security",
     "clearance": false,
-    "url": "https://microsoft.eightfold.ai/careers/job/1970393556999315",
+    "url": "",
     "source": "Eightfold",
     "date_added": "2026-09-30",
-    "missing_since": "2026-10-29"
+    "closed": true,
+    "closed_date": "2026-11-12"
   },
   {
     "company": "BAE Systems",
@@ -4610,10 +4614,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://jobs.baesystems.com/global/en/job/129635BR",
+    "url": "",
     "source": "Phenom",
     "date_added": "2026-09-30",
-    "missing_since": "2026-10-29"
+    "closed": true,
+    "closed_date": "2026-11-12"
   },
   {
     "company": "MITRE",
@@ -4760,10 +4765,11 @@
     "type": "intern",
     "category": "SOC & Detection",
     "clearance": false,
-    "url": "https://microsoft.eightfold.ai/careers/job/1970393557019490",
+    "url": "",
     "source": "Eightfold",
     "date_added": "2026-10-01",
-    "missing_since": "2026-10-29"
+    "closed": true,
+    "closed_date": "2026-11-12"
   },
   {
     "company": "GDIT",
@@ -4938,10 +4944,11 @@
     "type": "intern",
     "category": "Offensive Security",
     "clearance": false,
-    "url": "https://microsoft.eightfold.ai/careers/job/1970393556999327",
+    "url": "",
     "source": "Eightfold",
     "date_added": "2026-10-02",
-    "missing_since": "2026-10-29"
+    "closed": true,
+    "closed_date": "2026-11-12"
   },
   {
     "company": "MITRE",
@@ -4950,10 +4957,11 @@
     "type": "intern",
     "category": "SOC & Detection",
     "clearance": true,
-    "url": "https://careers.mitre.org/us/en/job/R117094",
+    "url": "",
     "source": "Phenom",
     "date_added": "2026-10-02",
-    "missing_since": "2026-10-29"
+    "closed": true,
+    "closed_date": "2026-11-12"
   },
   {
     "company": "Booz Allen Hamilton",
@@ -5227,7 +5235,8 @@
     "clearance": true,
     "url": "https://cmu.wd115.myworkdayjobs.com/SEI/job/Pittsburgh-PA/Associate-Solutions-Engineer_2025133-2",
     "source": "Workday",
-    "date_added": "2026-10-03"
+    "date_added": "2026-10-03",
+    "missing_since": "2026-11-12"
   },
   {
     "company": "Citi",
@@ -5718,10 +5727,11 @@
     "type": "newgrad",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://careers.jhuapl.edu/jobs/59849",
+    "url": "",
     "source": "Jibe",
     "date_added": "2026-10-03",
-    "missing_since": "2026-11-09"
+    "closed": true,
+    "closed_date": "2026-11-12"
   },
   {
     "company": "State Farm",
@@ -5930,10 +5940,11 @@
     "type": "newgrad",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://job-boards.greenhouse.io/idme/jobs/8011089003",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-10-06",
-    "missing_since": "2026-11-09"
+    "closed": true,
+    "closed_date": "2026-11-12"
   },
   {
     "company": "Intel",
@@ -6188,10 +6199,11 @@
     "type": "earlycareer",
     "category": "Cloud Engineering",
     "clearance": true,
-    "url": "https://careers.mitre.org/us/en/job/R117424",
+    "url": "",
     "source": "Phenom",
     "date_added": "2026-10-08",
-    "missing_since": "2026-10-29"
+    "closed": true,
+    "closed_date": "2026-11-12"
   },
   {
     "company": "MITRE",
@@ -6211,10 +6223,11 @@
     "type": "earlycareer",
     "category": "Solutions Architecture",
     "clearance": true,
-    "url": "https://careers.mitre.org/us/en/job/R117730",
+    "url": "",
     "source": "Phenom",
     "date_added": "2026-10-08",
-    "missing_since": "2026-10-29"
+    "closed": true,
+    "closed_date": "2026-11-12"
   },
   {
     "company": "GuidePoint Security",
@@ -6223,10 +6236,11 @@
     "type": "intern",
     "category": "AppSec & ProdSec",
     "clearance": false,
-    "url": "https://boards.greenhouse.io/guidepointsecurity/jobs/6218639004?gh_jid=6218639004",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-10-08",
-    "missing_since": "2026-11-09"
+    "closed": true,
+    "closed_date": "2026-11-12"
   },
   {
     "company": "GuidePoint Security",
@@ -6235,10 +6249,11 @@
     "type": "intern",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://boards.greenhouse.io/guidepointsecurity/jobs/6218667004?gh_jid=6218667004",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-10-08",
-    "missing_since": "2026-11-09"
+    "closed": true,
+    "closed_date": "2026-11-12"
   },
   {
     "company": "Tines",
@@ -6348,10 +6363,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MA-TEWKSBURY-TB1--50-Apple-Hill-Dr--ASSABET-BLDG/Embedded-Security-Software-Engineer-I--Onsite-_01881440",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-10",
-    "missing_since": "2026-11-09"
+    "closed": true,
+    "closed_date": "2026-11-12"
   },
   {
     "company": "RTX",
@@ -6486,10 +6502,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://jobs.baesystems.com/global/en/job/130065BR",
+    "url": "",
     "source": "Phenom",
     "date_added": "2026-10-10",
-    "missing_since": "2026-10-29"
+    "closed": true,
+    "closed_date": "2026-11-12"
   },
   {
     "company": "MITRE",
@@ -6570,10 +6587,11 @@
     "type": "intern",
     "category": "Cloud Engineering",
     "clearance": false,
-    "url": "https://microsoft.eightfold.ai/careers/job/1970393557037856",
+    "url": "",
     "source": "Eightfold",
     "date_added": "2026-10-12",
-    "missing_since": "2026-10-29"
+    "closed": true,
+    "closed_date": "2026-11-12"
   },
   {
     "company": "Johns Hopkins APL",
@@ -6656,10 +6674,11 @@
     "type": "earlycareer",
     "category": "Solutions Architecture",
     "clearance": false,
-    "url": "https://salt.security/job-board?gh_jid=5265030007",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-10-14",
-    "missing_since": "2026-11-09"
+    "closed": true,
+    "closed_date": "2026-11-12"
   },
   {
     "company": "Northrop Grumman",
@@ -7074,10 +7093,11 @@
     "type": "earlycareer",
     "category": "GRC & Risk",
     "clearance": true,
-    "url": "https://jobs.baesystems.com/global/en/job/131570BR",
+    "url": "",
     "source": "Phenom",
     "date_added": "2026-10-17",
-    "missing_since": "2026-10-29"
+    "closed": true,
+    "closed_date": "2026-11-12"
   },
   {
     "company": "Abnormal AI",
@@ -8559,10 +8579,11 @@
     "type": "earlycareer",
     "category": "Forensics & IR",
     "clearance": false,
-    "url": "https://td.wd3.myworkdayjobs.com/TD_Bank_Careers/job/Mount-Laurel-New-Jersey/Information-Security-Analyst-I--US----Cybersecurity-Incident---Forensics_R_1516793",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-11-06",
-    "missing_since": "2026-11-09"
+    "closed": true,
+    "closed_date": "2026-11-12"
   },
   {
     "company": "SAIC",
@@ -8617,7 +8638,8 @@
     "clearance": true,
     "url": "https://www.amazon.jobs/en/jobs/10598790/associate-solutions-architect-aws-national-security-solutions-architecture-team",
     "source": "Amazon Jobs",
-    "date_added": "2026-11-06"
+    "date_added": "2026-11-06",
+    "missing_since": "2026-11-12"
   },
   {
     "company": "Amazon",
@@ -8941,5 +8963,71 @@
     "url": "https://lockheedmartin.eightfold.ai/careers/job/996477642584",
     "source": "Eightfold",
     "date_added": "2026-11-11"
+  },
+  {
+    "company": "ServiceNow",
+    "role": "Assoc Detection Engineering Intern",
+    "location": "Kirkland, WA",
+    "type": "intern",
+    "category": "SOC & Detection",
+    "clearance": false,
+    "url": "https://jobs.smartrecruiters.com/ServiceNow/744000161210069",
+    "source": "SmartRecruiters",
+    "date_added": "2026-11-12"
+  },
+  {
+    "company": "ServiceNow",
+    "role": "Assoc Security Engineering & Automation Intern",
+    "location": "Santa Clara, CA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://jobs.smartrecruiters.com/ServiceNow/744000161209810",
+    "source": "SmartRecruiters",
+    "date_added": "2026-11-12"
+  },
+  {
+    "company": "ServiceNow",
+    "role": "Assoc AI Engineering (Cloud Security Automation) Intern",
+    "location": "Santa Clara, CA",
+    "type": "intern",
+    "category": "Cloud & Infra Security",
+    "clearance": false,
+    "url": "https://jobs.smartrecruiters.com/ServiceNow/744000161209600",
+    "source": "SmartRecruiters",
+    "date_added": "2026-11-12"
+  },
+  {
+    "company": "ServiceNow",
+    "role": "Assoc Information Security Engineer Intern",
+    "location": "San Diego, CA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://jobs.smartrecruiters.com/ServiceNow/744000161204235",
+    "source": "SmartRecruiters",
+    "date_added": "2026-11-12"
+  },
+  {
+    "company": "Grant Thornton",
+    "role": "Cybersecurity and Privacy Intern - Summer 2027",
+    "location": "New York, NY",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://ehzq.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/115637",
+    "source": "Oracle",
+    "date_added": "2026-11-12"
+  },
+  {
+    "company": "Lockheed Martin",
+    "role": "DevSecOps Intern - Summer 2027",
+    "location": "King of Prussia, PA",
+    "type": "intern",
+    "category": "AppSec & ProdSec",
+    "clearance": true,
+    "url": "https://lockheedmartin.eightfold.ai/careers/job/996477633691",
+    "source": "Eightfold",
+    "date_added": "2026-11-12"
   }
 ]
