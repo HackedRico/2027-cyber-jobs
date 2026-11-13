@@ -49,7 +49,7 @@ Employers with open roles on the board today.
 | National Laboratory of the Rockies | 2 |  |  |
 | Qualcomm | 2 |  |  |
 | Salesforce | 1 | 1 |  |
-| Amazon | 1 |  | 14 |
+| Amazon | 1 |  | 12 |
 | CrowdStrike | 1 |  | 9 |
 | Nightwing | 1 |  | 8 |
 | GDIT | 1 |  | 3 |

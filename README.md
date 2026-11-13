@@ -16,7 +16,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**140** internships · **44** new grad · **172** early career open · **47** added in the last 7 days · **175** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 13, 2026
+**140** internships · **44** new grad · **170** early career open · **46** added in the last 7 days · **174** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 13, 2026
 
 <!-- /STATS -->
 
@@ -493,7 +493,6 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 | Abnormal AI | 🆕 Software Engineer II, Attack Detection<br><sub>SOC &amp; Detection</sub> | <a href="https://abnormal.ai/careers/jobs/8197230003?gh_jid=8197230003"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Abnormal AI Software Engineer II, Attack Detection"></a> | Remote (US) | Nov 7 |
 | Fortinet | 🆕 Early Careers: Software Engineer – Cloud Platform (FortiSIEM)<br><sub>SOC &amp; Detection</sub> | <a href="https://edel.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/23620"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Fortinet Early Careers: Software Engineer – Cloud Platform (FortiSIEM)"></a> | Santa Clara, CA | Nov 7 |
 | Scale AI | 🆕 AI Safety Residency - SLPreP<br><sub>AI Security &amp; Safety</sub> | <a href="https://job-boards.greenhouse.io/scaleai/jobs/4744402005"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Scale AI AI Safety Residency - SLPreP"></a> | United States | Nov 7 |
-| Amazon | 🆕 Associate Solutions Architect, AWS National Security Solutions Architecture Team 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10598790/associate-solutions-architect-aws-national-security-solutions-architecture-team"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Associate Solutions Architect, AWS National Security Solutions Architecture Team"></a> | Herndon, VA | Nov 6 |
 | American Express | 🆕 Associate - Cryptographic Payment Key Management<br><sub>Security Engineering</sub> | <a href="https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26016025"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: American Express Associate - Cryptographic Payment Key Management"></a> | Phoenix, AZ | Nov 6 |
 | Leidos | 🆕 Junior Exploitation Specialist/Photogrammetrist 🇺🇸<br><sub>Offensive Security</sub> | <a href="https://leidos.wd5.myworkdayjobs.com/External/job/St-Louis-MO/Junior-Exploitation-Specialist-Photogrammetrist_R-00194949"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Leidos Junior Exploitation Specialist/Photogrammetrist"></a> | St. Louis, MO | Nov 6 |
 | Microsoft | 🆕 Security Engineer II - Red Team<br><sub>Offensive Security</sub> | <a href="https://microsoft.eightfold.ai/careers/job/1970393557053887"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Microsoft Security Engineer II - Red Team"></a> | Redmond, WA | Nov 6 |
@@ -605,7 +604,6 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 | The Home Depot | Cybersecurity Software Engineer II \| ML &amp; AI (Remote)<br><sub>Security Engineering</sub> | <a href="https://homedepot.wd5.myworkdayjobs.com/CareerDepot/job/GEORGIA---VIRTUAL---GA01/Cybersecurity-Software-Engineer-II---ML---AI--Remote-_Req193044"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: The Home Depot Cybersecurity Software Engineer II &#124; ML &amp; AI (Remote)"></a> | Remote, GA | Sep 16 |
 | Leidos | Junior Security Engineer 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://leidos.wd5.myworkdayjobs.com/External/job/Bethesda-MD/Junior-Security-Engineer_R-00192204"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Leidos Junior Security Engineer"></a> | Bethesda, MD | Sep 14 |
 | RTX | Systems Security Engineer II – Anti-Tamper / Program Protection (On-site) 🇺🇸<br><sub>Cloud &amp; Infra Security</sub> | <a href="https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Systems-Security-Engineer-II---Anti-Tamper---Program-Protection--On-site-_01874758"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: RTX Systems Security Engineer II – Anti-Tamper / Program Protection (On-site)"></a> | Tucson, AZ | Sep 14 |
-| Amazon | Security Engineer II, Amazon GuardDuty<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10537429/security-engineer-ii-amazon-guardduty"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer II, Amazon GuardDuty"></a> | Seattle, WA | Sep 11 |
 | Northrop Grumman | Level 2/3 Cyber Systems Engineer - AISR&amp;T Contingent 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-California-San-Diego/Level-2-3-Cyber-Systems-Engineer---AISR-T-Contingent_R10249593"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Northrop Grumman Level 2/3 Cyber Systems Engineer - AISR&amp;T Contingent"></a> | San Diego, CA | Sep 10 |
 | SailPoint | Associate Security Software Engineer<br><sub>Security Engineering</sub> | <a href="https://sailpoint.wd1.myworkdayjobs.com/SailPoint/job/Remote-Texas-USA/Associate-Security-Software-Engineer_R013786"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: SailPoint Associate Security Software Engineer"></a> | <details><summary>**2 locations**</summary>Remote (US)<br>United States</details> | Sep 9 |
 | Amazon | Security Engineer II - AMZ9802161<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10487669/security-engineer-ii-amz9802161"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer II - AMZ9802161"></a> | Austin, TX | Sep 5 |
@@ -649,10 +647,12 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 
 <!-- CLOSED_START earlycareer -->
 
-<details><summary>🔒 229 closed in the last 60 days</summary>
+<details><summary>🔒 231 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
+| Amazon | Security Engineer II, Amazon GuardDuty | Nov 13 |
+| ↳ | Associate Solutions Architect, AWS National Security Solutions Architecture Team | Nov 13 |
 | Honeywell | Cyber Security Engineer I-Penetration Tester | Nov 13 |
 | Keyfactor | Associate Software Engineer | Nov 13 |
 | Kyndryl | Early Career Consult Program – Cybersecurity Defense Associate | Nov 13 |
