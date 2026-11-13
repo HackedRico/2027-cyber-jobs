@@ -4,7 +4,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **404 companies tracked.**
 
-## Hiring students now (106)
+## Hiring students now (103)
 
 Employers with open roles on the board today.
 
@@ -12,20 +12,19 @@ Employers with open roles on the board today.
 | ------- | ----------- | -------- | ------------ |
 | Johns Hopkins APL | 10 | 14 |  |
 | Vanguard | 5 | 6 |  |
-| Booz Allen Hamilton | 9 |  | 2 |
+| Booz Allen Hamilton | 8 |  | 2 |
 | MITRE | 6 | 1 | 4 |
 | Lockheed Martin | 6 |  | 1 |
 | Lawrence Livermore National Laboratory | 6 |  |  |
 | Microsoft | 5 |  | 8 |
-| HPE | 3 | 2 | 1 |
+| HPE | 3 | 2 | 2 |
 | Palo Alto Networks | 4 | 1 | 1 |
+| ServiceNow | 5 |  |  |
 | Leidos | 4 |  | 9 |
-| BDO | 3 | 1 | 1 |
 | Aerospace Corporation | 4 |  |  |
 | Federal Reserve System | 4 |  |  |
 | Intel | 4 |  |  |
-| ServiceNow | 4 |  |  |
-| Northrop Grumman |  | 3 | 10 |
+| BDO | 2 | 1 | 1 |
 | Idaho National Laboratory | 3 |  | 1 |
 | Entrust | 3 |  |  |
 | Goldman Sachs | 3 |  |  |
@@ -34,13 +33,14 @@ Employers with open roles on the board today.
 | NVIDIA | 1 | 2 |  |
 | Palantir | 2 | 1 |  |
 | Tanium | 3 |  |  |
-| RTX | 2 |  | 14 |
+| RTX | 2 |  | 15 |
+| Northrop Grumman |  | 2 | 9 |
 | Software Engineering Institute | 2 |  | 6 |
-| Honeywell | 2 |  | 2 |
 | American Express | 1 | 1 | 1 |
 | Appian | 1 | 1 | 1 |
 | CACI | 2 |  | 1 |
 | Citi | 1 | 1 | 1 |
+| Honeywell | 2 |  | 1 |
 | Motorola Solutions | 2 |  | 1 |
 | Two Six Technologies | 2 |  | 1 |
 | Walmart | 2 |  | 1 |
@@ -49,6 +49,7 @@ Employers with open roles on the board today.
 | National Laboratory of the Rockies | 2 |  |  |
 | Qualcomm | 2 |  |  |
 | Salesforce | 1 | 1 |  |
+| Amazon | 1 |  | 14 |
 | CrowdStrike | 1 |  | 9 |
 | Nightwing | 1 |  | 8 |
 | GDIT | 1 |  | 3 |
@@ -66,10 +67,8 @@ Employers with open roles on the board today.
 | Figma | 1 |  |  |
 | ICF | 1 |  |  |
 | ID.me |  | 1 |  |
-| Immuta | 1 |  |  |
 | KeyBank |  | 1 |  |
 | Lumen | 1 |  |  |
-| McKesson |  | 1 |  |
 | PayPal | 1 |  |  |
 | Prophet Security | 1 |  |  |
 | Rubrik |  | 1 |  |
@@ -77,13 +76,10 @@ Employers with open roles on the board today.
 | Semgrep | 1 |  |  |
 | Trace3 | 1 |  |  |
 | TRM Labs |  | 1 |  |
-| Wells Fargo | 1 |  |  |
-| Amazon |  |  | 14 |
 | Fortinet |  |  | 8 |
 | KBR |  |  | 5 |
 | BAE Systems |  |  | 4 |
 | Abnormal AI |  |  | 3 |
-| Kyndryl |  |  | 3 |
 | SAIC |  |  | 3 |
 | Amentum |  |  | 2 |
 | Battelle |  |  | 2 |
@@ -102,7 +98,7 @@ Employers with open roles on the board today.
 | HII |  |  | 1 |
 | Instacart |  |  | 1 |
 | JPMorgan Chase |  |  | 1 |
-| Keyfactor |  |  | 1 |
+| Kyndryl |  |  | 1 |
 | MIT Lincoln Laboratory |  |  | 1 |
 | Obsidian Security |  |  | 1 |
 | Praetorian |  |  | 1 |
@@ -113,6 +109,7 @@ Employers with open roles on the board today.
 | Scale AI |  |  | 1 |
 | Sierra Nevada Corporation |  |  | 1 |
 | Socure |  |  | 1 |
+| SpecterOps |  |  | 1 |
 | Tenable |  |  | 1 |
 | The Home Depot |  |  | 1 |
 | Tines |  |  | 1 |
