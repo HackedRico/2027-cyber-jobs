@@ -8601,7 +8601,8 @@
     "clearance": false,
     "url": "https://microsoft.eightfold.ai/careers/job/1970393557053887",
     "source": "Eightfold",
-    "date_added": "2026-11-06"
+    "date_added": "2026-11-06",
+    "missing_since": "2026-11-13"
   },
   {
     "company": "Samsara",
@@ -8941,7 +8942,8 @@
     "clearance": true,
     "url": "https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2619023",
     "source": "Oracle",
-    "date_added": "2026-11-11"
+    "date_added": "2026-11-11",
+    "missing_since": "2026-11-13"
   },
   {
     "company": "Amazon",
@@ -9043,17 +9045,6 @@
     "date_added": "2026-11-12"
   },
   {
-    "company": "GDIT",
-    "role": "Security Analyst II -  TS/SCI w/Poly",
-    "location": "Chantilly, VA",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "https://gdit.wd5.myworkdayjobs.com/External_Career_Site/job/USA-VA-Chantilly/Security-Analyst-II----TS-SCI-w-Poly_RQ232248-1",
-    "source": "Workday",
-    "date_added": "2026-11-12"
-  },
-  {
     "company": "Idaho National Laboratory",
     "role": "Cybersecurity Vulnerability Assessment Internship - Summer 2027",
     "location": "Idaho Falls, ID",
@@ -9117,6 +9108,116 @@
     "clearance": false,
     "url": "https://jobs.smartrecruiters.com/ServiceNow/744000161385779",
     "source": "SmartRecruiters",
+    "date_added": "2026-11-13"
+  },
+  {
+    "company": "Trace3",
+    "role": "Security Intern",
+    "location": "Irvine, CA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/trace3/jobs/8274792",
+    "source": "Greenhouse",
+    "date_added": "2026-11-13"
+  },
+  {
+    "company": "ServiceNow",
+    "role": "Information Security Analyst Intern",
+    "location": "San Diego, CA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://jobs.smartrecruiters.com/ServiceNow/744000161550869",
+    "source": "SmartRecruiters",
+    "date_added": "2026-11-13"
+  },
+  {
+    "company": "ServiceNow",
+    "role": "Security Engineering & Automation Intern",
+    "location": "Kirkland, WA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://jobs.smartrecruiters.com/ServiceNow/744000161548528",
+    "source": "SmartRecruiters",
+    "date_added": "2026-11-13"
+  },
+  {
+    "company": "ServiceNow",
+    "role": "AI Security Engineer Intern",
+    "location": "San Diego, CA",
+    "type": "intern",
+    "category": "AI Security & Safety",
+    "clearance": false,
+    "url": "https://jobs.smartrecruiters.com/ServiceNow/744000161548289",
+    "source": "SmartRecruiters",
+    "date_added": "2026-11-13"
+  },
+  {
+    "company": "CrowdStrike",
+    "role": "Front End Engineer II (Remote)",
+    "location": "Remote, CA",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote-CA/Front-End-Engineer-II--Remote-_R30597",
+    "source": "Workday",
+    "date_added": "2026-11-13"
+  },
+  {
+    "company": "Boeing",
+    "role": "Cybersecurity \u2013 Associate Information System Security Officer (ISSO)",
+    "location": "Berkeley, MO",
+    "type": "earlycareer",
+    "category": "GRC & Risk",
+    "clearance": true,
+    "url": "https://boeing.wd1.myworkdayjobs.com/EXTERNAL_CAREERS/job/USA---Berkeley-MO/Cybersecurity---Associate-Information-System-Security-Officer--ISSO-_JR2026507965-1",
+    "source": "Workday",
+    "date_added": "2026-11-13"
+  },
+  {
+    "company": "State Street",
+    "role": "Cyber Security Operations Center Analyst, Full-time Internship (Jan - June 2027)",
+    "location": "Quincy, MA",
+    "type": "intern",
+    "category": "SOC & Detection",
+    "clearance": false,
+    "url": "https://statestreet.wd1.myworkdayjobs.com/Global/job/Quincy-Massachusetts/Cyber-Security-Operations-Center-Analyst--Full-time-Internship--Jan---June-2027-_R-801091",
+    "source": "Workday",
+    "date_added": "2026-11-13"
+  },
+  {
+    "company": "Software Engineering Institute",
+    "role": "Cyber AI Engineering Intern (Spring 2027)",
+    "location": "Pittsburgh, PA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://cmu.wd115.myworkdayjobs.com/SEI/job/Pittsburgh-PA/Cyber-AI-Engineering-Intern--Spring-2027-_2025346-2",
+    "source": "Workday",
+    "date_added": "2026-11-13"
+  },
+  {
+    "company": "Software Engineering Institute",
+    "role": "Cybersecurity Engineer Intern (Spring 2027)",
+    "location": "Pittsburgh, PA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://cmu.wd115.myworkdayjobs.com/SEI/job/Pittsburgh-PA/Cybersecurity-Engineer-Intern--Spring-2027-_2025347-1",
+    "source": "Workday",
+    "date_added": "2026-11-13"
+  },
+  {
+    "company": "DXC Technology",
+    "role": "Cybersecurity Analyst, Tier 2",
+    "location": "WA - ANY CITY",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://dxctechnology.wd1.myworkdayjobs.com/DXCJobs/job/USA---WA---ANY-CITY/AMS-US-Security-ID1294-Sr-Analyst-III-Security-Operations-JL12_51594531",
+    "source": "Workday",
     "date_added": "2026-11-13"
   }
 ]

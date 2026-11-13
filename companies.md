@@ -4,7 +4,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **404 companies tracked.**
 
-## Hiring students now (103)
+## Hiring students now (105)
 
 Employers with open roles on the board today.
 
@@ -13,14 +13,15 @@ Employers with open roles on the board today.
 | Johns Hopkins APL | 10 | 14 |  |
 | Vanguard | 5 | 6 |  |
 | Booz Allen Hamilton | 8 |  | 2 |
+| ServiceNow | 8 |  |  |
 | MITRE | 6 | 1 | 4 |
 | Lockheed Martin | 6 |  | 1 |
 | Lawrence Livermore National Laboratory | 6 |  |  |
 | Microsoft | 5 |  | 8 |
 | HPE | 3 | 2 | 2 |
 | Palo Alto Networks | 4 | 1 | 1 |
-| ServiceNow | 5 |  |  |
 | Leidos | 4 |  | 9 |
+| Software Engineering Institute | 4 |  | 6 |
 | Aerospace Corporation | 4 |  |  |
 | Federal Reserve System | 4 |  |  |
 | Intel | 4 |  |  |
@@ -35,7 +36,6 @@ Employers with open roles on the board today.
 | Tanium | 3 |  |  |
 | RTX | 2 |  | 15 |
 | Northrop Grumman |  | 2 | 9 |
-| Software Engineering Institute | 2 |  | 6 |
 | American Express | 1 | 1 | 1 |
 | Appian | 1 | 1 | 1 |
 | CACI | 2 |  | 1 |
@@ -49,12 +49,13 @@ Employers with open roles on the board today.
 | National Laboratory of the Rockies | 2 |  |  |
 | Qualcomm | 2 |  |  |
 | Salesforce | 1 | 1 |  |
+| Trace3 | 2 |  |  |
 | Amazon | 1 |  | 12 |
-| CrowdStrike | 1 |  | 9 |
+| CrowdStrike | 1 |  | 10 |
 | Nightwing | 1 |  | 8 |
-| GDIT | 1 |  | 3 |
-| Boeing |  | 1 | 2 |
+| Boeing |  | 1 | 3 |
 | Cisco | 1 |  | 2 |
+| GDIT | 1 |  | 2 |
 | Pinterest | 1 |  | 2 |
 | STR | 1 |  | 2 |
 | GuidePoint Security | 1 |  | 1 |
@@ -74,7 +75,7 @@ Employers with open roles on the board today.
 | Rubrik |  | 1 |  |
 | Saviynt | 1 |  |  |
 | Semgrep | 1 |  |  |
-| Trace3 | 1 |  |  |
+| State Street | 1 |  |  |
 | TRM Labs |  | 1 |  |
 | Fortinet |  |  | 8 |
 | KBR |  |  | 5 |
@@ -92,6 +93,7 @@ Employers with open roles on the board today.
 | Corelight |  |  | 1 |
 | Delinea |  |  | 1 |
 | Dragos |  |  | 1 |
+| DXC Technology |  |  | 1 |
 | ESET |  |  | 1 |
 | Expel |  |  | 1 |
 | ExtraHop |  |  | 1 |
