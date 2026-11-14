@@ -16,7 +16,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**145** internships · **44** new grad · **172** early career open · **52** added in the last 7 days · **175** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 14, 2026
+**146** internships · **43** new grad · **172** early career open · **52** added in the last 7 days · **174** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 14, 2026
 
 <!-- /STATS -->
 
@@ -73,6 +73,7 @@ Cybersecurity internships and co-ops for current students.
 
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
+| CrowdStrike | 🆕 Insider Risk Engineering Intern - Summer 2027<br><sub>GRC &amp; Risk</sub> | <a href="https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Arlington-VA/Insider-Risk-Engineering-Intern---Summer-2027_R30718"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: CrowdStrike Insider Risk Engineering Intern - Summer 2027"></a> | <details><summary>**3 locations**</summary>Arlington, VA<br>Redmond, WA<br>Sunnyvale, CA</details> | Nov 14 |
 | ServiceNow | 🆕 Security Engineer Intern<br><sub>Security Engineering</sub> | <a href="https://jobs.smartrecruiters.com/ServiceNow/744000161592679"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: ServiceNow Security Engineer Intern"></a> | Kirkland, WA | Nov 14 |
 | ServiceNow | 🆕 Product Security Intern<br><sub>AppSec &amp; ProdSec</sub> | <a href="https://jobs.smartrecruiters.com/ServiceNow/744000161385779"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: ServiceNow Product Security Intern"></a> | San Diego, CA | Nov 13 |
 | ↳ | 🆕 Information Security Analyst Intern<br><sub>Security Engineering</sub> | <a href="https://jobs.smartrecruiters.com/ServiceNow/744000161550869"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: ServiceNow Information Security Analyst Intern"></a> | San Diego, CA | Nov 13 |
@@ -376,7 +377,6 @@ Full-time roles and rotational programs for students in their final year or just
 | ------- | ---- | ----- | -------- | ----- |
 | PwC | 🆕 Cybersecurity Consulting Associate - Winter 2027<br><sub>Security Engineering</sub> | <a href="https://pwc.wd3.myworkdayjobs.com/US_Entry_Level_Careers/job/IL-Rosemont/Cybersecurity-Consulting-Associate---Winter-2027_773946WD"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: PwC Cybersecurity Consulting Associate - Winter 2027"></a> | <details><summary>**14 locations**</summary>Rosemont, IL<br>Atlanta, GA<br>Chicago, IL<br>Washington, DC<br>Dallas, TX<br>Los Angeles, CA<br>Minneapolis, MN<br>Boston, MA<br>New York, NY<br>San Francisco, CA<br>Silicon Valley, CA<br>Philadelphia, PA<br>Seattle, WA<br>Houston, TX</details> | Nov 14 |
 | Anduril | 🆕 2027 New Grad Information Security Engineer 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://boards.greenhouse.io/andurilindustries/jobs/5270839007?gh_jid=5270839007"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Anduril 2027 New Grad Information Security Engineer"></a> | Costa Mesa, CA | Nov 11 |
-| Northrop Grumman | 🆕 2027 - Associate Cyber Software Engineer - San Antonio TX 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Texas-San-Antonio/XMLNAME-2027----Associate-Cyber-Software-Engineer---San-Antonio-TX_R10259762"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Northrop Grumman 2027 - Associate Cyber Software Engineer - San Antonio TX"></a> | San Antonio, TX | Nov 9 |
 | NVIDIA | 🆕 Research Scientist, AI and Systems Security - PhD New College Grad 2026<br><sub>Cloud &amp; Infra Security</sub> | <a href="https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-MA-Westford/Research-Scientist--AI-and-Systems-Security---PhD-New-College-Grad-2026_JR2025894"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: NVIDIA Research Scientist, AI and Systems Security - PhD New College Grad 2026"></a> | <details><summary>**2 locations**</summary>Westford, MA<br>Santa Clara, CA</details> | Nov 7 |
 | Salesforce | 🆕 Associate Security Consultant- PSSA, Early Talent<br><sub>Security Engineering</sub> | <a href="https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/Washington---Seattle/Associate-Security-Consultant--PSSA--Early-Talent_JR367671"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Salesforce Associate Security Consultant- PSSA, Early Talent"></a> | <details><summary>**4 locations**</summary>Seattle, WA<br>Chicago, IL<br>Washington - Seattle Metro - Remote<br>Bellevue, WA</details> | Nov 7 |
 | Johns Hopkins APL | 2027 Graduate - Cyber Engineer/Scientist - Resilient Military Systems 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://careers.jhuapl.edu/jobs/59353"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Johns Hopkins APL 2027 Graduate - Cyber Engineer/Scientist - Resilient Military Systems"></a> | Laurel, MD | Oct 28 |
@@ -423,11 +423,12 @@ Full-time roles and rotational programs for students in their final year or just
 
 <!-- CLOSED_START newgrad -->
 
-<details><summary>🔒 39 closed in the last 60 days</summary>
+<details><summary>🔒 40 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
 | BDO | Assurance Associate, Technology Risk Assurance - Summer 2027 (Dallas) | Nov 14 |
+| Northrop Grumman | 2027 - Associate Cyber Software Engineer - San Antonio TX | Nov 14 |
 | McKesson | Graduate Cyber Security Analyst (Cyber Academy) | Nov 13 |
 | Northrop Grumman | 2027 Associate Cyber Systems Engineer - Roy UT | Nov 13 |
 | Amazon | Solutions Architect AGS-Tech, Early Career - 2027 (US) | Nov 12 |

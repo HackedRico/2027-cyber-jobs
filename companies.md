@@ -34,7 +34,7 @@ Employers with open roles on the board today.
 | Palantir | 2 | 1 |  |
 | Tanium | 3 |  |  |
 | RTX | 2 |  | 15 |
-| Northrop Grumman |  | 2 | 9 |
+| CrowdStrike | 2 |  | 10 |
 | Appian | 1 | 1 | 1 |
 | BDO | 2 |  | 1 |
 | CACI | 2 |  | 1 |
@@ -50,7 +50,7 @@ Employers with open roles on the board today.
 | Salesforce | 1 | 1 |  |
 | Trace3 | 2 |  |  |
 | Amazon | 1 |  | 12 |
-| CrowdStrike | 1 |  | 10 |
+| Northrop Grumman |  | 1 | 9 |
 | Nightwing | 1 |  | 8 |
 | Boeing |  | 1 | 3 |
 | Cisco | 1 |  | 2 |
