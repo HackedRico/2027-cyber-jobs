@@ -4,16 +4,16 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **404 companies tracked.**
 
-## Hiring students now (105)
+## Hiring students now (104)
 
 Employers with open roles on the board today.
 
 | Company | Internships | New grad | Early career |
 | ------- | ----------- | -------- | ------------ |
-| Johns Hopkins APL | 10 | 14 |  |
+| Johns Hopkins APL | 9 | 14 |  |
 | Vanguard | 5 | 6 |  |
+| ServiceNow | 9 |  |  |
 | Booz Allen Hamilton | 8 |  | 2 |
-| ServiceNow | 8 |  |  |
 | MITRE | 6 | 1 | 4 |
 | Lockheed Martin | 6 |  | 1 |
 | Lawrence Livermore National Laboratory | 6 |  |  |
@@ -25,7 +25,6 @@ Employers with open roles on the board today.
 | Aerospace Corporation | 4 |  |  |
 | Federal Reserve System | 4 |  |  |
 | Intel | 4 |  |  |
-| BDO | 2 | 1 | 1 |
 | Idaho National Laboratory | 3 |  | 1 |
 | Entrust | 3 |  |  |
 | Goldman Sachs | 3 |  |  |
@@ -36,8 +35,8 @@ Employers with open roles on the board today.
 | Tanium | 3 |  |  |
 | RTX | 2 |  | 15 |
 | Northrop Grumman |  | 2 | 9 |
-| American Express | 1 | 1 | 1 |
 | Appian | 1 | 1 | 1 |
+| BDO | 2 |  | 1 |
 | CACI | 2 |  | 1 |
 | Citi | 1 | 1 | 1 |
 | Honeywell | 2 |  | 1 |
@@ -57,10 +56,11 @@ Employers with open roles on the board today.
 | Cisco | 1 |  | 2 |
 | GDIT | 1 |  | 2 |
 | Pinterest | 1 |  | 2 |
+| PwC |  | 1 | 2 |
 | STR | 1 |  | 2 |
+| American Express |  | 1 | 1 |
 | GuidePoint Security | 1 |  | 1 |
 | Verkada | 1 |  | 1 |
-| 1Password | 1 |  |  |
 | Adobe | 1 |  |  |
 | Anduril |  | 1 |  |
 | Deloitte |  | 1 |  |
@@ -86,7 +86,6 @@ Employers with open roles on the board today.
 | Battelle |  |  | 2 |
 | Fortra |  |  | 2 |
 | Proofpoint |  |  | 2 |
-| PwC |  |  | 2 |
 | Trail of Bits |  |  | 2 |
 | AeroVironment |  |  | 1 |
 | Anthropic |  |  | 1 |

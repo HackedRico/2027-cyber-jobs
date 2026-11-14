@@ -73,7 +73,8 @@
     "clearance": false,
     "url": "https://www.pinterestcareers.com/jobs/?gh_jid=8015547",
     "source": "Greenhouse",
-    "date_added": "2026-07-12"
+    "date_added": "2026-07-12",
+    "missing_since": "2026-11-14"
   },
   {
     "company": "Praetorian",
@@ -4556,10 +4557,11 @@
     "type": "intern",
     "category": "Offensive Security",
     "clearance": true,
-    "url": "https://careers.jhuapl.edu/jobs/59991",
+    "url": "",
     "source": "Jibe",
     "date_added": "2026-09-29",
-    "missing_since": "2026-11-11"
+    "closed": true,
+    "closed_date": "2026-11-14"
   },
   {
     "company": "Johns Hopkins APL",
@@ -4736,7 +4738,8 @@
     "clearance": false,
     "url": "https://eset.wd3.myworkdayjobs.com/ESET_External/job/San-Diego/Sales-Engineer-I_JR-05896",
     "source": "Workday",
-    "date_added": "2026-10-01"
+    "date_added": "2026-10-01",
+    "missing_since": "2026-11-14"
   },
   {
     "company": "JPMorgan Chase",
@@ -6555,10 +6558,11 @@
     "type": "newgrad",
     "category": "GRC & Risk",
     "clearance": false,
-    "url": "https://ebqb.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BDOEntryLevelCareers/job/14355",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-10-12",
-    "missing_since": "2026-11-11"
+    "closed": true,
+    "closed_date": "2026-11-14"
   },
   {
     "company": "Lockheed Martin",
@@ -7471,10 +7475,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://jobs.ashbyhq.com/1password/aac7eea6-ed7c-4871-bbf2-7cb2d5138847",
+    "url": "",
     "source": "Ashby",
     "date_added": "2026-10-22",
-    "missing_since": "2026-11-11"
+    "closed": true,
+    "closed_date": "2026-11-14"
   },
   {
     "company": "1Password",
@@ -8433,10 +8438,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26016065",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-11-03",
-    "missing_since": "2026-11-11"
+    "closed": true,
+    "closed_date": "2026-11-14"
   },
   {
     "company": "BDO",
@@ -9097,7 +9103,8 @@
     "clearance": false,
     "url": "https://job-boards.greenhouse.io/specterops/jobs/8939942002",
     "source": "Greenhouse",
-    "date_added": "2026-11-13"
+    "date_added": "2026-11-13",
+    "missing_since": "2026-11-14"
   },
   {
     "company": "ServiceNow",
@@ -9219,5 +9226,27 @@
     "url": "https://dxctechnology.wd1.myworkdayjobs.com/DXCJobs/job/USA---WA---ANY-CITY/AMS-US-Security-ID1294-Sr-Analyst-III-Security-Operations-JL12_51594531",
     "source": "Workday",
     "date_added": "2026-11-13"
+  },
+  {
+    "company": "ServiceNow",
+    "role": "Security Engineer Intern",
+    "location": "Kirkland, WA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://jobs.smartrecruiters.com/ServiceNow/744000161592679",
+    "source": "SmartRecruiters",
+    "date_added": "2026-11-14"
+  },
+  {
+    "company": "PwC",
+    "role": "Cybersecurity Consulting Associate - Winter 2027",
+    "location": "Rosemont, IL; Atlanta, GA; Chicago, IL; Washington, DC; Dallas, TX; Los Angeles, CA; Minneapolis, MN; Boston, MA; New York, NY; San Francisco, CA; Silicon Valley, CA; Philadelphia, PA; Seattle, WA; Houston, TX",
+    "type": "newgrad",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://pwc.wd3.myworkdayjobs.com/US_Entry_Level_Careers/job/IL-Rosemont/Cybersecurity-Consulting-Associate---Winter-2027_773946WD",
+    "source": "Workday",
+    "date_added": "2026-11-14"
   }
 ]

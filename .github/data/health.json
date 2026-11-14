@@ -1,11 +1,536 @@
 {
-  "date": "2026-11-13",
+  "date": "2026-11-14",
   "boards": 410,
-  "ok": 396,
-  "empty": 13,
+  "ok": 291,
+  "empty": 14,
   "failed": [
-    "Arkose Labs (greenhouse/arkoselabs)"
+    "AT&T (workday/att)",
+    "Adobe (workday/adobe)",
+    "AeroVironment (workday/avav)",
+    "Aerospace Corporation (workday/aero)",
+    "Allstate (workday/allstate)",
+    "Ally (workday/ally)",
+    "Amentum (workday/pae)",
+    "Arctic Wolf (workday/arcticwolf)",
+    "Arete (workday/areteir)",
+    "Argonne National Laboratory (workday/argonne)",
+    "Arkose Labs (greenhouse/arkoselabs)",
+    "Autodesk (workday/autodesk)",
+    "Bank of America (workday/ghr)",
+    "Bitsight (workday/bitsight)",
+    "BlackRock (workday/blackrock)",
+    "Boeing (workday/boeing)",
+    "Boeing (workday/boeing/INTERN)",
+    "Booz Allen Hamilton (workday/bah)",
+    "Broadcom (workday/broadcom)",
+    "CACI (workday/caci)",
+    "CDW (workday/cdw)",
+    "CVS Health (workday/cvshealth)",
+    "Cardinal Health (workday/cardinalhealth)",
+    "Cisco (workday/cisco)",
+    "Citi (workday/citi)",
+    "CrowdStrike (workday/crowdstrike)",
+    "DXC Technology (workday/dxctechnology)",
+    "Draper (workday/draper)",
+    "Duke Energy (workday/dukeenergy)",
+    "Elevance Health (workday/elevancehealth)",
+    "Entrust (workday/entrust)",
+    "Equinix (workday/equinix)",
+    "Everfox (workday/evergreenix)",
+    "F5 (workday/ffive)",
+    "Fannie Mae (workday/fanniemae)",
+    "Federal Reserve System (workday/rb)",
+    "Fidelity Investments (workday/fmr)",
+    "Fifth Third (workday/fifththird)",
+    "Flexera (workday/flexerasoftware)",
+    "Forcepoint (workday/forcepoint)",
+    "Freddie Mac (workday/freddiemac)",
+    "GDIT (workday/gdit)",
+    "GDIT (workday/gdit/GDIT_EarlyTalent)",
+    "Guidehouse (workday/guidehouse)",
+    "HP Inc (workday/hp)",
+    "HPE (workday/hpe)",
+    "Humana (workday/humana)",
+    "ICF (workday/icf)",
+    "Intel (workday/intel)",
+    "Jamf (workday/jamfsoftware)",
+    "Johnson & Johnson (workday/jj)",
+    "KBR (workday/kbr)",
+    "KeyBank (workday/keybank)",
+    "Kyndryl (workday/kyndryl)",
+    "Kyndryl (workday/kyndryl/KyndrylProfessionalCareers)",
+    "Leidos (workday/leidos)",
+    "Mastercard (workday/mastercard)",
+    "Medtronic (workday/medtronic)",
+    "Merck (workday/msd)",
+    "Morgan Stanley (workday/ms)",
+    "Motorola Solutions (workday/motorolasolutions)",
+    "NVIDIA (workday/nvidia)",
+    "National Laboratory of the Rockies (workday/nrel)",
+    "Nationwide (workday/nationwide)",
+    "Nike (workday/nike)",
+    "Northern Trust (workday/ntrs)",
+    "Northrop Grumman (workday/ngc)",
+    "Optiv (workday/optiv)",
+    "Oracle (oracle/eeho.fa.us2.oraclecloud.com/CX_45001)",
+    "PNC (workday/pnc)",
+    "Palo Alto Networks (workday/paloaltonetworks)",
+    "Parsons (workday/parsons)",
+    "PayPal (workday/paypal)",
+    "Pfizer (workday/pfizer)",
+    "Proofpoint (workday/proofpoint)",
+    "Protiviti (workday/roberthalf)",
+    "Prudential (workday/pru)",
+    "Qualys (workday/qualys)",
+    "RTX (workday/globalhr)",
+    "Rackspace (workday/rackspace)",
+    "Rapid7 (workday/mymoose)",
+    "Red Hat (workday/redhat)",
+    "Regions Bank (workday/regions)",
+    "ReliaQuest (workday/reliaquest)",
+    "SailPoint (workday/sailpoint)",
+    "Sierra Nevada Corporation (workday/snc)",
+    "Southern Company (oracle/emje.fa.us6.oraclecloud.com/SouthernCompanyJobs)",
+    "State Street (workday/statestreet)",
+    "Synchrony (workday/synchronyfinancial)",
+    "T-Mobile (workday/tmobile)",
+    "Target (workday/target)",
+    "The Cigna Group (workday/cigna)",
+    "The Hartford (workday/thehartford)",
+    "The Home Depot (workday/homedepot)",
+    "Travelers (workday/travelers)",
+    "Trellix (workday/trellix)",
+    "Truist (workday/truist)",
+    "U.S. Bank (workday/usbank)",
+    "USAA (workday/usaa)",
+    "Unisys (workday/unisys)",
+    "Vanguard (workday/vanguard)",
+    "Visa (workday/visa)",
+    "Wells Fargo (workday/wf)",
+    "Workday (workday/workday)",
+    "Zoom (workday/zoom)"
   ],
-  "regressed": [],
-  "silent": 13
+  "regressed": [
+    {
+      "board": "Shield AI (lever/shieldai)",
+      "had": 32
+    },
+    {
+      "board": "Adobe (workday/adobe)",
+      "had": 236
+    },
+    {
+      "board": "Arctic Wolf (workday/arcticwolf)",
+      "had": 103
+    },
+    {
+      "board": "Booz Allen Hamilton (workday/bah)",
+      "had": 722
+    },
+    {
+      "board": "CACI (workday/caci)",
+      "had": 759
+    },
+    {
+      "board": "Cisco (workday/cisco)",
+      "had": 674
+    },
+    {
+      "board": "CrowdStrike (workday/crowdstrike)",
+      "had": 368
+    },
+    {
+      "board": "Draper (workday/draper)",
+      "had": 210
+    },
+    {
+      "board": "F5 (workday/ffive)",
+      "had": 292
+    },
+    {
+      "board": "GDIT (workday/gdit)",
+      "had": 702
+    },
+    {
+      "board": "GDIT (workday/gdit/GDIT_EarlyTalent)",
+      "had": 21
+    },
+    {
+      "board": "Intel (workday/intel)",
+      "had": 542
+    },
+    {
+      "board": "KBR (workday/kbr)",
+      "had": 585
+    },
+    {
+      "board": "Leidos (workday/leidos)",
+      "had": 729
+    },
+    {
+      "board": "Mastercard (workday/mastercard)",
+      "had": 599
+    },
+    {
+      "board": "Motorola Solutions (workday/motorolasolutions)",
+      "had": 447
+    },
+    {
+      "board": "Northrop Grumman (workday/ngc)",
+      "had": 956
+    },
+    {
+      "board": "NVIDIA (workday/nvidia)",
+      "had": 811
+    },
+    {
+      "board": "Optiv (workday/optiv)",
+      "had": 54
+    },
+    {
+      "board": "Palo Alto Networks (workday/paloaltonetworks)",
+      "had": 632
+    },
+    {
+      "board": "Parsons (workday/parsons)",
+      "had": 558
+    },
+    {
+      "board": "PayPal (workday/paypal)",
+      "had": 309
+    },
+    {
+      "board": "Proofpoint (workday/proofpoint)",
+      "had": 137
+    },
+    {
+      "board": "Qualys (workday/qualys)",
+      "had": 186
+    },
+    {
+      "board": "ReliaQuest (workday/reliaquest)",
+      "had": 34
+    },
+    {
+      "board": "RTX (workday/globalhr)",
+      "had": 900
+    },
+    {
+      "board": "SailPoint (workday/sailpoint)",
+      "had": 89
+    },
+    {
+      "board": "Sierra Nevada Corporation (workday/snc)",
+      "had": 340
+    },
+    {
+      "board": "U.S. Bank (workday/usbank)",
+      "had": 455
+    },
+    {
+      "board": "Visa (workday/visa)",
+      "had": 324
+    },
+    {
+      "board": "Zoom (workday/zoom)",
+      "had": 16
+    },
+    {
+      "board": "Rapid7 (workday/mymoose)",
+      "had": 48
+    },
+    {
+      "board": "Forcepoint (workday/forcepoint)",
+      "had": 9
+    },
+    {
+      "board": "Trellix (workday/trellix)",
+      "had": 64
+    },
+    {
+      "board": "Bitsight (workday/bitsight)",
+      "had": 36
+    },
+    {
+      "board": "Entrust (workday/entrust)",
+      "had": 83
+    },
+    {
+      "board": "Everfox (workday/evergreenix)",
+      "had": 45
+    },
+    {
+      "board": "Jamf (workday/jamfsoftware)",
+      "had": 1
+    },
+    {
+      "board": "Flexera (workday/flexerasoftware)",
+      "had": 19
+    },
+    {
+      "board": "Boeing (workday/boeing)",
+      "had": 508
+    },
+    {
+      "board": "Boeing (workday/boeing/INTERN)",
+      "had": 11
+    },
+    {
+      "board": "Amentum (workday/pae)",
+      "had": 671
+    },
+    {
+      "board": "ICF (workday/icf)",
+      "had": 159
+    },
+    {
+      "board": "Guidehouse (workday/guidehouse)",
+      "had": 410
+    },
+    {
+      "board": "Aerospace Corporation (workday/aero)",
+      "had": 468
+    },
+    {
+      "board": "AeroVironment (workday/avav)",
+      "had": 345
+    },
+    {
+      "board": "Morgan Stanley (workday/ms)",
+      "had": 441
+    },
+    {
+      "board": "Wells Fargo (workday/wf)",
+      "had": 377
+    },
+    {
+      "board": "Fidelity Investments (workday/fmr)",
+      "had": 264
+    },
+    {
+      "board": "Vanguard (workday/vanguard)",
+      "had": 175
+    },
+    {
+      "board": "BlackRock (workday/blackrock)",
+      "had": 103
+    },
+    {
+      "board": "State Street (workday/statestreet)",
+      "had": 490
+    },
+    {
+      "board": "Northern Trust (workday/ntrs)",
+      "had": 219
+    },
+    {
+      "board": "CVS Health (workday/cvshealth)",
+      "had": 706
+    },
+    {
+      "board": "The Cigna Group (workday/cigna)",
+      "had": 150
+    },
+    {
+      "board": "Target (workday/target)",
+      "had": 544
+    },
+    {
+      "board": "The Home Depot (workday/homedepot)",
+      "had": 173
+    },
+    {
+      "board": "Nike (workday/nike)",
+      "had": 81
+    },
+    {
+      "board": "AT&T (workday/att)",
+      "had": 357
+    },
+    {
+      "board": "T-Mobile (workday/tmobile)",
+      "had": 137
+    },
+    {
+      "board": "Duke Energy (workday/dukeenergy)",
+      "had": 25
+    },
+    {
+      "board": "Allstate (workday/allstate)",
+      "had": 398
+    },
+    {
+      "board": "PNC (workday/pnc)",
+      "had": 79
+    },
+    {
+      "board": "Truist (workday/truist)",
+      "had": 232
+    },
+    {
+      "board": "Travelers (workday/travelers)",
+      "had": 307
+    },
+    {
+      "board": "Argonne National Laboratory (workday/argonne)",
+      "had": 31
+    },
+    {
+      "board": "HP Inc (workday/hp)",
+      "had": 377
+    },
+    {
+      "board": "National Laboratory of the Rockies (workday/nrel)",
+      "had": 63
+    },
+    {
+      "board": "Bank of America (workday/ghr)",
+      "had": 280
+    },
+    {
+      "board": "Citi (workday/citi)",
+      "had": 1143
+    },
+    {
+      "board": "DXC Technology (workday/dxctechnology)",
+      "had": 515
+    },
+    {
+      "board": "Federal Reserve System (workday/rb)",
+      "had": 111
+    },
+    {
+      "board": "HPE (workday/hpe)",
+      "had": 765
+    },
+    {
+      "board": "Kyndryl (workday/kyndryl)",
+      "had": 28
+    },
+    {
+      "board": "Kyndryl (workday/kyndryl/KyndrylProfessionalCareers)",
+      "had": 683
+    },
+    {
+      "board": "Protiviti (workday/roberthalf)",
+      "had": 102
+    },
+    {
+      "board": "Regions Bank (workday/regions)",
+      "had": 73
+    },
+    {
+      "board": "Unisys (workday/unisys)",
+      "had": 310
+    },
+    {
+      "board": "Arete (workday/areteir)",
+      "had": 22
+    },
+    {
+      "board": "CDW (workday/cdw)",
+      "had": 122
+    },
+    {
+      "board": "Ally (workday/ally)",
+      "had": 40
+    },
+    {
+      "board": "Fannie Mae (workday/fanniemae)",
+      "had": 37
+    },
+    {
+      "board": "Fifth Third (workday/fifththird)",
+      "had": 331
+    },
+    {
+      "board": "Freddie Mac (workday/freddiemac)",
+      "had": 68
+    },
+    {
+      "board": "KeyBank (workday/keybank)",
+      "had": 324
+    },
+    {
+      "board": "Nationwide (workday/nationwide)",
+      "had": 70
+    },
+    {
+      "board": "Prudential (workday/pru)",
+      "had": 115
+    },
+    {
+      "board": "Synchrony (workday/synchronyfinancial)",
+      "had": 24
+    },
+    {
+      "board": "The Hartford (workday/thehartford)",
+      "had": 71
+    },
+    {
+      "board": "USAA (workday/usaa)",
+      "had": 211
+    },
+    {
+      "board": "Autodesk (workday/autodesk)",
+      "had": 2
+    },
+    {
+      "board": "Broadcom (workday/broadcom)",
+      "had": 101
+    },
+    {
+      "board": "Cardinal Health (workday/cardinalhealth)",
+      "had": 126
+    },
+    {
+      "board": "Elevance Health (workday/elevancehealth)",
+      "had": 30
+    },
+    {
+      "board": "Equinix (workday/equinix)",
+      "had": 168
+    },
+    {
+      "board": "Humana (workday/humana)",
+      "had": 94
+    },
+    {
+      "board": "Johnson & Johnson (workday/jj)",
+      "had": 421
+    },
+    {
+      "board": "Medtronic (workday/medtronic)",
+      "had": 596
+    },
+    {
+      "board": "Merck (workday/msd)",
+      "had": 131
+    },
+    {
+      "board": "Pfizer (workday/pfizer)",
+      "had": 122
+    },
+    {
+      "board": "Rackspace (workday/rackspace)",
+      "had": 78
+    },
+    {
+      "board": "Red Hat (workday/redhat)",
+      "had": 104
+    },
+    {
+      "board": "Workday (workday/workday)",
+      "had": 324
+    },
+    {
+      "board": "Southern Company (oracle/emje.fa.us6.oraclecloud.com/SouthernCompanyJobs)",
+      "had": 94
+    },
+    {
+      "board": "Oracle (oracle/eeho.fa.us2.oraclecloud.com/CX_45001)",
+      "had": 2831
+    }
+  ],
+  "silent": 14
 }
