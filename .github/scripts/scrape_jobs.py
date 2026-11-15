@@ -74,8 +74,12 @@ MAX_PAGES = 60
 # Boards scrape on a small thread pool (see `scrape_boards`). Each board is its
 # own host or one of a handful of shared ATS API hosts, so this many in flight
 # keeps the run minutes long as companies.yml grows without leaning on any one
-# ATS; the sequential sweep outgrew the workflow timeout at ~350 boards.
-SCRAPE_WORKERS = 6
+# ATS; the sequential sweep outgrew the workflow timeout at ~350 boards. Six
+# workers took the scrape from 4.5 minutes to 13 between September and
+# November 2026 as boards were added, against the step's 25-minute limit. The
+# Workday tenants are most of that time and each is its own host, so more
+# workers shorten the run without adding load to any one of them.
+SCRAPE_WORKERS = 10
 
 # requests.Session is not guaranteed thread-safe, so each worker thread gets
 # its own connection-pooled session.
