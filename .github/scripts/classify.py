@@ -481,28 +481,12 @@ CYBER_REGEXES = [re.compile(p) for p in
                   r'\bvendor (?:cyber|it|security) risk\b',
                   r'\bidentity governance\b',
                   # Security work under titles with no other cyber term, from
-                  # the 2026-11-15 scrape. Amazon shortens the word ('Sec
-                  # Engineer II – AMZ006250') and so does Lockheed Martin ('Dev
-                  # Sec Engineering - Early Career'). An SEC analyst files with
-                  # the regulator (GitLab 'Lead SEC Analyst'), so only the
-                  # engineer counts.
-                  r'\bsec engineer(?:s|ing)?\b',
-                  # Customer identity: Affirm 'Software Engineer II - CIAM'.
+                  # the 2026-11-15 scrape. Customer identity: Affirm 'Software
+                  # Engineer II - CIAM'.
                   r'\bciam\b',
                   # GDIT 'Information Technology/Assurance (IT/IA) Specialist
                   # I', which splits 'information assurance' across a slash.
                   r'\bit/ia\b',
-                  # Protecting fielded hardware from reverse engineering: RTX
-                  # 'Systems Engineer II - Anti-Tamper / Program Protection-P2
-                  # (Onsite-Tucson, AZ)', Anduril 'Embedded Software Engineer,
-                  # Anti-Tamper'. Program protection alone is left out, since
-                  # SAIC 'Program Protection Analyst' is as much OPSEC and
-                  # industrial security as cyber.
-                  r'\banti[- ]?tamper\b',
-                  # ICS and OT security research: MITRE 'Critical Infrastructure
-                  # Protection Intern', Johns Hopkins APL '2027 PhD Graduate –
-                  # Engineer or Scientist - Critical Infrastructure Protection'.
-                  r'\bcritical infrastructure protection\b',
                   # DoD names for SOC and RMF work: Accenture Federal 'Attack
                   # Sensing & Warning Analyst' and 'A&A Engineer'. The scan
                   # reads '&' as ' and ', so the acronym arrives as 'a and a'.
@@ -552,14 +536,32 @@ TECH_KEYWORDS = [
 # Compromise & Fraud Protection', Palantir 'Privacy & Civil Liberties Engineer
 # - New Grad'. The team word counts only beside an engineering noun, so fraud
 # call-centre reqs (JPMorgan 'Credit Card Fraud Specialist I') and content
-# moderators (Accenture 'Trust & Safety New Associate') stay out. A firewall
-# is a team's product as often as a role's tool: Amazon 'Software Development
-# Engineer, AWS Network Firewall' has no role noun after it for
-# SECURITY_TOOL_RE to read.
+# moderators (Accenture 'Trust & Safety New Associate') stay out. A network
+# firewall is a team's product as often as a role's tool: Amazon 'Software
+# Development Engineer, AWS Network Firewall' has no role noun after it for
+# SECURITY_TOOL_RE to read. A bare firewall is also a fire-rated wall and an
+# engine bulkhead ('Structural Engineer I - Firewall and Bulkhead'). Anti-tamper
+# protects fielded hardware from reverse engineering: RTX 'Systems Engineer II -
+# Anti-Tamper / Program Protection-P2 (Onsite-Tucson, AZ)', Anduril 'Embedded
+# Software Engineer, Anti-Tamper'. As a keyword it lifted the department
+# rejects ('Supply Chain Analyst I, Anti-Tamper'). Program protection alone is
+# left out, since SAIC 'Program Protection Analyst' is as much OPSEC and
+# industrial security as cyber.
 SECURITY_TEAM_RE = re.compile(
     r'\b(?:identity|authentication|privacy|trust (?:and|&) safety|anti-?abuse|'
-    r'fraud protection|compromise|firewalls?)\b')
+    r'fraud protection|compromise|network firewalls?|anti[- ]?tamper)\b')
 ENGINEERING_ROLE_RE = re.compile(r'\b(?:engineer|engineering|developer)\b')
+
+# Critical infrastructure protection is ICS and OT security research at a lab
+# (MITRE 'Critical Infrastructure Protection Intern', Johns Hopkins APL '2027
+# PhD Graduate – Engineer or Scientist - Critical Infrastructure Protection')
+# and guards, planners and emergency managers at a utility. It counts only
+# beside a research or engineering noun or on an internship, and as a keyword
+# it lifted the physical-security rejects ('Security Specialist I, Critical
+# Infrastructure Protection').
+CIP_RE = re.compile(r'\bcritical infrastructure protection\b')
+CIP_ROLE_RE = re.compile(
+    r'\b(?:engineer|engineering|developer|scientist|researcher|intern|internship)s?\b')
 
 # Cloud engineering is in the charter at any employer, with or without a
 # security word: the same students apply for both, and the work (IAM, VPCs,
@@ -891,7 +893,8 @@ CATEGORY_RULES = [
                    # JPMorgan's org is 'Cybersecurity & Technology Controls',
                    # which names no GRC work by itself.
                    r'(?<!cybersecurity & )(?<!cybersecurity and )technology controls|'
-                   r'assessor|\bit/ia\b|\ba&a\b|assessment and authorization'),
+                   r'assessor|\bit/ia\b|\ba&a\b|\ba and a (?:engineer|analyst|specialist)|'
+                   r'assessment and authorization'),
     ('Security Engineering', r'security|cyber|infosec|cryptograph|privacy'),
     # Last, and gated in infer_category, so a cloud or presales title with a
     # security word keeps its security category and a cloud presales title
@@ -1908,6 +1911,12 @@ BUSINESS_ANALYST_RE = re.compile(
 ANALYST_TECH_KEYWORDS = {'analyst', 'data analyst', 'researcher'}
 
 
+# Amazon shortens the word ('Sec Engineer II – AMZ006250') and so does Lockheed
+# Martin ('Dev Sec Engineering - Early Career'). An SEC analyst files with the
+# regulator (GitLab 'Lead SEC Analyst'), so only the engineer counts.
+SEC_ENGINEER_RE = re.compile(r'\bsec(?= engineer(?:s|ing)?\b)')
+
+
 def fold_title(title):
     """The lowercased title with its whitespace collapsed and a spaced '&' read as 'and'.
 
@@ -1916,8 +1925,13 @@ def fold_title(title):
     Associate ...") that break each multi-word signal ('tier i', 'new grad'),
     and "AWS & SQL" left the role noun one word nearer the cloud word than
     "AWS and SQL" did. An unspaced '&' stays, as in 'fp&a' and 'R&D'.
+
+    'sec engineer' is read as 'security engineer' here, before any rule runs,
+    so every guard written for the full word holds for the short one:
+    'Electronic Sec Engineer I' rejects as 'Electronic Security Engineer I' does.
     """
-    return ' '.join(title.lower().split()).replace(' & ', ' and ')
+    t = ' '.join(title.lower().split()).replace(' & ', ' and ')
+    return SEC_ENGINEER_RE.sub('security', t)
 
 
 def is_cloud_engineering_title(title):
@@ -1946,6 +1960,8 @@ def is_cyber_title(title, security_company=False):
     if SECURITY_TOOL_RE.search(t):
         return True
     if SECURITY_TEAM_RE.search(t) and ENGINEERING_ROLE_RE.search(t):
+        return True
+    if CIP_RE.search(t) and CIP_ROLE_RE.search(t):
         return True
     if is_cloud_engineering_title(t) or is_solutions_title(title):
         return True

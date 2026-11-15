@@ -1679,6 +1679,21 @@ JUDGED = [
      'no-level'),
     ('Embedded Software Engineer, Anti-Tamper', 'Costa Mesa, California, United States', '',
      False, 'no-level'),
+    ('Software Engineer I, Firewall', 'Austin, TX', '', False, 'not-cyber'),
+    # Lookalikes a review probe let in while these terms were plain keywords:
+    # the short 'sec' skipped the physical-security rejects, critical
+    # infrastructure protection and anti-tamper lifted them, and a firewall is
+    # also a wall.
+    ('Electronic Sec Engineer I', 'Austin, TX', '', False, 'rejected-title'),
+    ('Physical Sec Engineer I', 'Austin, TX', '', False, 'rejected-title'),
+    ('Security Specialist I, Critical Infrastructure Protection', 'Austin, TX', '', False,
+     'rejected-title'),
+    ('Regional Security Analyst I, Critical Infrastructure Protection', 'Austin, TX', '', False,
+     'rejected-title'),
+    ('Emergency Management Specialist I, Critical Infrastructure Protection', 'Austin, TX', '',
+     False, 'not-cyber'),
+    ('Supply Chain Analyst I, Anti-Tamper', 'Tucson, AZ', '', False, 'rejected-title'),
+    ('Structural Engineer I - Firewall and Bulkhead', 'Wichita, KS', '', False, 'not-cyber'),
     # ...and the neighbours that stay out: an SEC filer, the manager's acronym
     # (the spelled-out 'Information Systems Security Manager' is rejected too),
     # program protection alone, backup sold as data protection, and a firewall
