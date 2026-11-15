@@ -70,8 +70,11 @@ CASES = [
     ('Research Engineer, Alignment Science', 'San Francisco, CA', 'Requires 2+ years of experience.', False, ('earlycareer', 'AI Security & Safety')),
     ('AI Alignment Intern', 'San Francisco, CA', '', False, ('intern', 'AI Security & Safety')),
     ('Adversarial Robustness Research Intern', 'San Francisco, CA', '', False, ('intern', 'AI Security & Safety')),
-    ('Security Engineer, Adversary & Adversarial Emulation', 'Austin, TX', 'Requires 2+ years of experience.', False, None),
-    ('Security Engineer, Alignment Tooling', 'Austin, TX', 'Requires 2+ years of experience.', False, None),
+    # Neither is an AI title, so they level as any flat security title does
+    # and keep a security category.
+    ('Security Engineer, Adversary & Adversarial Emulation', 'Austin, TX', 'Requires 2+ years of experience.', False, ('earlycareer', 'Threat Intelligence')),
+    ('Security Engineer, Alignment Tooling', 'Austin, TX', 'Requires 2+ years of experience.', False, ('earlycareer', 'Security Engineering')),
+    ('Security Engineer, Alignment Tooling', 'Austin, TX', 'Requires 3+ years of experience.', False, None),
     ('Junior Security Analyst', 'Remote- US', '', False, ('earlycareer', 'Security Engineering')),
     # 'Architect' is a senior signal, but a named early-career cohort overrides
     # it (NVIDIA's "Security Architect - New College Grad" is a new-grad req).
@@ -1513,6 +1516,64 @@ for desc, want in FLOOR:
 # evaluate_job: the gate has to fire on title-derived levels too, which is the
 # actual regression — every one of these titles classifies as earlycareer.
 GATED = [
+    # A flat security title is early career when its posting states the
+    # experience it wants and every count is two years or less: Amazon,
+    # Stripe, Accenture Federal, Johns Hopkins APL and GuidePoint Security.
+    ('Security Engineer, AWS Security', 'US, VA, Arlington',
+     'BASIC QUALIFICATIONS\n- 2+ years of web protocols, common security attacks, and '
+     'remediation (non-internship) experience\n- Bachelor\'s degree in a related field',
+     'earlycareer'),
+    ('Software Engineer, Vulnerability Management', 'US - Remote',
+     'Minimum requirements\n\n2+ years of industry software engineering experience (does not '
+     'include internships or co-ops)', 'earlycareer'),
+    ('IAM Engineer', 'Washington, DC',
+     'Required Qualifications\n\n2+ years of experience in Identity and Access Management '
+     '(IAM), specializing in administration and engineering', 'earlycareer'),
+    ('Reverse Engineer / Cyber Capabilities Engineer', 'Laurel, Maryland',
+     "You meet our minimum qualifications for the job if you... Have a Bachelor's in Computer "
+     'Engineering, Computer Science, Electrical Engineering, or another field relevant to the '
+     'duties as described above At least 1 year of relevant professional experience',
+     'earlycareer'),
+    ('DFIR Consultant - Remote (Anywhere in the U.S.)', 'Remote',
+     "High School diploma and 5 years of experience, OR Bachelor's degree and 2 years of "
+     'experience', 'earlycareer'),
+    ('Vulnerability Management Engineer (ServiceNow) - Mid-Atlantic region (Remote)', 'Remote',
+     'At least 1-2+ years of experience in ServiceNow Security Operations', 'earlycareer'),
+    # ...and not when the posting is silent, asks for more on any route, or
+    # states no requirement at all.
+    ('Security Engineer, AWS Security', 'US, VA, Arlington', '', None),
+    ('Security Engineer, AWS Security', 'US, VA, Arlington',
+     'BASIC QUALIFICATIONS\n- 3+ years of security engineering experience', None),
+    ('Security Engineer, AWS Security', 'US, VA, Arlington',
+     'We have built security products for more than 25 years.', None),
+    ('Reverse Engineer', 'Chantilly, VA',
+     "Associate's Degree with 7 years of relevant experience\n\nBachelor's Degree with 5 "
+     "years of relevant experience\n\nMaster's Degree with 3 years of relevant experience"
+     '\n\nDoctoral Degree with 2 years of relevant experience', None),
+    # A bare 'security' before a guard-force or cleared-site noun, a mid-level
+    # word, a cloud title and insurance claims do not take the flat path:
+    # Fifth Third, Booz Allen, Leidos, Accenture Federal, Snowflake, Coalition.
+    ('Bancorp Security Operations Center Agent II 3pm-11:30pm', 'Cincinnati, OH',
+     'High school diploma or equivalent, college degree preferred.\n\n1-3 year(s) of 911 '
+     'Dispatching or Emergency Communications Experience', None),
+    ('Security Administrator', 'Warren, MI',
+     '1+ years of experience providing on-site security assessments of facilities and '
+     'personnel in support of the Department of Defense or Intelligence Community', None),
+    ('Cyberspace Intelligence Threat Analyst, Journeyman', 'Fort Meade, MD',
+     'Requires 2+ years of experience.', None),
+    ('Attack Sensing & Warning Analyst Mid', 'Leesburg, VA', 'Requires 2+ years of experience.',
+     None),
+    ('Information Systems Security Officer (ISSO) III', 'Chantilly, VA',
+     'Requires 2+ years of experience.', None),
+    ('M&A Security Integration Engineer - PMTS', 'San Francisco, CA',
+     'Requires 2+ years of experience.', None),
+    ('Cybersecurity Instructor', 'Augusta, GA', 'Requires 2+ years of experience.', None),
+    ('Cyber Sales Engineer', 'Remote (US)', 'Requires 2+ years of experience.', None),
+    ('Cloud Support Engineer', 'US-WA-Bellevue',
+     'Required Qualifications:\n\n - BS/MS in Computer Science or equivalent experience.'
+     '\n\n - 2+ years in technical support (customer-facing, ideally 24x7).', None),
+    ('Cyber Claim Specialist', 'Any location, United States',
+     'Skills and Qualifications\n\n2+ years of experience adjusting cyber claims', None),
     ('Security Engineer II', 'Seattle, WA',
      'BASIC QUALIFICATIONS\n- 6+ years of experience in security engineering',
      None),
@@ -1703,6 +1764,12 @@ JUDGED = [
     ('Program Protection Analyst', 'Huntsville, AL', '', False, 'not-cyber'),
     ('Enterprise Data Protection AE', 'Remote (US)', '', False, 'not-cyber'),
     ('Software Engineer - SaaS Data Protection', 'Palo Alto, CA', '', False, 'not-cyber'),
+    # The flat-title experience path is for titles that name security work,
+    # so a security company's other analysts still need a ceiling: Tenable.
+    ('Investor Relations Analyst', 'Columbia, MD',
+     '2 years of prior experience working in investor relations, equity research, investment '
+     'banking, or public company finance', True, 'no-level'),
+    ('Complex Cyber Claim Specialist', 'Remote (US)', '', False, 'rejected-title'),
     # An engineer on an underwriting team is not an underwriter.
     ('Machine Learning Engineer II (Underwriting ML)', 'San Francisco, CA', '', False, 'not-cyber'),
     # Threat simulation for a modeling and simulation team is not cyber work,
