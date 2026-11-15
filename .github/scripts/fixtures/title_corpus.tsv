@@ -5140,9 +5140,9 @@ Information Technology - Project Management & Architecture Intern, Summer 2027	B
 Information Technology Intern	Lockheed Martin	0	out|not-cyber
 Information Technology Intern (Summer 2027)	Saronic	0	out|not-cyber
 Information Technology Internship Summer 2027	Duke Energy	0	out|not-cyber
-Information Technology/Assurance (IT/IA) Specialist I (24/7)	GDIT	0	out|not-cyber
-Information Technology/Assurance (IT/IA) Specialist I - Ramstein, Germany	GDIT	0	out|not-cyber
-Information Technology/Assurance (IT/IA) Specialist II	GDIT	0	out|not-cyber
+Information Technology/Assurance (IT/IA) Specialist I (24/7)	GDIT	0	earlycareer|GRC & Risk
+Information Technology/Assurance (IT/IA) Specialist I - Ramstein, Germany	GDIT	0	out|non-us-location
+Information Technology/Assurance (IT/IA) Specialist II	GDIT	0	earlycareer|GRC & Risk
 Infrared Radiation Effects Laboratory - Engineering Intern, Summer 2027	BAE Systems	0	out|not-cyber
 Infrastructure & Cloud Engineer	DXC Technology	0	out|no-level
 Infrastructure Cloud Architect	Kyndryl	0	out|rejected-title
@@ -7601,7 +7601,7 @@ SDR Intern - Munich	Snowflake	0	out|not-cyber
 Seasonal Associate, Resilience Coordinator	ICF	0	out|not-cyber
 Seasonal IT Assurance Senior Associate	Grant Thornton	0	out|rejected-title
 Seasonal Target Security Specialist - Regional Distribution Center - Amsterdam, NY	Target	0	out|rejected-title
-Sec Engineer II – AMZ006250	Amazon	0	out|not-cyber
+Sec Engineer II – AMZ006250	Amazon	0	earlycareer|Security Engineering
 SEC Regulatory Matters Associate	Grant Thornton	0	out|not-cyber
 SecOps Data & Analytics Engineer - North Central region (Remote in the U.S.)	GuidePoint Security	1	out|no-level
 Secretarial & Compliance Management Trainee	Kyndryl	0	out|not-cyber
@@ -9363,8 +9363,8 @@ Systems Engineer I (For 2026 Interns Only)	Sierra Nevada Corporation	0	out|rejec
 Systems Engineer I - Guidance, Navigation, and Control (Onsite)	RTX	0	out|not-cyber
 Systems Engineer II	AeroVironment	0	out|not-cyber
 Systems Engineer II - Air Traffic Solutions (Onsite)	RTX	0	out|not-cyber
-Systems Engineer II - Anti-Tamper / Program Protection-P2 (Onsite-McKinney, TX)	RTX	0	out|not-cyber
-Systems Engineer II - Anti-Tamper / Program Protection-P2 (Onsite-Tucson, AZ)	RTX	0	out|not-cyber
+Systems Engineer II - Anti-Tamper / Program Protection-P2 (Onsite-McKinney, TX)	RTX	0	earlycareer|Security Engineering
+Systems Engineer II - Anti-Tamper / Program Protection-P2 (Onsite-Tucson, AZ)	RTX	0	earlycareer|Security Engineering
 Systems Engineer II - APNT Solutions (Onsite)	RTX	0	out|not-cyber
 Systems Engineer II - Military Avionics Graphical Flight Plan Server (FPS) (Onsite)	RTX	0	out|not-cyber
 Systems Engineer II - Seeker Design	BAE Systems	0	out|not-cyber

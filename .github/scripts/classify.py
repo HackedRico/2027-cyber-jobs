@@ -479,7 +479,36 @@ CYBER_REGEXES = [re.compile(p) for p in
                   r'\bpci (?:dss|compliance)\b',
                   r'\bthird[- ]party (?:cyber|it|technology|information security|security) risk\b',
                   r'\bvendor (?:cyber|it|security) risk\b',
-                  r'\bidentity governance\b')]
+                  r'\bidentity governance\b',
+                  # Security work under titles with no other cyber term, from
+                  # the 2026-11-15 scrape. Amazon shortens the word ('Sec
+                  # Engineer II – AMZ006250') and so does Lockheed Martin ('Dev
+                  # Sec Engineering - Early Career'). An SEC analyst files with
+                  # the regulator (GitLab 'Lead SEC Analyst'), so only the
+                  # engineer counts.
+                  r'\bsec engineer(?:s|ing)?\b',
+                  # Customer identity: Affirm 'Software Engineer II - CIAM'.
+                  r'\bciam\b',
+                  # GDIT 'Information Technology/Assurance (IT/IA) Specialist
+                  # I', which splits 'information assurance' across a slash.
+                  r'\bit/ia\b',
+                  # Protecting fielded hardware from reverse engineering: RTX
+                  # 'Systems Engineer II - Anti-Tamper / Program Protection-P2
+                  # (Onsite-Tucson, AZ)', Anduril 'Embedded Software Engineer,
+                  # Anti-Tamper'. Program protection alone is left out, since
+                  # SAIC 'Program Protection Analyst' is as much OPSEC and
+                  # industrial security as cyber.
+                  r'\banti[- ]?tamper\b',
+                  # ICS and OT security research: MITRE 'Critical Infrastructure
+                  # Protection Intern', Johns Hopkins APL '2027 PhD Graduate –
+                  # Engineer or Scientist - Critical Infrastructure Protection'.
+                  r'\bcritical infrastructure protection\b',
+                  # DoD names for SOC and RMF work: Accenture Federal 'Attack
+                  # Sensing & Warning Analyst' and 'A&A Engineer'. The scan
+                  # reads '&' as ' and ', so the acronym arrives as 'a and a'.
+                  r'\battack sensing\b',
+                  r'\bassessment and authorization\b',
+                  r'\ba and a (?:engineer|analyst|specialist)s?\b')]
 
 # A security product marks the work only when it leads a technical role noun,
 # at most one word apart: 'Junior Splunk Engineer', 'Junior SailPoint
@@ -523,10 +552,13 @@ TECH_KEYWORDS = [
 # Compromise & Fraud Protection', Palantir 'Privacy & Civil Liberties Engineer
 # - New Grad'. The team word counts only beside an engineering noun, so fraud
 # call-centre reqs (JPMorgan 'Credit Card Fraud Specialist I') and content
-# moderators (Accenture 'Trust & Safety New Associate') stay out.
+# moderators (Accenture 'Trust & Safety New Associate') stay out. A firewall
+# is a team's product as often as a role's tool: Amazon 'Software Development
+# Engineer, AWS Network Firewall' has no role noun after it for
+# SECURITY_TOOL_RE to read.
 SECURITY_TEAM_RE = re.compile(
     r'\b(?:identity|authentication|privacy|trust (?:and|&) safety|anti-?abuse|'
-    r'fraud protection|compromise)\b')
+    r'fraud protection|compromise|firewalls?)\b')
 ENGINEERING_ROLE_RE = re.compile(r'\b(?:engineer|engineering|developer)\b')
 
 # Cloud engineering is in the charter at any employer, with or without a
@@ -839,7 +871,7 @@ CATEGORY_RULES = [
                         r'\bmdr\b|falcon complete|network defense|cyber ops\b|'
                         r'responder|'
                         r'\b(?:csoc|snoc|cssp|secops|edr|xdr|soar)\b|'
-                        r'microsoft sentinel|azure sentinel'),
+                        r'microsoft sentinel|azure sentinel|attack sensing'),
     ('Threat Intelligence', r'threat intel|\bcti\b|intelligence analyst|'
                             r'threat research|adversary|'
                             # JPMorgan 'Cyber Intelligence Associate', Recorded
@@ -852,14 +884,14 @@ CATEGORY_RULES = [
                                r'network security|platform security|'
                                r'systems security|firewall|palo alto networks|'
                                r'pan-os|\bpki\b'),
-    ('Identity & IAM', r'\biam\b|identity|access management|zero trust|'
+    ('Identity & IAM', r'\b(?:iam|ciam)\b|identity|access management|zero trust|'
                        r'authentication|privileged access'),
     ('GRC & Risk', r'\bgrc\b|governance|risk|compliance|audit|policy|'
                    r'information assurance|\b(?:isso|isse|rmf|emass|stigs?|acas|pci)\b|'
                    # JPMorgan's org is 'Cybersecurity & Technology Controls',
                    # which names no GRC work by itself.
                    r'(?<!cybersecurity & )(?<!cybersecurity and )technology controls|'
-                   r'assessor'),
+                   r'assessor|\bit/ia\b|\ba&a\b|assessment and authorization'),
     ('Security Engineering', r'security|cyber|infosec|cryptograph|privacy'),
     # Last, and gated in infer_category, so a cloud or presales title with a
     # security word keeps its security category and a cloud presales title
