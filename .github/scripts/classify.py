@@ -2015,10 +2015,19 @@ FLAT_TITLE_BAR_RE = re.compile(
     r'pre-?sales|sales|policy|liaison|program|targeting|all[- ]source)\b')
 
 
+# The flat path also wants a practitioner's role noun somewhere in the title.
+# 'Cyber' beside any other noun names a line of business as often as the work:
+# a 'Cyber Insurance Broker' sells cover, and a review probe let it in.
+FLAT_ROLE_NOUN_RE = re.compile(
+    r'\b(?:analyst|engineer|engineering|developer|researcher|scientist|tester|responder|'
+    r'hunter|architect|consultant|administrator|operator|specialist|officer|isso|isse|'
+    r'examiner|assessor|auditor|member of technical staff)s?\b')
+
+
 def _takes_flat_path(title):
     t = fold_title(title)
-    return (is_security_title(title) and not FLAT_TITLE_BAR_RE.search(t)
-            and not NON_TECH_ROLE_RE.search(t))
+    return (is_security_title(title) and bool(FLAT_ROLE_NOUN_RE.search(t))
+            and not FLAT_TITLE_BAR_RE.search(t) and not NON_TECH_ROLE_RE.search(t))
 
 
 def is_security_title(title):

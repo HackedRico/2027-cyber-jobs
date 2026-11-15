@@ -1568,6 +1568,7 @@ GATED = [
     ('M&A Security Integration Engineer - PMTS', 'San Francisco, CA',
      'Requires 2+ years of experience.', None),
     ('Cybersecurity Instructor', 'Augusta, GA', 'Requires 2+ years of experience.', None),
+    ('Cyber Insurance Broker', 'New York, NY', 'Requires 2+ years of experience.', None),
     ('Cyber Sales Engineer', 'Remote (US)', 'Requires 2+ years of experience.', None),
     ('Cloud Support Engineer', 'US-WA-Bellevue',
      'Required Qualifications:\n\n - BS/MS in Computer Science or equivalent experience.'
@@ -1770,6 +1771,11 @@ JUDGED = [
      '2 years of prior experience working in investor relations, equity research, investment '
      'banking, or public company finance', True, 'no-level'),
     ('Complex Cyber Claim Specialist', 'Remote (US)', '', False, 'rejected-title'),
+    # An engineer on a claims platform team is not a claims handler.
+    ('Application Security Engineer, Claims Platform', 'Remote (US)', '', False, 'no-level'),
+    # 'Embedded' beside SoC is a chip, as a CPU or GPU is: Accenture.
+    ('Embedded SoC Platform Developer to Accenture Industry X', 'Remote (US)', '', False,
+     'not-cyber'),
     # An engineer on an underwriting team is not an underwriter.
     ('Machine Learning Engineer II (Underwriting ML)', 'San Francisco, CA', '', False, 'not-cyber'),
     # Threat simulation for a modeling and simulation team is not cyber work,
