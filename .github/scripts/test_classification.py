@@ -399,6 +399,15 @@ CASES = [
     ('Software Engineer II - Compromise & Fraud Protection', 'Redmond, WA', '', False, ('earlycareer', 'Security Engineering')),
     ('Privacy & Civil Liberties Engineer - New Grad', 'New York, NY', '', False, ('newgrad', 'Security Engineering')),
     ('Software Engineer I, Authentication', 'Seattle, WA', '', False, ('earlycareer', 'Identity & IAM')),
+    # Terms the 2026-11-15 scrape carried under no other cyber word: Amazon,
+    # Lockheed Martin, Affirm, GDIT, RTX, MITRE and Johns Hopkins APL.
+    ('Sec Engineer II – AMZ006250', 'US, NY, New York', '', False, ('earlycareer', 'Security Engineering')),
+    ('Dev Sec Engineering - Early Career', 'Herndon, VA, US', '', False, ('earlycareer', 'Security Engineering')),
+    ('Software Engineer II - CIAM', 'San Francisco, CA', '', False, ('earlycareer', 'Identity & IAM')),
+    ('Information Technology/Assurance (IT/IA) Specialist I', 'USA CA Los Angeles', '', False, ('earlycareer', 'GRC & Risk')),
+    ('Systems Engineer II - Anti-Tamper / Program Protection-P2 (Onsite-Tucson, AZ)', 'Tucson, AZ', '', False, ('earlycareer', 'Security Engineering')),
+    ('Critical Infrastructure Protection Intern', 'McLean, VA', '', False, ('intern', 'Security Engineering')),
+    ('2027 PhD Graduate – Engineer or Scientist - Critical Infrastructure Protection', 'Laurel, Maryland', '', False, ('newgrad', 'Security Engineering')),
     # Presales and services at a security vendor.
     ('Solutions Consultant 1', 'Tallahassee, FL', '', True, ('earlycareer', 'Engineering @ Security Co')),
     ('Domain Consultant 2 - NetSec', 'Reston, VA', '', True, ('earlycareer', 'Engineering @ Security Co')),
@@ -1662,6 +1671,38 @@ JUDGED = [
     ('GPSU Military - Federal Fellowship (Hybrid)', 'Remote (US)', '', True, 'rejected-title'),
     ('GPSU Military/Military Spouses - Commercial Fellowship', 'Remote (US)', '', True,
      'rejected-title'),
+    # Flat titles the 2026-11-15 terms now read as security work, which wait
+    # on a description for their level: Accenture Federal, Amazon and Anduril.
+    ('A&A Engineer', 'Charleston, SC', '', False, 'no-level'),
+    ('Attack Sensing & Warning Analyst', 'Leesburg, VA', '', False, 'no-level'),
+    ('Software Development Engineer, AWS Network Firewall', 'US, VA, Herndon', '', False,
+     'no-level'),
+    ('Embedded Software Engineer, Anti-Tamper', 'Costa Mesa, California, United States', '',
+     False, 'no-level'),
+    ('Software Engineer I, Firewall', 'Austin, TX', '', False, 'not-cyber'),
+    # Lookalikes a review probe let in while these terms were plain keywords:
+    # the short 'sec' skipped the physical-security rejects, critical
+    # infrastructure protection and anti-tamper lifted them, and a firewall is
+    # also a wall.
+    ('Electronic Sec Engineer I', 'Austin, TX', '', False, 'rejected-title'),
+    ('Physical Sec Engineer I', 'Austin, TX', '', False, 'rejected-title'),
+    ('Security Specialist I, Critical Infrastructure Protection', 'Austin, TX', '', False,
+     'rejected-title'),
+    ('Regional Security Analyst I, Critical Infrastructure Protection', 'Austin, TX', '', False,
+     'rejected-title'),
+    ('Emergency Management Specialist I, Critical Infrastructure Protection', 'Austin, TX', '',
+     False, 'not-cyber'),
+    ('Supply Chain Analyst I, Anti-Tamper', 'Tucson, AZ', '', False, 'rejected-title'),
+    ('Structural Engineer I - Firewall and Bulkhead', 'Wichita, KS', '', False, 'not-cyber'),
+    # ...and the neighbours that stay out: an SEC filer, the manager's acronym
+    # (the spelled-out 'Information Systems Security Manager' is rejected too),
+    # program protection alone, backup sold as data protection, and a firewall
+    # with no engineering noun.
+    ('Lead SEC Analyst', 'Remote (US)', '', False, 'rejected-title'),
+    ('ISSM', 'Chantilly, VA', '', False, 'not-cyber'),
+    ('Program Protection Analyst', 'Huntsville, AL', '', False, 'not-cyber'),
+    ('Enterprise Data Protection AE', 'Remote (US)', '', False, 'not-cyber'),
+    ('Software Engineer - SaaS Data Protection', 'Palo Alto, CA', '', False, 'not-cyber'),
     # An engineer on an underwriting team is not an underwriter.
     ('Machine Learning Engineer II (Underwriting ML)', 'San Francisco, CA', '', False, 'not-cyber'),
     # Threat simulation for a modeling and simulation team is not cyber work,

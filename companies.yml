@@ -509,9 +509,6 @@ lever:
 - name: Very Good Security
   slug: verygoodsecurity
   security_company: true
-- name: Sophos
-  slug: sophos
-  security_company: true
 - name: Secureframe
   slug: secureframe
   security_company: true
@@ -723,6 +720,9 @@ ashby:
   slug: marqeta-inc
 - name: Temporal Technologies
   slug: temporal
+- name: Sophos
+  slug: sophos
+  security_company: true
 smartrecruiters:
 - name: Check Point
   slug: CheckPointSoftwareTechnologies
