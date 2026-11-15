@@ -4,7 +4,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **404 companies tracked.**
 
-## Hiring students now (104)
+## Hiring students now (102)
 
 Employers with open roles on the board today.
 
@@ -21,7 +21,7 @@ Employers with open roles on the board today.
 | HPE | 3 | 2 | 2 |
 | Palo Alto Networks | 4 | 1 | 1 |
 | Leidos | 4 |  | 9 |
-| Software Engineering Institute | 4 |  | 6 |
+| Software Engineering Institute | 4 |  | 4 |
 | Aerospace Corporation | 4 |  |  |
 | Federal Reserve System | 4 |  |  |
 | Intel | 4 |  |  |
@@ -30,10 +30,8 @@ Employers with open roles on the board today.
 | Goldman Sachs | 3 |  |  |
 | HP Inc | 3 |  |  |
 | Illumio | 3 |  |  |
-| NVIDIA | 1 | 2 |  |
 | Palantir | 2 | 1 |  |
 | Tanium | 3 |  |  |
-| RTX | 2 |  | 15 |
 | CrowdStrike | 2 |  | 10 |
 | Appian | 1 | 1 | 1 |
 | BDO | 2 |  | 1 |
@@ -42,17 +40,18 @@ Employers with open roles on the board today.
 | Honeywell | 2 |  | 1 |
 | Motorola Solutions | 2 |  | 1 |
 | Two Six Technologies | 2 |  | 1 |
-| Walmart | 2 |  | 1 |
 | Applied Intuition |  | 2 |  |
 | Grant Thornton | 1 | 1 |  |
 | National Laboratory of the Rockies | 2 |  |  |
+| NVIDIA | 1 | 1 |  |
 | Qualcomm | 2 |  |  |
 | Salesforce | 1 | 1 |  |
 | Trace3 | 2 |  |  |
+| Walmart | 2 |  |  |
 | Amazon | 1 |  | 12 |
+| RTX | 1 |  | 11 |
 | Northrop Grumman |  | 1 | 9 |
 | Nightwing | 1 |  | 8 |
-| Boeing |  | 1 | 3 |
 | Cisco | 1 |  | 2 |
 | GDIT | 1 |  | 2 |
 | Pinterest | 1 |  | 2 |
@@ -89,12 +88,11 @@ Employers with open roles on the board today.
 | Trail of Bits |  |  | 2 |
 | AeroVironment |  |  | 1 |
 | Anthropic |  |  | 1 |
+| Boeing |  |  | 1 |
 | Corelight |  |  | 1 |
 | Delinea |  |  | 1 |
-| Dragos |  |  | 1 |
 | DXC Technology |  |  | 1 |
 | ESET |  |  | 1 |
-| Expel |  |  | 1 |
 | ExtraHop |  |  | 1 |
 | HII |  |  | 1 |
 | Instacart |  |  | 1 |

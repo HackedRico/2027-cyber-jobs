@@ -1302,10 +1302,11 @@
     "type": "newgrad",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-CA-Santa-Clara/Security-Architect---New-College-Grad-2026_JR2026387-1",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-07-25",
-    "missing_since": "2026-11-11"
+    "closed": true,
+    "closed_date": "2026-11-15"
   },
   {
     "company": "Affirm",
@@ -2735,10 +2736,11 @@
     "type": "intern",
     "category": "Cloud & Infra Security",
     "clearance": true,
-    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-MA-TEWKSBURY-TB1--50-Apple-Hill-Dr--ASSABET-BLDG/Internship---Raytheon-Systems-Security-Engineer--Onsite_01874702",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-16",
-    "missing_since": "2026-11-12"
+    "closed": true,
+    "closed_date": "2026-11-15"
   },
   {
     "company": "RTX",
@@ -3275,10 +3277,11 @@
     "type": "earlycareer",
     "category": "SOC & Detection",
     "clearance": false,
-    "url": "https://expel.com/about/career-listing/8936554002?gh_jid=8936554002",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-09-24",
-    "missing_since": "2026-11-12"
+    "closed": true,
+    "closed_date": "2026-11-15"
   },
   {
     "company": "CrowdStrike",
@@ -4072,10 +4075,11 @@
     "type": "earlycareer",
     "category": "SOC & Detection",
     "clearance": true,
-    "url": "https://cmu.wd115.myworkdayjobs.com/SEI/job/Pittsburgh-PA/Associate-Cybersecurity-Operations-Researcher_2024322-2",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-09-29",
-    "missing_since": "2026-11-12"
+    "closed": true,
+    "closed_date": "2026-11-15"
   },
   {
     "company": "Software Engineering Institute",
@@ -4821,10 +4825,11 @@
     "type": "newgrad",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://boeing.wd1.myworkdayjobs.com/INTERN/job/USA---Seattle-WA/Information-Digital-Technology---Security-Career-Foundation-Program---2027-Cohort_JR2026522914",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-01",
-    "missing_since": "2026-11-12"
+    "closed": true,
+    "closed_date": "2026-11-15"
   },
   {
     "company": "Microsoft",
@@ -5229,10 +5234,11 @@
     "type": "earlycareer",
     "category": "Solutions Architecture",
     "clearance": true,
-    "url": "https://cmu.wd115.myworkdayjobs.com/SEI/job/Pittsburgh-PA/Associate-Solutions-Engineer_2025133-2",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-03",
-    "missing_since": "2026-11-12"
+    "closed": true,
+    "closed_date": "2026-11-15"
   },
   {
     "company": "Citi",
@@ -6398,11 +6404,12 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-800--1151-E-Hermans-Rd--BLDG-800/Embedded-Security-Software-Engineer-I--Onsite-_01881370",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-10",
     "twin": 2,
-    "missing_since": "2026-11-11"
+    "closed": true,
+    "closed_date": "2026-11-15"
   },
   {
     "company": "RTX",
@@ -6411,11 +6418,12 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-GOLETA-B01--6825-Cortona-Dr--BLDG-B01/Embedded-Security-Software-Engineer-II--Onsite-_01881383",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-10",
     "twin": 1,
-    "missing_since": "2026-11-11"
+    "closed": true,
+    "closed_date": "2026-11-15"
   },
   {
     "company": "RTX",
@@ -6424,11 +6432,12 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-800--1151-E-Hermans-Rd--BLDG-800/Embedded-Security-Software-Engineer-II--Onsite-_01881372",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-10",
     "twin": 2,
-    "missing_since": "2026-11-11"
+    "closed": true,
+    "closed_date": "2026-11-15"
   },
   {
     "company": "RTX",
@@ -6437,10 +6446,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-EL-SEGUNDO-R01--2000-E-Imperial-Hwy--BLDG-R01/Embedded-Security-Software--Engineer-II--Onsite-_01881357",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-10",
-    "missing_since": "2026-11-11"
+    "closed": true,
+    "closed_date": "2026-11-15"
   },
   {
     "company": "Software Engineering Institute",
@@ -6973,7 +6983,8 @@
     "clearance": false,
     "url": "https://hpe.wd5.myworkdayjobs.com/Jobsathpe/job/San-Jose-California-United-States-of-America/Cloud-Developer-II_1214980",
     "source": "Workday",
-    "date_added": "2026-10-16"
+    "date_added": "2026-10-16",
+    "missing_since": "2026-11-15"
   },
   {
     "company": "Together AI",
@@ -8116,10 +8127,11 @@
     "type": "earlycareer",
     "category": "Cloud Engineering",
     "clearance": true,
-    "url": "https://boeing.wd1.myworkdayjobs.com/EXTERNAL_CAREERS/job/USA---Hazelwood-MO/Advanced-Information-Technologist---Associate-Cloud-Engineer_JR2026494282",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-29",
-    "missing_since": "2026-11-11"
+    "closed": true,
+    "closed_date": "2026-11-15"
   },
   {
     "company": "Boeing",
@@ -8128,10 +8140,11 @@
     "type": "earlycareer",
     "category": "Cloud Engineering",
     "clearance": true,
-    "url": "https://boeing.wd1.myworkdayjobs.com/EXTERNAL_CAREERS/job/USA---Hazelwood-MO/Advanced-Technologist---Associate-Cloud-Engineer_JR2026520164-1",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-29",
-    "missing_since": "2026-11-11"
+    "closed": true,
+    "closed_date": "2026-11-15"
   },
   {
     "company": "HP Inc",
@@ -8464,10 +8477,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://walmart.wd504.myworkdayjobs.com/WalmartExternal/job/USA-ISD-Office---DGTC-AR-BENTONVILLE-Home-Office/XMLNAME--USA--Software-Engineer-II--Information-Security_R-2696019-1",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-11-04",
-    "missing_since": "2026-11-12"
+    "closed": true,
+    "closed_date": "2026-11-15"
   },
   {
     "company": "Northrop Grumman",
@@ -8928,10 +8942,11 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": true,
-    "url": "https://job-boards.greenhouse.io/dragos/jobs/5439079008",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-11-11",
-    "missing_since": "2026-11-12"
+    "closed": true,
+    "closed_date": "2026-11-15"
   },
   {
     "company": "Cisco",

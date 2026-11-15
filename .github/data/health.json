@@ -1,25 +1,10 @@
 {
-  "date": "2026-11-14",
+  "date": "2026-11-15",
   "boards": 410,
-  "ok": 380,
+  "ok": 395,
   "empty": 14,
   "failed": [
-    "Arkose Labs (greenhouse/arkoselabs)",
-    "Boeing (workday/boeing)",
-    "Boeing (workday/boeing/INTERN)",
-    "Elevance Health (workday/elevancehealth)",
-    "HP Inc (workday/hp)",
-    "HPE (workday/hpe)",
-    "Intel (workday/intel)",
-    "NVIDIA (workday/nvidia)",
-    "PayPal (workday/paypal)",
-    "Prudential (workday/pru)",
-    "RTX (workday/globalhr)",
-    "Regions Bank (workday/regions)",
-    "Target (workday/target)",
-    "Truist (workday/truist)",
-    "USAA (workday/usaa)",
-    "Wells Fargo (workday/wf)"
+    "Arkose Labs (greenhouse/arkoselabs)"
   ],
   "regressed": [],
   "silent": 14
