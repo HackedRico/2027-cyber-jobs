@@ -2429,6 +2429,122 @@ def test_failed_detail_fetches_are_marked_on_every_detail_source():
           flags(sj.scrape_oracle('Acme', host, 'CX_1')), [(False, False)])
 
 
+# --- flat security titles on the boards that pay a request per description ---
+FLAT_BODY = '<p>2+ years of experience with security monitoring and incident response.</p>'
+
+
+@responses.activate
+def test_workday_leaves_flat_security_titles_unread():
+    """Reading them took a dry run from 4 terms or details lost to a 429 up to
+    34, most on tenants that list no flat title, so Workday reads leveled
+    titles only."""
+    rows = [{'title': title, 'externalPath': f'/job/McLean-VA/{req}', 'locationsText': site}
+            for title, req, site in (('Cybersecurity Analyst', 'R1', 'McLean, VA'),
+                                     ('Cybersecurity Analyst', 'R2', '2 Locations'),
+                                     ('Cyber Analyst I', 'R3', 'McLean, VA'))]
+    responses.add_callback(responses.POST, WD_API, callback=_workday_pages({
+        'cyber': [{'total': len(rows), 'jobPostings': rows}]}))
+    for row in rows:
+        responses.get(f'https://t.wd5.myworkdayjobs.com/wday/cxs/t/B{row["externalPath"]}',
+                      json={'jobPostingInfo': {'location': 'McLean, VA',
+                                               'jobDescription': FLAT_BODY}})
+    jobs = sj.scrape_workday('Acme', 't', 'wd5', 'B')
+    check('workday asks for the leveled title only',
+          [c.request.url.rsplit('/', 1)[-1] for c in responses.calls
+           if c.request.method == 'GET'], ['R3'])
+    check('...and the flat titles carry no description and no failure',
+          [('description' in j, j.get('detail_failed', False)) for j in jobs],
+          [(False, False), (False, False), (True, False)])
+
+
+@responses.activate
+def test_oracle_and_smartrecruiters_read_leveled_titles_before_flat_ones():
+    """Both boards stop at 30 detail requests, and flat titles outnumber leveled
+    ones, so in feed order a flat title would take the request a leveled req
+    further down the feed needs."""
+    host = 'acme.fa.us2.oraclecloud.com'
+    base = f'https://{host}/hcmRestApi/resources/latest/'
+    titles = ['Cybersecurity Analyst', 'Cyber Engineer Associate', 'SOC Analyst',
+              'Security Analyst I', 'Penetration Tester']
+    responses.get(base + 'recruitingCEJobRequisitions', json={'items': [{
+        'TotalJobsCount': 6, 'requisitionList': [
+            {'Id': str(n), 'Title': title, 'PrimaryLocation': 'Reston, VA'}
+            for n, title in enumerate(titles, 1)]
+        + [{'Id': '6', 'Title': 'Cybersecurity Analyst', 'PrimaryLocation': 'Pune, India'}]}]})
+    responses.get(base + 'recruitingCEJobRequisitionDetails', json={'items': [{
+        'ExternalDescriptionStr': FLAT_BODY}]})
+    responses.get(SR_POSTINGS, json={'totalFound': 5, 'content': [
+        _sr_posting(str(n), title) for n, title in enumerate(titles, 1)]})
+    for n in range(1, 6):
+        responses.get(f'{SR_POSTINGS}/{n}', json={'jobAd': {'sections': {
+            'qualifications': {'title': 'Qualifications', 'text': FLAT_BODY}}}})
+
+    def read(fn, name, cap, *args):
+        responses.calls.reset()
+        original = getattr(sj, name)
+        try:
+            setattr(sj, name, cap)
+            jobs = fn(*args)
+        finally:
+            setattr(sj, name, original)
+        asked = [parse_qs(urlparse(c.request.url).query)['finder'][0].split('"')[1]
+                 if 'Details' in c.request.url else c.request.url.rsplit('/', 1)[-1]
+                 for c in responses.calls
+                 if 'Details' in c.request.url or '/postings/' in c.request.url]
+        return asked, jobs
+
+    asked, jobs = read(sj.scrape_oracle, 'ORACLE_DETAIL_CAP', 3, 'Acme', host, 'CX_1')
+    check('oracle spends its cap on the leveled titles, then the first flat one',
+          asked, ['2', '4', '1'])
+    check('...and the flat title it read reaches the board',
+          sj.evaluate_job(jobs[0]['title'], jobs[0]['location'], jobs[0]['description']),
+          ('earlycareer', 'Security Engineering'))
+    check('oracle with room reads every flat title listed in the US, never one abroad',
+          read(sj.scrape_oracle, 'ORACLE_DETAIL_CAP', 30, 'Acme', host, 'CX_1')[0],
+          ['2', '4', '1', '3', '5'])
+    check('oracle still keeps its internal req id out of every posting',
+          any('_req' in j for j in jobs), False)
+    asked, jobs = read(sj.scrape_smartrecruiters, 'SMARTRECRUITERS_DETAIL_CAP', 3,
+                       'Acme', 'KudelskiSecurityInc')
+    check('smartrecruiters spends its cap the same way', asked, ['2', '4', '1'])
+    check('a flat title past the cap carries no description',
+          ['description' in j for j in jobs], [True, True, False, True, False])
+
+
+@responses.activate
+def test_eightfold_and_phenom_read_flat_security_titles():
+    for term in sj.EIGHTFOLD_TERMS:
+        _ef_search(term, 0, json=_ef_page(
+            [_ef_pos(1, 'Cybersecurity Analyst'),
+             _ef_pos(2, 'Cybersecurity Analyst', locations=('Bengaluru, KA, IN',)),
+             _ef_pos(3, 'Security Administrator')], 3))
+    responses.get(EF_DETAIL, json={'data': {'jobDescription': FLAT_BODY}})
+    for term in sj.PHENOM_TERMS:
+        _ph_search(term, 0, [
+            _ph_job(1, 'Cybersecurity Analyst'),
+            _ph_job(2, 'Cybersecurity Analyst', ('Farnborough, Hampshire, United Kingdom',)),
+            _ph_job(3, 'Security Administrator')], 3)
+    responses.post(PH_API, match=[responses.matchers.json_params_matcher(
+        {'ddoKey': 'jobDetail'}, strict_match=False)],
+        json={'jobDetail': {'data': {'job': {'description': FLAT_BODY}}}})
+
+    jobs = sj.scrape_eightfold('Acme', 'acme', 'acme.com')
+    check('eightfold reads the flat security title listed in the US only',
+          [parse_qs(urlparse(c.request.url).query)['position_id'][0]
+           for c in responses.calls if c.request.url.startswith(EF_DETAIL)], ['1'])
+    check('...and its description levels it',
+          sj.evaluate_job(jobs[0]['title'], jobs[0]['location'], jobs[0]['description']),
+          ('earlycareer', 'Security Engineering'))
+    jobs = sj.scrape_phenom('Acme', 'careers.acme.org', 'en_us', 'us')
+    check('phenom reads the flat security title listed in the US only',
+          [body['jobId'] for body in (json.loads(c.request.body) for c in responses.calls
+                                      if c.request.url == PH_API)
+           if body.get('ddoKey') == 'jobDetail'], ['R1'])
+    check('...and its description levels it',
+          sj.evaluate_job(jobs[0]['title'], jobs[0]['location'], jobs[0]['description']),
+          ('earlycareer', 'Security Engineering'))
+
+
 # --- amazon.jobs: loc_query ranks, the country filter restricts --------------
 @responses.activate
 def test_amazon_restricts_to_us_reqs():
@@ -3998,6 +4114,9 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_a_failed_workday_detail_defers_the_posting,
            test_a_failed_detail_defers_only_an_unheld_posting,
            test_failed_detail_fetches_are_marked_on_every_detail_source,
+           test_workday_leaves_flat_security_titles_unread,
+           test_oracle_and_smartrecruiters_read_leveled_titles_before_flat_ones,
+           test_eightfold_and_phenom_read_flat_security_titles,
            test_amazon_restricts_to_us_reqs,
            test_smartrecruiters_and_amazon_flag_a_cut_short_sweep,
            test_oracle_pages_and_flags_a_cut_short_sweep,
