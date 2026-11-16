@@ -22,6 +22,12 @@ SEASON = s.first_open_season()
 NORTHROP_LEVELS = ("Level 2: Bachelor's + 2 years of related experience. "
                    "Level 3: Bachelor's + 5 years of related experience.")
 
+LEIDOS_SOC_LEVELS = ("Level I: Bachelor's degree and 2+ years of relevant experience "
+                     '(Equivalent professional work or military experience will be considered '
+                     "in lieu of a degree)\n\nLevel II: Bachelor's degree and 4+ years of "
+                     'relevant experience (Equivalent professional work or military experience '
+                     'will be considered in lieu of a degree)')
+
 CASES = [
     # (title, location, description, security_company, expected)
     # -- should be accepted --
@@ -1506,6 +1512,16 @@ FLOOR = [
     ("Bachelor's degree and 5 years of related experience; an additional four (4) "
      'years of relevant experience may be accepted in lieu of a degree.', 5),
     (NORTHROP_LEVELS, 2),
+    # In-lieu words on the line above do not waive the next line's count: ICF
+    # 'DevSecOps Engineer (Cloud)' and Parsons 'SIGREDUX & Identity Management
+    # (IdM) Specialist'.
+    ("Bachelor's degree in Computer Science or related field; or a high school diploma "
+     "with four (4) additional years of relevant experience in lieu of a bachelor's "
+     'degree.\n\nMinimum 6 years of relevant experience aligned to the responsibilities '
+     'of this role.', 6),
+    ("Bachelor's degree, with additional years of experience able to count in lieu of a "
+     'degree.\n\n10+ years of experience, with additional education, training, and '
+     'certifications able to count towards total years of experience', 10),
 ]
 for desc, want in FLOOR:
     got = s.required_years(desc)
@@ -1550,6 +1566,16 @@ GATED = [
      "Associate's Degree with 7 years of relevant experience\n\nBachelor's Degree with 5 "
      "years of relevant experience\n\nMaster's Degree with 3 years of relevant experience"
      '\n\nDoctoral Degree with 2 years of relevant experience', None),
+    # A second level's count on its own line is a route above the cap, and a
+    # minimum on the line after an in-lieu sentence is a floor: Leidos.
+    ('Security Operations Center (SOC) Analyst', 'Shiloh, IL', LEIDOS_SOC_LEVELS, None),
+    ('Cyber Analyst', 'Lawton, OK',
+     "Bachelor's Degree in cybersecurity or similar degree and 4- 8 years of relevant "
+     'experience. Will consider experience in lieu of a degree\n\nMinimum 4+ years of '
+     'professional experience in Cyber Security\n\nMinimum 2+ years of professional '
+     'experience as a SOC operator', None),
+    # ...while a leveled title still takes the cheaper of the two routes.
+    ('SOC Analyst I', 'Shiloh, IL', LEIDOS_SOC_LEVELS, 'earlycareer'),
     # A bare 'security' before a guard-force or cleared-site noun, a mid-level
     # word, a cloud title and insurance claims do not take the flat path:
     # Fifth Third, Booz Allen, Leidos, Accenture Federal, Snowflake, Coalition.

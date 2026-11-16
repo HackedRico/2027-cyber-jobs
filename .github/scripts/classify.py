@@ -2411,14 +2411,20 @@ def _experience_counts(description):
     def record(value, start, end, emphatic=False):
         if _in_spans(preferred, start) or not _is_requirement(low, start, end, emphatic):
             return
-        before = low[max(0, start - 60):start]
+        line_start = low.rfind('\n', 0, start) + 1
+        # Substitution words before the count have to sit on its own line.
+        # Leidos 'Security Operations Center (SOC) Analyst' ends its Level I
+        # line "...will be considered in lieu of a degree)" and opens the next
+        # with "Level II: Bachelor's degree and 4+ years", and ICF 'DevSecOps
+        # Engineer (Cloud)' follows an in-lieu line with "Minimum 6 years of
+        # relevant experience"; both counts read as years a degree waives.
+        before = low[max(line_start, start - 60):start]
         after = low[end:end + 60]
         if ((DEGREE_SUB_BEFORE_RE.search(before) or DEGREE_SUB_AFTER_RE.search(after))
                 and DEGREE_NOUN_RE.search(low[max(0, start - 110):end + 60])):
             substituted.append(0)   # the degreed route needs no years
         else:
-            window = low[max(0, start - DEGREE_ALT_WINDOW,
-                              low.rfind('\n', 0, start) + 1):start]
+            window = low[max(line_start, start - DEGREE_ALT_WINDOW):start]
             routes = DEGREE_ALT_RE.findall(window)
             if routes and DOCTORAL_RE.fullmatch(routes[-1]):
                 doctoral.append(value)
