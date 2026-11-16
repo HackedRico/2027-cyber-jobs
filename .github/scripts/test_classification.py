@@ -149,6 +149,12 @@ CASES = [
     ('SoC Software Engineer - New College Grad 2027', 'Santa Clara, CA', '', False, None),
     ('System Software Engineer – GPU and SOC (2027 RDSS Intern)', 'Santa Clara, CA', '', False, None),
     ('Graduate Talent (ISCP SoC Front End Team)', 'Hillsboro, OR', '', False, None),
+    # ...and its chip designers, whose discipline comes before the acronym.
+    ('Microarchitecture and Design Engineer - AI SoC', 'US, California, Santa Clara',
+     "Bachelor's degree in Electrical Engineering, Computer Engineering, or related field "
+     'with 1+ years of hands-on experience in logic design, RTL coding, and simulation',
+     False, None),
+    ('Graduate Design Engineer - SoC', 'Hillsboro, OR', '', False, None),
     # Mechanical engineering at a security company is still not security work.
     ('Mechanical Engineering Co-Op', 'Shakopee, MN', '', True, None),
     ('Electrical Engineering Intern', 'Shakopee, MN', '', True, None),
