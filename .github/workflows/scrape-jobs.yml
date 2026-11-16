@@ -1,9 +1,10 @@
 name: Scrape Job Boards
 
 on:
-  schedule:
-    # Off the hour: runs at :00 started a median 2.6 to 5.2 hours late.
-    - cron: '17 11,23 * * *'
+  # No schedule of its own. scrape-clock.yml dispatches this workflow once an
+  # 11:17 or 23:17 UTC slot has passed with no run. A cron line here started a
+  # median 5.9 and 3.2 hours late, and with the clock in place a late native
+  # run would be a second scrape for a slot the clock had already started.
   workflow_dispatch:
     inputs:
       allow_mass_close:
@@ -63,7 +64,8 @@ jobs:
 
       - name: Commit changes
         env:
-          # A dispatch that ticked allow_mass_close; empty on a scheduled run.
+          # 'true' only on a dispatch by hand that ticked allow_mass_close. The
+          # clock's dispatch leaves the input at its default.
           ALLOW_MASS_CLOSE: ${{ inputs.allow_mass_close }}
           PUSH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |

@@ -1,0 +1,44 @@
+name: Scrape Clock
+
+on:
+  schedule:
+    # GitHub starts a scheduled run hours after its cron time, so the scrape
+    # does not wait on one event. Each tick asks whether an 11:17 or 23:17 UTC
+    # slot has passed with no scrape run and dispatches the scrape if so.
+    # Ticks arrive as late as any scheduled run, but spread across the day.
+    - cron: '7,37 * * * *'
+  workflow_dispatch:
+
+# One tick at a time: a tick leaves only after the run it dispatched shows in
+# the run list, so the tick behind it cannot start a second scrape.
+concurrency:
+  group: scrape-clock
+  cancel-in-progress: false
+
+permissions: {}
+
+jobs:
+  tick:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      # Dispatching a workflow is an Actions write. A dispatch is one of the
+      # two events GITHUB_TOKEN may raise that still start a workflow run.
+      actions: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+
+      - name: Start the scrape if its slot is due
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python .github/scripts/scrape_clock.py

@@ -232,6 +232,20 @@ for name, workflow in WORKFLOWS.items():
         check(f'{name} follows the writers through workflow_run, so it needs a schedule '
               'that catches up a run lost to a runner outage', 'schedule' in on)
 
+# The clock is the scrape's one scheduler. A cron line left on the scrape would
+# start a second run for a slot the clock had already dispatched, and a clock
+# without Actions write, or one that cancels a tick mid-dispatch, starts none.
+scrape_on = WORKFLOWS['scrape-jobs.yml'].get(True) or WORKFLOWS['scrape-jobs.yml'].get('on') or {}
+check('scrape-jobs.yml takes a dispatch and has no schedule of its own',
+      'workflow_dispatch' in scrape_on and 'schedule' not in scrape_on)
+clock = WORKFLOWS['scrape-clock.yml']
+clock_on = clock.get(True) or clock.get('on') or {}
+check('scrape-clock.yml runs on a schedule', 'schedule' in clock_on)
+check('scrape-clock.yml may dispatch a workflow',
+      clock['jobs']['tick'].get('permissions', {}).get('actions') == 'write')
+check('scrape-clock.yml runs one tick at a time and never cancels one',
+      clock.get('concurrency', {}).get('cancel-in-progress') is False)
+
 # The issue form offers exactly the categories the classifier can give, and
 # CONTRIBUTING.md's category list names each one.
 categories = set(classify.CATEGORY_NAMES) | set(classify.FALLBACK_CATEGORIES)

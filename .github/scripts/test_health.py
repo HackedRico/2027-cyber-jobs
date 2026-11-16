@@ -18,6 +18,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 import check_outputs as co  # noqa: E402
 import health_check as hc  # noqa: E402
 import rebuild_readme  # noqa: E402
+import scrape_clock as clock  # noqa: E402
 import scrape_jobs as sj  # noqa: E402
 
 failures = 0
@@ -395,6 +396,94 @@ gh = FakeRuns([{'status': 'completed', 'conclusion': 'skipped'}] * 30
               + [{'status': 'completed', 'conclusion': 'failure'}])
 check('a failed writer run behind 30 skipped runs is still seen',
       {(r or {}).get('conclusion') for r in hc.latest_writer_runs(gh).values()}, {'failure'})
+
+
+# --- the clock starts the scrape once per slot ---------------------------------
+def at(day, hour, minute):
+    return datetime(2026, 11, day, hour, minute, tzinfo=UTC)
+
+
+for name, now, want in (
+        ('just after the morning slot', at(16, 11, 18), at(16, 11, 17)),
+        ('on the slot minute', at(16, 23, 17), at(16, 23, 17)),
+        ('a minute before the morning slot is still last night', at(16, 11, 16), at(15, 23, 17)),
+        ('after midnight is still last night', at(16, 0, 5), at(15, 23, 17)),
+):
+    check(f'latest_slot: {name}', clock.latest_slot(now), want)
+
+
+def scrape_run(created, status='completed', conclusion='success'):
+    return {'created_at': created, 'status': status, 'conclusion': conclusion}
+
+
+now = at(16, 12, 40)
+for name, runs, want in (
+        ('no run since the slot', [scrape_run('2026-11-16T02:30:00Z')], True),
+        ('no runs at all', [], True),
+        ('a run created after the slot', [scrape_run('2026-11-16T11:40:00Z')], False),
+        ('a run created on the slot minute', [scrape_run('2026-11-16T11:17:00Z')], False),
+        ('a queued run counts', [scrape_run('2026-11-16T11:40:00Z', 'queued', None)], False),
+        ('a failed run counts, so the clock never retries',
+         [scrape_run('2026-11-16T11:40:00Z', conclusion='failure')], False),
+        ('a run from before the slot does not',
+         [scrape_run('2026-11-16T11:16:59Z'), scrape_run('2026-11-15T23:40:00Z')], True),
+        ('a run with no timestamp is ignored', [{'status': 'queued'}], True),
+):
+    check(f'scrape_is_due: {name}', clock.scrape_is_due(now, runs), want)
+
+
+class FakeActions:
+    """A run list that gains a run `appears_after` reads after a dispatch."""
+
+    def __init__(self, runs, appears_after=1):
+        self.runs, self.appears_after = list(runs), appears_after
+        self.calls, self.reads_since_post = [], None
+
+    def repo_path(self, path):
+        return path
+
+    def call(self, method, path, body=None, ok=()):
+        self.calls.append((method, path, body))
+        if method == 'POST':
+            self.reads_since_post = 0
+            return None
+        if self.reads_since_post is not None:
+            self.reads_since_post += 1
+            if self.reads_since_post == self.appears_after:
+                self.runs.insert(0, scrape_run('2026-11-16T12:40:05Z', 'queued', None))
+        return {'workflow_runs': self.runs}
+
+
+def posts(gh):
+    return [(path, body) for method, path, body in gh.calls if method == 'POST']
+
+
+waits = []
+gh = FakeActions([scrape_run('2026-11-16T02:30:00Z')])
+check('a due slot dispatches the scrape', clock.tick(gh, now, wait=waits.append), 'started')
+check('the dispatch targets the scrape workflow on main', posts(gh),
+      [('/actions/workflows/scrape-jobs.yml/dispatches', {'ref': 'main'})])
+check('the tick waits for the run before it leaves', waits, [clock.CONFIRM_DELAY])
+check('the run list is read unfiltered (#44)',
+      any('status=' in path for _, path, _ in gh.calls), False)
+
+gh = FakeActions([scrape_run('2026-11-16T11:40:00Z')])
+check('a slot that has its run dispatches nothing', clock.tick(gh, now, wait=waits.append),
+      'not-due')
+check('and makes no write', posts(gh), [])
+
+# Two ticks land together after a delay: the second reads the list the first
+# left behind and must not start a second scrape.
+gh = FakeActions([scrape_run('2026-11-16T02:30:00Z')])
+outcomes = [clock.tick(gh, now, wait=lambda _: None), clock.tick(gh, now, wait=lambda _: None)]
+check('two ticks for one slot start one scrape', (outcomes, len(posts(gh))),
+      (['started', 'not-due'], 1))
+
+gh = FakeActions([scrape_run('2026-11-16T02:30:00Z')], appears_after=99)
+waits = []
+check('a dispatch whose run never shows is reported', clock.tick(gh, now, wait=waits.append),
+      'unconfirmed')
+check('after the full wait', len(waits), clock.CONFIRM_TRIES)
 
 
 if failures:
