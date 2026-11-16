@@ -35,7 +35,9 @@ marks 🔒, and add-listing when a maintainer applies the `approved` label. GitH
 scheduled run 2 to 10 hours after its cron time, so read a run's start time from the Actions
 tab, not from the cron line. The scrape has no cron line for that reason: `scrape-clock.yml`
 ticks every half hour and `scrape_clock.py` dispatches the scrape once a slot has passed with
-no run, so the slot times live in `scrape_clock.SLOTS`. Each writer runs
+no run, so the slot times live in `scrape_clock.SLOTS`. A run that `GITHUB_TOKEN` dispatched
+raises no `workflow_run` event, so the clock also dispatches Pages and Scraper Health once
+that scrape finishes. Each writer runs
 `check_outputs.py` before committing, and `health.yml` runs `health_check.py` after each one to
 keep the "Scraper health" issue current. A branch a day old is
 behind `main`. Rebase before opening a PR, and take `main` for any conflict in a bot-owned file.

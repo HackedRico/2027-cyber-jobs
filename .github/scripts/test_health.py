@@ -432,11 +432,50 @@ for name, runs, want in (
     check(f'scrape_is_due: {name}', clock.scrape_is_due(now, runs), want)
 
 
-class FakeActions:
-    """A run list that gains a run `appears_after` reads after a dispatch."""
+def scrape_done(created, finished, conclusion='success'):
+    return {'created_at': created, 'updated_at': finished, 'status': 'completed',
+            'conclusion': conclusion}
 
-    def __init__(self, runs, appears_after=1):
-        self.runs, self.appears_after = list(runs), appears_after
+
+OLD_SCRAPE = scrape_done('2026-11-16T02:30:00Z', '2026-11-16T02:42:00Z')
+for name, scrapes, follower_runs, want in (
+        ('neither follower has run since the scrape finished', [OLD_SCRAPE],
+         {'pages.yml': [scrape_run('2026-11-16T01:41:00Z')], 'health.yml': []},
+         ['pages.yml', 'health.yml']),
+        ('Pages ran since and Health did not', [OLD_SCRAPE],
+         {'pages.yml': [scrape_run('2026-11-16T02:42:05Z')],
+          'health.yml': [scrape_run('2026-11-16T02:41:59Z')]}, ['health.yml']),
+        ('both ran since', [OLD_SCRAPE],
+         {'pages.yml': [scrape_run('2026-11-16T02:42:05Z')],
+          'health.yml': [scrape_run('2026-11-16T02:42:06Z')]}, []),
+        ('a follower run still queued counts', [OLD_SCRAPE],
+         {'pages.yml': [scrape_run('2026-11-16T02:43:00Z', 'queued', None)],
+          'health.yml': [scrape_run('2026-11-16T02:43:00Z', 'queued', None)]}, []),
+        ('a failed scrape pushed nothing for Pages, and Health reports it',
+         [scrape_done('2026-11-16T02:30:00Z', '2026-11-16T02:42:00Z', 'failure')],
+         {}, ['health.yml']),
+        ('a scrape still running is not followed yet, and the one before it was',
+         [scrape_run('2026-11-16T11:40:00Z', 'in_progress', None), OLD_SCRAPE],
+         {'pages.yml': [scrape_run('2026-11-16T02:42:05Z')],
+          'health.yml': [scrape_run('2026-11-16T02:42:06Z')]}, []),
+        ('no finished scrape at all', [scrape_run('2026-11-16T11:40:00Z', 'queued', None)], {},
+         []),
+):
+    check(f'followers_due: {name}', clock.followers_due(scrapes, follower_runs), want)
+
+
+class FakeActions:
+    """The Actions API for the scrape and its followers.
+
+    A dispatched scrape shows as queued `appears_after` reads of its run list
+    later and as finished `finishes_after` reads later. A dispatched follower
+    shows at once.
+    """
+
+    def __init__(self, scrapes, followers=(), appears_after=1, finishes_after=3):
+        self.runs = {'scrape-jobs.yml': list(scrapes),
+                     'pages.yml': list(followers), 'health.yml': list(followers)}
+        self.appears_after, self.finishes_after = appears_after, finishes_after
         self.calls, self.reads_since_post = [], None
 
     def repo_path(self, path):
@@ -444,46 +483,75 @@ class FakeActions:
 
     def call(self, method, path, body=None, ok=()):
         self.calls.append((method, path, body))
+        workflow = path.split('/')[3]
         if method == 'POST':
-            self.reads_since_post = 0
+            if workflow == 'scrape-jobs.yml':
+                self.reads_since_post = 0
+            else:
+                self.runs[workflow].insert(0, scrape_run('2026-11-16T12:52:00Z', 'queued', None))
             return None
-        if self.reads_since_post is not None:
+        if workflow == 'scrape-jobs.yml' and self.reads_since_post is not None:
             self.reads_since_post += 1
             if self.reads_since_post == self.appears_after:
-                self.runs.insert(0, scrape_run('2026-11-16T12:40:05Z', 'queued', None))
-        return {'workflow_runs': self.runs}
+                self.runs[workflow].insert(0, scrape_run('2026-11-16T12:40:05Z', 'queued', None))
+            if self.reads_since_post == self.finishes_after:
+                self.runs[workflow][0] = scrape_done('2026-11-16T12:40:05Z',
+                                                     '2026-11-16T12:51:00Z')
+        return {'workflow_runs': self.runs[workflow]}
 
 
 def posts(gh):
-    return [(path, body) for method, path, body in gh.calls if method == 'POST']
+    return [path.split('/')[3] for method, path, _ in gh.calls if method == 'POST']
 
 
+FOLLOWED = [scrape_run('2026-11-16T02:42:05Z')]
 waits = []
-gh = FakeActions([scrape_run('2026-11-16T02:30:00Z')])
-check('a due slot dispatches the scrape', clock.tick(gh, now, wait=waits.append), 'started')
-check('the dispatch targets the scrape workflow on main', posts(gh),
-      [('/actions/workflows/scrape-jobs.yml/dispatches', {'ref': 'main'})])
-check('the tick waits for the run before it leaves', waits, [clock.CONFIRM_DELAY])
-check('the run list is read unfiltered (#44)',
+gh = FakeActions([OLD_SCRAPE], FOLLOWED)
+check('a due slot starts the scrape, waits for it and starts both followers',
+      clock.tick(gh, now, wait=waits.append), ('started', ['pages.yml', 'health.yml']))
+check('in that order', posts(gh), ['scrape-jobs.yml', 'pages.yml', 'health.yml'])
+check('every dispatch targets main',
+      {json.dumps(body) for method, _, body in gh.calls if method == 'POST'}, {'{"ref": "main"}'})
+check('the tick waits for the run to show, then for it to finish', waits,
+      [clock.CONFIRM_DELAY, clock.FINISH_DELAY, clock.FINISH_DELAY])
+check('the run lists are read unfiltered (#44)',
       any('status=' in path for _, path, _ in gh.calls), False)
 
-gh = FakeActions([scrape_run('2026-11-16T11:40:00Z')])
-check('a slot that has its run dispatches nothing', clock.tick(gh, now, wait=waits.append),
-      'not-due')
+gh = FakeActions([scrape_done('2026-11-16T11:40:00Z', '2026-11-16T11:52:00Z')],
+                 [scrape_run('2026-11-16T11:52:04Z')])
+check('a slot that has its run and its followers dispatches nothing',
+      clock.tick(gh, now, wait=waits.append), ('not-due', []))
 check('and makes no write', posts(gh), [])
 
-# Two ticks land together after a delay: the second reads the list the first
-# left behind and must not start a second scrape.
-gh = FakeActions([scrape_run('2026-11-16T02:30:00Z')])
-outcomes = [clock.tick(gh, now, wait=lambda _: None), clock.tick(gh, now, wait=lambda _: None)]
-check('two ticks for one slot start one scrape', (outcomes, len(posts(gh))),
-      (['started', 'not-due'], 1))
+# The first scrape the clock started, on 2026-11-16, finished with no Pages or
+# Health run after it. The next tick finds the slot served and repairs that.
+gh = FakeActions([scrape_done('2026-11-16T11:40:00Z', '2026-11-16T11:52:00Z')], FOLLOWED)
+check('a later tick starts the followers an earlier one missed',
+      (clock.tick(gh, now, wait=waits.append), posts(gh)),
+      (('not-due', ['pages.yml', 'health.yml']), ['pages.yml', 'health.yml']))
+check('and the tick after that starts nothing more',
+      (clock.tick(gh, now, wait=waits.append), len(posts(gh))), (('not-due', []), 2))
 
-gh = FakeActions([scrape_run('2026-11-16T02:30:00Z')], appears_after=99)
+# Two ticks land together after a delay: the second reads the lists the first
+# left behind and must not start a second scrape or a second pair of followers.
+gh = FakeActions([OLD_SCRAPE], FOLLOWED)
+outcomes = [clock.tick(gh, now, wait=lambda _: None), clock.tick(gh, now, wait=lambda _: None)]
+check('two ticks for one slot start one scrape and one pair of followers',
+      (outcomes, posts(gh)),
+      ([('started', ['pages.yml', 'health.yml']), ('not-due', [])],
+       ['scrape-jobs.yml', 'pages.yml', 'health.yml']))
+
+gh = FakeActions([OLD_SCRAPE], FOLLOWED, finishes_after=None)
+waits = []
+check('a scrape that outlasts the wait is left for a later tick to follow',
+      clock.tick(gh, now, wait=waits.append), ('started', []))
+check('after the full wait', len(waits), 1 + clock.FINISH_TRIES)
+
+gh = FakeActions([OLD_SCRAPE], FOLLOWED, appears_after=None, finishes_after=None)
 waits = []
 check('a dispatch whose run never shows is reported', clock.tick(gh, now, wait=waits.append),
-      'unconfirmed')
-check('after the full wait', len(waits), clock.CONFIRM_TRIES)
+      ('unconfirmed', []))
+check('after the confirm wait alone', len(waits), clock.CONFIRM_TRIES)
 
 
 if failures:
