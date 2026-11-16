@@ -492,8 +492,6 @@ lever:
 - name: Saviynt
   slug: saviynt
   security_company: true
-- name: Shield AI
-  slug: shieldai
 - name: Sonatype
   slug: sonatype
   security_company: true
@@ -720,6 +718,8 @@ ashby:
 - name: Arkose Labs
   slug: arkoselabs
   security_company: true
+- name: Shield AI
+  slug: shield
 smartrecruiters:
 - name: Check Point
   slug: CheckPointSoftwareTechnologies
