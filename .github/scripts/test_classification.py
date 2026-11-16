@@ -260,6 +260,15 @@ CASES = [
     ('Security Analyst II', 'Cambridge, MA',
      'Maintain classified document control and personnel security processing '
      'in accordance with 32 CFR part 117 and the NISPOM rule.', False, None),
+    # Personnel security behind the same bare title: Amentum.
+    ('Security Analyst', 'US-VA-Chantilly',
+     'If you are adjudicator, security specialist or security analyst looking for a new '
+     'opportunity, apply.\n\nA minimum of two years of experience as a background '
+     'investigator or administering polygraph testing', False, None),
+    # A clearance paragraph names the investigation, not the investigator.
+    ('Security Analyst', 'US-VA-Chantilly',
+     'Requires 2+ years of experience in a SOC. Must hold a clearance based on a favorably '
+     'adjudicated background investigation.', False, ('earlycareer', 'Security Engineering')),
     # ...but a cyber title citing the NISPOM, or a bare one that does not, stays.
     ('Cyber Security Analyst 1', 'Waimea, HI',
      'Perform security tasks required by the 32 CFR part 117 National '
@@ -1737,6 +1746,8 @@ JUDGED = [
     ('Research Engineer - Machine Learning & Robotics', 'Austin, TX', '', False, 'not-cyber'),
     ('Security Analyst II', 'Austin, TX',
      'Maintains classified document control per the NISPOM.', False, 'facility-security'),
+    ('Security Analyst', 'Chantilly, VA',
+     'Two years of experience as a background investigator.', False, 'facility-security'),
     ('Security Engineer', 'Austin, TX', '', False, 'no-level'),
     ('Software Engineer, AI Safety', 'San Francisco, CA',
      'Years of experience required will correlate with the internal job level requirements',

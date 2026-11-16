@@ -2059,9 +2059,14 @@ def is_security_title(title):
 # "classified document control ... NISPOM ... COMSEC". Cyber roles cite the
 # NISPOM too (Amentum 'Cyber Security Analyst 1' performs RMF tasks "required by
 # the 32 CFR part 117 NISPOM"), so the description decides only when the bare
-# word 'security' is the title's one cyber signal.
+# word 'security' is the title's one cyber signal. Personnel security hides
+# the same way: Amentum 'Security Analyst' wants "experience as a background
+# investigator" and is open to an "adjudicator". The job nouns are named, since
+# a cyber posting's clearance terms speak of an investigation and of being
+# adjudicated.
 FACILITY_SECURITY_DESC_RE = re.compile(
-    r'nispom|32 cfr (?:part )?117|classified document control')
+    r'nispom|32 cfr (?:part )?117|classified document control'
+    r'|\bbackground investigators?\b|\badjudicators?\b')
 INFOSEC_TITLE_RE = re.compile(
     r'\b(?:information|systems?|network|cloud|application|data|isso|issm)\b')
 
