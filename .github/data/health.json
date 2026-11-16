@@ -1,11 +1,51 @@
 {
-  "date": "2026-11-15",
-  "boards": 410,
-  "ok": 395,
-  "empty": 14,
+  "date": "2026-11-16",
+  "boards": 409,
+  "ok": 389,
+  "empty": 12,
   "failed": [
-    "Arkose Labs (greenhouse/arkoselabs)"
+    "Accenture (workday/accenture)",
+    "Capital One (workday/capitalone)",
+    "Comcast (workday/comcast)",
+    "Huntington Bank (workday/huntington)",
+    "Nightwing (workday/nwis)",
+    "Salesforce (workday/salesforce)",
+    "Software Engineering Institute (workday/cmu)",
+    "Walmart (workday/walmart)"
   ],
-  "regressed": [],
-  "silent": 14
+  "regressed": [
+    {
+      "board": "Capital One (workday/capitalone)",
+      "had": 656
+    },
+    {
+      "board": "Nightwing (workday/nwis)",
+      "had": 362
+    },
+    {
+      "board": "Salesforce (workday/salesforce)",
+      "had": 685
+    },
+    {
+      "board": "Walmart (workday/walmart)",
+      "had": 1077
+    },
+    {
+      "board": "Comcast (workday/comcast)",
+      "had": 75
+    },
+    {
+      "board": "Accenture (workday/accenture)",
+      "had": 1282
+    },
+    {
+      "board": "Software Engineering Institute (workday/cmu)",
+      "had": 56
+    },
+    {
+      "board": "Huntington Bank (workday/huntington)",
+      "had": 338
+    }
+  ],
+  "silent": 11
 }

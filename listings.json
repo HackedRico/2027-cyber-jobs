@@ -3915,10 +3915,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://microsoft.eightfold.ai/careers/job/1970393557044769",
+    "url": "",
     "source": "Eightfold",
     "date_added": "2026-09-28",
-    "missing_since": "2026-11-02"
+    "closed": true,
+    "closed_date": "2026-11-16"
   },
   {
     "company": "Microsoft",
@@ -3927,10 +3928,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://microsoft.eightfold.ai/careers/job/1970393556988203",
+    "url": "",
     "source": "Eightfold",
     "date_added": "2026-09-28",
-    "missing_since": "2026-11-12"
+    "closed": true,
+    "closed_date": "2026-11-16"
   },
   {
     "company": "Microsoft",
@@ -6032,10 +6034,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://microsoft.eightfold.ai/careers/job/1970393557023143",
+    "url": "",
     "source": "Eightfold",
     "date_added": "2026-10-06",
-    "missing_since": "2026-11-05"
+    "closed": true,
+    "closed_date": "2026-11-16"
   },
   {
     "company": "Rubrik",
@@ -6391,11 +6394,12 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-CA-EL-SEGUNDO-R01--2000-E-Imperial-Hwy--BLDG-R01/Embedded-Security-Software-Engineer-I--Onsite-_01881355",
+    "url": "",
     "source": "Workday",
     "date_added": "2026-10-10",
     "twin": 1,
-    "missing_since": "2026-11-13"
+    "closed": true,
+    "closed_date": "2026-11-16"
   },
   {
     "company": "RTX",
@@ -6522,10 +6526,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://careers.mitre.org/us/en/job/R117487",
+    "url": "",
     "source": "Phenom",
     "date_added": "2026-10-10",
-    "missing_since": "2026-11-04"
+    "closed": true,
+    "closed_date": "2026-11-16"
   },
   {
     "company": "Johns Hopkins APL",
@@ -8419,10 +8424,11 @@
     "type": "earlycareer",
     "category": "GRC & Risk",
     "clearance": true,
-    "url": "https://jobs.baesystems.com/global/en/job/131787BR",
+    "url": "",
     "source": "Phenom",
     "date_added": "2026-11-02",
-    "missing_since": "2026-11-10"
+    "closed": true,
+    "closed_date": "2026-11-16"
   },
   {
     "company": "Idaho National Laboratory",
@@ -8621,10 +8627,11 @@
     "type": "earlycareer",
     "category": "Offensive Security",
     "clearance": false,
-    "url": "https://microsoft.eightfold.ai/careers/job/1970393557053887",
+    "url": "",
     "source": "Eightfold",
     "date_added": "2026-11-06",
-    "missing_since": "2026-11-13"
+    "closed": true,
+    "closed_date": "2026-11-16"
   },
   {
     "company": "Samsara",
@@ -8967,10 +8974,11 @@
     "type": "earlycareer",
     "category": "Offensive Security",
     "clearance": true,
-    "url": "https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2619023",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-11-11",
-    "missing_since": "2026-11-13"
+    "closed": true,
+    "closed_date": "2026-11-16"
   },
   {
     "company": "Amazon",
@@ -9280,5 +9288,522 @@
     "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Arlington-VA/Insider-Risk-Engineering-Intern---Summer-2027_R30718",
     "source": "Workday",
     "date_added": "2026-11-14"
+  },
+  {
+    "company": "Affirm",
+    "role": "Software Engineer II - CIAM",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "Identity & IAM",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/affirm/jobs/8040751003",
+    "source": "Greenhouse",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Anduril",
+    "role": "Information Systems Security Officer, Space",
+    "location": "Chantilly, VA; Costa Mesa, CA",
+    "type": "earlycareer",
+    "category": "Cloud & Infra Security",
+    "clearance": true,
+    "url": "https://boards.greenhouse.io/andurilindustries/jobs/5236276007?gh_jid=5236276007",
+    "source": "Greenhouse",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Appian",
+    "role": "Information Security Analyst",
+    "location": "McLean, VA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/appian/jobs/8312417",
+    "source": "Greenhouse",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Coinbase",
+    "role": "Threat Intelligence Platform Engineer",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "Threat Intelligence",
+    "clearance": false,
+    "url": "https://www.coinbase.com/careers/positions/8177619?gh_jid=8177619",
+    "source": "Greenhouse",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Fastly",
+    "role": "Security Support Engineer",
+    "location": "New York City, NY",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://www.fastly.com/about/jobs/apply?gh_jid=8384124",
+    "source": "Greenhouse",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "GuidePoint Security",
+    "role": "DFIR Consultant - Remote (Anywhere in the U.S.)",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "Forensics & IR",
+    "clearance": false,
+    "url": "https://boards.greenhouse.io/guidepointsecurity/jobs/6240609004?gh_jid=6240609004",
+    "source": "Greenhouse",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "GuidePoint Security",
+    "role": "Fortinet Network Security Engineer - North Central region",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "Cloud & Infra Security",
+    "clearance": false,
+    "url": "https://boards.greenhouse.io/guidepointsecurity/jobs/6231190004?gh_jid=6231190004",
+    "source": "Greenhouse",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "GuidePoint Security",
+    "role": "Microsoft Security Engineer- Remote (Anywhere in the U.S.)",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://boards.greenhouse.io/guidepointsecurity/jobs/6208024004?gh_jid=6208024004",
+    "source": "Greenhouse",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "GuidePoint Security",
+    "role": "Security Engineer- Corporate Information Security- Remote (Anywhere in the U.S.)",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://boards.greenhouse.io/guidepointsecurity/jobs/6225726004?gh_jid=6225726004",
+    "source": "Greenhouse",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "GuidePoint Security",
+    "role": "Threat Actor Engagement & Intelligence Consultant - Remote (Anywhere in the U.S.)",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://boards.greenhouse.io/guidepointsecurity/jobs/6238473004?gh_jid=6238473004",
+    "source": "Greenhouse",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "GuidePoint Security",
+    "role": "Vulnerability Management Engineer (ServiceNow) - Mid-Atlantic region (Remote)",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://boards.greenhouse.io/guidepointsecurity/jobs/6212201004?gh_jid=6212201004",
+    "source": "Greenhouse",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Stripe",
+    "role": "Software Engineer, Vulnerability Management",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://stripe.com/jobs/search?gh_jid=8089353",
+    "source": "Greenhouse",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Tenable",
+    "role": "AI Information Security Engineer",
+    "location": "Headquarters - Maryland - Columbia",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/tenableinc/jobs/5468272008",
+    "source": "Greenhouse",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Tenable",
+    "role": "Information Security Engineer",
+    "location": "Headquarters - Maryland - Columbia",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/tenableinc/jobs/5454389008",
+    "source": "Greenhouse",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Two Six Technologies",
+    "role": "Hardware Reverse Engineer",
+    "location": "Dayton, OH",
+    "type": "earlycareer",
+    "category": "Forensics & IR",
+    "clearance": true,
+    "url": "https://job-boards.greenhouse.io/twosixtechnologies/jobs/6208410004",
+    "source": "Greenhouse",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Accenture Federal Services",
+    "role": "CNO Reverse Engineer",
+    "location": "Fort Meade, MD",
+    "type": "earlycareer",
+    "category": "Offensive Security",
+    "clearance": true,
+    "url": "https://boards.greenhouse.io/accenturefederalservices/jobs/4705012006?gh_jid=4705012006",
+    "source": "Greenhouse",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Accenture Federal Services",
+    "role": "DevSecOps Engineer",
+    "location": "Fort Belvoir, VA",
+    "type": "earlycareer",
+    "category": "AppSec & ProdSec",
+    "clearance": true,
+    "url": "https://boards.greenhouse.io/accenturefederalservices/jobs/4646344006?gh_jid=4646344006",
+    "source": "Greenhouse",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Accenture Federal Services",
+    "role": "IAM Engineer",
+    "location": "Washington, DC",
+    "type": "earlycareer",
+    "category": "Identity & IAM",
+    "clearance": false,
+    "url": "https://boards.greenhouse.io/accenturefederalservices/jobs/4691258006?gh_jid=4691258006",
+    "source": "Greenhouse",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Accenture Federal Services",
+    "role": "Information System Security Officer (ISSO)",
+    "location": "Hill AFB, UT",
+    "type": "earlycareer",
+    "category": "GRC & Risk",
+    "clearance": true,
+    "url": "https://boards.greenhouse.io/accenturefederalservices/jobs/4718063006?gh_jid=4718063006",
+    "source": "Greenhouse",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Accenture Federal Services",
+    "role": "Vulnerability Assessment Analyst",
+    "location": "Columbia, MD",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://boards.greenhouse.io/accenturefederalservices/jobs/4695617006?gh_jid=4695617006",
+    "source": "Greenhouse",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Coalfire",
+    "role": "Security Engineer (ConMon)",
+    "location": "United States",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://jobs.lever.co/coalfire/20c11af4-9b77-4865-97c9-641de598a4b7",
+    "source": "Lever",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Avertium",
+    "role": "CyberSecurity Analyst",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://jobs.lever.co/avertium/166fd7e3-98d4-4538-b47c-42deb19995e8",
+    "source": "Lever",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Applied Intuition",
+    "role": "Security Engineer (Purple Team)",
+    "location": "Sunnyvale, CA",
+    "type": "earlycareer",
+    "category": "Offensive Security",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/applied/8918fc69-d10d-44c0-a02c-a4a37175b735",
+    "source": "Ashby",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "HUMAN Security",
+    "role": "Cyber Security Analyst  (PST)",
+    "location": "United States",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/HUMAN/2ef78102-b19a-440b-8876-3bbc52c7f216",
+    "source": "Ashby",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "HUMAN Security",
+    "role": "Cyber Security Analyst",
+    "location": "Chicago, IL",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/HUMAN/4cee05ca-901d-4179-87d5-70e38395a289",
+    "source": "Ashby",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Illumio",
+    "role": "Member of Technical Staff II - Cloud Security",
+    "location": "Sunnyvale, CA",
+    "type": "earlycareer",
+    "category": "Cloud & Infra Security",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/illumio/6c85c68b-214e-406e-9b08-663b4c1d493a",
+    "source": "Ashby",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Illumio",
+    "role": "Software Engineer - Cloud Security",
+    "location": "Sunnyvale, California - HQ",
+    "type": "earlycareer",
+    "category": "Cloud & Infra Security",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/illumio/24023d23-b5ee-4caa-b840-561504ef366e",
+    "source": "Ashby",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Illumio",
+    "role": "Member of Technical Staff II, Cloud Security",
+    "location": "Sunnyvale, CA",
+    "type": "earlycareer",
+    "category": "Cloud & Infra Security",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/illumio/408f6ef5-f51c-4112-8e70-f0dc35f6b7c0",
+    "source": "Ashby",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Snowflake",
+    "role": "Software Engineer - Trust & Platform Security",
+    "location": "Bellevue, WA",
+    "type": "earlycareer",
+    "category": "Cloud & Infra Security",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/snowflake/2887def2-f6d8-44fb-b6c4-976329de7d5f",
+    "source": "Ashby",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "GDIT",
+    "role": "Information Technology/Assurance (IT/IA) Specialist I (24/7)",
+    "location": "Colorado Springs, CO",
+    "type": "earlycareer",
+    "category": "GRC & Risk",
+    "clearance": true,
+    "url": "https://gdit.wd5.myworkdayjobs.com/External_Career_Site/job/USA-CO-Colorado-Springs/Information-Technology-Assurance--IT-IA--Specialist-I--24-7-_RQ229810-1",
+    "source": "Workday",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "GDIT",
+    "role": "Information Technology/Assurance (IT/IA) Specialist I",
+    "location": "Los Angeles, CA",
+    "type": "earlycareer",
+    "category": "GRC & Risk",
+    "clearance": true,
+    "url": "https://gdit.wd5.myworkdayjobs.com/External_Career_Site/job/USA-CA-Los-Angeles/Information-Technology-Assurance--IT-IA--Specialist-I_RQ231002-1",
+    "source": "Workday",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "GDIT",
+    "role": "Information Technology/Assurance (IT/IA) Specialist I",
+    "location": "Springfield, OH",
+    "type": "earlycareer",
+    "category": "GRC & Risk",
+    "clearance": true,
+    "url": "https://gdit.wd5.myworkdayjobs.com/External_Career_Site/job/USA-OH-Springfield/Information-Technology-Assurance--IT-IA--Specialist-I_RQ231813-1",
+    "source": "Workday",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "RTX",
+    "role": "Systems Engineer II - Anti-Tamper / Program Protection-P2 (Onsite-Tucson, AZ)",
+    "location": "Tucson, AZ",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://globalhr.wd5.myworkdayjobs.com/REC_RTX_Ext_Gateway/job/US-AZ-TUCSON-801--1151-E-Hermans-Rd--BLDG-801-External-Site/Systems-Engineer-II---Anti-Tamper---Program-Protection-P2--Onsite-Tucson--AZ-_01877383",
+    "source": "Workday",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Lockheed Martin",
+    "role": "Dev Sec Engineering - Early Career",
+    "location": "Herndon, VA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://lockheedmartin.eightfold.ai/careers/job/996476922373",
+    "source": "Eightfold",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Lockheed Martin",
+    "role": "Dev Sec Engineering Asc - Early Career",
+    "location": "King of Prussia, PA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://lockheedmartin.eightfold.ai/careers/job/996477667855",
+    "source": "Eightfold",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "MITRE",
+    "role": "Critical Infrastructure Protection Intern",
+    "location": "McLean, VA; Bedford, MA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://careers.mitre.org/us/en/job/R117877",
+    "source": "Phenom",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Johns Hopkins APL",
+    "role": "Reverse Engineer and Offensive Cyber Developer",
+    "location": "Laurel, MD",
+    "type": "earlycareer",
+    "category": "Offensive Security",
+    "clearance": true,
+    "url": "https://careers.jhuapl.edu/jobs/59003",
+    "source": "Jibe",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Johns Hopkins APL",
+    "role": "2027 PhD Graduate \u2013 Engineer or Scientist - Critical Infrastructure Protection",
+    "location": "Laurel, MD",
+    "type": "newgrad",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://careers.jhuapl.edu/jobs/60567",
+    "source": "Jibe",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Johns Hopkins APL",
+    "role": "Reverse Engineer / Cyber Capabilities Engineer",
+    "location": "Laurel, MD",
+    "type": "earlycareer",
+    "category": "Forensics & IR",
+    "clearance": true,
+    "url": "https://careers.jhuapl.edu/jobs/59495",
+    "source": "Jibe",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Johns Hopkins APL",
+    "role": "Reverse Engineer and AI Workflow Developer",
+    "location": "Laurel, MD",
+    "type": "earlycareer",
+    "category": "Forensics & IR",
+    "clearance": true,
+    "url": "https://careers.jhuapl.edu/jobs/59969",
+    "source": "Jibe",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Amazon",
+    "role": "Security Engineer, AWS Security",
+    "location": "Arlington, VA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10568448/security-engineer-aws-security",
+    "source": "Amazon Jobs",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Amazon",
+    "role": "Security Engineer, Platform Security",
+    "location": "Seattle, WA",
+    "type": "earlycareer",
+    "category": "Cloud & Infra Security",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10576159/security-engineer-platform-security",
+    "source": "Amazon Jobs",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Amazon",
+    "role": "Security Engineer, CS Security",
+    "location": "Seattle, WA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10564381/security-engineer-cs-security",
+    "source": "Amazon Jobs",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Amazon",
+    "role": "Salesforce Security Engineer, Salesforce Success Central",
+    "location": "Seattle, WA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10468178/salesforce-security-engineer-salesforce-success-central",
+    "source": "Amazon Jobs",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Amazon",
+    "role": "Security Engineer, Forward Deployed Engineering, AWS Forward Deployed Engineering",
+    "location": "Dallas, TX",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://www.amazon.jobs/en/jobs/10552897/security-engineer-forward-deployed-engineering-aws-forward-deployed-engineering",
+    "source": "Amazon Jobs",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Amazon",
+    "role": "Hardware Security Lab Engineer, Devices and Services Security",
+    "location": "Seattle, WA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10588763/hardware-security-lab-engineer-devices-and-services-security",
+    "source": "Amazon Jobs",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Amazon",
+    "role": "Sec Engineer II \u2013 AMZ006250",
+    "location": "New York, NY",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10445980/sec-engineer-ii-amz006250",
+    "source": "Amazon Jobs",
+    "date_added": "2026-11-16"
   }
 ]
