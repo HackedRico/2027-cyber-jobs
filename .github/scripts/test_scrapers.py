@@ -1026,14 +1026,20 @@ def test_check_links_closes_after_two_dead_days():
 WD_API = 'https://t.wd5.myworkdayjobs.com/wday/cxs/t/B/jobs'
 
 
-def _workday_pages(pages_by_term, fail_at=None):
-    """A cxs /jobs callback serving `pages_by_term[term][offset // 20]`."""
+def _workday_pages(pages_by_term, fail_at=None, us_pages=None):
+    """A cxs /jobs callback serving `pages_by_term[term][offset // 20]`.
+
+    A request that applies a facet is served from `us_pages` instead, and
+    answered 400 without one, as Booz Allen answers a country it does not list.
+    """
     def callback(request):
         body = json.loads(request.body)
         term, page = body['searchText'], body['offset'] // body['limit']
         if fail_at == (term, page):
             return 500, {}, '{}'
-        pages = pages_by_term.get(term, [])
+        if body['appliedFacets'] and us_pages is None:
+            return 400, {}, '{"errorCode": "HTTP_400"}'
+        pages = (us_pages if body['appliedFacets'] else pages_by_term).get(term, [])
         return 200, {}, json.dumps(pages[page] if page < len(pages)
                                    else {'total': 0, 'jobPostings': []})
     return callback
@@ -1086,6 +1092,147 @@ def test_workday_flags_a_cut_short_sweep():
         {}, fail_at=('security', 0)))
     check('a partial sweep that found nothing is a failure, not an empty board',
           sj.scrape_workday('X', 't', 'wd5', 'B'), None)
+
+
+# --- Workday country facet: sweep a tenant's US postings alone ---------------
+WD_PUERTO_RICO = '0a076377c3d94bc1b4ed46b4e7d82a50'
+WD_CANADA = 'a30a87ed25634629aa6c3958aa2b91ea'
+WD_COUNTRIES = (('Canada', WD_CANADA), ('Puerto Rico', WD_PUERTO_RICO),
+                ('United States of America', sj.WORKDAY_US_COUNTRY))
+
+
+def _wd_facets(countries=WD_COUNTRIES, param='locationCountry', nested=True, count=1):
+    country = {'facetParameter': param, 'descriptor': 'Location Country', 'values': [
+        {'descriptor': name, 'id': wid, 'count': count} for name, wid in countries]}
+    sites = {'facetParameter': 'locations', 'descriptor': 'Locations', 'values': [
+        {'descriptor': 'Austin, TX', 'id': '5709dabc', 'count': 1}]}
+    family = {'facetParameter': 'jobFamilyGroup', 'descriptor': 'Job Category', 'values': [
+        {'descriptor': 'Technology', 'id': '1fdcf957', 'count': 1}]}
+    if not nested:
+        return [country, family]
+    return [family, {'facetParameter': 'locationMainGroup', 'values': [country, sites]}]
+
+
+def _wd_applied():
+    return [json.loads(call.request.body)['appliedFacets'] for call in responses.calls]
+
+
+@responses.activate
+def test_workday_sweeps_us_postings_where_the_tenant_lists_the_country():
+    """Leidos 'security' is 1,689 postings, 1,524 of them in the US, and
+    Accenture's fell from 100 pages to 13 under the facet. ICF files three San
+    Juan reqs under a Puerto Rico country, which the US value alone drops."""
+    original = sj.WORKDAY_MAX_PAGES
+    us_only = {'locationCountry': [WD_PUERTO_RICO, sj.WORKDAY_US_COUNTRY]}
+    try:
+        sj.WORKDAY_MAX_PAGES = 2
+        responses.add_callback(responses.POST, WD_API, callback=_workday_pages(
+            {'cyber': [dict(_wd_page(60, 100, 20), facets=_wd_facets()),
+                       _wd_page(0, 120, 20), _wd_page(0, 140, 20)],
+             'security': [dict(_wd_page(5, 200, 5), facets=_wd_facets())]},
+            us_pages={'cyber': [_wd_page(25, 0, 20), _wd_page(0, 20, 5)]}))
+        jobs = sj.scrape_workday('X', 't', 'wd5', 'B')
+    finally:
+        sj.WORKDAY_MAX_PAGES = original
+    check('a term past one page is swept again on its US postings alone',
+          sorted(int(j['url'].rsplit('_R', 1)[1]) for j in jobs),
+          list(range(25)) + list(range(200, 205)))
+    check('the facet carries the US value and each listed territory, never Canada',
+          [a for a in _wd_applied() if a], [us_only, us_only])
+    check('a term that fits one page is not asked twice',
+          [json.loads(c.request.body)['searchText'] for c in responses.calls].count('security'), 1)
+    check('the filtered sweep gets the whole page cap, so it ends complete',
+          any(j.get('partial_sweep') for j in jobs), False)
+
+    responses.reset()
+    responses.add_callback(responses.POST, WD_API, callback=_workday_pages(
+        {'cyber': [dict(_wd_page(60, 100, 20), facets=_wd_facets())]},
+        us_pages={'cyber': [_wd_page(45, 0, 20), _wd_page(0, 20, 20), _wd_page(0, 40, 5)]},
+        fail_at=('cyber', 1)))
+    jobs = sj.scrape_workday('X', 't', 'wd5', 'B')
+    check('a filtered page that fails still flags the sweep partial',
+          (len(jobs), all(j.get('partial_sweep') for j in jobs)), (20, True))
+
+    # The Home Depot 'security' is 133 US postings of 134: the filter sheds no
+    # page there, so the second first page would be one request more.
+    responses.reset()
+    responses.add_callback(responses.POST, WD_API, callback=_workday_pages(
+        {'cyber': [dict(_wd_page(45, 0, 20), facets=_wd_facets(count=20)),
+                   _wd_page(0, 20, 20), _wd_page(0, 40, 5)]}))
+    jobs = sj.scrape_workday('X', 't', 'wd5', 'B')
+    check('a term the filter would not shorten is swept unfiltered',
+          (len(jobs or ()), any(_wd_applied())), (45, False))
+
+    # Leidos 'security' is 1,466 US postings of 1,689, past the cap either
+    # way, and the filtered pages are all US reqs.
+    responses.reset()
+    try:
+        sj.WORKDAY_MAX_PAGES = 2
+        responses.add_callback(responses.POST, WD_API, callback=_workday_pages(
+            {'cyber': [dict(_wd_page(60, 100, 20), facets=_wd_facets(count=25)),
+                       _wd_page(0, 120, 20), _wd_page(0, 140, 20)]},
+            us_pages={'cyber': [_wd_page(55, 0, 20), _wd_page(0, 20, 20), _wd_page(0, 40, 15)]}))
+        jobs = sj.scrape_workday('X', 't', 'wd5', 'B')
+    finally:
+        sj.WORKDAY_MAX_PAGES = original
+    check('a term past the cap is filtered even when most of it is US',
+          (sorted(int(j['url'].rsplit('_R', 1)[1]) for j in jobs),
+           all(j.get('partial_sweep') for j in jobs)), (list(range(40)), True))
+
+
+@responses.activate
+def test_workday_without_a_us_country_facet_sweeps_as_before():
+    """Booz Allen and CACI list sites under 'locationMainGroup' and no country,
+    and answer 400 to a country facet."""
+    pages = [_wd_page(45, 0, 20), _wd_page(0, 20, 20), _wd_page(0, 40, 5)]
+    no_country = [{'facetParameter': 'locationMainGroup', 'values': [
+        {'facetParameter': 'locations', 'descriptor': 'Locations', 'values': [
+            {'descriptor': 'Alexandria, VA', 'id': '2900f8eb', 'count': 56}]}]}]
+    cases = (
+        ('a tenant with no country facet', no_country),
+        ('a response with no facets', None),
+        ('a country facet that lists no US value',
+         _wd_facets(countries=(('Canada', WD_CANADA),))),
+    )
+    for name, facets in cases:
+        responses.reset()
+        first = dict(pages[0], facets=facets) if facets is not None else pages[0]
+        responses.add_callback(responses.POST, WD_API, callback=_workday_pages(
+            {'cyber': [first, *pages[1:]]}))
+        jobs = sj.scrape_workday('X', 't', 'wd5', 'B')
+        check(f'{name} keeps every posting of the unfiltered sweep', len(jobs or ()), 45)
+        check(f'{name} is never sent a facet', any(_wd_applied()), False)
+
+
+@responses.activate
+def test_workday_country_facet_is_found_wherever_the_response_lists_it():
+    """The US value is read from the tenant's own facet list, so a list that
+    moved or changed shape either still yields it or leaves the sweep as it was."""
+    us_pages = {'cyber': [_wd_page(25, 0, 20), _wd_page(0, 20, 5)]}
+
+    def sweep(facets):
+        responses.reset()
+        responses.add_callback(responses.POST, WD_API, callback=_workday_pages(
+            {'cyber': [dict(_wd_page(45, 100, 20), facets=facets),
+                       _wd_page(0, 120, 20), _wd_page(0, 140, 5)]}, us_pages=us_pages))
+        jobs = sj.scrape_workday('X', 't', 'wd5', 'B')
+        return len(jobs), [a for a in _wd_applied() if a]
+
+    us_only = {'locationCountry': [WD_PUERTO_RICO, sj.WORKDAY_US_COUNTRY]}
+    check('a country facet at the top level of the list is applied',
+          sweep(_wd_facets(nested=False)), (25, [us_only, us_only]))
+    deep = [{'facetParameter': 'allFilters', 'values': _wd_facets()}]
+    check('a country facet nested one group deeper is applied',
+          sweep(deep), (25, [us_only, us_only]))
+    check("the US value under another facet's name is left alone (Morgan Stanley "
+          "'Location_Country')", sweep(_wd_facets(param='Location_Country')), (45, []))
+    for name, facets in (('a facet list that is a dict', {'locationCountry': 'x'}),
+                         ('facet values that are not a list',
+                          [{'facetParameter': 'locationCountry', 'values': 'x'}, 'x', None]),
+                         ('a US value with no id beside it',
+                          [{'facetParameter': 'locationCountry', 'values': [
+                              {'descriptor': 'United States of America'}, 7]}])):
+        check(f'{name} leaves the sweep unfiltered', sweep(facets), (45, []))
 
 
 def test_incomplete_sweep_retires_nothing():
@@ -3960,6 +4107,9 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_compare_runs_reports_flips_only,
            test_check_links_closes_after_two_dead_days,
            test_workday_total_only_on_first_page, test_workday_flags_a_cut_short_sweep,
+           test_workday_sweeps_us_postings_where_the_tenant_lists_the_country,
+           test_workday_without_a_us_country_facet_sweeps_as_before,
+           test_workday_country_facet_is_found_wherever_the_response_lists_it,
            test_incomplete_sweep_retires_nothing,
            test_partial_workday_sweep_asks_the_detail_endpoint,
            test_cut_short_sweep_without_a_probe_retires_after_a_longer_streak,

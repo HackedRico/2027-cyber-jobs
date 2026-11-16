@@ -868,6 +868,43 @@ MULTI_LOCATION_RE = re.compile(r'^\d+ locations$|(?:^|[\s,])more\.{3}$', re.IGNO
 # retire_vanished_listings asks the detail endpoint about its missing rows.
 WORKDAY_MAX_PAGES = 15
 
+# Workday's id for the United States in a tenant's country facet, the same on
+# every tenant. Accenture 'cyber' is 1,205 postings and 185 with it applied,
+# and it matches any of a req's sites: Leidos 'Senior Program Director' in
+# The Hague stays in for its additional location, Reston, VA.
+WORKDAY_US_COUNTRY = 'bc33aa3152ec42d4995f4791a106ed09'
+
+
+def _workday_us_facet(data):
+    # The first page of a search lists the facet, nested under
+    # 'locationMainGroup' at Leidos and SailPoint. Booz Allen and CACI offer
+    # none and answer 400 to one, so a tenant is filtered only on a value its
+    # own response lists.
+    facets = data.get('facets')
+    stack = list(facets) if isinstance(facets, list) else []
+    while stack:
+        facet = stack.pop()
+        values = facet.get('values') if isinstance(facet, dict) else None
+        if not isinstance(values, list):
+            continue
+        values = [v for v in values if isinstance(v, dict)]
+        if facet.get('facetParameter') != 'locationCountry':
+            stack.extend(v for v in values if 'facetParameter' in v)
+            continue
+        if not any(v.get('id') == WORKDAY_US_COUNTRY for v in values):
+            break
+        # Workday files Puerto Rico and the Northern Mariana Islands as
+        # countries of their own, and the US value alone dropped ICF's three
+        # San Juan, PR reqs. Every listed country the location gate reads as
+        # US rides along, so the filter cannot hide a req the gate would pass.
+        keep = [v for v in values
+                if v.get('id') == WORKDAY_US_COUNTRY
+                or (isinstance(v.get('id'), str) and isinstance(v.get('descriptor'), str)
+                    and is_us_location(v['descriptor']))]
+        matched = sum(v['count'] for v in keep if isinstance(v.get('count'), int))
+        return {'locationCountry': [v['id'] for v in keep]}, matched
+    return {}, 0
+
 
 def _wants_detail(title, security_company):
     if is_rejected_title(title) or not is_cyber_title(title, security_company):
@@ -995,8 +1032,10 @@ def scrape_workday(company, tenant, instance, board, security_company=False,
     for term in search_terms:
         offset = 0
         total = None
-        for page in range(WORKDAY_MAX_PAGES):
-            payload = {'appliedFacets': {}, 'limit': limit, 'offset': offset,
+        facets = {}
+        page = 0
+        while page < WORKDAY_MAX_PAGES:
+            payload = {'appliedFacets': facets, 'limit': limit, 'offset': offset,
                        'searchText': term}
             data = fetch_json(api_url, method='POST', json=payload,
                               headers=wd_headers,
@@ -1012,6 +1051,21 @@ def scrape_workday(company, tenant, instance, board, security_company=False,
                 # per page, it stopped every term after 40 postings and hid
                 # Booz Allen's 2027 Summer Games cyber interns at position 93.
                 total = data.get('total')
+                # A term starts over on its US postings alone where the
+                # tenant offers that and the second first page pays for
+                # itself: the term would hit the page cap (Leidos 'security',
+                # 1,466 US postings of 1,689, reaches 15 pages of US reqs
+                # instead of 15 mixed ones), or the filter sheds two pages or
+                # more (Unisys 'security', 29 of 291). The Home Depot's 133 of
+                # 134 would only add a request. Each term asks again, since
+                # the facet lists only the countries the term matched.
+                if not facets and len(postings) >= limit and not (total and total <= limit):
+                    us_facet, matched = _workday_us_facet(data)
+                    if us_facet and (not total or total > limit * WORKDAY_MAX_PAGES
+                                     or total - matched >= 2 * limit):
+                        facets = us_facet
+                        time.sleep(0.3)
+                        continue
             for job in postings:
                 path = job.get('externalPath', '')
                 # Marked before the dedup, since an earlier term may have
@@ -1044,6 +1098,7 @@ def scrape_workday(company, tenant, instance, board, security_company=False,
             # ends the term, so a lying `total` can't run to the timeout.
             if len(postings) < limit or (total and offset >= total):
                 break
+            page += 1
             time.sleep(0.3)
         else:
             complete = False
