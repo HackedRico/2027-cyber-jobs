@@ -1011,6 +1011,9 @@ NON_US_SUBSTRINGS = [
     'tbilisi', 'batumi', 'kutaisi',
     'india', 'bangalore', 'bengaluru', 'hyderabad', 'pune', 'mumbai',
     'delhi', 'chennai', 'noida', 'gurgaon', 'gurugram', 'goa',
+    # Guidehouse writes its sites country first, 'US - GA, Atlanta', so
+    # 'IN - Trivandrum' read as Indiana.
+    'trivandrum', 'thiruvananthapuram',
     # State names, so 'Mysuru, Karnataka, IN' does not read as Indiana.
     'karnataka', 'tamil nadu', 'maharashtra', 'telangana', 'kerala',
     'haryana', 'uttar pradesh', 'west bengal', 'gujarat', 'andhra pradesh',
@@ -1062,7 +1065,8 @@ REGION_CODE_RE = re.compile(r',\s*([A-Za-z]{2})\.?\s*$')
 # which is what drops it beside a US site.
 FOREIGN_CODE_COLLISIONS = [
     (re.compile(r'\b(?:india|bangalore|bengaluru|hyderabad|pune|mumbai|delhi|'
-                r'chennai|noida|gurgaon|gurugram|goa|karnataka|tamil nadu|'
+                r'chennai|noida|gurgaon|gurugram|goa|trivandrum|thiruvananthapuram|'
+                r'karnataka|tamil nadu|'
                 r'maharashtra|telangana|kerala|haryana|uttar pradesh|west bengal|'
                 r'gujarat|andhra pradesh)\b'),
      {'IN', 'AR', 'AS', 'CT', 'GA', 'MN', 'MP', 'OR', 'TN', 'UT'}),

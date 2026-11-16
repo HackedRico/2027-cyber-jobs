@@ -1276,6 +1276,10 @@ US_LOC = [
     ('Pune, IN', False),
     ('Chennai, TN', False),
     ('Goa, GA', False),
+    # Guidehouse leads with the country code, and India's is Indiana's.
+    ('IN - Trivandrum', False),
+    ('Thiruvananthapuram, IN', False),
+    ('IN - Indianapolis', True),
     ('Perth, WA', False),
     ('Toronto, Ontario, CA', False),
     # A country's own ISO code, or the code the normalizer gives the country
