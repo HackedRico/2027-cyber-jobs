@@ -940,11 +940,6 @@ workday:
   tenant: snc
   instance: wd1
   board: SNC_External_Career_Site
-- name: Snyk
-  tenant: snyk
-  instance: wd103
-  board: External
-  security_company: true
 - name: Trend Micro
   tenant: trendmicro
   instance: wd3
@@ -1101,15 +1096,6 @@ workday:
   tenant: dukeenergy
   instance: wd1
   board: Search
-- name: Fortra
-  tenant: fortra
-  instance: wd12
-  board: FortraCareers
-  security_company: true
-- name: Accenture
-  tenant: accenture
-  instance: wd103
-  board: accenturecareers
 - name: Allstate
   tenant: allstate
   instance: wd5
@@ -1142,10 +1128,6 @@ workday:
   tenant: cmu
   instance: wd115
   board: SEI
-- name: Verizon
-  tenant: verizon
-  instance: wd12
-  board: verizon-careers
 - name: Bank of America
   tenant: ghr
   instance: wd1
@@ -1223,10 +1205,6 @@ workday:
   tenant: freddiemac
   instance: wd5
   board: External
-- name: Huntington Bank
-  tenant: huntington
-  instance: wd12
-  board: HNBcareers
 - name: KeyBank
   tenant: keybank
   instance: wd5
