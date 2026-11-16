@@ -22,6 +22,12 @@ SEASON = s.first_open_season()
 NORTHROP_LEVELS = ("Level 2: Bachelor's + 2 years of related experience. "
                    "Level 3: Bachelor's + 5 years of related experience.")
 
+LEIDOS_SOC_LEVELS = ("Level I: Bachelor's degree and 2+ years of relevant experience "
+                     '(Equivalent professional work or military experience will be considered '
+                     "in lieu of a degree)\n\nLevel II: Bachelor's degree and 4+ years of "
+                     'relevant experience (Equivalent professional work or military experience '
+                     'will be considered in lieu of a degree)')
+
 CASES = [
     # (title, location, description, security_company, expected)
     # -- should be accepted --
@@ -143,6 +149,16 @@ CASES = [
     ('SoC Software Engineer - New College Grad 2027', 'Santa Clara, CA', '', False, None),
     ('System Software Engineer – GPU and SOC (2027 RDSS Intern)', 'Santa Clara, CA', '', False, None),
     ('Graduate Talent (ISCP SoC Front End Team)', 'Hillsboro, OR', '', False, None),
+    # ...and its chip designers, whose discipline comes before the acronym.
+    ('Microarchitecture and Design Engineer - AI SoC', 'US, California, Santa Clara',
+     "Bachelor's degree in Electrical Engineering, Computer Engineering, or related field "
+     'with 1+ years of hands-on experience in logic design, RTL coding, and simulation',
+     False, None),
+    ('Graduate Design Engineer - SoC', 'Hillsboro, OR', '', False, None),
+    # Microsoft's silicon team writes the hardware as HW.
+    ('SoC HW (Digital, Analog or PnP) Validation Engineer', 'Hillsboro, OR, US',
+     "Bachelor's Degree in Electrical Engineering, Computer Engineering, Computer Science, "
+     'or related field AND 2+ years technical engineering experience', False, None),
     # Mechanical engineering at a security company is still not security work.
     ('Mechanical Engineering Co-Op', 'Shakopee, MN', '', True, None),
     ('Electrical Engineering Intern', 'Shakopee, MN', '', True, None),
@@ -248,6 +264,15 @@ CASES = [
     ('Security Analyst II', 'Cambridge, MA',
      'Maintain classified document control and personnel security processing '
      'in accordance with 32 CFR part 117 and the NISPOM rule.', False, None),
+    # Personnel security behind the same bare title: Amentum.
+    ('Security Analyst', 'US-VA-Chantilly',
+     'If you are adjudicator, security specialist or security analyst looking for a new '
+     'opportunity, apply.\n\nA minimum of two years of experience as a background '
+     'investigator or administering polygraph testing', False, None),
+    # A clearance paragraph names the investigation, not the investigator.
+    ('Security Analyst', 'US-VA-Chantilly',
+     'Requires 2+ years of experience in a SOC. Must hold a clearance based on a favorably '
+     'adjudicated background investigation.', False, ('earlycareer', 'Security Engineering')),
     # ...but a cyber title citing the NISPOM, or a bare one that does not, stays.
     ('Cyber Security Analyst 1', 'Waimea, HI',
      'Perform security tasks required by the 32 CFR part 117 National '
@@ -1270,6 +1295,10 @@ US_LOC = [
     ('Pune, IN', False),
     ('Chennai, TN', False),
     ('Goa, GA', False),
+    # Guidehouse leads with the country code, and India's is Indiana's.
+    ('IN - Trivandrum', False),
+    ('Thiruvananthapuram, IN', False),
+    ('IN - Indianapolis', True),
     ('Perth, WA', False),
     ('Toronto, Ontario, CA', False),
     # A country's own ISO code, or the code the normalizer gives the country
@@ -1506,6 +1535,16 @@ FLOOR = [
     ("Bachelor's degree and 5 years of related experience; an additional four (4) "
      'years of relevant experience may be accepted in lieu of a degree.', 5),
     (NORTHROP_LEVELS, 2),
+    # In-lieu words on the line above do not waive the next line's count: ICF
+    # 'DevSecOps Engineer (Cloud)' and Parsons 'SIGREDUX & Identity Management
+    # (IdM) Specialist'.
+    ("Bachelor's degree in Computer Science or related field; or a high school diploma "
+     "with four (4) additional years of relevant experience in lieu of a bachelor's "
+     'degree.\n\nMinimum 6 years of relevant experience aligned to the responsibilities '
+     'of this role.', 6),
+    ("Bachelor's degree, with additional years of experience able to count in lieu of a "
+     'degree.\n\n10+ years of experience, with additional education, training, and '
+     'certifications able to count towards total years of experience', 10),
 ]
 for desc, want in FLOOR:
     got = s.required_years(desc)
@@ -1550,6 +1589,16 @@ GATED = [
      "Associate's Degree with 7 years of relevant experience\n\nBachelor's Degree with 5 "
      "years of relevant experience\n\nMaster's Degree with 3 years of relevant experience"
      '\n\nDoctoral Degree with 2 years of relevant experience', None),
+    # A second level's count on its own line is a route above the cap, and a
+    # minimum on the line after an in-lieu sentence is a floor: Leidos.
+    ('Security Operations Center (SOC) Analyst', 'Shiloh, IL', LEIDOS_SOC_LEVELS, None),
+    ('Cyber Analyst', 'Lawton, OK',
+     "Bachelor's Degree in cybersecurity or similar degree and 4- 8 years of relevant "
+     'experience. Will consider experience in lieu of a degree\n\nMinimum 4+ years of '
+     'professional experience in Cyber Security\n\nMinimum 2+ years of professional '
+     'experience as a SOC operator', None),
+    # ...while a leveled title still takes the cheaper of the two routes.
+    ('SOC Analyst I', 'Shiloh, IL', LEIDOS_SOC_LEVELS, 'earlycareer'),
     # A bare 'security' before a guard-force or cleared-site noun, a mid-level
     # word, a cloud title and insurance claims do not take the flat path:
     # Fifth Third, Booz Allen, Leidos, Accenture Federal, Snowflake, Coalition.
@@ -1701,6 +1750,8 @@ JUDGED = [
     ('Research Engineer - Machine Learning & Robotics', 'Austin, TX', '', False, 'not-cyber'),
     ('Security Analyst II', 'Austin, TX',
      'Maintains classified document control per the NISPOM.', False, 'facility-security'),
+    ('Security Analyst', 'Chantilly, VA',
+     'Two years of experience as a background investigator.', False, 'facility-security'),
     ('Security Engineer', 'Austin, TX', '', False, 'no-level'),
     ('Software Engineer, AI Safety', 'San Francisco, CA',
      'Years of experience required will correlate with the internal job level requirements',

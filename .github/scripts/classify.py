@@ -444,11 +444,14 @@ SOC_ASSURANCE_GUARD = r'^(?!.*(?<!information )\bassurance\b.*\bsoc services\b).
 # so a processor or 'embedded' anywhere in the title (Accenture 'Embedded SoC
 # Platform Developer to Accenture Industry X'), or a chip discipline right
 # after the acronym, rules it out. Intel 'Graduate Talent (ISCP SoC Front End Team)' is
-# a chip design team.
-SOC_CHIP_GUARD = r'^(?!.*\b(?:[cg]pus?|embedded)\b)'
+# a chip design team. Intel also names the discipline ahead of the acronym:
+# 'Microarchitecture and Design Engineer - AI SoC' wants "logic design, RTL
+# coding, and simulation". Microsoft abbreviates the hardware: 'SoC HW
+# (Digital, Analog or PnP) Validation Engineer'.
+SOC_CHIP_GUARD = r'^(?!.*\b(?:[cg]pus?|embedded|microarchitecture|design engineer)\b)'
 SOC_PATTERN = (SOC_CHIP_GUARD + SOC_ASSURANCE_GUARD
                + r'\bsoc\b(?![\s,/-]+(?:asic|design|digital design|verification|rtl|'
-               r'silicon|power|performance|hardware|software|firmware|front[\s-]?end|'
+               r'silicon|power|performance|hardware|hw|software|firmware|front[\s-]?end|'
                r'validation))' + SOC_AUDIT_GUARD)
 
 # Short acronyms need word boundaries ('soc' is inside 'associate').
@@ -1011,6 +1014,9 @@ NON_US_SUBSTRINGS = [
     'tbilisi', 'batumi', 'kutaisi',
     'india', 'bangalore', 'bengaluru', 'hyderabad', 'pune', 'mumbai',
     'delhi', 'chennai', 'noida', 'gurgaon', 'gurugram', 'goa',
+    # Guidehouse writes its sites country first, 'US - GA, Atlanta', so
+    # 'IN - Trivandrum' read as Indiana.
+    'trivandrum', 'thiruvananthapuram',
     # State names, so 'Mysuru, Karnataka, IN' does not read as Indiana.
     'karnataka', 'tamil nadu', 'maharashtra', 'telangana', 'kerala',
     'haryana', 'uttar pradesh', 'west bengal', 'gujarat', 'andhra pradesh',
@@ -1062,7 +1068,8 @@ REGION_CODE_RE = re.compile(r',\s*([A-Za-z]{2})\.?\s*$')
 # which is what drops it beside a US site.
 FOREIGN_CODE_COLLISIONS = [
     (re.compile(r'\b(?:india|bangalore|bengaluru|hyderabad|pune|mumbai|delhi|'
-                r'chennai|noida|gurgaon|gurugram|goa|karnataka|tamil nadu|'
+                r'chennai|noida|gurgaon|gurugram|goa|trivandrum|thiruvananthapuram|'
+                r'karnataka|tamil nadu|'
                 r'maharashtra|telangana|kerala|haryana|uttar pradesh|west bengal|'
                 r'gujarat|andhra pradesh)\b'),
      {'IN', 'AR', 'AS', 'CT', 'GA', 'MN', 'MP', 'OR', 'TN', 'UT'}),
@@ -2053,9 +2060,14 @@ def is_security_title(title):
 # "classified document control ... NISPOM ... COMSEC". Cyber roles cite the
 # NISPOM too (Amentum 'Cyber Security Analyst 1' performs RMF tasks "required by
 # the 32 CFR part 117 NISPOM"), so the description decides only when the bare
-# word 'security' is the title's one cyber signal.
+# word 'security' is the title's one cyber signal. Personnel security hides
+# the same way: Amentum 'Security Analyst' wants "experience as a background
+# investigator" and is open to an "adjudicator". The job nouns are named, since
+# a cyber posting's clearance terms speak of an investigation and of being
+# adjudicated.
 FACILITY_SECURITY_DESC_RE = re.compile(
-    r'nispom|32 cfr (?:part )?117|classified document control')
+    r'nispom|32 cfr (?:part )?117|classified document control'
+    r'|\bbackground investigators?\b|\badjudicators?\b')
 INFOSEC_TITLE_RE = re.compile(
     r'\b(?:information|systems?|network|cloud|application|data|isso|issm)\b')
 
@@ -2411,14 +2423,20 @@ def _experience_counts(description):
     def record(value, start, end, emphatic=False):
         if _in_spans(preferred, start) or not _is_requirement(low, start, end, emphatic):
             return
-        before = low[max(0, start - 60):start]
+        line_start = low.rfind('\n', 0, start) + 1
+        # Substitution words before the count have to sit on its own line.
+        # Leidos 'Security Operations Center (SOC) Analyst' ends its Level I
+        # line "...will be considered in lieu of a degree)" and opens the next
+        # with "Level II: Bachelor's degree and 4+ years", and ICF 'DevSecOps
+        # Engineer (Cloud)' follows an in-lieu line with "Minimum 6 years of
+        # relevant experience"; both counts read as years a degree waives.
+        before = low[max(line_start, start - 60):start]
         after = low[end:end + 60]
         if ((DEGREE_SUB_BEFORE_RE.search(before) or DEGREE_SUB_AFTER_RE.search(after))
                 and DEGREE_NOUN_RE.search(low[max(0, start - 110):end + 60])):
             substituted.append(0)   # the degreed route needs no years
         else:
-            window = low[max(0, start - DEGREE_ALT_WINDOW,
-                              low.rfind('\n', 0, start) + 1):start]
+            window = low[max(line_start, start - DEGREE_ALT_WINDOW):start]
             routes = DEGREE_ALT_RE.findall(window)
             if routes and DOCTORAL_RE.fullmatch(routes[-1]):
                 doctoral.append(value)
