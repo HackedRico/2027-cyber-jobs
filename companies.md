@@ -2,7 +2,7 @@
 
 Employers whose job boards are scraped automatically (see [companies.yml](companies.yml)). 🛡️ marks pure-play security companies, where every engineering role is a security-industry job.
 
-**403 companies tracked.**
+**398 companies tracked.**
 
 ## Hiring students now (111)
 
@@ -24,7 +24,7 @@ Employers with open roles on the board today.
 | Aerospace Corporation | 4 |  |  |
 | Federal Reserve System | 4 |  |  |
 | Intel | 4 |  |  |
-| Microsoft | 3 |  | 6 |
+| Microsoft | 3 |  | 9 |
 | Illumio | 3 |  | 3 |
 | Idaho National Laboratory | 3 |  | 1 |
 | Entrust | 3 |  |  |
@@ -33,8 +33,8 @@ Employers with open roles on the board today.
 | Palantir | 2 | 1 |  |
 | Tanium | 3 |  |  |
 | CrowdStrike | 2 |  | 10 |
+| Two Six Technologies | 2 |  | 3 |
 | Appian | 1 | 1 | 2 |
-| Two Six Technologies | 2 |  | 2 |
 | Applied Intuition |  | 2 | 1 |
 | BDO | 2 |  | 1 |
 | CACI | 2 |  | 1 |
@@ -76,24 +76,24 @@ Employers with open roles on the board today.
 | Semgrep | 1 |  |  |
 | State Street | 1 |  |  |
 | TRM Labs |  | 1 |  |
-| Fortinet |  |  | 8 |
+| Fortinet |  |  | 10 |
+| BAE Systems |  |  | 7 |
 | Accenture Federal Services |  |  | 5 |
 | KBR |  |  | 5 |
+| SAIC |  |  | 5 |
 | Abnormal AI |  |  | 3 |
-| BAE Systems |  |  | 3 |
 | Tenable |  |  | 3 |
 | Amentum |  |  | 2 |
 | Battelle |  |  | 2 |
-| Fortra |  |  | 2 |
 | HUMAN Security |  |  | 2 |
 | Proofpoint |  |  | 2 |
-| SAIC |  |  | 2 |
 | Trail of Bits |  |  | 2 |
 | AeroVironment |  |  | 1 |
 | Affirm |  |  | 1 |
 | Anthropic |  |  | 1 |
 | Avertium |  |  | 1 |
 | Boeing |  |  | 1 |
+| Chubb |  |  | 1 |
 | Coalfire |  |  | 1 |
 | Coinbase |  |  | 1 |
 | Corelight |  |  | 1 |
@@ -122,9 +122,9 @@ Employers with open roles on the board today.
 | The Home Depot |  |  | 1 |
 | Tines |  |  | 1 |
 
-## Every tracked board (403)
+## Every tracked board (398)
 
-### Ashby (72)
+### Ashby (73)
 
 - 1Password 🛡️
 - Airbyte
@@ -183,6 +183,7 @@ Employers with open roles on the board today.
 - Semperis 🛡️
 - SentiLink
 - Sentra 🛡️
+- Shield AI
 - Sift 🛡️
 - Skyflow 🛡️
 - Snowflake
@@ -358,7 +359,7 @@ Employers with open roles on the board today.
 - PNNL
 - State Farm
 
-### Lever (21)
+### Lever (20)
 
 - Anchorage Digital
 - Anomali 🛡️
@@ -373,7 +374,6 @@ Employers with open roles on the board today.
 - Palantir
 - Saviynt 🛡️
 - Secureframe 🛡️
-- Shield AI
 - Sonatype 🛡️
 - StackHawk 🛡️
 - Sysdig 🛡️
@@ -445,9 +445,8 @@ Employers with open roles on the board today.
 - Stellar Cyber 🛡️
 - Trail of Bits 🛡️
 
-### Workday (115)
+### Workday (110)
 
-- Accenture
 - Adobe
 - Aerospace Corporation
 - AeroVironment
@@ -489,14 +488,12 @@ Employers with open roles on the board today.
 - Fifth Third
 - Flexera
 - Forcepoint 🛡️
-- Fortra 🛡️
 - Freddie Mac
 - GDIT
 - Guidehouse
 - HP Inc
 - HPE
 - Humana
-- Huntington Bank
 - ICF
 - Intel
 - Jamf
@@ -538,7 +535,6 @@ Employers with open roles on the board today.
 - SailPoint 🛡️
 - Salesforce
 - Sierra Nevada Corporation
-- Snyk 🛡️
 - Software Engineering Institute
 - State Street
 - Synchrony
@@ -556,7 +552,6 @@ Employers with open roles on the board today.
 - Unisys
 - USAA
 - Vanguard
-- Verizon
 - Visa
 - Walmart
 - Wells Fargo

@@ -4384,7 +4384,8 @@
     "clearance": true,
     "url": "https://careers.jhuapl.edu/jobs/59772",
     "source": "Jibe",
-    "date_added": "2026-09-29"
+    "date_added": "2026-09-29",
+    "missing_since": "2026-11-16"
   },
   {
     "company": "Johns Hopkins APL",
@@ -4925,9 +4926,12 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://fortra.wd12.myworkdayjobs.com/FortraCareers/job/United-States/Professional-Services-Consultant-I_R26-0334",
+    "url": "",
     "source": "Workday",
-    "date_added": "2026-10-02"
+    "date_added": "2026-10-02",
+    "last_url": "https://fortra.wd12.myworkdayjobs.com/FortraCareers/job/United-States/Professional-Services-Consultant-I_R26-0334",
+    "closed": true,
+    "closed_date": "2026-11-16"
   },
   {
     "company": "Microsoft",
@@ -7096,7 +7100,8 @@
     "clearance": false,
     "url": "https://lumen.eightfold.ai/careers/job/1133916380525",
     "source": "Eightfold",
-    "date_added": "2026-10-17"
+    "date_added": "2026-10-17",
+    "missing_since": "2026-11-16"
   },
   {
     "company": "BAE Systems",
@@ -7227,9 +7232,12 @@
     "type": "earlycareer",
     "category": "Solutions Architecture",
     "clearance": false,
-    "url": "https://fortra.wd12.myworkdayjobs.com/FortraCareers/job/United-States/Associate-Solutions-Engineer_R26-0421",
+    "url": "",
     "source": "Workday",
-    "date_added": "2026-10-20"
+    "date_added": "2026-10-20",
+    "last_url": "https://fortra.wd12.myworkdayjobs.com/FortraCareers/job/United-States/Associate-Solutions-Engineer_R26-0421",
+    "closed": true,
+    "closed_date": "2026-11-16"
   },
   {
     "company": "JPMorgan Chase",
@@ -7998,7 +8006,8 @@
     "clearance": true,
     "url": "https://jobs.baesystems.com/global/en/job/131921BR",
     "source": "Phenom",
-    "date_added": "2026-10-27"
+    "date_added": "2026-10-27",
+    "missing_since": "2026-11-16"
   },
   {
     "company": "Johns Hopkins APL",
@@ -9805,6 +9814,160 @@
     "clearance": false,
     "url": "https://www.amazon.jobs/en/jobs/10445980/sec-engineer-ii-amz006250",
     "source": "Amazon Jobs",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Two Six Technologies",
+    "role": "Information Systems Security Officer",
+    "location": "Arlington, VA",
+    "type": "earlycareer",
+    "category": "Cloud & Infra Security",
+    "clearance": true,
+    "url": "https://job-boards.greenhouse.io/twosixtechnologies/jobs/6240523004",
+    "source": "Greenhouse",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "SAIC",
+    "role": "Cybersecurity Specialist Cloud Engineer",
+    "location": "Remote (US)",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2618119",
+    "source": "Oracle",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "SAIC",
+    "role": "PKI Engineer",
+    "location": "Springfield, VA",
+    "type": "earlycareer",
+    "category": "Cloud & Infra Security",
+    "clearance": true,
+    "url": "https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2617995",
+    "source": "Oracle",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "SAIC",
+    "role": "Information Systems Security Engineer (ISSE) Edge",
+    "location": "Springfield, VA",
+    "type": "earlycareer",
+    "category": "Cloud & Infra Security",
+    "clearance": true,
+    "url": "https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2616220",
+    "source": "Oracle",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Fortinet",
+    "role": "Early Careers: Embedded Software Engineer",
+    "location": "Sunnyvale, CA",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://edel.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/24969",
+    "source": "Oracle",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Fortinet",
+    "role": "DevOps Engineer (FortiAppSec)",
+    "location": "Sunnyvale, CA",
+    "type": "earlycareer",
+    "category": "AppSec & ProdSec",
+    "clearance": true,
+    "url": "https://edel.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/22906",
+    "source": "Oracle",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Chubb",
+    "role": "IT Audit Risk Analyst",
+    "location": "Philadelphia, PA",
+    "type": "earlycareer",
+    "category": "GRC & Risk",
+    "clearance": false,
+    "url": "https://fa-ewgu-saasfaprod1.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/38627",
+    "source": "Oracle",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Microsoft",
+    "role": "Cyber Security Analyst",
+    "location": "US",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://microsoft.eightfold.ai/careers/job/1970393557045435",
+    "source": "Eightfold",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Microsoft",
+    "role": "Security Researcher",
+    "location": "Redmond, WA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://microsoft.eightfold.ai/careers/job/1970393557026728",
+    "source": "Eightfold",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "Microsoft",
+    "role": "Security Researcher II",
+    "location": "Redmond, WA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://microsoft.eightfold.ai/careers/job/1970393556955881",
+    "source": "Eightfold",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "BAE Systems",
+    "role": "Cyber Defense Full Stack Engineer",
+    "location": "El Paso, TX",
+    "type": "earlycareer",
+    "category": "SOC & Detection",
+    "clearance": true,
+    "url": "https://jobs.baesystems.com/global/en/job/131257BR",
+    "source": "Phenom",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "BAE Systems",
+    "role": "Cyber Security, Information Systems Security Officer (ISSO)",
+    "location": "Hudson, NH",
+    "type": "earlycareer",
+    "category": "Cloud & Infra Security",
+    "clearance": true,
+    "url": "https://jobs.baesystems.com/global/en/job/129880BR",
+    "source": "Phenom",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "BAE Systems",
+    "role": "ISSO/AFSO",
+    "location": "Mojave, CA",
+    "type": "earlycareer",
+    "category": "GRC & Risk",
+    "clearance": true,
+    "url": "https://jobs.baesystems.com/global/en/job/129518BR",
+    "source": "Phenom",
+    "date_added": "2026-11-16"
+  },
+  {
+    "company": "BAE Systems",
+    "role": "Information System Security Officer (Onsite)",
+    "location": "Tucson, AZ",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://jobs.baesystems.com/global/en/job/131054BR",
+    "source": "Phenom",
     "date_added": "2026-11-16"
   }
 ]
