@@ -191,6 +191,10 @@ root. Beyond what the linter enforces:
   change moves.
 - A scraper function returns `None` for a broken fetch and `[]` for an empty board. The
   health check relies on the difference.
+- A board that refuses is skipped, not pressed. A bot check, or an HTTP 429 that outlasts the
+  retries, puts the host in `scrape_jobs._refused_hosts`, and no request path asks it again
+  that run. New request code checks `_host_refused` first and calls `_mark_refused` on a
+  refusal. Never retry a bot check, and never dress the scraper as a browser to pass one.
 
 ## Commits
 

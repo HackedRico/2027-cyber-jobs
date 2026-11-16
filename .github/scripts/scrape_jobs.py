@@ -162,6 +162,35 @@ def _host_of(url):
         return ''
 
 
+# Hosts that refused the scraper this run. Nothing asks one again until the
+# next run. On 2026-11-16 Workday's wd12 and wd103 data centres answered every
+# request with a Cloudflare bot check, and the scrape kept asking: each of a
+# tenant's five to nine search terms was tried three times, then every missing
+# row was probed, for 64 and 66 refused requests in two runs. A board that says
+# no is skipped, not pressed. The set is shared by the worker threads.
+_refused_hosts = set()
+_refused_lock = threading.Lock()
+
+
+def _is_bot_check(resp):
+    # Cloudflare names the page it serves in place of an answer. A script
+    # cannot pass one and must not try.
+    return resp.headers.get('cf-mitigated', '').lower() == 'challenge'
+
+
+def _host_refused(url):
+    return _host_of(url) in _refused_hosts
+
+
+def _mark_refused(url, label, why):
+    host = _host_of(url)
+    with _refused_lock:
+        if not host or host in _refused_hosts:
+            return
+        _refused_hosts.add(host)
+    print(f'  [{_oneline(label)}] {why}: {host} is skipped for the rest of this run')
+
+
 def _left_host(url, resp, label):
     # requests follows a redirect to any host. A board API that answers from a
     # host other than the one companies.yml names is no longer that employer's
@@ -201,8 +230,12 @@ def fetch_json(url, *, method='GET', label='', **kwargs):
     backoff plus jitter, over the calling thread's pooled Session. Returning
     None (not []) lets callers tell a broken fetch apart from a genuinely
     empty board. A redirect to another host or a body over
-    MAX_RESPONSE_BYTES is a failed fetch, not retried.
+    MAX_RESPONSE_BYTES is a failed fetch, not retried. Neither is a bot
+    check: it and a 429 that outlasts the retries put the host in
+    `_refused_hosts`, and a request to a host in that set is not sent.
     """
+    if _host_refused(url):
+        return None
     kwargs.setdefault('timeout', REQUEST_TIMEOUT)
     kwargs['stream'] = True
     for attempt in range(MAX_RETRIES):
@@ -218,12 +251,21 @@ def fetch_json(url, *, method='GET', label='', **kwargs):
         with resp:
             if _left_host(url, resp, label):
                 return None
+            # A bot check is not retried: the next try draws the same page.
+            if _is_bot_check(resp):
+                _mark_refused(url, label, f'HTTP {resp.status_code} (bot check)')
+                return None
             # A lone Workday 502 or 504 used to end the whole search term on its
             # first try, and the term's postings with it.
             if resp.status_code == 429 or resp.status_code >= 500:
                 if last:
                     reason = ' (rate limited)' if resp.status_code in (429, 503) else ''
                     print(f'  [{_oneline(label)}] HTTP {resp.status_code}{reason}')
+                    # A 429 that outlasts the backoff is the host saying no.
+                    # A 5xx is the host being down, which the next board on a
+                    # shared API host may not find.
+                    if resp.status_code == 429:
+                        _mark_refused(url, label, 'still rate limited after retries')
                     return None
                 _sleep_backoff(attempt, resp.headers.get('Retry-After'))
                 continue
@@ -931,10 +973,17 @@ def workday_posting(url):
     tenant, instance, board, path = m.groups()
     api = f'https://{tenant}.{instance}.myworkdayjobs.com/wday/cxs/{tenant}/{board}{path}'
     label = f'Workday detail {tenant}'
+    if _host_refused(api):
+        return None, None
     try:
         with _session().get(api, headers={'Accept': 'application/json'},
                             timeout=REQUEST_TIMEOUT, stream=True) as resp:
             if _left_host(api, resp, label):
+                return None, None
+            # One refusal ends the probes for this tenant: each missing row
+            # would otherwise draw its own.
+            if _is_bot_check(resp) or resp.status_code == 429:
+                _mark_refused(api, label, f'HTTP {resp.status_code} (refused)')
                 return None, None
             raw = _read_capped(resp, label)
         body = json.loads(raw) if raw is not None else None
@@ -1234,6 +1283,8 @@ EIGHTFOLD_EXPERIENCED_LEVELS = {'experienced professional'}
 
 
 def _get_json_patiently(url, *, method='GET', label='', **kwargs):
+    if _host_refused(url):
+        return None
     kwargs.setdefault('timeout', REQUEST_TIMEOUT)
     kwargs['stream'] = True
     for delay in (*RATE_LIMIT_DELAYS, None):
@@ -1248,9 +1299,13 @@ def _get_json_patiently(url, *, method='GET', label='', **kwargs):
         with resp:
             if _left_host(url, resp, label):
                 return None
+            if _is_bot_check(resp):
+                _mark_refused(url, label, f'HTTP {resp.status_code} (bot check)')
+                return None
             if resp.status_code in (429, 503):
                 if delay is None:
                     print(f'  [{_oneline(label)}] HTTP {resp.status_code} (rate limited)')
+                    _mark_refused(url, label, 'still rate limited after retries')
                     return None
                 time.sleep(delay)
                 continue
@@ -1508,6 +1563,8 @@ def eightfold_posting_state(url):
     tenant, pid = m.groups()
     api = f'https://{tenant}.eightfold.ai/api/pcsx/position_details'
     label = f'Eightfold detail {tenant}'
+    if _host_refused(api):
+        return None
     status, raw = None, None
     for delay in (*RATE_LIMIT_DELAYS, None):
         try:
@@ -1516,6 +1573,9 @@ def eightfold_posting_state(url):
                                 timeout=REQUEST_TIMEOUT, stream=True) as resp:
                 if _left_host(api, resp, label):
                     return None
+                if _is_bot_check(resp):
+                    _mark_refused(api, label, f'HTTP {resp.status_code} (bot check)')
+                    return None
                 status = resp.status_code
                 raw = _read_capped(resp, label) if status == 404 else None
         except requests.RequestException:
@@ -1523,6 +1583,9 @@ def eightfold_posting_state(url):
         if status not in (429, 503) or delay is None:
             break
         time.sleep(delay)
+    if status in (429, 503):
+        _mark_refused(api, label, 'still rate limited after retries')
+        return None
     time.sleep(EIGHTFOLD_PAGE_DELAY)
     if status != 404 or raw is None:
         return None
@@ -1547,10 +1610,15 @@ def phenom_posting_state(url):
     """
     if not (url or '').startswith('https://') or not _valid_host(_host_of(url)):
         return None
+    if _host_refused(url):
+        return None
     try:
         with _session().get(url, timeout=REQUEST_TIMEOUT, stream=True,
                             allow_redirects=False) as resp:
             status = resp.status_code
+            if _is_bot_check(resp) or status == 429:
+                _mark_refused(url, 'Phenom job page', f'HTTP {status} (refused)')
+                return None
     except requests.RequestException:
         return None
     time.sleep(0.3)
@@ -2503,6 +2571,11 @@ def report_board_health(board_stats, today=None, persist=True):
         lines.append('- Cut short (Workday, Eightfold and Phenom rows are probed, any other '
                      f'missing row retires after {PARTIAL_VANISHED_DAYS} days): '
                      + ', '.join(_oneline(x) for x in cut_short))
+    # A refused host fails its boards for the run. Named apart from a crash,
+    # since the fix is to ask less, not to repair the board.
+    if _refused_hosts:
+        lines.append('- Refused the scraper and were skipped for the rest of the run: '
+                     + ', '.join(sorted(_refused_hosts)))
     if dead:
         # "50 runs" read as 50 requests. Each scrape asks a board once and gets
         # its whole job list back, so the count is scrapes, not calls.

@@ -1024,6 +1024,74 @@ def test_check_links_closes_after_two_dead_days():
 
 # --- Workday paging: `total` only arrives on the first page ------------------
 WD_API = 'https://t.wd5.myworkdayjobs.com/wday/cxs/t/B/jobs'
+BOT_CHECK = {'cf-mitigated': 'challenge'}
+
+
+# --- a host that refuses is not asked again this run --------------------------
+@responses.activate
+def test_a_bot_check_ends_the_board_for_the_run():
+    """On 2026-11-16 two Workday data centres answered every request with a
+    Cloudflare bot check, and two runs sent 64 and 66 requests into it."""
+    responses.post(WD_API, status=429, headers=BOT_CHECK, body='<!DOCTYPE html>')
+    check('a bot check fails the board', sj.scrape_workday('Acme', 't', 'wd5', 'B'), None)
+    check('after one request, not one per term and retry', len(responses.calls), 1)
+    check('a second sweep of that tenant sends nothing',
+          (sj.scrape_workday('Acme', 't', 'wd5', 'B'), len(responses.calls)), (None, 1))
+    detail = 'https://t.wd5.myworkdayjobs.com/B/job/Austin-TX/SOC-Analyst-I_R1'
+    check('nor does a probe of one of its rows',
+          (sj.workday_posting_state(detail), len(responses.calls)), (None, 1))
+    other = 'https://u.wd5.myworkdayjobs.com/wday/cxs/u/B/jobs'
+    responses.post(other, json={'total': 0, 'jobPostings': []})
+    check('another tenant is still asked', sj.scrape_workday('Other', 'u', 'wd5', 'B'), [])
+    # A bot check can come with any status, and is never retried.
+    sj._refused_hosts.clear()
+    responses.reset()
+    responses.post(WD_API, status=403, headers=BOT_CHECK, body='<!DOCTYPE html>')
+    check('a 403 bot check ends the board the same way',
+          (sj.scrape_workday('Acme', 't', 'wd5', 'B'), len(responses.calls)), (None, 1))
+
+
+@responses.activate
+def test_a_lasting_429_ends_the_board_and_a_5xx_does_not():
+    responses.post(WD_API, status=429)
+    check('a lasting 429 fails the board', sj.scrape_workday('Acme', 't', 'wd5', 'B'), None)
+    check('after the retries of one term', len(responses.calls), sj.MAX_RETRIES)
+    # A 5xx is the host being down, not the host saying no, and on a shared
+    # API host the next board may get through. Every term still gets its try.
+    sj._refused_hosts.clear()
+    responses.reset()
+    responses.post(WD_API, status=502)
+    check('a lasting 502 fails the board', sj.scrape_workday('Acme', 't', 'wd5', 'B'), None)
+    check('after every term was tried', len(responses.calls), sj.MAX_RETRIES * 5)
+    # A 429 that clears inside the retries is not a refusal.
+    sj._refused_hosts.clear()
+    responses.reset()
+    responses.post(WD_API, status=429)
+    responses.post(WD_API, json={'total': 0, 'jobPostings': []})
+    check('a 429 that clears leaves the board swept',
+          (sj.scrape_workday('Acme', 't', 'wd5', 'B'), sorted(sj._refused_hosts)), ([], []))
+
+
+@responses.activate
+def test_a_refused_probe_ends_the_probes_for_that_host():
+    detail = 'https://t.wd5.myworkdayjobs.com/wday/cxs/t/B/job/Austin-TX/SOC-Analyst-I_R1'
+    row = 'https://t.wd5.myworkdayjobs.com/B/job/Austin-TX/SOC-Analyst-I_R'
+    responses.get(detail, status=429, headers=BOT_CHECK, body='<!DOCTYPE html>')
+    check('a refused Workday probe says nothing', sj.workday_posting_state(row + '1'), None)
+    check('and the next missing row is not asked about',
+          (sj.workday_posting_state(row + '2'), len(responses.calls)), (None, 1))
+    responses.get(BAE_JOB + '9BR', status=429)
+    check('a refused Phenom page says nothing', sj.phenom_posting_state(BAE_JOB + '9BR'), None)
+    before = len(responses.calls)
+    check('and the next page on that site is not asked for',
+          (sj.phenom_posting_state(BAE_JOB + '10BR'), len(responses.calls) - before), (None, 0))
+    responses.get(EF_DETAIL, status=429)
+    job = 'https://acme.eightfold.ai/careers/job/'
+    check('an Eightfold probe that stays rate limited says nothing',
+          sj.eightfold_posting_state(job + '1'), None)
+    before = len(responses.calls)
+    check('and the next position is not asked about',
+          (sj.eightfold_posting_state(job + '2'), len(responses.calls) - before), (None, 0))
 
 
 def _workday_pages(pages_by_term, fail_at=None):
@@ -1653,9 +1721,10 @@ def test_eightfold_gives_up_after_sustained_429():
     responses.get(EF_SEARCH, status=429)
     check('eightfold sustained 429 -> None',
           sj.scrape_eightfold('Acme', 'acme', 'acme.com'), None)
-    attempts = len(sj.RATE_LIMIT_DELAYS) + 1
-    check('eightfold retries each term through every backoff step',
-          len(responses.calls), attempts * len(sj.EIGHTFOLD_TERMS))
+    # One term's backoff steps, and no more: the other terms would only draw
+    # the same refusal from a host that has already said no.
+    check('eightfold stops at the first term that stays rate limited',
+          len(responses.calls), len(sj.RATE_LIMIT_DELAYS) + 1)
 
 
 @responses.activate
@@ -1945,8 +2014,8 @@ def test_jibe_retries_429_and_flags_a_cut_short_sweep():
     responses.reset()
     responses.get(JB_API, status=429)
     check('jibe sustained 429 -> None', sj.scrape_jibe('Acme', 'careers.acme.org'), None)
-    check('jibe retries each term through every backoff step', len(responses.calls),
-          (len(sj.RATE_LIMIT_DELAYS) + 1) * len(sj.JIBE_TERMS))
+    check('jibe stops at the first term that stays rate limited', len(responses.calls),
+          len(sj.RATE_LIMIT_DELAYS) + 1)
 
 
 @responses.activate
@@ -4164,7 +4233,12 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_control_characters_never_reach_a_row,
            test_log_lines_cannot_start_a_workflow_command,
            test_check_slugs_reports_who_owns_each_board,
-           test_insert_keeps_only_rows_check_outputs_accepts):
+           test_insert_keeps_only_rows_check_outputs_accepts,
+           test_a_bot_check_ends_the_board_for_the_run,
+           test_a_lasting_429_ends_the_board_and_a_5xx_does_not,
+           test_a_refused_probe_ends_the_probes_for_that_host):
+    # A host refused in one test must not stay refused in the next.
+    sj._refused_hosts.clear()
     fn()
 
 if failures:
