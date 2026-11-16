@@ -21,6 +21,7 @@ from collections import Counter
 from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
+from itertools import zip_longest
 from pathlib import Path
 from typing import NamedTuple
 from urllib.parse import parse_qs, urlparse
@@ -59,6 +60,7 @@ from common import normalize_url, security_company_flags, write_run_events
 LISTINGS_FILE = Path('listings.json')
 SEEN_JOBS_FILE = Path('.github/data/seen_jobs.json')
 BOARD_BASELINE_FILE = Path('.github/data/board_baseline.json')
+FLAT_READS_FILE = Path('.github/data/flat_reads.json')
 # Read by health_check.py, which opens the "Scraper health" issue.
 HEALTH_FILE = Path('.github/data/health.json')
 
@@ -1080,33 +1082,99 @@ def scrape_workday(company, tenant, instance, board, security_company=False,
         if not complete:
             job['partial_sweep'] = True
         title = job['title']
+        if not path:
+            continue
+        opted_in = (path in opt_in_paths and is_cyber_title(title, security_company)
+                    and not is_rejected_title(title))
         # A flat security title is not read here, though 601 sat on Workday on
         # 2026-11-15 and 44 of them were early career. Workday answers 429 to
         # one address across tenants, and the sweep already runs near that
         # rate: 200 to 520 more detail requests a run (5, 30 or 50 per tenant,
         # paused 0.3 or 1 second) took a dry run from 4 to 7 search terms or
         # details lost to a 429 up to 27 to 34, most on tenants with no flat
-        # title at all.
-        if not path or not ((_wants_detail(title, job['location'], security_company)
-                             and not _is_flat_title(title))
-                            or (path in opt_in_paths
-                                and is_cyber_title(title, security_company)
-                                and not is_rejected_title(title))):
+        # title at all. The title is marked for read_flat_workday_titles,
+        # which reads a few per run once the sweep is over.
+        if not opted_in and _is_flat_title(title):
+            if _wants_flat_read(title, job['location'], security_company):
+                job['flat_detail'] = (cxs_root, path)
             continue
-        # Parsons and Accenture leave locationsText out of the list view, and a
-        # blank location reads as non-US, so neither had ever had a row.
-        needs_locations = (not job['location'].strip()
-                           or MULTI_LOCATION_RE.search(job['location'].strip()))
+        if not opted_in and not _wants_detail(title, job['location'], security_company):
+            continue
         location, description = fetch_workday_detail(cxs_root, path, wd_headers,
                                                      label=f'{company} Workday')
         if location is None:
             job['detail_failed'] = True
-        if needs_locations and location:
-            job['location'] = location
-        if description:
-            job['description'] = description
+        _take_workday_detail(job, location, description)
         time.sleep(0.3)
     return jobs
+
+
+def _take_workday_detail(job, location, description):
+    # Parsons and Accenture leave locationsText out of the list view, and a
+    # blank location reads as non-US, so neither had ever had a row.
+    listed = job['location'].strip()
+    if location and (not listed or MULTI_LOCATION_RE.search(listed)):
+        job['location'] = location
+    if description:
+        job['description'] = description
+
+
+def _wants_flat_read(title, location, security_company):
+    if is_rejected_title(title) or not is_cyber_title(title, security_company):
+        return False
+    # A blank list location or an "N Locations" label says nothing, and the
+    # detail this read fetches is what places it.
+    listed = (location or '').strip()
+    return takes_flat_path(title) and (not listed or bool(MULTI_LOCATION_RE.search(listed))
+                                       or is_us_location(listed))
+
+
+# Flat Workday titles read per run, across every tenant, and the pause after
+# each. The per-tenant caps above failed on volume, so this is small and fixed:
+# 40 requests on top of the 383 detail requests and about 3,400 requests in
+# all that the Workday sweep made on 2026-11-15, read one at a time after the
+# sweep at 1.7 seconds apiece, which adds about 70 seconds to a run. Each
+# posting is read once, so the 601 on Workday that day clear in 16 runs and a
+# run then reads only what is new.
+WORKDAY_FLAT_READ_BUDGET = 40
+WORKDAY_FLAT_READ_PAUSE = 1.0
+# A read posting is read again after this long, so a rule change or an edited
+# posting gets a second look: about 20 of the 601 a day once the backlog is
+# through, inside the budget.
+FLAT_READ_TTL_DAYS = 30
+
+
+def read_flat_workday_titles(raw_jobs, already_read, today):
+    """Fetch descriptions for flat Workday security titles, a few per run.
+
+    `scrape_workday` marks each candidate with `flat_detail`. This takes them
+    one per tenant in turn, so the first tenants in companies.yml do not spend
+    the budget, skips a posting `already_read` holds, and stops at the first
+    refused request. Mutates the jobs and `already_read` ({posting id: date
+    read}) and returns the number read.
+    """
+    queues = {}
+    for job in raw_jobs:
+        ref = job.pop('flat_detail', None)
+        if ref and job['id'] not in already_read:
+            queues.setdefault(job['company'], []).append((job, ref))
+    turns = [turn for rank in zip_longest(*queues.values()) for turn in rank if turn]
+    headers = {**HEADERS, 'Content-Type': 'application/json', 'Accept': 'application/json'}
+    read = 0
+    for job, (cxs_root, path) in turns[:WORKDAY_FLAT_READ_BUDGET]:
+        location, description = fetch_workday_detail(
+            cxs_root, path, headers, label=f'{job["company"]} Workday flat title')
+        # A refusal ends the pass: the posting stays unread for the next run,
+        # and Workday is not asked again while it is pushing back. It is not
+        # marked detail_failed, which would count a title that has no level
+        # yet among the candidates a failing endpoint is holding back.
+        if location is None:
+            break
+        _take_workday_detail(job, location, description)
+        already_read[job['id']] = today
+        read += 1
+        time.sleep(WORKDAY_FLAT_READ_PAUSE)
+    return read
 
 
 # Detail requests per Oracle board per run. JPMorgan's CX_1001 lists 7,500
@@ -2368,6 +2436,22 @@ def save_seen_jobs(seen):
         json.dump(dict(sorted(seen.items())), f, indent=2)
 
 
+def load_flat_reads():
+    """Return {posting id: date read} for the flat Workday titles already read."""
+    try:
+        with open(FLAT_READS_FILE) as f:
+            data = json.load(f)
+    except (OSError, ValueError):
+        return {}
+    return data if isinstance(data, dict) else {}
+
+
+def save_flat_reads(reads):
+    FLAT_READS_FILE.parent.mkdir(parents=True, exist_ok=True)
+    with open(FLAT_READS_FILE, 'w') as f:
+        json.dump(dict(sorted(reads.items())), f, indent=2)
+
+
 # A board that yields nothing for this many consecutive runs is reported as
 # likely dead. The scrape runs twice a day, so this is ~3 days of silence:
 # long enough to ride out a genuine hiring pause at a small vendor, short
@@ -2893,6 +2977,12 @@ def main():
     # for a subset and would blind the zero-regression check for the rest.
     full_run = not args.dry_run and not args.board and not args.limit
     today = datetime.now().strftime('%Y-%m-%d')
+
+    flat_reads = prune_seen(load_flat_reads(), today, FLAT_READ_TTL_DAYS)
+    started = time.monotonic()
+    flat_read = read_flat_workday_titles(raw_jobs, flat_reads, today)
+    if flat_read:
+        print(f'Read {flat_read} flat Workday title(s) in {time.monotonic() - started:.0f}s')
     report_board_health(board_stats, today, persist=full_run)
     print(f'\nScraped {len(raw_jobs)} raw postings; filtering...')
 
@@ -3025,6 +3115,8 @@ def main():
         rebuild_readme.main()
 
     save_seen_jobs(seen)
+    if flat_read:
+        save_flat_reads(flat_reads)
     events_file = os.environ.get('RUN_EVENTS_FILE')
     if events_file:
         write_run_events(events_file, added_rows, revived_rows, vanished + orphaned)

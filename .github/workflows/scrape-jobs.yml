@@ -75,7 +75,7 @@ jobs:
           # every run until someone fixes it by hand.
           git show HEAD:listings.json > "$RUNNER_TEMP/listings.base.json"
           python .github/scripts/check_outputs.py --baseline "$RUNNER_TEMP/listings.base.json"
-          git add .github/data/seen_jobs.json .github/data/board_baseline.json .github/data/health.json listings.json README.md companies.md
+          git add .github/data/seen_jobs.json .github/data/board_baseline.json .github/data/health.json .github/data/flat_reads.json listings.json README.md companies.md
           if git diff --staged --quiet; then exit 0; fi
           git commit -m "add auto-discovered listings"
           before=$(git rev-parse HEAD)

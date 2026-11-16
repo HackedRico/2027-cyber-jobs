@@ -2433,28 +2433,139 @@ def test_failed_detail_fetches_are_marked_on_every_detail_source():
 FLAT_BODY = '<p>2+ years of experience with security monitoring and incident response.</p>'
 
 
+WD_ROOT = 'https://t.wd5.myworkdayjobs.com/wday/cxs/t/B'
+
+
+def _wd_detail_mock(req, **kwargs):
+    kwargs = kwargs or {'json': {'jobPostingInfo': {'location': 'McLean, VA',
+                                                     'jobDescription': FLAT_BODY}}}
+    responses.get(f'{WD_ROOT}/job/Site/{req}', **kwargs)
+
+
+def _wd_detail_reqs():
+    return [c.request.url.rsplit('/', 1)[-1] for c in responses.calls
+            if c.request.method == 'GET']
+
+
 @responses.activate
-def test_workday_leaves_flat_security_titles_unread():
-    """Reading them took a dry run from 4 terms or details lost to a 429 up to
-    34, most on tenants that list no flat title, so Workday reads leveled
-    titles only."""
-    rows = [{'title': title, 'externalPath': f'/job/McLean-VA/{req}', 'locationsText': site}
+def test_workday_sweep_marks_flat_security_titles_and_reads_none():
+    """Reading them in the sweep took a dry run from 4 terms or details lost to
+    a 429 up to 34, most on tenants that list no flat title."""
+    rows = [{'title': title, 'externalPath': f'/job/Site/{req}', 'locationsText': site}
             for title, req, site in (('Cybersecurity Analyst', 'R1', 'McLean, VA'),
                                      ('Cybersecurity Analyst', 'R2', '2 Locations'),
-                                     ('Cyber Analyst I', 'R3', 'McLean, VA'))]
+                                     ('Cybersecurity Analyst', 'R3', ''),
+                                     ('Cybersecurity Analyst', 'R4', 'Stuttgart, Germany'),
+                                     # No description can level these two.
+                                     ('Cyber Engineer, Journeyman', 'R5', 'McLean, VA'),
+                                     ('Security Administrator', 'R6', 'McLean, VA'),
+                                     ('Cyber Analyst I', 'R7', 'McLean, VA'))]
     responses.add_callback(responses.POST, WD_API, callback=_workday_pages({
         'cyber': [{'total': len(rows), 'jobPostings': rows}]}))
     for row in rows:
-        responses.get(f'https://t.wd5.myworkdayjobs.com/wday/cxs/t/B{row["externalPath"]}',
-                      json={'jobPostingInfo': {'location': 'McLean, VA',
-                                               'jobDescription': FLAT_BODY}})
+        _wd_detail_mock(row['externalPath'].rsplit('/', 1)[-1])
     jobs = sj.scrape_workday('Acme', 't', 'wd5', 'B')
-    check('workday asks for the leveled title only',
-          [c.request.url.rsplit('/', 1)[-1] for c in responses.calls
-           if c.request.method == 'GET'], ['R3'])
-    check('...and the flat titles carry no description and no failure',
-          [('description' in j, j.get('detail_failed', False)) for j in jobs],
-          [(False, False), (False, False), (True, False)])
+    check('the sweep asks for the leveled title only', _wd_detail_reqs(), ['R7'])
+    check('a flat security title in the US, blank or hidden is marked for the later pass',
+          [j.get('flat_detail') for j in jobs],
+          [(WD_ROOT, '/job/Site/R1'), (WD_ROOT, '/job/Site/R2'), (WD_ROOT, '/job/Site/R3'),
+           None, None, None, None])
+    check('...and carries no description and no failure yet',
+          [('description' in j, j.get('detail_failed', False)) for j in jobs[:3]],
+          [(False, False)] * 3)
+
+
+def _flat_job(company, req, location='Reston, VA'):
+    return {'id': f'workday_{company}_/job/Site/{req}', 'company': company,
+            'title': 'Cybersecurity Analyst', 'location': location, 'board': 'Workday',
+            'url': f'https://t.wd5.myworkdayjobs.com/B/job/Site/{req}',
+            'flat_detail': (WD_ROOT, f'/job/Site/{req}')}
+
+
+@responses.activate
+def test_flat_workday_titles_are_read_once_on_a_budget():
+    """Booz Allen Hamilton lists 117 flat security titles and comes third in
+    companies.yml, so a budget spent in feed order would never leave it."""
+    jobs = [_flat_job('A', 'A1'), _flat_job('A', 'A2'), _flat_job('A', 'A3'),
+            _flat_job('B', 'B1', '2 Locations'), _flat_job('C', 'C1'), _flat_job('C', 'C2'),
+            {'id': 'gh-1', 'company': 'D', 'title': 'Cyber Analyst I', 'location': 'Austin, TX',
+             'board': 'Greenhouse', 'url': GH_JOBS.format('d', 1)}]
+    for req in ('A1', 'A2', 'A3', 'B1', 'C1', 'C2'):
+        _wd_detail_mock(req)
+    read = {jobs[4]['id']: '2026-10-20'}
+    pauses = []
+    saved = (sj.WORKDAY_FLAT_READ_BUDGET, sj.time.sleep)
+    try:
+        sj.WORKDAY_FLAT_READ_BUDGET, sj.time.sleep = 4, pauses.append
+        count = sj.read_flat_workday_titles(jobs, read, '2026-11-01')
+    finally:
+        sj.WORKDAY_FLAT_READ_BUDGET, sj.time.sleep = saved
+    check('the budget goes one tenant at a time and skips a posting already read',
+          (count, _wd_detail_reqs()), (4, ['A1', 'B1', 'C2', 'A2']))
+    check('each posting read is recorded with the day, beside the earlier ones', read,
+          {jobs[4]['id']: '2026-10-20', jobs[0]['id']: '2026-11-01',
+           jobs[3]['id']: '2026-11-01', jobs[5]['id']: '2026-11-01',
+           jobs[1]['id']: '2026-11-01'})
+    check('a read title carries its description and one past the budget does not',
+          ['description' in j for j in jobs], [True, True, False, True, False, True, False])
+    check('a hidden site takes the detail endpoint\'s location and a listed one stays',
+          (jobs[3]['location'], jobs[0]['location']), ('McLean, VA', 'Reston, VA'))
+    check('the description levels the flat title',
+          sj.evaluate_job(jobs[0]['title'], jobs[0]['location'], jobs[0]['description']),
+          ('earlycareer', 'Security Engineering'))
+    check('every read is followed by the long pause', pauses,
+          [sj.WORKDAY_FLAT_READ_PAUSE] * 4)
+    check('...which is longer than the sweep\'s', sj.WORKDAY_FLAT_READ_PAUSE > 0.3, True)
+    check('no posting keeps the marker', any('flat_detail' in j for j in jobs), False)
+
+
+@responses.activate
+def test_a_refused_flat_read_ends_the_pass():
+    """Leidos and Parsons answered 429 to flat reads several times in a row, and
+    the reads kept coming while other tenants' sweeps lost pages."""
+    jobs = [_flat_job('A', 'A1'), _flat_job('B', 'B1'), _flat_job('C', 'C1')]
+    _wd_detail_mock('A1')
+    _wd_detail_mock('B1', status=429)
+    _wd_detail_mock('C1')
+    read = {}
+    count = sj.read_flat_workday_titles(jobs, read, '2026-11-01')
+    check('the pass stops at the refusal and never asks the next tenant',
+          (count, list(dict.fromkeys(_wd_detail_reqs()))), (1, ['A1', 'B1']))
+    check('the refused posting is left for the next run, unread and unmarked',
+          (list(read), [j.get('detail_failed', False) for j in jobs]),
+          ([jobs[0]['id']], [False, False, False]))
+
+
+@responses.activate
+def test_main_reads_a_flat_workday_title_once_across_runs():
+    row = {'title': 'Cybersecurity Analyst', 'externalPath': '/job/Site/R1',
+           'locationsText': 'McLean, VA'}
+    responses.add_callback(responses.POST, WD_API, callback=_workday_pages({
+        'cyber': [{'total': 1, 'jobPostings': [row]}]}))
+    _wd_detail_mock('R1')
+    config = 'workday:\n  - name: Acme\n    tenant: t\n    instance: wd5\n    board: B\n'
+    today = testkit.TODAY.isoformat()
+    original = sj.FLAT_READS_FILE
+    with tempfile.TemporaryDirectory() as tmp:
+        try:
+            sj.FLAT_READS_FILE = Path(tmp) / 'flat_reads.json'
+            out, _ = _run_main(config, [], ['--dry-run'])
+            check('a dry run reads the title and reports the row',
+                  (list(compare_runs.parse_log(out).rows.values()),
+                   'Read 1 flat Workday title(s)' in out), (['earlycareer'], True))
+            check('...and records nothing', sj.FLAT_READS_FILE.exists(), False)
+            _, listings = _run_main(config, [], ['--board', 'workday'])
+            check('a real run adds the row and records the read',
+                  ([r['role'] for r in listings], json.loads(sj.FLAT_READS_FILE.read_text())),
+                  (['Cybersecurity Analyst'], {'workday_t_/job/Site/R1': today}))
+            responses.calls.reset()
+            out, after = _run_main(config, listings, ['--board', 'workday'],
+                                   seen={'workday_t_/job/Site/R1': today})
+            check('the next run asks nothing more and keeps the row',
+                  (_wd_detail_reqs(), [r['role'] for r in after], 'DROP' in out),
+                  ([], ['Cybersecurity Analyst'], False))
+        finally:
+            sj.FLAT_READS_FILE = original
 
 
 @responses.activate
@@ -4114,7 +4225,10 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_a_failed_workday_detail_defers_the_posting,
            test_a_failed_detail_defers_only_an_unheld_posting,
            test_failed_detail_fetches_are_marked_on_every_detail_source,
-           test_workday_leaves_flat_security_titles_unread,
+           test_workday_sweep_marks_flat_security_titles_and_reads_none,
+           test_flat_workday_titles_are_read_once_on_a_budget,
+           test_a_refused_flat_read_ends_the_pass,
+           test_main_reads_a_flat_workday_title_once_across_runs,
            test_oracle_and_smartrecruiters_read_leveled_titles_before_flat_ones,
            test_eightfold_and_phenom_read_flat_security_titles,
            test_amazon_restricts_to_us_reqs,

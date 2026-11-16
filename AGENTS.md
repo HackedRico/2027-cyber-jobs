@@ -51,7 +51,9 @@ behind `main`. Rebase before opening a PR, and take `main` for any conflict in a
   only works when the scraper and the submission flow normalise identically.
 - `scrape_jobs.py` owns one `scrape_<ats>` function per platform, persistence
   (`seen_jobs.json` is per-posting last-seen, `board_baseline.json` is per-board counts for the
-  silent-board alarm), and `main()`, which stamps `twin` on later same-day twins (the number
+  silent-board alarm, `flat_reads.json` is the flat Workday titles already read), and `main()`,
+  which reads up to `WORKDAY_FLAT_READ_BUDGET` flat Workday security titles after the sweep,
+  each posting once, stamps `twin` on later same-day twins (the number
   the board page tells them apart by), then runs purge, renormalise, reclassify, the
   stored-row re-evaluation, the location repair, the vanished-req retire and the orphan retire
   (a row whose company has no board for its source in `companies.yml`) over existing rows
