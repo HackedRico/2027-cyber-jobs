@@ -324,6 +324,10 @@ def main():
     print(f'Checking {len(targets)} of {len(listings)} listings')
 
     closed = 0
+    # A host that answers 429 is not asked about its other rows this run, as
+    # scrape_jobs skips a host that refuses: amazon.jobs holds twenty rows, and
+    # each would draw the same answer.
+    refused = set()
     for entry in targets:
         url = entry['url'].strip()
         if is_aged_out(entry, today):
@@ -334,9 +338,15 @@ def main():
         if should_skip(url):
             print(f'  SKIP (bot-blocked domain): {oneline(url)}')
             continue
+        host = (urlsplit(url).hostname or '').lower()
+        if host in refused:
+            print(f'  SKIP (host refused earlier this run): {oneline(url)}')
+            continue
         # Only Community links point at arbitrary career sites; amazon.jobs
         # answers a real 404 for a closed req.
         status = fetch_status_within(url, soft_404=entry.get('source') == 'Community')
+        if status == 429:
+            refused.add(host)
         if record_result(entry, status, today):
             closed += 1
             print(f'  CLOSED {status}: {oneline(url)}')

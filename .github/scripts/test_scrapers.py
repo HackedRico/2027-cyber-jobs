@@ -7,7 +7,9 @@ Exercises the response-shape handling that only broke in production before —
 location extraction, pagination stops, intern hints, schema drift, and the
 retry/backoff fetch layer — without touching the network.
 """
+import contextlib
 import html
+import io
 import json
 import os
 import sys
@@ -2750,6 +2752,35 @@ def test_retire_orphaned_listings():
 
 
 # --- check_links: a 200 whose title says the job is gone ----------------------
+def test_check_links_stops_asking_a_host_that_refuses():
+    rows = [{'company': 'Amazon', 'role': f'Security Engineer {n}', 'source': 'Amazon Jobs',
+             'url': f'https://www.amazon.jobs/en/jobs/{n}', 'date_added': '2026-09-20'}
+            for n in (1, 2, 3)]
+    rows.append({'company': 'Acme', 'role': 'Analyst', 'source': 'Community',
+                 'url': 'https://acme.com/careers/analyst', 'date_added': '2026-09-20'})
+    asked = []
+
+    def refuse_amazon(url, soft_404=False):
+        asked.append(url)
+        return 429 if 'amazon.jobs' in url else 200
+
+    saved = check_links.LISTINGS_FILE, check_links.fetch_status_within
+    with tempfile.TemporaryDirectory() as tmp:
+        check_links.LISTINGS_FILE = Path(tmp) / 'listings.json'
+        check_links.LISTINGS_FILE.write_text(json.dumps(rows))
+        check_links.fetch_status_within = refuse_amazon
+        try:
+            with contextlib.redirect_stdout(io.StringIO()) as out:
+                check_links.main()
+            stored = json.loads(check_links.LISTINGS_FILE.read_text())
+        finally:
+            check_links.LISTINGS_FILE, check_links.fetch_status_within = saved
+    check('a 429 ends the requests to that host, and other hosts are still asked', asked,
+          ['https://www.amazon.jobs/en/jobs/1', 'https://acme.com/careers/analyst'])
+    check('the rows it skipped are named', out.getvalue().count('host refused earlier'), 2)
+    check('and no row is closed or marked dead for a refusal', stored, rows)
+
+
 @responses.activate
 def test_check_links_soft_404():
     def page(url, title, content_type='text/html;charset=utf-8'):
@@ -4236,7 +4267,8 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_insert_keeps_only_rows_check_outputs_accepts,
            test_a_bot_check_ends_the_board_for_the_run,
            test_a_lasting_429_ends_the_board_and_a_5xx_does_not,
-           test_a_refused_probe_ends_the_probes_for_that_host):
+           test_a_refused_probe_ends_the_probes_for_that_host,
+           test_check_links_stops_asking_a_host_that_refuses):
     # A host refused in one test must not stay refused in the next.
     sj._refused_hosts.clear()
     fn()
