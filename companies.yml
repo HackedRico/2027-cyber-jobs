@@ -31,9 +31,6 @@ greenhouse:
 - name: AppOmni
   slug: appomni
   security_company: true
-- name: Arkose Labs
-  slug: arkoselabs
-  security_company: true
 - name: Asana
   slug: asana
   apply_hosts:
@@ -515,9 +512,6 @@ lever:
 - name: Anomali
   slug: anomali
   security_company: true
-- name: Graylog
-  slug: graylog
-  security_company: true
 - name: Twingate
   slug: twingate
   security_company: true
@@ -722,6 +716,9 @@ ashby:
   slug: temporal
 - name: Sophos
   slug: sophos
+  security_company: true
+- name: Arkose Labs
+  slug: arkoselabs
   security_company: true
 smartrecruiters:
 - name: Check Point

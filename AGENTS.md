@@ -31,7 +31,9 @@ bad Community row in `listings.json` from a Report a Listing issue, since no rul
 
 Three workflows share the `readme-updates` concurrency group and commit as
 `github-actions[bot]`: the scrape at 11:17 and 23:17 UTC, the link check at 09:43 UTC that
-marks 🔒, and add-listing when a maintainer applies the `approved` label. Each runs
+marks 🔒, and add-listing when a maintainer applies the `approved` label. GitHub starts each
+scheduled run 2 to 10 hours after its cron time, so read a run's start time from the Actions
+tab, not from the cron line. Each runs
 `check_outputs.py` before committing, and `health.yml` runs `health_check.py` after each one to
 keep the "Scraper health" issue current. A branch a day old is
 behind `main`. Rebase before opening a PR, and take `main` for any conflict in a bot-owned file.

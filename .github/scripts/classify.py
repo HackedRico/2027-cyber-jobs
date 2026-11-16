@@ -254,6 +254,13 @@ GUARDED_FUNCTION_REJECTS = [
     # 'Junior Underwriter / Underwriter Cyber & Technology, (all*), 80-100%'.
     # Underwriters Laboratories is a product-safety and security test house.
     r'\bunderwriters?\b(?! laborator)',
+    # Insurance claims under the same line of cover: Coalition 'Cyber Claim
+    # Specialist' asks for "2+ years of experience adjusting cyber claims".
+    # Only a claims role noun beside 'cyber' rejects, so an engineer on a
+    # claims platform team stays and every other claims title is left to the
+    # cyber check.
+    r'^(?=.*\bcyber\b).*\bclaims? (?:specialist|adjuster|examiner|handler|representative|'
+    r'associate)s?\b',
     # Underwriting is insurance or credit work: Chubb 'Chubb Summer Internship
     # Program (Underwriting & Claims)', JPMorgan 'Consumer Underwriting Trainee
     # - Home Lending Operations'. It also names the team an engineer builds
@@ -434,10 +441,11 @@ SOC_ASSURANCE_GUARD = r'^(?!.*(?<!information )\bassurance\b.*\bsoc services\b).
 # as a prefix ("SoC Performance Architect"), and NVIDIA names it beside the GPU
 # ('System Software Engineer – GPU and SOC (2027 RDSS Intern)') and before the
 # software that runs on it ('SoC Software Engineer - New College Grad 2027'),
-# so a processor anywhere in the title, or a chip discipline right after the
-# acronym, rules it out. Intel 'Graduate Talent (ISCP SoC Front End Team)' is
+# so a processor or 'embedded' anywhere in the title (Accenture 'Embedded SoC
+# Platform Developer to Accenture Industry X'), or a chip discipline right
+# after the acronym, rules it out. Intel 'Graduate Talent (ISCP SoC Front End Team)' is
 # a chip design team.
-SOC_CHIP_GUARD = r'^(?!.*\b[cg]pus?\b)'
+SOC_CHIP_GUARD = r'^(?!.*\b(?:[cg]pus?|embedded)\b)'
 SOC_PATTERN = (SOC_CHIP_GUARD + SOC_ASSURANCE_GUARD
                + r'\bsoc\b(?![\s,/-]+(?:asic|design|digital design|verification|rtl|'
                r'silicon|power|performance|hardware|software|firmware|front[\s-]?end|'
@@ -1975,6 +1983,71 @@ def is_cyber_title(title, security_company=False):
     return bool(tech)
 
 
+# The role nouns a bare 'security' may lead on the flat-title path. Narrower
+# than SECURITY_ROLE_RE: an administrator, consultant or auditor under a bare
+# 'security' is as often the cleared-site office, as in Booz Allen 'Security
+# Administrator', which asks for "1+ years of experience providing on-site
+# security assessments of facilities and personnel".
+FLAT_SECURITY_ROLE_RE = re.compile(
+    r'\bsecurity\s+(?:[a-z]+\s+)?(?:analyst|engineer|developer|tester|responder|'
+    r'researcher|scientist|architect|hunter)s?\b')
+# Words that keep a title off the flat path whatever its posting counts. A
+# rank past early career: Leidos 'Cyberspace Intelligence Threat Analyst,
+# Journeyman', Johns Hopkins APL 'Established Cyber Engineer - Capabilities
+# Development', Protiviti 'Houston Technology Audit & Advisory Experienced
+# Consultant', Accenture Federal 'Attack Sensing & Warning Analyst Mid', HPE
+# 'Advanced Cyber Security Engineer - AI', CACI 'GRC - Prin Cybersecurity
+# Analyst', GDIT 'Information Systems Security Officer (ISSO) III', whose
+# bracket hides the level from classify_level, Salesforce 'M&A Security
+# Integration Engineer - PMTS', a principal member of technical staff, and
+# Leidos 'Maleware Reverse Engineer (Several Levels)'. A Mid-Atlantic region is
+# not a rank: GuidePoint Security 'Vulnerability Management Engineer
+# (ServiceNow) - Mid-Atlantic region (Remote)'. Or a job beside the security
+# work rather than in it: 'Cybersecurity Instructor', 'Cyber Sales Engineer',
+# 'Cybersecurity Policy Writer', 'Cybersecurity Liaison Officer', 'Cyber
+# All-Source Analyst', 'Cyber/Technical Targeting Officer', 'CSSP
+# Cybersecurity Program Manger'.
+FLAT_TITLE_BAR_RE = re.compile(
+    r'\b(?:journeyman|established|experienced|intermediate|advanced|expert|prin|'
+    r'professionals?|mid(?:[- ](?:level|career))?(?![- ]atlantic)|'
+    r'(?:multiple|all|several) levels|'
+    r'[pls]mts|iii|iv|[3-9]|'
+    r'pre-?sales|sales|policy|liaison|program|targeting|all[- ]source)\b')
+
+
+# The flat path also wants a practitioner's role noun somewhere in the title.
+# 'Cyber' beside any other noun names a line of business as often as the work:
+# a 'Cyber Insurance Broker' sells cover, and a review probe let it in.
+FLAT_ROLE_NOUN_RE = re.compile(
+    r'\b(?:analyst|engineer|engineering|developer|researcher|scientist|tester|responder|'
+    r'hunter|architect|consultant|administrator|operator|specialist|officer|isso|isse|'
+    r'examiner|assessor|auditor|member of technical staff)s?\b')
+
+
+def _takes_flat_path(title):
+    t = fold_title(title)
+    return (is_security_title(title) and bool(FLAT_ROLE_NOUN_RE.search(t))
+            and not FLAT_TITLE_BAR_RE.search(t) and not NON_TECH_ROLE_RE.search(t))
+
+
+def is_security_title(title):
+    """True when the title's own words name security work.
+
+    Narrower than is_cyber_title: the cloud, solutions and security-company
+    allowances do not count, and a bare 'security' needs a second cyber term
+    or one of the FLAT_SECURITY_ROLE_RE nouns after it. Fifth Third 'Security
+    Operations Center Agent II' dispatches guards and Leidos 'Security Training
+    Instructor, Airport Screening Operations' trains screeners, and neither
+    passes.
+    """
+    t = fold_title(title)
+    if _has_cyber_keyword(t):
+        return _has_second_cyber_term(t) or bool(FLAT_SECURITY_ROLE_RE.search(t))
+    return bool(SECURITY_TOOL_RE.search(t)
+                or (SECURITY_TEAM_RE.search(t) and ENGINEERING_ROLE_RE.search(t))
+                or (CIP_RE.search(t) and CIP_ROLE_RE.search(t)))
+
+
 # Cleared-facility security (the FSO function FUNCTION_REJECT excludes by name)
 # also hides behind plain titles: RTX 'Security Specialist II' maintains
 # "classified document control ... NISPOM ... COMSEC". Cyber roles cite the
@@ -2406,6 +2479,22 @@ def exceeds_experience_cap(description, cap=MAX_ALLOWED_YEARS):
     return not any(p.search(d) for p in ZERO_ANCHORED_YOE_RES)
 
 
+def states_early_experience(description, cap=MAX_ALLOWED_YEARS):
+    """True when the description states experience and no stated count is above the cap.
+
+    Stricter than required_years, which takes the lowest of the degree routes.
+    A flat title has no level word to back that reading, so one route above
+    the cap is enough to fail: CACI 'Reverse Engineer' lists "Bachelor's Degree
+    with 5 years ... Doctoral Degree with 2 years", and Leidos 'Cyber Real-Time
+    Analyst' lists "Level II: Bachelor's degree and 2+ years ... Level III:
+    Bachelor's degree and 4+ years". Years offered in lieu of a degree are not
+    counted, as in required_years.
+    """
+    conjunctive, alternative, doctoral, _ = _experience_counts(description)
+    counts = conjunctive + alternative + doctoral
+    return bool(counts) and 0 < max(counts) <= cap
+
+
 def requires_experience(description):
     """True if the description asks for more than an early-career amount.
 
@@ -2483,6 +2572,17 @@ def judge_job(title, location, description='', security_company=False,
         elif AI_CATEGORY_RE.search(fold_title(title)) and (
                 permits_early_experience(description)
                 or 0 < required_years(description) <= MAX_ALLOWED_YEARS):
+            level = 'earlycareer'
+        # Any other flat security title is early-career when its description
+        # states the experience it wants and every count is inside the cap:
+        # Amazon 'Security Engineer, AWS Security' asks for "2+ years of web
+        # protocols, common security attacks, and remediation", Stripe
+        # 'Software Engineer, Vulnerability Management' for "2+ years of
+        # industry software engineering experience". The title has to name
+        # security work itself, so a security company's 'Investor Relations
+        # Analyst' and a flat 'Cloud Support Engineer' still wait on a ceiling
+        # or a level word.
+        elif _takes_flat_path(title) and states_early_experience(description):
             level = 'earlycareer'
         else:
             return None, 'no-level'
