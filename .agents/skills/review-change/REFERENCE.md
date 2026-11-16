@@ -51,10 +51,11 @@ One checklist per area, then the probe families. Each line is a trap a past chan
   past 15 pages marks the sweep partial, which sends retirement to the detail endpoint.
 - **Workday country facet.** A term is swept again on the tenant's US postings alone when its
   first page lists the United States under `locationCountry` and the term would hit the page
-  cap or the filter sheds two pages or more. A sweep that ends complete this way retires a
-  missing row on absence, with no probe, so a change to the facet is checked live against a
-  req whose US site is an additional location, a remote US req, and a req Workday files
-  under a territory (ICF's San Juan, PR reqs sit under a Puerto Rico country).
+  cap or the filter sheds two pages or more. Its postings carry `filtered_sweep`, and a
+  stored row such a sweep lacks is asked about on the detail endpoint, as behind a cut-short
+  sweep. A change to the facet is still checked live against a req whose US site is an
+  additional location, a remote US req, and a req Workday files under a territory (ICF's San
+  Juan, PR reqs sit under a Puerto Rico country).
 - **Cost.** Each Workday term costs up to 15 requests on every tenant. Time the full dry run:
   the scrape step stops at 25 minutes, and a timed-out run fails and drops the whole scrape.
 - **amazon.jobs** takes `OR` and quoted phrases. Read `hits` for each phrase: a bare

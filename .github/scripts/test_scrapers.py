@@ -1143,6 +1143,8 @@ def test_workday_sweeps_us_postings_where_the_tenant_lists_the_country():
           [json.loads(c.request.body)['searchText'] for c in responses.calls].count('security'), 1)
     check('the filtered sweep gets the whole page cap, so it ends complete',
           any(j.get('partial_sweep') for j in jobs), False)
+    check('every posting of a board with a filtered term says so',
+          all(j.get('filtered_sweep') for j in jobs), True)
 
     responses.reset()
     responses.add_callback(responses.POST, WD_API, callback=_workday_pages(
@@ -1162,6 +1164,8 @@ def test_workday_sweeps_us_postings_where_the_tenant_lists_the_country():
     jobs = sj.scrape_workday('X', 't', 'wd5', 'B')
     check('a term the filter would not shorten is swept unfiltered',
           (len(jobs or ()), any(_wd_applied())), (45, False))
+    check('...and its board is not marked filtered',
+          any(j.get('filtered_sweep') for j in jobs or ()), False)
 
     # Leidos 'security' is 1,466 US postings of 1,689, past the cap either
     # way, and the filtered pages are all US reqs.
@@ -1202,6 +1206,8 @@ def test_workday_without_a_us_country_facet_sweeps_as_before():
         jobs = sj.scrape_workday('X', 't', 'wd5', 'B')
         check(f'{name} keeps every posting of the unfiltered sweep', len(jobs or ()), 45)
         check(f'{name} is never sent a facet', any(_wd_applied()), False)
+        check(f'{name} is not marked filtered',
+              any(j.get('filtered_sweep') for j in jobs or ()), False)
 
 
 @responses.activate
@@ -1285,6 +1291,49 @@ def test_partial_workday_sweep_asks_the_detail_endpoint():
           [(e['role'], e.get('missing_since')) for e in listings[1:]],
           [('Live Deep', None), ('Closed Fresh', '2026-09-10')])
     check('only rows missing from the sweep are asked about', len(asked), 3)
+
+
+def test_filtered_workday_sweep_asks_the_detail_endpoint():
+    """ICF's sweep ends complete under the country facet, and the US value
+    alone left out its three live San Juan, PR reqs."""
+    wd = 'https://acme.wd1.myworkdayjobs.com/Ext/job/San-Juan-PR/'
+
+    def rows():
+        return [
+            _listing('Acme', 'Closed Long', wd + 'Gone_R1', source='Workday',
+                     missing_since='2026-09-01'),
+            _listing('Acme', 'Live Left Out', wd + 'Live_R2', source='Workday',
+                     missing_since='2026-09-01'),
+            _listing('Acme', 'Closed Fresh', wd + 'Gone_R3', source='Workday'),
+            _listing('Acme', 'Unanswered', wd + 'Flaky_R4', source='Workday',
+                     missing_since='2026-09-01'),
+        ]
+
+    asked = []
+
+    def probe(url):
+        asked.append(url)
+        return 'gone' if 'Gone' in url else 'live' if 'Live' in url else None
+
+    listings = rows()
+    raw = [{'company': 'Acme', 'board': 'Workday', 'url': wd + 'Other_R9',
+            'filtered_sweep': True}]
+    retired = sj.retire_vanished_listings(listings, raw, '2026-09-10', probe=probe)
+    check('behind a filtered sweep only a gone answer retires a row',
+          [e['role'] for e in retired], ['Closed Long'])
+    check('a live answer clears the streak, a fresh gone one starts it, no answer keeps it',
+          [(e['role'], e.get('missing_since')) for e in listings[1:]],
+          [('Live Left Out', None), ('Closed Fresh', '2026-09-10'),
+           ('Unanswered', '2026-09-01')])
+    check('each row missing from the filtered sweep is asked about', len(asked), 4)
+
+    asked.clear()
+    listings = rows()
+    unfiltered = [dict(raw[0], filtered_sweep=False)]
+    retired = sj.retire_vanished_listings(listings, unfiltered, '2026-09-10', probe=probe)
+    check('a complete unfiltered sweep still retires on absence, unasked',
+          (sorted(e['role'] for e in retired), asked),
+          (['Closed Long', 'Live Left Out', 'Unanswered'], []))
 
 
 MS_JOB = 'https://microsoft.eightfold.ai/careers/job/'
@@ -3509,6 +3558,19 @@ def test_reevaluate_rejudges_a_row_past_the_workday_cap():
                                   failed_companies={'RTX'})
     check('a company with a failed board is probed like a partial sweep', len(asked), 3)
 
+    # A req that moved abroad leaves a country-filtered sweep while it is
+    # still live, so the row is judged on the detail endpoint's answer.
+    asked.clear()
+    moved = _wd_row('SOC Analyst I', 'R6')
+    answers[moved['url']] = ('live', {'title': 'SOC Analyst I', 'location': 'Pune, India',
+                                      'jobDescription': 'Entry level.'})
+    filtered = [dict(complete[0], filtered_sweep=True)]
+    _, dropped, _ = sj.reevaluate_stored_listings(
+        [moved, matched], filtered, {}, probe=_probe_from(answers, asked))
+    check('a row missing from a filtered sweep is re-judged off the probe',
+          ([(e['role'], reason) for e, reason in dropped], asked),
+          ([('SOC Analyst I', 'non-us-location')], [moved['url']]))
+
 
 @responses.activate
 def test_main_probes_each_missed_workday_row_once():
@@ -4112,6 +4174,7 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_workday_country_facet_is_found_wherever_the_response_lists_it,
            test_incomplete_sweep_retires_nothing,
            test_partial_workday_sweep_asks_the_detail_endpoint,
+           test_filtered_workday_sweep_asks_the_detail_endpoint,
            test_cut_short_sweep_without_a_probe_retires_after_a_longer_streak,
            test_cut_short_sweep_asks_eightfold_and_phenom_about_a_missing_row,
            test_retire_asks_the_real_eightfold_and_phenom_probes_by_default,

@@ -297,6 +297,8 @@ def check_container(data, key, label):
 # ATS scrapers — each yields dicts with:
 #   id, company, title, location, url, board, description (optional),
 #   partial_sweep (optional: True when the board's feed was cut short),
+#   filtered_sweep (optional: True when a Workday term was swept on its US
+#   postings alone),
 #   detail_failed (optional: True when a candidate's detail fetch failed, so
 #   its description is missing rather than empty)
 # Scrapers return None on an unrecoverable fetch failure and a (possibly empty)
@@ -1029,6 +1031,10 @@ def scrape_workday(company, tenant, instance, board, security_company=False,
     # past that point went unseen, so their absence says nothing about closure
     # and retire_vanished_listings must not judge this board this run.
     complete = True
+    # Set when a term was swept under the country facet. The sweep then holds
+    # what the facet let through, so a stored row it lacks is asked about on
+    # the detail endpoint, as behind a cut-short sweep.
+    filtered = False
     for term in search_terms:
         offset = 0
         total = None
@@ -1064,6 +1070,7 @@ def scrape_workday(company, tenant, instance, board, security_company=False,
                     if us_facet and (not total or total > limit * WORKDAY_MAX_PAGES
                                      or total - matched >= 2 * limit):
                         facets = us_facet
+                        filtered = True
                         time.sleep(0.3)
                         continue
             for job in postings:
@@ -1115,6 +1122,8 @@ def scrape_workday(company, tenant, instance, board, security_company=False,
         path = job.pop('_path', None)
         if not complete:
             job['partial_sweep'] = True
+        if filtered:
+            job['filtered_sweep'] = True
         if not path or not (_wants_detail(job['title'], security_company)
                             or (path in opt_in_paths
                                 and is_cyber_title(job['title'], security_company)
@@ -1746,13 +1755,22 @@ def _partial_boards(raw_jobs):
             for job in raw_jobs if job.get('partial_sweep')}
 
 
-def _needs_probe(entry, fingerprint, partial, failed_companies):
+def _filtered_boards(raw_jobs):
+    # A country-filtered Workday sweep can end complete and still lack a live
+    # req: the US value alone left out ICF's San Juan, PR reqs, which Workday
+    # files under a Puerto Rico country.
+    return {(job.get('company', ''), job.get('board', ''))
+            for job in raw_jobs if job.get('filtered_sweep')}
+
+
+def _needs_probe(entry, fingerprint, unproven, failed_companies):
     # Only an open Workday row the sweep could have missed: one behind a
-    # capped or broken sweep, which absence alone cannot judge.
+    # capped, broken or country-filtered sweep, which absence alone cannot
+    # judge.
     company = entry.get('company', '')
     return (fingerprint is not None and entry.get('source') == 'Workday'
             and bool(entry.get('url')) and not entry.get('closed')
-            and ((company, 'Workday') in partial or company in failed_companies))
+            and ((company, 'Workday') in unproven or company in failed_companies))
 
 
 def _probed_posting(answer):
@@ -1794,9 +1812,10 @@ def reevaluate_stored_listings(listings, raw_jobs, sec_flags, probe=None,
     `probe` is `workday_posting` or a cached copy of it. The capped RTX, CVS and
     Northrop sweeps never reach some stored rows, so those rows were never
     re-judged: RTX 'Security Specialist II' sat open with NISPOM duties in its
-    description. An open Workday row the sweep missed on a partial board, or
-    at a company in `failed_companies`, is judged on the detail endpoint's
-    answer instead, under the same guardrails.
+    description. An open Workday row the sweep missed on a partial board, on
+    a board swept under the country facet, or at a company in
+    `failed_companies`, is judged on the detail endpoint's answer instead,
+    under the same guardrails.
 
     Guardrails, all in the keep direction:
       * only companies that returned postings this run are judged, and a row
@@ -1820,7 +1839,7 @@ def reevaluate_stored_listings(listings, raw_jobs, sec_flags, probe=None,
         return listings, [], []
     by_fingerprint, by_url, by_key = _index_live_postings(
         raw_jobs, {e.get('company', '') for e in candidates})
-    partial = _partial_boards(raw_jobs)
+    unproven = _partial_boards(raw_jobs) | _filtered_boards(raw_jobs)
 
     dropped, refreshed = [], []
     for entry in candidates:
@@ -1832,7 +1851,7 @@ def reevaluate_stored_listings(listings, raw_jobs, sec_flags, probe=None,
             job = by_key.get(listing_dedup_key(company, entry.get('role', ''),
                                                entry.get('location', '')))
         if (job is None and probe is not None
-                and _needs_probe(entry, fingerprint, partial, failed_companies)):
+                and _needs_probe(entry, fingerprint, unproven, failed_companies)):
             job = _probed_posting(probe(url))
         if job is None:
             continue
@@ -2010,7 +2029,10 @@ def retire_vanished_listings(listings, raw_jobs, today, silent_boards=frozenset(
         from a page cap or a failed page) may have missed a live req past the
         cut. A Workday row there is asked about directly through `probe`, and
         only a 'gone' answer counts as a miss; the big tenants (CVS, RTX,
-        Northrop) cut short every run. A row there on a platform in
+        Northrop) cut short every run. A Workday row missing from a sweep
+        that ran under the country facet (postings flagged `filtered_sweep`)
+        is asked about the same way, since that sweep ends complete on what
+        the facet let through. A row on a cut-short board on a platform in
         `gone_probes` is asked about the same way: Microsoft (Eightfold), BAE
         and MITRE (Phenom) are cut short every run too. A 'gone' answer puts
         it on the VANISHED_DAYS streak. Without one, or on any other
@@ -2038,6 +2060,7 @@ def retire_vanished_listings(listings, raw_jobs, today, silent_boards=frozenset(
         if fingerprint:
             live.add(fingerprint)
     partial = _partial_boards(raw_jobs)
+    filtered = _filtered_boards(raw_jobs)
 
     retired = []
     for entry in listings:
@@ -2061,7 +2084,8 @@ def retire_vanished_listings(listings, raw_jobs, today, silent_boards=frozenset(
             continue
         grace = VANISHED_DAYS
         cut_short = (company, source) in partial
-        if source == 'Workday' and (cut_short or company in failed_companies):
+        if source == 'Workday' and (cut_short or (company, source) in filtered
+                                    or company in failed_companies):
             state = probe(entry['url'])
             if state == 'live':
                 entry.pop('missing_since', None)
