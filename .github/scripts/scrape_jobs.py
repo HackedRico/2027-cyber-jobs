@@ -76,10 +76,14 @@ MAX_PAGES = 60
 # keeps the run minutes long as companies.yml grows without leaning on any one
 # ATS; the sequential sweep outgrew the workflow timeout at ~350 boards. Six
 # workers took the scrape from 4.5 minutes to 13 between September and
-# November 2026 as boards were added, against the step's 25-minute limit. The
-# Workday tenants are most of that time and each is its own host, so more
-# workers shorten the run without adding load to any one of them.
-SCRAPE_WORKERS = 10
+# November 2026 as boards were added, against the step's 25-minute limit.
+# Ten cut a local dry run to under 8 minutes with no new failures, but the
+# first scheduled run on a GitHub runner drew 64 HTTP 429 lines across 11
+# Workday tenants and lost 8 boards (Capital One, Nightwing, Salesforce,
+# Walmart, Comcast, Accenture, the Software Engineering Institute and
+# Huntington Bank), where the three runs before it at six drew none. Workday
+# tenants are separate hosts but answer rate limits as one, so six stays.
+SCRAPE_WORKERS = 6
 
 # requests.Session is not guaranteed thread-safe, so each worker thread gets
 # its own connection-pooled session.
