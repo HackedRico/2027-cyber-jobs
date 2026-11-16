@@ -446,11 +446,12 @@ SOC_ASSURANCE_GUARD = r'^(?!.*(?<!information )\bassurance\b.*\bsoc services\b).
 # after the acronym, rules it out. Intel 'Graduate Talent (ISCP SoC Front End Team)' is
 # a chip design team. Intel also names the discipline ahead of the acronym:
 # 'Microarchitecture and Design Engineer - AI SoC' wants "logic design, RTL
-# coding, and simulation".
+# coding, and simulation". Microsoft abbreviates the hardware: 'SoC HW
+# (Digital, Analog or PnP) Validation Engineer'.
 SOC_CHIP_GUARD = r'^(?!.*\b(?:[cg]pus?|embedded|microarchitecture|design engineer)\b)'
 SOC_PATTERN = (SOC_CHIP_GUARD + SOC_ASSURANCE_GUARD
                + r'\bsoc\b(?![\s,/-]+(?:asic|design|digital design|verification|rtl|'
-               r'silicon|power|performance|hardware|software|firmware|front[\s-]?end|'
+               r'silicon|power|performance|hardware|hw|software|firmware|front[\s-]?end|'
                r'validation))' + SOC_AUDIT_GUARD)
 
 # Short acronyms need word boundaries ('soc' is inside 'associate').

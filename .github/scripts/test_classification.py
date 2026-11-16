@@ -155,6 +155,10 @@ CASES = [
      'with 1+ years of hands-on experience in logic design, RTL coding, and simulation',
      False, None),
     ('Graduate Design Engineer - SoC', 'Hillsboro, OR', '', False, None),
+    # Microsoft's silicon team writes the hardware as HW.
+    ('SoC HW (Digital, Analog or PnP) Validation Engineer', 'Hillsboro, OR, US',
+     "Bachelor's Degree in Electrical Engineering, Computer Engineering, Computer Science, "
+     'or related field AND 2+ years technical engineering experience', False, None),
     # Mechanical engineering at a security company is still not security work.
     ('Mechanical Engineering Co-Op', 'Shakopee, MN', '', True, None),
     ('Electrical Engineering Intern', 'Shakopee, MN', '', True, None),
