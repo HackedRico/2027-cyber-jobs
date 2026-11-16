@@ -6,11 +6,15 @@ on:
     # does not wait on one event. Each tick asks whether an 11:17 or 23:17 UTC
     # slot has passed with no scrape run and dispatches the scrape if so.
     # Ticks arrive as late as any scheduled run, but spread across the day.
+    # A run GITHUB_TOKEN dispatched raises no workflow_run event, so each tick
+    # also dispatches Pages and Scraper Health when neither has run since the
+    # newest finished scrape.
     - cron: '7,37 * * * *'
   workflow_dispatch:
 
 # One tick at a time: a tick leaves only after the run it dispatched shows in
-# the run list, so the tick behind it cannot start a second scrape.
+# the run list, so the tick behind it cannot start a second scrape. The tick
+# that starts a scrape stays until it finishes, to publish its rows at once.
 concurrency:
   group: scrape-clock
   cancel-in-progress: false
@@ -20,7 +24,8 @@ permissions: {}
 jobs:
   tick:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    # The tick that starts a scrape waits up to 35 minutes for it to finish.
+    timeout-minutes: 45
     permissions:
       # Dispatching a workflow is an Actions write. A dispatch is one of the
       # two events GITHUB_TOKEN may raise that still start a workflow run.
@@ -37,7 +42,7 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Start the scrape if its slot is due
+      - name: Start the scrape if its slot is due, then its followers
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
