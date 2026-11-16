@@ -2031,7 +2031,14 @@ FLAT_ROLE_NOUN_RE = re.compile(
     r'examiner|assessor|auditor|member of technical staff)s?\b')
 
 
-def _takes_flat_path(title):
+def takes_flat_path(title):
+    """True when judge_job can level this title from its description alone.
+
+    The title names security work in its own words, carries a practitioner's
+    role noun, and holds no rank or side-job word. The scrapers that pay a
+    request per description ask this before they read a title with no level
+    word.
+    """
     t = fold_title(title)
     return (is_security_title(title) and bool(FLAT_ROLE_NOUN_RE.search(t))
             and not FLAT_TITLE_BAR_RE.search(t) and not NON_TECH_ROLE_RE.search(t))
@@ -2600,7 +2607,7 @@ def judge_job(title, location, description='', security_company=False,
         # security work itself, so a security company's 'Investor Relations
         # Analyst' and a flat 'Cloud Support Engineer' still wait on a ceiling
         # or a level word.
-        elif _takes_flat_path(title) and states_early_experience(description):
+        elif takes_flat_path(title) and states_early_experience(description):
             level = 'earlycareer'
         else:
             return None, 'no-level'

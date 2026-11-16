@@ -51,6 +51,7 @@ from classify import (
     requires_clearance,
     stamp_twins,
     strip_html,
+    takes_flat_path,
     title_places_abroad,
 )
 from common import normalize_url, security_company_flags, write_run_events
@@ -626,12 +627,7 @@ def scrape_smartrecruiters(company, identifier, security_company=False):
     # asks for 2 to 3 years. Candidates are judged under the company's own
     # flag: judged as a security company, LLNL spent its cap on generic
     # intern titles that evaluate_job rejects anyway.
-    fetched = 0
-    for job in jobs:
-        if (fetched >= SMARTRECRUITERS_DETAIL_CAP
-                or not _wants_detail(job['title'], security_company)):
-            continue
-        fetched += 1
+    for job in _detail_queue(jobs, security_company, SMARTRECRUITERS_DETAIL_CAP):
         description = fetch_smartrecruiters_description(
             f'{url}/{job["id"].rsplit("_", 1)[-1]}', label=f'{company} SmartRecruiters')
         if description is None:
@@ -871,13 +867,34 @@ MULTI_LOCATION_RE = re.compile(r'^\d+ locations$|(?:^|[\s,])more\.{3}$', re.IGNO
 WORKDAY_MAX_PAGES = 15
 
 
-def _wants_detail(title, security_company):
+def _is_flat_title(title):
+    return classify_level(title) is None and not AI_CATEGORY_RE.search(fold_title(title))
+
+
+def _wants_detail(title, location, security_company):
     if is_rejected_title(title) or not is_cyber_title(title, security_company):
         return False
     # Leveled candidates need the description, since the experience gate in
     # evaluate_job runs on every level; AI flat titles need it for the same
     # reason.
-    return classify_level(title) is not None or bool(AI_CATEGORY_RE.search(fold_title(title)))
+    if not _is_flat_title(title):
+        return True
+    # judge_job levels a flat security title from its description alone, a
+    # rule that reached only the boards that send every description: SAIC 'PKI
+    # Engineer' asks for "Bachelors and two (2) years or more experience" and
+    # BAE Systems 'Cyber Defense Full Stack Engineer' for a degree "and 2-4
+    # years", and neither was ever read. A site listed abroad fails the
+    # location gate whatever the body says, so it costs no request.
+    return takes_flat_path(title) and is_us_location(location)
+
+
+def _detail_queue(jobs, security_company, cap):
+    wanted = [job for job in jobs
+              if _wants_detail(job['title'], job['location'], security_company)]
+    # Leveled and AI titles keep first call on a capped board, each tier in
+    # feed order: flat titles outnumber them and few qualify, so in feed
+    # order they would spend the cap a leveled req needs.
+    return sorted(wanted, key=lambda job: _is_flat_title(job['title']))[:cap]
 
 
 def fetch_workday_detail(cxs_root, path, wd_headers, label=''):
@@ -1062,10 +1079,19 @@ def scrape_workday(company, tenant, instance, board, security_company=False,
         path = job.pop('_path', None)
         if not complete:
             job['partial_sweep'] = True
-        if not path or not (_wants_detail(job['title'], security_company)
+        title = job['title']
+        # A flat security title is not read here, though 601 sat on Workday on
+        # 2026-11-15 and 44 of them were early career. Workday answers 429 to
+        # one address across tenants, and the sweep already runs near that
+        # rate: 200 to 520 more detail requests a run (5, 30 or 50 per tenant,
+        # paused 0.3 or 1 second) took a dry run from 4 to 7 search terms or
+        # details lost to a 429 up to 27 to 34, most on tenants with no flat
+        # title at all.
+        if not path or not ((_wants_detail(title, job['location'], security_company)
+                             and not _is_flat_title(title))
                             or (path in opt_in_paths
-                                and is_cyber_title(job['title'], security_company)
-                                and not is_rejected_title(job['title']))):
+                                and is_cyber_title(title, security_company)
+                                and not is_rejected_title(title))):
             continue
         # Parsons and Accenture leave locationsText out of the list view, and a
         # blank location reads as non-US, so neither had ever had a row.
@@ -1164,21 +1190,19 @@ def scrape_oracle(company, host, site, security_company=False):
     # on the postings a student is most likely to still apply to. Judged as a
     # general employer, Fortinet never fetched 'Software Engineer I' and its
     # like, so they skipped the experience gate.
-    fetched = 0
-    for job in jobs:
-        req = job.pop('_req')
-        if not complete:
-            job['partial_sweep'] = True
-        if (fetched >= ORACLE_DETAIL_CAP or not req
-                or not _wants_detail(job['title'], security_company)):
-            continue
-        fetched += 1
-        description = fetch_oracle_description(host, site, req, label=f'{company} Oracle')
+    for job in _detail_queue([job for job in jobs if job['_req']], security_company,
+                             ORACLE_DETAIL_CAP):
+        description = fetch_oracle_description(host, site, job['_req'],
+                                               label=f'{company} Oracle')
         if description is None:
             job['detail_failed'] = True
         elif description:
             job['description'] = description
         time.sleep(0.3)
+    for job in jobs:
+        del job['_req']
+        if not complete:
+            job['partial_sweep'] = True
     return jobs
 
 
@@ -1251,13 +1275,11 @@ def _get_json_patiently(url, *, method='GET', label='', **kwargs):
     return None
 
 
-def _needs_detail(title, security_company):
+def _needs_detail(title, location, security_company):
     # The same candidate filter scrape_workday applies before its detail
     # fetch: only titles that can still pass evaluate_job are worth a request,
     # and those need the description for the experience gate.
-    if is_rejected_title(title) or not is_cyber_title(title, security_company):
-        return False
-    return classify_level(title) is not None or bool(AI_CATEGORY_RE.search(fold_title(title)))
+    return _wants_detail(title, location, security_company)
 
 
 _STATE_ONLY_RE = re.compile(r'^\s*[A-Z]{2}\s*,\s*[A-Z]{2}\s*$')
@@ -1353,7 +1375,7 @@ def scrape_eightfold(company, tenant, domain, security_company=False,
     for job in jobs:
         if not complete:
             job['partial_sweep'] = True
-        if not _needs_detail(job['title'], security_company):
+        if not _needs_detail(job['title'], job['location'], security_company):
             continue
         pid = job['id'].rsplit('_', 1)[-1]
         data = _get_json_patiently(f'{root}/api/pcsx/position_details',
@@ -1447,7 +1469,7 @@ def scrape_phenom(company, host, lang, country, security_company=False,
         seq = job.pop('_seq', '')
         if not complete:
             job['partial_sweep'] = True
-        if not _needs_detail(job['title'], security_company):
+        if not _needs_detail(job['title'], job['location'], security_company):
             continue
         job_id = job['id'].rsplit('_', 1)[-1]
         body = _phenom_body(lang, country, pageName='job', ddoKey='jobDetail',
