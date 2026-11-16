@@ -241,10 +241,24 @@ check('scrape-jobs.yml takes a dispatch and has no schedule of its own',
 clock = WORKFLOWS['scrape-clock.yml']
 clock_on = clock.get(True) or clock.get('on') or {}
 check('scrape-clock.yml runs on a schedule', 'schedule' in clock_on)
-check('scrape-clock.yml may dispatch a workflow',
-      clock['jobs']['tick'].get('permissions', {}).get('actions') == 'write')
-check('scrape-clock.yml runs one tick at a time and never cancels one',
-      clock.get('concurrency', {}).get('cancel-in-progress') is False)
+# The clock's schedule is one registration with GitHub, so the two follow-on
+# workflows, whose schedules have a record, tick it too. Every job that runs
+# the clock needs Actions write to dispatch, and shares one queue that keeps
+# each waiting tick, so two ticks never judge a slot at once and none is
+# cancelled mid-dispatch.
+CLOCK_QUEUE = {'group': 'scrape-clock', 'queue': 'max'}
+ticking = {}
+for name, workflow in WORKFLOWS.items():
+    for job_name, job in workflow['jobs'].items():
+        if any('scrape_clock.py' in str(step.get('run', '')) for step in job.get('steps', [])):
+            ticking[name] = job_name
+            permissions = job.get('permissions', workflow.get('permissions')) or {}
+            check(f'{name}: {job_name} ticks the clock, so it may dispatch a workflow',
+                  isinstance(permissions, dict) and permissions.get('actions') == 'write')
+            check(f'{name}: {job_name} ticks the clock in the scrape-clock queue',
+                  job.get('concurrency', workflow.get('concurrency')) == CLOCK_QUEUE)
+check('the clock is ticked by its own workflow and by both follow-on workflows',
+      set(ticking) == {'scrape-clock.yml', 'health.yml', 'pages.yml'})
 
 # The issue form offers exactly the categories the classifier can give, and
 # CONTRIBUTING.md's category list names each one.

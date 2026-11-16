@@ -79,3 +79,38 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
+
+  # A second way to start the scrape. scrape-clock.yml is one schedule
+  # registered with GitHub, and for its first hours on main no tick of it
+  # fired. This workflow's schedule has a record, so each run here ticks the
+  # same clock, which does nothing when the slot already has its run.
+  clock:
+    # A tick that fails says nothing about this workflow's own work, so it
+    # shows on the job without turning the run red.
+    continue-on-error: true
+    runs-on: ubuntu-latest
+    # A tick that starts the scrape waits up to 35 minutes for it to finish.
+    timeout-minutes: 45
+    # The clock's own queue, so two ticks never judge one slot at once.
+    concurrency:
+      group: scrape-clock
+      queue: max
+    permissions:
+      actions: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+
+      - name: Start the scrape if its slot is due, then its followers
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python .github/scripts/scrape_clock.py

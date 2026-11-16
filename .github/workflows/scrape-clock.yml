@@ -15,9 +15,11 @@ on:
 # One tick at a time: a tick leaves only after the run it dispatched shows in
 # the run list, so the tick behind it cannot start a second scrape. The tick
 # that starts a scrape stays until it finishes, to publish its rows at once.
+# queue: max keeps each waiting tick, here and in the clock jobs of health.yml
+# and pages.yml, which join this group.
 concurrency:
   group: scrape-clock
-  cancel-in-progress: false
+  queue: max
 
 permissions: {}
 
