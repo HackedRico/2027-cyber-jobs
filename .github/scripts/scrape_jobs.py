@@ -77,12 +77,14 @@ MAX_PAGES = 60
 # ATS; the sequential sweep outgrew the workflow timeout at ~350 boards. Six
 # workers took the scrape from 4.5 minutes to 13 between September and
 # November 2026 as boards were added, against the step's 25-minute limit.
-# Ten cut a local dry run to under 8 minutes with no new failures, but the
-# first scheduled run on a GitHub runner drew 64 HTTP 429 lines across 11
-# Workday tenants and lost 8 boards (Capital One, Nightwing, Salesforce,
-# Walmart, Comcast, Accenture, the Software Engineering Institute and
-# Huntington Bank), where the three runs before it at six drew none. Workday
-# tenants are separate hosts but answer rate limits as one, so six stays.
+# Ten cut a local dry run to under 8 minutes with no new failures, and the
+# first production run at ten, on 2026-11-16, drew 64 HTTP 429 lines across 11
+# Workday tenants and lost 8 boards. That run does not show ten is too many: a
+# run at six 16 minutes later drew 66 from the same tenants, and in both the
+# first request to Capital One was already refused. The tenants were throttling
+# before either run began, most likely from a day of full dry runs (see
+# "Verifying a scraper change" in AGENTS.md). Six is the count with a clean
+# production record, so it stays until ten is tried on a quiet day.
 SCRAPE_WORKERS = 6
 
 # requests.Session is not guaranteed thread-safe, so each worker thread gets

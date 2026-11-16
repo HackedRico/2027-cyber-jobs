@@ -130,6 +130,16 @@ Workday tenants are most of the wall clock. The scrape step stops at 25 minutes 
 30), and a timed-out scrape fails the run and drops the whole scrape. Anything new that runs per
 Workday job needs the full dry-run timing before merge.
 
+Workday throttles on volume, and a throttled tenant refuses the production scrape as well as
+your dry run. On 2026-11-16, after about eight full dry runs from one machine in a day and two
+more running at once, eleven tenants answered HTTP 429 to every request, and two production
+scrapes lost 8 and 6 boards. So:
+
+- Iterate with `--board <ats> --limit N`, and keep the full dry-run pair for the final proof.
+- Never run two full dry runs at once, and keep clear of the 11:17 and 23:17 UTC slots.
+- A comparison with a `FAILED` board or an `HTTP 429` line in either log proves nothing.
+  Rerun it once one request to that tenant answers 200.
+
 ## Adding or repairing a board
 
 `companies.yml` carries no comments; the reason for a slug fix or drop goes in the commit
