@@ -1,8 +1,8 @@
 {
   "date": "2026-11-17",
   "boards": 404,
-  "ok": 287,
-  "empty": 12,
+  "ok": 285,
+  "empty": 11,
   "failed": [
     "AT&T (workday/att)",
     "Adobe (workday/adobe)",
@@ -23,8 +23,8 @@
     "Booz Allen Hamilton (workday/bah)",
     "Broadcom (workday/broadcom)",
     "CACI (workday/caci)",
+    "CDW (workday/cdw)",
     "CVS Health (workday/cvshealth)",
-    "Capital One (workday/capitalone)",
     "Cardinal Health (workday/cardinalhealth)",
     "Cisco (workday/cisco)",
     "Citi (workday/citi)",
@@ -53,6 +53,7 @@
     "Humana (workday/humana)",
     "ICF (workday/icf)",
     "Intel (workday/intel)",
+    "Jamf (workday/jamfsoftware)",
     "Johnson & Johnson (workday/jj)",
     "KBR (workday/kbr)",
     "KeyBank (workday/keybank)",
@@ -62,14 +63,17 @@
     "Mastercard (workday/mastercard)",
     "McKesson (workday/mckesson)",
     "Medtronic (workday/medtronic)",
+    "Merck (workday/msd)",
     "Morgan Stanley (workday/ms)",
+    "Motorola Solutions (workday/motorolasolutions)",
+    "NVIDIA (workday/nvidia)",
     "National Laboratory of the Rockies (workday/nrel)",
     "Nationwide (workday/nationwide)",
-    "Nightwing (workday/nwis)",
     "Nike (workday/nike)",
     "Northern Trust (workday/ntrs)",
     "Northrop Grumman (workday/ngc)",
     "Optiv (workday/optiv)",
+    "Oso (ashby/oso)",
     "PNC (workday/pnc)",
     "Palo Alto Networks (workday/paloaltonetworks)",
     "Parsons (workday/parsons)",
@@ -88,10 +92,8 @@
     "Regions Bank (workday/regions)",
     "ReliaQuest (workday/reliaquest)",
     "SailPoint (workday/sailpoint)",
-    "Salesforce (workday/salesforce)",
-    "Sierra Nevada Corporation (workday/snc)",
-    "Software Engineering Institute (workday/cmu)",
     "State Street (workday/statestreet)",
+    "Synchrony (workday/synchronyfinancial)",
     "T-Mobile (workday/tmobile)",
     "TD Bank (workday/td)",
     "Target (workday/target)",
@@ -102,23 +104,52 @@
     "Trellix (workday/trellix)",
     "Trend Micro (workday/trendmicro)",
     "Truist (workday/truist)",
+    "U.S. Bank (workday/usbank)",
     "USAA (workday/usaa)",
     "Unisys (workday/unisys)",
+    "Vanguard (workday/vanguard)",
     "Visa (workday/visa)",
-    "Walmart (workday/walmart)",
     "Wells Fargo (workday/wf)",
     "Workday (workday/workday)",
     "Zoom (workday/zoom)"
   ],
   "regressed": [
     {
-      "board": "GDIT (workday/gdit)",
+      "board": "Oso (ashby/oso)",
+      "had": 7
+    },
+    {
+      "board": "Motorola Solutions (workday/motorolasolutions)",
+      "had": 162
+    },
+    {
+      "board": "NVIDIA (workday/nvidia)",
+      "had": 59
+    },
+    {
+      "board": "U.S. Bank (workday/usbank)",
+      "had": 61
+    },
+    {
+      "board": "Jamf (workday/jamfsoftware)",
+      "had": 1
+    },
+    {
+      "board": "Vanguard (workday/vanguard)",
       "had": 20
     },
     {
-      "board": "Software Engineering Institute (workday/cmu)",
-      "had": 30
+      "board": "CDW (workday/cdw)",
+      "had": 32
+    },
+    {
+      "board": "Synchrony (workday/synchronyfinancial)",
+      "had": 4
+    },
+    {
+      "board": "Merck (workday/msd)",
+      "had": 20
     }
   ],
-  "silent": 11
+  "silent": 10
 }

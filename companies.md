@@ -10,7 +10,7 @@ Employers with open roles on the board today.
 
 | Company | Internships | New grad | Early career |
 | ------- | ----------- | -------- | ------------ |
-| Johns Hopkins APL | 9 | 15 | 3 |
+| Johns Hopkins APL | 9 | 15 | 4 |
 | ServiceNow | 11 |  |  |
 | Vanguard | 5 | 6 |  |
 | Booz Allen Hamilton | 8 |  | 2 |
@@ -76,7 +76,7 @@ Employers with open roles on the board today.
 | Semgrep | 1 |  |  |
 | State Street | 1 |  |  |
 | TRM Labs |  | 1 |  |
-| Fortinet |  |  | 11 |
+| Fortinet |  |  | 12 |
 | BAE Systems |  |  | 7 |
 | Accenture Federal Services |  |  | 5 |
 | KBR |  |  | 5 |
@@ -86,6 +86,7 @@ Employers with open roles on the board today.
 | Amentum |  |  | 2 |
 | Battelle |  |  | 2 |
 | HUMAN Security |  |  | 2 |
+| JPMorgan Chase |  |  | 2 |
 | Proofpoint |  |  | 2 |
 | Trail of Bits |  |  | 2 |
 | AeroVironment |  |  | 1 |
@@ -104,7 +105,6 @@ Employers with open roles on the board today.
 | Fastly |  |  | 1 |
 | HII |  |  | 1 |
 | Instacart |  |  | 1 |
-| JPMorgan Chase |  |  | 1 |
 | Kyndryl |  |  | 1 |
 | MIT Lincoln Laboratory |  |  | 1 |
 | Obsidian Security |  |  | 1 |

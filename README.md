@@ -16,7 +16,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**147** internships · **42** new grad · **213** early career open · **101** added in the last 7 days · **187** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 17, 2026
+**147** internships · **42** new grad · **216** early career open · **104** added in the last 7 days · **188** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 17, 2026
 
 <!-- /STATS -->
 
@@ -489,6 +489,9 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
 | Fortinet | 🆕 Early Careers: Software Engineer<br><sub>Engineering @ Security Co</sub> | <a href="https://edel.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/24960"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Fortinet Early Careers: Software Engineer"></a> | Sunnyvale, CA | Nov 17 |
+| ↳ | 🆕 Early Careers: Software Developer Engineer<br><sub>Engineering @ Security Co</sub> | <a href="https://edel.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/24983"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Fortinet Early Careers: Software Developer Engineer"></a> | Sunnyvale, CA | Nov 17 |
+| Johns Hopkins APL | 🆕 Associate Cyber-Physical Systems Engineer 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://careers.jhuapl.edu/jobs/60979"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Johns Hopkins APL Associate Cyber-Physical Systems Engineer"></a> | Laurel, MD | Nov 17 |
+| JPMorgan Chase | 🆕 AWS Software Engineer II - Full Stack/Java/React<br><sub>Cloud Engineering</sub> | <a href="https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210790526"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: JPMorgan Chase AWS Software Engineer II - Full Stack/Java/React"></a> | Jersey City, NJ | Nov 17 |
 | Accenture Federal Services | 🆕 CNO Reverse Engineer 🇺🇸<br><sub>Offensive Security</sub> | <a href="https://boards.greenhouse.io/accenturefederalservices/jobs/4705012006?gh_jid=4705012006"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Accenture Federal Services CNO Reverse Engineer"></a> | Fort Meade, MD | Nov 16 |
 | ↳ | 🆕 DevSecOps Engineer 🇺🇸<br><sub>AppSec &amp; ProdSec</sub> | <a href="https://boards.greenhouse.io/accenturefederalservices/jobs/4646344006?gh_jid=4646344006"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Accenture Federal Services DevSecOps Engineer"></a> | Fort Belvoir, VA | Nov 16 |
 | ↳ | 🆕 IAM Engineer<br><sub>Identity &amp; IAM</sub> | <a href="https://boards.greenhouse.io/accenturefederalservices/jobs/4691258006?gh_jid=4691258006"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Accenture Federal Services IAM Engineer"></a> | Washington, DC | Nov 16 |

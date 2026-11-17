@@ -4856,7 +4856,8 @@
     "clearance": false,
     "url": "https://microsoft.eightfold.ai/careers/job/1970393556922930",
     "source": "Eightfold",
-    "date_added": "2026-10-01"
+    "date_added": "2026-10-01",
+    "missing_since": "2026-11-17"
   },
   {
     "company": "Johns Hopkins APL",
@@ -6747,7 +6748,8 @@
     "clearance": false,
     "url": "https://boards.greenhouse.io/guidepointsecurity/jobs/6224196004?gh_jid=6224196004",
     "source": "Greenhouse",
-    "date_added": "2026-10-15"
+    "date_added": "2026-10-15",
+    "missing_since": "2026-11-17"
   },
   {
     "company": "Northrop Grumman",
@@ -7149,7 +7151,8 @@
     "clearance": true,
     "url": "https://careers.jhuapl.edu/jobs/60116",
     "source": "Jibe",
-    "date_added": "2026-10-19"
+    "date_added": "2026-10-19",
+    "missing_since": "2026-11-17"
   },
   {
     "company": "Shift5",
@@ -7390,7 +7393,8 @@
     "clearance": false,
     "url": "https://microsoft.eightfold.ai/careers/job/1970393557044765",
     "source": "Eightfold",
-    "date_added": "2026-10-22"
+    "date_added": "2026-10-22",
+    "missing_since": "2026-11-17"
   },
   {
     "company": "Amazon",
@@ -7617,7 +7621,8 @@
     "clearance": false,
     "url": "https://microsoft.eightfold.ai/careers/job/1970393557044699",
     "source": "Eightfold",
-    "date_added": "2026-10-23"
+    "date_added": "2026-10-23",
+    "missing_since": "2026-11-17"
   },
   {
     "company": "1Password",
@@ -8425,7 +8430,8 @@
     "clearance": true,
     "url": "https://elhe.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/2272",
     "source": "Oracle",
-    "date_added": "2026-11-03"
+    "date_added": "2026-11-03",
+    "missing_since": "2026-11-17"
   },
   {
     "company": "Two Six Technologies",
@@ -9108,7 +9114,8 @@
     "clearance": false,
     "url": "https://abnormal.ai/careers/jobs/8196352003?gh_jid=8196352003",
     "source": "Greenhouse",
-    "date_added": "2026-11-13"
+    "date_added": "2026-11-13",
+    "missing_since": "2026-11-17"
   },
   {
     "company": "SpecterOps",
@@ -9163,7 +9170,8 @@
     "clearance": false,
     "url": "https://jobs.smartrecruiters.com/ServiceNow/744000161548528",
     "source": "SmartRecruiters",
-    "date_added": "2026-11-13"
+    "date_added": "2026-11-13",
+    "missing_since": "2026-11-17"
   },
   {
     "company": "ServiceNow",
@@ -9372,7 +9380,8 @@
     "clearance": false,
     "url": "https://boards.greenhouse.io/guidepointsecurity/jobs/6225726004?gh_jid=6225726004",
     "source": "Greenhouse",
-    "date_added": "2026-11-16"
+    "date_added": "2026-11-16",
+    "missing_since": "2026-11-17"
   },
   {
     "company": "GuidePoint Security",
@@ -10001,6 +10010,39 @@
     "clearance": false,
     "url": "https://lockheedmartin.eightfold.ai/careers/job/996477674824",
     "source": "Eightfold",
+    "date_added": "2026-11-17"
+  },
+  {
+    "company": "JPMorgan Chase",
+    "role": "AWS Software Engineer II - Full Stack/Java/React",
+    "location": "Jersey City, NJ",
+    "type": "earlycareer",
+    "category": "Cloud Engineering",
+    "clearance": false,
+    "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210790526",
+    "source": "Oracle",
+    "date_added": "2026-11-17"
+  },
+  {
+    "company": "Fortinet",
+    "role": "Early Careers: Software Developer Engineer",
+    "location": "Sunnyvale, CA",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://edel.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/24983",
+    "source": "Oracle",
+    "date_added": "2026-11-17"
+  },
+  {
+    "company": "Johns Hopkins APL",
+    "role": "Associate Cyber-Physical Systems Engineer",
+    "location": "Laurel, MD",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://careers.jhuapl.edu/jobs/60979",
+    "source": "Jibe",
     "date_added": "2026-11-17"
   }
 ]
