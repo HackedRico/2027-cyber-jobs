@@ -11,22 +11,22 @@ Employers with open roles on the board today.
 | Company | Internships | New grad | Early career |
 | ------- | ----------- | -------- | ------------ |
 | Johns Hopkins APL | 9 | 15 | 3 |
+| ServiceNow | 11 |  |  |
 | Vanguard | 5 | 6 |  |
-| ServiceNow | 9 |  |  |
 | Booz Allen Hamilton | 8 |  | 2 |
 | MITRE | 6 | 1 | 4 |
-| Lockheed Martin | 6 |  | 3 |
+| Lockheed Martin | 7 |  | 3 |
 | Lawrence Livermore National Laboratory | 6 |  |  |
 | HPE | 3 | 2 | 2 |
 | Palo Alto Networks | 4 | 1 | 1 |
 | Leidos | 4 |  | 9 |
 | Software Engineering Institute | 4 |  | 4 |
+| Idaho National Laboratory | 4 |  | 1 |
 | Aerospace Corporation | 4 |  |  |
 | Federal Reserve System | 4 |  |  |
 | Intel | 4 |  |  |
 | Microsoft | 3 |  | 9 |
 | Illumio | 3 |  | 3 |
-| Idaho National Laboratory | 3 |  | 1 |
 | Entrust | 3 |  |  |
 | Goldman Sachs | 3 |  |  |
 | HP Inc | 3 |  |  |
@@ -55,11 +55,11 @@ Employers with open roles on the board today.
 | GuidePoint Security | 1 |  | 7 |
 | GDIT | 1 |  | 5 |
 | Cisco | 1 |  | 2 |
-| Pinterest | 1 |  | 2 |
 | PwC |  | 1 | 2 |
 | STR | 1 |  | 2 |
 | American Express |  | 1 | 1 |
 | Anduril |  | 1 | 1 |
+| Pinterest | 1 |  | 1 |
 | Verkada | 1 |  | 1 |
 | Adobe | 1 |  |  |
 | Deloitte |  | 1 |  |
@@ -76,7 +76,7 @@ Employers with open roles on the board today.
 | Semgrep | 1 |  |  |
 | State Street | 1 |  |  |
 | TRM Labs |  | 1 |  |
-| Fortinet |  |  | 10 |
+| Fortinet |  |  | 11 |
 | BAE Systems |  |  | 7 |
 | Accenture Federal Services |  |  | 5 |
 | KBR |  |  | 5 |
