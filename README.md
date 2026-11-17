@@ -16,7 +16,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**147** internships · **42** new grad · **216** early career open · **104** added in the last 7 days · **188** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 17, 2026
+**149** internships · **42** new grad · **216** early career open · **106** added in the last 7 days · **188** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 17, 2026
 
 <!-- /STATS -->
 
@@ -74,7 +74,9 @@ Cybersecurity internships and co-ops for current students.
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
 | Idaho National Laboratory | 🆕 Cybersecurity Operations Internship - Summer 2027<br><sub>SOC &amp; Detection</sub> | <a href="https://elhe.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1002/job/2329"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Idaho National Laboratory Cybersecurity Operations Internship - Summer 2027"></a> | Idaho Falls, ID | Nov 17 |
+| Illumio | 🆕 Security and Compliance Analyst Intern<br><sub>GRC &amp; Risk</sub> | <a href="https://jobs.ashbyhq.com/illumio/8013747a-938c-41ef-9d5b-7b6188ae0b5c"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Illumio Security and Compliance Analyst Intern"></a> | Sunnyvale, California - HQ | Nov 17 |
 | Lockheed Martin | 🆕 DevSecOps Intern - Summer 2027<br><sub>AppSec &amp; ProdSec</sub> | <a href="https://lockheedmartin.eightfold.ai/careers/job/996477674824"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Lockheed Martin DevSecOps Intern - Summer 2027"></a> | Colorado Springs, CO | Nov 17 |
+| Microsoft | 🆕 Security Research: PhD Internship Opportunities<br><sub>Security Engineering</sub> | <a href="https://microsoft.eightfold.ai/careers/job/1970393557074642"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Microsoft Security Research: PhD Internship Opportunities"></a> | Redmond, WA | Nov 17 |
 | ServiceNow | 🆕 Associate Forward Deployed Solution Engineer Intern (Bachelors Summer 2027)<br><sub>Solutions Architecture</sub> | <a href="https://jobs.smartrecruiters.com/ServiceNow/744000161936128"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: ServiceNow Associate Forward Deployed Solution Engineer Intern (Bachelors Summer 2027)"></a> | Santa Clara, CA | Nov 17 |
 | ↳ | 🆕 Forward Deployed Solution Engineer Intern (Masters Summer 2027)<br><sub>Solutions Architecture</sub> | <a href="https://jobs.smartrecruiters.com/ServiceNow/744000161936020"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: ServiceNow Forward Deployed Solution Engineer Intern (Masters Summer 2027)"></a> | Santa Clara, CA | Nov 17 |
 | MITRE | 🆕 Critical Infrastructure Protection Intern 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://careers.mitre.org/us/en/job/R117877"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: MITRE Critical Infrastructure Protection Intern"></a> | <details><summary>**2 locations**</summary>McLean, VA<br>Bedford, MA</details> | Nov 16 |

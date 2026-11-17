@@ -20,13 +20,13 @@ Employers with open roles on the board today.
 | HPE | 3 | 2 | 2 |
 | Palo Alto Networks | 4 | 1 | 1 |
 | Leidos | 4 |  | 9 |
+| Microsoft | 4 |  | 9 |
 | Software Engineering Institute | 4 |  | 4 |
+| Illumio | 4 |  | 3 |
 | Idaho National Laboratory | 4 |  | 1 |
 | Aerospace Corporation | 4 |  |  |
 | Federal Reserve System | 4 |  |  |
 | Intel | 4 |  |  |
-| Microsoft | 3 |  | 9 |
-| Illumio | 3 |  | 3 |
 | Entrust | 3 |  |  |
 | Goldman Sachs | 3 |  |  |
 | HP Inc | 3 |  |  |

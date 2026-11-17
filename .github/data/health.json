@@ -1,7 +1,7 @@
 {
   "date": "2026-11-17",
   "boards": 404,
-  "ok": 285,
+  "ok": 282,
   "empty": 11,
   "failed": [
     "AT&T (workday/att)",
@@ -69,6 +69,7 @@
     "NVIDIA (workday/nvidia)",
     "National Laboratory of the Rockies (workday/nrel)",
     "Nationwide (workday/nationwide)",
+    "Nightwing (workday/nwis)",
     "Nike (workday/nike)",
     "Northern Trust (workday/ntrs)",
     "Northrop Grumman (workday/ngc)",
@@ -92,6 +93,8 @@
     "Regions Bank (workday/regions)",
     "ReliaQuest (workday/reliaquest)",
     "SailPoint (workday/sailpoint)",
+    "Salesforce (workday/salesforce)",
+    "Sierra Nevada Corporation (workday/snc)",
     "State Street (workday/statestreet)",
     "Synchrony (workday/synchronyfinancial)",
     "T-Mobile (workday/tmobile)",
@@ -115,39 +118,15 @@
   ],
   "regressed": [
     {
-      "board": "Oso (ashby/oso)",
-      "had": 7
+      "board": "Nightwing (workday/nwis)",
+      "had": 40
     },
     {
-      "board": "Motorola Solutions (workday/motorolasolutions)",
-      "had": 162
-    },
-    {
-      "board": "NVIDIA (workday/nvidia)",
-      "had": 59
-    },
-    {
-      "board": "U.S. Bank (workday/usbank)",
-      "had": 61
-    },
-    {
-      "board": "Jamf (workday/jamfsoftware)",
-      "had": 1
-    },
-    {
-      "board": "Vanguard (workday/vanguard)",
+      "board": "Salesforce (workday/salesforce)",
       "had": 20
     },
     {
-      "board": "CDW (workday/cdw)",
-      "had": 32
-    },
-    {
-      "board": "Synchrony (workday/synchronyfinancial)",
-      "had": 4
-    },
-    {
-      "board": "Merck (workday/msd)",
+      "board": "Sierra Nevada Corporation (workday/snc)",
       "had": 20
     }
   ],

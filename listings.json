@@ -1496,7 +1496,8 @@
     "clearance": false,
     "url": "https://www.amazon.jobs/en/jobs/10489738/ai-security-engineer-aws-security-aws-security-aisec",
     "source": "Amazon Jobs",
-    "date_added": "2026-07-31"
+    "date_added": "2026-07-31",
+    "missing_since": "2026-11-17"
   },
   {
     "company": "Bank of America",
@@ -10022,7 +10023,8 @@
     "clearance": false,
     "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210790526",
     "source": "Oracle",
-    "date_added": "2026-11-17"
+    "date_added": "2026-11-17",
+    "missing_since": "2026-11-17"
   },
   {
     "company": "Fortinet",
@@ -10044,6 +10046,28 @@
     "clearance": true,
     "url": "https://careers.jhuapl.edu/jobs/60979",
     "source": "Jibe",
+    "date_added": "2026-11-17"
+  },
+  {
+    "company": "Illumio",
+    "role": "Security and Compliance Analyst Intern",
+    "location": "Sunnyvale, California - HQ",
+    "type": "intern",
+    "category": "GRC & Risk",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/illumio/8013747a-938c-41ef-9d5b-7b6188ae0b5c",
+    "source": "Ashby",
+    "date_added": "2026-11-17"
+  },
+  {
+    "company": "Microsoft",
+    "role": "Security Research: PhD Internship Opportunities",
+    "location": "Redmond, WA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://microsoft.eightfold.ai/careers/job/1970393557074642",
+    "source": "Eightfold",
     "date_added": "2026-11-17"
   }
 ]
