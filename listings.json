@@ -1497,7 +1497,8 @@
     "url": "https://www.amazon.jobs/en/jobs/10489738/ai-security-engineer-aws-security-aws-security-aisec",
     "source": "Amazon Jobs",
     "date_added": "2026-07-31",
-    "missing_since": "2026-11-17"
+    "missing_since": "2026-11-17",
+    "dead_since": "2026-11-18"
   },
   {
     "company": "Bank of America",
@@ -7867,11 +7868,12 @@
     "type": "earlycareer",
     "category": "GRC & Risk",
     "clearance": true,
-    "url": "https://www.amazon.jobs/en/jobs/10588655/security-compliance-engineer-i-aws-security-assurance-services-llc",
+    "url": "",
     "source": "Amazon Jobs",
     "date_added": "2026-10-26",
-    "missing_since": "2026-11-17",
-    "dead_since": "2026-11-17"
+    "last_url": "https://www.amazon.jobs/en/jobs/10588655/security-compliance-engineer-i-aws-security-assurance-services-llc",
+    "closed": true,
+    "closed_date": "2026-11-18"
   },
   {
     "company": "Saviynt",

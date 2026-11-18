@@ -48,7 +48,7 @@ Employers with open roles on the board today.
 | Salesforce | 1 | 1 |  |
 | Trace3 | 2 |  |  |
 | Walmart | 2 |  |  |
-| Amazon | 1 |  | 20 |
+| Amazon | 1 |  | 19 |
 | RTX | 1 |  | 11 |
 | Northrop Grumman |  | 1 | 9 |
 | Nightwing | 1 |  | 8 |

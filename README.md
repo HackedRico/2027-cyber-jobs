@@ -16,7 +16,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**150** internships · **42** new grad · **217** early career open · **103** added in the last 7 days · **188** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 18, 2026
+**150** internships · **42** new grad · **216** early career open · **103** added in the last 7 days · **187** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 18, 2026
 
 <!-- /STATS -->
 
@@ -598,7 +598,6 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 | BAE Systems | Cyber Analyst II – ISSO 🇺🇸<br><sub>GRC &amp; Risk</sub> | <a href="https://jobs.baesystems.com/global/en/job/131921BR"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: BAE Systems Cyber Analyst II – ISSO"></a> | <details><summary>**2 locations**</summary>Broomfield, CO<br>Boulder, CO</details> | Oct 27 |
 | Fortinet | Early Careers: AI Automation Engineer<br><sub>Engineering @ Security Co</sub> | <a href="https://edel.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/24771"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Fortinet Early Careers: AI Automation Engineer"></a> | Sunnyvale, CA | Oct 27 |
 | Amazon | Security Engineer II, AWS Proactive Security Team<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10588732/security-engineer-ii-aws-proactive-security-team"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer II, AWS Proactive Security Team"></a> | Seattle, WA | Oct 26 |
-| ↳ | Security &amp; Compliance Engineer I, AWS Security Assurance Services, LLC 🇺🇸<br><sub>GRC &amp; Risk</sub> | <a href="https://www.amazon.jobs/en/jobs/10588655/security-compliance-engineer-i-aws-security-assurance-services-llc"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security &amp; Compliance Engineer I, AWS Security Assurance Services, LLC"></a> | Herndon, VA | Oct 26 |
 | Fortinet | Early Careers: Verification Engineer<br><sub>Engineering @ Security Co</sub> | <a href="https://edel.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/23622"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Fortinet Early Careers: Verification Engineer"></a> | Sunnyvale, CA | Oct 24 |
 | Amentum | Junior DevSecOps Engineer 🇺🇸<br><sub>AppSec &amp; ProdSec</sub> | <a href="https://pae.wd1.myworkdayjobs.com/Amentum_Careers/job/US-VA-Dahlgren/Junior-DevSecOps-Engineer_R0172729"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amentum Junior DevSecOps Engineer"></a> | Dahlgren, VA | Oct 23 |
 | Fortinet | Jr. Software QA Engineer<br><sub>Engineering @ Security Co</sub> | <a href="https://edel.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/24747"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Fortinet Jr. Software QA Engineer"></a> | Union City, CA | Oct 23 |
@@ -713,10 +712,11 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 
 <!-- CLOSED_START earlycareer -->
 
-<details><summary>🔒 248 closed in the last 60 days</summary>
+<details><summary>🔒 249 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
+| Amazon | Security &amp; Compliance Engineer I, AWS Security Assurance Services, LLC | Nov 18 |
 | Pinterest | Security Software Engineer II, Detection and Response | Nov 17 |
 | BAE Systems | Cyber Analyst II – ISSO | Nov 16 |
 | Fortra | Professional Services Consultant I | Nov 16 |
