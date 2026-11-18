@@ -7263,7 +7263,8 @@
     "clearance": false,
     "url": "https://jobs.ashbyhq.com/illumio/8708e622-900e-458a-96b3-ae339329a56d",
     "source": "Ashby",
-    "date_added": "2026-10-21"
+    "date_added": "2026-10-21",
+    "missing_since": "2026-11-18"
   },
   {
     "company": "Adobe",
@@ -8408,7 +8409,8 @@
     "clearance": true,
     "url": "https://lockheedmartin.eightfold.ai/careers/job/996477502700",
     "source": "Eightfold",
-    "date_added": "2026-11-02"
+    "date_added": "2026-11-02",
+    "missing_since": "2026-11-18"
   },
   {
     "company": "BAE Systems",
@@ -8855,10 +8857,9 @@
     "type": "earlycareer",
     "category": "Cloud Engineering",
     "clearance": false,
-    "url": "https://microsoft.eightfold.ai/careers/job/1970393557070070",
+    "url": "https://microsoft.eightfold.ai/careers/job/1970393557043706",
     "source": "Eightfold",
-    "date_added": "2026-11-09",
-    "missing_since": "2026-11-15"
+    "date_added": "2026-11-09"
   },
   {
     "company": "BAE Systems",
@@ -8902,7 +8903,8 @@
     "clearance": true,
     "url": "https://ibqbjb.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/157740",
     "source": "Oracle",
-    "date_added": "2026-11-10"
+    "date_added": "2026-11-10",
+    "missing_since": "2026-11-18"
   },
   {
     "company": "Lockheed Martin",
@@ -9338,7 +9340,8 @@
     "clearance": false,
     "url": "https://www.fastly.com/about/jobs/apply?gh_jid=8384124",
     "source": "Greenhouse",
-    "date_added": "2026-11-16"
+    "date_added": "2026-11-16",
+    "missing_since": "2026-11-18"
   },
   {
     "company": "GuidePoint Security",
@@ -9659,7 +9662,8 @@
     "clearance": true,
     "url": "https://lockheedmartin.eightfold.ai/careers/job/996476922373",
     "source": "Eightfold",
-    "date_added": "2026-11-16"
+    "date_added": "2026-11-16",
+    "missing_since": "2026-11-18"
   },
   {
     "company": "Lockheed Martin",
@@ -9846,7 +9850,8 @@
     "clearance": true,
     "url": "https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2616220",
     "source": "Oracle",
-    "date_added": "2026-11-16"
+    "date_added": "2026-11-16",
+    "missing_since": "2026-11-18"
   },
   {
     "company": "Fortinet",
@@ -10069,5 +10074,27 @@
     "url": "https://microsoft.eightfold.ai/careers/job/1970393557074642",
     "source": "Eightfold",
     "date_added": "2026-11-17"
+  },
+  {
+    "company": "Microsoft",
+    "role": "Research Intern - Firmware Security",
+    "location": "Redmond, WA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://microsoft.eightfold.ai/careers/job/1970393557075140",
+    "source": "Eightfold",
+    "date_added": "2026-11-18"
+  },
+  {
+    "company": "Amazon",
+    "role": "Security Engineer I, Security Incident Response Team (SIRT)",
+    "location": "Arlington, VA",
+    "type": "earlycareer",
+    "category": "SOC & Detection",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10608214/security-engineer-i-security-incident-response-team-sirt",
+    "source": "Amazon Jobs",
+    "date_added": "2026-11-18"
   }
 ]

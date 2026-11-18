@@ -17,10 +17,10 @@ Employers with open roles on the board today.
 | MITRE | 6 | 1 | 4 |
 | Lockheed Martin | 7 |  | 3 |
 | Lawrence Livermore National Laboratory | 6 |  |  |
+| Microsoft | 5 |  | 9 |
 | HPE | 3 | 2 | 2 |
 | Palo Alto Networks | 4 | 1 | 1 |
 | Leidos | 4 |  | 9 |
-| Microsoft | 4 |  | 9 |
 | Software Engineering Institute | 4 |  | 4 |
 | Illumio | 4 |  | 3 |
 | Idaho National Laboratory | 4 |  | 1 |
@@ -48,7 +48,7 @@ Employers with open roles on the board today.
 | Salesforce | 1 | 1 |  |
 | Trace3 | 2 |  |  |
 | Walmart | 2 |  |  |
-| Amazon | 1 |  | 19 |
+| Amazon | 1 |  | 20 |
 | RTX | 1 |  | 11 |
 | Northrop Grumman |  | 1 | 9 |
 | Nightwing | 1 |  | 8 |
