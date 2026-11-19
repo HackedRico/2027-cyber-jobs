@@ -1,8 +1,8 @@
 {
   "date": "2026-11-19",
   "boards": 404,
-  "ok": 291,
-  "empty": 11,
+  "ok": 282,
+  "empty": 10,
   "failed": [
     "AT&T (workday/att)",
     "Adobe (workday/adobe)",
@@ -10,6 +10,8 @@
     "Aerospace Corporation (workday/aero)",
     "Allstate (workday/allstate)",
     "Ally (workday/ally)",
+    "Amentum (workday/pae)",
+    "Arctic Wolf (workday/arcticwolf)",
     "Arete (workday/areteir)",
     "Argonne National Laboratory (workday/argonne)",
     "Autodesk (workday/autodesk)",
@@ -18,6 +20,7 @@
     "BlackRock (workday/blackrock)",
     "Boeing (workday/boeing)",
     "Boeing (workday/boeing/INTERN)",
+    "Booz Allen Hamilton (workday/bah)",
     "Broadcom (workday/broadcom)",
     "CACI (workday/caci)",
     "CDW (workday/cdw)",
@@ -26,7 +29,9 @@
     "Cardinal Health (workday/cardinalhealth)",
     "Cisco (workday/cisco)",
     "Citi (workday/citi)",
+    "CrowdStrike (workday/crowdstrike)",
     "DXC Technology (workday/dxctechnology)",
+    "Draper (workday/draper)",
     "Duke Energy (workday/dukeenergy)",
     "ESET (workday/eset)",
     "Elevance Health (workday/elevancehealth)",
@@ -39,11 +44,13 @@
     "Fidelity Investments (workday/fmr)",
     "Fifth Third (workday/fifththird)",
     "Flexera (workday/flexerasoftware)",
+    "Forcepoint (workday/forcepoint)",
     "Freddie Mac (workday/freddiemac)",
     "GDIT (workday/gdit)",
     "GDIT (workday/gdit/GDIT_EarlyTalent)",
     "Guidehouse (workday/guidehouse)",
     "HP Inc (workday/hp)",
+    "HPE (workday/hpe)",
     "Humana (workday/humana)",
     "ICF (workday/icf)",
     "Intel (workday/intel)",
@@ -86,6 +93,7 @@
     "Red Hat (workday/redhat)",
     "Regions Bank (workday/regions)",
     "ReliaQuest (workday/reliaquest)",
+    "SailPoint (workday/sailpoint)",
     "Salesforce (workday/salesforce)",
     "Sierra Nevada Corporation (workday/snc)",
     "State Street (workday/statestreet)",
@@ -94,9 +102,11 @@
     "TD Bank (workday/td)",
     "Target (workday/target)",
     "The Cigna Group (workday/cigna)",
+    "The Hartford (workday/thehartford)",
     "The Home Depot (workday/homedepot)",
     "Travelers (workday/travelers)",
     "Trellix (workday/trellix)",
+    "Trend Micro (workday/trendmicro)",
     "Truist (workday/truist)",
     "U.S. Bank (workday/usbank)",
     "USAA (workday/usaa)",
@@ -107,6 +117,47 @@
     "Workday (workday/workday)",
     "Zoom (workday/zoom)"
   ],
-  "regressed": [],
-  "silent": 93
+  "regressed": [
+    {
+      "board": "Arctic Wolf (workday/arcticwolf)",
+      "had": 80
+    },
+    {
+      "board": "Booz Allen Hamilton (workday/bah)",
+      "had": 40
+    },
+    {
+      "board": "CrowdStrike (workday/crowdstrike)",
+      "had": 40
+    },
+    {
+      "board": "Draper (workday/draper)",
+      "had": 58
+    },
+    {
+      "board": "SailPoint (workday/sailpoint)",
+      "had": 31
+    },
+    {
+      "board": "Trend Micro (workday/trendmicro)",
+      "had": 127
+    },
+    {
+      "board": "Forcepoint (workday/forcepoint)",
+      "had": 8
+    },
+    {
+      "board": "Amentum (workday/pae)",
+      "had": 60
+    },
+    {
+      "board": "HPE (workday/hpe)",
+      "had": 160
+    },
+    {
+      "board": "The Hartford (workday/thehartford)",
+      "had": 41
+    }
+  ],
+  "silent": 100
 }

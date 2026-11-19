@@ -16,7 +16,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**150** internships · **43** new grad · **219** early career open · **104** added in the last 7 days · **188** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 19, 2026
+**152** internships · **43** new grad · **220** early career open · **107** added in the last 7 days · **188** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 19, 2026
 
 <!-- /STATS -->
 
@@ -74,6 +74,8 @@ Cybersecurity internships and co-ops for current students.
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
 | Lockheed Martin | 🆕 Security (Crisis Management, Intel Analysis) - Intern 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://lockheedmartin.eightfold.ai/careers/job/996478009188"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Lockheed Martin Security (Crisis Management, Intel Analysis) - Intern"></a> | Orlando, FL | Nov 19 |
+| Microsoft | 🆕 Research Intern - AI Safety, Alignment, and Post-Training<br><sub>AI Security &amp; Safety</sub> | <a href="https://microsoft.eightfold.ai/careers/job/1970393557076142"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Microsoft Research Intern - AI Safety, Alignment, and Post-Training"></a> | <details><summary>**2 locations**</summary>Redmond, WA<br>Mountain View, CA</details> | Nov 19 |
+| Snowflake | 🆕 Software Engineer Intern (Core, Infrastructure &amp; Security) — Summer 2027<br><sub>Security Engineering</sub> | <a href="https://jobs.ashbyhq.com/snowflake/e194759e-3a20-47c9-868d-f47179613897"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Snowflake Software Engineer Intern (Core, Infrastructure &amp; Security) — Summer 2027"></a> | <details><summary>**2 locations**</summary>Menlo Park, CA<br>Bellevue, WA</details> | Nov 19 |
 | Microsoft | 🆕 Research Intern - Firmware Security<br><sub>Security Engineering</sub> | <a href="https://microsoft.eightfold.ai/careers/job/1970393557075140"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Microsoft Research Intern - Firmware Security"></a> | Redmond, WA | Nov 18 |
 | Idaho National Laboratory | 🆕 Cybersecurity Operations Internship - Summer 2027<br><sub>SOC &amp; Detection</sub> | <a href="https://elhe.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1002/job/2329"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Idaho National Laboratory Cybersecurity Operations Internship - Summer 2027"></a> | Idaho Falls, ID | Nov 17 |
 | Illumio | 🆕 Security and Compliance Analyst Intern<br><sub>GRC &amp; Risk</sub> | <a href="https://jobs.ashbyhq.com/illumio/8013747a-938c-41ef-9d5b-7b6188ae0b5c"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Illumio Security and Compliance Analyst Intern"></a> | Sunnyvale, California - HQ | Nov 17 |
@@ -481,6 +483,7 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 | ------- | ---- | ----- | -------- | ----- |
 | Amazon | 🆕 Security Engineer, AI Security<br><sub>AI Security &amp; Safety</sub> | <a href="https://www.amazon.jobs/en/jobs/10608720/security-engineer-ai-security"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer, AI Security"></a> | Austin, TX | Nov 19 |
 | ↳ | 🆕 Security Engineer,AWS Security<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10608873/security-engineer-aws-security"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer,AWS Security"></a> | Austin, TX | Nov 19 |
+| ↳ | 🆕 Security Engineer I, Stores Security- Healthcare Security<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10609577/security-engineer-i-stores-security-healthcare-security"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer I, Stores Security- Healthcare Security"></a> | Seattle, WA | Nov 19 |
 | PNNL | 🆕 Cyber Security Analyst 1 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://careers.pnnl.gov/jobs/13652"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: PNNL Cyber Security Analyst 1"></a> | Richland, WA | Nov 19 |
 | Salt Security | 🆕 Technical Support Engineer (1) EAST<br><sub>Engineering @ Security Co</sub> | <a href="https://salt.security/job-board?gh_jid=5301012007"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Salt Security Technical Support Engineer (1) EAST"></a> | EAST (US) | Nov 19 |
 | Amazon | 🆕 Security Engineer I, Security Incident Response Team (SIRT)<br><sub>SOC &amp; Detection</sub> | <a href="https://www.amazon.jobs/en/jobs/10608214/security-engineer-i-security-incident-response-team-sirt"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer I, Security Incident Response Team (SIRT)"></a> | Arlington, VA | Nov 18 |

@@ -2323,7 +2323,8 @@
     "clearance": true,
     "url": "https://job-boards.greenhouse.io/systemstechnologyresearch/jobs/4703289006",
     "source": "Greenhouse",
-    "date_added": "2026-09-28"
+    "date_added": "2026-09-28",
+    "missing_since": "2026-11-19"
   },
   {
     "company": "Booz Allen Hamilton",
@@ -3396,7 +3397,8 @@
     "clearance": true,
     "url": "https://careers.jhuapl.edu/jobs/59906",
     "source": "Jibe",
-    "date_added": "2026-09-29"
+    "date_added": "2026-09-29",
+    "missing_since": "2026-11-19"
   },
   {
     "company": "Johns Hopkins APL",
@@ -3588,7 +3590,8 @@
     "clearance": false,
     "url": "https://job-boards.greenhouse.io/tenableinc/jobs/5418662008",
     "source": "Greenhouse",
-    "date_added": "2026-10-01"
+    "date_added": "2026-10-01",
+    "missing_since": "2026-11-19"
   },
   {
     "company": "Palantir",
@@ -5419,7 +5422,8 @@
     "clearance": false,
     "url": "https://ebqb.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BDOEntryLevelCareers/job/11429",
     "source": "Oracle",
-    "date_added": "2026-10-10"
+    "date_added": "2026-10-10",
+    "missing_since": "2026-11-19"
   },
   {
     "company": "BAE Systems",
@@ -9084,6 +9088,39 @@
     "category": "Security Engineering",
     "clearance": false,
     "url": "https://www.amazon.jobs/en/jobs/10608873/security-engineer-aws-security",
+    "source": "Amazon Jobs",
+    "date_added": "2026-11-19"
+  },
+  {
+    "company": "Snowflake",
+    "role": "Software Engineer Intern (Core, Infrastructure & Security) \u2014 Summer 2027",
+    "location": "Menlo Park, CA; Bellevue, WA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/snowflake/e194759e-3a20-47c9-868d-f47179613897",
+    "source": "Ashby",
+    "date_added": "2026-11-19"
+  },
+  {
+    "company": "Microsoft",
+    "role": "Research Intern - AI Safety, Alignment, and Post-Training",
+    "location": "Redmond, WA; Mountain View, CA",
+    "type": "intern",
+    "category": "AI Security & Safety",
+    "clearance": false,
+    "url": "https://microsoft.eightfold.ai/careers/job/1970393557076142",
+    "source": "Eightfold",
+    "date_added": "2026-11-19"
+  },
+  {
+    "company": "Amazon",
+    "role": "Security Engineer I, Stores Security- Healthcare Security",
+    "location": "Seattle, WA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10609577/security-engineer-i-stores-security-healthcare-security",
     "source": "Amazon Jobs",
     "date_added": "2026-11-19"
   }

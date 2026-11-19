@@ -16,8 +16,8 @@ Employers with open roles on the board today.
 | Lockheed Martin | 8 |  | 3 |
 | Booz Allen Hamilton | 8 |  | 2 |
 | MITRE | 6 | 1 | 4 |
+| Microsoft | 6 |  | 9 |
 | Lawrence Livermore National Laboratory | 6 |  |  |
-| Microsoft | 5 |  | 9 |
 | HPE | 3 | 2 | 2 |
 | Palo Alto Networks | 4 | 1 | 1 |
 | Leidos | 4 |  | 9 |
@@ -32,7 +32,7 @@ Employers with open roles on the board today.
 | HP Inc | 3 |  |  |
 | Palantir | 2 | 1 |  |
 | Tanium | 3 |  |  |
-| Amazon | 1 | 1 | 20 |
+| Amazon | 1 | 1 | 21 |
 | CrowdStrike | 2 |  | 10 |
 | Two Six Technologies | 2 |  | 3 |
 | Appian | 1 | 1 | 2 |
@@ -60,6 +60,7 @@ Employers with open roles on the board today.
 | American Express |  | 1 | 1 |
 | Anduril |  | 1 | 1 |
 | Pinterest | 1 |  | 1 |
+| Snowflake | 1 |  | 1 |
 | Verkada | 1 |  | 1 |
 | Adobe | 1 |  |  |
 | Deloitte |  | 1 |  |
@@ -115,7 +116,6 @@ Employers with open roles on the board today.
 | Samsara |  |  | 1 |
 | Scale AI |  |  | 1 |
 | Sierra Nevada Corporation |  |  | 1 |
-| Snowflake |  |  | 1 |
 | Socure |  |  | 1 |
 | SpecterOps |  |  | 1 |
 | Stripe |  |  | 1 |
