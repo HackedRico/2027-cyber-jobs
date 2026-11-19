@@ -32,6 +32,7 @@ Employers with open roles on the board today.
 | HP Inc | 3 |  |  |
 | Palantir | 2 | 1 |  |
 | Tanium | 3 |  |  |
+| Amazon | 1 | 1 | 21 |
 | CrowdStrike | 2 |  | 10 |
 | Two Six Technologies | 2 |  | 3 |
 | Appian | 1 | 1 | 2 |
@@ -48,7 +49,6 @@ Employers with open roles on the board today.
 | Salesforce | 1 | 1 |  |
 | Trace3 | 2 |  |  |
 | Walmart | 2 |  |  |
-| Amazon | 1 |  | 21 |
 | RTX | 1 |  | 11 |
 | Northrop Grumman |  | 1 | 9 |
 | Nightwing | 1 |  | 8 |
@@ -81,11 +81,11 @@ Employers with open roles on the board today.
 | KBR |  |  | 5 |
 | SAIC |  |  | 5 |
 | Abnormal AI |  |  | 3 |
+| JPMorgan Chase |  |  | 3 |
 | Tenable |  |  | 3 |
 | Amentum |  |  | 2 |
 | Battelle |  |  | 2 |
 | HUMAN Security |  |  | 2 |
-| JPMorgan Chase |  |  | 2 |
 | Proofpoint |  |  | 2 |
 | Salt Security |  |  | 2 |
 | Trail of Bits |  |  | 2 |

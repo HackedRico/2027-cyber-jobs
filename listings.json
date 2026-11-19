@@ -6159,11 +6159,9 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "",
+    "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210799827",
     "source": "Oracle",
-    "date_added": "2026-10-20",
-    "closed": true,
-    "closed_date": "2026-11-08"
+    "date_added": "2026-10-20"
   },
   {
     "company": "Fortinet",
@@ -7607,12 +7605,10 @@
     "type": "newgrad",
     "category": "Solutions Architecture",
     "clearance": false,
-    "url": "",
+    "url": "https://www.amazon.jobs/en/jobs/10581072/solutions-architect-ags-tech-early-career-2027-us",
     "source": "Amazon Jobs",
     "date_added": "2026-11-06",
-    "last_url": "https://www.amazon.jobs/en/jobs/10581072/solutions-architect-ags-tech-early-career-2027-us",
-    "closed": true,
-    "closed_date": "2026-11-12"
+    "last_url": "https://www.amazon.jobs/en/jobs/10581072/solutions-architect-ags-tech-early-career-2027-us"
   },
   {
     "company": "Abnormal AI",
@@ -8019,7 +8015,8 @@
     "clearance": false,
     "url": "https://elhe.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1002/job/2328",
     "source": "Oracle",
-    "date_added": "2026-11-12"
+    "date_added": "2026-11-12",
+    "missing_since": "2026-11-19"
   },
   {
     "company": "BDO",
@@ -8942,7 +8939,8 @@
     "clearance": false,
     "url": "https://elhe.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1002/job/2329",
     "source": "Oracle",
-    "date_added": "2026-11-17"
+    "date_added": "2026-11-17",
+    "missing_since": "2026-11-19"
   },
   {
     "company": "Lockheed Martin",

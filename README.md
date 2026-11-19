@@ -16,7 +16,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**150** internships · **42** new grad · **219** early career open · **104** added in the last 7 days · **188** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 19, 2026
+**150** internships · **43** new grad · **220** early career open · **104** added in the last 7 days · **188** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 19, 2026
 
 <!-- /STATS -->
 
@@ -386,6 +386,7 @@ Full-time roles and rotational programs for students in their final year or just
 | Anduril | 2027 New Grad Information Security Engineer 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://boards.greenhouse.io/andurilindustries/jobs/5270839007?gh_jid=5270839007"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Anduril 2027 New Grad Information Security Engineer"></a> | Costa Mesa, CA | Nov 11 |
 | NVIDIA | Research Scientist, AI and Systems Security - PhD New College Grad 2026<br><sub>Cloud &amp; Infra Security</sub> | <a href="https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite/job/US-MA-Westford/Research-Scientist--AI-and-Systems-Security---PhD-New-College-Grad-2026_JR2025894"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: NVIDIA Research Scientist, AI and Systems Security - PhD New College Grad 2026"></a> | <details><summary>**2 locations**</summary>Westford, MA<br>Santa Clara, CA</details> | Nov 7 |
 | Salesforce | Associate Security Consultant- PSSA, Early Talent<br><sub>Security Engineering</sub> | <a href="https://salesforce.wd12.myworkdayjobs.com/External_Career_Site/job/Washington---Seattle/Associate-Security-Consultant--PSSA--Early-Talent_JR367671"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Salesforce Associate Security Consultant- PSSA, Early Talent"></a> | <details><summary>**4 locations**</summary>Seattle, WA<br>Chicago, IL<br>Washington - Seattle Metro - Remote<br>Bellevue, WA</details> | Nov 7 |
+| Amazon | Solutions Architect AGS-Tech, Early Career - 2027 (US)<br><sub>Solutions Architecture</sub> | <a href="https://www.amazon.jobs/en/jobs/10581072/solutions-architect-ags-tech-early-career-2027-us"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Solutions Architect AGS-Tech, Early Career - 2027 (US)"></a> | Seattle, WA | Nov 6 |
 | Johns Hopkins APL | 2027 Graduate - Cyber Engineer/Scientist - Resilient Military Systems 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://careers.jhuapl.edu/jobs/59353"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Johns Hopkins APL 2027 Graduate - Cyber Engineer/Scientist - Resilient Military Systems"></a> | Laurel, MD | Oct 28 |
 | Johns Hopkins APL | 2027 Graduate – Cybersecurity Engineer - Critical Infrastructure Protection 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://careers.jhuapl.edu/jobs/60384"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Johns Hopkins APL 2027 Graduate – Cybersecurity Engineer - Critical Infrastructure Protection"></a> | Laurel, MD | Oct 27 |
 | Citi | Technology- Cyber Security, Full Time Analyst, Irving 2027<br><sub>Security Engineering</sub> | <a href="https://citi.wd5.myworkdayjobs.com/2/job/Irving-Texas-United-States/Technology--Cyber-Security--Full-Time-Analyst--Irving-2027-_26999831"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Citi Technology- Cyber Security, Full Time Analyst, Irving 2027"></a> | Irving Texas United States | Oct 24 |
@@ -428,7 +429,7 @@ Full-time roles and rotational programs for students in their final year or just
 
 <!-- CLOSED_START newgrad -->
 
-<details><summary>🔒 32 closed in the last 60 days</summary>
+<details><summary>🔒 31 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
@@ -438,7 +439,6 @@ Full-time roles and rotational programs for students in their final year or just
 | Northrop Grumman | 2027 - Associate Cyber Software Engineer - San Antonio TX | Nov 14 |
 | McKesson | Graduate Cyber Security Analyst (Cyber Academy) | Nov 13 |
 | Northrop Grumman | 2027 Associate Cyber Systems Engineer - Roy UT | Nov 13 |
-| Amazon | Solutions Architect AGS-Tech, Early Career - 2027 (US) | Nov 12 |
 | ID.me | Software Engineer II, Developer Portal (New Grad / Early Career) | Nov 12 |
 | Johns Hopkins APL | 2027 Graduate – Software Engineer; Data Scientist; Ontologist – Threat Analytic Systems | Nov 12 |
 | Guidehouse | Consultant - Defense &amp; Security - IT Controls - Campus 2027 | Nov 8 |
@@ -596,6 +596,7 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 | Salt Security | Technical Support Engineer (1)<br><sub>Engineering @ Security Co</sub> | <a href="https://salt.security/job-board?gh_jid=5273021007"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Salt Security Technical Support Engineer (1)"></a> | WEST (US) | Oct 23 |
 | Amazon | Security Engineer I, Secure Third Party Tools (S3T)<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10585308/security-engineer-i-secure-third-party-tools-s3t"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer I, Secure Third Party Tools (S3T)"></a> | Arlington, VA | Oct 22 |
 | Fortinet | Early Careers: Software Development Engineer<br><sub>Engineering @ Security Co</sub> | <a href="https://edel.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/24668"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Fortinet Early Careers: Software Development Engineer"></a> | Sunnyvale, CA | Oct 20 |
+| JPMorgan Chase | Security Engineer II -Python Developer<br><sub>Security Engineering</sub> | <a href="https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210799827"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: JPMorgan Chase Security Engineer II -Python Developer"></a> | Jersey City, NJ | Oct 20 |
 | CrowdStrike | Software Engineer II - Engine Team, LogScale (Hybrid) 🇺🇸<br><sub>Engineering @ Security Co</sub> | <a href="https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Austin-TX/Software-Engineer-II---Engine-Team--LogScale--Hybrid-_R30387"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: CrowdStrike Software Engineer II - Engine Team, LogScale (Hybrid)"></a> | Austin, TX | Oct 19 |
 | Abnormal AI | Software Engineer 1 - Cloud Infrastructure<br><sub>Engineering @ Security Co</sub> | <a href="https://abnormal.ai/careers/jobs/8015179003?gh_jid=8015179003"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Abnormal AI Software Engineer 1 - Cloud Infrastructure"></a> | Remote (US) | Oct 17 |
 | Corelight | Associate Escalation Engineer<br><sub>Engineering @ Security Co</sub> | <a href="https://boards.greenhouse.io/corelight/jobs/8287269?gh_jid=8287269"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Corelight Associate Escalation Engineer"></a> | United States | Oct 17 |
@@ -703,7 +704,7 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 
 <!-- CLOSED_START earlycareer -->
 
-<details><summary>🔒 181 closed in the last 60 days</summary>
+<details><summary>🔒 180 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
@@ -752,7 +753,6 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 | Amazon | Security Engineer II, US Amazon Dedicated Cloud Security | Nov 8 |
 | Amentum | Jr. Cyber Defense Analyst MDX - SSFB/HSV | Nov 8 |
 | Fireblocks | Front Line Support Engineer - East Coast | Nov 8 |
-| JPMorgan Chase | Security Engineer II -Python Developer | Nov 8 |
 | Palo Alto Networks | Solutions Consultant 2 - Strategic Accounts | Nov 8 |
 | Amazon | Security Engineer I, AWS Security Incident Response | Nov 7 |
 | Booz Allen Hamilton | Cyber Technical Specialist, Junior | Nov 7 |
