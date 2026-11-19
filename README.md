@@ -16,7 +16,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**150** internships · **43** new grad · **220** early career open · **104** added in the last 7 days · **188** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 19, 2026
+**150** internships · **43** new grad · **219** early career open · **104** added in the last 7 days · **188** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 19, 2026
 
 <!-- /STATS -->
 
@@ -677,7 +677,6 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 | Two Six Technologies | Junior Software Developer 🇺🇸<br><sub>Engineering @ Security Co</sub> | <a href="https://job-boards.greenhouse.io/twosixtechnologies/jobs/5838068004"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Two Six Technologies Junior Software Developer"></a> | <details><summary>**2 locations**</summary>Aurora, CO<br>Herndon, VA</details> | Sep 5 |
 | HII | Cyberspace Operations Analyst 1 🇺🇸<br><sub>SOC &amp; Detection</sub> | <a href="https://jobs.hii-tsd.com/job/Fort-Meade%2C-MD-Cyberspace-Operations-Analyst-1-Mary/1391937800/"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: HII Cyberspace Operations Analyst 1"></a> | Fort Meade, MD | Aug 2 |
 | MIT Lincoln Laboratory | Cyber Resilience and Operations Assistant Researcher 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://careers.ll.mit.edu/job/Lexington-Cyber-Resilience-and-Operations-Assistant-Researcher-MA-02420/1380589700/"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: MIT Lincoln Laboratory Cyber Resilience and Operations Assistant Researcher"></a> | Lexington, MA | Aug 2 |
-| Amazon | AI Security Engineer, AWS Security, AWS Security - AISec<br><sub>AI Security &amp; Safety</sub> | <a href="https://www.amazon.jobs/en/jobs/10489738/ai-security-engineer-aws-security-aws-security-aisec"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon AI Security Engineer, AWS Security, AWS Security - AISec"></a> | Austin, TX | Jul 31 |
 | KBR | Junior Reverse Engineer 🇺🇸<br><sub>Forensics &amp; IR</sub> | <a href="https://kbr.wd5.myworkdayjobs.com/KBR_Careers/job/Beavercreek-Ohio/Junior-Reverse-Engineer_R2127496"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: KBR Junior Reverse Engineer"></a> | Beavercreek, OH | Jul 30 |
 | Amazon | Security Engineer II, Security Incident Response Team (SIRT)<br><sub>SOC &amp; Detection</sub> | <a href="https://www.amazon.jobs/en/jobs/10481118/security-engineer-ii-security-incident-response-team-sirt"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer II, Security Incident Response Team (SIRT)"></a> | Seattle, WA | Jul 22 |
 | Anthropic | Anthropic Fellows Program, AI Safety<br><sub>AI Security &amp; Safety</sub> | <a href="https://job-boards.greenhouse.io/anthropic/jobs/5183044008"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Anthropic Anthropic Fellows Program, AI Safety"></a> | <details><summary>**2 locations**</summary>Remote (US)<br>San Francisco, CA</details> | Jul 22 |
@@ -704,10 +703,11 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 
 <!-- CLOSED_START earlycareer -->
 
-<details><summary>🔒 180 closed in the last 60 days</summary>
+<details><summary>🔒 181 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
+| Amazon | AI Security Engineer, AWS Security, AWS Security - AISec | Nov 19 |
 | BAE Systems | Cyber Analyst II – ISSO | Nov 19 |
 | Amazon | Security &amp; Compliance Engineer I, AWS Security Assurance Services, LLC | Nov 18 |
 | Pinterest | Security Software Engineer II, Detection and Response | Nov 17 |

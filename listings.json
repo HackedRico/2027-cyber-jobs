@@ -568,11 +568,12 @@
     "type": "earlycareer",
     "category": "AI Security & Safety",
     "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10489738/ai-security-engineer-aws-security-aws-security-aisec",
+    "url": "",
     "source": "Amazon Jobs",
     "date_added": "2026-07-31",
-    "missing_since": "2026-11-17",
-    "dead_since": "2026-11-18"
+    "last_url": "https://www.amazon.jobs/en/jobs/10489738/ai-security-engineer-aws-security-aws-security-aisec",
+    "closed": true,
+    "closed_date": "2026-11-19"
   },
   {
     "company": "Bank of America",

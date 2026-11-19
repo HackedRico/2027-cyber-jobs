@@ -32,7 +32,7 @@ Employers with open roles on the board today.
 | HP Inc | 3 |  |  |
 | Palantir | 2 | 1 |  |
 | Tanium | 3 |  |  |
-| Amazon | 1 | 1 | 21 |
+| Amazon | 1 | 1 | 20 |
 | CrowdStrike | 2 |  | 10 |
 | Two Six Technologies | 2 |  | 3 |
 | Appian | 1 | 1 | 2 |
