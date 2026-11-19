@@ -1,12 +1,13 @@
 {
-  "date": "2026-11-18",
+  "date": "2026-11-19",
   "boards": 404,
-  "ok": 290,
+  "ok": 281,
   "empty": 11,
   "failed": [
     "AT&T (workday/att)",
     "Adobe (workday/adobe)",
     "AeroVironment (workday/avav)",
+    "Aerospace Corporation (workday/aero)",
     "Allstate (workday/allstate)",
     "Ally (workday/ally)",
     "Amentum (workday/pae)",
@@ -24,10 +25,13 @@
     "CACI (workday/caci)",
     "CDW (workday/cdw)",
     "CVS Health (workday/cvshealth)",
+    "Capital One (workday/capitalone)",
     "Cardinal Health (workday/cardinalhealth)",
+    "Cisco (workday/cisco)",
     "Citi (workday/citi)",
     "CrowdStrike (workday/crowdstrike)",
     "DXC Technology (workday/dxctechnology)",
+    "Draper (workday/draper)",
     "Duke Energy (workday/dukeenergy)",
     "ESET (workday/eset)",
     "Elevance Health (workday/elevancehealth)",
@@ -48,6 +52,7 @@
     "HP Inc (workday/hp)",
     "HPE (workday/hpe)",
     "Humana (workday/humana)",
+    "ICF (workday/icf)",
     "Intel (workday/intel)",
     "Jamf (workday/jamfsoftware)",
     "Johnson & Johnson (workday/jj)",
@@ -60,6 +65,7 @@
     "McKesson (workday/mckesson)",
     "Medtronic (workday/medtronic)",
     "Merck (workday/msd)",
+    "Morgan Stanley (workday/ms)",
     "Motorola Solutions (workday/motorolasolutions)",
     "NVIDIA (workday/nvidia)",
     "National Laboratory of the Rockies (workday/nrel)",
@@ -67,6 +73,7 @@
     "Nightwing (workday/nwis)",
     "Nike (workday/nike)",
     "Northern Trust (workday/ntrs)",
+    "Northrop Grumman (workday/ngc)",
     "Optiv (workday/optiv)",
     "Oso (ashby/oso)",
     "PNC (workday/pnc)",
@@ -82,6 +89,7 @@
     "Qualys (workday/qualys)",
     "RTX (workday/globalhr)",
     "Rackspace (workday/rackspace)",
+    "Rapid7 (workday/mymoose)",
     "Red Hat (workday/redhat)",
     "Regions Bank (workday/regions)",
     "ReliaQuest (workday/reliaquest)",
@@ -103,16 +111,53 @@
     "U.S. Bank (workday/usbank)",
     "USAA (workday/usaa)",
     "Unisys (workday/unisys)",
+    "Vanguard (workday/vanguard)",
     "Visa (workday/visa)",
-    "Walmart (workday/walmart)",
     "Wells Fargo (workday/wf)",
-    "Workday (workday/workday)"
+    "Workday (workday/workday)",
+    "Zoom (workday/zoom)"
   ],
   "regressed": [
     {
-      "board": "Walmart (workday/walmart)",
-      "had": 200
+      "board": "Capital One (workday/capitalone)",
+      "had": 57
+    },
+    {
+      "board": "Cisco (workday/cisco)",
+      "had": 40
+    },
+    {
+      "board": "Draper (workday/draper)",
+      "had": 20
+    },
+    {
+      "board": "Northrop Grumman (workday/ngc)",
+      "had": 80
+    },
+    {
+      "board": "Zoom (workday/zoom)",
+      "had": 19
+    },
+    {
+      "board": "Rapid7 (workday/mymoose)",
+      "had": 51
+    },
+    {
+      "board": "ICF (workday/icf)",
+      "had": 40
+    },
+    {
+      "board": "Aerospace Corporation (workday/aero)",
+      "had": 40
+    },
+    {
+      "board": "Morgan Stanley (workday/ms)",
+      "had": 40
+    },
+    {
+      "board": "Vanguard (workday/vanguard)",
+      "had": 37
     }
   ],
-  "silent": 10
+  "silent": 101
 }

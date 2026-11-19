@@ -13,9 +13,9 @@ Employers with open roles on the board today.
 | Johns Hopkins APL | 9 | 15 | 4 |
 | ServiceNow | 11 |  |  |
 | Vanguard | 5 | 6 |  |
+| Lockheed Martin | 8 |  | 3 |
 | Booz Allen Hamilton | 8 |  | 2 |
 | MITRE | 6 | 1 | 4 |
-| Lockheed Martin | 7 |  | 3 |
 | Lawrence Livermore National Laboratory | 6 |  |  |
 | Microsoft | 5 |  | 9 |
 | HPE | 3 | 2 | 2 |
@@ -48,7 +48,7 @@ Employers with open roles on the board today.
 | Salesforce | 1 | 1 |  |
 | Trace3 | 2 |  |  |
 | Walmart | 2 |  |  |
-| Amazon | 1 |  | 19 |
+| Amazon | 1 |  | 21 |
 | RTX | 1 |  | 11 |
 | Northrop Grumman |  | 1 | 9 |
 | Nightwing | 1 |  | 8 |
@@ -68,7 +68,6 @@ Employers with open roles on the board today.
 | ICF | 1 |  |  |
 | ID.me |  | 1 |  |
 | KeyBank |  | 1 |  |
-| Lumen | 1 |  |  |
 | PayPal | 1 |  |  |
 | Prophet Security | 1 |  |  |
 | Rubrik |  | 1 |  |
@@ -77,7 +76,7 @@ Employers with open roles on the board today.
 | State Street | 1 |  |  |
 | TRM Labs |  | 1 |  |
 | Fortinet |  |  | 12 |
-| BAE Systems |  |  | 7 |
+| BAE Systems |  |  | 6 |
 | Accenture Federal Services |  |  | 5 |
 | KBR |  |  | 5 |
 | SAIC |  |  | 5 |
@@ -88,6 +87,7 @@ Employers with open roles on the board today.
 | HUMAN Security |  |  | 2 |
 | JPMorgan Chase |  |  | 2 |
 | Proofpoint |  |  | 2 |
+| Salt Security |  |  | 2 |
 | Trail of Bits |  |  | 2 |
 | AeroVironment |  |  | 1 |
 | Affirm |  |  | 1 |
@@ -108,10 +108,10 @@ Employers with open roles on the board today.
 | Kyndryl |  |  | 1 |
 | MIT Lincoln Laboratory |  |  | 1 |
 | Obsidian Security |  |  | 1 |
+| PNNL |  |  | 1 |
 | Praetorian |  |  | 1 |
 | ReliaQuest |  |  | 1 |
 | SailPoint |  |  | 1 |
-| Salt Security |  |  | 1 |
 | Samsara |  |  | 1 |
 | Scale AI |  |  | 1 |
 | Sierra Nevada Corporation |  |  | 1 |

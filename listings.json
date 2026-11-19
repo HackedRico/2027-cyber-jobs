@@ -13,19 +13,6 @@
     "closed_date": "2026-10-04"
   },
   {
-    "company": "Anduril",
-    "role": "2026 Strategic Security Analyst - Early Career Rotation Program",
-    "location": "Costa Mesa, CA",
-    "type": "newgrad",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "",
-    "source": "Greenhouse",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
     "company": "Datadog",
     "role": "Security Engineer 2 - Cyber Threat Intelligence",
     "location": "New York, NY",
@@ -37,32 +24,6 @@
     "date_added": "2026-07-12",
     "closed": true,
     "closed_date": "2026-09-26"
-  },
-  {
-    "company": "Dragos",
-    "role": "Associate Technical Support Engineer",
-    "location": "United States",
-    "type": "earlycareer",
-    "category": "Engineering @ Security Co",
-    "clearance": false,
-    "url": "",
-    "source": "Greenhouse",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "Pinterest",
-    "role": "Security Software Engineer II, Corporate Security",
-    "location": "San Francisco, CA; Remote (US)",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "",
-    "source": "Greenhouse",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-09-19"
   },
   {
     "company": "Pinterest",
@@ -89,98 +50,6 @@
     "date_added": "2026-07-12"
   },
   {
-    "company": "CACI",
-    "role": "Space Systems Cyber Security Engineer - Junior",
-    "location": "Colorado Springs, CO",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "CrowdStrike",
-    "role": "Engineer II, Threat Detection - Windows (Hybrid)",
-    "location": "Sunnyvale, CA; New York, NY; Austin, TX; Redmond, WA",
-    "type": "earlycareer",
-    "category": "SOC & Detection",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "CrowdStrike",
-    "role": "Analyst I, Falcon Complete (Remote)",
-    "location": "Remote (US)",
-    "type": "earlycareer",
-    "category": "Engineering @ Security Co",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "CrowdStrike",
-    "role": "Analyst I, Falcon Complete (Hybrid, St Louis)",
-    "location": "Remote (US)",
-    "type": "earlycareer",
-    "category": "Engineering @ Security Co",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "CrowdStrike",
-    "role": "Associate Analyst, Falcon Complete (Hybrid)",
-    "location": "Remote (US)",
-    "type": "earlycareer",
-    "category": "Engineering @ Security Co",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "CrowdStrike",
-    "role": "Platform Operations Associate Consultant - Weekend Shift (Remote)",
-    "location": "Remote, MD; Remote (US)",
-    "type": "earlycareer",
-    "category": "Engineering @ Security Co",
-    "clearance": false,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "CrowdStrike",
-    "role": "Platform Operations Associate Consultant - Weekend Shift (Remote)",
-    "location": "Remote (US)",
-    "type": "earlycareer",
-    "category": "Engineering @ Security Co",
-    "clearance": false,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-09-19",
-    "twin": 1
-  },
-  {
     "company": "Leidos",
     "role": "Junior Cyber Analyst",
     "location": "Fort Meade, MD",
@@ -190,110 +59,6 @@
     "url": "https://leidos.wd5.myworkdayjobs.com/External/job/Fort-Meade-MD/Junior-Cyber-Analyst_R-00183704",
     "source": "Workday",
     "date_added": "2026-07-12"
-  },
-  {
-    "company": "Leidos",
-    "role": "IT Security Engineer II",
-    "location": "Huntsville, AL",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "Leidos",
-    "role": "IT Security Engineer 2",
-    "location": "Huntsville, AL",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "Northrop Grumman",
-    "role": "2026 Associate Classified Cybersecurity Analyst Pathways Program - Palmdale CA",
-    "location": "Palmdale, CA",
-    "type": "newgrad",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "Northrop Grumman",
-    "role": "Cyber Software Engineer - Level 1/2",
-    "location": "Redondo Beach, CA",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "Northrop Grumman",
-    "role": "R10206390 22026 Associate Cyber Software Engineer - Chantilly VA",
-    "location": "Chantilly, VA",
-    "type": "newgrad",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "Northrop Grumman",
-    "role": "2026 -  Associate Cyber Software Engineer - Annapolis Junction MD",
-    "location": "Annapolis Junction, MD",
-    "type": "newgrad",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "Northrop Grumman",
-    "role": "Associate Cyber Software Engineer",
-    "location": "Annapolis Junction, MD; Aurora, CO; Raleigh, NC",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "NVIDIA",
-    "role": "Research Scientist, Security and Privacy - PhD New College Grad 2026",
-    "location": "Westford, MA; Santa Clara, CA",
-    "type": "newgrad",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-09-19"
   },
   {
     "company": "Amazon",
@@ -379,19 +144,6 @@
   },
   {
     "company": "Nightwing",
-    "role": "Junior DevOps Engineer",
-    "location": "Annapolis Junction, MD",
-    "type": "earlycareer",
-    "category": "Engineering @ Security Co",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "Nightwing",
     "role": "Junior Software Engineer  (SWE0)",
     "location": "Annapolis Junction, MD",
     "type": "earlycareer",
@@ -424,32 +176,6 @@
     "date_added": "2026-07-12"
   },
   {
-    "company": "Anthropic",
-    "role": "Safeguards Policy Analyst, Fraud & Scams",
-    "location": "Remote (US); San Francisco, CA; New York City, NY",
-    "type": "earlycareer",
-    "category": "AI Security & Safety",
-    "clearance": false,
-    "url": "",
-    "source": "Greenhouse",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "OpenAI",
-    "role": "Researcher, Alignment Science",
-    "location": "San Francisco, CA",
-    "type": "earlycareer",
-    "category": "AI Security & Safety",
-    "clearance": false,
-    "url": "",
-    "source": "Ashby",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
     "company": "CACI",
     "role": "Cyber Software Engineer, Junior",
     "location": "Florham Park, NJ",
@@ -461,32 +187,6 @@
     "date_added": "2026-07-12",
     "closed": true,
     "closed_date": "2026-09-28"
-  },
-  {
-    "company": "CACI",
-    "role": "Information Security Analyst II",
-    "location": "Camp Smith, HI",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "Nightwing",
-    "role": "Software / Hardware Engineering - Intern",
-    "location": "Annapolis Junction, MD",
-    "type": "intern",
-    "category": "Engineering @ Security Co",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-09-19"
   },
   {
     "company": "Nightwing",
@@ -546,45 +246,6 @@
     "date_added": "2026-07-12"
   },
   {
-    "company": "Cisco",
-    "role": "AI Security Research Engineer II (Full Time) - (United States)",
-    "location": "RTP, NC",
-    "type": "earlycareer",
-    "category": "AI Security & Safety",
-    "clearance": false,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-13",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "Anthropic",
-    "role": "Safeguards Enforcement Analyst, Ban Evasion & Recidivism",
-    "location": "Remote (US); San Francisco, CA; New York City, NY; Washington, DC",
-    "type": "earlycareer",
-    "category": "AI Security & Safety",
-    "clearance": false,
-    "url": "",
-    "source": "Greenhouse",
-    "date_added": "2026-07-14",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "Anthropic",
-    "role": "Safeguards Enforcement Analyst, Fraud & Scams",
-    "location": "Remote (US); San Francisco, CA; New York City, NY; Washington, DC",
-    "type": "earlycareer",
-    "category": "AI Security & Safety",
-    "clearance": false,
-    "url": "",
-    "source": "Greenhouse",
-    "date_added": "2026-07-14",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
     "company": "Anthropic",
     "role": "Safeguards Enforcement Analyst, Violence & Extremism",
     "location": "Remote (US); San Francisco, CA; New York City, NY; Washington, DC",
@@ -598,58 +259,6 @@
     "closed_date": "2026-09-25"
   },
   {
-    "company": "CrowdStrike",
-    "role": "Engineer II, Advanced Research (Remote)",
-    "location": "Remote, MN",
-    "type": "earlycareer",
-    "category": "Engineering @ Security Co",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-16",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "GDIT",
-    "role": "Cybersecurity SOC Analyst Tier I",
-    "location": "Bossier City, LA",
-    "type": "earlycareer",
-    "category": "SOC & Detection",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-16",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "Northrop Grumman",
-    "role": "Cybersecurity Analyst- Level 1 or 2",
-    "location": "Schriever AFB, CO",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-16",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "Cisco",
-    "role": "Workday Security Administrator II (Hybrid)",
-    "location": "RTP, NC",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-17",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
     "company": "Booz Allen Hamilton",
     "role": "Cybersecurity Analyst, Junior",
     "location": "Rome, NY",
@@ -659,19 +268,6 @@
     "url": "https://bah.wd1.myworkdayjobs.com/BAH_Jobs/job/Rome-NY/Cybersecurity-Analyst--Junior_R0252510",
     "source": "Workday",
     "date_added": "2026-07-17"
-  },
-  {
-    "company": "CrowdStrike",
-    "role": "Full-Stack Engineer II, Automation and Dev (Hybrid)",
-    "location": "Remote, CA; Sunnyvale, CA; Palo Alto, CA; Santa Clara, CA; Redmond, WA",
-    "type": "earlycareer",
-    "category": "Engineering @ Security Co",
-    "clearance": false,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-17",
-    "closed": true,
-    "closed_date": "2026-09-19"
   },
   {
     "company": "Illumio",
@@ -698,19 +294,6 @@
     "date_added": "2026-07-18"
   },
   {
-    "company": "Sierra Nevada Corporation",
-    "role": "DevSecOps Project Engineer II",
-    "location": "Plano, TX",
-    "type": "earlycareer",
-    "category": "AppSec & ProdSec",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-18",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
     "company": "TRM Labs",
     "role": "University Grad \u2013 Product Engineer (2026-2027) - Los Angeles Only",
     "location": "Los Angeles, CA",
@@ -720,19 +303,6 @@
     "url": "https://jobs.ashbyhq.com/trm-labs/0b8546c0-39ba-44db-aba5-3425bcb2e68d",
     "source": "Ashby",
     "date_added": "2026-07-20"
-  },
-  {
-    "company": "CrowdStrike",
-    "role": "Analyst I, Falcon Complete (Remote)",
-    "location": "Remote (US)",
-    "type": "earlycareer",
-    "category": "Engineering @ Security Co",
-    "clearance": false,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-20",
-    "closed": true,
-    "closed_date": "2026-09-19"
   },
   {
     "company": "CrowdStrike",
@@ -748,58 +318,6 @@
     "closed_date": "2026-11-12"
   },
   {
-    "company": "CrowdStrike",
-    "role": "Engineer I, Data Scientist - New Grad (Hybrid)",
-    "location": "Sunnyvale, CA",
-    "type": "newgrad",
-    "category": "Engineering @ Security Co",
-    "clearance": false,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-20",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "Sierra Nevada Corporation",
-    "role": "Cybersecurity Compliance Advisory Analyst I",
-    "location": "Sparks, NV; Lone Tree, CO",
-    "type": "earlycareer",
-    "category": "GRC & Risk",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-20",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "CrowdStrike",
-    "role": "Analyst I, Falcon Complete (Hybrid, St Louis)",
-    "location": "St. Louis, MO",
-    "type": "earlycareer",
-    "category": "Engineering @ Security Co",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-21",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "Cisco",
-    "role": "AI Security Research Engineer",
-    "location": "RTP, NC",
-    "type": "earlycareer",
-    "category": "AI Security & Safety",
-    "clearance": false,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-21",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
     "company": "Mastercard",
     "role": "Security Monitoring and Response Analyst II",
     "location": "O'Fallon, MO",
@@ -813,19 +331,6 @@
     "closed_date": "2026-11-07"
   },
   {
-    "company": "Optiv",
-    "role": "Associate SOC Engineer | Remote, USA",
-    "location": "Leawood, KS; Atlanta, GA; Tampa, FL; Overland Park, KS; Fort Worth, TX; Nashville, TN",
-    "type": "earlycareer",
-    "category": "SOC & Detection",
-    "clearance": false,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-21",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
     "company": "Anthropic",
     "role": "Anthropic Fellows Program, AI Safety",
     "location": "Remote (US); San Francisco, CA",
@@ -835,60 +340,6 @@
     "url": "https://job-boards.greenhouse.io/anthropic/jobs/5183044008",
     "source": "Greenhouse",
     "date_added": "2026-07-22"
-  },
-  {
-    "company": "Anthropic",
-    "role": "Anthropic Fellows Program, AI Security",
-    "location": "Remote (US); San Francisco, CA",
-    "type": "earlycareer",
-    "category": "AI Security & Safety",
-    "clearance": false,
-    "url": "",
-    "source": "Greenhouse",
-    "date_added": "2026-07-22",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "Netskope",
-    "role": "Solutions Engineer - SDWAN",
-    "location": "MO (US)",
-    "type": "earlycareer",
-    "category": "Engineering @ Security Co",
-    "clearance": false,
-    "url": "",
-    "source": "Greenhouse",
-    "date_added": "2026-07-22",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "Netskope",
-    "role": "Solutions Engineer - SDWAN",
-    "location": "IL (US)",
-    "type": "earlycareer",
-    "category": "Engineering @ Security Co",
-    "clearance": false,
-    "url": "",
-    "source": "Greenhouse",
-    "date_added": "2026-07-22",
-    "closed": true,
-    "closed_date": "2026-09-19",
-    "twin": 1
-  },
-  {
-    "company": "Netskope",
-    "role": "Solutions Engineer - SDWAN",
-    "location": "TX (US)",
-    "type": "earlycareer",
-    "category": "Engineering @ Security Co",
-    "clearance": false,
-    "url": "",
-    "source": "Greenhouse",
-    "date_added": "2026-07-22",
-    "closed": true,
-    "closed_date": "2026-09-19",
-    "twin": 2
   },
   {
     "company": "Obsidian Security",
@@ -943,58 +394,6 @@
     "closed_date": "2026-11-06"
   },
   {
-    "company": "Two Six Technologies",
-    "role": "Systems Engineer",
-    "location": "Laurel, MD",
-    "type": "earlycareer",
-    "category": "Engineering @ Security Co",
-    "clearance": true,
-    "url": "",
-    "source": "Greenhouse",
-    "date_added": "2026-07-22",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "CACI",
-    "role": "Cybersecurity Engineer- Junior level",
-    "location": "Remote (US); Fort Bragg, NC; Fort Huachuca, AZ",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-22",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "CACI",
-    "role": "Cybersecurity Engineer- Entry Level",
-    "location": "High Point, NC; Fort Bragg, NC; Fort Huachuca, AZ",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-22",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "CrowdStrike",
-    "role": "Engineer II - FinOps Data Analytics (Remote)",
-    "location": "Remote (US)",
-    "type": "earlycareer",
-    "category": "Engineering @ Security Co",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-22",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
     "company": "KBR",
     "role": "Junior Reverse Engineer",
     "location": "Beavercreek Township, OH",
@@ -1015,58 +414,6 @@
     "url": "https://kbr.wd5.myworkdayjobs.com/KBR_Careers/job/Houston-Texas/Associate-Security-Engineer--Identity-Security_R2126761",
     "source": "Workday",
     "date_added": "2026-07-22"
-  },
-  {
-    "company": "Nightwing",
-    "role": "CSOC Threat Management Specialist (Tier 2)",
-    "location": "Falls Church, VA; Morrisville, NC",
-    "type": "earlycareer",
-    "category": "Engineering @ Security Co",
-    "clearance": false,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-22",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "Northrop Grumman",
-    "role": "Cyber Systems Engineer - Level 2 or 3",
-    "location": "Aurora, CO",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-22",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "Northrop Grumman",
-    "role": "Cyber Systems Engineer - Level 2",
-    "location": "Schriever AFB, CO",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-22",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "Northrop Grumman",
-    "role": "Cyber Systems Engineer (Level 2 or 3)",
-    "location": "Dulles, VA",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-22",
-    "closed": true,
-    "closed_date": "2026-09-19"
   },
   {
     "company": "Northrop Grumman",
@@ -1094,19 +441,6 @@
   },
   {
     "company": "RTX",
-    "role": "Cyber Engineer II (Onsite - Cedar Rapids, IA) Secret Clearance Required",
-    "location": "Cedar Rapids, IA",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-22",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "RTX",
     "role": "Systems Security Engineer II \u2013 P2 (Onsite-TX)",
     "location": "McKinney, TX",
     "type": "earlycareer",
@@ -1117,71 +451,6 @@
     "date_added": "2026-07-22",
     "closed": true,
     "closed_date": "2026-09-20"
-  },
-  {
-    "company": "RTX",
-    "role": "Embedded Product System Security Engineer II (Onsite - Cedar Rapids, IA)",
-    "location": "Cedar Rapids, IA",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-22",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "RTX",
-    "role": "Systems Security Engineer II (Anti-Tamper/Program Protection) (Onsite) - P2",
-    "location": "Tewksbury, MA; Marlborough, MA; Woburn, MA",
-    "type": "earlycareer",
-    "category": "Cloud & Infra Security",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-22",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "RTX",
-    "role": "Cyber Infrastructure Engineer II (Onsite)",
-    "location": "Largo, FL",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-22",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "RTX",
-    "role": "Cybersecurity Engineer II",
-    "location": "Tewksbury, MA",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-22",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "RTX",
-    "role": "Cyber Research Software Engineer II",
-    "location": "Cambridge, MA",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-22",
-    "closed": true,
-    "closed_date": "2026-09-19"
   },
   {
     "company": "Amazon",
@@ -1206,45 +475,6 @@
     "date_added": "2026-07-22"
   },
   {
-    "company": "Netskope",
-    "role": "Associate Solutions Engineer",
-    "location": "Saint Louis, MO",
-    "type": "earlycareer",
-    "category": "Engineering @ Security Co",
-    "clearance": false,
-    "url": "",
-    "source": "Greenhouse",
-    "date_added": "2026-07-22",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "CACI",
-    "role": "Junior Penetration Tester - Cyber Engineer",
-    "location": "Aberdeen Proving Ground, MD",
-    "type": "earlycareer",
-    "category": "Offensive Security",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-22",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "GDIT",
-    "role": "Network/Cyber Security Analyst Associate",
-    "location": "Manassas, VA",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-22",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
     "company": "Chainalysis",
     "role": "Software Engineer II, Gov Systems",
     "location": "Remote (US)",
@@ -1256,19 +486,6 @@
     "date_added": "2026-07-23",
     "closed": true,
     "closed_date": "2026-10-25"
-  },
-  {
-    "company": "Sierra Nevada Corporation",
-    "role": "Cybersecurity Analyst I - Artificial Intelligence",
-    "location": "Lone Tree, CO; Sparks, NV",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-23",
-    "closed": true,
-    "closed_date": "2026-09-19"
   },
   {
     "company": "Nightwing",
@@ -1310,19 +527,6 @@
     "closed_date": "2026-11-15"
   },
   {
-    "company": "Affirm",
-    "role": "Product Security Engineer II",
-    "location": "Remote (US)",
-    "type": "earlycareer",
-    "category": "AppSec & ProdSec",
-    "clearance": false,
-    "url": "",
-    "source": "Greenhouse",
-    "date_added": "2026-07-27",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
     "company": "Appian",
     "role": "Information Security Engineer Intern",
     "location": "McLean, VA",
@@ -1347,84 +551,6 @@
     "closed_date": "2026-10-01"
   },
   {
-    "company": "Northrop Grumman",
-    "role": "Exploit Developer/Penetration Tester 2/3",
-    "location": "Unknown City, VA",
-    "type": "earlycareer",
-    "category": "Offensive Security",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-27",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "Cisco",
-    "role": "Security Engineer II (Full Time) - United States STO/Cloud Security Engineering ETR",
-    "location": "Chicago, IL",
-    "type": "earlycareer",
-    "category": "Cloud & Infra Security",
-    "clearance": false,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-29",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "Northrop Grumman",
-    "role": "Classified Cybersecurity Analyst 2/3 - Secret",
-    "location": "Palmdale, CA",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-29",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "CACI",
-    "role": "Cybersecurity Specialist, Junior",
-    "location": "Aberdeen Proving Ground, MD",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-29",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "CrowdStrike",
-    "role": "CrowdStrike Platform Associate Resident Consultant (Remote)",
-    "location": "Remote, TX; Remote (US)",
-    "type": "earlycareer",
-    "category": "Engineering @ Security Co",
-    "clearance": false,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-29",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "Proofpoint",
-    "role": "Associate Triage Analyst",
-    "location": "CA (US); AZ (US); TX (US); UT (US); NV (US); CO (US); OR (US); IL (US)",
-    "type": "earlycareer",
-    "category": "SOC & Detection",
-    "clearance": false,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-29",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
     "company": "KBR",
     "role": "Junior Reverse Engineer",
     "location": "Beavercreek, OH",
@@ -1434,58 +560,6 @@
     "url": "https://kbr.wd5.myworkdayjobs.com/KBR_Careers/job/Beavercreek-Ohio/Junior-Reverse-Engineer_R2127496",
     "source": "Workday",
     "date_added": "2026-07-30"
-  },
-  {
-    "company": "Intel",
-    "role": "AI Security Engineer Contract",
-    "location": "Hillsboro, OR; Santa Clara, CA",
-    "type": "earlycareer",
-    "category": "AI Security & Safety",
-    "clearance": false,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-30",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "Proofpoint",
-    "role": "Systems Security Engineer I",
-    "location": "OR (US); DE (US); CT (US); AZ (US); NE (US); MO (US); MI (US)",
-    "type": "earlycareer",
-    "category": "Cloud & Infra Security",
-    "clearance": false,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-30",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "Cisco",
-    "role": "Security Engineer I (Full-Time) - United States",
-    "location": "Chicago, IL; Austin, TX; Remote (US); RTP, NC; Atlanta, GA",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-31",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "RTX",
-    "role": "Network/Security Analyst II (Onsite)",
-    "location": "Great Falls, MT",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-31",
-    "closed": true,
-    "closed_date": "2026-09-19"
   },
   {
     "company": "Amazon",
@@ -1646,19 +720,6 @@
     "closed_date": "2026-09-21"
   },
   {
-    "company": "Coalfire",
-    "role": "Associate, Compliance Security Penetration Tester",
-    "location": "United States",
-    "type": "earlycareer",
-    "category": "Offensive Security",
-    "clearance": false,
-    "url": "",
-    "source": "Lever",
-    "date_added": "2026-09-05",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
     "company": "Palantir",
     "role": "Information Security Engineer, Internship",
     "location": "New York, NY",
@@ -1744,19 +805,6 @@
     "closed_date": "2026-11-05"
   },
   {
-    "company": "Leidos",
-    "role": "Tier 2 Cyber Incident Response Analyst",
-    "location": "Ashburn, VA",
-    "type": "earlycareer",
-    "category": "SOC & Detection",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-09-05",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
     "company": "Motorola Solutions",
     "role": "SOC Analyst I (Night Shift)",
     "location": "Schaumburg, IL",
@@ -1815,19 +863,6 @@
   },
   {
     "company": "Northrop Grumman",
-    "role": "2026 Associate Classified Cybersecurity Analyst - Pathways Program - El Segundo CA",
-    "location": "El Segundo, CA",
-    "type": "newgrad",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-09-05",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "Northrop Grumman",
     "role": "Cybersecurity Analyst   (Level 2 or 3) TS SCI CI Poly",
     "location": "Schriever AFB, CO",
     "type": "earlycareer",
@@ -1836,19 +871,6 @@
     "url": "https://ngc.wd1.myworkdayjobs.com/northrop_grumman_external_site/job/United-States-Colorado-Schriever-AFB/Cybersecurity-Analyst----Level-2-or-3--TS-SCI-CI-Poly_R10248488",
     "source": "Workday",
     "date_added": "2026-09-05"
-  },
-  {
-    "company": "Northrop Grumman",
-    "role": "2026 Associate Cyber Systems Engineer - Chantilly VA",
-    "location": "Chantilly, VA",
-    "type": "newgrad",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-09-05",
-    "closed": true,
-    "closed_date": "2026-09-19"
   },
   {
     "company": "Northrop Grumman",
@@ -1874,19 +896,6 @@
     "date_added": "2026-09-05",
     "closed": true,
     "closed_date": "2026-10-24"
-  },
-  {
-    "company": "PayPal",
-    "role": "Cybersecurity Engineer - Recent Graduate",
-    "location": "San Jose, CA; Austin, TX",
-    "type": "newgrad",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-09-05",
-    "closed": true,
-    "closed_date": "2026-09-19"
   },
   {
     "company": "RTX",
@@ -2074,19 +1083,6 @@
     "closed_date": "2026-10-29"
   },
   {
-    "company": "Duke Energy",
-    "role": "Digital Forensics Summer Intern - 2027",
-    "location": "Charlotte, NC",
-    "type": "intern",
-    "category": "Forensics & IR",
-    "clearance": false,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-09-05",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
     "company": "JPMorgan Chase",
     "role": "Red Team Assoc Security Engineer II",
     "location": "Plano, TX",
@@ -2139,19 +1135,6 @@
     "closed_date": "2026-10-29"
   },
   {
-    "company": "Amazon",
-    "role": "Systems Development Engineer II, Amazon Security",
-    "location": "Herndon, VA",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "",
-    "source": "Amazon Jobs",
-    "date_added": "2026-09-05",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
     "company": "Nightwing",
     "role": "Multidisciplinary Engineer I",
     "location": "Springfield, VA",
@@ -2187,19 +1170,6 @@
     "date_added": "2026-09-08",
     "closed": true,
     "closed_date": "2026-10-02"
-  },
-  {
-    "company": "Northrop Grumman",
-    "role": "2027 Systems Security Engineering Intern - Roy UT",
-    "location": "Roy, UT",
-    "type": "intern",
-    "category": "Cloud & Infra Security",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-09-08",
-    "closed": true,
-    "closed_date": "2026-09-19"
   },
   {
     "company": "RTX",
@@ -2306,19 +1276,6 @@
   },
   {
     "company": "Northrop Grumman",
-    "role": "2027 Associate Cyber Systems Engineer/Cyber Systems Engineer - CA",
-    "location": "San Diego, CA; Palmdale, CA; El Segundo, CA; Redondo Beach, CA",
-    "type": "newgrad",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-09-09",
-    "closed": true,
-    "closed_date": "2026-09-19"
-  },
-  {
-    "company": "Northrop Grumman",
     "role": "Systems Security Engineer (Level 2 or 3) (Oklahoma City OK)",
     "location": "Oklahoma City, OK",
     "type": "earlycareer",
@@ -2414,19 +1371,6 @@
     "date_added": "2026-09-10",
     "closed": true,
     "closed_date": "2026-09-20"
-  },
-  {
-    "company": "SAIC",
-    "role": "Junior Cybersecurity Analyst",
-    "location": "Remote (US)",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "",
-    "source": "Oracle",
-    "date_added": "2026-09-10",
-    "closed": true,
-    "closed_date": "2026-09-19"
   },
   {
     "company": "Everfox",
@@ -2653,19 +1597,6 @@
     "url": "https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Analyst-I--Falcon-Complete--Remote--PST-MST-_R30575",
     "source": "Workday",
     "date_added": "2026-09-16"
-  },
-  {
-    "company": "CrowdStrike",
-    "role": "Associate Analyst, Falcon Complete",
-    "location": "Remote (US); St. Louis, MO",
-    "type": "earlycareer",
-    "category": "Engineering @ Security Co",
-    "clearance": false,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-09-16",
-    "closed": true,
-    "closed_date": "2026-09-19"
   },
   {
     "company": "CrowdStrike",
@@ -7078,10 +6009,11 @@
     "type": "intern",
     "category": "GRC & Risk",
     "clearance": false,
-    "url": "https://lumen.eightfold.ai/careers/job/1133916380525",
+    "url": "",
     "source": "Eightfold",
     "date_added": "2026-10-17",
-    "missing_since": "2026-11-16"
+    "closed": true,
+    "closed_date": "2026-11-19"
   },
   {
     "company": "BAE Systems",
@@ -7991,10 +6923,11 @@
     "type": "earlycareer",
     "category": "GRC & Risk",
     "clearance": true,
-    "url": "https://jobs.baesystems.com/global/en/job/131921BR",
+    "url": "",
     "source": "Phenom",
     "date_added": "2026-10-27",
-    "missing_since": "2026-11-16"
+    "closed": true,
+    "closed_date": "2026-11-19"
   },
   {
     "company": "Johns Hopkins APL",
@@ -9830,7 +8763,8 @@
     "clearance": true,
     "url": "https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2618119",
     "source": "Oracle",
-    "date_added": "2026-11-16"
+    "date_added": "2026-11-16",
+    "missing_since": "2026-11-19"
   },
   {
     "company": "SAIC",
@@ -10098,5 +9032,60 @@
     "url": "https://www.amazon.jobs/en/jobs/10608214/security-engineer-i-security-incident-response-team-sirt",
     "source": "Amazon Jobs",
     "date_added": "2026-11-18"
+  },
+  {
+    "company": "Salt Security",
+    "role": "Technical Support Engineer (1) EAST",
+    "location": "EAST (US)",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://salt.security/job-board?gh_jid=5301012007",
+    "source": "Greenhouse",
+    "date_added": "2026-11-19"
+  },
+  {
+    "company": "Lockheed Martin",
+    "role": "Security (Crisis Management, Intel Analysis) - Intern",
+    "location": "Orlando, FL",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://lockheedmartin.eightfold.ai/careers/job/996478009188",
+    "source": "Eightfold",
+    "date_added": "2026-11-19"
+  },
+  {
+    "company": "PNNL",
+    "role": "Cyber Security Analyst 1",
+    "location": "Richland, WA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://careers.pnnl.gov/jobs/13652",
+    "source": "Jibe",
+    "date_added": "2026-11-19"
+  },
+  {
+    "company": "Amazon",
+    "role": "Security Engineer, AI Security",
+    "location": "Austin, TX",
+    "type": "earlycareer",
+    "category": "AI Security & Safety",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10608720/security-engineer-ai-security",
+    "source": "Amazon Jobs",
+    "date_added": "2026-11-19"
+  },
+  {
+    "company": "Amazon",
+    "role": "Security Engineer,AWS Security",
+    "location": "Austin, TX",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10608873/security-engineer-aws-security",
+    "source": "Amazon Jobs",
+    "date_added": "2026-11-19"
   }
 ]
