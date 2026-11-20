@@ -170,6 +170,12 @@ def _host_of(url):
 # no is skipped, not pressed. The set is shared by the worker threads.
 _refused_hosts = set()
 _refused_lock = threading.Lock()
+# The boards a refused host failed this run, so the health issue can name the
+# refusal once instead of 110 broken boards. On 2026-11-16 every Workday
+# tenant but three answered a bot check, health.json recorded 110 failed
+# boards, and the issue sent its reader to repair each one. A refusal is not a
+# broken board: nothing in companies.yml is wrong, and the next run asks again.
+_refused_boards = {}
 
 
 def _is_bot_check(resp):
@@ -179,7 +185,20 @@ def _is_bot_check(resp):
 
 
 def _host_refused(url):
-    return _host_of(url) in _refused_hosts
+    host = _host_of(url)
+    if host not in _refused_hosts:
+        return False
+    _note_refused_board(host)
+    return True
+
+
+def _note_refused_board(host):
+    # run_board names the board on its worker thread; a probe outside a board
+    # sweep has no board to charge.
+    board = getattr(_thread_local, 'board', None)
+    if board:
+        with _refused_lock:
+            _refused_boards.setdefault(board, host)
 
 
 def _mark_refused(url, label, why):
@@ -188,6 +207,7 @@ def _mark_refused(url, label, why):
         if not host or host in _refused_hosts:
             return
         _refused_hosts.add(host)
+    _note_refused_board(host)
     print(f'  [{_oneline(label)}] {why}: {host} is skipped for the rest of this run')
 
 
@@ -2576,8 +2596,10 @@ def report_board_health(board_stats, today=None, persist=True):
                      + ', '.join(_oneline(x) for x in cut_short))
     # A refused host fails its boards for the run. Named apart from a crash,
     # since the fix is to ask less, not to repair the board.
+    refused = sorted(b['label'] for b in broken if b.get('refused'))
     if _refused_hosts:
-        lines.append('- Refused the scraper and were skipped for the rest of the run: '
+        lines.append(f'- Refused the scraper and were skipped for the rest of the run '
+                     f'({len(refused)} boards failed for it, nothing to repair): '
                      + ', '.join(sorted(_refused_hosts)))
     if dead:
         # "50 runs" read as 50 requests. Each scrape asks a board once and gets
@@ -2611,6 +2633,7 @@ def report_board_health(board_stats, today=None, persist=True):
             'failed': sorted(b['label'] for b in broken),
             'regressed': [{'board': label, 'had': was} for label, was in regressed],
             'silent': len(dead),
+            'refused': {'hosts': sorted(_refused_hosts), 'boards': refused},
         }, indent=2) + '\n')
 
 
@@ -2730,6 +2753,7 @@ def run_board(task):
     """Scrape one board and report its status, count, and postings; never raises."""
     started = time.monotonic()
     status, jobs = 'ok', []
+    _thread_local.board = task.label
     try:
         found = task.scraper(*task.args)
     except Exception as e:
@@ -2744,10 +2768,13 @@ def run_board(task):
         else:
             jobs = found
             status = 'ok' if jobs else 'zero'
+    finally:
+        _thread_local.board = None
     return {
         'label': task.label,
         'status': status,
         'count': len(jobs),
+        'refused': status == 'FAILED' and task.label in _refused_boards,
         'jobs': jobs,
         'security_company': task.security_company,
         'seconds': time.monotonic() - started,
@@ -2961,7 +2988,7 @@ def main():
             # Amazon has no companies.yml entry to read.
             company_flags.setdefault(job['company'], result['security_company'])
         raw_jobs.extend(result['jobs'])
-        board_stats.append({**{key: result[key] for key in ('label', 'status', 'count')},
+        board_stats.append({**{key: result[key] for key in ('label', 'status', 'count', 'refused')},
                             'partial': any(job.get('partial_sweep') for job in result['jobs'])})
     print(f'\nScraped {len(tasks)} board(s) in {time.monotonic() - started:.0f}s')
 
