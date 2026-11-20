@@ -2,30 +2,30 @@
 
 Employers whose job boards are scraped automatically (see [companies.yml](companies.yml)). 🛡️ marks pure-play security companies, where every engineering role is a security-industry job.
 
-**398 companies tracked.**
+**396 companies tracked.**
 
-## Hiring students now (111)
+## Hiring students now (112)
 
 Employers with open roles on the board today.
 
 | Company | Internships | New grad | Early career |
 | ------- | ----------- | -------- | ------------ |
-| Johns Hopkins APL | 9 | 15 | 4 |
-| ServiceNow | 11 |  |  |
+| Johns Hopkins APL | 8 | 14 | 4 |
 | Vanguard | 5 | 6 |  |
+| ServiceNow | 10 |  |  |
 | Lockheed Martin | 8 |  | 3 |
 | Booz Allen Hamilton | 8 |  | 2 |
+| Lawrence Livermore National Laboratory | 8 |  |  |
 | MITRE | 6 | 1 | 4 |
-| Microsoft | 6 |  | 9 |
-| Lawrence Livermore National Laboratory | 6 |  |  |
 | HPE | 3 | 2 | 2 |
 | Palo Alto Networks | 4 | 1 | 1 |
 | Leidos | 4 |  | 9 |
+| Microsoft | 4 |  | 8 |
 | Software Engineering Institute | 4 |  | 4 |
 | Illumio | 4 |  | 3 |
-| Idaho National Laboratory | 4 |  | 1 |
 | Aerospace Corporation | 4 |  |  |
 | Federal Reserve System | 4 |  |  |
+| Idaho National Laboratory | 4 |  |  |
 | Intel | 4 |  |  |
 | Entrust | 3 |  |  |
 | Goldman Sachs | 3 |  |  |
@@ -37,11 +37,11 @@ Employers with open roles on the board today.
 | Two Six Technologies | 2 |  | 3 |
 | Appian | 1 | 1 | 2 |
 | Applied Intuition |  | 2 | 1 |
-| BDO | 2 |  | 1 |
-| CACI | 2 |  | 1 |
 | Citi | 1 | 1 | 1 |
 | Honeywell | 2 |  | 1 |
 | Motorola Solutions | 2 |  | 1 |
+| BDO | 2 |  |  |
+| CACI | 2 |  |  |
 | Grant Thornton | 1 | 1 |  |
 | National Laboratory of the Rockies | 2 |  |  |
 | NVIDIA | 1 | 1 |  |
@@ -52,11 +52,10 @@ Employers with open roles on the board today.
 | RTX | 1 |  | 11 |
 | Northrop Grumman |  | 1 | 9 |
 | Nightwing | 1 |  | 8 |
-| GuidePoint Security | 1 |  | 7 |
 | GDIT | 1 |  | 5 |
+| STR | 1 |  | 3 |
 | Cisco | 1 |  | 2 |
 | PwC |  | 1 | 2 |
-| STR | 1 |  | 2 |
 | American Express |  | 1 | 1 |
 | Anduril |  | 1 | 1 |
 | Pinterest | 1 |  | 1 |
@@ -77,19 +76,19 @@ Employers with open roles on the board today.
 | State Street | 1 |  |  |
 | TRM Labs |  | 1 |  |
 | Fortinet |  |  | 12 |
-| BAE Systems |  |  | 6 |
+| GuidePoint Security |  |  | 6 |
 | Accenture Federal Services |  |  | 5 |
+| BAE Systems |  |  | 5 |
 | KBR |  |  | 5 |
 | SAIC |  |  | 5 |
-| Abnormal AI |  |  | 3 |
-| JPMorgan Chase |  |  | 3 |
 | Tenable |  |  | 3 |
+| Abnormal AI |  |  | 2 |
 | Amentum |  |  | 2 |
 | Battelle |  |  | 2 |
 | HUMAN Security |  |  | 2 |
+| JPMorgan Chase |  |  | 2 |
 | Proofpoint |  |  | 2 |
 | Salt Security |  |  | 2 |
-| Trail of Bits |  |  | 2 |
 | AeroVironment |  |  | 1 |
 | Affirm |  |  | 1 |
 | Anthropic |  |  | 1 |
@@ -117,14 +116,16 @@ Employers with open roles on the board today.
 | Scale AI |  |  | 1 |
 | Sierra Nevada Corporation |  |  | 1 |
 | Socure |  |  | 1 |
+| Southern Company |  |  | 1 |
 | SpecterOps |  |  | 1 |
 | Stripe |  |  | 1 |
 | The Home Depot |  |  | 1 |
 | Tines |  |  | 1 |
+| Trail of Bits |  |  | 1 |
 
-## Every tracked board (398)
+## Every tracked board (396)
 
-### Ashby (73)
+### Ashby (71)
 
 - 1Password 🛡️
 - Airbyte
@@ -158,7 +159,6 @@ Employers with open roles on the board today.
 - Immersive Labs 🛡️
 - Infisical 🛡️
 - Kindo 🛡️
-- Lakera 🛡️
 - Marqeta
 - Material Security 🛡️
 - Menlo Security 🛡️
@@ -170,7 +170,6 @@ Employers with open roles on the board today.
 - Opal Security 🛡️
 - OpenAI
 - Optro
-- Oso 🛡️
 - Persona
 - Plaid
 - Prophet Security 🛡️

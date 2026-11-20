@@ -440,19 +440,6 @@
     "date_added": "2026-07-22"
   },
   {
-    "company": "RTX",
-    "role": "Systems Security Engineer II \u2013 P2 (Onsite-TX)",
-    "location": "McKinney, TX",
-    "type": "earlycareer",
-    "category": "Cloud & Infra Security",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-22",
-    "closed": true,
-    "closed_date": "2026-09-20"
-  },
-  {
     "company": "Amazon",
     "role": "Security Engineer II, Security Incident Response Team (SIRT)",
     "location": "Seattle, WA",
@@ -780,19 +767,6 @@
     "closed_date": "2026-09-29"
   },
   {
-    "company": "CACI",
-    "role": "Cyber Security Operations Specialist I - Tier 1",
-    "location": "St. Louis, MO",
-    "type": "earlycareer",
-    "category": "SOC & Detection",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-09-05",
-    "closed": true,
-    "closed_date": "2026-09-20"
-  },
-  {
     "company": "Cisco",
     "role": "Security Consulting Engineer I (Intern) - United States",
     "location": "RTP, NC",
@@ -997,19 +971,6 @@
     "date_added": "2026-09-05",
     "closed": true,
     "closed_date": "2026-09-24"
-  },
-  {
-    "company": "Amentum",
-    "role": "Junior Naval Systems Security Engineer",
-    "location": "Dahlgren, VA",
-    "type": "earlycareer",
-    "category": "Cloud & Infra Security",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-09-05",
-    "closed": true,
-    "closed_date": "2026-09-20"
   },
   {
     "company": "Vanguard",
@@ -1361,19 +1322,6 @@
     "closed_date": "2026-10-27"
   },
   {
-    "company": "Northrop Grumman",
-    "role": "2027 Spring Co-op Cyber Software Engineer\u00a0Intern - Cincinnati OH",
-    "location": "Cincinnati, OH",
-    "type": "intern",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-09-10",
-    "closed": true,
-    "closed_date": "2026-09-20"
-  },
-  {
     "company": "Everfox",
     "role": "Software Engineer I",
     "location": "Richardson, TX",
@@ -1463,19 +1411,6 @@
     "url": "https://leidos.wd5.myworkdayjobs.com/External/job/Bethesda-MD/Junior-Security-Engineer_R-00192204",
     "source": "Workday",
     "date_added": "2026-09-14"
-  },
-  {
-    "company": "Northrop Grumman",
-    "role": "Cyber Software Engineer - Level 1/2 AHT",
-    "location": "Redondo Beach, CA",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-09-14",
-    "closed": true,
-    "closed_date": "2026-09-20"
   },
   {
     "company": "RTX",
@@ -1876,17 +1811,6 @@
     "url": "https://motorolasolutions.wd5.myworkdayjobs.com/Careers/job/Chicago-IL/Cyber-Security---2027-Summer-Internship--Chicago-Hybrid-_R68369",
     "source": "Workday",
     "date_added": "2026-09-18"
-  },
-  {
-    "company": "CACI",
-    "role": "Junior Cyber Software Engineer",
-    "location": "Aberdeen Proving Ground, MD",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "https://caci.wd1.myworkdayjobs.com/External/job/Aberdeen-Proving-Ground-MD-US/Junior-Cyber-Software-Engineer_332339",
-    "source": "Workday",
-    "date_added": "2026-09-21"
   },
   {
     "company": "JPMorgan Chase",
@@ -2941,10 +2865,11 @@
     "type": "earlycareer",
     "category": "AppSec & ProdSec",
     "clearance": false,
-    "url": "https://apply.workable.com/trailofbits/j/BA9F2FCDA6/",
+    "url": "",
     "source": "Workable",
     "date_added": "2026-09-29",
-    "missing_since": "2026-11-17"
+    "closed": true,
+    "closed_date": "2026-11-20"
   },
   {
     "company": "Trail of Bits",
@@ -3086,7 +3011,8 @@
     "clearance": false,
     "url": "https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26013354",
     "source": "Oracle",
-    "date_added": "2026-09-29"
+    "date_added": "2026-09-29",
+    "missing_since": "2026-11-20"
   },
   {
     "company": "American Express",
@@ -3304,10 +3230,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://careers.jhuapl.edu/jobs/59642",
+    "url": "",
     "source": "Jibe",
     "date_added": "2026-09-29",
-    "missing_since": "2026-11-17"
+    "closed": true,
+    "closed_date": "2026-11-20"
   },
   {
     "company": "Johns Hopkins APL",
@@ -3791,10 +3718,11 @@
     "type": "intern",
     "category": "Identity & IAM",
     "clearance": false,
-    "url": "https://microsoft.eightfold.ai/careers/job/1970393556922930",
+    "url": "",
     "source": "Eightfold",
     "date_added": "2026-10-01",
-    "missing_since": "2026-11-17"
+    "closed": true,
+    "closed_date": "2026-11-20"
   },
   {
     "company": "Johns Hopkins APL",
@@ -5128,7 +5056,8 @@
     "clearance": true,
     "url": "https://careers.mitre.org/us/en/job/R117424",
     "source": "Phenom",
-    "date_added": "2026-10-08"
+    "date_added": "2026-10-08",
+    "missing_since": "2026-11-20"
   },
   {
     "company": "MITRE",
@@ -5684,10 +5613,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://boards.greenhouse.io/guidepointsecurity/jobs/6224196004?gh_jid=6224196004",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-10-15",
-    "missing_since": "2026-11-17"
+    "closed": true,
+    "closed_date": "2026-11-20"
   },
   {
     "company": "Northrop Grumman",
@@ -5796,7 +5726,8 @@
     "clearance": true,
     "url": "https://jobs.smartrecruiters.com/LLNL/3743990016610186",
     "source": "SmartRecruiters",
-    "date_added": "2026-10-16"
+    "date_added": "2026-10-16",
+    "missing_since": "2026-11-20"
   },
   {
     "company": "Lawrence Livermore National Laboratory",
@@ -6088,10 +6019,11 @@
     "type": "newgrad",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://careers.jhuapl.edu/jobs/60116",
+    "url": "",
     "source": "Jibe",
     "date_added": "2026-10-19",
-    "missing_since": "2026-11-17"
+    "closed": true,
+    "closed_date": "2026-11-20"
   },
   {
     "company": "Shift5",
@@ -6329,10 +6261,11 @@
     "type": "intern",
     "category": "Identity & IAM",
     "clearance": false,
-    "url": "https://microsoft.eightfold.ai/careers/job/1970393557044765",
+    "url": "",
     "source": "Eightfold",
     "date_added": "2026-10-22",
-    "missing_since": "2026-11-17"
+    "closed": true,
+    "closed_date": "2026-11-20"
   },
   {
     "company": "Amazon",
@@ -6557,10 +6490,11 @@
     "type": "earlycareer",
     "category": "Offensive Security",
     "clearance": false,
-    "url": "https://microsoft.eightfold.ai/careers/job/1970393557044699",
+    "url": "",
     "source": "Eightfold",
     "date_added": "2026-10-23",
-    "missing_since": "2026-11-17"
+    "closed": true,
+    "closed_date": "2026-11-20"
   },
   {
     "company": "1Password",
@@ -7370,10 +7304,11 @@
     "type": "earlycareer",
     "category": "AI Security & Safety",
     "clearance": true,
-    "url": "https://elhe.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/2272",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-11-03",
-    "missing_since": "2026-11-17"
+    "closed": true,
+    "closed_date": "2026-11-20"
   },
   {
     "company": "Two Six Technologies",
@@ -8030,10 +7965,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://ebqb.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BDOEntryLevelCareers/job/14747",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-11-12",
-    "missing_since": "2026-11-17"
+    "closed": true,
+    "closed_date": "2026-11-20"
   },
   {
     "company": "Lockheed Martin",
@@ -8053,10 +7989,11 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://abnormal.ai/careers/jobs/8196352003?gh_jid=8196352003",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-11-13",
-    "missing_since": "2026-11-17"
+    "closed": true,
+    "closed_date": "2026-11-20"
   },
   {
     "company": "SpecterOps",
@@ -8067,7 +8004,8 @@
     "clearance": false,
     "url": "https://job-boards.greenhouse.io/specterops/jobs/8939942002",
     "source": "Greenhouse",
-    "date_added": "2026-11-13"
+    "date_added": "2026-11-13",
+    "missing_since": "2026-11-20"
   },
   {
     "company": "ServiceNow",
@@ -8109,10 +8047,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://jobs.smartrecruiters.com/ServiceNow/744000161548528",
+    "url": "",
     "source": "SmartRecruiters",
     "date_added": "2026-11-13",
-    "missing_since": "2026-11-17"
+    "closed": true,
+    "closed_date": "2026-11-20"
   },
   {
     "company": "ServiceNow",
@@ -8320,10 +8259,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://boards.greenhouse.io/guidepointsecurity/jobs/6225726004?gh_jid=6225726004",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-11-16",
-    "missing_since": "2026-11-17"
+    "closed": true,
+    "closed_date": "2026-11-20"
   },
   {
     "company": "GuidePoint Security",
@@ -8897,10 +8837,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://jobs.baesystems.com/global/en/job/131054BR",
+    "url": "",
     "source": "Phenom",
     "date_added": "2026-11-16",
-    "missing_since": "2026-11-17"
+    "closed": true,
+    "closed_date": "2026-11-20"
   },
   {
     "company": "ServiceNow",
@@ -8965,10 +8906,11 @@
     "type": "earlycareer",
     "category": "Cloud Engineering",
     "clearance": false,
-    "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210790526",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-11-17",
-    "missing_since": "2026-11-17"
+    "closed": true,
+    "closed_date": "2026-11-20"
   },
   {
     "company": "Fortinet",
@@ -9123,5 +9065,49 @@
     "url": "https://www.amazon.jobs/en/jobs/10609577/security-engineer-i-stores-security-healthcare-security",
     "source": "Amazon Jobs",
     "date_added": "2026-11-19"
+  },
+  {
+    "company": "STR",
+    "role": "Associate Signal Processing Engineer",
+    "location": "Woburn, MA",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": true,
+    "url": "https://job-boards.greenhouse.io/systemstechnologyresearch/jobs/4703073006",
+    "source": "Greenhouse",
+    "date_added": "2026-11-20"
+  },
+  {
+    "company": "Lawrence Livermore National Laboratory",
+    "role": "Seaborg Institute Nuclear Science and Security Undergraduate Intern - Summer 2027",
+    "location": "Livermore, CA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://jobs.smartrecruiters.com/LLNL/3743990016985966",
+    "source": "SmartRecruiters",
+    "date_added": "2026-11-20"
+  },
+  {
+    "company": "Lawrence Livermore National Laboratory",
+    "role": "Seaborg Institute Nuclear Science and Security Graduate Intern - Summer 2027",
+    "location": "Livermore, CA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://jobs.smartrecruiters.com/LLNL/3743990016985836",
+    "source": "SmartRecruiters",
+    "date_added": "2026-11-20"
+  },
+  {
+    "company": "Southern Company",
+    "role": "Infrastructure Security Analyst",
+    "location": "Atlanta, GA; Birmingham, AL",
+    "type": "earlycareer",
+    "category": "Cloud & Infra Security",
+    "clearance": false,
+    "url": "https://emje.fa.us6.oraclecloud.com/hcmUI/CandidateExperience/en/sites/SouthernCompanyJobs/job/22874",
+    "source": "Oracle",
+    "date_added": "2026-11-20"
   }
 ]
