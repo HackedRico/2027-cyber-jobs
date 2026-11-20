@@ -203,11 +203,16 @@ def _note_refused_board(host):
 
 def _mark_refused(url, label, why):
     host = _host_of(url)
+    if not host:
+        return
+    # Charged before the early return: two boards on one API host can both
+    # draw the refusal before either marks it, and the second must not land in
+    # the health issue as a broken board.
+    _note_refused_board(host)
     with _refused_lock:
-        if not host or host in _refused_hosts:
+        if host in _refused_hosts:
             return
         _refused_hosts.add(host)
-    _note_refused_board(host)
     print(f'  [{_oneline(label)}] {why}: {host} is skipped for the rest of this run')
 
 
@@ -2536,11 +2541,20 @@ def board_health(board_stats, baseline, today):
         # A failed fetch says nothing about whether the board is empty, so it
         # holds the silent streak rather than growing or resetting it.
         empty = _empty_runs(prev) + (b['status'] == 'zero')
-        history[label] = {'count': 0, 'zero_runs': streak, 'empty_runs': empty,
+        # A refused host said nothing about the board either, so its count is
+        # held too and no regression is reported until the host answers. The
+        # count set to 0 here made the regression vanish from every record:
+        # health.json names one only on the run the count falls, and the
+        # health issue dropped the refused board's line.
+        refused = bool(b.get('refused'))
+        history[label] = {'count': prev.get('count', 0) if refused else 0,
+                          'zero_runs': streak, 'empty_runs': empty,
                           'last_nonzero': prev.get('last_nonzero')}
-        if prev.get('count', 0) > 0:
+        if prev.get('count', 0) > 0 and not refused:
             regressed.append((label, prev['count']))
-        if empty >= ZERO_RUN_ALERT:
+        # Listed only on a run that answered empty: the summary reads "empty
+        # the last N scrapes", and a board that failed this run was not.
+        if empty >= ZERO_RUN_ALERT and b['status'] == 'zero':
             dead.append((label, empty, prev.get('last_nonzero')))
     dead.sort(key=lambda d: (-d[1], d[0]))
     return history, regressed, dead

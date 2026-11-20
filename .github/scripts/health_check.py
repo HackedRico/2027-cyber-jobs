@@ -183,10 +183,13 @@ def find_problems(now, writer_runs, last_success, health, baseline, listings,
             problems[f'board-failed:{label}'] = (
                 f'Board `{label}` failed and has returned nothing for '
                 f'{zero_runs(label)} runs')
+    # Only this run's list is filtered. A regression carried on the issue is
+    # health_check's one memory of it, and a refusal must not erase it.
     regressed = {r.get('board') for r in health.get('regressed', []) if isinstance(r, dict)}
+    regressed -= refused_boards
     regressed |= {k.split(':', 1)[1] for k in previous if k.startswith('board-regressed:')
                   and zero_runs(k.split(':', 1)[1]) > 0}
-    for label in sorted(regressed - {None} - refused_boards):
+    for label in sorted(regressed - {None}):
         if f'board-failed:{label}' not in problems:
             problems[f'board-regressed:{label}'] = (
                 f'Board `{label}` fell to 0 postings after returning some '

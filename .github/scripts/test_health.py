@@ -319,14 +319,16 @@ got = problems(health={'failed': ['B', 'W1', 'W2'], 'regressed': [{'board': 'W2'
                        'refused': {'hosts': hosts, 'boards': ['W1', 'W2']}},
                baseline=dict(BASE, W1={'count': 0, 'zero_runs': 6}, W2={'count': 0, 'zero_runs': 1}),
                previous={'board-regressed:W1'})
-check('find_problems names a refusal once and keeps its boards off the failed and regressed lists',
-      sorted(got), ['board-failed:B', 'boards-refused'])
+check('find_problems names a refusal once, keeps its boards off the failed and regressed lists, and keeps a regression it already tracked',
+      sorted(got), ['board-failed:B', 'board-regressed:W1', 'boards-refused'])
 check('the refusal line counts the boards and names the first hosts',
       (got['boards-refused'].startswith('2 board(s) refused the scraper'),
        '`w7.wd5.myworkdayjobs.com` and 2 more.' in got['boards-refused'],
        'w8.' in got['boards-refused']), (True, True, False))
-check('find_problems takes a health.json without the refused field',
+check('find_problems takes a health.json with a null refused field',
       sorted(problems(health={'failed': ['B'], 'refused': None}, baseline=BASE)), ['board-failed:B'])
+check('and one written before the field existed',
+      sorted(problems(health={'failed': ['B']}, baseline=BASE)), ['board-failed:B'])
 check('find_problems flags a quiet week in recruiting season',
       list(problems(listings=[{'date_added': '2026-09-19'}])), ['no-new-rows'])
 check('find_problems accepts a quiet week outside recruiting season',
