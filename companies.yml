@@ -580,9 +580,6 @@ ashby:
 - name: Kindo
   slug: kindo
   security_company: true
-- name: Lakera
-  slug: lakera.ai
-  security_company: true
 - name: Material Security
   slug: materialsecurity
   security_company: true
@@ -604,9 +601,6 @@ ashby:
   security_company: true
 - name: OpenAI
   slug: openai
-- name: Oso
-  slug: oso
-  security_company: true
 - name: Persona
   slug: persona
 - name: Plaid
