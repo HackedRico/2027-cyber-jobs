@@ -2084,6 +2084,20 @@ def unreachable_boards(board_stats, history, today):
     return {key for key, is_gone in unreachable.items() if is_gone}
 
 
+def unreachable_cap(open_at_start, closed_so_far):
+    """How many rows the unreachable pass may close this run.
+
+    `check_outputs` fails a run that closes more than its mass-close limit of
+    the rows open when the run began, and a failed writer loses the whole
+    scrape, every run, until someone reruns it by hand. The pass takes at most
+    half the limit, and never more than the run's other closes have left under
+    it, so a semester-end wave of vanished reqs plus this pass still commits.
+    """
+    limit = max(check_outputs.MASS_CLOSE_MIN,
+                int(check_outputs.MASS_CLOSE_SHARE * open_at_start))
+    return max(0, min(limit // 2, limit - closed_so_far))
+
+
 def retire_unreachable_listings(listings, unreachable, today, limit):
     """Close up to `limit` open rows of the boards in `unreachable`, oldest first.
 
@@ -2550,6 +2564,10 @@ def load_board_baseline():
             }
             if isinstance(value.get('empty_runs'), int):
                 history[label]['empty_runs'] = value['empty_runs']
+            # Dropped here on the first cut, which stamped every failing board
+            # afresh each run and left `unreachable_boards` nothing to read.
+            if isinstance(value.get('last_answered'), str):
+                history[label]['last_answered'] = value['last_answered']
         elif isinstance(value, int):
             history[label] = {'count': value, 'zero_runs': 0, 'last_nonzero': None}
     return history
@@ -3166,9 +3184,11 @@ def main():
     # batches of half the mass-close limit so the rest of the run's closes fit
     # under it and every run still commits.
     unreachable = unreachable_boards(board_stats, load_board_baseline(), today)
-    cap = max(check_outputs.MASS_CLOSE_MIN,
-              int(check_outputs.MASS_CLOSE_SHARE * open_at_start)) // 2
-    stale, waiting = retire_unreachable_listings(listings, unreachable, today, cap)
+    # A repaired location, a folded duplicate or a renamed company moves a
+    # row's key, which the guard counts as a close too.
+    closed_so_far = sum(len(x) for x in (vanished, orphaned, drops, folded, repaired, renamed))
+    stale, waiting = retire_unreachable_listings(
+        listings, unreachable, today, unreachable_cap(open_at_start, closed_so_far))
     for entry in stale:
         print(f'  RETIRED [unreachable] {_oneline(entry.get("company", ""))} — '
               f'{_oneline(entry.get("role", ""))}')

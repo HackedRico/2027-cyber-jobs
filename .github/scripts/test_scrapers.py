@@ -1011,6 +1011,40 @@ def test_board_health_stamps_the_last_answer():
     check('a baseline from before the field starts the clock on this run, failing or not',
           (run('FAILED', old, '2026-11-01'), run('FAILED', None, '2026-11-01')),
           ('2026-11-01', '2026-11-01'))
+    # The loader rebuilds each entry field by field, and the first cut left this
+    # one out, so every failing board was stamped afresh each run.
+    saved = sj.BOARD_BASELINE_FILE
+    with tempfile.TemporaryDirectory() as tmp:
+        try:
+            sj.BOARD_BASELINE_FILE = Path(tmp) / 'baseline.json'
+            history, _, _ = sj.board_health(
+                [{'label': label, 'status': 'ok', 'count': 3}], {}, '2026-11-01')
+            history['Odd (lever/odd)'] = {'count': 0, 'zero_runs': 1, 'last_answered': 7}
+            sj.BOARD_BASELINE_FILE.write_text(json.dumps(history))
+            loaded = sj.load_board_baseline()
+        finally:
+            sj.BOARD_BASELINE_FILE = saved
+    check('last_answered survives the save and load',
+          loaded[label]['last_answered'], '2026-11-01')
+    check('and a value that is not a date is dropped', 'last_answered' in loaded['Odd (lever/odd)'], False)
+    history, _, _ = sj.board_health(
+        [{'label': label, 'status': 'FAILED', 'count': 0}], loaded, '2026-11-20')
+    check('so a failing board keeps the date it last answered on',
+          history[label]['last_answered'], '2026-11-01')
+
+
+def test_unreachable_cap_stays_under_the_mass_close_limit():
+    """169 Workday rows at once would fail check_outputs and lose every scrape
+    until a hand rerun."""
+    limit = lambda n: max(sj.check_outputs.MASS_CLOSE_MIN, int(sj.check_outputs.MASS_CLOSE_SHARE * n))  # noqa: E731
+    check('half the limit on a quiet run', sj.unreachable_cap(415, 0), limit(415) // 2)
+    check('the small-board floor applies', (limit(40), sj.unreachable_cap(40, 0)), (25, 12))
+    check('a run that already closed many takes only what is left under the limit',
+          sj.unreachable_cap(415, limit(415) - 10), 10)
+    check('and a run already over the limit closes nothing here',
+          (sj.unreachable_cap(415, limit(415)), sj.unreachable_cap(415, limit(415) + 30)), (0, 0))
+    check('under the limit, the pass never pushes a run over it', all(
+        closed + sj.unreachable_cap(415, closed) <= limit(415) for closed in range(limit(415) + 1)), True)
 
 
 def test_unreachable_boards_and_their_rows():
@@ -4398,6 +4432,7 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_run_board_charges_a_refusal_to_its_board,
            test_a_refused_board_holds_its_count_until_the_host_answers,
            test_board_health_stamps_the_last_answer,
+           test_unreachable_cap_stays_under_the_mass_close_limit,
            test_unreachable_boards_and_their_rows,
            test_compare_runs_reports_retirements,
            test_compare_runs_counts_repeats_and_reads_every_event,
