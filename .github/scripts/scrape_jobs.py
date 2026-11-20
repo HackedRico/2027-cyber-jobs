@@ -20,11 +20,12 @@ import time
 from collections import Counter
 from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import NamedTuple
 from urllib.parse import parse_qs, urlparse
 
+import check_outputs
 import rebuild_readme
 import requests
 import yaml
@@ -2013,6 +2014,14 @@ def job_fingerprint(company, source, url):
 # retirement only ever judged boards that returned something.
 SILENT_BOARD_RUNS = 4 * VANISHED_DAYS
 
+# A board whose host has not answered for this long has rows nothing can
+# refresh or close: the vanished pass judges only companies that answered, and
+# the link check skips a URL with a req id. Since 2026-11-16 Cloudflare has met
+# GitHub's runners with a bot check on 110 Workday tenants, and 169 open rows,
+# 68 of them internships, kept their apply links while the reqs behind them
+# closed. A row closed here revives on the run the host answers with it again.
+UNREACHABLE_DAYS = 14
+
 
 def failed_board_companies(board_stats):
     """Return the companies with at least one FAILED or CRASHED board this run."""
@@ -2047,6 +2056,54 @@ def long_silent_boards(board_stats, history):
         quiet = b['count'] == 0 and streak >= SILENT_BOARD_RUNS
         silent[(name, ats)] = silent.get((name, ats), True) and quiet
     return {key for key, is_silent in silent.items() if is_silent}
+
+
+def unreachable_boards(board_stats, history, today):
+    """Return the (company, ats) pairs whose boards have all failed for UNREACHABLE_DAYS.
+
+    Read from `last_answered` in the stored baseline, which `board_health`
+    stamps on every run a board answers, so a board a refused host or a dead
+    tenant has failed since that date counts and a crash, which is the parser's
+    fault, does not. A baseline entry written before the field existed carries
+    no date until a run writes one, so its clock starts there. Like
+    `long_silent_boards`, a company with two boards on one ATS is unreachable
+    only when both are.
+    """
+    cutoff = datetime.strptime(today, '%Y-%m-%d').date() - timedelta(days=UNREACHABLE_DAYS)
+    unreachable = {}
+    for b in board_stats:
+        name, _, rest = b['label'].rpartition(' (')
+        ats = rest.split('/', 1)[0].rstrip(')').lower()
+        entry = history.get(b['label']) or history.get(_legacy_label(b['label'])) or {}
+        try:
+            last = datetime.strptime(entry.get('last_answered') or '', '%Y-%m-%d').date()
+        except ValueError:
+            last = None
+        gone = b['status'] == 'FAILED' and last is not None and last <= cutoff
+        unreachable[(name, ats)] = unreachable.get((name, ats), True) and gone
+    return {key for key, is_gone in unreachable.items() if is_gone}
+
+
+def retire_unreachable_listings(listings, unreachable, today, limit):
+    """Close up to `limit` open rows of the boards in `unreachable`, oldest first.
+
+    Returns (rows retired, rows left for the next run). `unreachable` holds
+    the (company, ats) pairs from `unreachable_boards`. Retirement writes what
+    a dead link writes, blank url plus `closed`, so the revive path reopens a
+    row on the run its host answers with the posting again. `limit` keeps a
+    run under `check_outputs`'s mass-close guard: the 169 Workday rows of
+    November 2026 closed at once would fail the run and lose the whole scrape,
+    so a board drains over a few runs instead. Community rows carry a
+    maintainer's judgment and are exempt.
+    """
+    due = [e for e in listings
+           if e.get('source') != 'Community' and not e.get('closed') and e.get('url')
+           and (e.get('company', ''), e.get('source', '').lower()) in unreachable]
+    due.sort(key=lambda e: (e.get('date_added', ''), e.get('company', ''), e.get('role', '')))
+    retired = due[:max(limit, 0)]
+    for entry in retired:
+        _retire(entry, today)
+    return retired, len(due) - len(retired)
 
 
 def retire_vanished_listings(listings, raw_jobs, today, silent_boards=frozenset(),
@@ -2535,7 +2592,7 @@ def board_health(board_stats, baseline, today):
         prev = baseline.get(label) or baseline.get(_legacy_label(label)) or {}
         if b['count'] > 0:
             history[label] = {'count': b['count'], 'zero_runs': 0, 'empty_runs': 0,
-                              'last_nonzero': today}
+                              'last_nonzero': today, 'last_answered': today}
             continue
         streak = prev.get('zero_runs', 0) + 1
         # A failed fetch says nothing about whether the board is empty, so it
@@ -2547,9 +2604,13 @@ def board_health(board_stats, baseline, today):
         # health.json names one only on the run the count falls, and the
         # health issue dropped the refused board's line.
         refused = bool(b.get('refused'))
+        # `last_answered` feeds `unreachable_boards`. An entry from before the
+        # field existed is stamped with this run's date whatever it answered,
+        # so a board already failing starts its clock here, not in the past.
+        answered = today if b['status'] == 'zero' else prev.get('last_answered') or today
         history[label] = {'count': prev.get('count', 0) if refused else 0,
                           'zero_runs': streak, 'empty_runs': empty,
-                          'last_nonzero': prev.get('last_nonzero')}
+                          'last_nonzero': prev.get('last_nonzero'), 'last_answered': answered}
         if prev.get('count', 0) > 0 and not refused:
             regressed.append((label, prev['count']))
         # Listed only on a run that answered empty: the summary reads "empty
@@ -3014,6 +3075,9 @@ def main():
     print(f'\nScraped {len(raw_jobs)} raw postings; filtering...')
 
     listings = load_listings()
+    # check_outputs judges this run's closes against main's listings.json, so
+    # the mass-close limit is read off the board as the run found it.
+    open_at_start = sum(1 for e in listings if not e.get('closed') and e.get('url'))
 
     # Before any pass below removes a row. RTX posted 'Embedded Security Software
     # Engineer I (Onsite)' in Tewksbury, El Segundo and Tucson on one day, and
@@ -3098,6 +3162,20 @@ def main():
     for entry in orphaned:
         print(f'  RETIRED [orphaned] {_oneline(entry.get("company", ""))} — '
               f'{_oneline(entry.get("role", ""))}')
+    # Rows of a host that has not answered for UNREACHABLE_DAYS, closed in
+    # batches of half the mass-close limit so the rest of the run's closes fit
+    # under it and every run still commits.
+    unreachable = unreachable_boards(board_stats, load_board_baseline(), today)
+    cap = max(check_outputs.MASS_CLOSE_MIN,
+              int(check_outputs.MASS_CLOSE_SHARE * open_at_start)) // 2
+    stale, waiting = retire_unreachable_listings(listings, unreachable, today, cap)
+    for entry in stale:
+        print(f'  RETIRED [unreachable] {_oneline(entry.get("company", ""))} — '
+              f'{_oneline(entry.get("role", ""))}')
+    if unreachable:
+        print(f'  {len(unreachable)} board(s) unreachable for {UNREACHABLE_DAYS}+ days: '
+              + ', '.join(sorted(f'{c} ({a})' for c, a in unreachable))
+              + f'; closed {len(stale)} row(s), {waiting} wait for the next run')
     for entry, old in renamed:
         print(f'  RENAMED [company] {_oneline(old)} -> {_oneline(entry.get("company", ""))} — '
               f'{_oneline(entry.get("role", ""))}')
@@ -3119,7 +3197,7 @@ def main():
     pending = sum(1 for e in listings if e.get('missing_since'))
     changed = (added or reclassified or revived or purged or drops or refreshed
                or renormalized or scrubbed or repaired or folded or vanished or orphaned
-               or renamed or pending)
+               or stale or renamed or pending)
     dropped_by = ', '.join(f'{n} {reason}' for reason, n in sorted(drop_counts.items()))
     # A detail endpoint that fails every run while the list endpoint answers
     # stops every new candidate and leaves its board 'ok', so the summary
@@ -3128,7 +3206,8 @@ def main():
     print(f'\nAdded {added} new listing(s), revived {revived}, '
           f'reclassified {reclassified}, purged {purged}, '
           f'repaired {len(repaired)} location(s) + folded {len(folded)} duplicate(s), '
-          f'retired {len(vanished)} vanished ({pending} more missing) + {len(orphaned)} orphaned, '
+          f'retired {len(vanished)} vanished ({pending} more missing) + {len(orphaned)} orphaned '
+          f'+ {len(stale)} unreachable, '
           f'dropped {len(drops)} ({dropped_by or "none"}), '
           f'refreshed {len(refreshed) - relevelled} category or clearance field(s){deferral}')
 
@@ -3144,7 +3223,7 @@ def main():
     save_seen_jobs(seen)
     events_file = os.environ.get('RUN_EVENTS_FILE')
     if events_file:
-        write_run_events(events_file, added_rows, revived_rows, vanished + orphaned)
+        write_run_events(events_file, added_rows, revived_rows, vanished + orphaned + stale)
     print('Done')
 
 
