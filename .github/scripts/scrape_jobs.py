@@ -2487,11 +2487,14 @@ def board_health(board_stats, baseline, today):
     """Fold this run's counts into the stored per-board history.
 
     Returns (history, regressed, dead): `regressed` boards produced postings
-    last run and none this one; `dead` boards have been silent for
+    last run and none this one; `dead` boards have answered empty for
     ZERO_RUN_ALERT consecutive runs. `zero_runs` counts every run without
     postings, failures included, since a board that keeps failing still needs
     triage and health_check.py reads it; `empty_runs` counts only real empty
-    answers and drives `long_silent_boards`.
+    answers and drives both `dead` and `long_silent_boards`. The summary
+    describes `dead` as boards that answered with an empty list, and until
+    2026-11-19 it was built from `zero_runs`, so the 89 Workday boards a bot
+    check had failed for six runs were listed as empty.
 
     The count-only baseline could report the first case but never the second.
     It overwrote the previous count with 0, so a board that broke warned on
@@ -2517,8 +2520,8 @@ def board_health(board_stats, baseline, today):
                           'last_nonzero': prev.get('last_nonzero')}
         if prev.get('count', 0) > 0:
             regressed.append((label, prev['count']))
-        if streak >= ZERO_RUN_ALERT:
-            dead.append((label, streak, prev.get('last_nonzero')))
+        if empty >= ZERO_RUN_ALERT:
+            dead.append((label, empty, prev.get('last_nonzero')))
     dead.sort(key=lambda d: (-d[1], d[0]))
     return history, regressed, dead
 

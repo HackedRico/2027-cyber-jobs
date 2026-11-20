@@ -903,6 +903,32 @@ def test_board_health_streaks():
     check('a recovered board is not reported dead', dead, [])
 
 
+def test_a_failed_board_is_not_reported_empty():
+    """The run summary says each listed board answered with an empty list, so a
+    board a refused host or a crash failed must not be on it (89 Workday boards
+    were, 2026-11-19). The failure still grows `zero_runs`, which keeps the
+    health issue's failed-board line alive."""
+    almost = sj.ZERO_RUN_ALERT - 1
+    baseline = {'Acme': {'count': 0, 'zero_runs': almost, 'empty_runs': almost,
+                         'last_nonzero': '2026-09-01'}}
+    history, _, dead = sj.board_health(
+        [{'label': 'Acme', 'status': 'FAILED', 'count': 0}], baseline, '2026-09-14')
+    check('a failed run grows the zero streak but not the empty streak',
+          (history['Acme']['zero_runs'], history['Acme']['empty_runs']),
+          (sj.ZERO_RUN_ALERT, almost))
+    check('and the board is not reported as empty', dead, [])
+    history, _, dead = sj.board_health(
+        [{'label': 'Acme', 'status': 'zero', 'count': 0}], baseline, '2026-09-14')
+    check('an empty answer is reported with the empty streak',
+          dead, [('Acme', sj.ZERO_RUN_ALERT, '2026-09-01')])
+    # A baseline older than `empty_runs` is read by its zero streak, so an
+    # upgrade does not restart every board's count from scratch.
+    history, _, dead = sj.board_health(
+        [{'label': 'Acme', 'status': 'zero', 'count': 0}],
+        {'Acme': {'count': 0, 'zero_runs': almost, 'last_nonzero': None}}, '2026-09-14')
+    check('an old baseline keeps its streak', dead, [('Acme', sj.ZERO_RUN_ALERT, None)])
+
+
 def test_board_health_migrates_and_survives_a_corrupt_baseline():
     original = sj.BOARD_BASELINE_FILE
     try:
@@ -4230,6 +4256,7 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_check_links_caps_each_link_in_wall_clock_time,
            test_check_links_skip_matches_the_parsed_host,
            test_board_health_forgets_a_removed_board,
+           test_a_failed_board_is_not_reported_empty,
            test_compare_runs_reports_retirements,
            test_compare_runs_counts_repeats_and_reads_every_event,
            test_compare_runs_reads_the_lines_main_prints,
