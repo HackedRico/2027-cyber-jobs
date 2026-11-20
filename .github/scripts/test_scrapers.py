@@ -899,7 +899,8 @@ def test_board_health_streaks():
     history, regressed, dead = sj.board_health(
         [{'label': 'Acme', 'status': 'ok', 'count': 7}], history, '2026-09-20')
     check('a recovered board clears its streak', history['Acme'],
-          {'count': 7, 'zero_runs': 0, 'empty_runs': 0, 'last_nonzero': '2026-09-20'})
+          {'count': 7, 'zero_runs': 0, 'empty_runs': 0, 'last_nonzero': '2026-09-20',
+           'last_answered': '2026-09-20'})
     check('a recovered board is not reported dead', dead, [])
 
 
@@ -943,7 +944,8 @@ def test_a_refused_board_holds_its_count_until_the_host_answers():
     check('a refused run reports no regression', regressed, [])
     check('and holds the count while the zero streak grows',
           history['Acme (workday/t)'],
-          {'count': 9, 'zero_runs': 1, 'empty_runs': 0, 'last_nonzero': '2026-09-13'})
+          {'count': 9, 'zero_runs': 1, 'empty_runs': 0, 'last_nonzero': '2026-09-13',
+           'last_answered': '2026-09-14'})
     history, regressed, _ = sj.board_health(refused, history, '2026-09-15')
     check('a second refused run holds it still', (history['Acme (workday/t)']['count'], regressed), (9, []))
     history, regressed, _ = sj.board_health(
@@ -992,6 +994,111 @@ def test_run_board_charges_a_refusal_to_its_board():
            len(sj._refused_boards)), (None, 2))
     sj._refused_hosts.clear()
     sj._refused_boards.clear()
+
+
+def test_board_health_stamps_the_last_answer():
+    """`last_answered` is the clock `unreachable_boards` reads."""
+    label = 'Acme (workday/acme)'
+    run = lambda status, prev, today: sj.board_health(  # noqa: E731
+        [{'label': label, 'status': status, 'count': 3 if status == 'ok' else 0}],
+        {label: prev} if prev else {}, today)[0][label]['last_answered']
+    old = {'count': 0, 'zero_runs': 2, 'last_nonzero': None}
+    check('a board with postings answered today', run('ok', old, '2026-11-01'), '2026-11-01')
+    check('an empty answer is an answer', run('zero', old, '2026-11-01'), '2026-11-01')
+    answered = dict(old, last_answered='2026-10-20')
+    check('a failed run holds the date', run('FAILED', answered, '2026-11-01'), '2026-10-20')
+    check('so does a crash', run('CRASHED', answered, '2026-11-01'), '2026-10-20')
+    check('a baseline from before the field starts the clock on this run, failing or not',
+          (run('FAILED', old, '2026-11-01'), run('FAILED', None, '2026-11-01')),
+          ('2026-11-01', '2026-11-01'))
+    # The loader rebuilds each entry field by field, and the first cut left this
+    # one out, so every failing board was stamped afresh each run.
+    saved = sj.BOARD_BASELINE_FILE
+    with tempfile.TemporaryDirectory() as tmp:
+        try:
+            sj.BOARD_BASELINE_FILE = Path(tmp) / 'baseline.json'
+            history, _, _ = sj.board_health(
+                [{'label': label, 'status': 'ok', 'count': 3}], {}, '2026-11-01')
+            history['Odd (lever/odd)'] = {'count': 0, 'zero_runs': 1, 'last_answered': 7}
+            sj.BOARD_BASELINE_FILE.write_text(json.dumps(history))
+            loaded = sj.load_board_baseline()
+        finally:
+            sj.BOARD_BASELINE_FILE = saved
+    check('last_answered survives the save and load',
+          loaded[label]['last_answered'], '2026-11-01')
+    check('and a value that is not a date is dropped', 'last_answered' in loaded['Odd (lever/odd)'], False)
+    history, _, _ = sj.board_health(
+        [{'label': label, 'status': 'FAILED', 'count': 0}], loaded, '2026-11-20')
+    check('so a failing board keeps the date it last answered on',
+          history[label]['last_answered'], '2026-11-01')
+
+
+def test_unreachable_cap_stays_under_the_mass_close_limit():
+    """169 Workday rows at once would fail check_outputs and lose every scrape
+    until a hand rerun."""
+    limit = lambda n: max(sj.check_outputs.MASS_CLOSE_MIN, int(sj.check_outputs.MASS_CLOSE_SHARE * n))  # noqa: E731
+    check('half the limit on a quiet run', sj.unreachable_cap(415, 0), limit(415) // 2)
+    check('the small-board floor applies', (limit(40), sj.unreachable_cap(40, 0)), (25, 12))
+    check('a run that already closed many takes only what is left under the limit',
+          sj.unreachable_cap(415, limit(415) - 10), 10)
+    check('and a run already over the limit closes nothing here',
+          (sj.unreachable_cap(415, limit(415)), sj.unreachable_cap(415, limit(415) + 30)), (0, 0))
+    check('under the limit, the pass never pushes a run over it', all(
+        closed + sj.unreachable_cap(415, closed) <= limit(415) for closed in range(limit(415) + 1)), True)
+
+
+def test_unreachable_boards_and_their_rows():
+    """110 Workday tenants met the runners with a bot check from 2026-11-16, and
+    their 169 open rows had no path to a refresh or a close."""
+    today = '2026-12-01'
+    stale, fresh = {'last_answered': '2026-11-17'}, {'last_answered': '2026-11-18'}
+    history = {'Acme (workday/acme)': stale, 'Beta (workday/beta)': fresh,
+               'Gamma (workday/gamma)': stale, 'Delta (workday/delta)': stale,
+               'Dual (oracle/a.example.com/A)': stale, 'Dual (oracle/b.example.com/B)': fresh,
+               'Legacy (greenhouse/legacy)': {'count': 0, 'zero_runs': 40},
+               'Garbled (lever/garbled)': {'last_answered': 'never'}}
+    failed = lambda label: {'label': label, 'status': 'FAILED', 'count': 0}  # noqa: E731
+    stats = [failed('Acme (workday/acme)'), failed('Beta (workday/beta)'),
+             {'label': 'Gamma (workday/gamma)', 'status': 'CRASHED', 'count': 0},
+             {'label': 'Delta (workday/delta)', 'status': 'zero', 'count': 0},
+             failed('Dual (oracle/a.example.com/A)'), failed('Dual (oracle/b.example.com/B)'),
+             failed('Legacy (greenhouse/legacy)'), failed('Garbled (lever/garbled)')]
+    check('only a board that has failed since UNREACHABLE_DAYS ago is unreachable',
+          sj.unreachable_boards(stats, history, today), {('Acme', 'workday')})
+    check('the day it turns fourteen counts and the day before does not',
+          (sj.unreachable_boards(stats, history, '2026-11-30'),
+           sj.unreachable_boards(stats, history, '2026-12-02')),
+          (set(), {('Acme', 'workday'), ('Beta', 'workday'), ('Dual', 'oracle')}))
+    check('a board missing from the baseline is not unreachable',
+          sj.unreachable_boards([failed('New (ashby/new)')], history, today), set())
+
+    rows = [
+        {'company': 'Acme', 'source': 'Workday', 'role': 'SOC Analyst I', 'location': 'Austin, TX',
+         'url': 'https://acme.wd5.myworkdayjobs.com/x/job/R3', 'date_added': '2026-10-03'},
+        {'company': 'Acme', 'source': 'Workday', 'role': 'Cyber Intern', 'location': 'Austin, TX',
+         'url': 'https://acme.wd5.myworkdayjobs.com/x/job/R1', 'date_added': '2026-10-01'},
+        {'company': 'Acme', 'source': 'Workday', 'role': 'GRC Analyst', 'location': 'Austin, TX',
+         'url': 'https://acme.wd5.myworkdayjobs.com/x/job/R2', 'date_added': '2026-10-02'},
+        {'company': 'Acme', 'source': 'Community', 'role': 'Security Intern', 'location': 'Remote (US)',
+         'url': 'https://acme.wd5.myworkdayjobs.com/x/job/R9', 'date_added': '2026-10-01'},
+        {'company': 'Acme', 'source': 'Workday', 'role': 'Closed', 'location': 'Austin, TX',
+         'url': '', 'closed': True, 'closed_date': '2026-09-01', 'date_added': '2026-08-01'},
+        {'company': 'Beta', 'source': 'Workday', 'role': 'SOC Analyst I', 'location': 'Austin, TX',
+         'url': 'https://beta.wd5.myworkdayjobs.com/x/job/R1', 'date_added': '2026-09-01'},
+    ]
+    retired, waiting = sj.retire_unreachable_listings(rows, {('Acme', 'workday')}, today, 2)
+    check('the oldest rows close first, up to the cap',
+          [r['role'] for r in retired], ['Cyber Intern', 'GRC Analyst'])
+    check('and the rest wait for the next run', waiting, 1)
+    check('a closed row writes what a dead link writes, so the revive path reopens it',
+          {k: rows[1][k] for k in ('url', 'closed', 'closed_date')},
+          {'url': '', 'closed': True, 'closed_date': today})
+    check('the newest row, the Community row and the other company are untouched',
+          [bool(r.get('closed')) for r in rows], [False, True, True, False, True, False])
+    retired, waiting = sj.retire_unreachable_listings(rows, {('Acme', 'workday')}, today, 0)
+    check('a cap of zero closes nothing', (retired, waiting), ([], 1))
+    check('no unreachable board closes nothing',
+          sj.retire_unreachable_listings(rows, set(), today, 50), ([], 0))
 
 
 def test_board_health_migrates_and_survives_a_corrupt_baseline():
@@ -4324,6 +4431,9 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_a_failed_board_is_not_reported_empty,
            test_run_board_charges_a_refusal_to_its_board,
            test_a_refused_board_holds_its_count_until_the_host_answers,
+           test_board_health_stamps_the_last_answer,
+           test_unreachable_cap_stays_under_the_mass_close_limit,
+           test_unreachable_boards_and_their_rows,
            test_compare_runs_reports_retirements,
            test_compare_runs_counts_repeats_and_reads_every_event,
            test_compare_runs_reads_the_lines_main_prints,

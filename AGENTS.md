@@ -55,9 +55,11 @@ behind `main`. Rebase before opening a PR, and take `main` for any conflict in a
   (`seen_jobs.json` is per-posting last-seen, `board_baseline.json` is per-board counts for the
   silent-board alarm), and `main()`, which stamps `twin` on later same-day twins (the number
   the board page tells them apart by), then runs purge, renormalise, reclassify, the
-  stored-row re-evaluation, the location repair, the vanished-req retire and the orphan retire
-  (a row whose company has no board for its source in `companies.yml`) over existing rows
-  before dedup and insert of new ones.
+  stored-row re-evaluation, the location repair, the vanished-req retire, the orphan retire
+  (a row whose company has no board for its source in `companies.yml`) and the unreachable
+  retire (a board whose host has not answered for `UNREACHABLE_DAYS`, closed in batches under
+  the mass-close limit, revived when the host answers) over existing rows before dedup and
+  insert of new ones.
 - `check_links.py` is the daily link check. It visits the rows the scraper cannot retire,
   Community rows and rows with no req id in the URL, plus amazon.jobs rows, which answer a real
   404 and so close here sooner than the scraper's retire. A 404 or 410 closes the row on its
