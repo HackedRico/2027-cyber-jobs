@@ -246,7 +246,23 @@ with tempfile.TemporaryDirectory() as tmp:
           json.loads(sj.HEALTH_FILE.read_text()),
           {'date': '2026-09-27', 'boards': 3, 'ok': 1, 'empty': 1,
            'failed': ['B (lever/b)'], 'regressed': [{'board': 'A (greenhouse/a)', 'had': 5}],
-           'silent': 0})
+           'silent': 0, 'refused': {'hosts': [], 'boards': []}})
+    # A refused host's boards are failed boards with nothing to repair, so the
+    # summary and health.json name them apart from the rest.
+    stats += [{'label': 'W (workday/w)', 'status': 'FAILED', 'count': 0, 'refused': True}]
+    sj._refused_hosts.add('w.wd5.myworkdayjobs.com')
+    try:
+        with contextlib.redirect_stdout(io.StringIO()) as out:
+            sj.report_board_health(stats, '2026-09-27', persist=True)
+    finally:
+        sj._refused_hosts.clear()
+    check('report_board_health records the refused hosts and their boards',
+          json.loads(sj.HEALTH_FILE.read_text())['refused'],
+          {'hosts': ['w.wd5.myworkdayjobs.com'], 'boards': ['W (workday/w)']})
+    check('and the run summary counts the boards the refusal failed',
+          [line for line in out.getvalue().splitlines() if line.startswith('- Refused')],
+          ['- Refused the scraper and were skipped for the rest of the run (1 boards failed '
+           'for it, nothing to repair): w.wd5.myworkdayjobs.com'])
     sj.BOARD_BASELINE_FILE, sj.HEALTH_FILE = saved
 
 
@@ -295,6 +311,24 @@ got = problems(health={'failed': [], 'regressed': []},
                previous={'board-regressed:R', 'board-regressed:Back'})
 check('find_problems keeps a regressed board flagged until it returns postings',
       sorted(got), ['board-regressed:R'])
+# 110 Workday tenants answered a bot check on 2026-11-16, and the issue listed
+# 110 failed boards with triage-board as the fix. A refusal is one line, and
+# the boards it failed are neither failed nor regressed.
+hosts = [f'w{i}.wd5.myworkdayjobs.com' for i in range(10)]
+got = problems(health={'failed': ['B', 'W1', 'W2'], 'regressed': [{'board': 'W2', 'had': 9}],
+                       'refused': {'hosts': hosts, 'boards': ['W1', 'W2']}},
+               baseline=dict(BASE, W1={'count': 0, 'zero_runs': 6}, W2={'count': 0, 'zero_runs': 1}),
+               previous={'board-regressed:W1'})
+check('find_problems names a refusal once, keeps its boards off the failed and regressed lists, and keeps a regression it already tracked',
+      sorted(got), ['board-failed:B', 'board-regressed:W1', 'boards-refused'])
+check('the refusal line counts the boards and names the first hosts',
+      (got['boards-refused'].startswith('2 board(s) refused the scraper'),
+       '`w7.wd5.myworkdayjobs.com` and 2 more.' in got['boards-refused'],
+       'w8.' in got['boards-refused']), (True, True, False))
+check('find_problems takes a health.json with a null refused field',
+      sorted(problems(health={'failed': ['B'], 'refused': None}, baseline=BASE)), ['board-failed:B'])
+check('and one written before the field existed',
+      sorted(problems(health={'failed': ['B']}, baseline=BASE)), ['board-failed:B'])
 check('find_problems flags a quiet week in recruiting season',
       list(problems(listings=[{'date_added': '2026-09-19'}])), ['no-new-rows'])
 check('find_problems accepts a quiet week outside recruiting season',

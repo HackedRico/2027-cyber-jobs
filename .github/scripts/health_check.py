@@ -5,8 +5,9 @@
 
 Flags a scrape that has not succeeded in 30 hours, a writer workflow whose
 latest run in the last 3 days failed, was cancelled or timed out, boards that fail or fell to
-zero postings, and a board with no new row for 7 days while employers post
-student roles. The issue body stores the current problem keys; the maintainer
+zero postings, hosts that refused the scraper (named once, since a refusal is
+not a broken board), and a board with no new row for 7 days while employers
+post student roles. The issue body stores the current problem keys; the maintainer
 is mentioned only when that set changes, and the issue closes when it empties.
 From Aug 2 to Sep 4 every scheduled scrape was cancelled and nothing said so.
 Stdlib only.
@@ -39,6 +40,8 @@ RECRUITING_MONTHS = range(8, 12)
 # A board that failed once is usually a flaky host; two empty runs in a row
 # is a broken slug.
 FAILED_MIN_ZERO_RUNS = 2
+# 110 Workday tenants refused one scrape; the issue names the first few hosts.
+REFUSED_HOSTS_SHOWN = 8
 
 ISSUE_TITLE = 'Scraper health'
 ISSUE_LABEL = 'scraper-health'
@@ -158,12 +161,32 @@ def find_problems(now, writer_runs, last_success, health, baseline, listings,
         return entry.get('zero_runs', 0) if isinstance(entry, dict) else 0
 
     health = health if isinstance(health, dict) else {}
+    # A board a refused host failed is not broken: companies.yml is right and
+    # the next scrape asks again. On 2026-11-16 the issue listed 110 Workday
+    # boards as failed and sent the reader to repair each one.
+    refused = health.get('refused') if isinstance(health.get('refused'), dict) else {}
+    refused_boards = {b for b in refused.get('boards') or [] if isinstance(b, str)}
+    refused_hosts = [h for h in refused.get('hosts') or [] if isinstance(h, str)]
+    if refused_boards:
+        shown = ', '.join(f'`{h}`' for h in refused_hosts[:REFUSED_HOSTS_SHOWN])
+        more = len(refused_hosts) - REFUSED_HOSTS_SHOWN
+        problems['boards-refused'] = (
+            f'{len(refused_boards)} board(s) refused the scraper on the last scrape with a '
+            f'bot check or a lasting 429, so they were skipped, not repaired: {shown}'
+            + (f' and {more} more' if more > 0 else '')
+            + '. Not a broken board; nothing in `companies.yml` to fix, and the next '
+              'scrape asks again. Their rows stay as they are until the host answers.')
     for label in health.get('failed', []):
+        if label in refused_boards:
+            continue
         if zero_runs(label) >= FAILED_MIN_ZERO_RUNS:
             problems[f'board-failed:{label}'] = (
                 f'Board `{label}` failed and has returned nothing for '
                 f'{zero_runs(label)} runs')
+    # Only this run's list is filtered. A regression carried on the issue is
+    # health_check's one memory of it, and a refusal must not erase it.
     regressed = {r.get('board') for r in health.get('regressed', []) if isinstance(r, dict)}
+    regressed -= refused_boards
     regressed |= {k.split(':', 1)[1] for k in previous if k.startswith('board-regressed:')
                   and zero_runs(k.split(':', 1)[1]) > 0}
     for label in sorted(regressed - {None}):

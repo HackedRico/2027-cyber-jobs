@@ -903,6 +903,97 @@ def test_board_health_streaks():
     check('a recovered board is not reported dead', dead, [])
 
 
+def test_a_failed_board_is_not_reported_empty():
+    """The run summary says each listed board answered with an empty list, so a
+    board a refused host or a crash failed must not be on it (89 Workday boards
+    were, 2026-11-19). The failure still grows `zero_runs`, which keeps the
+    health issue's failed-board line alive."""
+    almost = sj.ZERO_RUN_ALERT - 1
+    baseline = {'Acme': {'count': 0, 'zero_runs': almost, 'empty_runs': almost,
+                         'last_nonzero': '2026-09-01'}}
+    history, _, dead = sj.board_health(
+        [{'label': 'Acme', 'status': 'FAILED', 'count': 0}], baseline, '2026-09-14')
+    check('a failed run grows the zero streak but not the empty streak',
+          (history['Acme']['zero_runs'], history['Acme']['empty_runs']),
+          (sj.ZERO_RUN_ALERT, almost))
+    check('and the board is not reported as empty', dead, [])
+    history, _, dead = sj.board_health(
+        [{'label': 'Acme', 'status': 'zero', 'count': 0}], baseline, '2026-09-14')
+    check('an empty answer is reported with the empty streak',
+          dead, [('Acme', sj.ZERO_RUN_ALERT, '2026-09-01')])
+    # A baseline older than `empty_runs` is read by its zero streak, so an
+    # upgrade does not restart every board's count from scratch.
+    history, _, dead = sj.board_health(
+        [{'label': 'Acme', 'status': 'zero', 'count': 0}],
+        {'Acme': {'count': 0, 'zero_runs': almost, 'last_nonzero': None}}, '2026-09-14')
+    check('an old baseline keeps its streak', dead, [('Acme', sj.ZERO_RUN_ALERT, None)])
+    # A board at the alert that fails this run did not answer empty this run.
+    history, _, dead = sj.board_health(
+        [{'label': 'Acme', 'status': 'CRASHED', 'count': 0}],
+        {'Acme': {'count': 0, 'zero_runs': 9, 'empty_runs': 9, 'last_nonzero': None}}, '2026-09-14')
+    check('a board that failed this run is on the failed list, not the empty one', dead, [])
+
+
+def test_a_refused_board_holds_its_count_until_the_host_answers():
+    """A refusal says nothing about the board, so the regression it would mask is
+    reported on the run the host answers empty instead of being lost."""
+    had = {'Acme (workday/t)': {'count': 9, 'zero_runs': 0, 'empty_runs': 0, 'last_nonzero': '2026-09-13'}}
+    refused = [{'label': 'Acme (workday/t)', 'status': 'FAILED', 'count': 0, 'refused': True}]
+    history, regressed, _ = sj.board_health(refused, had, '2026-09-14')
+    check('a refused run reports no regression', regressed, [])
+    check('and holds the count while the zero streak grows',
+          history['Acme (workday/t)'],
+          {'count': 9, 'zero_runs': 1, 'empty_runs': 0, 'last_nonzero': '2026-09-13'})
+    history, regressed, _ = sj.board_health(refused, history, '2026-09-15')
+    check('a second refused run holds it still', (history['Acme (workday/t)']['count'], regressed), (9, []))
+    history, regressed, _ = sj.board_health(
+        [{'label': 'Acme (workday/t)', 'status': 'zero', 'count': 0}], history, '2026-09-16')
+    check('the host answering empty reports the regression', regressed, [('Acme (workday/t)', 9)])
+    check('and the count falls', history['Acme (workday/t)']['count'], 0)
+    plain = [{'label': 'Acme (workday/t)', 'status': 'FAILED', 'count': 0}]
+    history, regressed, _ = sj.board_health(plain, had, '2026-09-14')
+    check('a failure that is not a refusal still regresses at once (a wrong slug 404s)',
+          (regressed, history['Acme (workday/t)']['count']), ([('Acme (workday/t)', 9)], 0))
+
+
+@responses.activate
+def test_run_board_charges_a_refusal_to_its_board():
+    """health.json names the boards a refused host failed, so the health issue
+    can say "refused" once instead of listing 110 broken boards."""
+    sj._refused_hosts.clear()
+    sj._refused_boards.clear()
+    responses.post(WD_API, status=403, headers=BOT_CHECK, body='<!DOCTYPE html>')
+    other = 'https://u.wd5.myworkdayjobs.com/wday/cxs/u/B/jobs'
+    responses.post(other, status=500)
+    refused = sj.run_board(sj.BoardTask('Acme (workday/t)', sj.scrape_workday, ('Acme', 't', 'wd5', 'B')))
+    down = sj.run_board(sj.BoardTask('Other (workday/u)', sj.scrape_workday, ('Other', 'u', 'wd5', 'B')))
+    check('a bot check fails the board and charges it with the refusal',
+          (refused['status'], refused['refused']), ('FAILED', True))
+    check('a host that is down fails the board without a refusal',
+          (down['status'], down['refused']), ('FAILED', False))
+    # Two boards on one API host can both draw the refusal before either marks
+    # it; the second's mark must still charge its board.
+    sj._thread_local.board = 'Beta (greenhouse/beta)'
+    sj._mark_refused('https://t.wd5.myworkdayjobs.com/wday/cxs/t/C/jobs', 'Beta', 'HTTP 403 (bot check)')
+    sj._thread_local.board = None
+    check('a refusal drawn after the host was marked still charges its board',
+          sj._refused_boards.get('Beta (greenhouse/beta)'), 't.wd5.myworkdayjobs.com')
+    del sj._refused_boards['Beta (greenhouse/beta)']
+    # The second board on a refused host sends nothing, and is still charged.
+    again = sj.run_board(sj.BoardTask('Acme early talent (workday/t/Early)', sj.scrape_workday,
+                                      ('Acme', 't', 'wd5', 'Early')))
+    check('a board skipped for an earlier refusal is charged too',
+          (again['status'], again['refused'], len(responses.calls)), ('FAILED', True, 1 + sj.MAX_RETRIES * 5))
+    check('the refusals are recorded by board',
+          sj._refused_boards, {'Acme (workday/t)': 't.wd5.myworkdayjobs.com',
+                               'Acme early talent (workday/t/Early)': 't.wd5.myworkdayjobs.com'})
+    check('a probe outside a board sweep charges no board',
+          (sj.workday_posting_state('https://t.wd5.myworkdayjobs.com/B/job/Austin-TX/SOC-Analyst-I_R1'),
+           len(sj._refused_boards)), (None, 2))
+    sj._refused_hosts.clear()
+    sj._refused_boards.clear()
+
+
 def test_board_health_migrates_and_survives_a_corrupt_baseline():
     original = sj.BOARD_BASELINE_FILE
     try:
@@ -4230,6 +4321,9 @@ for fn in (test_greenhouse_location_reads_only_location_fields,
            test_check_links_caps_each_link_in_wall_clock_time,
            test_check_links_skip_matches_the_parsed_host,
            test_board_health_forgets_a_removed_board,
+           test_a_failed_board_is_not_reported_empty,
+           test_run_board_charges_a_refusal_to_its_board,
+           test_a_refused_board_holds_its_count_until_the_host_answers,
            test_compare_runs_reports_retirements,
            test_compare_runs_counts_repeats_and_reads_every_event,
            test_compare_runs_reads_the_lines_main_prints,

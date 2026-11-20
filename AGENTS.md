@@ -30,10 +30,11 @@ an approved issue), never by editing the outputs. The one exception: a maintaine
 bad Community row in `listings.json` from a Report a Listing issue, since no rule re-judges it.
 
 Three workflows share the `readme-updates` concurrency group and commit as
-`github-actions[bot]`: the scrape at 11:17 and 23:17 UTC, the link check at 09:43 UTC that
-marks 🔒, and add-listing when a maintainer applies the `approved` label. GitHub starts each
-scheduled run 2 to 10 hours after its cron time, so read a run's start time from the Actions
-tab, not from the cron line. The scrape has no cron line for that reason: `scrape-clock.yml`
+`github-actions[bot]`: the scrape with slots at 11:17 and 23:17 UTC, the link check at 09:43
+UTC that marks 🔒, and add-listing when a maintainer applies the `approved` label. GitHub
+starts each scheduled run 2 to 10 hours after its cron time, so read a run's start time from
+the Actions tab, not from the cron line. Since the clock took over, the scrapes have started
+between 17:00 and 18:30 UTC and between 23:30 and 00:30 UTC. The scrape has no cron line for that reason: `scrape-clock.yml`
 ticks every half hour and `scrape_clock.py` dispatches the scrape once a slot has passed with
 no run, so the slot times live in `scrape_clock.SLOTS`. A run that `GITHUB_TOKEN` dispatched
 raises no `workflow_run` event, so the clock also dispatches Pages and Scraper Health once
@@ -137,7 +138,9 @@ more running at once, eleven tenants answered HTTP 429 to every request, and two
 scrapes lost 8 and 6 boards. So:
 
 - Iterate with `--board <ats> --limit N`, and keep the full dry-run pair for the final proof.
-- Never run two full dry runs at once, and keep clear of the 11:17 and 23:17 UTC slots.
+- Never run two full dry runs at once, and keep clear of the hours the production scrapes
+  start in, 17:00 to 18:30 and 23:30 to 00:30 UTC as of November 2026. Check the Actions tab,
+  since the slot times in `scrape_clock.SLOTS` are not when they run.
 - A comparison with a `FAILED` board or an `HTTP 429` line in either log proves nothing.
   Rerun it once one request to that tenant answers 200.
 
