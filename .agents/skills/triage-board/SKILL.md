@@ -9,6 +9,15 @@ A board that errors or goes silent looks identical to one with no new cyber jobs
 the scraper tracks a per-board zero streak and `check_slugs.py` exists as the on-demand sweep.
 Each ATS status code means one specific thing; read it before touching the entry.
 
+A refused host is not a broken board. When a host answers a Cloudflare bot check
+(`cf-mitigated: challenge`, with any status) or a 429 that outlasts the retries, the scraper
+skips it for the rest of the run, the run summary names it on the `Refused the scraper` line,
+and the Scraper health issue names it on its `boards-refused` line. The `companies.yml` entry
+is right, so there is nothing to repair or drop: leave the entry and let the next scrape ask
+again. Never probe past a bot check and never dress the scraper as a browser. On 2026-11-16,
+110 of 113 Workday tenants refused one scrape and the health issue listed them as failed
+boards; a reader following this skill would have dropped them all.
+
 ## Steps
 
 1. **Reproduce.** `python .github/scripts/scrape_jobs.py --dry-run --board <ats>` prints the
@@ -38,6 +47,7 @@ Done when every board you touched shows `ok (N postings` with N above zero, or i
 | Workday cxs `/jobs` | 410 with `ERR_TENANT_MIGRATED` | Tenant moved to another instance. The old board root still renders 200 in a browser, so that check lies. | Take the new instance from an apply link. Comcast moved wd5 to wd115, Walmart wd5 to wd504. |
 | Greenhouse boards-api | 404 | The board token is gone, not renamed. | Search the careers page HTML for `jobs.ashbyhq.com/<slug>` or a `myworkdayjobs.com` link and move the entry to that platform. An Ashby slug such as `marqeta-inc` is never the old Greenhouse token. Fortra moved to Workday as `fortra` / `wd12` / `FortraCareers`. |
 | Any | 200 with zero postings | The board is live and empty, or the parser lost its container key after schema drift. | Compare the raw JSON with `scrape_<ats>` in `scrape_jobs.py`; extend the schema-drift case in `test_scrapers.py` if the shape moved. |
+| Any | `cf-mitigated: challenge` on any status, or 429 past the retries | The host refused the scraper. The entry is right. | None. Leave the entry; the next scrape asks again. |
 
 ## Example
 
