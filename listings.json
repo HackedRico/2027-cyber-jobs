@@ -488,19 +488,6 @@
     "closed_date": "2026-10-10"
   },
   {
-    "company": "Appian",
-    "role": "Information Security Engineer (2027 Graduate)",
-    "location": "McLean, VA",
-    "type": "newgrad",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "",
-    "source": "Greenhouse",
-    "date_added": "2026-07-25",
-    "closed": true,
-    "closed_date": "2026-09-21"
-  },
-  {
     "company": "NVIDIA",
     "role": "Security Architect - New College Grad 2026",
     "location": "Santa Clara, CA",
@@ -693,19 +680,6 @@
     "date_added": "2026-09-05",
     "closed": true,
     "closed_date": "2026-09-25"
-  },
-  {
-    "company": "ExtraHop",
-    "role": "Support Engineer I - Raleigh, NC",
-    "location": "Raleigh, NC",
-    "type": "earlycareer",
-    "category": "Engineering @ Security Co",
-    "clearance": false,
-    "url": "",
-    "source": "Greenhouse",
-    "date_added": "2026-09-05",
-    "closed": true,
-    "closed_date": "2026-09-21"
   },
   {
     "company": "Palantir",
@@ -1348,19 +1322,6 @@
     "closed_date": "2026-10-05"
   },
   {
-    "company": "JPMorgan Chase",
-    "role": "Security Engineer II",
-    "location": "Plano, TX; Columbus, OH",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "",
-    "source": "Oracle",
-    "date_added": "2026-09-11",
-    "closed": true,
-    "closed_date": "2026-09-21"
-  },
-  {
     "company": "Amazon",
     "role": "Security Engineer II, Amazon GuardDuty",
     "location": "Seattle, WA",
@@ -1474,19 +1435,6 @@
     "date_added": "2026-09-15",
     "closed": true,
     "closed_date": "2026-09-25"
-  },
-  {
-    "company": "Northrop Grumman",
-    "role": "Associate Cybersecurity Analyst - Secret - San Diego CA",
-    "location": "San Diego, CA",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-09-15",
-    "closed": true,
-    "closed_date": "2026-09-21"
   },
   {
     "company": "Northrop Grumman",
@@ -1635,19 +1583,6 @@
     "url": "https://homedepot.wd5.myworkdayjobs.com/CareerDepot/job/GEORGIA---VIRTUAL---GA01/Cybersecurity-Software-Engineer-II---ML---AI--Remote-_Req193044",
     "source": "Workday",
     "date_added": "2026-09-16"
-  },
-  {
-    "company": "Truist",
-    "role": "Associate Security Engineer",
-    "location": "Atlanta, GA",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-09-16",
-    "closed": true,
-    "closed_date": "2026-09-21"
   },
   {
     "company": "Robinhood",
@@ -2034,11 +1969,9 @@
     "type": "newgrad",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "",
+    "url": "https://www.amazon.jobs/en/jobs/10557132/security-engineer-2027-us",
     "source": "Amazon Jobs",
-    "date_added": "2026-09-23",
-    "closed": true,
-    "closed_date": "2026-09-25"
+    "date_added": "2026-09-23"
   },
   {
     "company": "Delinea",
@@ -2823,7 +2756,8 @@
     "clearance": true,
     "url": "https://careers.mitre.org/us/en/job/R117365",
     "source": "Phenom",
-    "date_added": "2026-09-28"
+    "date_added": "2026-09-28",
+    "missing_since": "2026-11-21"
   },
   {
     "company": "MITRE",
@@ -6129,10 +6063,11 @@
     "type": "intern",
     "category": "AppSec & ProdSec",
     "clearance": false,
-    "url": "https://jobs.ashbyhq.com/illumio/8708e622-900e-458a-96b3-ae339329a56d",
+    "url": "",
     "source": "Ashby",
     "date_added": "2026-10-21",
-    "missing_since": "2026-11-18"
+    "closed": true,
+    "closed_date": "2026-11-21"
   },
   {
     "company": "Adobe",
@@ -7279,10 +7214,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://lockheedmartin.eightfold.ai/careers/job/996477502700",
+    "url": "",
     "source": "Eightfold",
     "date_added": "2026-11-02",
-    "missing_since": "2026-11-18"
+    "closed": true,
+    "closed_date": "2026-11-21"
   },
   {
     "company": "BAE Systems",
@@ -7772,10 +7708,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://ibqbjb.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/157740",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-11-10",
-    "missing_since": "2026-11-18"
+    "closed": true,
+    "closed_date": "2026-11-21"
   },
   {
     "company": "Lockheed Martin",
@@ -8214,10 +8151,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://www.fastly.com/about/jobs/apply?gh_jid=8384124",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-11-16",
-    "missing_since": "2026-11-18"
+    "closed": true,
+    "closed_date": "2026-11-21"
   },
   {
     "company": "GuidePoint Security",
@@ -8537,10 +8475,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://lockheedmartin.eightfold.ai/careers/job/996476922373",
+    "url": "",
     "source": "Eightfold",
     "date_added": "2026-11-16",
-    "missing_since": "2026-11-18"
+    "closed": true,
+    "closed_date": "2026-11-21"
   },
   {
     "company": "Lockheed Martin",
@@ -8672,7 +8611,8 @@
     "clearance": false,
     "url": "https://www.amazon.jobs/en/jobs/10588763/hardware-security-lab-engineer-devices-and-services-security",
     "source": "Amazon Jobs",
-    "date_added": "2026-11-16"
+    "date_added": "2026-11-16",
+    "missing_since": "2026-11-21"
   },
   {
     "company": "Amazon",
@@ -8726,10 +8666,11 @@
     "type": "earlycareer",
     "category": "Cloud & Infra Security",
     "clearance": true,
-    "url": "https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2616220",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-11-16",
-    "missing_since": "2026-11-18"
+    "closed": true,
+    "closed_date": "2026-11-21"
   },
   {
     "company": "Fortinet",
@@ -9021,7 +8962,8 @@
     "url": "https://www.amazon.jobs/en/jobs/10608720/security-engineer-ai-security",
     "source": "Amazon Jobs",
     "date_added": "2026-11-19",
-    "dead_since": "2026-11-20"
+    "dead_since": "2026-11-20",
+    "missing_since": "2026-11-21"
   },
   {
     "company": "Amazon",
@@ -9109,6 +9051,73 @@
     "clearance": false,
     "url": "https://emje.fa.us6.oraclecloud.com/hcmUI/CandidateExperience/en/sites/SouthernCompanyJobs/job/22874",
     "source": "Oracle",
-    "date_added": "2026-11-20"
+    "date_added": "2026-11-20",
+    "missing_since": "2026-11-21"
+  },
+  {
+    "company": "Zscaler",
+    "role": "Software Development Engineer",
+    "location": "Santa Clara, CA",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/zscaler/jobs/5283494007",
+    "source": "Greenhouse",
+    "date_added": "2026-11-21"
+  },
+  {
+    "company": "ServiceNow",
+    "role": "Security Software Engineer Intern",
+    "location": "Kirkland, WA",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://jobs.smartrecruiters.com/ServiceNow/744000162827365",
+    "source": "SmartRecruiters",
+    "date_added": "2026-11-21"
+  },
+  {
+    "company": "JPMorgan Chase",
+    "role": "Global Cybersecurity Education and Awareness Associate",
+    "location": "Columbus, OH",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210807872",
+    "source": "Oracle",
+    "date_added": "2026-11-21"
+  },
+  {
+    "company": "JPMorgan Chase",
+    "role": "Security Engineer II",
+    "location": "GA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210809337",
+    "source": "Oracle",
+    "date_added": "2026-11-21"
+  },
+  {
+    "company": "American Express",
+    "role": "Agentic AI Cybersecurity Engineer - Identity Access Lifecycle Management",
+    "location": "Phoenix, AZ",
+    "type": "earlycareer",
+    "category": "Identity & IAM",
+    "clearance": false,
+    "url": "https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26013455",
+    "source": "Oracle",
+    "date_added": "2026-11-21"
+  },
+  {
+    "company": "Amazon",
+    "role": "Security Engineer II - AMZ10563834",
+    "location": "Seattle, WA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10608029/security-engineer-ii-amz10563834",
+    "source": "Amazon Jobs",
+    "date_added": "2026-11-21"
   }
 ]
