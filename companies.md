@@ -26,7 +26,7 @@ Employers with open roles on the board today.
 | Federal Reserve System | 4 |  |  |
 | Idaho National Laboratory | 4 |  |  |
 | Intel | 4 |  |  |
-| Amazon | 1 | 2 | 22 |
+| Amazon | 1 | 2 | 21 |
 | Illumio | 3 |  | 3 |
 | Entrust | 3 |  |  |
 | Goldman Sachs | 3 |  |  |

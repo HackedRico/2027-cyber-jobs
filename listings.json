@@ -8612,7 +8612,8 @@
     "url": "https://www.amazon.jobs/en/jobs/10588763/hardware-security-lab-engineer-devices-and-services-security",
     "source": "Amazon Jobs",
     "date_added": "2026-11-16",
-    "missing_since": "2026-11-21"
+    "missing_since": "2026-11-21",
+    "dead_since": "2026-11-21"
   },
   {
     "company": "Amazon",
@@ -8959,11 +8960,12 @@
     "type": "earlycareer",
     "category": "AI Security & Safety",
     "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10608720/security-engineer-ai-security",
+    "url": "",
     "source": "Amazon Jobs",
     "date_added": "2026-11-19",
-    "dead_since": "2026-11-20",
-    "missing_since": "2026-11-21"
+    "last_url": "https://www.amazon.jobs/en/jobs/10608720/security-engineer-ai-security",
+    "closed": true,
+    "closed_date": "2026-11-21"
   },
   {
     "company": "Amazon",

@@ -16,7 +16,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**148** internships · **43** new grad · **214** early career open · **88** added in the last 7 days · **182** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 21, 2026
+**148** internships · **43** new grad · **213** early career open · **87** added in the last 7 days · **182** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 21, 2026
 
 <!-- /STATS -->
 
@@ -489,8 +489,7 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 | Zscaler | 🆕 Software Development Engineer<br><sub>Engineering @ Security Co</sub> | <a href="https://job-boards.greenhouse.io/zscaler/jobs/5283494007"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Zscaler Software Development Engineer"></a> | Santa Clara, CA | Nov 21 |
 | Southern Company | 🆕 Infrastructure Security Analyst<br><sub>Cloud &amp; Infra Security</sub> | <a href="https://emje.fa.us6.oraclecloud.com/hcmUI/CandidateExperience/en/sites/SouthernCompanyJobs/job/22874"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Southern Company Infrastructure Security Analyst"></a> | <details><summary>**2 locations**</summary>Atlanta, GA<br>Birmingham, AL</details> | Nov 20 |
 | STR | 🆕 Associate Signal Processing Engineer 🇺🇸<br><sub>Engineering @ Security Co</sub> | <a href="https://job-boards.greenhouse.io/systemstechnologyresearch/jobs/4703073006"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: STR Associate Signal Processing Engineer"></a> | Woburn, MA | Nov 20 |
-| Amazon | 🆕 Security Engineer, AI Security<br><sub>AI Security &amp; Safety</sub> | <a href="https://www.amazon.jobs/en/jobs/10608720/security-engineer-ai-security"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer, AI Security"></a> | Austin, TX | Nov 19 |
-| ↳ | 🆕 Security Engineer,AWS Security<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10608873/security-engineer-aws-security"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer,AWS Security"></a> | Austin, TX | Nov 19 |
+| Amazon | 🆕 Security Engineer,AWS Security<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10608873/security-engineer-aws-security"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer,AWS Security"></a> | Austin, TX | Nov 19 |
 | ↳ | 🆕 Security Engineer I, Stores Security- Healthcare Security<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10609577/security-engineer-i-stores-security-healthcare-security"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer I, Stores Security- Healthcare Security"></a> | Seattle, WA | Nov 19 |
 | PNNL | 🆕 Cyber Security Analyst 1 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://careers.pnnl.gov/jobs/13652"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: PNNL Cyber Security Analyst 1"></a> | Richland, WA | Nov 19 |
 | Salt Security | 🆕 Technical Support Engineer (1) EAST<br><sub>Engineering @ Security Co</sub> | <a href="https://salt.security/job-board?gh_jid=5301012007"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Salt Security Technical Support Engineer (1) EAST"></a> | EAST (US) | Nov 19 |
@@ -701,10 +700,11 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 
 <!-- CLOSED_START earlycareer -->
 
-<details><summary>🔒 185 closed in the last 60 days</summary>
+<details><summary>🔒 186 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
+| Amazon | Security Engineer, AI Security | Nov 21 |
 | Fastly | Security Support Engineer | Nov 21 |
 | Honeywell | Cyber AI Engineer II | Nov 21 |
 | Lockheed Martin | Dev Sec Engineering - Early Career | Nov 21 |
