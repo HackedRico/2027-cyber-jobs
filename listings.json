@@ -2178,10 +2178,11 @@
     "type": "earlycareer",
     "category": "Forensics & IR",
     "clearance": true,
-    "url": "https://job-boards.greenhouse.io/systemstechnologyresearch/jobs/4703289006",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-09-28",
-    "missing_since": "2026-11-19"
+    "closed": true,
+    "closed_date": "2026-11-22"
   },
   {
     "company": "Booz Allen Hamilton",
@@ -3256,10 +3257,11 @@
     "type": "newgrad",
     "category": "Offensive Security",
     "clearance": true,
-    "url": "https://careers.jhuapl.edu/jobs/59906",
+    "url": "",
     "source": "Jibe",
     "date_added": "2026-09-29",
-    "missing_since": "2026-11-19"
+    "closed": true,
+    "closed_date": "2026-11-22"
   },
   {
     "company": "Johns Hopkins APL",
@@ -3449,10 +3451,11 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://job-boards.greenhouse.io/tenableinc/jobs/5418662008",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-10-01",
-    "missing_since": "2026-11-19"
+    "closed": true,
+    "closed_date": "2026-11-22"
   },
   {
     "company": "Palantir",
@@ -5283,10 +5286,11 @@
     "type": "intern",
     "category": "GRC & Risk",
     "clearance": false,
-    "url": "https://ebqb.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/BDOEntryLevelCareers/job/11429",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-10-10",
-    "missing_since": "2026-11-19"
+    "closed": true,
+    "closed_date": "2026-11-22"
   },
   {
     "company": "BAE Systems",
@@ -7890,10 +7894,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://elhe.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1002/job/2328",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-11-12",
-    "missing_since": "2026-11-19"
+    "closed": true,
+    "closed_date": "2026-11-22"
   },
   {
     "company": "BDO",
@@ -8644,10 +8649,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2618119",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-11-16",
-    "missing_since": "2026-11-19"
+    "closed": true,
+    "closed_date": "2026-11-22"
   },
   {
     "company": "SAIC",
@@ -8794,7 +8800,8 @@
     "clearance": false,
     "url": "https://jobs.smartrecruiters.com/ServiceNow/744000161936128",
     "source": "SmartRecruiters",
-    "date_added": "2026-11-17"
+    "date_added": "2026-11-17",
+    "missing_since": "2026-11-22"
   },
   {
     "company": "ServiceNow",
@@ -8825,10 +8832,11 @@
     "type": "intern",
     "category": "SOC & Detection",
     "clearance": false,
-    "url": "https://elhe.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1002/job/2329",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-11-17",
-    "missing_since": "2026-11-19"
+    "closed": true,
+    "closed_date": "2026-11-22"
   },
   {
     "company": "Lockheed Martin",

@@ -10,7 +10,7 @@ Employers with open roles on the board today.
 
 | Company | Internships | New grad | Early career |
 | ------- | ----------- | -------- | ------------ |
-| Johns Hopkins APL | 8 | 14 | 4 |
+| Johns Hopkins APL | 8 | 13 | 4 |
 | ServiceNow | 11 |  |  |
 | Vanguard | 5 | 6 |  |
 | Booz Allen Hamilton | 8 |  | 2 |
@@ -24,7 +24,6 @@ Employers with open roles on the board today.
 | Software Engineering Institute | 4 |  | 4 |
 | Aerospace Corporation | 4 |  |  |
 | Federal Reserve System | 4 |  |  |
-| Idaho National Laboratory | 4 |  |  |
 | Intel | 4 |  |  |
 | Amazon | 1 | 2 | 21 |
 | Illumio | 3 |  | 3 |
@@ -39,10 +38,10 @@ Employers with open roles on the board today.
 | Applied Intuition |  | 2 | 1 |
 | Citi | 1 | 1 | 1 |
 | Motorola Solutions | 2 |  | 1 |
-| BDO | 2 |  |  |
 | CACI | 2 |  |  |
 | Grant Thornton | 1 | 1 |  |
 | Honeywell | 2 |  |  |
+| Idaho National Laboratory | 2 |  |  |
 | National Laboratory of the Rockies | 2 |  |  |
 | NVIDIA | 1 | 1 |  |
 | Qualcomm | 2 |  |  |
@@ -53,15 +52,16 @@ Employers with open roles on the board today.
 | Northrop Grumman |  | 1 | 9 |
 | Nightwing | 1 |  | 8 |
 | GDIT | 1 |  | 5 |
-| STR | 1 |  | 3 |
 | American Express |  | 1 | 2 |
 | Cisco | 1 |  | 2 |
 | PwC |  | 1 | 2 |
+| STR | 1 |  | 2 |
 | Anduril |  | 1 | 1 |
 | Pinterest | 1 |  | 1 |
 | Snowflake | 1 |  | 1 |
 | Verkada | 1 |  | 1 |
 | Adobe | 1 |  |  |
+| BDO | 1 |  |  |
 | Deloitte |  | 1 |  |
 | Elevance Health | 1 |  |  |
 | Figma | 1 |  |  |
@@ -81,14 +81,14 @@ Employers with open roles on the board today.
 | BAE Systems |  |  | 5 |
 | KBR |  |  | 5 |
 | JPMorgan Chase |  |  | 4 |
-| SAIC |  |  | 4 |
-| Tenable |  |  | 3 |
+| SAIC |  |  | 3 |
 | Abnormal AI |  |  | 2 |
 | Amentum |  |  | 2 |
 | Battelle |  |  | 2 |
 | HUMAN Security |  |  | 2 |
 | Proofpoint |  |  | 2 |
 | Salt Security |  |  | 2 |
+| Tenable |  |  | 2 |
 | AeroVironment |  |  | 1 |
 | Affirm |  |  | 1 |
 | Anthropic |  |  | 1 |

@@ -1,7 +1,7 @@
 {
-  "date": "2026-11-21",
+  "date": "2026-11-22",
   "boards": 402,
-  "ok": 285,
+  "ok": 287,
   "empty": 9,
   "failed": [
     "AT&T (workday/att)",
@@ -20,9 +20,7 @@
     "BlackRock (workday/blackrock)",
     "Boeing (workday/boeing)",
     "Boeing (workday/boeing/INTERN)",
-    "Booz Allen Hamilton (workday/bah)",
     "Broadcom (workday/broadcom)",
-    "CACI (workday/caci)",
     "CDW (workday/cdw)",
     "CVS Health (workday/cvshealth)",
     "Cardinal Health (workday/cardinalhealth)",
@@ -91,6 +89,7 @@
     "Regions Bank (workday/regions)",
     "ReliaQuest (workday/reliaquest)",
     "SailPoint (workday/sailpoint)",
+    "Salesforce (workday/salesforce)",
     "Sierra Nevada Corporation (workday/snc)",
     "State Street (workday/statestreet)",
     "Synchrony (workday/synchronyfinancial)",
@@ -110,7 +109,6 @@
     "Vanguard (workday/vanguard)",
     "Visa (workday/visa)",
     "Wells Fargo (workday/wf)",
-    "Workday (workday/workday)",
     "Zoom (workday/zoom)"
   ],
   "regressed": [],
@@ -245,9 +243,7 @@
       "BlackRock (workday/blackrock)",
       "Boeing (workday/boeing)",
       "Boeing (workday/boeing/INTERN)",
-      "Booz Allen Hamilton (workday/bah)",
       "Broadcom (workday/broadcom)",
-      "CACI (workday/caci)",
       "CDW (workday/cdw)",
       "CVS Health (workday/cvshealth)",
       "Cardinal Health (workday/cardinalhealth)",
@@ -316,6 +312,7 @@
       "Regions Bank (workday/regions)",
       "ReliaQuest (workday/reliaquest)",
       "SailPoint (workday/sailpoint)",
+      "Salesforce (workday/salesforce)",
       "Sierra Nevada Corporation (workday/snc)",
       "State Street (workday/statestreet)",
       "Synchrony (workday/synchronyfinancial)",
@@ -335,7 +332,6 @@
       "Vanguard (workday/vanguard)",
       "Visa (workday/visa)",
       "Wells Fargo (workday/wf)",
-      "Workday (workday/workday)",
       "Zoom (workday/zoom)"
     ]
   }
