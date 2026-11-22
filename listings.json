@@ -7462,7 +7462,8 @@
     "clearance": false,
     "url": "https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26016025",
     "source": "Oracle",
-    "date_added": "2026-11-06"
+    "date_added": "2026-11-06",
+    "missing_since": "2026-11-22"
   },
   {
     "company": "Amazon",
