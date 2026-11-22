@@ -16,7 +16,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**145** internships · **42** new grad · **210** early career open · **82** added in the last 7 days · **179** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 22, 2026
+**145** internships · **42** new grad · **209** early career open · **81** added in the last 7 days · **179** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 22, 2026
 
 <!-- /STATS -->
 
@@ -508,7 +508,6 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 | ↳ | 🆕 Security Engineer, CS Security<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10564381/security-engineer-cs-security"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer, CS Security"></a> | Seattle, WA | Nov 16 |
 | ↳ | 🆕 Salesforce Security Engineer, Salesforce Success Central<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10468178/salesforce-security-engineer-salesforce-success-central"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Salesforce Security Engineer, Salesforce Success Central"></a> | Seattle, WA | Nov 16 |
 | ↳ | 🆕 Security Engineer, Forward Deployed Engineering, AWS Forward Deployed Engineering 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10552897/security-engineer-forward-deployed-engineering-aws-forward-deployed-engineering"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer, Forward Deployed Engineering, AWS Forward Deployed Engineering"></a> | Dallas, TX | Nov 16 |
-| ↳ | 🆕 Hardware Security Lab Engineer, Devices and Services Security<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10588763/hardware-security-lab-engineer-devices-and-services-security"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Hardware Security Lab Engineer, Devices and Services Security"></a> | Seattle, WA | Nov 16 |
 | ↳ | 🆕 Sec Engineer II – AMZ006250<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10445980/sec-engineer-ii-amz006250"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Sec Engineer II – AMZ006250"></a> | New York, NY | Nov 16 |
 | Anduril | 🆕 Information Systems Security Officer, Space 🇺🇸<br><sub>Cloud &amp; Infra Security</sub> | <a href="https://boards.greenhouse.io/andurilindustries/jobs/5236276007?gh_jid=5236276007"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Anduril Information Systems Security Officer, Space"></a> | <details><summary>**2 locations**</summary>Chantilly, VA<br>Costa Mesa, CA</details> | Nov 16 |
 | Appian | 🆕 Information Security Analyst<br><sub>Security Engineering</sub> | <a href="https://job-boards.greenhouse.io/appian/jobs/8312417"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Appian Information Security Analyst"></a> | McLean, VA | Nov 16 |
@@ -697,10 +696,11 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 
 <!-- CLOSED_START earlycareer -->
 
-<details><summary>🔒 189 closed in the last 60 days</summary>
+<details><summary>🔒 190 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
+| Amazon | Hardware Security Lab Engineer, Devices and Services Security | Nov 22 |
 | SAIC | Cybersecurity Specialist Cloud Engineer | Nov 22 |
 | STR | Associate Software Reverse Engineer | Nov 22 |
 | Tenable | Associate Services Architect | Nov 22 |

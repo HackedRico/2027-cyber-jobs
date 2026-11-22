@@ -8615,11 +8615,12 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10588763/hardware-security-lab-engineer-devices-and-services-security",
+    "url": "",
     "source": "Amazon Jobs",
     "date_added": "2026-11-16",
-    "missing_since": "2026-11-21",
-    "dead_since": "2026-11-21"
+    "last_url": "https://www.amazon.jobs/en/jobs/10588763/hardware-security-lab-engineer-devices-and-services-security",
+    "closed": true,
+    "closed_date": "2026-11-22"
   },
   {
     "company": "Amazon",
