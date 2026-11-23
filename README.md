@@ -16,7 +16,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**145** internships · **41** new grad · **207** early career open · **81** added in the last 7 days · **178** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 23, 2026
+**145** internships · **41** new grad · **209** early career open · **83** added in the last 7 days · **180** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 23, 2026
 
 <!-- /STATS -->
 
@@ -482,6 +482,8 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
+| Accenture Federal Services | 🆕 Junior Cloud Administrator/Systems Engineer St. Louis, MO (Onsite or Weekly Travel Required) 🇺🇸<br><sub>Cloud Engineering</sub> | <a href="https://boards.greenhouse.io/accenturefederalservices/jobs/4731758006?gh_jid=4731758006"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Accenture Federal Services Junior Cloud Administrator/Systems Engineer St. Louis, MO (Onsite or Weekly Travel Required)"></a> | St. Louis, MO | Nov 23 |
+| SAIC | 🆕 Junior Cybersecurity Specialist 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2619293"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: SAIC Junior Cybersecurity Specialist"></a> | <details><summary>**2 locations**</summary>Remote (US)<br>United States</details> | Nov 23 |
 | Amazon | 🆕 Security Engineer II - AMZ10563834<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10608029/security-engineer-ii-amz10563834"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer II - AMZ10563834"></a> | Seattle, WA | Nov 21 |
 | American Express | 🆕 Agentic AI Cybersecurity Engineer - Identity Access Lifecycle Management<br><sub>Identity &amp; IAM</sub> | <a href="https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26013455"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: American Express Agentic AI Cybersecurity Engineer - Identity Access Lifecycle Management"></a> | Phoenix, AZ | Nov 21 |
 | JPMorgan Chase | 🆕 Global Cybersecurity Education and Awareness Associate<br><sub>Security Engineering</sub> | <a href="https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210807872"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: JPMorgan Chase Global Cybersecurity Education and Awareness Associate"></a> | Columbus, OH | Nov 21 |

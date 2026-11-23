@@ -5812,7 +5812,8 @@
     "clearance": false,
     "url": "https://boards.greenhouse.io/corelight/jobs/8287269?gh_jid=8287269",
     "source": "Greenhouse",
-    "date_added": "2026-10-17"
+    "date_added": "2026-10-17",
+    "missing_since": "2026-11-23"
   },
   {
     "company": "Entrust",
@@ -8973,7 +8974,8 @@
     "clearance": false,
     "url": "https://jobs.ashbyhq.com/snowflake/e194759e-3a20-47c9-868d-f47179613897",
     "source": "Ashby",
-    "date_added": "2026-11-19"
+    "date_added": "2026-11-19",
+    "missing_since": "2026-11-23"
   },
   {
     "company": "Microsoft",
@@ -9073,7 +9075,8 @@
     "clearance": false,
     "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210807872",
     "source": "Oracle",
-    "date_added": "2026-11-21"
+    "date_added": "2026-11-21",
+    "missing_since": "2026-11-23"
   },
   {
     "company": "JPMorgan Chase",
@@ -9107,5 +9110,27 @@
     "url": "https://www.amazon.jobs/en/jobs/10608029/security-engineer-ii-amz10563834",
     "source": "Amazon Jobs",
     "date_added": "2026-11-21"
+  },
+  {
+    "company": "Accenture Federal Services",
+    "role": "Junior Cloud Administrator/Systems Engineer St. Louis, MO (Onsite or Weekly Travel Required)",
+    "location": "St. Louis, MO",
+    "type": "earlycareer",
+    "category": "Cloud Engineering",
+    "clearance": true,
+    "url": "https://boards.greenhouse.io/accenturefederalservices/jobs/4731758006?gh_jid=4731758006",
+    "source": "Greenhouse",
+    "date_added": "2026-11-23"
+  },
+  {
+    "company": "SAIC",
+    "role": "Junior Cybersecurity Specialist",
+    "location": "Remote (US); United States",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2619293",
+    "source": "Oracle",
+    "date_added": "2026-11-23"
   }
 ]

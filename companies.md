@@ -75,12 +75,12 @@ Employers with open roles on the board today.
 | State Street | 1 |  |  |
 | TRM Labs |  | 1 |  |
 | Fortinet |  |  | 12 |
+| Accenture Federal Services |  |  | 6 |
 | GuidePoint Security |  |  | 6 |
-| Accenture Federal Services |  |  | 5 |
 | BAE Systems |  |  | 5 |
 | KBR |  |  | 5 |
 | JPMorgan Chase |  |  | 4 |
-| SAIC |  |  | 3 |
+| SAIC |  |  | 4 |
 | Abnormal AI |  |  | 2 |
 | Amentum |  |  | 2 |
 | American Express |  |  | 2 |
