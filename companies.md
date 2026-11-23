@@ -4,7 +4,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **396 companies tracked.**
 
-## Hiring students now (112)
+## Hiring students now (111)
 
 Employers with open roles on the board today.
 
@@ -15,7 +15,7 @@ Employers with open roles on the board today.
 | Vanguard | 5 | 6 |  |
 | Booz Allen Hamilton | 8 |  | 2 |
 | Lawrence Livermore National Laboratory | 8 |  |  |
-| MITRE | 6 | 1 | 4 |
+| MITRE | 6 | 1 | 3 |
 | Lockheed Martin | 7 |  | 2 |
 | HPE | 3 | 2 | 2 |
 | Palo Alto Networks | 4 | 1 | 1 |
@@ -52,7 +52,6 @@ Employers with open roles on the board today.
 | Northrop Grumman |  | 1 | 9 |
 | Nightwing | 1 |  | 8 |
 | GDIT | 1 |  | 5 |
-| American Express |  | 1 | 2 |
 | Cisco | 1 |  | 2 |
 | PwC |  | 1 | 2 |
 | STR | 1 |  | 2 |
@@ -84,6 +83,7 @@ Employers with open roles on the board today.
 | SAIC |  |  | 3 |
 | Abnormal AI |  |  | 2 |
 | Amentum |  |  | 2 |
+| American Express |  |  | 2 |
 | Battelle |  |  | 2 |
 | HUMAN Security |  |  | 2 |
 | Proofpoint |  |  | 2 |
@@ -116,7 +116,6 @@ Employers with open roles on the board today.
 | Sierra Nevada Corporation |  |  | 1 |
 | Socure |  |  | 1 |
 | Southern Company |  |  | 1 |
-| SpecterOps |  |  | 1 |
 | Stripe |  |  | 1 |
 | The Home Depot |  |  | 1 |
 | Tines |  |  | 1 |

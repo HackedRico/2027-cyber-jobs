@@ -1650,19 +1650,6 @@
     "closed_date": "2026-09-24"
   },
   {
-    "company": "Duke Energy",
-    "role": "Associate Cybersecurity Systems Engineering Analyst - Data Protection",
-    "location": "Charlotte, NC",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-09-16",
-    "closed": true,
-    "closed_date": "2026-09-23"
-  },
-  {
     "company": "SAIC",
     "role": "Cyber Engineer Associate",
     "location": "Chantilly, VA",
@@ -1898,19 +1885,6 @@
     "date_added": "2026-09-22",
     "closed": true,
     "closed_date": "2026-09-26"
-  },
-  {
-    "company": "Amazon",
-    "role": "Security Engineer I, AppSTAR",
-    "location": "Austin, TX",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "",
-    "source": "Amazon Jobs",
-    "date_added": "2026-09-22",
-    "closed": true,
-    "closed_date": "2026-09-23"
   },
   {
     "company": "Amazon",
@@ -2944,10 +2918,11 @@
     "type": "newgrad",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26013354",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-09-29",
-    "missing_since": "2026-11-20"
+    "closed": true,
+    "closed_date": "2026-11-23"
   },
   {
     "company": "American Express",
@@ -4991,10 +4966,11 @@
     "type": "earlycareer",
     "category": "Cloud Engineering",
     "clearance": true,
-    "url": "https://careers.mitre.org/us/en/job/R117424",
+    "url": "",
     "source": "Phenom",
     "date_added": "2026-10-08",
-    "missing_since": "2026-11-20"
+    "closed": true,
+    "closed_date": "2026-11-23"
   },
   {
     "company": "MITRE",
@@ -5662,10 +5638,9 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://jobs.smartrecruiters.com/LLNL/3743990016610186",
+    "url": "https://jobs.smartrecruiters.com/LLNL/3743990016984696",
     "source": "SmartRecruiters",
-    "date_added": "2026-10-16",
-    "missing_since": "2026-11-20"
+    "date_added": "2026-10-16"
   },
   {
     "company": "Lawrence Livermore National Laboratory",
@@ -7945,10 +7920,11 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://job-boards.greenhouse.io/specterops/jobs/8939942002",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-11-13",
-    "missing_since": "2026-11-20"
+    "closed": true,
+    "closed_date": "2026-11-23"
   },
   {
     "company": "ServiceNow",
