@@ -2,8 +2,8 @@
   "1Password (ashby/1password)": {
     "count": 80,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "AT&T (workday/att)": {
@@ -11,27 +11,27 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Abnormal AI (greenhouse/abnormalsecurity)": {
-    "count": 85,
+    "count": 86,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Accenture Federal Services (greenhouse/accenturefederalservices)": {
-    "count": 727,
+    "count": 724,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Action1 (workable/action1)": {
     "count": 56,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Adobe (workday/adobe)": {
@@ -39,69 +39,69 @@
     "empty_runs": 0,
     "last_answered": "2026-11-23",
     "last_nonzero": "2026-11-23",
-    "zero_runs": 1
+    "zero_runs": 2
   },
   "AeroVironment (workday/avav)": {
     "count": 40,
     "empty_runs": 0,
     "last_answered": "2026-11-23",
     "last_nonzero": "2026-11-23",
-    "zero_runs": 0
+    "zero_runs": 1
   },
   "Aerospace Corporation (workday/aero)": {
     "count": 0,
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-18",
-    "zero_runs": 10
+    "zero_runs": 11
   },
   "Affirm (greenhouse/affirm)": {
-    "count": 218,
+    "count": 220,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Aikido Security (recruitee/aikidosecurity)": {
-    "count": 36,
+    "count": 35,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Air (greenhouse/air)": {
     "count": 38,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Airbnb (greenhouse/airbnb)": {
     "count": 198,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Airbyte (ashby/airbyte)": {
     "count": 14,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Airtable (greenhouse/airtable)": {
     "count": 11,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Alloy (greenhouse/alloy)": {
     "count": 34,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Allstate (workday/allstate)": {
@@ -109,20 +109,20 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Ally (workday/ally)": {
     "count": 0,
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Amazon (amazon.jobs)": {
-    "count": 338,
+    "count": 340,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Amentum (workday/pae)": {
@@ -130,83 +130,83 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-19",
-    "zero_runs": 8
+    "zero_runs": 9
   },
   "American Express (oracle/egug.fa.us2.oraclecloud.com/CX_1)": {
-    "count": 415,
+    "count": 420,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Anchorage Digital (lever/anchorage)": {
     "count": 12,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Anduril (greenhouse/andurilindustries)": {
-    "count": 2616,
+    "count": 2609,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Anomali (lever/anomali)": {
     "count": 5,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Anthropic (greenhouse/anthropic)": {
-    "count": 632,
+    "count": 631,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Anvilogic (workable/anvilogic-inc)": {
     "count": 2,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Apiiro (greenhouse/apiiro)": {
     "count": 4,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Apollo Research (lever/apolloresearch)": {
     "count": 6,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "AppOmni (greenhouse/appomni)": {
     "count": 4,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Appian (greenhouse/appian)": {
-    "count": 157,
+    "count": 158,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Applied Intuition (ashby/applied)": {
-    "count": 332,
+    "count": 333,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Arctic Wolf (workday/arcticwolf)": {
@@ -214,34 +214,34 @@
     "empty_runs": 0,
     "last_answered": "2026-11-23",
     "last_nonzero": "2026-11-23",
-    "zero_runs": 1
+    "zero_runs": 2
   },
   "Arete (workday/areteir)": {
     "count": 0,
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Argonne National Laboratory (workday/argonne)": {
     "count": 0,
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Arkose Labs (ashby/arkoselabs)": {
     "count": 2,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Asana (greenhouse/asana)": {
     "count": 109,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Autodesk (workday/autodesk)": {
@@ -249,48 +249,48 @@
     "empty_runs": 0,
     "last_answered": "2026-11-22",
     "last_nonzero": "2026-11-22",
-    "zero_runs": 2
+    "zero_runs": 3
   },
   "Automox (greenhouse/automox)": {
-    "count": 3,
+    "count": 4,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Avertium (lever/avertium)": {
     "count": 5,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Axonius (greenhouse/axonius)": {
     "count": 19,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "BAE Systems (phenom/jobs.baesystems.com)": {
-    "count": 485,
+    "count": 484,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "BDO (oracle/ebqb.fa.us2.oraclecloud.com/BDOEntryLevelCareers)": {
-    "count": 635,
+    "count": 640,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "BNY (oracle/eofe.fa.us2.oraclecloud.com/BNY-Careers)": {
-    "count": 1231,
+    "count": 1235,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Bank of America (workday/ghr)": {
@@ -298,41 +298,41 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Battelle (phenom/jobs.battelle.org)": {
-    "count": 68,
+    "count": 66,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Beyond Identity (greenhouse/beyondidentity)": {
     "count": 0,
-    "empty_runs": 141,
-    "last_answered": "2026-11-23",
+    "empty_runs": 142,
+    "last_answered": "2026-11-24",
     "last_nonzero": null,
-    "zero_runs": 141
+    "zero_runs": 142
   },
   "BeyondTrust (greenhouse/beyondtrust)": {
     "count": 41,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "BigID (greenhouse/bigid)": {
     "count": 13,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Bishop Fox (greenhouse/bishopfox)": {
     "count": 9,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Bitsight (workday/bitsight)": {
@@ -340,13 +340,13 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Bitwarden (greenhouse/bitwarden)": {
     "count": 39,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "BlackRock (workday/blackrock)": {
@@ -354,34 +354,34 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-20",
-    "zero_runs": 6
+    "zero_runs": 7
   },
   "Blackpoint Cyber (ashby/Blackpoint Cyber)": {
     "count": 19,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Block (greenhouse/block)": {
-    "count": 185,
+    "count": 184,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "BlueCat (lever/bluecatnetworks)": {
     "count": 9,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Blumira (greenhouse/blumira)": {
     "count": 1,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Boeing (workday/boeing)": {
@@ -389,41 +389,41 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Boeing (workday/boeing/INTERN)": {
     "count": 0,
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Booz Allen Hamilton (workday/bah)": {
     "count": 40,
     "empty_runs": 0,
     "last_answered": "2026-11-23",
     "last_nonzero": "2026-11-23",
-    "zero_runs": 1
+    "zero_runs": 2
   },
   "Brex (greenhouse/brex)": {
-    "count": 259,
+    "count": 260,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Brinqa (greenhouse/brinqa)": {
     "count": 1,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Britive (greenhouse/britive)": {
     "count": 14,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Broadcom (workday/broadcom)": {
@@ -431,13 +431,13 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Bugcrowd (greenhouse/bugcrowd)": {
     "count": 11,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "CACI (workday/caci)": {
@@ -445,104 +445,104 @@
     "empty_runs": 0,
     "last_answered": "2026-11-22",
     "last_nonzero": "2026-11-22",
-    "zero_runs": 3
+    "zero_runs": 4
   },
   "CDW (workday/cdw)": {
     "count": 0,
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-17",
-    "zero_runs": 13
+    "zero_runs": 14
   },
   "CVS Health (workday/cvshealth)": {
     "count": 20,
     "empty_runs": 0,
     "last_answered": "2026-11-23",
     "last_nonzero": "2026-11-23",
-    "zero_runs": 1
+    "zero_runs": 2
   },
   "Capital One (workday/capitalone)": {
-    "count": 74,
+    "count": 40,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
-    "zero_runs": 1
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
+    "zero_runs": 0
   },
   "Cardinal Health (workday/cardinalhealth)": {
     "count": 0,
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Cartesia (ashby/cartesia)": {
     "count": 22,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Cato Networks (greenhouse/catonetworks)": {
     "count": 120,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Censys (greenhouse/censys)": {
     "count": 25,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Center for AI Safety (greenhouse/centerforartificialintelligencesafetyinc)": {
     "count": 9,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Chainalysis (ashby/chainalysis-careers)": {
     "count": 49,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Chainguard (greenhouse/chainguard)": {
     "count": 110,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Character AI (ashby/character)": {
     "count": 13,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Check Point (smartrecruiters/CheckPointSoftwareTechnologies)": {
     "count": 2,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Chime (greenhouse/chime)": {
-    "count": 84,
+    "count": 81,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Chubb (oracle/fa-ewgu-saasfaprod1.fa.ocs.oraclecloud.com/CX_2001)": {
-    "count": 758,
+    "count": 755,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Cisco (workday/cisco)": {
@@ -550,118 +550,118 @@
     "empty_runs": 0,
     "last_answered": "2026-11-23",
     "last_nonzero": "2026-11-23",
-    "zero_runs": 1
+    "zero_runs": 2
   },
   "Citi (workday/citi)": {
     "count": 0,
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Citizens (oracle/hcgn.fa.us2.oraclecloud.com/CX_5001)": {
-    "count": 456,
+    "count": 461,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Cloudflare (greenhouse/cloudflare)": {
     "count": 504,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Coalfire (lever/coalfire)": {
     "count": 9,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Coalition (greenhouse/coalition)": {
     "count": 43,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Cobalt (greenhouse/cobaltio)": {
     "count": 8,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Cockroach Labs (greenhouse/cockroachlabs)": {
     "count": 11,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Cohere (ashby/cohere)": {
-    "count": 123,
+    "count": 125,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Coinbase (greenhouse/coinbase)": {
     "count": 250,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Comcast (workday/comcast)": {
-    "count": 35,
+    "count": 62,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "ConductorOne (ashby/C1)": {
     "count": 18,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "ConsenSys (greenhouse/consensys)": {
     "count": 12,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Contrast Security (ashby/contrast-security)": {
     "count": 1,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Corelight (greenhouse/corelight)": {
     "count": 13,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Credal (ashby/credal)": {
     "count": 6,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Cribl (greenhouse/cribl)": {
-    "count": 86,
+    "count": 85,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "CrowdStrike (workday/crowdstrike)": {
@@ -669,13 +669,13 @@
     "empty_runs": 0,
     "last_answered": "2026-11-23",
     "last_nonzero": "2026-11-23",
-    "zero_runs": 1
+    "zero_runs": 2
   },
   "Cyberhaven (ashby/cyberhaven)": {
     "count": 37,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "DXC Technology (workday/dxctechnology)": {
@@ -683,104 +683,104 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Dashlane (greenhouse/dashlane)": {
     "count": 13,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "DataGrail (greenhouse/datagrail)": {
     "count": 5,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Databricks (greenhouse/databricks)": {
-    "count": 882,
+    "count": 883,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Datadog (greenhouse/datadog)": {
     "count": 384,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Deepwatch (greenhouse/deepwatchinc)": {
     "count": 9,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Delinea (ashby/delinea)": {
     "count": 78,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Descope (greenhouse/descope)": {
     "count": 3,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "DigiCert (greenhouse/digicert)": {
     "count": 49,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Discord (greenhouse/discord)": {
     "count": 29,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Dispel (workable/dispel)": {
-    "count": 2,
+    "count": 3,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "DomainTools (workable/domain-tools)": {
     "count": 5,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Doppel (ashby/doppel)": {
     "count": 22,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Doppler (ashby/doppler)": {
     "count": 6,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Dragos (greenhouse/dragos)": {
-    "count": 55,
+    "count": 53,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Draper (workday/draper)": {
@@ -788,20 +788,20 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-19",
-    "zero_runs": 8
+    "zero_runs": 9
   },
   "Drata (ashby/drata)": {
     "count": 23,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Dropbox (greenhouse/dropbox)": {
     "count": 54,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Duke Energy (workday/dukeenergy)": {
@@ -809,20 +809,20 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "ESET (workday/eset)": {
     "count": 0,
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Elastic (greenhouse/elastic)": {
     "count": 384,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Elevance Health (workday/elevancehealth)": {
@@ -830,13 +830,13 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Endor Labs (greenhouse/endorlabs)": {
     "count": 44,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Entrust (workday/entrust)": {
@@ -844,20 +844,20 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Epirus (greenhouse/epirus)": {
-    "count": 42,
+    "count": 41,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Epoch AI (lever/epoch-ai)": {
     "count": 6,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Equinix (workday/equinix)": {
@@ -865,20 +865,20 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Escape (ashby/escape)": {
     "count": 6,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Ethyca (ashby/ethyca)": {
     "count": 8,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Everfox (workday/evergreenix)": {
@@ -886,34 +886,34 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-20",
-    "zero_runs": 6
+    "zero_runs": 7
   },
   "Evervault (ashby/evervault)": {
     "count": 6,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Exelon (jibe/jobs.exeloncorp.com)": {
     "count": 11,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Expel (greenhouse/expel)": {
-    "count": 4,
+    "count": 5,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "ExtraHop (greenhouse/extrahopnetworks)": {
     "count": 19,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "F5 (workday/ffive)": {
@@ -921,13 +921,13 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "FAR AI (ashby/far.ai)": {
     "count": 22,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Fannie Mae (workday/fanniemae)": {
@@ -935,13 +935,13 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Fastly (greenhouse/fastly)": {
     "count": 50,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Federal Reserve System (workday/rb)": {
@@ -949,55 +949,55 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Fidelity Investments (workday/fmr)": {
     "count": 21,
     "empty_runs": 0,
     "last_answered": "2026-11-23",
     "last_nonzero": "2026-11-23",
-    "zero_runs": 0
+    "zero_runs": 1
   },
   "Fifth Third (workday/fifththird)": {
     "count": 0,
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Figma (greenhouse/figma)": {
     "count": 148,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Finite State (greenhouse/finitestate)": {
     "count": 10,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Fireblocks (greenhouse/fireblocks)": {
     "count": 35,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Fireworks AI (ashby/fireworks)": {
     "count": 104,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Flashpoint (ashby/flashpoint.io)": {
     "count": 7,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Flexera (workday/flexerasoftware)": {
@@ -1005,13 +1005,13 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Footprint (ashby/footprint)": {
     "count": 17,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Forcepoint (workday/forcepoint)": {
@@ -1019,20 +1019,20 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-19",
-    "zero_runs": 8
+    "zero_runs": 9
   },
   "Fortanix (workable/fortanix)": {
     "count": 15,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Fortinet (oracle/edel.fa.us2.oraclecloud.com/CX_2001)": {
-    "count": 1092,
+    "count": 1090,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Freddie Mac (workday/freddiemac)": {
@@ -1040,83 +1040,83 @@
     "empty_runs": 0,
     "last_answered": "2026-11-22",
     "last_nonzero": "2026-11-22",
-    "zero_runs": 2
+    "zero_runs": 3
   },
   "GDIT (workday/gdit)": {
-    "count": 0,
+    "count": 20,
     "empty_runs": 0,
-    "last_answered": "2026-11-20",
-    "last_nonzero": "2026-11-16",
-    "zero_runs": 14
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
+    "zero_runs": 0
   },
   "GDIT (workday/gdit/GDIT_EarlyTalent)": {
     "count": 0,
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Galois (workable/galois)": {
     "count": 11,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Gemini (greenhouse/gemini)": {
     "count": 26,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "GitLab (greenhouse/gitlab)": {
-    "count": 246,
+    "count": 251,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Goldman Sachs (oracle/hdpc.fa.us2.oraclecloud.com/LateralHiring)": {
-    "count": 933,
+    "count": 934,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Goodfire (greenhouse/goodfire)": {
     "count": 28,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Grafana Labs (greenhouse/grafanalabs)": {
     "count": 139,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Grant Thornton (oracle/ehzq.fa.us2.oraclecloud.com/CX_1)": {
     "count": 170,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "GreyNoise (greenhouse/greynoiseintelligence)": {
     "count": 6,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "GuidePoint Security (greenhouse/guidepointsecurity)": {
     "count": 83,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Guidehouse (workday/guidehouse)": {
@@ -1124,13 +1124,13 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Gusto (greenhouse/gusto)": {
-    "count": 85,
+    "count": 84,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "HP Inc (workday/hp)": {
@@ -1138,83 +1138,83 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "HPE (workday/hpe)": {
     "count": 0,
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-19",
-    "zero_runs": 8
+    "zero_runs": 9
   },
   "HUMAN Security (ashby/human)": {
     "count": 10,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "HYPR (greenhouse/hypr)": {
     "count": 4,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Hack The Box (workable/hack-the-box-ltd)": {
     "count": 42,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "HackerOne (ashby/hackerone)": {
     "count": 13,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Halcyon (greenhouse/halcyon)": {
     "count": 12,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "HawkEye 360 (greenhouse/hawkeye360)": {
     "count": 32,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "HiddenLayer (greenhouse/hiddenlayer)": {
     "count": 19,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Honeywell (oracle/ibqbjb.fa.ocs.oraclecloud.com/CX_1)": {
-    "count": 1335,
+    "count": 1338,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Horizon3.ai (ashby/horizon3ai)": {
-    "count": 208,
+    "count": 210,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Hoxhunt (ashby/hoxhunt)": {
-    "count": 13,
+    "count": 14,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Humana (workday/humana)": {
@@ -1222,13 +1222,13 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Huntress (greenhouse/huntress)": {
     "count": 45,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "ICF (workday/icf)": {
@@ -1236,69 +1236,69 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-18",
-    "zero_runs": 10
+    "zero_runs": 11
   },
   "ID.me (greenhouse/idme)": {
     "count": 46,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Idaho National Laboratory (oracle/elhe.fa.us8.oraclecloud.com/CX_1001)": {
-    "count": 47,
+    "count": 50,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Idaho National Laboratory (oracle/elhe.fa.us8.oraclecloud.com/CX_1002)": {
-    "count": 43,
+    "count": 44,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Illumio (ashby/illumio)": {
-    "count": 74,
+    "count": 83,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Immersive Labs (ashby/immersivelabs)": {
     "count": 8,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Immuta (lever/immuta)": {
     "count": 7,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Incode (greenhouse/incode)": {
     "count": 12,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Infisical (ashby/infisical)": {
     "count": 11,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Instacart (greenhouse/instacart)": {
-    "count": 93,
+    "count": 96,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Intel (workday/intel)": {
@@ -1306,34 +1306,34 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Invicti (workable/invicti-security)": {
-    "count": 10,
+    "count": 11,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Ivanti (greenhouse/a3c41b8b71eff8c4)": {
     "count": 13,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "JFrog (greenhouse/jfrog)": {
     "count": 79,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "JPMorgan Chase (oracle/jpmc.fa.oraclecloud.com/CX_1001)": {
-    "count": 6799,
+    "count": 6831,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Jamf (workday/jamfsoftware)": {
@@ -1341,13 +1341,13 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-17",
-    "zero_runs": 13
+    "zero_runs": 14
   },
   "Johns Hopkins APL (jibe/careers.jhuapl.edu)": {
     "count": 169,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Johnson & Johnson (workday/jj)": {
@@ -1355,48 +1355,48 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Jscrambler (smartrecruiters/jscrambler)": {
     "count": 0,
-    "empty_runs": 141,
-    "last_answered": "2026-11-23",
+    "empty_runs": 142,
+    "last_answered": "2026-11-24",
     "last_nonzero": null,
-    "zero_runs": 141
+    "zero_runs": 142
   },
   "Jumio (greenhouse/jumio)": {
     "count": 17,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "JupiterOne (workable/jupiterone)": {
     "count": 0,
-    "empty_runs": 117,
-    "last_answered": "2026-11-23",
+    "empty_runs": 118,
+    "last_answered": "2026-11-24",
     "last_nonzero": "2026-09-27",
-    "zero_runs": 117
+    "zero_runs": 118
   },
   "KBR (workday/kbr)": {
     "count": 120,
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-20",
-    "zero_runs": 6
+    "zero_runs": 7
   },
   "Keeper Security (greenhouse/keepersecurity)": {
     "count": 93,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Ketch (lever/Ketch)": {
     "count": 3,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "KeyBank (workday/keybank)": {
@@ -1404,34 +1404,34 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Keyfactor (greenhouse/keyfactorinc)": {
     "count": 33,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Kindo (ashby/kindo)": {
     "count": 1,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "KnowBe4 (greenhouse/knowbe4)": {
     "count": 57,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Kudelski Security (smartrecruiters/KudelskiSecurityInc)": {
     "count": 1,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Kyndryl (workday/kyndryl)": {
@@ -1439,27 +1439,27 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Kyndryl (workday/kyndryl/KyndrylProfessionalCareers)": {
     "count": 0,
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Lansweeper (recruitee/lansweeper)": {
     "count": 11,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Lawrence Livermore National Laboratory (smartrecruiters/LLNL)": {
-    "count": 192,
+    "count": 191,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Leidos (workday/leidos)": {
@@ -1467,48 +1467,48 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-20",
-    "zero_runs": 6
+    "zero_runs": 7
   },
   "Lockheed Martin (eightfold/lockheedmartin)": {
-    "count": 330,
+    "count": 340,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Lumen (eightfold/lumen)": {
     "count": 29,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Lyft (greenhouse/lyft)": {
     "count": 144,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "METR (lever/metr)": {
     "count": 5,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "MITRE (phenom/careers.mitre.org)": {
-    "count": 306,
+    "count": 305,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Marqeta (ashby/marqeta-inc)": {
     "count": 35,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Mastercard (workday/mastercard)": {
@@ -1516,13 +1516,13 @@
     "empty_runs": 0,
     "last_answered": "2026-11-23",
     "last_nonzero": "2026-11-23",
-    "zero_runs": 1
+    "zero_runs": 2
   },
   "Material Security (ashby/materialsecurity)": {
     "count": 6,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "McKesson (workday/mckesson)": {
@@ -1530,20 +1530,20 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Medtronic (workday/medtronic)": {
     "count": 0,
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Menlo Security (ashby/menlosecurity)": {
     "count": 24,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Merck (workday/msd)": {
@@ -1551,55 +1551,55 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-20",
-    "zero_runs": 6
+    "zero_runs": 7
   },
   "Mercury (greenhouse/mercury)": {
-    "count": 70,
+    "count": 68,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Metomic (workable/metomic)": {
     "count": 0,
-    "empty_runs": 141,
-    "last_answered": "2026-11-23",
+    "empty_runs": 142,
+    "last_answered": "2026-11-24",
     "last_nonzero": null,
-    "zero_runs": 141
+    "zero_runs": 142
   },
   "Microsoft (eightfold/microsoft)": {
-    "count": 809,
+    "count": 816,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Middesk (ashby/middesk)": {
     "count": 17,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Mindgard (workable/mindgard)": {
     "count": 0,
-    "empty_runs": 141,
-    "last_answered": "2026-11-23",
+    "empty_runs": 142,
+    "last_answered": "2026-11-24",
     "last_nonzero": null,
-    "zero_runs": 141
+    "zero_runs": 142
   },
   "Miro (ashby/miro)": {
     "count": 12,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "MongoDB (greenhouse/mongodb)": {
-    "count": 420,
+    "count": 421,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Morgan Stanley (workday/ms)": {
@@ -1607,20 +1607,20 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-20",
-    "zero_runs": 6
+    "zero_runs": 7
   },
   "Motorola Solutions (workday/motorolasolutions)": {
     "count": 0,
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-17",
-    "zero_runs": 13
+    "zero_runs": 14
   },
   "NCC Group (pinpoint/nccgroup)": {
     "count": 74,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "NVIDIA (workday/nvidia)": {
@@ -1628,48 +1628,48 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-17",
-    "zero_runs": 13
+    "zero_runs": 14
   },
   "National Laboratory of the Rockies (workday/nrel)": {
     "count": 0,
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Nationwide (workday/nationwide)": {
     "count": 0,
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Netcraft (greenhouse/netcraft)": {
     "count": 10,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Netskope (greenhouse/netskope)": {
     "count": 122,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "New Relic (greenhouse/newrelic)": {
-    "count": 41,
+    "count": 43,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Nightfall AI (ashby/nightfall-ai)": {
-    "count": 26,
+    "count": 25,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Nightwing (workday/nwis)": {
@@ -1677,97 +1677,97 @@
     "empty_runs": 0,
     "last_answered": "2026-11-22",
     "last_nonzero": "2026-11-22",
-    "zero_runs": 2
+    "zero_runs": 3
   },
   "Nike (workday/nike)": {
     "count": 0,
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Northern Trust (workday/ntrs)": {
     "count": 0,
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Northrop Grumman (workday/ngc)": {
     "count": 0,
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-18",
-    "zero_runs": 10
+    "zero_runs": 11
   },
   "Notion (ashby/notion)": {
-    "count": 171,
+    "count": 172,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Nozomi Networks (greenhouse/nozominetworks)": {
     "count": 28,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Nudge Security (ashby/nudgesecurity)": {
     "count": 5,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "OPSWAT (greenhouse/opswat)": {
     "count": 99,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Obsidian Security (greenhouse/obsidiansecurity)": {
     "count": 15,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Okta (greenhouse/okta)": {
-    "count": 373,
+    "count": 371,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "OneTrust (greenhouse/onetrust)": {
     "count": 82,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Opal Security (ashby/opal)": {
     "count": 9,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Opaque Systems (greenhouse/opaquesystems)": {
     "count": 3,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "OpenAI (ashby/openai)": {
-    "count": 855,
+    "count": 853,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Optiv (workday/optiv)": {
@@ -1775,41 +1775,41 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Optro (ashby/optro)": {
-    "count": 40,
+    "count": 39,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Oracle (oracle/eeho.fa.us2.oraclecloud.com/CX_45001)": {
-    "count": 2848,
+    "count": 2635,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Orca Security (greenhouse/orcasecurity)": {
     "count": 13,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Ordr (workable/ordr-2)": {
     "count": 3,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Osano (greenhouse/osano)": {
     "count": 13,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "PNC (workday/pnc)": {
@@ -1817,27 +1817,27 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "PNNL (jibe/careers.pnnl.gov)": {
-    "count": 12,
+    "count": 10,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "PagerDuty (greenhouse/pagerduty)": {
-    "count": 48,
+    "count": 49,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Palantir (lever/palantir)": {
     "count": 239,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Palo Alto Networks (workday/paloaltonetworks)": {
@@ -1845,69 +1845,69 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Parsons (workday/parsons)": {
     "count": 0,
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "PayPal (workday/paypal)": {
     "count": 0,
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Persona (ashby/persona)": {
-    "count": 13,
+    "count": 12,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Pfizer (workday/pfizer)": {
-    "count": 61,
+    "count": 73,
     "empty_runs": 0,
-    "last_answered": "2026-11-22",
-    "last_nonzero": "2026-11-22",
-    "zero_runs": 2
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
+    "zero_runs": 0
   },
   "Ping Identity (greenhouse/pingidentity)": {
-    "count": 69,
+    "count": 70,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Pinterest (greenhouse/pinterest)": {
-    "count": 171,
+    "count": 172,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Plaid (ashby/plaid)": {
-    "count": 148,
+    "count": 145,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Praetorian (greenhouse/praetorian)": {
     "count": 3,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Proficio (workable/proficio-inc)": {
     "count": 4,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Proofpoint (workday/proofpoint)": {
@@ -1915,13 +1915,13 @@
     "empty_runs": 0,
     "last_answered": "2026-11-22",
     "last_nonzero": "2026-11-22",
-    "zero_runs": 2
+    "zero_runs": 3
   },
   "Prophet Security (ashby/prophet-security)": {
-    "count": 9,
+    "count": 10,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Protiviti (workday/roberthalf)": {
@@ -1929,13 +1929,13 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Prove (greenhouse/prove)": {
     "count": 12,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Prudential (workday/pru)": {
@@ -1943,27 +1943,27 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "PwC (workday/pwc)": {
     "count": 0,
     "empty_runs": 1,
     "last_answered": "2026-11-21",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "PwC (workday/pwc/US_Experienced_Careers)": {
     "count": 60,
     "empty_runs": 0,
     "last_answered": "2026-11-21",
     "last_nonzero": "2026-11-21",
-    "zero_runs": 5
+    "zero_runs": 6
   },
   "Qualcomm (eightfold/qualcomm)": {
     "count": 134,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Qualys (workday/qualys)": {
@@ -1971,27 +1971,27 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "RTX (workday/globalhr)": {
     "count": 0,
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Rackspace (workday/rackspace)": {
     "count": 0,
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Ramp (ashby/ramp)": {
-    "count": 182,
+    "count": 181,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Rapid7 (workday/mymoose)": {
@@ -1999,13 +1999,13 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-18",
-    "zero_runs": 10
+    "zero_runs": 11
   },
   "Recorded Future (greenhouse/recordedfuture)": {
     "count": 57,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Red Hat (workday/redhat)": {
@@ -2013,20 +2013,20 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Reddit (greenhouse/reddit)": {
     "count": 147,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Redis (ashby/redis)": {
     "count": 28,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Regions Bank (workday/regions)": {
@@ -2034,223 +2034,223 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "ReliaQuest (workday/reliaquest)": {
     "count": 0,
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "ReversingLabs (workable/reversinglabs)": {
     "count": 10,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Ripple (greenhouse/ripple)": {
-    "count": 110,
+    "count": 108,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Robinhood (greenhouse/robinhood)": {
     "count": 160,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Roblox (greenhouse/roblox)": {
-    "count": 257,
+    "count": 256,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Rubrik (greenhouse/rubrik)": {
-    "count": 219,
+    "count": 218,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "SAIC (oracle/eihu.fa.us8.oraclecloud.com/CX)": {
     "count": 1051,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "SANS Institute (pinpoint/sans)": {
     "count": 2,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "STR (greenhouse/systemstechnologyresearch)": {
     "count": 163,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "SafeBreach (greenhouse/safebreach)": {
     "count": 5,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Safety CLI (ashby/safety)": {
     "count": 0,
-    "empty_runs": 141,
-    "last_answered": "2026-11-23",
+    "empty_runs": 142,
+    "last_answered": "2026-11-24",
     "last_nonzero": null,
-    "zero_runs": 141
+    "zero_runs": 142
   },
   "SailPoint (workday/sailpoint)": {
     "count": 0,
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-19",
-    "zero_runs": 8
+    "zero_runs": 9
   },
   "Salesforce (workday/salesforce)": {
     "count": 20,
     "empty_runs": 0,
     "last_answered": "2026-11-21",
     "last_nonzero": "2026-11-21",
-    "zero_runs": 4
+    "zero_runs": 5
   },
   "Salt Security (greenhouse/saltsecurity)": {
     "count": 14,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Samsara (greenhouse/samsara)": {
-    "count": 286,
+    "count": 287,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Sardine (ashby/sardine)": {
     "count": 40,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Saronic (ashby/saronic)": {
-    "count": 295,
+    "count": 300,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Saviynt (lever/saviynt)": {
-    "count": 25,
+    "count": 27,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Scale AI (greenhouse/scaleai)": {
-    "count": 161,
+    "count": 160,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Sectigo (smartrecruiters/Sectigo)": {
     "count": 11,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Secureframe (lever/secureframe)": {
     "count": 15,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Securiti (smartrecruiters/Securiti)": {
     "count": 1,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "SecurityScorecard (greenhouse/securityscorecard)": {
     "count": 10,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Semgrep (ashby/semgrep)": {
     "count": 16,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Semperis (ashby/semperis)": {
     "count": 32,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "SentiLink (ashby/sentilink)": {
     "count": 46,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "SentinelOne (greenhouse/sentinellabs)": {
-    "count": 257,
+    "count": 256,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Sentra (ashby/sentra)": {
     "count": 3,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "ServiceNow (smartrecruiters/ServiceNow)": {
-    "count": 548,
+    "count": 546,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Shield AI (ashby/shield)": {
-    "count": 676,
+    "count": 680,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Shift5 (greenhouse/shift5)": {
     "count": 10,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Sierra Nevada Corporation (workday/snc)": {
@@ -2258,104 +2258,104 @@
     "empty_runs": 0,
     "last_answered": "2026-11-23",
     "last_nonzero": "2026-11-23",
-    "zero_runs": 1
+    "zero_runs": 2
   },
   "Sift (ashby/sift)": {
     "count": 7,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Skyflow (ashby/skyflow)": {
     "count": 17,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Snowflake (ashby/snowflake)": {
-    "count": 375,
+    "count": 373,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Socket (greenhouse/socket)": {
     "count": 1,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Socure (ashby/socure)": {
     "count": 85,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Software Engineering Institute (workday/cmu)": {
-    "count": 20,
+    "count": 33,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Sonatype (lever/sonatype)": {
     "count": 7,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "SonicWall (greenhouse/sonicwall)": {
     "count": 41,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Sophos (ashby/sophos)": {
-    "count": 64,
+    "count": 65,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Southern Company (oracle/emje.fa.us6.oraclecloud.com/SouthernCompanyJobs)": {
-    "count": 86,
+    "count": 92,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "SpecterOps (greenhouse/specterops)": {
     "count": 5,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "SpyCloud (greenhouse/spycloud)": {
     "count": 8,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "StackHawk (lever/stackhawk)": {
     "count": 1,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "State Farm (jibe/jobs.statefarm.com)": {
     "count": 30,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "State Street (workday/statestreet)": {
@@ -2363,48 +2363,48 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Stellar Cyber (workable/stellar-cyber)": {
     "count": 8,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Stripe (greenhouse/stripe)": {
     "count": 770,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Sublime Security (ashby/sublime-security)": {
     "count": 0,
-    "empty_runs": 141,
-    "last_answered": "2026-11-23",
+    "empty_runs": 142,
+    "last_answered": "2026-11-24",
     "last_nonzero": null,
-    "zero_runs": 141
+    "zero_runs": 142
   },
   "Sumo Logic (greenhouse/sumologic)": {
     "count": 25,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Sweet Security (greenhouse/sweetsecurity)": {
     "count": 6,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Synack (greenhouse/synack)": {
     "count": 8,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Synchrony (workday/synchronyfinancial)": {
@@ -2412,13 +2412,13 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-17",
-    "zero_runs": 13
+    "zero_runs": 14
   },
   "Sysdig (lever/sysdig)": {
     "count": 22,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "T-Mobile (workday/tmobile)": {
@@ -2426,34 +2426,34 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "TD Bank (workday/td)": {
     "count": 20,
     "empty_runs": 0,
     "last_answered": "2026-11-23",
     "last_nonzero": "2026-11-23",
-    "zero_runs": 0
+    "zero_runs": 1
   },
   "TRM Labs (ashby/trm-labs)": {
-    "count": 114,
+    "count": 115,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Tailscale (greenhouse/tailscale)": {
     "count": 85,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Tanium (greenhouse/tanium)": {
-    "count": 65,
+    "count": 66,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Target (workday/target)": {
@@ -2461,27 +2461,27 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Teleport (ashby/goteleport)": {
     "count": 26,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Temporal Technologies (ashby/temporal)": {
     "count": 91,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Tenable (greenhouse/tenableinc)": {
     "count": 48,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "The Cigna Group (workday/cigna)": {
@@ -2489,76 +2489,76 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "The Hartford (workday/thehartford)": {
     "count": 7,
     "empty_runs": 0,
     "last_answered": "2026-11-22",
     "last_nonzero": "2026-11-22",
-    "zero_runs": 2
+    "zero_runs": 3
   },
   "The Home Depot (workday/homedepot)": {
     "count": 0,
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Tines (greenhouse/tines)": {
     "count": 33,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Toast (greenhouse/toast)": {
-    "count": 313,
+    "count": 312,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Together AI (greenhouse/togetherai)": {
     "count": 81,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Torq (greenhouse/torq)": {
     "count": 30,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Trace3 (greenhouse/trace3)": {
-    "count": 98,
+    "count": 97,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Trail of Bits (workable/trailofbits)": {
     "count": 5,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Transcend (greenhouse/transcendinc)": {
     "count": 3,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Transmit Security (greenhouse/transmitsecurity)": {
     "count": 10,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Travelers (workday/travelers)": {
@@ -2566,48 +2566,48 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Trellix (workday/trellix)": {
     "count": 0,
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Trend Micro (workday/trendmicro)": {
     "count": 0,
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-19",
-    "zero_runs": 8
+    "zero_runs": 9
   },
   "Truist (workday/truist)": {
     "count": 0,
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Twilio (greenhouse/twilio)": {
     "count": 115,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Twingate (lever/twingate)": {
     "count": 3,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Two Six Technologies (greenhouse/twosixtechnologies)": {
-    "count": 91,
+    "count": 90,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "U.S. Bank (workday/usbank)": {
@@ -2615,27 +2615,27 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-17",
-    "zero_runs": 13
+    "zero_runs": 14
   },
   "USAA (workday/usaa)": {
     "count": 0,
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Unisys (workday/unisys)": {
     "count": 0,
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "UpGuard (ashby/upguard)": {
     "count": 18,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Vanguard (workday/vanguard)": {
@@ -2643,55 +2643,55 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-18",
-    "zero_runs": 10
+    "zero_runs": 11
   },
   "Vannevar Labs (greenhouse/vannevarlabs)": {
     "count": 35,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Vanta (ashby/vanta)": {
-    "count": 69,
+    "count": 67,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Vectra AI (greenhouse/vectranetworks)": {
     "count": 30,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Veracode (greenhouse/veracode)": {
     "count": 10,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Veriff (greenhouse/veriff)": {
     "count": 9,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Verkada (greenhouse/verkada)": {
     "count": 352,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Very Good Security (lever/verygoodsecurity)": {
     "count": 16,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Visa (workday/visa)": {
@@ -2699,34 +2699,34 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Wallarm (recruitee/wallarm)": {
     "count": 0,
-    "empty_runs": 15,
-    "last_answered": "2026-11-23",
+    "empty_runs": 16,
+    "last_answered": "2026-11-24",
     "last_nonzero": "2026-11-16",
-    "zero_runs": 15
+    "zero_runs": 16
   },
   "Walmart (workday/walmart)": {
-    "count": 199,
+    "count": 180,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "WatchGuard (lever/watchguard)": {
     "count": 13,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Webflow (ashby/webflow)": {
     "count": 31,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Wells Fargo (workday/wf)": {
@@ -2734,27 +2734,27 @@
     "empty_runs": 0,
     "last_answered": "2026-11-23",
     "last_nonzero": "2026-11-23",
-    "zero_runs": 0
+    "zero_runs": 1
   },
   "WitnessAI (ashby/witnessai)": {
     "count": 8,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Wiz (greenhouse/wizinc)": {
     "count": 106,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "WorkOS (ashby/workos)": {
     "count": 26,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Workday (workday/workday)": {
@@ -2762,27 +2762,27 @@
     "empty_runs": 0,
     "last_answered": "2026-11-22",
     "last_nonzero": "2026-11-22",
-    "zero_runs": 3
+    "zero_runs": 4
   },
   "Xage Security (lever/xage-security)": {
     "count": 8,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Yubico (greenhouse/yubico)": {
     "count": 19,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Zapier (ashby/zapier)": {
     "count": 8,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "Zoom (workday/zoom)": {
@@ -2790,27 +2790,27 @@
     "empty_runs": 0,
     "last_answered": "2026-11-20",
     "last_nonzero": "2026-11-18",
-    "zero_runs": 10
+    "zero_runs": 11
   },
   "Zscaler (greenhouse/zscaler)": {
-    "count": 387,
+    "count": 389,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   },
   "runZero (greenhouse/runzero)": {
     "count": 0,
-    "empty_runs": 94,
-    "last_answered": "2026-11-23",
+    "empty_runs": 95,
+    "last_answered": "2026-11-24",
     "last_nonzero": "2026-10-06",
-    "zero_runs": 94
+    "zero_runs": 95
   },
   "xAI (greenhouse/xai)": {
     "count": 299,
     "empty_runs": 0,
-    "last_answered": "2026-11-23",
-    "last_nonzero": "2026-11-23",
+    "last_answered": "2026-11-24",
+    "last_nonzero": "2026-11-24",
     "zero_runs": 0
   }
 }

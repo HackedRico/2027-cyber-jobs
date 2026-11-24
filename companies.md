@@ -15,8 +15,9 @@ Employers with open roles on the board today.
 | Vanguard | 5 | 6 |  |
 | Booz Allen Hamilton | 8 |  | 2 |
 | Lawrence Livermore National Laboratory | 8 |  |  |
-| MITRE | 6 | 1 | 3 |
 | Lockheed Martin | 7 |  | 2 |
+| MITRE | 6 |  | 3 |
+| Illumio | 5 |  | 3 |
 | HPE | 3 | 2 | 2 |
 | Palo Alto Networks | 4 | 1 | 1 |
 | Leidos | 4 |  | 9 |
@@ -25,8 +26,7 @@ Employers with open roles on the board today.
 | Aerospace Corporation | 4 |  |  |
 | Federal Reserve System | 4 |  |  |
 | Intel | 4 |  |  |
-| Amazon | 1 | 2 | 20 |
-| Illumio | 3 |  | 3 |
+| Amazon | 1 | 2 | 21 |
 | Entrust | 3 |  |  |
 | Goldman Sachs | 3 |  |  |
 | HP Inc | 3 |  |  |

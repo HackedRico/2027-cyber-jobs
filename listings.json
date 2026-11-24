@@ -448,7 +448,8 @@
     "clearance": false,
     "url": "https://www.amazon.jobs/en/jobs/10481118/security-engineer-ii-security-incident-response-team-sirt",
     "source": "Amazon Jobs",
-    "date_added": "2026-07-22"
+    "date_added": "2026-07-22",
+    "missing_since": "2026-11-24"
   },
   {
     "company": "Instacart",
@@ -777,19 +778,6 @@
   },
   {
     "company": "Nightwing",
-    "role": "Software Engineer I",
-    "location": "Sterling, VA",
-    "type": "earlycareer",
-    "category": "Engineering @ Security Co",
-    "clearance": false,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-09-05",
-    "closed": true,
-    "closed_date": "2026-09-24"
-  },
-  {
-    "company": "Nightwing",
     "role": "Cloud Infrastructure Systems Engineer I",
     "location": "Sterling, VA",
     "type": "earlycareer",
@@ -932,19 +920,6 @@
     "url": "https://pae.wd1.myworkdayjobs.com/Amentum_Careers/job/US-DC-Washington/Cyber-Intelligence-Analyst---Junior_R0165208",
     "source": "Workday",
     "date_added": "2026-09-05"
-  },
-  {
-    "company": "Amentum",
-    "role": "Junior Naval Systems Security Analyst",
-    "location": "Dahlgren, VA",
-    "type": "earlycareer",
-    "category": "Cloud & Infra Security",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-09-05",
-    "closed": true,
-    "closed_date": "2026-09-24"
   },
   {
     "company": "Vanguard",
@@ -1209,19 +1184,6 @@
     "date_added": "2026-09-09",
     "closed": true,
     "closed_date": "2026-11-13"
-  },
-  {
-    "company": "Northrop Grumman",
-    "role": "Systems Security Engineer (Level 2 or 3) (Oklahoma City OK)",
-    "location": "Oklahoma City, OK",
-    "type": "earlycareer",
-    "category": "Cloud & Infra Security",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-09-09",
-    "closed": true,
-    "closed_date": "2026-09-24"
   },
   {
     "company": "SailPoint",
@@ -1637,19 +1599,6 @@
     "closed_date": "2026-10-13"
   },
   {
-    "company": "Boeing",
-    "role": "Product Security Engineer (Entry Level or Associate)",
-    "location": "Berkeley, MO; Saint Charles, MO",
-    "type": "earlycareer",
-    "category": "AppSec & ProdSec",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-09-16",
-    "closed": true,
-    "closed_date": "2026-09-24"
-  },
-  {
     "company": "SAIC",
     "role": "Cyber Engineer Associate",
     "location": "Chantilly, VA",
@@ -1661,19 +1610,6 @@
     "date_added": "2026-09-17",
     "closed": true,
     "closed_date": "2026-10-26"
-  },
-  {
-    "company": "Amentum",
-    "role": "Job Posting Title Junior Naval Systems Security Engineer",
-    "location": "Dahlgren, VA",
-    "type": "earlycareer",
-    "category": "Cloud & Infra Security",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-09-17",
-    "closed": true,
-    "closed_date": "2026-09-24"
   },
   {
     "company": "The Home Depot",
@@ -2729,10 +2665,11 @@
     "type": "newgrad",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://careers.mitre.org/us/en/job/R117365",
+    "url": "",
     "source": "Phenom",
     "date_added": "2026-09-28",
-    "missing_since": "2026-11-21"
+    "closed": true,
+    "closed_date": "2026-11-24"
   },
   {
     "company": "MITRE",
@@ -6012,7 +5949,8 @@
     "clearance": false,
     "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210799827",
     "source": "Oracle",
-    "date_added": "2026-10-20"
+    "date_added": "2026-10-20",
+    "missing_since": "2026-11-24"
   },
   {
     "company": "Fortinet",
@@ -9039,10 +8977,9 @@
     "type": "earlycareer",
     "category": "Cloud & Infra Security",
     "clearance": false,
-    "url": "https://emje.fa.us6.oraclecloud.com/hcmUI/CandidateExperience/en/sites/SouthernCompanyJobs/job/22874",
+    "url": "https://emje.fa.us6.oraclecloud.com/hcmUI/CandidateExperience/en/sites/SouthernCompanyJobs/job/22891",
     "source": "Oracle",
-    "date_added": "2026-11-20",
-    "missing_since": "2026-11-21"
+    "date_added": "2026-11-20"
   },
   {
     "company": "Zscaler",
@@ -9132,5 +9069,38 @@
     "url": "https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2619293",
     "source": "Oracle",
     "date_added": "2026-11-23"
+  },
+  {
+    "company": "Illumio",
+    "role": "Engineering Intern, Architecture Platform",
+    "location": "Sunnyvale, California - HQ",
+    "type": "intern",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/illumio/a211377c-7db7-4c62-97ba-8176c5a61293",
+    "source": "Ashby",
+    "date_added": "2026-11-24"
+  },
+  {
+    "company": "Illumio",
+    "role": "Engineering Intern, Security Platforms",
+    "location": "Sunnyvale, California - HQ",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://jobs.ashbyhq.com/illumio/95bc7491-9b2f-493c-9297-e9cb36a63b45",
+    "source": "Ashby",
+    "date_added": "2026-11-24"
+  },
+  {
+    "company": "Amazon",
+    "role": "Security Engineer II, Customer Logistics Security, Secruity Threat Operations and Intelligence Center",
+    "location": "Austin, TX",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10612251/security-engineer-ii-customer-logistics-security-secruity-threat-operations-and-intelligence-center",
+    "source": "Amazon Jobs",
+    "date_added": "2026-11-24"
   }
 ]
