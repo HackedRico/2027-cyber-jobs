@@ -8990,7 +8990,8 @@
     "clearance": false,
     "url": "https://job-boards.greenhouse.io/zscaler/jobs/5283494007",
     "source": "Greenhouse",
-    "date_added": "2026-11-21"
+    "date_added": "2026-11-21",
+    "missing_since": "2026-11-24"
   },
   {
     "company": "ServiceNow",
@@ -9035,7 +9036,8 @@
     "clearance": false,
     "url": "https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26013455",
     "source": "Oracle",
-    "date_added": "2026-11-21"
+    "date_added": "2026-11-21",
+    "missing_since": "2026-11-24"
   },
   {
     "company": "Amazon",
