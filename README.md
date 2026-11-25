@@ -16,7 +16,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**146** internships · **40** new grad · **211** early career open · **26** added in the last 7 days · **179** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 25, 2026
+**146** internships · **40** new grad · **209** early career open · **26** added in the last 7 days · **179** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 25, 2026
 
 <!-- /STATS -->
 
@@ -512,7 +512,6 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 | Amazon | Security Engineer, AWS Security<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10568448/security-engineer-aws-security"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer, AWS Security"></a> | Arlington, VA | Nov 16 |
 | ↳ | Security Engineer, Platform Security<br><sub>Cloud &amp; Infra Security</sub> | <a href="https://www.amazon.jobs/en/jobs/10576159/security-engineer-platform-security"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer, Platform Security"></a> | Seattle, WA | Nov 16 |
 | ↳ | Security Engineer, CS Security<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10564381/security-engineer-cs-security"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer, CS Security"></a> | Seattle, WA | Nov 16 |
-| ↳ | Salesforce Security Engineer, Salesforce Success Central<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10468178/salesforce-security-engineer-salesforce-success-central"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Salesforce Security Engineer, Salesforce Success Central"></a> | Seattle, WA | Nov 16 |
 | ↳ | Security Engineer, Forward Deployed Engineering, AWS Forward Deployed Engineering 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10552897/security-engineer-forward-deployed-engineering-aws-forward-deployed-engineering"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer, Forward Deployed Engineering, AWS Forward Deployed Engineering"></a> | Dallas, TX | Nov 16 |
 | ↳ | Sec Engineer II – AMZ006250<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10445980/sec-engineer-ii-amz006250"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Sec Engineer II – AMZ006250"></a> | New York, NY | Nov 16 |
 | Anduril | Information Systems Security Officer, Space 🇺🇸<br><sub>Cloud &amp; Infra Security</sub> | <a href="https://boards.greenhouse.io/andurilindustries/jobs/5236276007?gh_jid=5236276007"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Anduril Information Systems Security Officer, Space"></a> | <details><summary>**2 locations**</summary>Chantilly, VA<br>Costa Mesa, CA</details> | Nov 16 |
@@ -674,7 +673,6 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 | HII | Cyberspace Operations Analyst 1 🇺🇸<br><sub>SOC &amp; Detection</sub> | <a href="https://jobs.hii-tsd.com/job/Fort-Meade%2C-MD-Cyberspace-Operations-Analyst-1-Mary/1391937800/"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: HII Cyberspace Operations Analyst 1"></a> | Fort Meade, MD | Aug 2 |
 | MIT Lincoln Laboratory | Cyber Resilience and Operations Assistant Researcher 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://careers.ll.mit.edu/job/Lexington-Cyber-Resilience-and-Operations-Assistant-Researcher-MA-02420/1380589700/"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: MIT Lincoln Laboratory Cyber Resilience and Operations Assistant Researcher"></a> | Lexington, MA | Aug 2 |
 | KBR | Junior Reverse Engineer 🇺🇸<br><sub>Forensics &amp; IR</sub> | <a href="https://kbr.wd5.myworkdayjobs.com/KBR_Careers/job/Beavercreek-Ohio/Junior-Reverse-Engineer_R2127496"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: KBR Junior Reverse Engineer"></a> | Beavercreek, OH | Jul 30 |
-| Amazon | Security Engineer II, Security Incident Response Team (SIRT)<br><sub>SOC &amp; Detection</sub> | <a href="https://www.amazon.jobs/en/jobs/10481118/security-engineer-ii-security-incident-response-team-sirt"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer II, Security Incident Response Team (SIRT)"></a> | Seattle, WA | Jul 22 |
 | Anthropic | Anthropic Fellows Program, AI Safety<br><sub>AI Security &amp; Safety</sub> | <a href="https://job-boards.greenhouse.io/anthropic/jobs/5183044008"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Anthropic Anthropic Fellows Program, AI Safety"></a> | <details><summary>**2 locations**</summary>Remote (US)<br>San Francisco, CA</details> | Jul 22 |
 | Instacart | Detection Engineer II<br><sub>SOC &amp; Detection</sub> | <a href="https://instacart.careers/job/?gh_jid=8080512"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Instacart Detection Engineer II"></a> | Remote (US) | Jul 22 |
 | KBR | Junior Reverse Engineer 🇺🇸<br><sub>Forensics &amp; IR</sub> | <a href="https://kbr.wd5.myworkdayjobs.com/KBR_Careers/job/Beavercreek-Township-Ohio/Junior-Reverse-Engineer_R2121536"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: KBR Junior Reverse Engineer"></a> | Beavercreek Township, OH | Jul 22 |
@@ -699,10 +697,12 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 
 <!-- CLOSED_START earlycareer -->
 
-<details><summary>🔒 181 closed in the last 60 days</summary>
+<details><summary>🔒 183 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
+| Amazon | Security Engineer II, Security Incident Response Team (SIRT) | Nov 25 |
+| ↳ | Salesforce Security Engineer, Salesforce Success Central | Nov 25 |
 | American Express | Associate - Cryptographic Payment Key Management | Nov 25 |
 | MITRE | Associate Cloud Developer | Nov 23 |
 | SpecterOps | Associate WordPress Developer | Nov 23 |

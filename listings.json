@@ -433,11 +433,12 @@
     "type": "earlycareer",
     "category": "SOC & Detection",
     "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10481118/security-engineer-ii-security-incident-response-team-sirt",
+    "url": "",
     "source": "Amazon Jobs",
     "date_added": "2026-07-22",
-    "missing_since": "2026-11-24",
-    "dead_since": "2026-11-24"
+    "last_url": "https://www.amazon.jobs/en/jobs/10481118/security-engineer-ii-security-incident-response-team-sirt",
+    "closed": true,
+    "closed_date": "2026-11-25"
   },
   {
     "company": "Instacart",
@@ -8438,11 +8439,12 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://www.amazon.jobs/en/jobs/10468178/salesforce-security-engineer-salesforce-success-central",
+    "url": "",
     "source": "Amazon Jobs",
     "date_added": "2026-11-16",
-    "dead_since": "2026-11-24",
-    "missing_since": "2026-11-25"
+    "last_url": "https://www.amazon.jobs/en/jobs/10468178/salesforce-security-engineer-salesforce-success-central",
+    "closed": true,
+    "closed_date": "2026-11-25"
   },
   {
     "company": "Amazon",
