@@ -11,8 +11,8 @@ Employers with open roles on the board today.
 | Company | Internships | New grad | Early career |
 | ------- | ----------- | -------- | ------------ |
 | Johns Hopkins APL | 8 | 13 | 4 |
-| ServiceNow | 11 |  |  |
 | Vanguard | 5 | 6 |  |
+| ServiceNow | 10 |  |  |
 | Booz Allen Hamilton | 8 |  | 2 |
 | Lawrence Livermore National Laboratory | 8 |  |  |
 | Lockheed Martin | 7 |  | 2 |
@@ -26,7 +26,7 @@ Employers with open roles on the board today.
 | Aerospace Corporation | 4 |  |  |
 | Federal Reserve System | 4 |  |  |
 | Intel | 4 |  |  |
-| Amazon | 1 | 2 | 21 |
+| Amazon | 1 | 2 | 22 |
 | Entrust | 3 |  |  |
 | Goldman Sachs | 3 |  |  |
 | HP Inc | 3 |  |  |
@@ -83,14 +83,15 @@ Employers with open roles on the board today.
 | SAIC |  |  | 4 |
 | Abnormal AI |  |  | 2 |
 | Amentum |  |  | 2 |
-| American Express |  |  | 2 |
 | Battelle |  |  | 2 |
 | HUMAN Security |  |  | 2 |
 | Proofpoint |  |  | 2 |
 | Salt Security |  |  | 2 |
 | Tenable |  |  | 2 |
+| Tines |  |  | 2 |
 | AeroVironment |  |  | 1 |
 | Affirm |  |  | 1 |
+| American Express |  |  | 1 |
 | Anthropic |  |  | 1 |
 | Avertium |  |  | 1 |
 | Boeing |  |  | 1 |
@@ -118,7 +119,6 @@ Employers with open roles on the board today.
 | Southern Company |  |  | 1 |
 | Stripe |  |  | 1 |
 | The Home Depot |  |  | 1 |
-| Tines |  |  | 1 |
 | Trail of Bits |  |  | 1 |
 | Zscaler |  |  | 1 |
 

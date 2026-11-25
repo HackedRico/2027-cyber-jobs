@@ -246,19 +246,6 @@
     "date_added": "2026-07-12"
   },
   {
-    "company": "Anthropic",
-    "role": "Safeguards Enforcement Analyst, Violence & Extremism",
-    "location": "Remote (US); San Francisco, CA; New York City, NY; Washington, DC",
-    "type": "earlycareer",
-    "category": "AI Security & Safety",
-    "clearance": false,
-    "url": "",
-    "source": "Greenhouse",
-    "date_added": "2026-07-15",
-    "closed": true,
-    "closed_date": "2026-09-25"
-  },
-  {
     "company": "Booz Allen Hamilton",
     "role": "Cybersecurity Analyst, Junior",
     "location": "Rome, NY",
@@ -671,19 +658,6 @@
     "closed_date": "2026-10-31"
   },
   {
-    "company": "ExtraHop",
-    "role": "Support Engineer I - Dallas, TX",
-    "location": "Remote (US); Dallas, TX",
-    "type": "earlycareer",
-    "category": "Engineering @ Security Co",
-    "clearance": false,
-    "url": "",
-    "source": "Greenhouse",
-    "date_added": "2026-09-05",
-    "closed": true,
-    "closed_date": "2026-09-25"
-  },
-  {
     "company": "Palantir",
     "role": "Information Security Engineer, Internship",
     "location": "New York, NY",
@@ -884,19 +858,6 @@
     "date_added": "2026-09-05",
     "closed": true,
     "closed_date": "2026-10-26"
-  },
-  {
-    "company": "Amentum",
-    "role": "Cyber Security Analyst 2",
-    "location": "Waimea, HI",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-09-05",
-    "closed": true,
-    "closed_date": "2026-09-25"
   },
   {
     "company": "Amentum",
@@ -1388,19 +1349,6 @@
   },
   {
     "company": "Northrop Grumman",
-    "role": "Cybersecurity Systems Engineer (Level 1/2)",
-    "location": "San Diego, CA",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-09-15",
-    "closed": true,
-    "closed_date": "2026-09-25"
-  },
-  {
-    "company": "Northrop Grumman",
     "role": "2027 Associate Classified Cybersecurity Analyst - Pathways Program - Huntsville AL",
     "location": "Huntsville, AL",
     "type": "newgrad",
@@ -1698,19 +1646,6 @@
     "closed_date": "2026-10-03"
   },
   {
-    "company": "Guidehouse",
-    "role": "Consulting Analyst - Technology Consulting, Defense & Security - Campus 2027",
-    "location": "McLean, VA",
-    "type": "newgrad",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-09-21",
-    "closed": true,
-    "closed_date": "2026-09-25"
-  },
-  {
     "company": "Tanium",
     "role": "Cloud Security Intern",
     "location": "Durham, NC",
@@ -1822,19 +1757,6 @@
     "date_added": "2026-09-22",
     "closed": true,
     "closed_date": "2026-09-26"
-  },
-  {
-    "company": "Amazon",
-    "role": "Associate Security Engineer, AWS CIRT",
-    "location": "Austin, TX",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "",
-    "source": "Amazon Jobs",
-    "date_added": "2026-09-22",
-    "closed": true,
-    "closed_date": "2026-09-25"
   },
   {
     "company": "Northrop Grumman",
@@ -4325,7 +4247,8 @@
     "clearance": false,
     "url": "https://ehzq.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/115751",
     "source": "Oracle",
-    "date_added": "2026-10-03"
+    "date_added": "2026-10-03",
+    "missing_since": "2026-11-25"
   },
   {
     "company": "Lumen",
@@ -7342,7 +7265,8 @@
     "clearance": true,
     "url": "https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2618864",
     "source": "Oracle",
-    "date_added": "2026-11-06"
+    "date_added": "2026-11-06",
+    "missing_since": "2026-11-25"
   },
   {
     "company": "Microsoft",
@@ -7375,10 +7299,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26016025",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-11-06",
-    "missing_since": "2026-11-22"
+    "closed": true,
+    "closed_date": "2026-11-25"
   },
   {
     "company": "Amazon",
@@ -8512,7 +8437,8 @@
     "url": "https://www.amazon.jobs/en/jobs/10468178/salesforce-security-engineer-salesforce-success-central",
     "source": "Amazon Jobs",
     "date_added": "2026-11-16",
-    "dead_since": "2026-11-24"
+    "dead_since": "2026-11-24",
+    "missing_since": "2026-11-25"
   },
   {
     "company": "Amazon",
@@ -8640,7 +8566,8 @@
     "clearance": false,
     "url": "https://microsoft.eightfold.ai/careers/job/1970393557045435",
     "source": "Eightfold",
-    "date_added": "2026-11-16"
+    "date_added": "2026-11-16",
+    "missing_since": "2026-11-25"
   },
   {
     "company": "Microsoft",
@@ -8717,10 +8644,11 @@
     "type": "intern",
     "category": "Solutions Architecture",
     "clearance": false,
-    "url": "https://jobs.smartrecruiters.com/ServiceNow/744000161936128",
+    "url": "",
     "source": "SmartRecruiters",
     "date_added": "2026-11-17",
-    "missing_since": "2026-11-22"
+    "closed": true,
+    "closed_date": "2026-11-25"
   },
   {
     "company": "ServiceNow",
@@ -8992,8 +8920,7 @@
     "clearance": false,
     "url": "https://job-boards.greenhouse.io/zscaler/jobs/5283494007",
     "source": "Greenhouse",
-    "date_added": "2026-11-21",
-    "missing_since": "2026-11-24"
+    "date_added": "2026-11-21"
   },
   {
     "company": "ServiceNow",
@@ -9027,7 +8954,8 @@
     "clearance": false,
     "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210809337",
     "source": "Oracle",
-    "date_added": "2026-11-21"
+    "date_added": "2026-11-21",
+    "missing_since": "2026-11-25"
   },
   {
     "company": "American Express",
@@ -9106,5 +9034,27 @@
     "url": "https://www.amazon.jobs/en/jobs/10612251/security-engineer-ii-customer-logistics-security-secruity-threat-operations-and-intelligence-center",
     "source": "Amazon Jobs",
     "date_added": "2026-11-24"
+  },
+  {
+    "company": "Tines",
+    "role": "Technical Support Engineer I",
+    "location": "East (US)",
+    "type": "earlycareer",
+    "category": "Engineering @ Security Co",
+    "clearance": false,
+    "url": "https://job-boards.greenhouse.io/tines/jobs/6270033004",
+    "source": "Greenhouse",
+    "date_added": "2026-11-25"
+  },
+  {
+    "company": "Amazon",
+    "role": "Security Engineer II - AMZ10563762",
+    "location": "Seattle, WA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10613010/security-engineer-ii-amz10563762",
+    "source": "Amazon Jobs",
+    "date_added": "2026-11-25"
   }
 ]
