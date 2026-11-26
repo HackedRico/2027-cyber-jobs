@@ -4,7 +4,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **396 companies tracked.**
 
-## Hiring students now (111)
+## Hiring students now (110)
 
 Employers with open roles on the board today.
 
@@ -14,19 +14,20 @@ Employers with open roles on the board today.
 | Vanguard | 5 | 6 |  |
 | ServiceNow | 10 |  |  |
 | Booz Allen Hamilton | 8 |  | 2 |
+| Lockheed Martin | 8 |  | 2 |
 | Lawrence Livermore National Laboratory | 8 |  |  |
-| Lockheed Martin | 7 |  | 2 |
 | MITRE | 6 |  | 3 |
 | Illumio | 5 |  | 3 |
 | HPE | 3 | 2 | 2 |
 | Palo Alto Networks | 4 | 1 | 1 |
+| Idaho National Laboratory | 5 |  |  |
 | Leidos | 4 |  | 9 |
 | Microsoft | 4 |  | 8 |
 | Software Engineering Institute | 4 |  | 4 |
 | Aerospace Corporation | 4 |  |  |
 | Federal Reserve System | 4 |  |  |
 | Intel | 4 |  |  |
-| Amazon | 1 | 2 | 20 |
+| Amazon | 1 | 2 | 22 |
 | Entrust | 3 |  |  |
 | Goldman Sachs | 3 |  |  |
 | HP Inc | 3 |  |  |
@@ -41,7 +42,6 @@ Employers with open roles on the board today.
 | CACI | 2 |  |  |
 | Grant Thornton | 1 | 1 |  |
 | Honeywell | 2 |  |  |
-| Idaho National Laboratory | 2 |  |  |
 | National Laboratory of the Rockies | 2 |  |  |
 | NVIDIA | 1 | 1 |  |
 | Qualcomm | 2 |  |  |
@@ -56,8 +56,8 @@ Employers with open roles on the board today.
 | PwC |  | 1 | 2 |
 | STR | 1 |  | 2 |
 | Anduril |  | 1 | 1 |
+| Coinbase | 1 |  | 1 |
 | Pinterest | 1 |  | 1 |
-| Snowflake | 1 |  | 1 |
 | Verkada | 1 |  | 1 |
 | Adobe | 1 |  |  |
 | BDO | 1 |  |  |
@@ -79,8 +79,8 @@ Employers with open roles on the board today.
 | GuidePoint Security |  |  | 6 |
 | BAE Systems |  |  | 5 |
 | KBR |  |  | 5 |
-| JPMorgan Chase |  |  | 4 |
 | SAIC |  |  | 4 |
+| JPMorgan Chase |  |  | 3 |
 | Abnormal AI |  |  | 2 |
 | Amentum |  |  | 2 |
 | Battelle |  |  | 2 |
@@ -97,8 +97,6 @@ Employers with open roles on the board today.
 | Boeing |  |  | 1 |
 | Chubb |  |  | 1 |
 | Coalfire |  |  | 1 |
-| Coinbase |  |  | 1 |
-| Corelight |  |  | 1 |
 | Delinea |  |  | 1 |
 | DXC Technology |  |  | 1 |
 | ESET |  |  | 1 |
@@ -115,6 +113,7 @@ Employers with open roles on the board today.
 | Samsara |  |  | 1 |
 | Scale AI |  |  | 1 |
 | Sierra Nevada Corporation |  |  | 1 |
+| Snowflake |  |  | 1 |
 | Socure |  |  | 1 |
 | Southern Company |  |  | 1 |
 | Stripe |  |  | 1 |

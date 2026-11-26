@@ -13,19 +13,6 @@
     "closed_date": "2026-10-04"
   },
   {
-    "company": "Datadog",
-    "role": "Security Engineer 2 - Cyber Threat Intelligence",
-    "location": "New York, NY",
-    "type": "earlycareer",
-    "category": "Threat Intelligence",
-    "clearance": false,
-    "url": "",
-    "source": "Greenhouse",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-09-26"
-  },
-  {
     "company": "Pinterest",
     "role": "Security Software Engineer II, Detection and Response",
     "location": "San Francisco, CA; Remote (US)",
@@ -433,12 +420,10 @@
     "type": "earlycareer",
     "category": "SOC & Detection",
     "clearance": false,
-    "url": "",
+    "url": "https://www.amazon.jobs/en/jobs/10606772/security-engineer-ii-security-incident-response-team-sirt",
     "source": "Amazon Jobs",
     "date_added": "2026-07-22",
-    "last_url": "https://www.amazon.jobs/en/jobs/10481118/security-engineer-ii-security-incident-response-team-sirt",
-    "closed": true,
-    "closed_date": "2026-11-25"
+    "last_url": "https://www.amazon.jobs/en/jobs/10481118/security-engineer-ii-security-incident-response-team-sirt"
   },
   {
     "company": "Instacart",
@@ -1734,32 +1719,6 @@
     "closed_date": "2026-10-01"
   },
   {
-    "company": "SAIC",
-    "role": "Cybersecurity Ops Associate 3rd Shift",
-    "location": "Remote (US)",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "",
-    "source": "Oracle",
-    "date_added": "2026-09-22",
-    "closed": true,
-    "closed_date": "2026-09-26"
-  },
-  {
-    "company": "SAIC",
-    "role": "Cybersecurity Ops Associate 2nd Shift",
-    "location": "Remote (US)",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "",
-    "source": "Oracle",
-    "date_added": "2026-09-22",
-    "closed": true,
-    "closed_date": "2026-09-26"
-  },
-  {
     "company": "Northrop Grumman",
     "role": "2027 Intern - Systems Security/Cybersecurity Engineer",
     "location": "Melbourne, FL",
@@ -1816,7 +1775,8 @@
     "clearance": false,
     "url": "https://jobs.ashbyhq.com/delinea/544e1b85-1961-4269-86dd-a4b011f34948",
     "source": "Ashby",
-    "date_added": "2026-09-23"
+    "date_added": "2026-09-23",
+    "missing_since": "2026-11-26"
   },
   {
     "company": "Northrop Grumman",
@@ -5672,10 +5632,11 @@
     "type": "earlycareer",
     "category": "Engineering @ Security Co",
     "clearance": false,
-    "url": "https://boards.greenhouse.io/corelight/jobs/8287269?gh_jid=8287269",
+    "url": "",
     "source": "Greenhouse",
     "date_added": "2026-10-17",
-    "missing_since": "2026-11-23"
+    "closed": true,
+    "closed_date": "2026-11-26"
   },
   {
     "company": "Entrust",
@@ -8812,7 +8773,8 @@
     "clearance": true,
     "url": "https://careers.pnnl.gov/jobs/13652",
     "source": "Jibe",
-    "date_added": "2026-11-19"
+    "date_added": "2026-11-19",
+    "missing_since": "2026-11-26"
   },
   {
     "company": "Amazon",
@@ -8846,10 +8808,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://jobs.ashbyhq.com/snowflake/e194759e-3a20-47c9-868d-f47179613897",
+    "url": "",
     "source": "Ashby",
     "date_added": "2026-11-19",
-    "missing_since": "2026-11-23"
+    "closed": true,
+    "closed_date": "2026-11-26"
   },
   {
     "company": "Microsoft",
@@ -8926,7 +8889,8 @@
     "clearance": false,
     "url": "https://job-boards.greenhouse.io/zscaler/jobs/5283494007",
     "source": "Greenhouse",
-    "date_added": "2026-11-21"
+    "date_added": "2026-11-21",
+    "missing_since": "2026-11-26"
   },
   {
     "company": "ServiceNow",
@@ -8946,10 +8910,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210807872",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-11-21",
-    "missing_since": "2026-11-23"
+    "closed": true,
+    "closed_date": "2026-11-26"
   },
   {
     "company": "JPMorgan Chase",
@@ -9063,5 +9028,71 @@
     "url": "https://www.amazon.jobs/en/jobs/10613010/security-engineer-ii-amz10563762",
     "source": "Amazon Jobs",
     "date_added": "2026-11-25"
+  },
+  {
+    "company": "Coinbase",
+    "role": "Security Engineer Intern",
+    "location": "Hybrid - New York, NY",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://www.coinbase.com/careers/positions/8415869?gh_jid=8415869",
+    "source": "Greenhouse",
+    "date_added": "2026-11-26"
+  },
+  {
+    "company": "Idaho National Laboratory",
+    "role": "Cyber-Informed Engineering - Engineering Use Case and Model Development Intern - Spring 2027",
+    "location": "Idaho Falls, ID",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://elhe.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1002/job/2412",
+    "source": "Oracle",
+    "date_added": "2026-11-26"
+  },
+  {
+    "company": "Idaho National Laboratory",
+    "role": "Cyber-Informed Engineering - Engineering Use Case and Model Development Intern - Summer 2027",
+    "location": "Idaho Falls, ID",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://elhe.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1002/job/2413",
+    "source": "Oracle",
+    "date_added": "2026-11-26"
+  },
+  {
+    "company": "Idaho National Laboratory",
+    "role": "Cybersecurity Awareness Program Intern - Summer 2027",
+    "location": "Idaho Falls, ID",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://elhe.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1002/job/2416",
+    "source": "Oracle",
+    "date_added": "2026-11-26"
+  },
+  {
+    "company": "Lockheed Martin",
+    "role": "FPGA Engineer (Security Focus) - Intern",
+    "location": "Owego, NY",
+    "type": "intern",
+    "category": "Security Engineering",
+    "clearance": true,
+    "url": "https://lockheedmartin.eightfold.ai/careers/job/996478169364",
+    "source": "Eightfold",
+    "date_added": "2026-11-26"
+  },
+  {
+    "company": "Amazon",
+    "role": "Security Engineer II - AMZ10403565",
+    "location": "Seattle, WA",
+    "type": "earlycareer",
+    "category": "Security Engineering",
+    "clearance": false,
+    "url": "https://www.amazon.jobs/en/jobs/10614150/security-engineer-ii-amz10403565",
+    "source": "Amazon Jobs",
+    "date_added": "2026-11-26"
   }
 ]
