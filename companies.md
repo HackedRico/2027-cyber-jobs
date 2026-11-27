@@ -27,7 +27,7 @@ Employers with open roles on the board today.
 | Aerospace Corporation | 4 |  |  |
 | Federal Reserve System | 4 |  |  |
 | Intel | 4 |  |  |
-| Amazon | 1 | 2 | 22 |
+| Amazon | 1 | 2 | 21 |
 | Entrust | 3 |  |  |
 | Goldman Sachs | 3 |  |  |
 | HP Inc | 3 |  |  |

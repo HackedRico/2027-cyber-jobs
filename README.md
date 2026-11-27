@@ -16,7 +16,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**151** internships · **40** new grad · **207** early career open · **22** added in the last 7 days · **180** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 27, 2026
+**151** internships · **40** new grad · **206** early career open · **22** added in the last 7 days · **180** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 27, 2026
 
 <!-- /STATS -->
 
@@ -513,8 +513,7 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 | ↳ | Information System Security Officer (ISSO) 🇺🇸<br><sub>GRC &amp; Risk</sub> | <a href="https://boards.greenhouse.io/accenturefederalservices/jobs/4718063006?gh_jid=4718063006"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Accenture Federal Services Information System Security Officer (ISSO)"></a> | Hill AFB, UT | Nov 16 |
 | ↳ | Vulnerability Assessment Analyst 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://boards.greenhouse.io/accenturefederalservices/jobs/4695617006?gh_jid=4695617006"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Accenture Federal Services Vulnerability Assessment Analyst"></a> | Columbia, MD | Nov 16 |
 | Affirm | Software Engineer II - CIAM<br><sub>Identity &amp; IAM</sub> | <a href="https://job-boards.greenhouse.io/affirm/jobs/8040751003"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Affirm Software Engineer II - CIAM"></a> | Remote (US) | Nov 16 |
-| Amazon | Security Engineer, AWS Security<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10568448/security-engineer-aws-security"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer, AWS Security"></a> | Arlington, VA | Nov 16 |
-| ↳ | Security Engineer, Platform Security<br><sub>Cloud &amp; Infra Security</sub> | <a href="https://www.amazon.jobs/en/jobs/10576159/security-engineer-platform-security"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer, Platform Security"></a> | Seattle, WA | Nov 16 |
+| Amazon | Security Engineer, Platform Security<br><sub>Cloud &amp; Infra Security</sub> | <a href="https://www.amazon.jobs/en/jobs/10576159/security-engineer-platform-security"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer, Platform Security"></a> | Seattle, WA | Nov 16 |
 | ↳ | Security Engineer, CS Security<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10564381/security-engineer-cs-security"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer, CS Security"></a> | Seattle, WA | Nov 16 |
 | ↳ | Security Engineer, Forward Deployed Engineering, AWS Forward Deployed Engineering 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10552897/security-engineer-forward-deployed-engineering-aws-forward-deployed-engineering"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer, Forward Deployed Engineering, AWS Forward Deployed Engineering"></a> | Dallas, TX | Nov 16 |
 | ↳ | Sec Engineer II – AMZ006250<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10445980/sec-engineer-ii-amz006250"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Sec Engineer II – AMZ006250"></a> | New York, NY | Nov 16 |
@@ -700,10 +699,11 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 
 <!-- CLOSED_START earlycareer -->
 
-<details><summary>🔒 180 closed in the last 60 days</summary>
+<details><summary>🔒 181 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
+| Amazon | Security Engineer, AWS Security | Nov 27 |
 | American Express | Agentic AI Cybersecurity Engineer - Identity Access Lifecycle Management | Nov 27 |
 | JPMorgan Chase | Security Engineer II -Python Developer | Nov 27 |
 | Corelight | Associate Escalation Engineer | Nov 26 |
