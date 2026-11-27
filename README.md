@@ -16,7 +16,7 @@ US cybersecurity internships, new-grad roles and early-career openings for stude
 
 <!-- STATS -->
 
-**150** internships · **40** new grad · **209** early career open · **28** added in the last 7 days · **180** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 26, 2026
+**151** internships · **40** new grad · **207** early career open · **22** added in the last 7 days · **180** need a clearance or U.S. citizenship 🇺🇸 · updated Nov 27, 2026
 
 <!-- /STATS -->
 
@@ -73,6 +73,7 @@ Cybersecurity internships and co-ops for current students.
 
 | Company | Role | Apply | Location | Added |
 | ------- | ---- | ----- | -------- | ----- |
+| State Street | 🆕 AI Security &amp; Cybersecurity, Technology Intern - Full-time Internship (Jan -June 2027)<br><sub>AI Security &amp; Safety</sub> | <a href="https://statestreet.wd1.myworkdayjobs.com/Global/job/Austin-Texas/AI-Security---Cybersecurity--Technology-Intern---Full-time-Internship--Jan--June-2027-_R-801284"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: State Street AI Security &amp; Cybersecurity, Technology Intern - Full-time Internship (Jan -June 2027)"></a> | <details><summary>**3 locations**</summary>Austin, TX<br>BOSTON, MA<br>Quincy, MA</details> | Nov 27 |
 | Coinbase | 🆕 Security Engineer Intern<br><sub>Security Engineering</sub> | <a href="https://www.coinbase.com/careers/positions/8415869?gh_jid=8415869"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Coinbase Security Engineer Intern"></a> | Hybrid - New York, NY | Nov 26 |
 | Idaho National Laboratory | 🆕 Cyber-Informed Engineering - Engineering Use Case and Model Development Intern - Spring 2027<br><sub>Security Engineering</sub> | <a href="https://elhe.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1002/job/2412"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Idaho National Laboratory Cyber-Informed Engineering - Engineering Use Case and Model Development Intern - Spring 2027"></a> | Idaho Falls, ID | Nov 26 |
 | ↳ | 🆕 Cyber-Informed Engineering - Engineering Use Case and Model Development Intern - Summer 2027<br><sub>Security Engineering</sub> | <a href="https://elhe.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1002/job/2413"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Idaho National Laboratory Cyber-Informed Engineering - Engineering Use Case and Model Development Intern - Summer 2027"></a> | Idaho Falls, ID | Nov 26 |
@@ -83,8 +84,8 @@ Cybersecurity internships and co-ops for current students.
 | ServiceNow | 🆕 Security Software Engineer Intern<br><sub>Security Engineering</sub> | <a href="https://jobs.smartrecruiters.com/ServiceNow/744000162827365"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: ServiceNow Security Software Engineer Intern"></a> | Kirkland, WA | Nov 21 |
 | Lawrence Livermore National Laboratory | 🆕 Seaborg Institute Nuclear Science and Security Undergraduate Intern - Summer 2027 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://jobs.smartrecruiters.com/LLNL/3743990016985966"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Lawrence Livermore National Laboratory Seaborg Institute Nuclear Science and Security Undergraduate Intern - Summer 2027"></a> | Livermore, CA | Nov 20 |
 | ↳ | 🆕 Seaborg Institute Nuclear Science and Security Graduate Intern - Summer 2027 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://jobs.smartrecruiters.com/LLNL/3743990016985836"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Lawrence Livermore National Laboratory Seaborg Institute Nuclear Science and Security Graduate Intern - Summer 2027"></a> | Livermore, CA | Nov 20 |
-| Lockheed Martin | 🆕 Security (Crisis Management, Intel Analysis) - Intern 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://lockheedmartin.eightfold.ai/careers/job/996478009188"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Lockheed Martin Security (Crisis Management, Intel Analysis) - Intern"></a> | Orlando, FL | Nov 19 |
-| Microsoft | 🆕 Research Intern - AI Safety, Alignment, and Post-Training<br><sub>AI Security &amp; Safety</sub> | <a href="https://microsoft.eightfold.ai/careers/job/1970393557076142"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Microsoft Research Intern - AI Safety, Alignment, and Post-Training"></a> | <details><summary>**2 locations**</summary>Redmond, WA<br>Mountain View, CA</details> | Nov 19 |
+| Lockheed Martin | Security (Crisis Management, Intel Analysis) - Intern 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://lockheedmartin.eightfold.ai/careers/job/996478009188"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Lockheed Martin Security (Crisis Management, Intel Analysis) - Intern"></a> | Orlando, FL | Nov 19 |
+| Microsoft | Research Intern - AI Safety, Alignment, and Post-Training<br><sub>AI Security &amp; Safety</sub> | <a href="https://microsoft.eightfold.ai/careers/job/1970393557076142"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Microsoft Research Intern - AI Safety, Alignment, and Post-Training"></a> | <details><summary>**2 locations**</summary>Redmond, WA<br>Mountain View, CA</details> | Nov 19 |
 | Microsoft | Research Intern - Firmware Security<br><sub>Security Engineering</sub> | <a href="https://microsoft.eightfold.ai/careers/job/1970393557075140"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Microsoft Research Intern - Firmware Security"></a> | Redmond, WA | Nov 18 |
 | Illumio | Security and Compliance Analyst Intern<br><sub>GRC &amp; Risk</sub> | <a href="https://jobs.ashbyhq.com/illumio/8013747a-938c-41ef-9d5b-7b6188ae0b5c"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Illumio Security and Compliance Analyst Intern"></a> | Sunnyvale, California - HQ | Nov 17 |
 | Lockheed Martin | DevSecOps Intern - Summer 2027<br><sub>AppSec &amp; ProdSec</sub> | <a href="https://lockheedmartin.eightfold.ai/careers/job/996477674824"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Lockheed Martin DevSecOps Intern - Summer 2027"></a> | Colorado Springs, CO | Nov 17 |
@@ -437,7 +438,7 @@ Full-time roles and rotational programs for students in their final year or just
 
 <!-- CLOSED_START newgrad -->
 
-<details><summary>🔒 32 closed in the last 60 days</summary>
+<details><summary>🔒 31 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
@@ -472,7 +473,6 @@ Full-time roles and rotational programs for students in their final year or just
 | ↳ | 2027 - Associate Cyber Software Engineer - Cincinnati OH | Oct 13 |
 | BDO | Advisory Associate, Cyber, Compliance &amp; Assessment - Summer 2027 (Multiple Locations) | Oct 8 |
 | Northrop Grumman | 2026 Associate Cybersecurity Analyst - Pathways Program - Rocket Center WV | Oct 4 |
-| Northrop Grumman | 2027 Associate Classified Cybersecurity Analyst - Pathways Program - Huntsville AL | Sep 27 |
 
 </details>
 
@@ -495,15 +495,14 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 | Accenture Federal Services | 🆕 Junior Cloud Administrator/Systems Engineer St. Louis, MO (Onsite or Weekly Travel Required) 🇺🇸<br><sub>Cloud Engineering</sub> | <a href="https://boards.greenhouse.io/accenturefederalservices/jobs/4731758006?gh_jid=4731758006"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Accenture Federal Services Junior Cloud Administrator/Systems Engineer St. Louis, MO (Onsite or Weekly Travel Required)"></a> | St. Louis, MO | Nov 23 |
 | SAIC | 🆕 Junior Cybersecurity Specialist 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2619293"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: SAIC Junior Cybersecurity Specialist"></a> | <details><summary>**2 locations**</summary>Remote (US)<br>United States</details> | Nov 23 |
 | Amazon | 🆕 Security Engineer II - AMZ10563834<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10608029/security-engineer-ii-amz10563834"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer II - AMZ10563834"></a> | Seattle, WA | Nov 21 |
-| American Express | 🆕 Agentic AI Cybersecurity Engineer - Identity Access Lifecycle Management<br><sub>Identity &amp; IAM</sub> | <a href="https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26013455"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: American Express Agentic AI Cybersecurity Engineer - Identity Access Lifecycle Management"></a> | Phoenix, AZ | Nov 21 |
 | JPMorgan Chase | 🆕 Security Engineer II<br><sub>Security Engineering</sub> | <a href="https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210809337"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: JPMorgan Chase Security Engineer II"></a> | GA | Nov 21 |
 | Zscaler | 🆕 Software Development Engineer<br><sub>Engineering @ Security Co</sub> | <a href="https://job-boards.greenhouse.io/zscaler/jobs/5283494007"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Zscaler Software Development Engineer"></a> | Santa Clara, CA | Nov 21 |
 | Southern Company | 🆕 Infrastructure Security Analyst<br><sub>Cloud &amp; Infra Security</sub> | <a href="https://emje.fa.us6.oraclecloud.com/hcmUI/CandidateExperience/en/sites/SouthernCompanyJobs/job/22891"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Southern Company Infrastructure Security Analyst"></a> | <details><summary>**2 locations**</summary>Atlanta, GA<br>Birmingham, AL</details> | Nov 20 |
 | STR | 🆕 Associate Signal Processing Engineer 🇺🇸<br><sub>Engineering @ Security Co</sub> | <a href="https://job-boards.greenhouse.io/systemstechnologyresearch/jobs/4703073006"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: STR Associate Signal Processing Engineer"></a> | Woburn, MA | Nov 20 |
-| Amazon | 🆕 Security Engineer,AWS Security<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10608873/security-engineer-aws-security"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer,AWS Security"></a> | Austin, TX | Nov 19 |
-| ↳ | 🆕 Security Engineer I, Stores Security- Healthcare Security<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10609577/security-engineer-i-stores-security-healthcare-security"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer I, Stores Security- Healthcare Security"></a> | Seattle, WA | Nov 19 |
-| PNNL | 🆕 Cyber Security Analyst 1 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://careers.pnnl.gov/jobs/13652"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: PNNL Cyber Security Analyst 1"></a> | Richland, WA | Nov 19 |
-| Salt Security | 🆕 Technical Support Engineer (1) EAST<br><sub>Engineering @ Security Co</sub> | <a href="https://salt.security/job-board?gh_jid=5301012007"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Salt Security Technical Support Engineer (1) EAST"></a> | EAST (US) | Nov 19 |
+| Amazon | Security Engineer,AWS Security<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10608873/security-engineer-aws-security"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer,AWS Security"></a> | Austin, TX | Nov 19 |
+| ↳ | Security Engineer I, Stores Security- Healthcare Security<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10609577/security-engineer-i-stores-security-healthcare-security"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer I, Stores Security- Healthcare Security"></a> | Seattle, WA | Nov 19 |
+| PNNL | Cyber Security Analyst 1 🇺🇸<br><sub>Security Engineering</sub> | <a href="https://careers.pnnl.gov/jobs/13652"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: PNNL Cyber Security Analyst 1"></a> | Richland, WA | Nov 19 |
+| Salt Security | Technical Support Engineer (1) EAST<br><sub>Engineering @ Security Co</sub> | <a href="https://salt.security/job-board?gh_jid=5301012007"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Salt Security Technical Support Engineer (1) EAST"></a> | EAST (US) | Nov 19 |
 | Amazon | Security Engineer I, Security Incident Response Team (SIRT)<br><sub>SOC &amp; Detection</sub> | <a href="https://www.amazon.jobs/en/jobs/10608214/security-engineer-i-security-incident-response-team-sirt"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer I, Security Incident Response Team (SIRT)"></a> | Arlington, VA | Nov 18 |
 | Fortinet | Early Careers: Software Engineer<br><sub>Engineering @ Security Co</sub> | <a href="https://edel.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/24960"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Fortinet Early Careers: Software Engineer"></a> | Sunnyvale, CA | Nov 17 |
 | ↳ | Early Careers: Software Developer Engineer<br><sub>Engineering @ Security Co</sub> | <a href="https://edel.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/24983"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Fortinet Early Careers: Software Developer Engineer"></a> | Sunnyvale, CA | Nov 17 |
@@ -601,7 +600,6 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 | Salt Security | Technical Support Engineer (1)<br><sub>Engineering @ Security Co</sub> | <a href="https://salt.security/job-board?gh_jid=5273021007"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Salt Security Technical Support Engineer (1)"></a> | WEST (US) | Oct 23 |
 | Amazon | Security Engineer I, Secure Third Party Tools (S3T)<br><sub>Security Engineering</sub> | <a href="https://www.amazon.jobs/en/jobs/10585308/security-engineer-i-secure-third-party-tools-s3t"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Amazon Security Engineer I, Secure Third Party Tools (S3T)"></a> | Arlington, VA | Oct 22 |
 | Fortinet | Early Careers: Software Development Engineer<br><sub>Engineering @ Security Co</sub> | <a href="https://edel.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2001/job/24668"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Fortinet Early Careers: Software Development Engineer"></a> | Sunnyvale, CA | Oct 20 |
-| JPMorgan Chase | Security Engineer II -Python Developer<br><sub>Security Engineering</sub> | <a href="https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210799827"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: JPMorgan Chase Security Engineer II -Python Developer"></a> | Jersey City, NJ | Oct 20 |
 | CrowdStrike | Software Engineer II - Engine Team, LogScale (Hybrid) 🇺🇸<br><sub>Engineering @ Security Co</sub> | <a href="https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Austin-TX/Software-Engineer-II---Engine-Team--LogScale--Hybrid-_R30387"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: CrowdStrike Software Engineer II - Engine Team, LogScale (Hybrid)"></a> | Austin, TX | Oct 19 |
 | Abnormal AI | Software Engineer 1 - Cloud Infrastructure<br><sub>Engineering @ Security Co</sub> | <a href="https://abnormal.ai/careers/jobs/8015179003?gh_jid=8015179003"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: Abnormal AI Software Engineer 1 - Cloud Infrastructure"></a> | Remote (US) | Oct 17 |
 | CrowdStrike | Analyst I, Falcon Complete (Hybrid, San Antonio)<br><sub>SOC &amp; Detection</sub> | <a href="https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers/job/USA---Remote/Analyst-I--Falcon-Complete--Hybrid--San-Antonio-_R30220"><img src="https://img.shields.io/badge/Apply-0969da?style=flat-square" alt="Apply: CrowdStrike Analyst I, Falcon Complete (Hybrid, San Antonio)"></a> | <details><summary>**2 locations**</summary>Remote (US)<br>San Antonio, TX</details> | Oct 16 |
@@ -702,10 +700,12 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 
 <!-- CLOSED_START earlycareer -->
 
-<details><summary>🔒 181 closed in the last 60 days</summary>
+<details><summary>🔒 180 closed in the last 60 days</summary>
 
 | Company | Role | Closed |
 | ------- | ---- | ------ |
+| American Express | Agentic AI Cybersecurity Engineer - Identity Access Lifecycle Management | Nov 27 |
+| JPMorgan Chase | Security Engineer II -Python Developer | Nov 27 |
 | Corelight | Associate Escalation Engineer | Nov 26 |
 | JPMorgan Chase | Global Cybersecurity Education and Awareness Associate | Nov 26 |
 | Amazon | Salesforce Security Engineer, Salesforce Success Central | Nov 25 |
@@ -884,9 +884,6 @@ Full-time roles asking for 0 to 2 years of experience: Analyst I/II, Associate, 
 | Amazon | Software Dev Engineer II, Customer Service Security | Sep 28 |
 | CACI | Cyber Software Engineer, Junior | Sep 28 |
 | Northrop Grumman | Sentinel - Information Assurance Engineer (level 2 or 3) - 18789 | Sep 28 |
-| Chainalysis | Security Analyst II, Trust | Sep 27 |
-| JPMorgan Chase | Security Engineer II | Sep 27 |
-| Nightwing | Multidisciplinary Engineer I | Sep 27 |
 
 </details>
 

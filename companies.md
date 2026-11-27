@@ -4,7 +4,7 @@ Employers whose job boards are scraped automatically (see [companies.yml](compan
 
 **396 companies tracked.**
 
-## Hiring students now (110)
+## Hiring students now (109)
 
 Employers with open roles on the board today.
 
@@ -46,6 +46,7 @@ Employers with open roles on the board today.
 | NVIDIA | 1 | 1 |  |
 | Qualcomm | 2 |  |  |
 | Salesforce | 1 | 1 |  |
+| State Street | 2 |  |  |
 | Trace3 | 2 |  |  |
 | Walmart | 2 |  |  |
 | RTX | 1 |  | 11 |
@@ -72,7 +73,6 @@ Employers with open roles on the board today.
 | Rubrik |  | 1 |  |
 | Saviynt | 1 |  |  |
 | Semgrep | 1 |  |  |
-| State Street | 1 |  |  |
 | TRM Labs |  | 1 |  |
 | Fortinet |  |  | 12 |
 | Accenture Federal Services |  |  | 6 |
@@ -80,18 +80,17 @@ Employers with open roles on the board today.
 | BAE Systems |  |  | 5 |
 | KBR |  |  | 5 |
 | SAIC |  |  | 4 |
-| JPMorgan Chase |  |  | 3 |
 | Abnormal AI |  |  | 2 |
 | Amentum |  |  | 2 |
 | Battelle |  |  | 2 |
 | HUMAN Security |  |  | 2 |
+| JPMorgan Chase |  |  | 2 |
 | Proofpoint |  |  | 2 |
 | Salt Security |  |  | 2 |
 | Tenable |  |  | 2 |
 | Tines |  |  | 2 |
 | AeroVironment |  |  | 1 |
 | Affirm |  |  | 1 |
-| American Express |  |  | 1 |
 | Anthropic |  |  | 1 |
 | Avertium |  |  | 1 |
 | Boeing |  |  | 1 |

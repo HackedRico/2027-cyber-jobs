@@ -666,19 +666,6 @@
     "date_added": "2026-09-05"
   },
   {
-    "company": "Chainalysis",
-    "role": "Security Analyst II, Trust",
-    "location": "NY (US); MD (US); MA (US); VA (US); CT (US); PA (US)",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "",
-    "source": "Ashby",
-    "date_added": "2026-09-05",
-    "closed": true,
-    "closed_date": "2026-09-27"
-  },
-  {
     "company": "Prophet Security",
     "role": "Software Engineer, Backend Intern",
     "location": "Palo Alto, CA",
@@ -994,19 +981,6 @@
     "closed_date": "2026-10-29"
   },
   {
-    "company": "Nightwing",
-    "role": "Multidisciplinary Engineer I",
-    "location": "Springfield, VA",
-    "type": "earlycareer",
-    "category": "Engineering @ Security Co",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-09-06",
-    "closed": true,
-    "closed_date": "2026-09-27"
-  },
-  {
     "company": "Semgrep",
     "role": "Software Engineer Intern, Cloud Platform",
     "location": "San Francisco, CA",
@@ -1142,7 +1116,8 @@
     "clearance": false,
     "url": "https://sailpoint.wd1.myworkdayjobs.com/SailPoint/job/Remote-Texas-USA/Associate-Security-Software-Engineer_R013786",
     "source": "Workday",
-    "date_added": "2026-09-09"
+    "date_added": "2026-09-09",
+    "missing_since": "2026-11-27"
   },
   {
     "company": "The Cigna Group",
@@ -1332,19 +1307,6 @@
     "date_added": "2026-09-15",
     "closed": true,
     "closed_date": "2026-11-09"
-  },
-  {
-    "company": "Northrop Grumman",
-    "role": "2027 Associate Classified Cybersecurity Analyst - Pathways Program - Huntsville AL",
-    "location": "Huntsville, AL",
-    "type": "newgrad",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-09-15",
-    "closed": true,
-    "closed_date": "2026-09-27"
   },
   {
     "company": "Walmart",
@@ -1604,19 +1566,6 @@
     "url": "https://motorolasolutions.wd5.myworkdayjobs.com/Careers/job/Chicago-IL/Cyber-Security---2027-Summer-Internship--Chicago-Hybrid-_R68369",
     "source": "Workday",
     "date_added": "2026-09-18"
-  },
-  {
-    "company": "JPMorgan Chase",
-    "role": "Security Engineer II",
-    "location": "Plano, TX",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "",
-    "source": "Oracle",
-    "date_added": "2026-09-21",
-    "closed": true,
-    "closed_date": "2026-09-27"
   },
   {
     "company": "ExtraHop",
@@ -5833,10 +5782,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210799827",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-10-20",
-    "missing_since": "2026-11-24"
+    "closed": true,
+    "closed_date": "2026-11-27"
   },
   {
     "company": "Fortinet",
@@ -8938,10 +8888,11 @@
     "type": "earlycareer",
     "category": "Identity & IAM",
     "clearance": false,
-    "url": "https://egug.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/26013455",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-11-21",
-    "missing_since": "2026-11-24"
+    "closed": true,
+    "closed_date": "2026-11-27"
   },
   {
     "company": "Amazon",
@@ -9019,7 +8970,8 @@
     "clearance": false,
     "url": "https://job-boards.greenhouse.io/tines/jobs/6270033004",
     "source": "Greenhouse",
-    "date_added": "2026-11-25"
+    "date_added": "2026-11-25",
+    "missing_since": "2026-11-27"
   },
   {
     "company": "Amazon",
@@ -9097,5 +9049,16 @@
     "url": "https://www.amazon.jobs/en/jobs/10614150/security-engineer-ii-amz10403565",
     "source": "Amazon Jobs",
     "date_added": "2026-11-26"
+  },
+  {
+    "company": "State Street",
+    "role": "AI Security & Cybersecurity, Technology Intern - Full-time Internship (Jan -June 2027)",
+    "location": "Austin, TX; BOSTON, MA; Quincy, MA",
+    "type": "intern",
+    "category": "AI Security & Safety",
+    "clearance": false,
+    "url": "https://statestreet.wd1.myworkdayjobs.com/Global/job/Austin-Texas/AI-Security---Cybersecurity--Technology-Intern---Full-time-Internship--Jan--June-2027-_R-801284",
+    "source": "Workday",
+    "date_added": "2026-11-27"
   }
 ]
