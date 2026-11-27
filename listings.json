@@ -1052,7 +1052,8 @@
     "clearance": false,
     "url": "https://job-boards.greenhouse.io/tanium/jobs/8176322",
     "source": "Greenhouse",
-    "date_added": "2026-09-09"
+    "date_added": "2026-09-09",
+    "missing_since": "2026-11-27"
   },
   {
     "company": "Tanium",
@@ -8321,12 +8322,10 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "",
+    "url": "https://www.amazon.jobs/en/jobs/10568447/security-engineer-aws-security",
     "source": "Amazon Jobs",
     "date_added": "2026-11-16",
-    "last_url": "https://www.amazon.jobs/en/jobs/10568448/security-engineer-aws-security",
-    "closed": true,
-    "closed_date": "2026-11-27"
+    "last_url": "https://www.amazon.jobs/en/jobs/10568448/security-engineer-aws-security"
   },
   {
     "company": "Amazon",
