@@ -95,19 +95,6 @@
     "closed_date": "2026-11-12"
   },
   {
-    "company": "Amazon",
-    "role": "Software Dev Engineer II, Customer Service Security",
-    "location": "Seattle, WA",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": false,
-    "url": "",
-    "source": "Amazon Jobs",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-09-28"
-  },
-  {
     "company": "Nightwing",
     "role": "Cyber Network Defense Analyst II",
     "location": "Sterling, VA",
@@ -161,19 +148,6 @@
     "url": "https://paloaltonetworks.wd5.myworkdayjobs.com/panwexternalcareers/job/Office---USA---TX/Associate-Systems-Engineer_JR-011810",
     "source": "Workday",
     "date_added": "2026-07-12"
-  },
-  {
-    "company": "CACI",
-    "role": "Cyber Software Engineer, Junior",
-    "location": "Florham Park, NJ",
-    "type": "earlycareer",
-    "category": "Security Engineering",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-12",
-    "closed": true,
-    "closed_date": "2026-09-28"
   },
   {
     "company": "Nightwing",
@@ -388,19 +362,6 @@
     "url": "https://kbr.wd5.myworkdayjobs.com/KBR_Careers/job/Houston-Texas/Associate-Security-Engineer--Identity-Security_R2126761",
     "source": "Workday",
     "date_added": "2026-07-22"
-  },
-  {
-    "company": "Northrop Grumman",
-    "role": "Sentinel - Information Assurance Engineer (level 2 or 3) - 18789",
-    "location": "Roy, UT",
-    "type": "earlycareer",
-    "category": "GRC & Risk",
-    "clearance": true,
-    "url": "",
-    "source": "Workday",
-    "date_added": "2026-07-22",
-    "closed": true,
-    "closed_date": "2026-09-28"
   },
   {
     "company": "Northrop Grumman",
@@ -4156,10 +4117,11 @@
     "type": "newgrad",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://ehzq.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/115751",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-10-03",
-    "missing_since": "2026-11-25"
+    "closed": true,
+    "closed_date": "2026-11-28"
   },
   {
     "company": "Lumen",
@@ -7176,10 +7138,11 @@
     "type": "earlycareer",
     "category": "Cloud Engineering",
     "clearance": true,
-    "url": "https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2618864",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-11-06",
-    "missing_since": "2026-11-25"
+    "closed": true,
+    "closed_date": "2026-11-28"
   },
   {
     "company": "Microsoft",
@@ -7400,10 +7363,11 @@
     "type": "intern",
     "category": "Threat Intelligence",
     "clearance": true,
-    "url": "https://lockheedmartin.eightfold.ai/careers/job/996477410466",
+    "url": "",
     "source": "Eightfold",
     "date_added": "2026-11-09",
-    "missing_since": "2026-11-25"
+    "closed": true,
+    "closed_date": "2026-11-28"
   },
   {
     "company": "Lockheed Martin",
@@ -7412,10 +7376,11 @@
     "type": "intern",
     "category": "AppSec & ProdSec",
     "clearance": true,
-    "url": "https://lockheedmartin.eightfold.ai/careers/job/996477564658",
+    "url": "",
     "source": "Eightfold",
     "date_added": "2026-11-09",
-    "missing_since": "2026-11-25"
+    "closed": true,
+    "closed_date": "2026-11-28"
   },
   {
     "company": "Microsoft",
@@ -7482,10 +7447,11 @@
     "type": "intern",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://lockheedmartin.eightfold.ai/careers/job/996477848074",
+    "url": "",
     "source": "Eightfold",
     "date_added": "2026-11-10",
-    "missing_since": "2026-11-25"
+    "closed": true,
+    "closed_date": "2026-11-28"
   },
   {
     "company": "PwC",
@@ -7683,7 +7649,8 @@
     "clearance": true,
     "url": "https://lockheedmartin.eightfold.ai/careers/job/996477730520",
     "source": "Eightfold",
-    "date_added": "2026-11-12"
+    "date_added": "2026-11-12",
+    "missing_since": "2026-11-28"
   },
   {
     "company": "Abnormal AI",
@@ -8255,10 +8222,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://lockheedmartin.eightfold.ai/careers/job/996477667855",
+    "url": "",
     "source": "Eightfold",
     "date_added": "2026-11-16",
-    "missing_since": "2026-11-25"
+    "closed": true,
+    "closed_date": "2026-11-28"
   },
   {
     "company": "MITRE",
@@ -8487,10 +8455,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://microsoft.eightfold.ai/careers/job/1970393557045435",
+    "url": "",
     "source": "Eightfold",
     "date_added": "2026-11-16",
-    "missing_since": "2026-11-25"
+    "closed": true,
+    "closed_date": "2026-11-28"
   },
   {
     "company": "Microsoft",
@@ -8879,10 +8848,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": false,
-    "url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210809337",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-11-21",
-    "missing_since": "2026-11-25"
+    "closed": true,
+    "closed_date": "2026-11-28"
   },
   {
     "company": "American Express",
@@ -8926,10 +8896,11 @@
     "type": "earlycareer",
     "category": "Security Engineering",
     "clearance": true,
-    "url": "https://eihu.fa.us8.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/2619293",
+    "url": "",
     "source": "Oracle",
     "date_added": "2026-11-23",
-    "missing_since": "2026-11-25"
+    "closed": true,
+    "closed_date": "2026-11-28"
   },
   {
     "company": "Illumio",

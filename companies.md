@@ -14,15 +14,15 @@ Employers with open roles on the board today.
 | Vanguard | 5 | 6 |  |
 | ServiceNow | 10 |  |  |
 | Booz Allen Hamilton | 8 |  | 2 |
-| Lockheed Martin | 8 |  | 2 |
 | Lawrence Livermore National Laboratory | 8 |  |  |
 | MITRE | 6 |  | 3 |
 | Illumio | 5 |  | 3 |
 | HPE | 3 | 2 | 2 |
+| Lockheed Martin | 5 |  | 1 |
 | Palo Alto Networks | 4 | 1 | 1 |
 | Idaho National Laboratory | 5 |  |  |
 | Leidos | 4 |  | 9 |
-| Microsoft | 4 |  | 8 |
+| Microsoft | 4 |  | 7 |
 | Software Engineering Institute | 4 |  | 4 |
 | Aerospace Corporation | 4 |  |  |
 | Federal Reserve System | 4 |  |  |
@@ -40,7 +40,6 @@ Employers with open roles on the board today.
 | Citi | 1 | 1 | 1 |
 | Motorola Solutions | 2 |  | 1 |
 | CACI | 2 |  |  |
-| Grant Thornton | 1 | 1 |  |
 | Honeywell | 2 |  |  |
 | National Laboratory of the Rockies | 2 |  |  |
 | NVIDIA | 1 | 1 |  |
@@ -65,6 +64,7 @@ Employers with open roles on the board today.
 | Deloitte |  | 1 |  |
 | Elevance Health | 1 |  |  |
 | Figma | 1 |  |  |
+| Grant Thornton | 1 |  |  |
 | ICF | 1 |  |  |
 | ID.me |  | 1 |  |
 | KeyBank |  | 1 |  |
@@ -79,13 +79,12 @@ Employers with open roles on the board today.
 | GuidePoint Security |  |  | 6 |
 | BAE Systems |  |  | 5 |
 | KBR |  |  | 5 |
-| SAIC |  |  | 4 |
 | Abnormal AI |  |  | 2 |
 | Amentum |  |  | 2 |
 | Battelle |  |  | 2 |
 | HUMAN Security |  |  | 2 |
-| JPMorgan Chase |  |  | 2 |
 | Proofpoint |  |  | 2 |
+| SAIC |  |  | 2 |
 | Salt Security |  |  | 2 |
 | Tenable |  |  | 2 |
 | Tines |  |  | 2 |
@@ -102,6 +101,7 @@ Employers with open roles on the board today.
 | ExtraHop |  |  | 1 |
 | HII |  |  | 1 |
 | Instacart |  |  | 1 |
+| JPMorgan Chase |  |  | 1 |
 | Kyndryl |  |  | 1 |
 | MIT Lincoln Laboratory |  |  | 1 |
 | Obsidian Security |  |  | 1 |
